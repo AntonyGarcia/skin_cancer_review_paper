@@ -1,0 +1,288 @@
+{
+  "file_name": "nver_2019_skin_lesion_segmentation_in_dermoscopic_images_with_combination_of_yol.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a deep convolutional neural network (YOLOv3) for lesion location detection and the GrabCut algorithm for skin lesion segmentation in dermoscopic images to assist in the diagnosis of skin cancer/melanoma."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel pipeline combining YOLO and GrabCut for skin lesion segmentation, describes specific methods (YOLOv3 training, GrabCut algorithm), presents original experimental results on the PH2 and ISBI 2017 datasets (e.g., 90% sensitivity, 94.4% accuracy), and includes sections on Introduction, Methods, Results, and Conclusion, indicating it is an original experimental study rather than a review."
+  },
+  "title": "Skin Lesion Segmentation in Dermoscopic Images with Combination of YOLO and GrabCut Algorithm",
+  "authors": [
+    "Halil Murat Ünver",
+    "Enes Ayan"
+  ],
+  "doi": "10.3390/diagnostics9030072",
+  "journal": "Diagnostics",
+  "year": 2019,
+  "article_type": "Article",
+  "brief_summary": "This study proposes a novel pipeline for skin lesion segmentation in dermoscopic images by combining the YOLOv3 deep convolutional neural network for lesion location detection with the GrabCut algorithm for segmentation. The method addresses challenges such as artifacts, indistinct boundaries, and low contrast through a four-step process involving hair removal, location detection, segmentation, and morphological post-processing. The proposed approach was evaluated on two publicly available datasets, PH2 and ISBI 2017. The model achieved a 90% sensitivity rate on the ISBI 2017 dataset, outperforming other deep learning-based methods, while obtaining competitive results in accuracy, specificity, Dice coefficient, and Jaccard index on both datasets. These findings demonstrate the effectiveness of integrating object detection with semi-automatic segmentation for assisting in the early diagnosis of skin cancer.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on skin lesion segmentation to assist in the diagnosis of skin cancer, specifically highlighting melanoma as a lethal type of skin cancer. The ISBI 2017 dataset used for evaluation contains melanoma cases (labeled as 'M' in Table 1)."
+    },
+    {
+      "lesion_type": "Benign Nevi",
+      "paper_terms": [
+        "benign nevi",
+        "benign lesions"
+      ],
+      "role": "Target class",
+      "details": "The paper mentions benign nevi in the context of related work (Goya et al.) and the ISBI 2017 dataset distribution (labeled as 'B' for Benign in Table 1)."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratoses",
+        "SK"
+      ],
+      "role": "Target class",
+      "details": "The paper mentions seborrheic keratoses in the context of related work (Goya et al.) and the ISBI 2017 dataset distribution (labeled as 'SK' in Table 1)."
+    },
+    {
+      "lesion_type": "Atypical Nevus",
+      "paper_terms": [
+        "Atypical nevus",
+        "AT"
+      ],
+      "role": "Target class",
+      "details": "The paper lists Atypical nevus (AT) as a class in the ISBI 2017 dataset distribution (Table 1)."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the Introduction as a type of skin cancer, but not explicitly listed as a target class in the experimental datasets (ISBI 2017 and PH2) used for the proposed segmentation method."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the Introduction as a type of skin cancer, but not explicitly listed as a target class in the experimental datasets used for the proposed segmentation method."
+    },
+    {
+      "lesion_type": "Intraepithelial Carcinoma",
+      "paper_terms": [
+        "intraepithelial carcinoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the Introduction as a type of skin cancer, but not explicitly listed as a target class in the experimental datasets used for the proposed segmentation method."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary mask of the skin lesion area from the background",
+        "primary": true,
+        "details": "The paper proposes a pipeline for skin lesion segmentation in dermoscopic images. The primary output is a segmented lesion area (binary mask) produced by the GrabCut algorithm, which is initialized using bounding boxes from YOLOv3. Evaluation metrics include Dice coefficient and Jaccard index, which are standard for segmentation tasks."
+      },
+      {
+        "task_type": "Detection",
+        "target": "Bounding box coordinates of the lesion location",
+        "primary": false,
+        "details": "The YOLOv3 component is used for detecting the lesion location in the image by drawing a bounding box around the skin lesion. This is a secondary step to facilitate the segmentation process."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISBI 2017 (Skin Lesion Analysis Towards Melanoma Detection Challenge Dataset)",
+      "description": "A subset of the International Skin Imaging Collaboration (ISIC) archive containing 23,906 dermoscopic images. The images are 8-bit RGB with varying resolutions (540x722 to 4499x6748) and are labeled by specialists as seborrheic keratosis, melanoma, or benign. It was used for both training the YOLOv3 detection model and evaluating the segmentation pipeline.",
+      "classes_used": [
+        "Benign",
+        "Melanoma",
+        "Seborrheic keratosis"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "training": {
+            "Benign": 1375,
+            "Melanoma": 374,
+            "Seborrheic keratosis": 254
+          },
+          "validation": {
+            "Benign": 78,
+            "Melanoma": 30,
+            "Seborrheic keratosis": 42
+          },
+          "testing": {
+            "Benign": 393,
+            "Melanoma": 197,
+            "Seborrheic keratosis": 90
+          }
+        }
+      },
+      "use": {
+        "training": "Used to train the YOLOv3 model for lesion location detection (with ImageNet pretrained weights fine-tuned).",
+        "validation": "Used to validate the YOLOv3 detection model.",
+        "testing": "Used to evaluate the detection and segmentation performance of the proposed pipeline.",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A dataset provided by the University of Porto, collected from the dermatology service of Hospital Pedro Hispano, Portugal. It consists of 200 dermoscopic images (8-bit RGB, 768x560 pixels, 20x magnification) acquired under uniform conditions. The dataset includes atypical nevi, common nevi, and melanoma cases, with segmentation boundaries annotated by an expert dermatologist.",
+      "classes_used": [
+        "Atypical nevus",
+        "Common nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {
+          "Atypical nevus": 80,
+          "Common nevus": 80,
+          "Melanoma": 40
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to evaluate the detection and segmentation performance of the proposed pipeline.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "sensitivity",
+    "specificity",
+    "Dice coefficient",
+    "Jaccard index",
+    "accuracy",
+    "IOU (Intersection over Union)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics such as sensitivity, specificity, accuracy, Dice coefficient, and Jaccard index."
+  },
+  "results_obtained_in_each_dataset": {
+    "PH2": {
+      "detection": {
+        "YOLOv3": {
+          "accuracy": "94.40%",
+          "IOU_rate": "90%",
+          "undetectable_images": "6 out of 200"
+        }
+      },
+      "segmentation": {
+        "YOLOv3 + GrabCut": {
+          "note": "Competitive results compared to literature, but specific metric values not explicitly reported in the provided text chunks."
+        }
+      },
+      "notes": "The model was unable to make any predictions on 6 images out of 200. The IOU rate was 90% in 194 images."
+    },
+    "ISBI 2017": {
+      "detection": {
+        "YOLOv3": {
+          "accuracy": "96.4%",
+          "IOU_rate": "86%",
+          "undetectable_images": "22 out of 600"
+        }
+      },
+      "segmentation": {
+        "YOLOv3 + GrabCut": {
+          "sensitivity": "90%",
+          "note": "Outperformed other deep learning-based methods. Obtained close results to literature in terms of accuracy, specificity, Dice coefficient, and Jaccard index."
+        }
+      },
+      "notes": "The model was unable to detect only 22 images out of 600. The IOU rate was 86% in 578 images."
+    }
+  },
+  "architecture_used": {
+    "main_model": "YOLOv3 (You Only Look Once version 3)",
+    "pretraining": "Pretrained weights from the ImageNet dataset were used, followed by fine-tuning and re-training on the ISBI 2017 dermoscopic image dataset.",
+    "input_size": "512x512 pixels (images were resized to this resolution before training).",
+    "architecture_details": {
+      "backbone": "Inspired by GoogLeNet, consisting of 24 convolutional layers for feature extraction.",
+      "heads": "Two fully connected layers connected to predict the output of probabilities and coordinates.",
+      "activation_functions": "Leaky Rectified Linear Unit (LReLU) with beta=0.1 for hidden layers; linear activation function for the last layer.",
+      "loss_function": "Sum-squared error (detailed formula provided in the paper involving coordinate, objectness, and classification losses).",
+      "filter_configuration": "Filter size at layers 79, 91, and 109 was set to 18 (calculated as (classes + 5) * 3, where classes=1).",
+      "hyperparameters": {
+        "batch_size": 64,
+        "subdivisions": 16,
+        "momentum": 0.9,
+        "decay": 0.0005,
+        "learning_rate": 0.001
+      },
+      "training_schedule": "Trained for 50,000 epochs; network weights were saved every 10,000 epochs. The weights from the 10,000th epoch were found to be the most successful.",
+      "implementation_details": "Implemented using Python and C programming languages with the OpenCV image processing framework."
+    },
+    "training_details": {
+      "dataset": "ISBI 2017 dataset (separated into training and validation sets).",
+      "hardware": "PC with two Intel Xeon processors, 64 GB RAM, NVIDIA GTX 1080Ti GPU, and Ubuntu 14.04 operating system."
+    },
+    "classification_or_output_head": {
+      "output_type": "Bounding box coordinates (x, y, width, height) and class probabilities for lesion location detection.",
+      "classes": "Single class (skin lesion)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "YOLOv3",
+    "YOLO",
+    "GrabCut",
+    "U-Net",
+    "C-Means Clustering",
+    "CDNN",
+    "FrCN",
+    "DNN",
+    "GAN",
+    "FCN",
+    "SVM",
+    "DT",
+    "ANN",
+    "Faster-RCNN",
+    "Fast-RCNN",
+    "RCNN"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 512x512 pixels before YOLOv3 training",
+    "Hair removal on the lesion",
+    "Bounding box annotation for lesion location detection",
+    "Morphological post-processing operators for artifact removal in segmented areas"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed pipeline combining YOLOv3 for lesion location detection and the GrabCut algorithm for segmentation effectively addresses challenges in skin lesion segmentation such as artifacts, indistinct boundaries, and low contrast.",
+    "The method achieved a 90% sensitivity rate on the ISBI 2017 dataset, outperforming other deep learning-based methods.",
+    "The proposed method obtained competitive results compared to existing literature in terms of accuracy, specificity, Dice coefficient, and Jaccard index on both the PH2 and ISBI 2017 datasets.",
+    "The integration of object detection (YOLOv3) with semi-automatic segmentation (GrabCut) demonstrates effectiveness in assisting the early diagnosis of skin cancer.",
+    "The model was unable to detect lesions in a small number of images (6 out of 200 on PH2 and 22 out of 600 on ISBI 2017), indicating limitations in detection robustness for certain cases."
+  ],
+  "important_remarks": [
+    "The study relies on a hybrid pipeline (YOLOv3 for detection + GrabCut for segmentation) rather than an end-to-end deep learning segmentation model, which may limit the ability to capture complex global contextual features compared to fully convolutional architectures like U-Net.",
+    "The YOLOv3 detection component failed to detect lesions in 3% of images on the PH2 dataset (6/200) and 3.7% on the ISBI 2017 dataset (22/600), indicating a limitation in robustness for certain lesion types or image qualities.",
+    "The PH2 dataset is small (200 images) and acquired under uniform conditions (20x magnification, same lens), which may introduce dataset bias and limit the generalizability of the results to real-world clinical settings with varying acquisition protocols.",
+    "The ISBI 2017 dataset used for training and testing contains a significant class imbalance, with Benign cases (1375 training) vastly outnumbering Melanoma (374 training) and Seborrheic Keratosis (254 training) cases, potentially biasing the model towards benign lesions.",
+    "The paper does not report formal statistical significance tests (e.g., p-values) for the comparison with other methods, relying instead on descriptive metrics (Dice, Jaccard, Accuracy) to claim competitive performance.",
+    "The segmentation performance on the ISBI 2017 dataset (90% sensitivity) is reported as outperforming other deep learning methods, but specific comparative metric values for those other methods are not provided in the results section, making direct quantitative comparison difficult.",
+    "The method requires manual bounding box annotation for training the YOLOv3 detector, which introduces a dependency on expert labeling for the detection phase, unlike fully automatic segmentation methods."
+  ]
+}

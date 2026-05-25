@@ -1,0 +1,413 @@
+{
+  "file_name": "chu_2022_deep_learning_algorithms_for_predicting_breslow_thickness_from_dermosco.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning algorithms, specifically convolutional neural networks (CNNs) based on a pretrained ResNet-50 architecture, to predict Breslow thickness from dermoscopic images of acral lentiginous melanomas. The study developed and validated classification models (for melanoma in situ vs. invasive, and Breslow thickness thresholds) and a regression model to estimate Breslow thickness in millimeters."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work developing and validating deep learning algorithms (CNNs) to predict Breslow thickness from dermoscopic images. It includes specific methods (data collection from two tertiary hospitals, model training/validation splits), results (AUROC, sensitivity, specificity, MAE metrics in Table 1 and Figure 1), and a discussion of limitations, indicating it is an original research study rather than a review."
+  },
+  "title": "Deep Learning Algorithms for Predicting Breslow Thickness from Dermoscopic Images of Acral Lentiginous Melanomas",
+  "authors": [
+    "Yu Seong Chu",
+    "Solam Lee",
+    "Sang Gyun Lee",
+    "Kee Yang Chung",
+    "Mi Ryung Roh",
+    "Sejung Yang",
+    "Byungho Oh"
+  ],
+  "doi": "10.1016/j.jid.2021.12.033",
+  "journal": "Journal of Investigative Dermatology",
+  "year": 2022,
+  "article_type": "Original research article",
+  "brief_summary": "This study developed and validated deep learning algorithms to predict Breslow thickness (BT) from dermoscopic images of acral lentiginous melanomas. Using a dataset of 574 images from 134 patients at two tertiary hospitals, the researchers trained convolutional neural networks based on a pretrained ResNet-50 architecture. The models performed three classification tasks (melanoma in situ vs. invasive, BT ≤ 0.8 mm vs. > 0.8 mm, and BT ≤ 2.0 mm vs. > 2.0 mm) and one regression task to estimate BT in millimeters. Performance was evaluated using area under the receiver operating characteristic curve (AUROC) for classification and mean absolute error (MAE) for regression, with validation on an external dataset of 57 images. The BT ≤ 2.0 mm classification model achieved high AUROC values (0.969 in external validation), while the regression model showed a negative proportional bias but demonstrated the potential for noninvasive BT prediction.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Acral lentiginous melanoma",
+      "paper_terms": [
+        "acral lentiginous melanomas",
+        "ALM"
+      ],
+      "role": "Target class",
+      "details": "The study exclusively focused on surgically proven acral lentiginous melanomas (ALMs) from two tertiary hospitals. The dataset included 574 images from 134 patients for training/internal validation and 57 images from 35 patients for external validation."
+    },
+    {
+      "lesion_type": "Melanoma in situ",
+      "paper_terms": [
+        "melanoma in situ",
+        "MIS"
+      ],
+      "role": "Target class (subgroup/comparator)",
+      "details": "Used as one of the binary classification targets (MIS vs. invasive ALM) within the ALM dataset. The main dataset contained 245 cases of MIS."
+    },
+    {
+      "lesion_type": "Invasive acral lentiginous melanoma",
+      "paper_terms": [
+        "invasive ALM",
+        "invasive"
+      ],
+      "role": "Target class (subgroup/comparator)",
+      "details": "Used as the comparator to melanoma in situ in one classification task. The main dataset contained 122 T1, 58 T2, 77 T3, and 66 T4 invasive ALM cases."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": true,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic categories: melanoma in situ vs. invasive ALM; Breslow thickness ≤ 0.8 mm vs. > 0.8 mm; Breslow thickness ≤ 2.0 mm vs. > 2.0 mm.",
+        "primary": true,
+        "details": "The study developed and validated three binary classification models using convolutional neural networks. Performance was evaluated using AUROC, sensitivity, specificity, PPV, and NPV. The BT ≤ 2.0 mm vs. > 2.0 mm classifier was noted to outperform the others."
+      },
+      {
+        "task_type": "Regression",
+        "target": "Continuous Breslow thickness in millimeters.",
+        "primary": false,
+        "details": "A regression model was developed to estimate Breslow thickness (BT) in millimeters. Performance was evaluated using Mean Absolute Error (MAE), Bland-Altman plots, and correlation coefficients. The model showed a negative proportional bias."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Main Dataset",
+      "description": "Retrospectively collected dermoscopic images from an image repository of two tertiary referral hospitals (Severance Main Hospital and Gangnam Severance Hospital, Seoul, Korea) between 2014 and 2019. The dataset consists of images from surgically proven acral lentiginous melanomas (ALMs).",
+      "classes_used": [
+        "Melanoma in situ (MIS)",
+        "Invasive ALM T1",
+        "Invasive ALM T2",
+        "Invasive ALM T3",
+        "Invasive ALM T4"
+      ],
+      "counts": {
+        "total": 574,
+        "training": 459,
+        "validation": 115,
+        "testing": null,
+        "per_class": {
+          "MIS": 251,
+          "T1": 122,
+          "T2": 58,
+          "T3": 77,
+          "T4": 66
+        }
+      },
+      "use": {
+        "training": "Used for training the deep learning models (80% of patients).",
+        "validation": "Used for internal validation of the models (20% of patients).",
+        "testing": null,
+        "other": "Combined with the external dataset to form the 'Whole dataset' for overall performance evaluation."
+      }
+    },
+    {
+      "name": "External Dataset",
+      "description": "Retrospectively collected dermoscopic images from a different tertiary hospital (Gangnam Severance Hospital, Seoul, Korea) between 2009 and 2020. The dataset consists of images from surgically proven acral lentiginous melanomas (ALMs).",
+      "classes_used": [
+        "Melanoma in situ (MIS)",
+        "Invasive ALM T1",
+        "Invasive ALM T2",
+        "Invasive ALM T3",
+        "Invasive ALM T4"
+      ],
+      "counts": {
+        "total": 57,
+        "training": null,
+        "validation": null,
+        "testing": 57,
+        "per_class": {
+          "MIS": 19,
+          "T1": 19,
+          "T2": 10,
+          "T3": 4,
+          "T4": 5
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for external validation of the trained models.",
+        "other": "Combined with the main dataset to form the 'Whole dataset' for overall performance evaluation."
+      }
+    },
+    {
+      "name": "Whole Dataset",
+      "description": "The combined dataset comprising the Main Dataset and the External Dataset.",
+      "classes_used": [
+        "Melanoma in situ (MIS)",
+        "Invasive ALM T1",
+        "Invasive ALM T2",
+        "Invasive ALM T3",
+        "Invasive ALM T4"
+      ],
+      "counts": {
+        "total": 631,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "MIS": 270,
+          "T1": 141,
+          "T2": 68,
+          "T3": 81,
+          "T4": 71
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to calculate overall performance metrics (AUROC, sensitivity, specificity, etc.) for the classification models.",
+        "other": "Used to evaluate the BT regression model performance (MAE) across the entire cohort."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "AUROC (Area Under the Receiver Operating Characteristic Curve)",
+    "Sensitivity",
+    "Specificity",
+    "PPV (Positive Predictive Value)",
+    "NPV (Negative Predictive Value)",
+    "MAE (Mean Absolute Error)",
+    "Bland-Altman plot (for bias analysis)",
+    "Class Activation Map (CAM)",
+    "Multidimensional Scaling"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "95% Confidence Intervals",
+      "purpose": "Used to report uncertainty for AUROC, sensitivity, specificity, PPV, NPV, and MAE metrics.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Bland-Altman plot",
+      "purpose": "To assess the agreement and bias between observed and predicted Breslow thickness values in the regression model.",
+      "type": "Agreement analysis"
+    },
+    {
+      "method": "Multidimensional Scaling",
+      "purpose": "To reduce the dimensionality of the 2048-dimensional feature map to 2 dimensions for visualization of feature extraction performance.",
+      "type": "Dimensionality reduction"
+    },
+    {
+      "method": "Class Activation Map (CAM)",
+      "purpose": "To visualize the regions of the input image that influenced the model's classification decision, confirming relevance to clinical features.",
+      "type": "Model interpretability/Visualization"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance was evaluated using area under the receiver operating characteristic curve (AUROC) with 95% confidence intervals, sensitivity, specificity, positive/negative predictive values, and mean absolute error (MAE) with 95% confidence intervals. Model comparisons were made based on these performance metrics rather than statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Main Dataset (Internal Validation)": {
+      "classification_models": {
+        "MIS versus invasive ALM": {
+          "AUROC": "0.914 (95% CI: 0.892–0.936)",
+          "Sensitivity": "82.5% (95% CI: 75.8–89.2)",
+          "Specificity": "88.8% (95% CI: 82.8–94.7)",
+          "PPV": "90.9% (95% CI: 86.8–95.0)",
+          "NPV": "81.3% (95% CI: 75.1–87.5)",
+          "Optimal Cut-off Sensitivity (90%)": {
+            "Specificity": "69.4% (95% CI: 59.0–79.7)",
+            "PPV": "79.4% (95% CI: 74.0–84.8)",
+            "NPV": "84.2% (95% CI: 80.6–87.7)"
+          }
+        },
+        "BT ≤ 0.8 mm versus > 0.8 mm": {
+          "AUROC": "0.821 (95% CI: 0.772–0.871)",
+          "Sensitivity": "90.2% (95% CI: 89.9–90.5)",
+          "Specificity": "53.3% (95% CI: 41.7–65.0)",
+          "PPV": "61.9% (95% CI: 54.4–69.4)",
+          "NPV": "85.7% (95% CI: 82.7–88.7)",
+          "Optimal Cut-off Sensitivity (90%)": {
+            "Specificity": "75.8% (95% CI: 67.4–84.3)",
+            "PPV": "73.4% (95% CI: 65.7–81.2)",
+            "NPV": "83.8% (95% CI: 77.4–90.1)"
+          }
+        },
+        "BT ≤ 2.0 mm versus > 2.0 mm": {
+          "AUROC": "0.972 (95% CI: 0.954–0.991)",
+          "Sensitivity": "93.8% (95% CI: 90.7–96.9)",
+          "Specificity": "92.1% (95% CI: 87.0–97.3)",
+          "PPV": "81.4% (95% CI: 71.1–91.8)",
+          "NPV": "96.2% (95% CI: 95.3–97.1)",
+          "Optimal Cut-off Sensitivity (90%)": {
+            "Specificity": "93.6% (95% CI: 90.6–96.6)",
+            "PPV": "83.6% (95% CI: 75.5–91.6)",
+            "NPV": "97.6% (95% CI: 96.2–99.1)"
+          }
+        }
+      },
+      "regression_model": {
+        "MAE": "1.042 mm (95% CI: 0.896–1.189)"
+      },
+      "notes": "The BT ≤ 2.0 mm classifier outperformed the MIS versus invasive ALM and BT ≤ 0.8 mm classifiers. The regression model showed a negative proportional bias."
+    },
+    "External Dataset": {
+      "classification_models": {
+        "MIS versus invasive ALM": {
+          "AUROC": "0.907 (95% CI: 0.890–0.924)",
+          "Sensitivity": "78.9% (95% CI: 70.8–87.1)",
+          "Specificity": "90.0% (95% CI: 82.8–97.2)",
+          "PPV": "94.8% (95% CI: 91.4–98.2)",
+          "NPV": "70.4% (95% CI: 62.7–78.1)",
+          "Optimal Cut-off Sensitivity (90%)": {
+            "Specificity": "67.9% (95% CI: 61.1–74.6)",
+            "PPV": "84.9% (95% CI: 82.3–87.6)",
+            "NPV": "76.1% (95% CI: 74.1–78.1)"
+          }
+        },
+        "BT ≤ 0.8 mm versus > 0.8 mm": {
+          "AUROC": "0.802 (95% CI: 0.771–0.832)",
+          "Sensitivity": "89.5% (95% CI: 89.5–89.5)",
+          "Specificity": "36.8% (95% CI: 24.9–48.7)",
+          "PPV": "54.8% (95% CI: 49.5–60.1)",
+          "NPV": "83.0% (95% CI: 78.5–87.6)",
+          "Optimal Cut-off Sensitivity (90%)": {
+            "Specificity": "78.1% (95% CI: 69.2–86.9)",
+            "PPV": "75.1% (95% CI: 69.6–80.7)",
+            "NPV": "81.1% (95% CI: 75.9–86.2)"
+          }
+        },
+        "BT ≤ 2.0 mm versus > 2.0 mm": {
+          "AUROC": "0.969 (95% CI: 0.963–0.974)",
+          "Sensitivity": "98.9% (95% CI: 96.4–100.0)",
+          "Specificity": "89.0% (95% CI: 85.7–92.3)",
+          "PPV": "61.8% (95% CI: 53.9–69.6)",
+          "NPV": "97.7% (95% CI: 97.6–97.8)",
+          "Optimal Cut-off Sensitivity (90%)": {
+            "Specificity": "90.6% (95% CI: 87.4–93.9)",
+            "PPV": "68.3% (95% CI: 59.8–76.7)",
+            "NPV": "99.8% (95% CI: 99.3–100.0)"
+          }
+        }
+      },
+      "regression_model": {
+        "MAE": "0.640 mm (95% CI: 0.595–0.685)"
+      },
+      "notes": "The external dataset consisted of 57 images from 35 patients. The regression model performed better on this dataset than on the internal validation set."
+    },
+    "Whole Dataset": {
+      "classification_models": {
+        "MIS versus invasive ALM": {
+          "AUROC": "0.907 (95% CI: 0.888–0.926)",
+          "Sensitivity": "78.8% (95% CI: 72.8–84.7)",
+          "Specificity": "89.3% (95% CI: 84.6–94.0)",
+          "PPV": "92.1% (95% CI: 89.2–95.0)",
+          "NPV": "75.4% (95% CI: 70.0–80.9)",
+          "Optimal Cut-off Sensitivity (90%)": {
+            "Specificity": "67.3% (95% CI: 59.5–75.2)",
+            "PPV": "80.3% (95% CI: 76.5–84.1)",
+            "NPV": "81.7% (95% CI: 78.8–84.5)"
+          }
+        },
+        "BT ≤ 0.8 mm versus > 0.8 mm": {
+          "AUROC": "0.793 (95% CI: 0.748–0.838)",
+          "Sensitivity": "89.9% (95% CI: 89.8–90.1)",
+          "Specificity": "43.9% (95% CI: 33.6–54.2)",
+          "PPV": "57.1% (95% CI: 51.5–62.7)",
+          "NPV": "83.5% (95% CI: 79.9–87.0)",
+          "Optimal Cut-off Sensitivity (90%)": {
+            "Specificity": "71.9% (95% CI: 63.3–80.6)",
+            "PPV": "70.0% (95% CI: 62.4–77.6)",
+            "NPV": "80.8% (95% CI: 77.0–84.7)"
+          }
+        },
+        "BT ≤ 2.0 mm versus > 2.0 mm": {
+          "AUROC": "0.965 (95% CI: 0.953–0.978)",
+          "Sensitivity": "94.3% (95% CI: 90.8–97.7)",
+          "Specificity": "92.0% (95% CI: 87.4–96.5)",
+          "PPV": "78.3% (95% CI: 69.0–87.6)",
+          "NPV": "96.9% (95% CI: 96.3–97.5)",
+          "Optimal Cut-off Sensitivity (90%)": {
+            "Specificity": "92.6% (95% CI: 89.8–95.5)",
+            "PPV": "79.3% (95% CI: 71.6–87.0)",
+            "NPV": "98.2% (95% CI: 97.0–99.3)"
+          }
+        }
+      },
+      "regression_model": {
+        "MAE": "0.947 mm (95% CI: 0.835–1.060)"
+      },
+      "notes": "The whole dataset combined the main and external datasets. The regression model showed a negative proportional bias, overestimating lower BT values and underestimating higher BT values. The MAE of 0.942 mm (text) / 0.947 mm (table) was noted as greater than expected."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Convolutional Neural Network (CNN) based on ResNet-50",
+    "pretraining": "Pretrained on ImageNet dataset",
+    "input_size": "224 x 224 pixels (RGB)",
+    "architecture_details": {
+      "backbone": "ResNet-50",
+      "backbone_modification": "First residual block intended for identity mapping was used",
+      "feature_extraction": "Global average pooling applied to extract 2,048-dimensional feature maps",
+      "framework": "PyTorch",
+      "hardware": "11GB NVIDIA RTX 2080Ti"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": "1e-6",
+      "batch_size": "16",
+      "epochs": "40",
+      "data_augmentation": "Flip and rotation; or equal class weights for class imbalance compensation",
+      "normalization": "Color channel mean and SD normalized to ImageNet dataset statistics"
+    },
+    "classification_or_output_head": {
+      "type": "Multiple heads for different tasks",
+      "tasks": [
+        "Binary classification: Melanoma in situ vs. invasive ALM",
+        "Binary classification: BT ≤ 0.8 mm vs. > 0.8 mm",
+        "Binary classification: BT ≤ 2.0 mm vs. > 2.0 mm",
+        "Regression: Breslow thickness in millimeters"
+      ],
+      "loss_function": "Not explicitly reported (standard cross-entropy for classification and MSE/MAE for regression implied by metrics)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Convolutional Neural Network (CNN) based on pretrained ResNet-50",
+    "Melanoma in situ versus invasive ALM classification model",
+    "Breslow thickness ≤ 0.8 mm versus > 0.8 mm classification model",
+    "Breslow thickness ≤ 2.0 mm versus > 2.0 mm classification model",
+    "Breslow thickness regression model"
+  ],
+  "preprocessing_techniques": [
+    "Resizing input images to 224 x 224 pixels to fit the ResNet-50 architecture",
+    "Normalization of color channel mean and standard deviation to ImageNet dataset statistics"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Flip and rotation were used as data augmentation methods to compensate for class imbalance."
+    },
+    {
+      "technique": "Class Balancing Augmentation",
+      "details": "In some cases, training was performed by assigning equal weights to the classes in the training set to compensate for class imbalance."
+    }
+  ],
+  "conclusions": [
+    "The BT ≤ 2.0 mm classification model outperformed the melanoma in situ versus invasive ALM classifier and the BT ≤ 0.8 mm versus > 0.8 mm classifier, likely because thin invasive melanomas share dermoscopic features with melanoma in situ.",
+    "All developed models (classification and regression) showed fair performance and could be utilized as decision support systems for determining surgical approaches in acral lentiginous melanomas.",
+    "Class activation maps indicated that the model utilized dermoscopic features such as blue-white veils, atypical patterns, and ulceration, which are prevalent in ALMs with BT > 2.0 mm, while other common melanoma features (e.g., black/brown color, parallel ridge patterns) did not significantly affect the prediction.",
+    "The BT regression model exhibited a negative proportional bias, overestimating lower BT values and underestimating higher BT values, with a mean absolute error (0.942 mm) greater than expected.",
+    "Regression models were found to be more difficult to train than classification models and are more susceptible to performance limitations caused by small dataset sizes and measurement errors.",
+    "The study acknowledges limitations including the potential for model overfitting due to multiple images per patient (mitigated by patient-wise splitting), restricted generalizability to other melanoma subtypes or populations due to the focus on Asian ALM cases, and the need for validation in larger prospective studies."
+  ],
+  "important_remarks": [
+    "The study is limited by its focus exclusively on acral lentiginous melanomas (ALM) from Asian populations, which restricts generalizability to other melanoma subtypes and ethnic groups.",
+    "The dataset size is small (574 images from 134 patients for training/internal validation; 57 images from 35 patients for external validation), which may limit the performance of the regression model more than the classification models.",
+    "The regression model exhibited a negative proportional bias, overestimating lower Breslow thickness values and underestimating higher values, with a mean absolute error (MAE) of 0.947 mm on the whole dataset.",
+    "The external validation dataset was collected from a single different tertiary hospital in Korea, limiting the assessment of geographic and demographic diversity.",
+    "The data are not publicly available due to privacy or ethical restrictions, hindering independent replication and validation.",
+    "The code for model development and validation is available on GitHub, but the lack of public data limits reproducibility.",
+    "The study acknowledges that the model's prediction would not be reliable if the input image does not contain the portion of the lesion likely to exhibit the deepest invasion.",
+    "The BT ≤ 2.0 mm classification model outperformed the other classifiers, potentially because thin invasive melanomas share dermoscopic features with melanoma in situ.",
+    "The study used patient-wise splitting to mitigate potential overfitting from multiple images per patient, but the small sample size remains a constraint.",
+    "The regression model is noted to be more difficult to train and more susceptible to performance limitations caused by small dataset sizes and measurement errors compared to classification models."
+  ]
+}

@@ -1,0 +1,451 @@
+{
+  "file_name": "almuzaini_2023_toward_fairness_across_skin_tones_in_dermatological_image_process.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning for skin cancer detection. Specifically, it evaluates the DeepDerm model (an Inception-V3 CNN fine-tuned via transfer learning) and proposes a novel framework called SAFE (Skin cancer detection with Adaptive Fairness-aware Ensemble) which combines fine-tuning, an ensemble architecture, and fairness-based re-sampling to improve accuracy and fairness across Fitzpatrick Skin Tones."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, proposing a novel framework called SAFE (Skin cancer detection with Adaptive Fairness-aware Ensemble) to improve accuracy and fairness in skin cancer detection. It details specific methods including fine-tuning, ensemble architecture, and fairness-based re-sampling, evaluates these on the DDI and Fitzpatrick17k datasets, and reports quantitative results (accuracy, AUROC, TPR, FPR) in tables and figures. Although published in a conference proceedings (IEEE MIPR), it contains original research results rather than summarizing prior literature."
+  },
+  "title": "Toward Fairness Across Skin Tones in Dermatological Image Processing",
+  "authors": [
+    "Abdulaziz A. Almuzaini",
+    "Srujan K. Dendukuri",
+    "Vivek K. Singh"
+  ],
+  "doi": "10.1109/MIPR59079.2023.00030",
+  "journal": "2023 IEEE 6th International Conference on Multimedia Information Processing and Retrieval (MIPR)",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the disparity in skin cancer detection performance across different Fitzpatrick Skin Tones (FST) by evaluating the DeepDerm model and proposing a novel framework called SAFE. The researchers analyzed the DeepDerm baseline on the Diverse Dermatological Images (DDI) and Fitzpatrick17k datasets, finding that it favored lighter skin tones (FST I-II) over darker ones (FST V-VI). To mitigate this bias, the SAFE framework combines fine-tuning, an ensemble architecture, and fairness-based re-sampling. The evaluation focused on accuracy and fairness metrics across light and dark skin subgroups. The proposed framework demonstrated promising outcomes in improving both accuracy and fairness for skin cancer detection across diverse skin tones.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "Benign"
+      ],
+      "role": "Target class",
+      "details": "Used as a binary classification target alongside malignant lesions in the DDI and Fitzpatrick17k datasets. Counts: 304 (DDI), 436 (Fitzpatrick17k), 740 (Combined) for FST I-II and V-VI combined."
+    },
+    {
+      "lesion_type": "Malignant skin lesions (Skin Cancer)",
+      "paper_terms": [
+        "Malignant",
+        "skin cancer"
+      ],
+      "role": "Target class",
+      "details": "Used as a binary classification target alongside benign lesions. The paper focuses on detecting skin cancer generally rather than specific histological subtypes (e.g., melanoma vs. BCC). Counts: 97 (DDI), 956 (Fitzpatrick17k), 1053 (Combined) for FST I-II and V-VI combined."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic categories: Benign vs. Malignant (Skin Cancer)",
+        "primary": true,
+        "details": "The paper focuses on skin cancer detection, specifically classifying dermatological images into 'Benign' or 'Malignant' categories. The model predicts discrete labels, and performance is evaluated using classification metrics such as Accuracy, AUROC, True Positive Rate (TPR), and False Positive Rate (FPR). The task is explicitly described as 'fair and unbiased classification'."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Diverse Dermatological Images (DDI)",
+      "description": "A clinically curated and pathologically confirmed image dataset compiled from Stanford clinics between 2010 and 2020, featuring diverse skin tones. It consists of 656 images representing 570 unique patients.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 656,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign": {
+            "FST I-II": 159,
+            "FST V-VI": 145,
+            "Total": 304
+          },
+          "Malignant": {
+            "FST I-II": 49,
+            "FST V-VI": 48,
+            "Total": 97
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training (subset of FST I-II and V-VI images split 60-20-20).",
+        "validation": "Used for validation (subset of FST I-II and V-VI images split 60-20-20).",
+        "testing": "Used for testing (subset of FST I-II and V-VI images split 60-20-20).",
+        "other": "Used as a baseline for evaluating the DeepDerm model's performance and fairness across skin tones."
+      }
+    },
+    {
+      "name": "Fitzpatrick17k",
+      "description": "A dataset consisting of 16,577 images collected from two dermatological atlases (DermaAmin and Atlas Dermatological) with labels assigned via open-source annotation platforms. The study focused on a subset of images common with DDI, specifically FST I-II and FST V-VI.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 1392,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign": {
+            "FST I-II": 359,
+            "FST V-VI": 77,
+            "Total": 436
+          },
+          "Malignant": {
+            "FST I-II": 775,
+            "FST V-VI": 181,
+            "Total": 956
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training (subset of FST I-II and V-VI images split 60-20-20).",
+        "validation": "Used for validation (subset of FST I-II and V-VI images split 60-20-20).",
+        "testing": "Used for testing (subset of FST I-II and V-VI images split 60-20-20).",
+        "other": "Complemented the DDI dataset to improve validity, accuracy, and fairness analysis."
+      }
+    },
+    {
+      "name": "Combined Dataset (DDI + Fitzpatrick17k)",
+      "description": "A combined dataset created by merging the relevant subsets of DDI and Fitzpatrick17k datasets used in the study, focusing on FST I-II and FST V-VI classes.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 1748,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign": {
+            "FST I-II": 518,
+            "FST V-VI": 222,
+            "Total": 740
+          },
+          "Malignant": {
+            "FST I-II": 824,
+            "FST V-VI": 229,
+            "Total": 1053
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training (split 60-20-20).",
+        "validation": "Used for validation (split 60-20-20).",
+        "testing": "Used for testing (split 60-20-20).",
+        "other": "Used for evaluating the proposed SAFE framework and ablation studies."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Area Under the ROC Curve (AUROC)",
+    "True Positive Rate (TPR)",
+    "False Positive Rate (FPR)",
+    "Disparity in Accuracy (Δaccuracy)",
+    "Disparity in AUROC (ΔAUROC)",
+    "Disparity in TPR (ΔTPR)",
+    "Disparity in FPR (ΔFPR)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "t-test",
+      "purpose": "To test the null hypothesis that there is no significant difference in performance between lighter (FST I-II) and darker (FST V-VI) skin tone subgroups for the DeepDerm baseline model.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Significance level (alpha)",
+      "purpose": "To determine statistical significance for the t-test comparisons of accuracy, AUROC, TPR, and FPR between skin tone groups.",
+      "type": "Significance threshold"
+    },
+    {
+      "method": "Mean and Standard Deviation",
+      "purpose": "To report the central tendency and variability of performance metrics (Accuracy, AUROC, TPR, FPR) across 3 independent runs with different training/validation splits for the Full-Layers and SAFE models.",
+      "type": "Descriptive statistics"
+    },
+    {
+      "method": "Disparity calculation (Delta)",
+      "purpose": "To quantify fairness by calculating the absolute difference in performance metrics between the FST I-II and FST V-VI subgroups (e.g., Δaccuracy, ΔAUROC, ΔTPR, ΔFPR).",
+      "type": "Metric calculation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "t-test",
+    "null_hypothesis": "There is no significant difference in performance between lighter (FST I-II) and darker (FST V-VI) skin tone subgroups for the DeepDerm baseline model.",
+    "alternative_hypothesis": "There is a significant difference in performance between lighter (FST I-II) and darker (FST V-VI) skin tone subgroups for the DeepDerm baseline model.",
+    "alpha": 0.05,
+    "interpretation": "The null hypothesis was rejected for all four metrics (Accuracy, AUROC, TPR, FPR) as p-values were less than 0.05 (Accuracy: p < .001, AUROC: p < .001, TPR: p < .015, FPR: p < .020), indicating a significant bias where performance was better for the lighter-skinned group than the darker-skinned group."
+  },
+  "results_obtained_in_each_dataset": {
+    "DDI": {
+      "description": "Diverse Dermatological Images dataset, subset of FST I-II and V-VI",
+      "models": {
+        "DeepDerm (Baseline)": {
+          "Accuracy": "78.60%",
+          "AUROC": "85.90%",
+          "TPR": "83.80%",
+          "FPR": "28.60%",
+          "Accuracy_FST_I-II": "79.93%",
+          "Accuracy_FST_V-VI": "75.00%",
+          "AUROC_FST_I-II": "87.21%",
+          "AUROC_FST_V-VI": "82.33%",
+          "TPR_FST_I-II": "84.24%",
+          "TPR_FST_V-VI": "82.61%",
+          "FPR_FST_I-II": "26.92%",
+          "FPR_FST_V-VI": "32.61%",
+          "Delta_Accuracy": "4.93",
+          "Delta_AUROC": "4.88",
+          "Delta_TPR": "1.63",
+          "Delta_FPR": "5.69"
+        }
+      },
+      "notes": "DeepDerm baseline showed notable discrepancies, favoring lighter skin tones (FST I-II) over darker ones (FST V-VI). Statistical significance was found for all metrics (p < .05)."
+    },
+    "Fitzpatrick17k": {
+      "description": "Fitzpatrick17k dataset, subset of FST I-II and V-VI",
+      "models": {
+        "DeepDerm (Baseline)": {
+          "Accuracy": "78.60%",
+          "AUROC": "85.90%",
+          "TPR": "83.80%",
+          "FPR": "28.60%",
+          "Accuracy_FST_I-II": "79.93%",
+          "Accuracy_FST_V-VI": "75.00%",
+          "AUROC_FST_I-II": "87.21%",
+          "AUROC_FST_V-VI": "82.33%",
+          "TPR_FST_I-II": "84.24%",
+          "TPR_FST_V-VI": "82.61%",
+          "FPR_FST_I-II": "26.92%",
+          "FPR_FST_V-VI": "32.61%",
+          "Delta_Accuracy": "4.93",
+          "Delta_AUROC": "4.88",
+          "Delta_TPR": "1.63",
+          "Delta_FPR": "5.69"
+        }
+      },
+      "notes": "The paper evaluates DeepDerm on the combined test set derived from DDI and Fitzpatrick17k. Specific split results for Fitzpatrick17k alone are not reported separately from the combined test set in the provided tables."
+    },
+    "Combined (DDI + Fitzpatrick17k)": {
+      "description": "Combined dataset of DDI and Fitzpatrick17k subsets (FST I-II and V-VI)",
+      "models": {
+        "DeepDerm (Baseline)": {
+          "Accuracy": "78.60%",
+          "AUROC": "85.90%",
+          "TPR": "83.80%",
+          "FPR": "28.60%",
+          "Accuracy_FST_I-II": "79.93%",
+          "Accuracy_FST_V-VI": "75.00%",
+          "AUROC_FST_I-II": "87.21%",
+          "AUROC_FST_V-VI": "82.33%",
+          "TPR_FST_I-II": "84.24%",
+          "TPR_FST_V-VI": "82.61%",
+          "FPR_FST_I-II": "26.92%",
+          "FPR_FST_V-VI": "32.61%",
+          "Delta_Accuracy": "4.93",
+          "Delta_AUROC": "4.88",
+          "Delta_TPR": "1.63",
+          "Delta_FPR": "5.69"
+        },
+        "Full-Layers (Fine-Tuning)": {
+          "Accuracy": "77.84 ± 1.00",
+          "AUROC": "85.93 ± 1.80",
+          "TPR": "84.68 ± 4.30",
+          "FPR": "31.78 ± 6.16",
+          "Accuracy_FST_I-II": "77.94 ± 0.86",
+          "Accuracy_FST_V-VI": "77.54 ± 5.14",
+          "AUROC_FST_I-II": "86.26 ± 1.88",
+          "AUROC_FST_V-VI": "84.58 ± 2.49",
+          "TPR_FST_I-II": "87.27 ± 5.78",
+          "TPR_FST_V-VI": "75.36 ± 9.05",
+          "FPR_FST_I-II": "36.86 ± 6.96",
+          "FPR_FST_V-VI": "20.29 ± 4.53",
+          "Delta_Accuracy": "4.06 ± 2.93",
+          "Delta_AUROC": "2.10 ± 1.48",
+          "Delta_TPR": "11.91 ± 12.23",
+          "Delta_FPR": "16.57 ± 2.99"
+        },
+        "SAFE (Proposed)": {
+          "Accuracy": "85.13 ± 0.16",
+          "AUROC": "91.80 ± 1.00",
+          "TPR": "87.36 ± 0.27",
+          "FPR": "18.00 ± 0.67",
+          "Accuracy_FST_I-II": "85.87 ± 0.37",
+          "Accuracy_FST_V-VI": "82.97 ± 0.63",
+          "AUROC_FST_I-II": "91.98 ± 1.49",
+          "AUROC_FST_V-VI": "90.94 ± 1.13",
+          "TPR_FST_I-II": "88.48 ± 0.00",
+          "TPR_FST_V-VI": "83.33 ± 1.26",
+          "FPR_FST_I-II": "18.27 ± 0.96",
+          "FPR_FST_V-VI": "17.39 ± 0.00",
+          "Delta_Accuracy": "2.90 ± 0.97",
+          "Delta_AUROC": "2.21 ± 0.96",
+          "Delta_TPR": "5.15 ± 1.26",
+          "Delta_FPR": "0.93 ± 0.88"
+        },
+        "Ensemble (Vanilla)": {
+          "Accuracy": "85.23 ± 0.16",
+          "AUROC": "86.16 ± 10.15",
+          "TPR": "87.99 ± 0.27",
+          "FPR": "18.67 ± 0.00",
+          "Accuracy_FST_I-II": "85.87 ± 0.37",
+          "Accuracy_FST_V-VI": "83.33 ± 0.63",
+          "AUROC_FST_I-II": "87.65 ± 8.43",
+          "AUROC_FST_V-VI": "80.69 ± 16.25",
+          "TPR_FST_I-II": "89.09 ± 0.61",
+          "TPR_FST_V-VI": "84.06 ± 1.26",
+          "FPR_FST_I-II": "19.23 ± 0.00",
+          "FPR_FST_V-VI": "17.39 ± 0.00",
+          "Delta_Accuracy": "2.54 ± 0.97",
+          "Delta_AUROC": "6.96 ± 8.04",
+          "Delta_TPR": "5.03 ± 1.81",
+          "Delta_FPR": "1.84 ± 0.00"
+        },
+        "Ensemble (Label)": {
+          "Accuracy": "85.41 ± 0.32",
+          "AUROC": "89.96 ± 3.48",
+          "TPR": "88.47 ± 0.27",
+          "FPR": "18.89 ± 0.38",
+          "Accuracy_FST_I-II": "86.00 ± 0.43",
+          "Accuracy_FST_V-VI": "83.70 ± 0.00",
+          "AUROC_FST_I-II": "89.75 ± 4.87",
+          "AUROC_FST_V-VI": "90.50 ± 0.11",
+          "TPR_FST_I-II": "89.49 ± 0.35",
+          "TPR_FST_V-VI": "84.78 ± 0.00",
+          "FPR_FST_I-II": "19.55 ± 0.56",
+          "FPR_FST_V-VI": "17.39 ± 0.00",
+          "Delta_Accuracy": "2.30 ± 0.43",
+          "Delta_AUROC": "3.15 ± 3.91",
+          "Delta_TPR": "4.71 ± 0.35",
+          "Delta_FPR": "2.16 ± 0.56"
+        },
+        "Ensemble (Sensitive)": {
+          "Accuracy": "85.32 ± 0.28",
+          "AUROC": "92.44 ± 0.04",
+          "TPR": "88.15 ± 0.47",
+          "FPR": "18.67 ± 0.00",
+          "Accuracy_FST_I-II": "85.87 ± 0.37",
+          "Accuracy_FST_V-VI": "83.70 ± 0.00",
+          "AUROC_FST_I-II": "93.16 ± 0.04",
+          "AUROC_FST_V-VI": "89.32 ± 0.08",
+          "TPR_FST_I-II": "89.09 ± 0.61",
+          "TPR_FST_V-VI": "84.78 ± 0.00",
+          "FPR_FST_I-II": "19.23 ± 0.00",
+          "FPR_FST_V-VI": "17.39 ± 0.00",
+          "Delta_Accuracy": "2.18 ± 0.37",
+          "Delta_AUROC": "3.84 ± 0.05",
+          "Delta_TPR": "4.31 ± 0.61",
+          "Delta_FPR": "1.84 ± 0.00"
+        }
+      },
+      "notes": "Results are means and standard deviations of 3 independent runs with different training/validation splits for Full-Layers and SAFE models. DeepDerm results are from a single run. The proposed SAFE framework outperformed baselines in 14 of 16 considered scores, showing the best accuracy and fairness (lowest Δaccuracy and ΔFPR)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "SAFE (Skin cancer detection with Adaptive Fairness-aware Ensemble) framework, which utilizes the DeepDerm model (an Inception-V3 CNN) as its backbone.",
+    "pretraining": "The Inception-V3 backbone was pre-trained on the ImageNet dataset. The models were then fine-tuned on the combined DDI and Fitzpatrick17k datasets.",
+    "input_size": "Not explicitly reported (images were center-cropped and normalized).",
+    "architecture_details": {
+      "backbone": "Inception-V3 CNN (42 layers)",
+      "framework_components": [
+        "Fine-tuning of all layers of DeepDerm",
+        "Ensemble architecture combining models trained on specific skin tone subsets (FST I-II and FST V-VI)",
+        "Fairness-based re-sampling (adaptive reweighing) to equalize the ratio of sensitive attributes (skin tone) and disease labels during training"
+      ],
+      "ensemble_variants": [
+        "Ensemble (Vanilla)",
+        "Ensemble (Label)",
+        "Ensemble (Sensitive)",
+        "SAFE (Proposed)"
+      ]
+    },
+    "training_details": {
+      "optimizer": "SGD",
+      "learning_rate": 0.005,
+      "weight_decay": 0.0001,
+      "epochs": 200,
+      "data_augmentation": [
+        "Random rotations",
+        "Vertical flips",
+        "Gaussian blurring",
+        "Color jitters",
+        "Mixup (alpha=0.2)"
+      ],
+      "split": "60-20-20 (training, validation, testing)",
+      "model_selection": "Best model picked using validation data"
+    },
+    "classification_or_output_head": "Binary classification (Benign vs. Malignant)",
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "DeepDerm",
+    "Inception-V3",
+    "GoogleNet-Inception-v3",
+    "Full-Layers (Fine-Tuning)",
+    "SAFE (Skin cancer detection with Adaptive Fairness-aware Ensemble)",
+    "Ensemble (Vanilla)",
+    "Ensemble (Label)",
+    "Ensemble (Sensitive)"
+  ],
+  "preprocessing_techniques": [
+    "Center-cropping to remove background",
+    "Normalization for model generalizability",
+    "Random rotations (data augmentation)",
+    "Vertical flips (data augmentation)",
+    "Gaussian blurring (data augmentation)",
+    "Color jitters (data augmentation)",
+    "Mixup data augmentation (alpha=0.2)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random rotations",
+      "details": "Applied to the training set as part of data transformation."
+    },
+    {
+      "technique": "Vertical flips",
+      "details": "Applied to the training set as part of data transformation."
+    },
+    {
+      "technique": "Gaussian blurring",
+      "details": "Applied to the training set as part of data transformation."
+    },
+    {
+      "technique": "Color jitters",
+      "details": "Applied to the training set as part of data transformation."
+    },
+    {
+      "technique": "Mixup",
+      "details": "Used with an alpha value of 0.2 to blend pairs of inputs and their corresponding labels to create virtual samples."
+    }
+  ],
+  "conclusions": [
+    "The DeepDerm baseline model exhibits significant algorithmic bias, performing notably better on lighter skin tones (FST I-II) than on darker skin tones (FST V-VI), with statistically significant differences in accuracy, AUROC, TPR, and FPR (p < .05).",
+    "The proposed SAFE framework, which combines fine-tuning, an ensemble architecture, and fairness-based re-sampling, significantly improves both accuracy and fairness compared to the DeepDerm baseline and standard fine-tuning approaches.",
+    "The SAFE framework outperformed the DeepDerm baseline and Full-Layers fine-tuning in 14 of 16 considered performance scores, achieving the highest overall accuracy (85.13%) and the lowest disparity in accuracy (Δaccuracy = 2.90) and false positive rate (ΔFPR = 0.93).",
+    "The proposed approach demonstrates a favorable trade-off between overall AUROC and fairness metrics (ΔFPR and ΔTPR), strictly dominating the baselines when considering the trade-off between AUROC and ΔFPR.",
+    "Fairness-based re-sampling strategies that weigh based on both labels and sensitive attributes (skin tone) are more effective at balancing fairness and accuracy than label-based or sensitive-attribute-only reweighing approaches.",
+    "The study acknowledges limitations regarding the use of specific datasets (DDI and Fitzpatrick17k) and suggests that future work should include more diverse datasets and more sophisticated bias mitigation strategies."
+  ],
+  "important_remarks": [
+    "The study is limited to a binary classification task (Benign vs. Malignant) and does not address specific histological subtypes of skin cancer (e.g., melanoma vs. BCC), limiting clinical granularity.",
+    "The proposed SAFE framework was evaluated on only two Fitzpatrick Skin Tone groups (I-II and V-VI), excluding intermediate skin tones (FST III-IV), which may limit generalizability to the broader population.",
+    "The DDI dataset used in the study is small (656 images), particularly for malignant lesions in darker skin tones (48 images for FST V-VI), which poses a risk of overfitting and limits the validity of fairness assessments for minority subgroups.",
+    "The DeepDerm baseline results are reported from a single run, whereas the proposed SAFE and Full-Layers models are averaged over three runs with different splits, creating an asymmetry in the robustness of the comparative evidence.",
+    "The study relies on datasets (DDI and Fitzpatrick17k) that are not fully representative of global dermatological diversity, and the authors acknowledge the need for more diverse datasets and external validation.",
+    "The SAFE framework's fairness-based re-sampling technique equalizes the ratio of sensitive attributes and labels during training, but the test set distribution remains unaltered, potentially masking real-world deployment disparities if the underlying population prevalence differs.",
+    "The paper does not report computational complexity, inference time, or resource requirements of the SAFE ensemble framework, which are critical for clinical deployment considerations.",
+    "The study does not address potential data leakage risks between the DDI and Fitzpatrick17k datasets, although it notes that common diseases were selected to maintain consistency."
+  ]
+}

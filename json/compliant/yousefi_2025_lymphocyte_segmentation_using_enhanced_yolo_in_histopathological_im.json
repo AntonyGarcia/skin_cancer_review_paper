@@ -1,0 +1,458 @@
+{
+  "file_name": "yousefi_2025_lymphocyte_segmentation_using_enhanced_yolo_in_histopathological_im.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning models, specifically YOLO11 for initial lymphocyte detection and Attention U-Net for post-processing and refinement, to analyze histopathological images of Mycosis Fungoides (a cutaneous T-cell lymphoma) to detect and segment lymphocytes in the epidermal region."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the collection and annotation of a dataset of 46 pathology slides from Mycosis Fungoides patients. It describes a specific methodology using YOLO11 and Attention U-Net for lymphocyte segmentation, evaluates the model's performance against baselines on this dataset, and reports new quantitative results (F1 scores, precision, recall). Although published in a conference proceedings (CSICC), it contains original research results rather than summarizing prior literature."
+  },
+  "title": "Lymphocyte Segmentation Using Enhanced-YOLO in Histopathological Images of Mycosis Fungoides",
+  "authors": [
+    "Fatemeh Yousefi",
+    "Zohreh Azimifar",
+    "Mojgan Akbarzadeh-Jahromi",
+    "Malihezaman Monsefi",
+    "Seyed Mohammadbagher Moosavi"
+  ],
+  "doi": "10.1109/CSICC65765.2025.10967453",
+  "journal": "2025 29th International Computer Conference, Computer Society of Iran (CSICC)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the diagnosis of Mycosis Fungoides, a cutaneous T-cell lymphoma, by detecting and segmenting lymphocytes in the epidermal region of histopathological images. The researchers collected and annotated a dataset of 46 pathology slides from MF patients, focusing on positive and negative CD4/CD8 lymphocytes. They employed a two-step deep learning approach, initially using YOLO11 for lymphocyte detection and subsequently applying an Attention U-Net for post-processing to refine predictions and reduce false positives. The model was evaluated against several baseline algorithms using metrics such as F1 score, precision, and recall on the test set. The enhanced YOLO11 model achieved superior performance, with an overall F1 score of 0.83 and precision of 0.86, outperforming other models like U-Net and FCN. The results demonstrate that this automated approach can reliably assist pathologists in quantifying immune cells, thereby improving diagnostic accuracy for Mycosis Fungoides.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Mycosis Fungoides",
+      "paper_terms": [
+        "Mycosis Fungoides",
+        "MF",
+        "cutaneous T-cell lymphoma",
+        "CTCL"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on detecting and segmenting lymphocytes in histopathological images of Mycosis Fungoides (MF), the most common cutaneous T-cell lymphoma. The dataset consists of 46 pathology slides from MF patients."
+    },
+    {
+      "lesion_type": "Positive CD4 T lymphocytes",
+      "paper_terms": [
+        "positive CD4",
+        "positive lymphocytes",
+        "Positive Lymphocytes in Epidermis"
+      ],
+      "role": "Target class",
+      "details": "The study specifically targets positive CD4 T cells, which are the hallmark of MF. These are annotated as red in segmentation labels and evaluated as a distinct class in the five-class classification problem."
+    },
+    {
+      "lesion_type": "Negative CD8 T lymphocytes",
+      "paper_terms": [
+        "negative CD8",
+        "negative lymphocytes",
+        "Negative Lymphocytes in Epidermis"
+      ],
+      "role": "Target class",
+      "details": "The study targets lymphocytes that fail to express positive CD8 (negative CD8). These are annotated as blue in segmentation labels and evaluated as a distinct class."
+    },
+    {
+      "lesion_type": "Positive lymphocytes in dermis",
+      "paper_terms": [
+        "positive lymphocytes in the dermis"
+      ],
+      "role": "Target class",
+      "details": "Annotated as green in segmentation labels, representing positive lymphocytes located in the dermis region, distinct from the epidermal focus."
+    },
+    {
+      "lesion_type": "Negative lymphocytes in dermis",
+      "paper_terms": [
+        "negative lymphocytes in the dermis"
+      ],
+      "role": "Target class",
+      "details": "Annotated as yellow in segmentation labels, representing negative lymphocytes located in the dermis region."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Lymphocyte masks and bounding boxes in histopathological images",
+        "primary": true,
+        "details": "The paper focuses on detecting and segmenting lymphocytes (positive CD4, negative CD8, etc.) in the epidermal region of Mycosis Fungoides histopathological images. The methodology uses YOLO11 for initial detection (bounding boxes) and an Attention U-Net for post-processing and refinement (segmentation masks). The task is explicitly described as a 'five-class classification problem' for the purpose of differentiating lymphocyte types, but the ultimate output and evaluation metrics (F1 score, IoU, precision, recall on masks/boxes) are for segmentation/detection of specific cell instances. The primary goal is 'lymphocyte segmentation' as stated in the title and abstract."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Lymphocyte class labels (5 classes)",
+        "primary": false,
+        "details": "The YOLO11 model was trained as a five-class classification problem to differentiate between positive lymphocytes in the epidermis, negative lymphocytes in the epidermis, positive lymphocytes in the dermis, negative lymphocytes in the dermis, and the epidermis itself. However, this classification is part of the detection/segmentation pipeline rather than a standalone diagnostic classification task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "LYON19 (Public Dataset)",
+      "description": "A public dataset used for initial model selection and comparison. The paper references the 'LYON19 - Grand Challenge' [11] as the source.",
+      "classes_used": [
+        "Lymphocytes"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to evaluate and select the YOLO11 model before applying it to the primary study dataset.",
+        "validation": null,
+        "testing": "Used to compare performance against other models (U-Net, YOLO5, FCN, LSM, Attention U-Net) to identify the most suitable model.",
+        "other": null
+      }
+    },
+    {
+      "name": "MF Patient Cohort (Private Dataset)",
+      "description": "A custom dataset of 46 pathology slides from patients diagnosed with Mycosis Fungoides (MF). Samples were obtained from biopsy samples taken at Shahid Faghihi Hospital in Shiraz and imaged at Shiraz University of Medical Sciences. Images were captured using an OLYMPUS BX43 microscope and DP27 camera. The dataset was processed into 719 initial images (1024x1024 pixels) and augmented to 2,157 images.",
+      "classes_used": [
+        "Epidermis",
+        "Positive lymphocytes in epidermis",
+        "Negative lymphocytes in epidermis",
+        "Positive lymphocytes in dermis",
+        "Negative lymphocytes in dermis"
+      ],
+      "counts": {
+        "total": 2157,
+        "training": 1726,
+        "validation": 431,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "The augmented dataset (2,157 images) was split into 80% for training (1,726 images) and 20% for validation (431 images). YOLO11 was trained on this data to detect lymphocytes in the epidermal region.",
+        "validation": "The remaining 20% of the augmented dataset (431 images) was used for validation.",
+        "testing": "The paper does not explicitly report a separate held-out test set count for the final evaluation of the enhanced YOLO11 + Attention U-Net model on this specific cohort, though it reports performance metrics (F1, Precision, Recall) on 'the test set' in Table I, likely referring to the validation split or a subset thereof used for final reporting.",
+        "other": "Images were annotated under the supervision of a pathologist using QuPath. The dataset was used to develop and evaluate the proposed two-step deep learning approach (YOLO11 + Attention U-Net)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "F1 score",
+    "Precision",
+    "Recall",
+    "IoU",
+    "Accuracy"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "No hypothesis testing was reported in the paper."
+  },
+  "results_obtained_in_each_dataset": {
+    "LYON19 (Public Dataset)": {
+      "description": "Evaluation of model selection for lymphocyte detection on a public dataset.",
+      "models": {
+        "YOLO11": {
+          "Regular Areas": {
+            "F1-score": "0.92",
+            "Precision": "0.93",
+            "Recall": "0.91"
+          },
+          "Clustered Cell Areas": {
+            "F1-score": "0.81",
+            "Precision": "0.80",
+            "Recall": "0.84"
+          },
+          "Artifact Areas": {
+            "F1-score": "0.55",
+            "Precision": "0.48",
+            "Recall": "0.82"
+          },
+          "All Areas": {
+            "F1-score": "0.83",
+            "Precision": "0.86",
+            "Recall": "0.83"
+          }
+        },
+        "Attention U-Net": {
+          "Regular Areas": {
+            "F1-score": "0.85",
+            "Precision": "0.86",
+            "Recall": "0.83"
+          },
+          "Clustered Cell Areas": {
+            "F1-score": "0.83",
+            "Precision": "0.89",
+            "Recall": "0.79"
+          },
+          "Artifact Areas": {
+            "F1-score": "0.51",
+            "Precision": "0.39",
+            "Recall": "0.79"
+          },
+          "All Areas": {
+            "F1-score": "0.81",
+            "Precision": "0.79",
+            "Recall": "0.81"
+          }
+        },
+        "U-Net": {
+          "Regular Areas": {
+            "F1-score": "0.82",
+            "Precision": "0.83",
+            "Recall": "0.81"
+          },
+          "Clustered Cell Areas": {
+            "F1-score": "0.81",
+            "Precision": "0.87",
+            "Recall": "0.77"
+          },
+          "Artifact Areas": {
+            "F1-score": "0.47",
+            "Precision": "0.34",
+            "Recall": "0.77"
+          },
+          "All Areas": {
+            "F1-score": "0.78",
+            "Precision": "0.76",
+            "Recall": "0.79"
+          }
+        },
+        "YOLO5": {
+          "Regular Areas": {
+            "F1-score": "0.78",
+            "Precision": "0.70",
+            "Recall": "0.88"
+          },
+          "Clustered Cell Areas": {
+            "F1-score": "0.79",
+            "Precision": "0.77",
+            "Recall": "0.81"
+          },
+          "Artifact Areas": {
+            "F1-score": "0.19",
+            "Precision": "0.11",
+            "Recall": "0.86"
+          },
+          "All Areas": {
+            "F1-score": "0.64",
+            "Precision": "0.51",
+            "Recall": "0.85"
+          }
+        },
+        "LSM": {
+          "Regular Areas": {
+            "F1-score": "0.74",
+            "Precision": "0.63",
+            "Recall": "0.90"
+          },
+          "Clustered Cell Areas": {
+            "F1-score": "0.70",
+            "Precision": "0.76",
+            "Recall": "0.65"
+          },
+          "Artifact Areas": {
+            "F1-score": "0.25",
+            "Precision": "0.14",
+            "Recall": "0.84"
+          },
+          "All Areas": {
+            "F1-score": "0.63",
+            "Precision": "0.52",
+            "Recall": "0.80"
+          }
+        },
+        "FCN": {
+          "Regular Areas": {
+            "F1-score": "0.71",
+            "Precision": "0.69",
+            "Recall": "0.74"
+          },
+          "Clustered Cell Areas": {
+            "F1-score": "0.71",
+            "Precision": "0.80",
+            "Recall": "0.64"
+          },
+          "Artifact Areas": {
+            "F1-score": "0.47",
+            "Precision": "0.35",
+            "Recall": "0.73"
+          },
+          "All Areas": {
+            "F1-score": "0.69",
+            "Precision": "0.67",
+            "Recall": "0.70"
+          }
+        }
+      },
+      "notes": "YOLO11 was selected as the best model based on superior performance across all regions compared to U-Net, YOLO5, FCN, LSM, and Attention U-Net."
+    },
+    "MF Patient Cohort (Private Dataset)": {
+      "description": "Evaluation of the enhanced YOLO11 + Attention U-Net model on a custom dataset of 46 pathology slides (2,157 augmented images). Results reported on the test set for three classes: Epidermis, Positive Lymphocytes in Epidermis, and Negative Lymphocytes in Epidermis.",
+      "models": {
+        "YOLO11 (Baseline)": {
+          "Epidermis": {
+            "F1-score": "0.90",
+            "IoU": "0.90",
+            "Accuracy": "0.90"
+          },
+          "Positive Lymphocytes in Epidermis": {
+            "F1-score": "0.60",
+            "IoU": "0.45",
+            "Accuracy": "0.58"
+          },
+          "Negative Lymphocytes in Epidermis": {
+            "F1-score": "0.72",
+            "IoU": "0.55",
+            "Accuracy": "0.80"
+          }
+        },
+        "YOLO11 + Attention U-Net (Enhanced)": {
+          "Epidermis": {
+            "F1-score": "0.94",
+            "IoU": "0.90",
+            "Accuracy": "0.93"
+          },
+          "Positive Lymphocytes in Epidermis": {
+            "F1-score": "0.65",
+            "IoU": "0.50",
+            "Accuracy": "0.64"
+          },
+          "Negative Lymphocytes in Epidermis": {
+            "F1-score": "0.74",
+            "IoU": "0.58",
+            "Accuracy": "0.82"
+          }
+        }
+      },
+      "notes": "The integration of Attention U-Net improved performance across all three classes. The lower performance for positive lymphocytes in the epidermis is attributed to imbalanced data distribution in the training set."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Enhanced YOLO11 with Attention U-Net post-processing",
+    "pretraining": "Not explicitly reported; YOLO11 was evaluated on the public LYON dataset for model selection before training on the custom MF dataset.",
+    "input_size": "256x256 pixels (for initial YOLO11 training on LYON dataset); 1024x1024 pixels (for MF dataset patch extraction); 128x128 pixels (internal grid resolution for Attention U-Net input)",
+    "architecture_details": {
+      "YOLO11": {
+        "type": "Object detection model",
+        "feature_extractor": "Convolutional Neural Network (CNN)",
+        "feature_map_resolutions": [
+          "32x32",
+          "16x16",
+          "8x8"
+        ],
+        "grid_cells": "21,504 total grid cells across three resolutions",
+        "output_format": "Bounding boxes (x, y, width, height) and class confidences"
+      },
+      "Attention_U_Net": {
+        "type": "Segmentation/Restoration network",
+        "base_architecture": "U-Net",
+        "key_component": "Attention Gates (AGs) in skip connections between encoder and decoder pathways",
+        "attention_mechanism": "Additive attention operation followed by softmax activation to generate attention coefficients",
+        "input_processing": "YOLO11 outputs (bounding boxes and class scores) concatenated and resized to 128x128 resolution, merged into a (4, 128, 128, 27) tensor"
+      }
+    },
+    "training_details": {
+      "YOLO11_training": {
+        "optimizer": "Adam",
+        "learning_rate": "0.001",
+        "batch_size": 4,
+        "epochs": 200,
+        "hardware": "Nvidia RTX 1080 TI GPUs (8 GB memory)",
+        "loss_function": "YOLO loss function"
+      },
+      "Attention_U_Net_training": {
+        "optimizer": "Not explicitly reported (Adam used for YOLO11, not specified for U-Net)",
+        "learning_rate": "0.0005",
+        "batch_size": 4,
+        "hardware": "Nvidia RTX 1080 TI GPUs",
+        "loss_functions": [
+          "Categorical cross-entropy",
+          "Dice loss"
+        ],
+        "output_activation": "Softmax"
+      }
+    },
+    "classification_or_output_head": {
+      "classes": [
+        "Epidermis",
+        "Positive lymphocytes in the epidermis",
+        "Negative lymphocytes in the epidermis",
+        "Positive lymphocytes in the dermis",
+        "Negative lymphocytes in the dermis"
+      ],
+      "task_type": "Five-class classification problem for lymphocyte differentiation",
+      "output_dimensions": {
+        "bounding_boxes": "(4, 21504, 4)",
+        "class_scores": "(4, 21504, 5)"
+      }
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "YOLO11",
+    "Attention U-Net",
+    "U-Net",
+    "YOLO5",
+    "FCN",
+    "LSM",
+    "Faster R-CNN",
+    "ResNet-101",
+    "ResNet-50",
+    "Inception-V2",
+    "VGG-16",
+    "TDC-LC",
+    "LSATM-Net"
+  ],
+  "preprocessing_techniques": [
+    "Image normalization applied to reduce staining intensity variations and standardize colors across slides",
+    "Patch extraction: Overlapping patches of 1024x1024 pixels extracted with a sliding step of 200 pixels",
+    "Data augmentation: Image rotation, brightness and contrast adjustment, cropping and scaling, Gaussian noise addition, and color modification",
+    "Input resizing: Images resized to 256x256 pixels for YOLO11 training on the LYON dataset",
+    "Annotation export: Manual annotations exported from QuPath as image masks"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Image rotation",
+      "details": "Applied to the MF patient cohort dataset to increase data diversity."
+    },
+    {
+      "technique": "Brightness and contrast adjustment",
+      "details": "Applied to the MF patient cohort dataset to increase data diversity."
+    },
+    {
+      "technique": "Cropping and scaling",
+      "details": "Applied to the MF patient cohort dataset to increase data diversity."
+    },
+    {
+      "technique": "Gaussian noise addition",
+      "details": "Applied to the MF patient cohort dataset to increase data diversity."
+    },
+    {
+      "technique": "Color modification",
+      "details": "Applied to the MF patient cohort dataset to increase data diversity."
+    }
+  ],
+  "conclusions": [
+    "The enhanced YOLO11 model, combined with an Attention U-Net for post-processing, outperformed baseline models (including U-Net, YOLO5, FCN, LSM, and standard Attention U-Net) in detecting and segmenting lymphocytes in histopathological images of Mycosis Fungoides.",
+    "On the public LYON dataset, YOLO11 demonstrated superior performance across all regions (regular, clustered, and artifact areas), achieving an overall F1 score of 0.83 and precision of 0.86.",
+    "The integration of Attention U-Net refined YOLO11's predictions, improving precision and reducing false positives and false negatives, particularly in complex or overlapping tissue regions.",
+    "On the custom Mycosis Fungoides dataset, the enhanced model achieved an F1 score of 0.94 and accuracy of 0.93 for epidermis detection, and improved F1 scores for positive (0.65) and negative (0.74) lymphocytes in the epidermis compared to the baseline YOLO11 model.",
+    "The lower performance in detecting positive lymphocytes in the epidermis was attributed to the imbalanced distribution of this class in the training dataset.",
+    "The proposed automated approach provides a reliable tool for quantifying immune cells in immunohistochemical images, potentially assisting pathologists and improving diagnostic accuracy for Mycosis Fungoides.",
+    "The study acknowledges the limitation of not having access to whole-slide images (WSI), relying instead on extracted patches, though it notes that the chosen patch dimensions provided high-quality coverage of the epidermal region."
+  ],
+  "important_remarks": [
+    "The study relies on a small, single-center private dataset of only 46 pathology slides from Shiraz, Iran, limiting generalizability and introducing potential population bias.",
+    "The model was not trained or tested on Whole-Slide Images (WSI); instead, it used extracted 1024x1024 pixel patches, which may miss contextual information available in full slides.",
+    "Performance on the primary target class (positive CD4 lymphocytes in the epidermis) was notably lower (F1=0.65) compared to other classes, explicitly attributed to class imbalance in the training data.",
+    "The paper does not report a separate, held-out test set for the final evaluation on the private MF cohort; metrics are reported on what appears to be the validation split or a subset thereof, raising concerns about data leakage or overfitting assessment.",
+    "No external validation was performed; the model was only evaluated on the internal dataset after initial model selection on a public dataset (LYON19).",
+    "The study lacks statistical significance testing (e.g., p-values, confidence intervals) to support the claimed superiority of the enhanced model over baselines.",
+    "Annotation was performed manually by a single pathologist using QuPath, introducing potential inter-annotator variability risks not addressed in the methodology.",
+    "The research is published in a conference proceeding (CSICC) rather than a peer-reviewed journal, which may indicate less rigorous scrutiny compared to journal publications."
+  ]
+}

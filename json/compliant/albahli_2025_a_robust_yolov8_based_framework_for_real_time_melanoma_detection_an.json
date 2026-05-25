@@ -1,0 +1,449 @@
+{
+  "file_name": "albahli_2025_a_robust_yolov8_based_framework_for_real_time_melanoma_detection_an.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a YOLOv8-based deep learning framework for real-time melanoma detection and segmentation. It employs multi-dataset training on ISIC 2020, HAM10000, and PH2 datasets, utilizing advanced augmentation strategies (CutMix, Mosaic) and preprocessing techniques to achieve state-of-the-art performance in skin lesion analysis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a 'robust YOLOv8-based framework' for melanoma detection and segmentation. It details specific methods including multi-dataset training on ISIC 2020, HAM10000, and PH2, and reports original results such as a mean Average Precision (mAP@0.5) of 98.6% and real-time inference speeds of 12.5 ms per image. Although it includes a 'Related Works' section, its primary purpose is to report new technical results and validation rather than summarizing prior literature."
+  },
+  "title": "A Robust YOLOv8-Based Framework for Real-Time Melanoma Detection and Segmentation with Multi-Dataset Training",
+  "authors": [
+    "Saleh Albahli"
+  ],
+  "doi": "10.3390/diagnostics15060691",
+  "journal": "Diagnostics",
+  "year": 2025,
+  "article_type": "Article",
+  "brief_summary": "This study proposes a robust YOLOv8-based deep learning framework for real-time melanoma detection and segmentation to address the limitations of subjective clinical diagnosis. The model was trained using a multi-dataset strategy integrating the ISIC 2020, HAM10000, and PH2 datasets, enhanced by adaptive preprocessing and advanced augmentation techniques like CutMix and Mosaic. Experimental evaluation demonstrated state-of-the-art performance, achieving a mean Average Precision (mAP@0.5) of 98.6%, a Dice Coefficient of 0.92, and an Intersection over Union (IoU) score of 0.88. These results surpassed conventional segmentation models such as U-Net, DeepLabV3+, and Mask R-CNN while maintaining a real-time inference speed of 12.5 ms per image. The unified detection and segmentation architecture significantly improves computational efficiency and generalizability across diverse clinical conditions. The findings highlight the framework's potential for scalable clinical deployment and mobile health applications in automated melanoma screening.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant",
+        "malignant skin lesions"
+      ],
+      "role": "Target class",
+      "details": "The primary target of the detection and segmentation framework. The study focuses on melanoma, the deadliest form of skin cancer, distinguishing it from benign lesions. Table 2 indicates 5,538 malignant cases in ISIC 2020, 1,690 in HAM10000, and 40 in PH2."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "benign skin lesions",
+        "benign cases"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class in the binary classification task to distinguish from malignant lesions. Table 2 indicates 27,588 benign cases in ISIC 2020, 8,325 in HAM10000, and 160 in PH2."
+    },
+    {
+      "lesion_type": "Atypical nevi / Unusual nevi",
+      "paper_terms": [
+        "unusual nevi",
+        "atypical pigmented lesions",
+        "rare cases",
+        "rare lesions"
+      ],
+      "role": "Subgroup analysis / Mentioned only",
+      "details": "An additional analysis was conducted on unusual nevi (atypical pigmented lesions with irregular structures). The model showed a slight decline in segmentation accuracy for these underrepresented cases. Not a primary training class but analyzed for generalization."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Detection",
+        "target": "Melanoma lesions (bounding boxes)",
+        "primary": true,
+        "details": "The paper proposes a YOLOv8-based framework for real-time melanoma detection. It reports Mean Average Precision (mAP@0.5) of 98.6% as a key metric for detection accuracy. The model localizes malignant lesions within images."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Melanoma lesion boundaries (masks)",
+        "primary": true,
+        "details": "The framework performs segmentation to delineate lesion boundaries. It reports a Dice Coefficient of 0.92 and an Intersection over Union (IoU) score of 0.88. The architecture unifies detection and segmentation into a single inference pass."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Benign vs. Malignant diagnosis",
+        "primary": false,
+        "details": "The model distinguishes between benign and malignant lesions. It reports a classification AUC of 0.985, precision of 0.91, and recall of 0.92. The study explicitly mentions 'real-time classification' and uses confusion matrices and Precision-Recall curves to evaluate this binary diagnostic task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2020",
+      "description": "The largest dataset used, providing a comprehensive collection of annotated dermoscopic images with bounding boxes and segmentation masks. Sourced from the International Skin Imaging Collaboration (ISIC).",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 33126,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign": 27588,
+          "Malignant": 5538
+        }
+      },
+      "use": {
+        "training": "Used as the primary dataset for training and evaluation, combined with other datasets using stratified sampling and weighting to address size imbalance.",
+        "validation": "Included in the multi-dataset training strategy; specific validation split details not reported separately from the combined set.",
+        "testing": "Test images were sourced from this dataset but strictly separated from training and validation splits.",
+        "other": "Used for ablation study (ISIC 2020 Only configuration)."
+      }
+    },
+    {
+      "name": "HAM10000",
+      "description": "A dataset providing additional diversity in lesion types, quality, morphology, and color distributions. Sourced from Harvard Medical School and the University of Vienna.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign": 8325,
+          "Malignant": 1690
+        }
+      },
+      "use": {
+        "training": "Integrated into the multi-dataset training strategy with dataset weighting to prevent bias toward the larger ISIC 2020 dataset.",
+        "validation": "Included in the multi-dataset training strategy.",
+        "testing": "Test images were sourced from this dataset but strictly separated from training and validation splits.",
+        "other": "Used for ablation study (HAM10000 Only configuration)."
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A smaller dataset containing high-resolution images with well-defined lesion boundaries, enhancing segmentation capability. Sourced from the University of Porto.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign": 160,
+          "Malignant": 40
+        }
+      },
+      "use": {
+        "training": "Integrated into the multi-dataset training strategy.",
+        "validation": "Included in the multi-dataset training strategy.",
+        "testing": "Test images were sourced from this dataset but strictly separated from training and validation splits.",
+        "other": "Used for ablation study (PH2 Only configuration)."
+      }
+    },
+    {
+      "name": "ISIC 2019",
+      "description": "A subset of external images from the ISIC 2019 dataset included to simulate deployment conditions with previously unseen lesion characteristics.",
+      "classes_used": [
+        "Unknown/Unspecified"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Included in the test set to evaluate generalization beyond the training distribution.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Mean Average Precision (mAP@0.5)",
+    "Dice Coefficient",
+    "Intersection over Union (IoU)",
+    "Precision",
+    "Recall",
+    "F1-Score",
+    "Area Under the Curve (AUC)",
+    "Hausdorff Distance",
+    "Inference Time (ms)",
+    "Frames Per Second (FPS)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "To validate the generalization capability of the model across different dataset splits and assess consistency of performance metrics.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Mean and Standard Deviation (SD)",
+      "purpose": "To report the central tendency and variability of performance metrics (Dice Coefficient, IoU Score, mAP@0.5) across five experimental runs with different randomized dataset splits, confirming stability and consistency.",
+      "type": "Descriptive Statistics"
+    },
+    {
+      "method": "Statistical significance tests",
+      "purpose": "To ensure the robustness of reported results by evaluating the mean and standard deviation of key performance metrics over multiple experimental runs.",
+      "type": "Hypothesis Testing / Robustness Analysis"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper reports mean and standard deviation over five experimental runs to demonstrate stability and consistency (robustness), but does not report formal hypothesis testing (e.g., t-tests, p-values) or significance thresholds."
+  },
+  "results_obtained_in_each_dataset": {
+    "Combined Datasets (ISIC 2020, HAM10000, PH2)": {
+      "metric": [
+        "Dice Coefficient",
+        "IoU Score",
+        "mAP@0.5",
+        "Precision",
+        "Recall",
+        "AUC",
+        "Inference Time (ms)",
+        "FPS"
+      ],
+      "models": {
+        "YOLOv8 (Proposed)": {
+          "Dice Coefficient": "0.92",
+          "IoU Score": "0.88",
+          "mAP@0.5": "98.6%",
+          "Precision": "0.91",
+          "Recall": "0.92",
+          "AUC": "0.985",
+          "Inference Time (ms)": "12.5 ms (single image, batch size 1)",
+          "FPS": "80"
+        },
+        "YOLOv8 (Mean ± SD across 5-fold CV)": {
+          "Dice Coefficient": "0.918 ± 0.005",
+          "IoU Score": "0.876 ± 0.005",
+          "mAP@0.5": "98.5 ± 0.1%"
+        }
+      },
+      "notes": "The model was tested on a separate test dataset strictly separated from training/validation splits, including external images from ISIC 2019. It outperformed baselines including U-Net, DeepLabV3+, Mask R-CNN, SwinUNet, and SAM."
+    },
+    "ISIC 2020 Only": {
+      "metric": [
+        "Dice Coefficient",
+        "IoU Score",
+        "mAP@0.5"
+      ],
+      "models": {
+        "YOLOv8 (Ablation)": {
+          "Dice Coefficient": "0.87",
+          "IoU Score": "0.82",
+          "mAP@0.5": "96.2%"
+        }
+      },
+      "notes": "Ablation study result for single-dataset training configuration."
+    },
+    "HAM10000 Only": {
+      "metric": [
+        "Dice Coefficient",
+        "IoU Score",
+        "mAP@0.5"
+      ],
+      "models": {
+        "YOLOv8 (Ablation)": {
+          "Dice Coefficient": "0.85",
+          "IoU Score": "0.80",
+          "mAP@0.5": "95.8%"
+        }
+      },
+      "notes": "Ablation study result for single-dataset training configuration."
+    },
+    "PH2 Only": {
+      "metric": [
+        "Dice Coefficient",
+        "IoU Score",
+        "mAP@0.5"
+      ],
+      "models": {
+        "YOLOv8 (Ablation)": {
+          "Dice Coefficient": "0.81",
+          "IoU Score": "0.77",
+          "mAP@0.5": "94.3%"
+        }
+      },
+      "notes": "Ablation study result for single-dataset training configuration."
+    },
+    "Baseline Models (Comparison)": {
+      "metric": [
+        "Inference Time (ms)",
+        "FPS"
+      ],
+      "models": {
+        "MobileViT": {
+          "Inference Time (ms)": "15.8 ms",
+          "FPS": "63"
+        },
+        "GhostNet": {
+          "Inference Time (ms)": "14.1 ms",
+          "FPS": "71"
+        },
+        "U-Net": {
+          "Inference Time (ms)": "35.8 ms",
+          "FPS": "28"
+        },
+        "DeepLabV3+": {
+          "Inference Time (ms)": "42.3 ms",
+          "FPS": "24"
+        },
+        "Mask R-CNN": {
+          "Inference Time (ms)": "50.1 ms",
+          "FPS": "20"
+        },
+        "SwinUNet": {
+          "Inference Time (ms)": "28.7 ms",
+          "FPS": "35"
+        },
+        "SAM": {
+          "Inference Time (ms)": "30.5 ms",
+          "FPS": "32"
+        }
+      },
+      "notes": "Comparison of computational efficiency. YOLOv8 achieved the highest FPS among listed models."
+    },
+    "Unusual Nevi (Subgroup Analysis)": {
+      "metric": [
+        "Segmentation Accuracy"
+      ],
+      "models": {
+        "YOLOv8": {
+          "Segmentation Accuracy": "Slight decline compared to standard cases"
+        }
+      },
+      "notes": "Performance declined slightly for underrepresented atypical pigmented lesions due to insufficient representation during training."
+    }
+  },
+  "architecture_used": {
+    "main_model": "YOLOv8",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "type": "Unified detection and segmentation framework",
+      "backbone": "Not explicitly specified in text",
+      "heads": "Unified head for simultaneous lesion detection and segmentation",
+      "loss_function": "Combination of IoU Loss, Focal Loss, Dice Loss, and Cross-Entropy Loss"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": "0.001 with cosine annealing decay",
+      "batch_size": 16,
+      "weight_decay": 0.0005,
+      "momentum": 0.9,
+      "epochs": 100,
+      "warm_up_steps": "3 epochs with linear learning rate scaling",
+      "augmentation": [
+        "Geometric Transformations (random rotations -30 to 30 degrees, flips, affine)",
+        "Color Augmentations (CLAHE, brightness/contrast, color jitter)",
+        "Noise and Blur (Gaussian noise, motion blur, elastic)",
+        "Mixing Strategies (CutMix, Mosaic)",
+        "Adaptive Reweighting"
+      ],
+      "dataset_splits": {
+        "ISIC 2020": "70% training, 15% validation, 15% test",
+        "HAM10000": "70% training, 15% validation, 15% test",
+        "PH2": "70% training, 15% validation, 15% test"
+      }
+    },
+    "classification_or_output_head": {
+      "task": "Binary classification (Benign vs. Malignant) combined with detection and segmentation",
+      "metrics": "AUC 0.985, Precision 0.91, Recall 0.92"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "YOLOv8",
+    "U-Net",
+    "DeepLabV3+",
+    "Mask R-CNN",
+    "SwinUNet",
+    "Segment Anything Model (SAM)",
+    "MobileViT",
+    "GhostNet",
+    "YOLOv4 + Active Contour",
+    "SegNet",
+    "Vision Transformers",
+    "ResNet-50",
+    "EfficientNet",
+    "DenseNet",
+    "InceptionV3",
+    "DenseNet121",
+    "Swin Transformers",
+    "ConvNeXt",
+    "SegFormer"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 512 × 512 pixel resolution",
+    "Normalization of pixel intensity values to the [0, 1] range",
+    "Histogram matching to balance color distributions and reduce domain discrepancies",
+    "Adaptive contrast enhancement using Contrast-Limited Adaptive Histogram Equalization (CLAHE)",
+    "Artifact removal (hair, ruler marks, gel bubbles) using morphological operations and inpainting techniques",
+    "Conversion of polygon-based segmentation masks to YOLO segmentation format",
+    "Generation of approximate segmentation masks from bounding boxes where masks were unavailable"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transformations",
+      "details": "Random rotations (-30 to 30 degrees), horizontal and vertical flips, affine transformations, and scaling."
+    },
+    {
+      "technique": "Color Augmentations",
+      "details": "Adaptive histogram equalization (CLAHE), brightness and contrast adjustments, color jitter, and histogram matching to balance color distributions."
+    },
+    {
+      "technique": "Noise and Blur Augmentations",
+      "details": "Gaussian noise addition, motion blur, and elastic transformations."
+    },
+    {
+      "technique": "Mixing Strategies",
+      "details": "CutMix and Mosaic augmentation to increase data diversity and balance underrepresented classes."
+    },
+    {
+      "technique": "Adaptive Reweighting",
+      "details": "Class rebalancing by assigning higher loss penalties to underrepresented lesion classes to mitigate class imbalance."
+    },
+    {
+      "technique": "Synthetic Data Generation",
+      "details": "Applied for underrepresented lesion types to enhance generalization."
+    },
+    {
+      "technique": "Approximate Mask Generation",
+      "details": "Generation of approximate segmentation masks from bounding boxes where masks were unavailable to ensure comprehensive training."
+    }
+  ],
+  "conclusions": [
+    "The proposed YOLOv8-based framework effectively addresses limitations of existing diagnostic methods by integrating detection and segmentation tasks into a single inference pass, achieving high accuracy and computational efficiency.",
+    "The framework achieved state-of-the-art performance with a mean Average Precision (mAP@0.5) of 98.6%, a Dice Coefficient of 0.92, and an Intersection over Union (IoU) score of 0.88, surpassing conventional models such as U-Net, DeepLabV3+, Mask R-CNN, SwinUNet, and SAM.",
+    "Multi-dataset training integrating ISIC 2020, HAM10000, and PH2 datasets significantly enhanced generalizability across diverse clinical conditions and mitigated dataset bias.",
+    "The model demonstrated real-time inference capabilities with a speed of 12.5 ms per image (80 FPS), making it highly suitable for clinical deployment and mobile health applications.",
+    "The unified architecture reduces computational complexity compared to multi-stage architectures by simultaneously detecting and segmenting lesions in a single forward pass.",
+    "The study highlights the importance of multi-dataset training for robust generalization in melanoma detection.",
+    "The authors recommend the integration of explainable AI techniques to enhance clinical trust and interpretability of the model."
+  ],
+  "important_remarks": [
+    "The study relies on retrospective public datasets (ISIC 2020, HAM10000, PH2) and does not include prospective clinical validation or real-world deployment testing.",
+    "Performance on 'unusual nevi' (atypical pigmented lesions) showed a slight decline in segmentation accuracy due to insufficient representation during training, indicating potential bias against rare lesion types.",
+    "The initial AUC was reported as 0.517 due to a high false positive rate; this was improved to approximately 0.82 only after fine-tuning the classification threshold and applying hard negative mining, suggesting the initial model had significant calibration issues.",
+    "Inference speed metrics (12.5 ms/image) were measured on high-end hardware (NVIDIA RTX 3090 GPU); performance on resource-constrained edge devices or mobile phones, which are critical for the claimed mobile health applications, was not empirically validated.",
+    "The paper acknowledges the need for Explainable AI (XAI) techniques like Grad-CAM and SHAP to enhance clinical trust but does not implement or report results for these methods in the current study.",
+    "Class imbalance between benign and malignant cases was addressed via adaptive reweighting and augmentation, but the authors recommend further techniques like SMOTE for future work, indicating residual imbalance concerns.",
+    "The test set included external images from ISIC 2019 to simulate unseen data, but the generalization to completely different demographic populations or imaging devices beyond the provided datasets is not fully established."
+  ]
+}

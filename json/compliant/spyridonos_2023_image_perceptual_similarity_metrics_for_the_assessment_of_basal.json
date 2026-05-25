@@ -1,0 +1,290 @@
+{
+  "file_name": "spyridonos_2023_image_perceptual_similarity_metrics_for_the_assessment_of_basal.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a pre-trained deep convolutional neural network (VGG16) to extract image embeddings for assessing perceptual similarity of basal cell carcinoma (BCC) lesions and post-treatment scars. Specifically, it utilized rectified embeddings from the 'fc6' layer of the VGG16 architecture to model texture similarity, combined with color space metrics (Bray-Curtis distance in YIQ) to predict visual deviation from surrounding healthy skin."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of image perceptual similarity metrics for basal cell carcinoma. It describes a methodology using 176 clinical photographs assessed by six physicians, employs a pre-trained VGG16 neural network for feature extraction, and reports results including statistical analyses (Cronbach’s α, Wilcoxon rank-sum test) to validate the proposed metrics against human raters. The structure includes standard research sections such as Abstract, Introduction, Methods, Results, and Discussion, indicating it is an original study rather than a review."
+  },
+  "title": "Image Perceptual Similarity Metrics for the Assessment of Basal Cell Carcinoma",
+  "authors": [
+    "Panagiota Spyridonos",
+    "Georgios Gaitanis",
+    "Aristidis Likas",
+    "Konstantinos Seretis",
+    "Vasileios Moschovos",
+    "Laurence Feldmeyer",
+    "Kristine Heidemeyer",
+    "Athanasia Zampeta",
+    "Ioannis D. Bassukas"
+  ],
+  "doi": "10.3390/cancers15143539",
+  "journal": "Cancers",
+  "year": 2023,
+  "article_type": "Article",
+  "brief_summary": "This study aimed to develop reliable, objective image perceptual similarity metrics for assessing basal cell carcinoma (BCC) tumors and post-treatment scars. The researchers analyzed 176 clinical photographs of BCCs from 100 patients, which were independently graded by six physicians using a visual deviation scale. To model perceptual similarity, the study employed a pre-trained VGG16 deep convolutional neural network to extract texture embeddings and evaluated various color spaces and distance metrics. The Bray-Curtis distance in the YIQ color space combined with rectified embeddings from the VGG16 'fc6' layer demonstrated the strongest performance in minimizing mean squared error against human ratings. The results indicated that the proposed automated metrics achieved internal consistency and agreement levels comparable to those of human experts, offering a robust and affordable tool for monitoring BCC treatment outcomes.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC",
+        "BCC tumors",
+        "untreated BCC tumors",
+        "treated BCC tumors"
+      ],
+      "role": "Target class",
+      "details": "The study focused on 176 clinical photographs of basal cell carcinoma from 100 patients. This included 67 treated BCC tumors (post-treatment scars: 21 after surgical excision, 46 after immunocryosurgery) and 109 untreated BCC tumors."
+    },
+    {
+      "lesion_type": "Scar",
+      "paper_terms": [
+        "post-treatment scars",
+        "scars",
+        "scar assessment"
+      ],
+      "role": "Target class",
+      "details": "The study assessed post-treatment scars resulting from BCC therapies (surgical excision and immunocryosurgery) as part of the BCC lesion analysis."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Regression",
+    "is_classification": false,
+    "is_regression": true,
+    "all_task_types": [
+      {
+        "task_type": "Regression",
+        "target": "Continuous perceptual similarity scores (color and texture deviation) from surrounding healthy skin.",
+        "primary": true,
+        "details": "The study used ordinal logistic regression (OLREG) models to transform calculated image similarity metrics into discrete values (1-4) to predict human-assessed perceptual scores. The primary optimization criterion was minimizing the mean squared error (MSE) between the predicted automated scores and the mean visual scores provided by physicians, which characterizes a regression task aimed at predicting continuous or ordinal numeric outcomes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "University Hospital of Ioannina BCC Clinical Photography Dataset",
+      "description": "A private dataset of archival clinical photographs of basal cell carcinoma (BCC) tumors and post-treatment scars retrieved from the dermatology and plastic surgery clinic archives of the University Hospital of Ioannina, Greece. The images were acquired by different operators using cameras with varying spatial resolutions (4016 × 6016; 3648 × 2736; 768 × 1024).",
+      "classes_used": [
+        "Untreated Basal Cell Carcinoma (BCC) tumors",
+        "Post-treatment scars (after surgical excision)",
+        "Post-treatment scars (after immunocryosurgery)"
+      ],
+      "counts": {
+        "total": 176,
+        "training": 80,
+        "validation": 96,
+        "testing": null,
+        "per_class": {
+          "untreated_BCC": 109,
+          "post_treatment_scars": 67,
+          "surgical_excision_scars": 21,
+          "immunocryosurgery_scars": 46
+        }
+      },
+      "use": {
+        "training": "Used to train ordinal logistic regression (OLREG) models. A balanced set of 20 samples randomly selected from each of the four visual deviation scales was used for training.",
+        "validation": "Used to validate different color and texture similarity metrics in terms of Mean Squared Error (MSE) over one hundred repetitions. A validation set of 96 samples was used.",
+        "testing": "null",
+        "other": "The dataset was also used for internal consistency and inter-rater agreement estimation (Cronbach’s α, weighted Gwet’s AC2, quadratic Cohen’s kappa) by six physicians who independently graded the lesions on a 4-score scale."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Mean Squared Error (MSE)",
+    "Absolute Accuracy (ACC)",
+    "Adjacent Accuracy (ACC_adj)",
+    "Cronbach’s α",
+    "Weighted Gwet’s AC2",
+    "Quadratic Cohen’s kappa",
+    "Wilcoxon rank-sum test",
+    "Box plot analysis",
+    "K-means cluster analysis",
+    "Cosine similarity",
+    "Bray-Curtis distance (BCD)",
+    "Ordinal Logistic Regression (OLREG)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Cronbach’s α",
+      "purpose": "To estimate internal consistency of ratings among human experts and between human experts and the automated system.",
+      "type": "Reliability/Consistency"
+    },
+    {
+      "method": "Weighted Gwet’s AC2",
+      "purpose": "To estimate inter-rater agreement among the six physicians.",
+      "type": "Inter-rater agreement"
+    },
+    {
+      "method": "Quadratic Cohen’s kappa",
+      "purpose": "To estimate inter-rater agreement among the six physicians and to assess agreement between pairs of raters (human-human and human-system).",
+      "type": "Inter-rater agreement"
+    },
+    {
+      "method": "Ordinal Logistic Regression (OLREG)",
+      "purpose": "To transform calculated image similarity metrics into discrete values (1-4) to predict human-assessed perceptual scores.",
+      "type": "Regression/Prediction"
+    },
+    {
+      "method": "Mean Squared Error (MSE)",
+      "purpose": "To validate and select the best similarity metrics by minimizing the error between predicted automated scores and mean visual scores provided by physicians.",
+      "type": "Error Metric"
+    },
+    {
+      "method": "Wilcoxon rank-sum test",
+      "purpose": "To compare the levels of agreement between the 'Human-System' and 'Human-Human' groups and to compare perceptual texture agreement between humans with color agreement.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Box plot analysis",
+      "purpose": "To visualize and compare the distributions of Cohen’s kappa values for the agreement groups.",
+      "type": "Visualization/Descriptive"
+    },
+    {
+      "method": "K-means cluster analysis",
+      "purpose": "To highlight how the chosen similarity metrics effectively capture perceptual similarities in a meaningful manner.",
+      "type": "Clustering"
+    },
+    {
+      "method": "Cosine similarity",
+      "purpose": "To calculate texture similarity between feature vectors from the VGG16 network layers.",
+      "type": "Similarity Metric"
+    },
+    {
+      "method": "Bray-Curtis distance (BCD)",
+      "purpose": "To measure color deviation in the YIQ color space.",
+      "type": "Distance Metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Wilcoxon rank-sum test",
+    "null_hypothesis": "There is no difference in the central tendency (distribution) of Cohen's kappa values between the 'Human-Human' agreement group and the 'Human-System' agreement group.",
+    "alternative_hypothesis": "There is a difference in the central tendency (distribution) of Cohen's kappa values between the 'Human-Human' agreement group and the 'Human-System' agreement group.",
+    "alpha": 0.05,
+    "interpretation": "For color and texture agreement between humans and the system, the p-value was > 0.05, indicating no significant difference and suggesting comparable central tendencies. For perceptual texture agreement between humans compared to color agreement between humans, the p-value was < 0.01, indicating a significant difference where texture agreement was higher."
+  },
+  "results_obtained_in_each_dataset": {
+    "University Hospital of Ioannina BCC Clinical Photography Dataset": {
+      "validation_split": {
+        "size": 96,
+        "description": "Random validation round used to compare 'Human-System' (H-S) and 'Human-Human' (H-H) agreement levels."
+      },
+      "training_split": {
+        "size": 80,
+        "description": "Balanced set of 20 samples randomly selected from each of the four visual deviation scales."
+      },
+      "metrics": {
+        "color_similarity": {
+          "best_metric": "Bray-Curtis Distance (BCD) in YIQ color space",
+          "model": "Ordinal Logistic Regression (OLREG)",
+          "results": {
+            "mean_squared_error": {
+              "value": 0.564,
+              "confidence_interval": "0.560–0.567"
+            },
+            "absolute_accuracy": {
+              "value": 0.543,
+              "confidence_interval": "0.541–0.545"
+            },
+            "adjacent_accuracy": {
+              "value": 0.964,
+              "confidence_interval": "0.963–0.965"
+            }
+          }
+        },
+        "texture_similarity": {
+          "best_metric": "Cosine similarity on rectified embeddings from VGG16 'relu6' layer",
+          "model": "Ordinal Logistic Regression (OLREG)",
+          "results": {
+            "mean_squared_error": {
+              "value": 0.512,
+              "confidence_interval": "0.509–0.515"
+            },
+            "absolute_accuracy": {
+              "value": 0.538,
+              "confidence_interval": "0.535–0.540"
+            },
+            "adjacent_accuracy": {
+              "value": 0.983,
+              "confidence_interval": "0.982–0.984"
+            }
+          }
+        },
+        "agreement_assessment": {
+          "human_human_agreement": {
+            "consistency_cronbach_alpha": "> 0.9",
+            "reliability_gwets_ac2": "> 0.70",
+            "texture_vs_color_agreement": {
+              "finding": "Perceptual texture agreement was higher than color perceptual agreement",
+              "p_value": "< 0.01",
+              "test": "Wilcoxon rank-sum test"
+            }
+          },
+          "human_system_agreement": {
+            "comparison_to_human_human": {
+              "finding": "Comparable central tendencies for both color and texture scores",
+              "p_value": "> 0.05",
+              "test": "Wilcoxon rank-sum test"
+            }
+          }
+        }
+      },
+      "notes": "The Bray-Curtis distance in the YIQ color model and rectified embeddings from the 'fc6' layer (note: text specifies 'relu6' for best texture performance in results section, but abstract mentions 'fc6' as minimizing MSE; results section explicitly cites 'relu6' with MSE 0.512) demonstrated strong performance. K-means cluster analysis (k=4) confirmed that similarity metrics successfully clustered items with similar perceptual scores."
+    }
+  },
+  "architecture_used": {
+    "main_model": "VGG16",
+    "pretraining": "Pre-trained deep convolutional neural network (trained for large-scale image classification tasks)",
+    "input_size": null,
+    "architecture_details": {
+      "type": "Deep Convolutional Neural Network (CNN)",
+      "layers_used": [
+        "relu6"
+      ],
+      "layer_type": "Rectified linear unit (ReLU) layer / Fully connected layer",
+      "activation_function": "ReLU (Rectified Linear Unit)",
+      "description": "The study utilized rectified embeddings from the 'relu6' layer (also referred to as 'fc6' in the abstract) of the VGG16 architecture. The ReLU layer sets all negative values to zero while leaving positive values unchanged."
+    },
+    "training_details": {
+      "training_method": "Not applicable (used as a fixed feature extractor)",
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": null,
+      "training_schedule": null
+    },
+    "classification_or_output_head": {
+      "type": "Ordinal Logistic Regression (OLREG)",
+      "description": "The embeddings from VGG16 were not used for direct classification but were transformed into discrete values (1-4) using Ordinal Logistic Regression models to predict human-assessed perceptual scores."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "VGG16",
+    "Ordinal Logistic Regression (OLREG)",
+    "K-means"
+  ],
+  "preprocessing_techniques": [
+    "Manual cropping of three arbitrary-sized patches from each photo: one patch from the target skin area (S) and two sample patches (S1 and S2) from the perilesional skin area.",
+    "Image scale estimation using an internal fiducial marker to account for variations in camera resolution and patient distance.",
+    "Use of cross-polarized photography (suggested for future work to address shiny skin patches due to light reflections)."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed image perceptual similarity metrics, specifically the Bray-Curtis distance in the YIQ color model combined with rectified embeddings from the VGG16 'fc6' layer, demonstrated strong performance in representing perceptual similarities of basal cell carcinoma (BCC) tumors and post-treatment scars.",
+    "The automated metrics achieved internal consistency and agreement levels comparable to those of human expert raters, as evidenced by 'excellent' consistency (Cronbach’s α > 0.9) and 'good' reliability (Gwet’s AC2 > 0.70) for both color and texture assessments.",
+    "Statistical analysis (Wilcoxon rank-sum test) showed no significant difference (p > 0.05) between the agreement levels of the 'Human-System' pairs and 'Human-Human' pairs for both color and texture scores, indicating the system performs at a level similar to experts.",
+    "Perceptual texture agreement among human experts was significantly higher than color perceptual agreement (p < 0.01), suggesting texture is a more consistent feature for visual assessment.",
+    "The study concludes that the proposed approach offers a robust, high-speed, and affordable modality for monitoring BCC treatment outcomes in clinical settings.",
+    "The authors acknowledge limitations regarding the dataset size and variability, suggesting future work should expand the BCC image dataset to capture a wider range of variations and characteristics, and potentially utilize cross-polarized photography to address shiny skin patches."
+  ],
+  "important_remarks": [
+    "The study is limited by a small dataset size (176 images from 100 patients) and lacks external validation, relying solely on internal consistency and a single validation split.",
+    "The dataset is biased towards facial BCCs in a specific geographic population (Greece), limiting generalizability to other anatomical sites or ethnicities.",
+    "Data is not publicly available, which hinders independent replication and benchmarking of the proposed metrics.",
+    "The study acknowledges that shiny skin patches due to light reflections can interfere with color assessment, suggesting cross-polarized photography as a necessary improvement for future work.",
+    "The VGG16 model was used as a fixed feature extractor (pre-trained on ImageNet) rather than being fine-tuned on dermatological data, which may limit the specificity of the texture embeddings.",
+    "The proposed metrics are designed for monitoring treatment outcomes and scar assessment rather than diagnosis, limiting their clinical utility in initial BCC detection."
+  ]
+}

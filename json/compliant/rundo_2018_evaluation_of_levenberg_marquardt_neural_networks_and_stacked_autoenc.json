@@ -1,0 +1,323 @@
+{
+  "file_name": "rundo_2018_evaluation_of_levenberg_marquardt_neural_networks_and_stacked_autoenc.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used AI methods, specifically Levenberg-Marquardt neural networks and stacked autoencoders, to perform nevus discrimination (benign vs. melanoma) and risk assessment on dermoscopy skin lesion images from the PH2 database."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents an original automatic pipeline for skin lesion analysis using Levenberg-Marquardt neural networks and stacked autoencoders. It details a specific methodology (pre-processing, feature extraction, classification), describes the implementation of the proposed system, and reports experimental results (sensitivity, specificity) on the PH2 database, which are characteristics of original research rather than a review."
+  },
+  "title": "Evaluation of Levenberg–Marquardt neural networks and stacked autoencoders clustering for skin lesion analysis, screening and follow-up",
+  "authors": [
+    "Francesco Rundo",
+    "Sabrina Conoci",
+    "Giuseppe L. Banna",
+    "Alessandro Ortis",
+    "Filippo Stanco",
+    "Sebastiano Battiato"
+  ],
+  "doi": "10.1049/iet-cvi.2018.5195",
+  "journal": "IET Computer Vision",
+  "year": 2018,
+  "article_type": "Research paper",
+  "brief_summary": "This study evaluates an automatic pipeline for skin lesion analysis to discriminate between benign nevi and melanoma using dermoscopy images from the PH2 database. The method employs State Controlled Cellular Neural Networks for pre-processing and segmentation, followed by the extraction of 21 hand-crafted morphological and melanocytic features. These features are classified using a Levenberg–Marquardt neural network, with a secondary evaluation of a stacked autoencoder architecture for clustering. The Levenberg–Marquardt approach achieved 93% sensitivity and 92% specificity using the first 13 features, while the stacked autoencoder improved performance to 98% sensitivity and 98% specificity. The system also provides a numerical risk assessment and follow-up rate recommendations based on heuristic thresholds derived from the extracted features.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant",
+        "malignant nevus",
+        "melanoma cancer"
+      ],
+      "role": "Target class",
+      "details": "Classified as malignant; one of the two primary classes in the binary discrimination task (benign vs. melanoma) using the PH2 database."
+    },
+    {
+      "lesion_type": "Benign Nevus",
+      "paper_terms": [
+        "benign nevus",
+        "benign",
+        "benign lesions",
+        "benign ones"
+      ],
+      "role": "Target class",
+      "details": "Classified as benign; one of the two primary classes in the binary discrimination task (benign vs. melanoma) using the PH2 database."
+    },
+    {
+      "lesion_type": "Dysplastic Nevus",
+      "paper_terms": [
+        "dysplastic nevus"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned as difficult to classify by dermatologists and oncologists, motivating the need for fine-grained scoring, but not explicitly listed as a distinct experimental class in the binary classification results."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into 'benign nevus' or 'melanoma' (malignant) categories.",
+        "primary": true,
+        "details": "The paper explicitly states the goal is 'nevus discrimination (benign against melanoma)' and 'discriminate between benign lesions and malignant ones'. The Levenberg-Marquardt neural network outputs a 2D vector approximated to [1,0] or [0,1] for binary classification. The stacked autoencoder clusters features into two classes: malignant ([0.5, 1]) and benign ([0, 0.5]). Performance is reported using Sensitivity and Specificity, standard metrics for classification."
+      },
+      {
+        "task_type": "Risk scoring/Ranking",
+        "target": "Numerical risk assessment and follow-up rate recommendation.",
+        "primary": false,
+        "details": "The system provides a 'numerical array to be used for follow-up rate definition and assessment' and suggests follow-up rates (e.g., 'Contact Physician as soon as possible', '1 month', '>= 1 year') based on heuristic thresholds applied to extracted features and classification output. This is a secondary output derived from the classification and feature values, not the primary predictive task of the neural networks themselves."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2 Database",
+      "description": "A dermoscopy image database for research and benchmarking, kindly provided within the ADDI project. The dataset consists of 176 dermoscopy images carefully classified in the related project webpage. Images were resized to 768 × 576 pixels.",
+      "classes_used": [
+        "Benign Nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 176,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the Levenberg-Marquardt neural network and the stacked autoencoder. The dataset was split into train and test/validation sets.",
+        "validation": "Used to validate the pipeline and compare performance with algorithms from the ADDI project.",
+        "testing": "Used to test the pipeline performance (sensitivity and specificity metrics reported on this dataset).",
+        "other": "Used as the primary source for the experimental evaluation of the proposed automatic skin lesion analysis pipeline."
+      }
+    },
+    {
+      "name": "Other Medical Database",
+      "description": "A private medical database provided by oncologists. The text states that the dataset used in the experiments was composed partially of images from the PH2 database and partially from this other medical database.",
+      "classes_used": [
+        "Benign lesions",
+        "Melanoma",
+        "Suspected malignancy"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Images from this database were included in the training set to improve generalization capability and avoid local convergence issues, specifically by introducing selected dermoscopy images with different patterns (colours, borders, irregularities, benign lesions, melanoma).",
+        "validation": null,
+        "testing": null,
+        "other": "Used to augment the PH2 database for training purposes."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Cost function C"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Levenberg–Marquardt back-propagation learning algorithm",
+      "purpose": "Training the neural network to minimize the mean square error during the learning phase.",
+      "type": "Optimization algorithm"
+    },
+    {
+      "method": "Kullback–Leibler divergence",
+      "purpose": "Imposing a sparsity constraint on the derived encodings in the stacked autoencoder to avoid overfitting.",
+      "type": "Regularization method"
+    },
+    {
+      "method": "Cost function C",
+      "purpose": "Evaluating and comparing classification performance by weighting false negatives and false positives.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Heuristic thresholding",
+      "purpose": "Defining follow-up rates based on averaged values of specific features computed during the training phase.",
+      "type": "Decision rule"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using sensitivity, specificity, and a cost function metric."
+  },
+  "results_obtained_in_each_dataset": {
+    "PH2 Database": {
+      "metric": [
+        "Sensitivity (%)",
+        "Specificity (%)",
+        "Cost Function (C)"
+      ],
+      "models": {
+        "LV approach (first 13 features)": {
+          "Sensitivity (%)": 93,
+          "Specificity (%)": 92,
+          "Cost Function (C)": 0.074
+        },
+        "LV approach (all features)": {
+          "Sensitivity (%)": 97,
+          "Specificity (%)": 95,
+          "Cost Function (C)": 0.038
+        },
+        "stacked autoencoders": {
+          "Sensitivity (%)": 98,
+          "Specificity (%)": 98,
+          "Cost Function (C)": 0.02
+        },
+        "global method (colour)": {
+          "Sensitivity (%)": 90,
+          "Specificity (%)": 89,
+          "Cost Function (C)": 0.104
+        },
+        "global method (textures)": {
+          "Sensitivity (%)": 93,
+          "Specificity (%)": 78,
+          "Cost Function (C)": 0.13
+        },
+        "local method (colour)": {
+          "Sensitivity (%)": 93,
+          "Specificity (%)": 84,
+          "Cost Function (C)": 0.106
+        },
+        "local method (textures)": {
+          "Sensitivity (%)": 88,
+          "Specificity (%)": 76,
+          "Cost Function (C)": 0.168
+        },
+        "global features C6 – kNN classifier": {
+          "Sensitivity (%)": 100,
+          "Specificity (%)": 71,
+          "Cost Function (C)": 0.116
+        },
+        "global features C1 – kNN classifier": {
+          "Sensitivity (%)": 88,
+          "Specificity (%)": 81,
+          "Cost Function (C)": 0.149
+        },
+        "global features C6 – SVM": {
+          "Sensitivity (%)": 84,
+          "Specificity (%)": 78,
+          "Cost Function (C)": 0.183
+        },
+        "global features C6 – AdaBoost": {
+          "Sensitivity (%)": 96,
+          "Specificity (%)": 77,
+          "Cost Function (C)": 0.117
+        },
+        "local features BoF": {
+          "Sensitivity (%)": 98,
+          "Specificity (%)": 79,
+          "Cost Function (C)": 0.1
+        }
+      },
+      "notes": "The proposed pipeline was validated on the PH2 database (176 dermoscopy images). The stacked autoencoders achieved the best performance (98% sensitivity, 98% specificity). The LV approach with all features achieved 97% sensitivity and 95% specificity. The LV approach with only the first 13 features achieved 93% sensitivity and 92% specificity. The cost function C weights false negatives (melanoma as benign) more heavily than false positives (benign as melanoma), with c10 = 1.5 and c01 = 1. Benchmarks from the ADDI project [1, 20] were used for comparison."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two architectures were evaluated: a Levenberg–Marquardt (LV) feed-forward neural network and a stacked autoencoder (SAE) with a SoftMax layer.",
+    "pretraining": "The Levenberg–Marquardt network was pre-trained with a training set containing skin lesion examples with different morphological features (colour, border, geometry, irregularities) related to benign and malignant examples. The stacked autoencoders were trained sequentially; the first autoencoder takes hand-crafted features as input, and the second takes the encoded features from the first.",
+    "input_size": "The input to the neural networks was a normalized set of 21 hand-crafted image features (F1...F21). The input images were resized to 768 × 576 pixels.",
+    "architecture_details": {
+      "Levenberg_Marquardt_NN": {
+        "type": "Feed-forward neural network",
+        "optimizer": "Levenberg–Marquardt back-propagation learning algorithm",
+        "layers": "One hidden layer with dimension 21 × 25 × 2 (21 inputs, 25 hidden neurons, 2 outputs)",
+        "output": "2D vector in compact set [0,1] × [0,1]",
+        "implementation": "MATLAB with Image and Neural Network toolboxes"
+      },
+      "Stacked_Autoencoder": {
+        "type": "Stacked Autoencoders with SoftMax layer",
+        "components": "Two autoencoders sequentially grouped with a SoftMax layer",
+        "hidden_layer_neurons": "20 neurons per hidden layer in each autoencoder",
+        "regularization": "Sparsity constraint based on Kullback–Leibler divergence to avoid overfitting",
+        "clustering_output": "Two classes: [0.5, 1] for malignant and [0, 0.5] for benign"
+      }
+    },
+    "training_details": {
+      "loss_function": "Mean squared error (MSE) for training dynamics; Cost function C for evaluation",
+      "cost_function_weights": "c10 = 1.5 (weight for false negative), c01 = 1 (weight for false positive)",
+      "dataset_split": "Dataset split into train and test/validation sets",
+      "data_augmentation": "Training set included images from PH2 database and a private medical database provided by oncologists to improve generalization and avoid local convergence"
+    },
+    "classification_or_output_head": {
+      "Levenberg_Marquardt": {
+        "type": "Binary classification",
+        "threshold": "Output values > 0.5 approximated to 1, < 0.5 approximated to 0",
+        "final_output": "Vector [1,0] or [0,1]"
+      },
+      "Stacked_Autoencoder": {
+        "type": "Clustering",
+        "head": "SoftMax layer",
+        "classes": "Malignant ([0.5, 1]) and Benign ([0, 0.5])"
+      }
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Levenberg–Marquardt neural network",
+    "stacked autoencoders",
+    "Support Vector Machine (SVM)",
+    "K-nearest neighbour (kNN)",
+    "AdaBoost",
+    "Naive-Bayes algorithm",
+    "neuro-fuzzy approaches",
+    "K-means",
+    "Bayesian classifier",
+    "deep-learning algorithm",
+    "feed-forward neural network system (NNS)",
+    "SC-cellular neural networks (SC-CNNs)",
+    "State Controlled Cellular Neural Networks"
+  ],
+  "preprocessing_techniques": [
+    "Conversion of RGB dermoscopy images to YCbCr color space",
+    "Application of State Controlled Cellular Neural Networks (SC-CNNs) for pre-processing",
+    "Use of SC-CNNs for lesion segmentation",
+    "Use of SC-CNNs for noise reduction (removal of hairs, angiomas)",
+    "Use of SC-CNNs for edge detection",
+    "Use of SC-CNNs for pixel averaging",
+    "Adaptive time-transient increasing of grey-level image contrast using SC-CNNs",
+    "Reduction of image distortion produced by dermoscopy gel using SC-CNNs",
+    "Resizing of source images to 768 × 576 pixels",
+    "Normalization of hand-crafted image features"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Dataset Composition / External Data Inclusion",
+      "details": "The training set was composed of images from the PH2 database and a private medical database provided by oncologists. This inclusion was intended to improve generalization capability and avoid local convergence issues by introducing dermoscopy images with different patterns (colours, borders, irregularities, benign lesions, melanoma)."
+    }
+  ],
+  "conclusions": [
+    "The proposed automatic pipeline using Levenberg–Marquardt neural networks and stacked autoencoders achieves robust and efficient discrimination between benign nevi and melanoma, offering a good trade-off between sensitivity and specificity.",
+    "The stacked autoencoder architecture improved performance over the Levenberg–Marquardt approach, achieving 98% sensitivity and 98% specificity on the PH2 database, compared to 97% sensitivity and 95% specificity for the Levenberg–Marquardt network using all features.",
+    "The Levenberg–Marquardt approach achieved 93% sensitivity and 92% specificity when using only the first 13 features, confirming that extending the feature set with more accurate melanocytes mathematical characterisation significantly improves discrimination capability.",
+    "Reducing the number of employed features resulted in lower performance, confirming the necessity of the full set of 21 proposed hand-crafted features for optimal classification.",
+    "The system provides a numerical risk assessment and follow-up rate recommendations (e.g., 'Contact Physician as soon as possible', '1 month', '>= 1 year') based on heuristic thresholds derived from specific features (F12, F17, F21) and classification output.",
+    "The cost function used for evaluation weights false negatives (missing a melanoma) more heavily than false positives (misclassifying a benign lesion as melanoma), reflecting the clinical priority of avoiding missed diagnoses.",
+    "The proposed method outperforms several benchmark algorithms from the ADDI project and other literature approaches in terms of sensitivity, specificity, and cost function metrics.",
+    "The pipeline is computationally efficient, capable of analyzing a single nevus in approximately 2.5 seconds.",
+    "The inclusion of images from a private medical database alongside the PH2 database for training helped improve generalization capability and avoid local convergence issues.",
+    "Future work will focus on investigating further deep learning approaches to improve performance and potentially reducing the number of features without compromising accuracy."
+  ],
+  "important_remarks": [
+    "The study relies on the PH2 database (176 images) and a private medical database for training, but does not report performance on an independent, external validation cohort, limiting generalizability assessment.",
+    "The training dataset was augmented with images from a private medical database provided by oncologists to improve generalization and avoid local convergence; however, the specific composition and size of this private dataset are not detailed, posing a potential data leakage or bias risk if not properly separated.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed; performance comparisons are based on point estimates of sensitivity, specificity, and a cost function.",
+    "The cost function weights false negatives (missed melanoma) 1.5 times more heavily than false positives, reflecting clinical priority but potentially masking lower specificity in benign classification if not carefully monitored.",
+    "The system uses heuristic thresholds derived from training data averages to recommend follow-up rates, which may not be robust across different populations or imaging devices without recalibration.",
+    "The pipeline is computationally efficient (~2.5 seconds per lesion) and portable to embedded platforms (STM32), suggesting potential for Point-of-Care deployment, but this was not validated in a clinical setting.",
+    "The study focuses on binary classification (benign vs. melanoma) and mentions dysplastic nevi as difficult to classify, but does not explicitly evaluate performance on this intermediate class, which is clinically significant.",
+    "The stacked autoencoder architecture improved performance (98% sensitivity/specificity) over the Levenberg-Marquardt network, but the improvement is based on a small dataset (176 images), raising concerns about overfitting despite sparsity constraints."
+  ]
+}

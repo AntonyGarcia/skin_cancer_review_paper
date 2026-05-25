@@ -1,0 +1,328 @@
+{
+  "file_name": "chen_2021_development_and_validation_of_the_interpretability_analysis_system_bas.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed and validated an interpretability analysis system using a deep learning model (specifically a U-Net segmentation model optimized on the PyTorch framework) to perform automatic segmentation of nail plate and pigmented areas from dermoscopic images. This AI method was used to extract quantitative indicators (area ratio, mean pixel value, evenness, irregularity, skin invasion) based on the 'ABCDEF' rule for monitoring nail pigmentation and early warning of subungual melanoma."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is labeled as an 'Original Article' and describes the development and validation of a new deep learning-based interpretability analysis system. It details original methods including data collection from outpatients (2019-2020), model training using a U-Net architecture on a PyTorch framework, and validation against clinical experts using metrics like Dice coefficient and R-squared values. The study presents new experimental results rather than summarizing prior literature."
+  },
+  "title": "Development and validation of the interpretability analysis system based on deep learning model for smart image follow-up of nail pigmentation",
+  "authors": [
+    "Yanqing Chen",
+    "Haofan Liu",
+    "Zhaoying Liu",
+    "Yang Xie",
+    "Yingxue Yao",
+    "Xiaofen Xing",
+    "Han Ma"
+  ],
+  "doi": "10.21037/atm-22-1714",
+  "journal": "Annals of Translational Medicine",
+  "year": 2022,
+  "article_type": "Original Article",
+  "brief_summary": "This study developed and validated an interpretability analysis system using a U-Net deep learning model to monitor nail pigmentation and warn of subungual melanoma. Dermoscopic images from 550 outpatients between 2019 and 2020 were used, with 500 images for training and 50 for testing. The system automatically segmented the nail plate and pigmented areas, achieving Dice coefficients of 0.9652 and 0.8711, respectively. It extracted five quantitative indicators based on the 'ABCDEF' rule, showing strong consistency with clinical expert evaluations, particularly for area ratio (R²=0.8179) and mean pixel value (R²=0.7149). The proposed system provides a non-invasive, interpretable tool for the dynamic follow-up and risk assessment of nail pigmentation.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Nail apparatus melanoma (Subungual melanoma)",
+      "paper_terms": [
+        "nail apparatus melanoma",
+        "subungual melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Target class (primary clinical concern for early warning)",
+      "details": "The study focuses on monitoring nail pigmentation to provide early warning for subungual melanoma. The dataset included patients with malignant melanoma as one of the diagnostic categories."
+    },
+    {
+      "lesion_type": "Nail matrix nevus",
+      "paper_terms": [
+        "nail matrix nevus",
+        "melanocytic nevus"
+      ],
+      "role": "Comparator class (benign condition)",
+      "details": "Included in the dataset of 550 dermoscopic images as a benign cause of nail pigmentation."
+    },
+    {
+      "lesion_type": "Subungual hemorrhage",
+      "paper_terms": [
+        "subungual hemorrhage"
+      ],
+      "role": "Comparator class (benign condition)",
+      "details": "Included in the dataset as a common benign cause of nail pigmentation."
+    },
+    {
+      "lesion_type": "Onychomycosis",
+      "paper_terms": [
+        "onychomycosis"
+      ],
+      "role": "Comparator class (benign condition)",
+      "details": "Included in the dataset as a benign cause of nail pigmentation."
+    },
+    {
+      "lesion_type": "Subungual glomus tumor",
+      "paper_terms": [
+        "subungual glomus tumor"
+      ],
+      "role": "Comparator class (benign condition)",
+      "details": "Included in the dataset as a benign cause of nail pigmentation."
+    },
+    {
+      "lesion_type": "Exogenous staining",
+      "paper_terms": [
+        "exogenous staining"
+      ],
+      "role": "Comparator class (benign condition)",
+      "details": "Mentioned in the introduction as a common cause of nail pigmentation; likely part of the broader 'benign diseases' category in the dataset."
+    },
+    {
+      "lesion_type": "Nail pigmentation (general)",
+      "paper_terms": [
+        "nail pigmentation",
+        "pigmented lesions",
+        "pigmented spot or line"
+      ],
+      "role": "Target class (general category for segmentation and analysis)",
+      "details": "The study develops a system to segment and analyze 'nail pigmentation' and 'pigmented areas' regardless of specific etiology, focusing on the 'ABCDEF' rule features for risk assessment."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Contours of the whole nail plate and pigmented areas (dark spots or black lines) from dermoscopic images.",
+        "primary": true,
+        "details": "The study developed a U-Net deep learning model to perform automatic segmentation of the nail plate and pigmented areas. The model outputs a pixel probability matrix for binary classification of foreground (target area) vs. background, which is then used to extract quantitative indicators (area ratio, mean pixel value, evenness, irregularity, skin invasion) based on the 'ABCDEF' rule. The primary AI task is image segmentation, not diagnostic classification or continuous regression prediction of disease labels."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Dermoscopic nail pigmentation dataset",
+      "description": "A collection of dermoscopic images of nail lesions obtained from outpatients between 2019 and 2020 at the Fifth Affiliated Hospital and Third Affiliated Hospital of Sun Yat-sen University. The images were annotated using Labelme to mark contours of the nail area and pigmented spots/lines.",
+      "classes_used": [
+        "Nail apparatus melanoma (Subungual melanoma)",
+        "Nail matrix nevus",
+        "Subungual hemorrhage",
+        "Onychomycosis",
+        "Subungual glomus tumor",
+        "Exogenous staining",
+        "Nail pigmentation (general)"
+      ],
+      "counts": {
+        "total": 550,
+        "training": 500,
+        "validation": null,
+        "testing": 50,
+        "per_class": {}
+      },
+      "use": {
+        "training": "500 images were randomly selected as the training set for developing and optimizing the U-Net deep learning segmentation model. Data augmentation (rotation, translation, cropping, noise addition) was applied to this set.",
+        "validation": null,
+        "testing": "50 images were used as the test set to evaluate the segmentation model's performance (Dice coefficient, Pixel Accuracy, Jaccard index) and to assess the consistency of the extracted quantitative indicators with clinical expert evaluations.",
+        "other": "The dataset was used to validate the interpretability of the system by comparing model-extracted indicators (area ratio, mean pixel value, evenness, irregularity, skin invasion) against expert scores for the 'ABCDEF' rule features."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient (DC)",
+    "Pixel Accuracy (PA)",
+    "Jaccard index",
+    "R-squared (R²)",
+    "P-value"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "k-fold cross validation",
+      "purpose": "To divide the dermoscopic images into training and test sets at a ratio of 10:1.",
+      "type": "Data splitting method"
+    },
+    {
+      "method": "Linear regression analysis",
+      "purpose": "To study the relationship between the quantitative indicators extracted by the model and the clinical scores evaluated by experts.",
+      "type": "Regression analysis"
+    },
+    {
+      "method": "R-squared (R²) coefficient of determination",
+      "purpose": "To determine the strength of the correlation between the model's indicators and the clinical features assessed by experts.",
+      "type": "Goodness-of-fit metric"
+    },
+    {
+      "method": "P-value significance testing",
+      "purpose": "To assess the statistical significance of the correlation between model indicators and expert scores, with P<0.05 considered significant.",
+      "type": "Hypothesis testing"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Linear regression analysis with significance testing (P-value)",
+    "null_hypothesis": "There is no correlation between the quantitative indicators extracted by the model and the clinical scores evaluated by experts.",
+    "alternative_hypothesis": "There is a significant correlation between the quantitative indicators extracted by the model and the clinical scores evaluated by experts.",
+    "alpha": 0.05,
+    "interpretation": "P<0.05 was considered significant. The study reported P<0.001 for the correlations of area ratio vs. breadth score, mean pixel value vs. pigment score, and evenness vs. pigment score, and P=0.0014 for irregularity vs. border score, indicating statistically significant consistency between the model's indicators and expert evaluations."
+  },
+  "results_obtained_in_each_dataset": {
+    "Dermoscopic nail pigmentation dataset (Test Set, n=50)": {
+      "segmentation_performance": {
+        "metric": "Pixel Accuracy (PA), Jaccard Index, Dice Coefficient (DC)",
+        "models": {
+          "U-Net (Nail area segmentation)": {
+            "PA": "0.9785",
+            "Jaccard": "0.9332",
+            "DC": "0.9652"
+          },
+          "U-Net (Pigmented spot or line area segmentation)": {
+            "PA": "0.9753",
+            "Jaccard": "0.7842",
+            "DC": "0.8711"
+          }
+        },
+        "notes": "The U-Net model was optimized on the PyTorch framework. The test set consisted of 50 images randomly selected from 550 total images (10:1 split). The model achieved higher PA, Jaccard index, and DC for the nail area compared to the pigmented spot or line area."
+      },
+      "interpretability_consistency_with_experts": {
+        "metric": "R-squared (R²), P-value",
+        "models": {
+          "Area ratio vs. Breadth score": {
+            "R2": "0.8179",
+            "P_value": "<0.001"
+          },
+          "Mean pixel value vs. Pigment score": {
+            "R2": "0.7149",
+            "P_value": "<0.001"
+          },
+          "Evenness vs. Pigment score": {
+            "R2": "0.5247",
+            "P_value": "<0.001"
+          },
+          "Irregularity vs. Border score": {
+            "R2": "0.1927",
+            "P_value": "0.0014"
+          }
+        },
+        "notes": "Linear regression analysis was used to compare model-extracted indicators against clinical expert scores (0-9 scale). R² > 0.7 was considered a good fit, 0.5-0.7 a moderate fit. Area ratio and mean pixel value showed good consistency with expert judgments. Evenness showed acceptable consistency. Irregularity showed lower consistency (R²=0.1927)."
+      },
+      "representative_case_analysis": {
+        "metric": "Quantitative indicator values for 5 representative images",
+        "models": {
+          "Image 1": {
+            "Area ratio": "0.91",
+            "Mean pixel value": "35.86",
+            "Evenness": "18.27",
+            "Irregularity": "2.01",
+            "Skin invasion": "True"
+          },
+          "Image 2": {
+            "Area ratio": "0.26",
+            "Mean pixel value": "70.43",
+            "Evenness": "24.28",
+            "Irregularity": "2.10",
+            "Skin invasion": "False"
+          },
+          "Image 3": {
+            "Area ratio": "0.50",
+            "Mean pixel value": "54.81",
+            "Evenness": "23.31",
+            "Irregularity": "1.07",
+            "Skin invasion": "True"
+          },
+          "Image 4": {
+            "Area ratio": "0.11",
+            "Mean pixel value": "41.45",
+            "Evenness": "20.90",
+            "Irregularity": "0.88",
+            "Skin invasion": "False"
+          },
+          "Image 5": {
+            "Area ratio": "0.10",
+            "Mean pixel value": "140.05",
+            "Evenness": "9.33",
+            "Irregularity": "0.03",
+            "Skin invasion": "False"
+          }
+        },
+        "notes": "These values correspond to the expert scores provided in Table 2 (e.g., Image 1 had Breadth=9, Border=7.5, Pigment=9, Extension=8.5, Malignant/benign=9). The system concluded that the intelligent analysis system has the potential to develop into an interpretable intelligent nail pigmentation follow-up system."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "U-Net",
+    "pretraining": null,
+    "input_size": "Approximately 1,500×2,400 pixels (average dermoscopic image size)",
+    "architecture_details": {
+      "framework": "PyTorch",
+      "model_type": "Deep learning image segmentation model",
+      "variants_used": [
+        "Standard U-Net",
+        "Attention U-Net",
+        "U-Net 3+"
+      ],
+      "output_type": "Pixel probability matrix with the same size as the original image, representing classification probability of foreground (target area) vs. background",
+      "thresholding": "Pixels with probability value >0.5 are classified as foreground"
+    },
+    "training_details": {
+      "dataset_split": "500 images for training, 50 images for testing (10:1 ratio via k-fold cross validation)",
+      "data_augmentation": [
+        "Rotation",
+        "Translation",
+        "Cropping",
+        "Noise addition"
+      ],
+      "optimization": null,
+      "loss_function": null,
+      "hyperparameters": null,
+      "training_schedule": null
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask generation",
+      "details": "Outputs a pixel probability matrix for binary classification of foreground (target area) vs. background. Two separate U-Net models were used: one for the whole nail plate contour and one for pigmented spots/lines."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net",
+    "Attention U-Net",
+    "U-Net 3+",
+    "FCN (fully convolutional network)"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation (rotation, translation, cropping, noise addition) applied to the training set to reduce over-fitting and enhance adaptability",
+    "Image labeling using Labelme to mark contours of the nail area and pigmented spots/lines",
+    "Generation of binary gray images as training labels for the deep learning segmentation model"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Applied to the training set to reduce over-fitting and enhance adaptability."
+    },
+    {
+      "technique": "Translation",
+      "details": "Applied to the training set to reduce over-fitting and enhance adaptability."
+    },
+    {
+      "technique": "Cropping",
+      "details": "Applied to the training set to reduce over-fitting and enhance adaptability."
+    },
+    {
+      "technique": "Noise addition",
+      "details": "Applied to the training set to reduce over-fitting and enhance adaptability."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep learning-based interpretability analysis system achieved accurate segmentation of the nail plate (Dice coefficient 0.9652) and pigmented areas (Dice coefficient 0.8711) from dermoscopic images.",
+    "The system successfully extracted medically interpretable quantitative indicators (area ratio, mean pixel value, evenness, irregularity, and skin invasion) based on the 'ABCDEF' rule.",
+    "The model's extracted indicators showed strong consistency with clinical expert evaluations, particularly for area ratio vs. breadth score (R²=0.8179, P<0.001) and mean pixel value vs. pigment score (R²=0.7149, P<0.001).",
+    "The system has the potential to serve as an intelligent follow-up tool for convenient, non-invasive monitoring of nail pigmentation and early warning of subungual melanoma.",
+    "The system may provide clinicians with understandable auxiliary information to assist in diagnosis and reduce unnecessary nail biopsies."
+  ],
+  "important_remarks": [
+    "The study is limited by a small sample size (n=550 total, with only 50 images in the test set), which may affect the generalizability and robustness of the deep learning model.",
+    "The dataset was collected from two specific hospitals (Fifth Affiliated Hospital and Third Affiliated Hospital of Sun Yat-sen University), introducing potential geographic and demographic bias that limits external validation.",
+    "The system was validated only against clinical expert scores for interpretability consistency (R² values) and segmentation accuracy (Dice coefficient), but did not report diagnostic performance metrics (e.g., sensitivity, specificity, AUC) for distinguishing melanoma from benign lesions.",
+    "The 'irregularity' indicator showed weak consistency with expert border scores (R²=0.1927), suggesting limitations in the model's ability to accurately capture border irregularity features compared to other indicators like area ratio (R²=0.8179).",
+    "The study acknowledges that the current system is a prototype and insufficient for adapting to diverse clinical scenarios without further enlargement of the dataset and optimization of index analysis formulas.",
+    "Data leakage risk is mitigated by the use of k-fold cross-validation for splitting data into training (500 images) and test (50 images) sets, but the small test set size reduces the statistical power of the validation results."
+  ]
+}

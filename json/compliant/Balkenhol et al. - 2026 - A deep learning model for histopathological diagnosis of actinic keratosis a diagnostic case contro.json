@@ -1,0 +1,387 @@
+{
+  "file_name": "Balkenhol et al. - 2026 - A deep learning model for histopathological diagnosis of actinic keratosis a diagnostic case contro.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed and evaluated a U-Net-based deep learning model (DLM) to detect actinic keratosis (AK) in histopathological whole slide images (WSI). The study reports diagnostic accuracy metrics (98.9% at patch level, 96.8% at WSI level) obtained using this AI model for dermatopathological diagnosis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as an 'ORIGINAL ARTICLE' and a 'diagnostic case control accuracy study'. It describes original experimental work involving the development of a U-Net-based deep learning model, retrospective data collection of 371 cases for development and 626 for validation, and the reporting of new diagnostic accuracy metrics (e.g., 98.9% accuracy at patch level). It is not a review or summary of prior literature."
+  },
+  "title": "A deep learning model for histopathological diagnosis of actinic keratosis: a diagnostic case control accuracy study",
+  "authors": [
+    "Julius BALKENHOL",
+    "Max SCHMIDT",
+    "Tim SCHNAUDER",
+    "Johannes LANGHORST",
+    "Jean LE’CLERC ARRASTIA",
+    "Daniel OTERO BAGUER",
+    "Georgia GILBERT",
+    "Francesco LACARRUBBA",
+    "Thomas DIRSCHKA",
+    "Lutz SCHMITZ"
+  ],
+  "doi": "10.23736/S2784-8671.25.08336-7",
+  "journal": "Italian Journal of Dermatology and Venereology",
+  "year": 2026,
+  "article_type": "Original research article",
+  "brief_summary": "This study developed a U-Net-based deep learning model to detect actinic keratosis in histopathological whole slide images. The model was trained on 371 retrospective cases collected from routine dermatopathology practice between 2018 and 2022. Evaluation in the test cohort showed an accuracy of 98.9% at the patch level and 96.8% at the whole slide image level. Additionally, 626 cases were assessed in a Diagnostic Case-Control-Accuracy Study, where the model achieved an accuracy of 97.6% compared to the gold standard. The findings demonstrate the potential of deep learning models to reliably detect actinic keratosis in routine dermatopathology workflows.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic keratosis",
+      "paper_terms": [
+        "Actinic keratosis",
+        "AK"
+      ],
+      "role": "Target class",
+      "details": "The primary target of the deep learning model development and evaluation. The study collected 371 cases with a final diagnosis of AK for model development and tested the model on these and additional routine cases."
+    },
+    {
+      "lesion_type": "Negative control (no pathology)",
+      "paper_terms": [
+        "negative control slides",
+        "no histologically detectable pathology"
+      ],
+      "role": "Comparator class",
+      "details": "102 specimens with no histologically detectable pathology (from triangles of burrow flap surgeries or tumor-free margin sections) were used as negative controls in the Diagnostic Case-Control-Accuracy Study."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma",
+        "SCC",
+        "cSCC"
+      ],
+      "role": "Mentioned only (differentiation context)",
+      "details": "Mentioned in the introduction as a potential progression from AK and in the discussion as a histologically similar keratinocytic disease that AK must be differentiated from. Not a target class for the model in this study."
+    },
+    {
+      "lesion_type": "Bowen's disease",
+      "paper_terms": [
+        "Bowens disease",
+        "Bowen's Disease"
+      ],
+      "role": "Mentioned only (differentiation context)",
+      "details": "Mentioned in the introduction (referencing other studies) and discussion as a condition that AK must be differentiated from. Not a target class for the model in this study."
+    },
+    {
+      "lesion_type": "Seborrheic keratosis",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "SK"
+      ],
+      "role": "Mentioned only (differentiation context)",
+      "details": "Mentioned in the introduction (referencing other studies) as a condition with which deep learning models have been applied. Not a target class for the model in this study."
+    },
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC",
+        "nodal basal cell carcinoma"
+      ],
+      "role": "Mentioned only (differentiation context)",
+      "details": "Mentioned in the introduction (referencing other studies) as a condition with which deep learning models have been applied. Not a target class for the model in this study."
+    },
+    {
+      "lesion_type": "Dermal nevus",
+      "paper_terms": [
+        "dermal nevus"
+      ],
+      "role": "Mentioned only (differentiation context)",
+      "details": "Mentioned in the introduction (referencing other studies) as a condition with which deep learning models have been applied. Not a target class for the model in this study."
+    },
+    {
+      "lesion_type": "Healthy epidermis",
+      "paper_terms": [
+        "Healthy Epidermis"
+      ],
+      "role": "Segmentation target (annotation label)",
+      "details": "Epidermis of the negative control slides was annotated as 'Healthy Epidermis' during the slide annotation process to define areas without AK."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnosis of Actinic Keratosis (AK) vs. negative control/no pathology at patch and WSI levels.",
+        "primary": true,
+        "details": "The model predicts discrete diagnostic categories (AK present vs. absent) using optimal classification thresholds (0.35 for patch level, 0.45 for WSI level) applied to probability outputs. Performance was evaluated using accuracy, sensitivity, specificity, PPV, NPV, and AUROC."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-level localization of AK areas within histopathological slides.",
+        "primary": false,
+        "details": "The U-Net-based model generates a segmentation map (heatmap) assigning pixels to the diagnosis of AK if the probability exceeds a threshold. Performance was assessed using Intersection over Union (IoU) at the patch level (78.8%) and WSI level (67.7%)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Development Cohort (Training + Test)",
+      "description": "A retrospective cohort of histopathological whole slide images (WSI) collected from routine dermatopathology practice between 2018 and 2022. The cohort was derived from 1,046 initial records, with exclusions for unclear diagnosis, damaged slides, comorbidities, and absence of AK features, resulting in 895 AK-positive slides and 102 negative control slides. These were split into a Training Cohort and a Test Cohort for model development and threshold optimization.",
+      "classes_used": [
+        "Actinic Keratosis (AK)",
+        "Negative Control (No histologically detectable pathology)"
+      ],
+      "counts": {
+        "total": 997,
+        "training": 182,
+        "validation": null,
+        "testing": 189,
+        "per_class": {
+          "AK": {
+            "total": 269,
+            "training": 164,
+            "testing": 105
+          },
+          "Negative Control": {
+            "total": 102,
+            "training": 18,
+            "testing": 84
+          }
+        }
+      },
+      "use": {
+        "training": "Used to train the U-Net-based deep learning model. 15% of the training cohort (27 slides) was randomly selected for validation after each training epoch. The remaining 85% was used for batch-wise training.",
+        "validation": "15% of the training cohort was used for validation of the DLM's performance after each training epoch.",
+        "testing": "Used to evaluate the DLM's performance and determine optimal classification thresholds (0.35 for patch level, 0.45 for WSI level) using accuracy, sensitivity, specificity, PPV, NPV, and AUROC.",
+        "other": "Negative control slides (102 total) were used to define areas of 'Healthy Epidermis' for segmentation annotation purposes."
+      }
+    },
+    {
+      "name": "Remaining Cohort (Diagnostic Case-Control-Accuracy Study)",
+      "description": "A cohort of 626 routine clinical cases collected from the same timeframe (2018-2022) as the development cohort but separated to avoid bias. These cases were not used in the initial model development or threshold selection. They represent a 'reversed design' diagnostic case-control study to validate the model on routine cases.",
+      "classes_used": [
+        "Actinic Keratosis (AK)",
+        "Negative Control (No histologically detectable pathology)"
+      ],
+      "counts": {
+        "total": 626,
+        "training": null,
+        "validation": null,
+        "testing": 626,
+        "per_class": {
+          "AK": 626,
+          "Negative Control": 0
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to assess the diagnostic performance of the DLM on routine clinical cases. The DLM's WSI-level diagnosis was compared against the gold standard histopathological diagnosis.",
+        "other": "Served as an external validation set to evaluate the model's applicability in routine practice, distinct from the development/test split."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Intersection over Union (IoU)",
+    "Area Under the Receiver Operating Characteristic curve (AUROC)",
+    "Sensitivity",
+    "Specificity",
+    "Positive Predictive Value (PPV)",
+    "Negative Predictive Value (NPV)",
+    "F1 Score",
+    "True Positives (TP)",
+    "True Negatives (TN)",
+    "False Positives (FP)",
+    "False Negatives (FN)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Receiver Operating Characteristic (ROC) curve analysis",
+      "purpose": "To monitor performance across all thresholds and calculate the Area Under the Receiver Operating Characteristic curve (AUROC) for overall classifier performance.",
+      "type": "Hypothesis test / Performance metric"
+    },
+    {
+      "method": "Wilson method",
+      "purpose": "To calculate 95% confidence intervals for PPV, NPV, sensitivity, specificity, and accuracy.",
+      "type": "Confidence interval estimation"
+    },
+    {
+      "method": "Multinomial bootstrap",
+      "purpose": "To obtain 95% confidence intervals for the F1 score using 10,000 resamples.",
+      "type": "Confidence interval estimation"
+    },
+    {
+      "method": "Intersection over Union (IoU)",
+      "purpose": "To assess accurate classification of morphological changes at the cellular level and compare the proportion of pixels annotated by the DLM with those annotated by dermatopathologists.",
+      "type": "Segmentation metric"
+    },
+    {
+      "method": "Optimal threshold selection",
+      "purpose": "To determine classification thresholds (0.35 for patch level, 0.45 for WSI level) that maximize sensitivity while maintaining high specificity.",
+      "type": "Model calibration"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance was evaluated using diagnostic accuracy metrics (accuracy, sensitivity, specificity, PPV, NPV, F1 score, AUROC, IoU) and confidence intervals (95% CI) calculated via the Wilson method and multinomial bootstrap, but no statistical hypothesis tests comparing groups were reported."
+  },
+  "results_obtained_in_each_dataset": {
+    "Test Cohort": {
+      "description": "Evaluation of the Deep Learning Model (DLM) on the test cohort to determine optimal classification thresholds and performance metrics.",
+      "metrics": {
+        "Patch Level (Threshold 0.35)": {
+          "Accuracy": "98.9% (95% CI: 98.7-99.1)",
+          "Sensitivity": "97.9% (95% CI: 97.1-98.4)",
+          "Specificity": "99.0% (95% CI: 98.9-99.2)",
+          "PPV": "93.4% (95% CI: 92.2-94.5)",
+          "NPV": "99.7% (95% CI: 99.6-99.8)",
+          "F1 Score": "95.6% (95% CI: 94.9-96.3)",
+          "Mean IoU": "0.6594 ± 0.3151",
+          "Overall IoU": "0.7876",
+          "TP": 1737,
+          "FN": 38,
+          "TN": 12669,
+          "FP": 122
+        },
+        "WSI Level (Threshold 0.35)": {
+          "Accuracy": "91.0% (95% CI: 86.6-94.3)",
+          "Sensitivity": "100% (95% CI: 96.5-100)",
+          "Specificity": "79.8% (95% CI: 70.0-87.0)",
+          "PPV": "86.1% (95% CI: 78.8-91.1)",
+          "NPV": "100% (95% CI: 94.6-100)",
+          "F1 Score": "92.5% (95% CI: 88.6-95.9)",
+          "Overall IoU": "0.7876",
+          "TP": 105,
+          "FN": 0,
+          "TN": 67,
+          "FP": 17
+        },
+        "Patch Level (Threshold 0.45)": {
+          "Accuracy": "98.7% (95% CI: 98.5-98.8)",
+          "Sensitivity": "92.3% (95% CI: 91.0-93.4)",
+          "Specificity": "99.6% (95% CI: 99.4-99.7)",
+          "PPV": "96.6% (95% CI: 95.6-97.4)",
+          "NPV": "98.8% (95% CI: 98.7-99.1)",
+          "F1 Score": "94.4% (95% CI: 93.6-95.2)",
+          "Mean IoU": "0.526 ± 0.3143",
+          "Overall IoU": "0.6774",
+          "TP": 1638,
+          "FN": 137,
+          "TN": 12733,
+          "FP": 58
+        },
+        "WSI Level (Threshold 0.45)": {
+          "Accuracy": "96.8% (95% CI: 93.3-98.5)",
+          "Sensitivity": "99.0% (95% CI: 94.8-99.8)",
+          "Specificity": "94.0% (95% CI: 86.8-97.4)",
+          "PPV": "95.4% (95% CI: 89.7-98.0)",
+          "NPV": "98.8% (95% CI: 93.3-99.8)",
+          "F1 Score": "97.2% (95% CI: 94.7-99.1)",
+          "Overall IoU": "0.6774",
+          "TP": 104,
+          "FN": 1,
+          "TN": 79,
+          "FP": 5
+        }
+      },
+      "notes": "The optimal threshold for patch level was 0.35 and for WSI level was 0.45. The model achieved an AUROC of 0.998 at patch level and 0.991 at WSI level."
+    },
+    "Remaining Cohort (Diagnostic Case-Control-Accuracy Study)": {
+      "description": "Evaluation of the DLM on 626 routine clinical cases not used in development or threshold selection.",
+      "metrics": {
+        "WSI Level (Threshold 0.45)": {
+          "Accuracy": "98.0% (95% CI: 96.7-98.8)",
+          "Sensitivity": "97.9% (95% CI: 96.5-98.8)",
+          "Specificity": "98.8% (95% CI: 93.3-99.8)",
+          "PPV": "99.8% (95% CI: 99.1-100)",
+          "NPV": "85.9% (95% CI: 77.3-91.6)",
+          "F1 Score": "98.8% (95% CI: 98.2-99.4)",
+          "TP": 613,
+          "FN": 13,
+          "TN": 79,
+          "FP": 1
+        }
+      },
+      "notes": "Sensitivity, specificity, accuracy, and F1 score all exceeded 97.9%. PPV neared 99.8% while NPV declined to 85.9%."
+    },
+    "Combined Cohort (Test + Remaining)": {
+      "description": "Combined analysis of the test cohort and remaining cohort (N=815 total cases).",
+      "metrics": {
+        "WSI Level": {
+          "Accuracy": "97.6% (95% CI: 96.4-98.5)",
+          "Sensitivity": "97.5% (95% CI: 96.2-98.5)",
+          "Specificity": "98.8% (95% CI: 93.3-99.8)",
+          "PPV": "99.9% (95% CI: 99.2-100)",
+          "NPV": "81.4% (95% CI: 72.6-87.9)",
+          "F1 Score": "98.7% (95% CI: 98.1-99.3)",
+          "TP": 717,
+          "FN": 18,
+          "TN": 79,
+          "FP": 1
+        }
+      },
+      "notes": "Specificity remained constant compared to individual cohorts, while sensitivity, accuracy, and F1 score showed slight declines. NPV decreased further to 81.4%."
+    }
+  },
+  "architecture_used": {
+    "main_model": "U-Net",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "type": "Modified U-Net architecture",
+      "description": "A deep neural network (DNN) based on a modified version of the U-Net architecture used for segmentation of Actinic Keratosis (AK). The model processes whole slide images (WSI) by first detecting tissue, tiling the tissue into patches (1024x1024 pixels), running the DL model on patches, and combining results. A separate DLM model, similar in architecture, was also used for generating annotations of the epidermis.",
+      "reference": "Reference 17 in the paper (Olsen TG, et al. or similar U-Net foundational work, though specific citation details for ref 17 are not fully provided in the context, the architecture is explicitly stated as 'modified version of the U-Net architecture')"
+    },
+    "training_details": {
+      "optimizer": "null",
+      "loss_function": "null",
+      "hyperparameters": {
+        "validation_split": "15% of the training cohort randomly selected for validation after each training epoch",
+        "training_split": "85% of the data fed batch-wise for training",
+        "patch_size": "1024x1024 pixels",
+        "thresholds": {
+          "patch_level": "0.35",
+          "wsi_level": "0.45"
+        }
+      },
+      "training_schedule": "null"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation map/Heatmap",
+      "description": "The model outputs a segmentation map (heatmap) assigning pixels to the diagnosis of AK if the probability exceeds a set threshold. Pixels with probability above the threshold are classified as AK, while those below are considered normal."
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net-based deep learning model (DLM)",
+    "Deep Learning Model (DLM)"
+  ],
+  "preprocessing_techniques": [
+    "Slide digitization using Hamamatsu Nanozoomer S210 slide scanner to generate whole slide images (WSI)",
+    "Tissue detection to segment tissue areas from the background",
+    "Tiling of detected tissue into patches of 1024x1024 pixels",
+    "Pseudonymization of histology numbers and anonymization of patient data (age calculation, birth date replacement)",
+    "Exclusion of slides with unclear diagnosis, damage, comorbidities, or absence of AK features",
+    "Inclusion criteria filtering: complete preservation/visibility of epidermis, presence of stratum papillare with at least twice the thickness of the overlying epidermal layer, and visibility of stratum papillare along at least 50% of the epidermal length",
+    "Exclusion criterion: presence of any co-pathology",
+    "Manual annotation of areas of atypical keratinocytes as 'AK', 'Hair follicle extension', or 'Healthy Epidermis' by two board-certified dermatopathologists"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The developed U-Net-based deep learning model demonstrated high diagnostic accuracy for detecting actinic keratosis in histopathological whole slide images, achieving 98.9% accuracy at the patch level and 96.8% at the whole slide image level in the test cohort.",
+    "In a Diagnostic Case-Control-Accuracy Study involving 626 routine clinical cases, the model achieved an overall accuracy of 97.6%, validating its performance on data not used during development.",
+    "The study highlights the potential of deep learning models to reliably detect actinic keratosis in routine dermatopathology workflows.",
+    "The authors suggest that as technology advances, deep learning models may have a future impact on dermatopathology diagnostics."
+  ],
+  "important_remarks": [
+    "Limited number of negative controls (102 cases) used in the development cohort, which is mathematically responsible for the trend of decreasing Negative Predictive Value (NPV) and near-perfect Positive Predictive Value (PPV) as the number of AK cases increases.",
+    "Single-center study design using specimens from one lab and digitized by a single scanner type (Hamamatsu Nanozoomer S210); external validation on multicentre datasets with different scanner types and staining protocols is required.",
+    "Potential variability from different staining protocols or scanners was not analyzed.",
+    "The model was not benchmarked against dermatopathologists' performance; it was only compared to the gold standard histopathological diagnosis.",
+    "No commercially available AI software solutions currently exist for clinical use in dermatopathology, highlighting a gap between research and implementation.",
+    "Implementation barriers include high hardware costs (slide scanners, data transfer/storage), the need to integrate multiple DLMs for diverse pathologies, and the lack of user-friendly software for seamless workflow integration.",
+    "The study did not evaluate the model's ability to differentiate between diagnoses or function in the presence of comorbidities.",
+    "The Diagnostic Case-Control-Accuracy Study used a 'reversed design' with 626 routine cases to validate performance on data not used during development, but specificity remained constant while sensitivity and accuracy showed slight declines in the combined cohort."
+  ]
+}

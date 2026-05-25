@@ -1,0 +1,302 @@
+{
+  "file_name": "ali_2020_a_machine_learning_approach_to_automatic_detection_of_irregularity_in_s.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a Convolutional Neural Network (CNN) and Gaussian Naive Bayes ensemble to automatically detect irregularity in skin lesion borders using dermoscopic images for melanoma diagnosis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel automated approach for skin lesion border irregularity detection using a CNN and Gaussian Naive Bayes ensemble. It details specific methodology (fuzzy c-means clustering, Canny edge detector), presents original experimental results (accuracy 93.6%, sensitivity 100%, specificity 92.5%, F-score 96.1%), and introduces new contributions including a segmentation method and quantitative irregularity measure, rather than merely summarizing prior literature."
+  },
+  "title": "A machine learning approach to automatic detection of irregularity in skin lesion border using dermoscopic images",
+  "authors": [
+    "Abder-Rahman Ali",
+    "Jingpeng Li",
+    "Guang Yang",
+    "Sally Jane O’Shea"
+  ],
+  "doi": "10.7717/peerj-cs.268",
+  "journal": "PeerJ Comput. Sci.",
+  "year": 2020,
+  "article_type": "Research article",
+  "brief_summary": "This study proposes an automated approach to detect irregularity in skin lesion borders, a key feature for melanoma diagnosis, using dermoscopic images. The methodology involves segmenting the lesion via fuzzy c-means clustering, detecting borders with a Canny edge detector, and deriving quantitative irregularity measures. These features are then processed by a Convolutional Neural Network and Gaussian Naive Bayes ensemble to classify borders as regular or irregular. The model was evaluated on test images labeled by a dermatologist, with results indicating high diagnostic performance. Specifically, the approach achieved an accuracy of 93.6%, sensitivity of 100%, specificity of 92.5%, and an F-score of 96.1%. These findings suggest the proposed method is effective for objective assessment of skin lesion border irregularity.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class (contextual)",
+      "details": "Melanoma is the primary disease context for the study, as border irregularity is a key diagnostic feature (B in ABCD rule). The study focuses on detecting irregularity in skin lesions, which is a feature of melanoma, but the classification task is binary (regular vs. irregular border) rather than disease-specific diagnosis in the final model."
+    },
+    {
+      "lesion_type": "Benign pigmented lesions / Naevus",
+      "paper_terms": [
+        "benign pigmented lesions",
+        "naevus",
+        "regular"
+      ],
+      "role": "Comparator class",
+      "details": "Benign pigmented lesions are mentioned as having regular borders, serving as the comparator to melanomas which have irregular borders. The experimental task classifies borders as 'regular' (associated with benign/naevus) or 'irregular' (associated with melanoma)."
+    },
+    {
+      "lesion_type": "Skin lesion (general)",
+      "paper_terms": [
+        "skin lesion",
+        "pigmented cutaneous lesions"
+      ],
+      "role": "Target class",
+      "details": "The study analyzes 'skin lesions' from the ISIC 2018 dataset. The specific labels used in the experiment are 'regular' and 'irregular' borders, not specific histological diagnoses like BCC or SCC."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin lesion border irregularity (Regular vs. Irregular)",
+        "primary": true,
+        "details": "Binary classification task to determine if a skin lesion border is 'regular' or 'irregular' using a CNN and Gaussian Naive Bayes ensemble. The model predicts class probabilities for these two discrete categories, which are then thresholded to make a final decision."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection",
+      "description": "A public dataset from the ISIC 2018 grand challenge containing dermoscopic images of skin lesions. The authors extracted skin lesion borders from this dataset for their study.",
+      "classes_used": [
+        "Regular border",
+        "Irregular border"
+      ],
+      "counts": {
+        "total": 250,
+        "training": 2000,
+        "validation": null,
+        "testing": 47,
+        "per_class": {
+          "training_regular": 1000,
+          "training_irregular": 1000,
+          "testing_regular": 7,
+          "testing_irregular": 40
+        }
+      },
+      "use": {
+        "training": "250 images were extracted and labeled by a dermatologist. Data augmentation (rotation, flipping) was applied to generate 2,000 images (1,000 regular, 1,000 irregular) for training the CNN and Gaussian Naive Bayes ensemble.",
+        "validation": null,
+        "testing": "47 images (7 regular, 40 irregular) were extracted from the dataset, not used in training, and labeled by a dermatologist to serve as the test set for evaluating the model.",
+        "other": "Used as the source for segmentation validation (Jaccard Index calculation) and border irregularity measure extraction."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "sensitivity",
+    "specificity",
+    "F-score",
+    "Jaccard Index",
+    "area under the ROC curve",
+    "diagnostic odds ratio (DOR)",
+    "likelihood ratio",
+    "area under the receiver operating characteristic (AUC)",
+    "summary receiver operating characteristic (SROC)",
+    "pooled sensitivity",
+    "pooled specificity",
+    "Confusion Matrix"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Area under the ROC curve (AUC)",
+      "purpose": "To evaluate the discriminatory power of the proposed border irregularity measure compared to the Indentation Irregularity Index.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Jaccard Index",
+      "purpose": "To quantify the overlap between segmented binary images and ground truth masks for segmentation validation.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Summary Receiver Operating Characteristic (SROC) curve",
+      "purpose": "To visualize and compare the diagnostic performance of deep learning approaches for melanoma detection across studies.",
+      "type": "Visualization/Comparison method"
+    },
+    {
+      "method": "Diagnostic Odds Ratio (DOR)",
+      "purpose": "To evaluate the diagnostic performance of deep learning approaches for melanoma detection.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Likelihood Ratio (positive and negative)",
+      "purpose": "To assess the change in the likelihood of disease given a test result.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Pooled sensitivity and specificity",
+      "purpose": "To aggregate diagnostic performance metrics across multiple studies for comparison.",
+      "type": "Aggregation metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using accuracy, sensitivity, specificity, F-score, AUC, and DOR without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018 (Border Irregularity Detection Task)": {
+      "split": "Test Set",
+      "dataset_details": {
+        "total_images": 47,
+        "class_distribution": {
+          "irregular": 40,
+          "regular": 7
+        },
+        "ground_truth_source": "Dermatologist (Dr. Sally O’Shea)"
+      },
+      "models": {
+        "CNN-Gaussian Naive Bayes Ensemble": {
+          "accuracy": "93.6%",
+          "sensitivity": "100%",
+          "specificity": "92.5%",
+          "F-score": "96.1%",
+          "false_positives": 0,
+          "false_negatives": 3,
+          "training_time_cnn": "7.1 min (1 epoch on Tesla P100 GPU)",
+          "testing_time_cnn": "9.48 s",
+          "training_time_gnb": "0.042 s (Intel Core i7-4770HQ CPU)"
+        },
+        "CNN (Evaluated Separately)": {
+          "accuracy": "85.1%"
+        },
+        "Gaussian Naive Bayes (Evaluated Separately)": {
+          "accuracy": "87.2%"
+        }
+      },
+      "notes": "The ensemble approach reduced false positives to 0 and false negatives to 3. The CNN was trained on smoothed segmented images, skin lesion borders, and irregularity measures. The Gaussian Naive Bayes was trained on the irregularity measures alone. A threshold was calculated based on the mean and maximum prediction probabilities to determine the final decision."
+    },
+    "Segmentation Validation": {
+      "dataset_details": {
+        "source": "ISIC 2018",
+        "samples_used_for_validation": "Subset of 250 images (specific count for Jaccard calculation not explicitly separated from the 250 total, but Jaccard is reported as an average over samples)"
+      },
+      "models": {
+        "Proposed Segmentation Method (Fuzzy C-Means based)": {
+          "Jaccard_Index": "90.64%"
+        },
+        "U-Net": {
+          "Jaccard_Index": "58.31%"
+        }
+      },
+      "notes": "The proposed segmentation method showed better accuracy in terms of Jaccard Index compared to U-Net. The Jaccard Index measures the overlap between the segmented binary image and the ground truth mask."
+    },
+    "Border Irregularity Measure Comparison": {
+      "dataset_details": {
+        "total_lesions": 98,
+        "melanoma_lesions": 16
+      },
+      "models": {
+        "Proposed Irregularity Measure": {
+          "AUC": "0.76"
+        },
+        "Indentation Irregularity Index (Lee & Claridge, 2005)": {
+          "AUC": "0.73"
+        }
+      },
+      "notes": "The proposed measure showed better discriminatory power than the Indentation Irregularity Index."
+    }
+  },
+  "architecture_used": {
+    "main_model": "CNN-Gaussian Naive Bayes Ensemble",
+    "pretraining": "None reported (CNN trained from scratch on segmented images, borders, and irregularity measures)",
+    "input_size": "Not explicitly reported for CNN inputs (derived from segmented images and borders); U-Net inputs resized to 512x512 pixels for segmentation comparison",
+    "architecture_details": {
+      "CNN": {
+        "type": "Convolutional Neural Network",
+        "layers": "5 convolutional layers, 5 max-pooling layers, 2 dense (fully-connected) layers",
+        "activation_functions": {
+          "convolutional_layers": "ReLU",
+          "first_dense_layer": "ReLU",
+          "last_dense_layer": "Sigmoid"
+        },
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "training_epochs": 1,
+        "hardware": "Tesla P100 GPU"
+      },
+      "Gaussian_Naive_Bayes": {
+        "type": "Probabilistic classifier",
+        "input_features": "27-value vector of irregularity measures (fractal dimension, convexity, Zernike moments)",
+        "hardware": "Intel Core i7-4770HQ CPU @ 2.20 GHz"
+      }
+    },
+    "training_details": {
+      "CNN_training_data": "Smoothed segmented images, skin lesion border images, and irregularity measures",
+      "GNB_training_data": "Irregularity measures only",
+      "CNN_training_time": "7.1 minutes (1 epoch)",
+      "GNB_training_time": "0.042 seconds",
+      "ensemble_method": "Combination of prediction probabilities from CNN and GNB using a weighted average formula, followed by a threshold decision based on mean and maximum prediction probabilities"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (Regular vs. Irregular border)",
+      "output": "Class probabilities combined via ensemble formula: P = (CNNp1 * GnBp1 + CNNp2 * GnBp2) / 2",
+      "decision_threshold": "threshold = (max(P) + mean(P)) / 2"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Convolutional Neural Network (CNN)",
+    "Gaussian Naive Bayes",
+    "CNN-Gaussian Naive Bayes Ensemble",
+    "U-Net"
+  ],
+  "preprocessing_techniques": [
+    "Conversion of dermoscopic images to grayscale",
+    "Skin lesion segmentation using fuzzy c-means clustering with defuzzification by gradual focusing to handle ambiguous pixels",
+    "Smoothing of segmented images",
+    "Skin lesion border detection using the Canny edge detector",
+    "Resizing of images to 512x512 pixels",
+    "Data augmentation via rotation and horizontal/vertical flipping to address class imbalance"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Applied to the 250 extracted skin lesion border images to address data imbalance and generate additional training samples."
+    },
+    {
+      "technique": "Horizontal Flipping",
+      "details": "Applied to the 250 extracted skin lesion border images to address data imbalance and generate additional training samples."
+    },
+    {
+      "technique": "Vertical Flipping",
+      "details": "Applied to the 250 extracted skin lesion border images to address data imbalance and generate additional training samples."
+    },
+    {
+      "technique": "Synthetic Data Generation (via Augmentation)",
+      "details": "The 250 original images were augmented using the above geometric transforms to generate a total of 2,000 images for training, with 1,000 images per class (regular and irregular) to balance the dataset."
+    }
+  ],
+  "conclusions": [
+    "The proposed automated approach for detecting skin lesion border irregularity using a CNN and Gaussian Naive Bayes ensemble achieved high diagnostic performance with an accuracy of 93.6%, sensitivity of 100%, specificity of 92.5%, and F-score of 96.1% on a test set of 47 images.",
+    "The ensemble method effectively reduced false positives to zero and false negatives to three, demonstrating its capability to objectively distinguish between regular and irregular skin lesion borders.",
+    "The proposed segmentation method based on fuzzy c-means clustering outperformed U-Net in terms of segmentation accuracy, achieving a Jaccard Index of 90.64% compared to 58.31% for U-Net.",
+    "The proposed quantitative border irregularity measure demonstrated better discriminatory power (AUC = 0.76) than the Indentation Irregularity Index (AUC = 0.73) when evaluated on 98 lesions.",
+    "Training the CNN on segmented images and extracted borders, rather than original images, allows for the detection of fine structures like border irregularity more effectively.",
+    "The study acknowledges limitations related to the small size of the dataset (250 images for training, 47 for testing) and the potential impact of image quality on diagnostic performance.",
+    "The approach provides an objective alternative to subjective clinical assessment of the 'Border' feature in the ABCD rule for melanoma diagnosis."
+  ],
+  "important_remarks": [
+    "The study relies on a very small dataset, with only 250 images used for training (augmented to 2,000) and 47 images for testing, which limits the statistical robustness and generalizability of the results.",
+    "The test set is highly imbalanced, containing 40 irregular border images and only 7 regular border images, which may skew performance metrics despite the high sensitivity.",
+    "The segmentation method proposed (fuzzy c-means) was validated against U-Net on the same dataset, showing a significantly higher Jaccard Index (90.64% vs. 58.31%), but this comparison is limited to the specific subset of 250 images.",
+    "The border irregularity measure proposed (AUC 0.76) showed only a marginal improvement over the existing Indentation Irregularity Index (AUC 0.73) on a small subset of 98 lesions.",
+    "The authors acknowledge that labeling skin lesion borders is laborious and that the current dataset size is insufficient; they suggest that a larger, more balanced dataset is needed to improve prediction results.",
+    "The CNN was trained from scratch on segmented images and borders rather than original images, a design choice intended to help detect fine structures but which depends heavily on the quality of the segmentation step.",
+    "No external validation was performed; the model was evaluated solely on data extracted from the ISIC 2018 dataset, raising concerns about potential dataset bias.",
+    "The ensemble thresholding method uses a dynamic threshold based on the mean and maximum prediction probabilities of the test set, which may introduce data leakage or overfitting if the test set distribution shifts.",
+    "The paper does not report formal statistical significance testing (p-values) for the performance differences between the proposed method and baselines.",
+    "The authors note that deep learning approaches for melanoma detection in general literature show poor diagnostic performance (DOR 12.95) due to small datasets and image quality issues, a limitation that also applies to this study."
+  ]
+}

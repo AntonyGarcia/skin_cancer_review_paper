@@ -1,0 +1,376 @@
+{
+  "file_name": "li_2022_mhau_net_skin_lesion_segmentation_based_on_multi_scale_hybrid_residual_a.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes MHAU-Net, a multi-scale hybrid residual attention convolutional neural network (CNN) for skin lesion segmentation in dermoscopic images. The method utilizes deep learning techniques including hybrid residual attention (HRA), dilated convolution, and atrous spatial pyramid pooling to segment skin lesions. Results were evaluated on the ISIC2018 and ISIC2017 datasets, achieving Dice scores of 94.69% and 95.23% respectively."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new deep learning architecture, MHAU-Net, for skin lesion segmentation. It details the methodology (multi-scale hybrid residual attention network), describes the experimental setup using public datasets (ISIC2018, ISIC2017, Kvasir-SEG), and reports quantitative results (Dice scores, mIoU, sensitivity, specificity) comparing the proposed model against existing methods like U-Net and DCSAU-Net."
+  },
+  "title": "MHAU-Net: Skin Lesion Segmentation Based on Multi-Scale Hybrid Residual Attention Network",
+  "authors": [
+    "Yingjie Li",
+    "Chao Xu",
+    "Jubao Han",
+    "Ziheng An",
+    "Deyu Wang",
+    "Haichao Ma",
+    "Chuanxu Liu"
+  ],
+  "doi": "10.3390/s22228701",
+  "journal": "Sensors",
+  "year": 2022,
+  "article_type": "Article",
+  "brief_summary": "This study proposes MHAU-Net, a multi-scale hybrid residual attention convolutional neural network for precise skin lesion segmentation in dermoscopic images. The architecture integrates multi-scale resolution inputs, hybrid residual attention, dilated convolution, and atrous spatial pyramid pooling to address challenges like blurred boundaries and irregular lesion shapes. The model was evaluated on the ISIC2018, ISIC2017, and Kvasir-SEG datasets using metrics such as Dice Similarity Coefficient, mIoU, sensitivity, and specificity. On the ISIC2018 validation set, MHAU-Net achieved a Dice score of 94.69% and mIoU of 87.92%, outperforming U-Net and DCSAU-Net. Robustness was further validated on the Kvasir-SEG dataset, yielding an overall sensitivity of 95.91% and specificity of 96.28%. The results demonstrate that MHAU-Net provides superior segmentation accuracy and boundary precision compared to existing state-of-the-art methods.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "lesion"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on the segmentation of skin lesions in dermoscopic images. While melanoma is mentioned as the primary motivation for accurate segmentation due to its high mortality, the experiments on ISIC2018, ISIC2017, and Kvasir-SEG datasets treat the task as binary segmentation of 'lesion' vs. 'non-lesion' (normal skin) without distinguishing specific histological subtypes like BCC or SCC in the reported results."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma"
+      ],
+      "role": "Motivation/Context",
+      "details": "Mentioned in the Abstract and Introduction as the main factor leading to skin cancer deaths and the clinical motivation for the study. However, it is not explicitly listed as a distinct class label in the segmentation experiments; the datasets used (ISIC, Kvasir-SEG) contain mixed lesion types, and the model performs binary segmentation."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-level binary mask of skin lesions in dermoscopic images",
+        "primary": true,
+        "details": "The paper proposes MHAU-Net for 'precise localization and segmentation of skin lesions'. The task is defined as pixel-level semantic segmentation, predicting a binary mask (lesion vs. non-lesion) using metrics such as Dice Similarity Coefficient (DSC), Intersection over Union (IoU), sensitivity, and specificity on datasets like ISIC2018, ISIC2017, and Kvasir-SEG."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018 Task 1",
+      "description": "A public medical image dataset from the ISIC 2018 challenge used for skin lesion segmentation. Images were resized to 256x256 resolution.",
+      "classes_used": [
+        "lesion",
+        "non-lesion"
+      ],
+      "counts": {
+        "total": 8782,
+        "training": 7782,
+        "validation": 1000,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the MHAU-Net model. The validation set (1000 images) was used for evaluation. A 5-fold cross-validation strategy was employed where data was randomly divided to balance bias and variance.",
+        "validation": "Used for evaluation of segmentation metrics (Dice, mIoU, sensitivity, specificity). The paper notes that due to the cross-validation strategy, some data served as validation in each round, but the official ISIC 2018 validation set of 1000 images is listed in Table 2.",
+        "testing": "null",
+        "other": "null"
+      }
+    },
+    {
+      "name": "ISIC 2017 Task 1",
+      "description": "A public medical image dataset from the ISIC 2017 challenge. Images were resized to 256x256 resolution. The validation set images were merged into the training set for this study.",
+      "classes_used": [
+        "lesion",
+        "non-lesion"
+      ],
+      "counts": {
+        "total": 7050,
+        "training": 6450,
+        "validation": 600,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training. The 600 validation images were merged into the training set (total 6450 + 600 = 7050 images used for training with data augmentation).",
+        "validation": "null",
+        "testing": "null",
+        "other": "Results were derived using a cross-validation strategy on the combined training data."
+      }
+    },
+    {
+      "name": "Kvasir-SEG",
+      "description": "A public medical image dataset used for robustness validation. Images were resized to 256x256 resolution.",
+      "classes_used": [
+        "lesion",
+        "non-lesion"
+      ],
+      "counts": {
+        "total": 2800,
+        "training": 2700,
+        "validation": null,
+        "testing": 100,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the model (2700 images).",
+        "validation": "null",
+        "testing": "Used for testing/evaluation of robustness. The model was compared against other architectures (Double U-Net, PraNet, U-Net, TransFuse-S) on this dataset.",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice Similarity Coefficient (DSC)",
+    "mIoU",
+    "mean Intersection over Union (mIoU)",
+    "Sensitivity (SEN)",
+    "Specificity (SPE)",
+    "average specificity"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "K-Fold Cross-validation",
+      "purpose": "To evaluate the segmentation accuracy and generalization performance of the model on limited medical image datasets, ensuring a balance between bias and variance.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Dice Similarity Coefficient (DSC)",
+      "purpose": "To evaluate the similarity between the segmentation output and the actual labels.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Intersection over Union (IoU) / mean IoU (mIoU)",
+      "purpose": "To measure the ratio of the intersection of true and predicted values to their union, providing an average value across prediction categories.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Sensitivity (SEN)",
+      "purpose": "To indicate the proportion of correctly segmented lesion pixels.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Specificity (SPE)",
+      "purpose": "To indicate the proportion of non-lesioned skin pixels that are not incorrectly segmented.",
+      "type": "Evaluation Metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values, t-tests, ANOVA). Performance comparisons were made using absolute metric values (Dice, mIoU, sensitivity, specificity) and reported percentage improvements over baseline models without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018 Task 1": {
+      "metric": "DSC, mIoU, SEN, SPE",
+      "models": {
+        "MHAU-Net (Proposed)": {
+          "DSC": "0.9469",
+          "mIoU": "0.8892",
+          "SEN": "0.939",
+          "SPE": "0.927"
+        },
+        "U-Net": {
+          "mIoU": "0.8025",
+          "SEN": "0.8659",
+          "SPE": "0.9128"
+        },
+        "U-NeXt": {
+          "DSC": "0.8970"
+        },
+        "BA-Transformer": {
+          "DSC": "0.9120",
+          "mIoU": "0.8430"
+        },
+        "DCSAU-Net": {
+          "DSC": "0.9128",
+          "mIoU": "0.8301",
+          "SPE": "0.8959"
+        }
+      },
+      "notes": "MHAU-Net improved mIoU by 7.67% over U-Net and 4.91% over DCSAU-Net. DSC improved by 3.41% over DCSAU-Net. SPE improved by 3.11% over DCSAU-Net."
+    },
+    "ISIC 2017 Task 1": {
+      "metric": "DSC, mIoU, SEN, SPE",
+      "models": {
+        "MHAU-Net (Proposed)": {
+          "DSC": "0.9523",
+          "mIoU": "0.9615",
+          "SEN": "0.9328",
+          "SPE": "0.931"
+        },
+        "U-Net": {
+          "DSC": "0.774",
+          "mIoU": "0.8389",
+          "SEN": "0.9081",
+          "SPE": "0.9009"
+        },
+        "MFS-Net": {
+          "DSC": "0.974",
+          "mIoU": "0.987",
+          "SEN": "0.9257"
+        }
+      },
+      "notes": "Sensitivity and specificity outperformed original U-Net by 2.47% and 3.01% respectively. Validation set images were merged into the training set."
+    },
+    "Kvasir-SEG": {
+      "metric": "DSC, mIoU, SEN, SPE",
+      "models": {
+        "MHAU-Net (Proposed)": {
+          "DSC": "0.9172",
+          "mIoU": "0.9025",
+          "SEN": "0.9591",
+          "SPE": "0.9628"
+        },
+        "U-Net": {
+          "DSC": "0.8180",
+          "mIoU": "0.7640",
+          "SEN": "0.8919"
+        },
+        "PraNet": {
+          "DSC": "0.8980",
+          "mIoU": "0.8490"
+        },
+        "Double U-Net": {
+          "DSC": "0.9038",
+          "mIoU": "0.8816",
+          "SEN": "0.9426",
+          "SPE": "0.9571"
+        },
+        "TransFuse-S": {
+          "DSC": "0.9180",
+          "mIoU": "0.8680"
+        }
+      },
+      "notes": "MHAU-Net DSC was 1.34%, 1.92%, and 9.92% higher than Double U-Net, PraNet, and U-Net respectively. It had a 0.12% difference in DSC from TransFuse-S. SEN was 1.65% and 6.72% higher than U-Net and Double U-Net respectively."
+    },
+    "ISIC 2018 Task 1 (Ablation Study)": {
+      "metric": "Dice, mIoU, SEN, SPE",
+      "models": {
+        "U-Net (Baseline)": {
+          "Dice": "0.8025",
+          "mIoU": "0.8359",
+          "SEN": "0.9328"
+        },
+        "+HRA#1": {
+          "Dice": "0.8261",
+          "mIoU": "0.8163",
+          "SEN": "0.8526",
+          "SPE": "0.9289"
+        },
+        "+HRA#1 and #2": {
+          "Dice": "0.8593",
+          "mIoU": "0.8396",
+          "SEN": "0.8598",
+          "SPE": "0.9302"
+        },
+        "+HRA All": {
+          "Dice": "0.9038",
+          "mIoU": "0.8517",
+          "SEN": "0.8668",
+          "SPE": "0.9253"
+        },
+        "+Dilate Conv": {
+          "Dice": "0.9256",
+          "mIoU": "0.8609",
+          "SEN": "0.9085",
+          "SPE": "0.9456"
+        },
+        "+5-Fold (Final MHAU-Net)": {
+          "Dice": "0.9469",
+          "mIoU": "0.8892",
+          "SEN": "0.9391",
+          "SPE": "0.9270"
+        }
+      },
+      "notes": "Applying HRA #1 improved mIoU by 1.38%. Using HRA #1 and #2 improved it by 3.71%. Using all HRA improved it by 4.92%. Adding dilation convolution raised performance by 5.84%."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MHAU-Net (Multi-Scale Hybrid Residual Attention Network)",
+    "pretraining": "null",
+    "input_size": "256 × 256",
+    "architecture_details": {
+      "type": "Convolutional Neural Network (CNN)",
+      "components": [
+        "Multi-scale resolution input",
+        "Hybrid Residual Attention (HRA)",
+        "Dilated convolution",
+        "Atrous Spatial Pyramid Pooling (ASPP)"
+      ],
+      "details": "The architecture integrates multi-scale resolution inputs to provide richer visual information. It utilizes Hybrid Residual Attention (HRA) to solve blurred boundary issues. The network employs dilated convolution and atrous spatial pyramid pooling. It uses a 1x1 convolution and sigmoid activation function to output mask features. Batch normalization and activation operations are applied after convolutional layers."
+    },
+    "training_details": {
+      "framework": "PyTorch 1.11.0",
+      "hardware": "Single-core NVIDIA GeForce RTX 3090 (24 GB)",
+      "optimizer": "Stochastic Gradient Descent (SGD)",
+      "initial_learning_rate": "10^-3",
+      "learning_rate_schedule": "Reduction of 1/5 for every 15 epochs",
+      "batch_size": 16,
+      "epochs": 150,
+      "loss_function": "Combined Binary Cross-Entropy Loss and Dice Loss",
+      "data_augmentation": [
+        "Vertical flip",
+        "Transpose"
+      ],
+      "validation_strategy": "K-Fold Cross-validation (5-fold)"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation Mask",
+      "details": "Output mask features generated via 1x1 convolution and sigmoid activation function."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MHAU-Net",
+    "U-Net",
+    "U-NeXt",
+    "BA-Transformer",
+    "DCSAU-Net",
+    "MFS-Net",
+    "Double U-Net",
+    "PraNet",
+    "TransFuse-S",
+    "FCN",
+    "U-Net++",
+    "BP neural network",
+    "multi-level dilated residual network"
+  ],
+  "preprocessing_techniques": [
+    "Conversion of RGB input images to grayscale",
+    "Artifact removal using morphological manipulation (black hat transform followed by thresholding operation)",
+    "Image resizing to 256 × 256 resolution using bilinear interpolation",
+    "Data augmentation via vertical flip and transpose operations"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Vertical flip",
+      "details": "Applied to all datasets participating in the experiments (ISIC2018, ISIC2017, Kvasir-SEG) to increase randomness and improve generalization performance."
+    },
+    {
+      "technique": "Transpose (Rotation)",
+      "details": "Applied to all datasets participating in the experiments (ISIC2018, ISIC2017, Kvasir-SEG) to increase randomness and improve generalization performance."
+    }
+  ],
+  "conclusions": [
+    "The proposed MHAU-Net architecture, which integrates multi-scale resolution inputs, hybrid residual attention (HRA), dilated convolution, and atrous spatial pyramid pooling, effectively addresses challenges in skin lesion segmentation such as blurred boundaries and irregular lesion shapes.",
+    "MHAU-Net achieved superior segmentation performance compared to state-of-the-art methods on the ISIC2018 validation set, with a Dice Similarity Coefficient (DSC) of 94.69% and mean Intersection over Union (mIoU) of 87.92%, outperforming U-Net and DCSAU-Net.",
+    "On the ISIC2017 Task 1 dataset, MHAU-Net achieved a DSC of 95.23% and mIoU of 96.15%, demonstrating high accuracy in segmentation tasks.",
+    "Robustness validation on the Kvasir-SEG dataset yielded an overall sensitivity of 95.91% and specificity of 96.28%, indicating strong generalization capabilities across different datasets.",
+    "The method showed significant improvements over baseline models, including a 7.67% improvement in mIoU over U-Net and a 4.91% improvement over DCSAU-Net on the ISIC2018 dataset.",
+    "On the Kvasir-SEG dataset, MHAU-Net's DSC was 1.34%, 1.92%, and 9.92% higher than Double U-Net, PraNet, and U-Net, respectively, and was comparable to TransFuse-S with only a 0.12% difference in DSC.",
+    "The study confirms that MHAU-Net provides precise localization and segmentation of skin lesions, offering a robust tool for computer-aided diagnosis in dermatology."
+  ],
+  "important_remarks": [
+    "The study lacks formal statistical hypothesis testing (e.g., p-values) to validate the significance of performance improvements over baseline models, relying solely on absolute metric comparisons.",
+    "For the ISIC 2017 dataset, the validation set images were merged into the training set, which may inflate performance estimates compared to strict train/validation/test splits.",
+    "The model was trained and evaluated on public datasets (ISIC 2018, ISIC 2017, Kvasir-SEG) with limited external validation on independent clinical cohorts, limiting generalizability assessment.",
+    "The paper does not report the number of model parameters or computational complexity (FLOPs), making it difficult to assess the trade-off between performance and efficiency.",
+    "Data leakage risk exists in the ISIC 2017 experiment where validation data was included in training, although 5-fold cross-validation was used for the final evaluation.",
+    "The study focuses on binary segmentation of 'lesion vs. non-lesion' without distinguishing specific histological subtypes (e.g., melanoma vs. benign), limiting clinical specificity.",
+    "Performance comparisons against some state-of-the-art methods (e.g., TransFuse-S) show marginal differences (0.12% DSC), suggesting the improvement may not be robust across all metrics or datasets."
+  ]
+}

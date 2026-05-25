@@ -1,0 +1,274 @@
+{
+  "file_name": "Belal et al. - 2026 - Fast hierarchical and flat classification of dermoscopic skin lesions using hand-crafted features an.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses classical machine learning methods, specifically Support Vector Machines (SVM) with Radial Basis Function (RBF) kernels, for the classification of dermoscopic skin lesions (BCC, melanoma, nevus, and PBK). It also employs hand-crafted feature extraction techniques such as Histogram of Oriented Gradients (HOG), Local Binary Patterns (LBP), and Hu moments, along with mRMR feature selection and margin-based smart cleaning strategies."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving a classical machine learning framework for dermoscopic skin lesion classification. It details specific methods (hand-crafted features, SVM, mRMR, smart cleaning), describes the experimental setup (stratified 5-fold cross-validation on a dataset of 1445 images), and reports new quantitative results (e.g., 82.87% accuracy for flat classification, ROC AUC = 0.9383). The structure includes standard research sections such as Abstract, Introduction, Methods, Results, and Conclusion, rather than summarizing prior literature."
+  },
+  "title": "Fast Hierarchical and Flat Classification of Dermoscopic Skin Lesions Using Hand-Crafted Features and Classical Machine Learning",
+  "authors": [
+    "Mohamed Amin Belal",
+    "Sara. I. Ibrahim",
+    "Ben Bella S. Tawfik",
+    "Mohamed M. El-Gazzar"
+  ],
+  "doi": "10.35940/ijeat.D4747.15030226",
+  "journal": "International Journal of Engineering and Advanced Technology (IJEAT)",
+  "year": 2026,
+  "article_type": "Journal Article",
+  "brief_summary": "This study addresses the challenge of classifying four dermoscopic skin lesion categories (basal cell carcinoma, melanoma, nevus, and pigmented benign keratosis) using a classical machine learning framework rather than deep learning. The authors constructed a unified feature vector combining hand-crafted descriptors such as Histogram of Oriented Gradients, Local Binary Patterns, Hu moments, and color statistics from a dataset of 1,445 images. To handle label noise and class imbalance, the pipeline employed margin-based smart cleaning and controlled upsampling, followed by dimensionality reduction using minimum-redundancy maximum-relevance selection. The system was evaluated using stratified 5-fold cross-validation, comparing both flat multi-class classification and a two-level hierarchical design. The best flat model, an SVM with an RBF kernel, achieved a mean accuracy of 82.87%, while the hierarchical system reached an overall accuracy of 81.80% with a Level-1 malignancy detection ROC AUC of 0.9383. The results indicate strong subtype separability, with oracle analysis confirming that routing errors in the hierarchical approach were the primary source of residual loss.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "BCC",
+        "basal cell carcinoma"
+      ],
+      "role": "Target class",
+      "details": "One of the four diagnostic categories in the dataset (344 original images). Classified as a malignant lesion in the Level-1 Cancer vs non-Cancer hierarchy."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the four diagnostic categories in the dataset (407 original images). Classified as a malignant lesion in the Level-1 Cancer vs non-Cancer hierarchy."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus"
+      ],
+      "role": "Target class",
+      "details": "One of the four diagnostic categories in the dataset (309 original images). Classified as a benign lesion in the Level-1 Cancer vs non-Cancer hierarchy."
+    },
+    {
+      "lesion_type": "Pigmented benign keratosis",
+      "paper_terms": [
+        "PBK",
+        "pigmented benign keratosis",
+        "benign keratosis"
+      ],
+      "role": "Target class",
+      "details": "One of the four diagnostic categories in the dataset (385 original images). Classified as a benign lesion in the Level-1 Cancer vs non-Cancer hierarchy."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Four dermoscopic skin lesion categories: Basal Cell Carcinoma (BCC), Melanoma, Nevus, and Pigmented Benign Keratosis (PBK).",
+        "primary": true,
+        "details": "The paper evaluates two classification strategies: (1) Flat multi-class classification predicting one of four discrete diagnostic categories (BCC, melanoma, nevus, PBK) using SVM-RBF, Random Forest, KNN, and Shallow NN, achieving a mean accuracy of 82.87%. (2) Two-level hierarchical classification where Level-1 predicts a binary label (Cancer vs. non-Cancer) with ROC AUC = 0.9383, and Level-2 predicts subtypes within branches (BCC vs. melanoma; nevus vs. PBK), achieving an overall accuracy of 81.80%."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Custom Dermoscopic Skin Lesion Dataset",
+      "description": "A private dataset of dermoscopic images collected for the study, containing four diagnostic categories of skin lesions. The dataset was subject to preprocessing including margin-based smart cleaning and controlled upsampling.",
+      "classes_used": [
+        "Basal Cell Carcinoma (BCC)",
+        "Melanoma",
+        "Nevus",
+        "Pigmented Benign Keratosis (PBK)"
+      ],
+      "counts": {
+        "total": 1445,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "BCC": 344,
+          "Melanoma": 407,
+          "Nevus": 309,
+          "PBK": 385
+        }
+      },
+      "use": {
+        "training": "Used for training classification models (SVM-RBF, Random Forest, KNN, Shallow NN) and hierarchical classifiers via stratified 5-fold cross-validation. Preprocessed with smart cleaning (removing 80 samples per class) and controlled upsampling (balancing to 327 per class).",
+        "validation": "Used for validation within the stratified 5-fold cross-validation protocol; normalization, smart cleaning, and feature selection were fit strictly on the training split of each fold to prevent leakage.",
+        "testing": "Used for testing via stratified 5-fold cross-validation; performance metrics (accuracy, ROC AUC, PR AUC) were computed across all folds.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "ROC AUC",
+    "PR AUC",
+    "Confusion Matrix"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Stratified 5-fold cross-validation",
+      "purpose": "To evaluate and compare the performance of flat and hierarchical classification models, ensuring representative distribution of classes in each fold.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Mean and Standard Deviation",
+      "purpose": "To report summary statistics for ROC AUC and PR AUC metrics across the 5 folds, reflecting performance variability.",
+      "type": "Descriptive Statistics"
+    },
+    {
+      "method": "Oracle Analysis",
+      "purpose": "To isolate subtype separability by supplying true Level-1 labels during Level-2 testing, thereby quantifying the impact of routing errors on overall accuracy.",
+      "type": "Error Analysis"
+    },
+    {
+      "method": "Confusion Matrix",
+      "purpose": "To provide class-wise insight into classification performance and calculate accuracy.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "ROC AUC and PR AUC",
+      "purpose": "To evaluate the discrimination ability of the Level-1 malignancy detection model.",
+      "type": "Performance Metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive statistics (mean accuracy, standard deviation, ROC AUC, PR AUC) derived from stratified 5-fold cross-validation."
+  },
+  "results_obtained_in_each_dataset": {
+    "Custom Dermoscopic Skin Lesion Dataset": {
+      "flat_classification": {
+        "metric": "Mean Accuracy (%)",
+        "models": {
+          "SVM-RBF": "82.87",
+          "Random Forest": "81.65",
+          "Shallow NN": "80.97",
+          "KNN": "60.24"
+        },
+        "notes": "Evaluation performed using stratified 5-fold cross-validation. SVM-RBF was the best performing flat model."
+      },
+      "hierarchical_classification": {
+        "metric": "Accuracy / AUC",
+        "models": {
+          "Hierarchical System (Overall)": {
+            "accuracy": "81.80%"
+          },
+          "Level-1 (Cancer vs Non-Cancer)": {
+            "accuracy": "86.54%",
+            "ROC AUC": "0.9383",
+            "PR AUC": "0.9367"
+          },
+          "Level-2 Cancer Oracle (BCC vs Melanoma)": {
+            "accuracy": "94.04%"
+          },
+          "Level-2 Non-Cancer Oracle (Nevus vs PBK)": {
+            "accuracy": "94.19%"
+          }
+        },
+        "notes": "Oracle evaluations supply true Level-1 labels to isolate subtype separability. The gap between Oracle Level-2 performance (~94%) and final hierarchical accuracy (81.80%) indicates that Level-1 misrouting is the dominant source of degradation."
+      },
+      "level_1_malignancy_detection_metrics": {
+        "metric": "ROC AUC and PR AUC (Mean ± Std Dev across 5 folds)",
+        "models": {
+          "ROC AUC": "0.938533 ± 0.014707",
+          "PR AUC": "0.930521 ± 0.014528"
+        },
+        "notes": "Overall ROC AUC reported as 0.938295 and PR AUC as 0.936672 in the text."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Classical Machine Learning Framework (SVM-RBF, Random Forest, KNN, Shallow Neural Network)",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "feature_extraction": "Hand-crafted features including Histogram of Oriented Gradients (HOG), Local Binary Patterns (LBP), Hu moment invariants, region geometry (area, perimeter, eccentricity, solidity, extent, circularity), intensity statistics (mean, std, skewness, kurtosis, entropy), and color descriptors (RGB/HSV mean, std, histograms).",
+      "feature_selection": "Minimum-Redundancy Maximum-Relevance (mRMR) ranking, retaining top 300 features.",
+      "classification_models": {
+        "SVM_RBF": {
+          "type": "Support Vector Machine with Radial Basis Function kernel",
+          "kernel_function": "K(Xi, Xj) = exp(-||Xi - Xj||^2 / 2σ^2)",
+          "notes": "Best performing flat model."
+        },
+        "Random_Forest": {
+          "type": "Ensemble of decision trees",
+          "notes": "Robust to nonlinear feature interactions."
+        },
+        "KNN": {
+          "type": "k-Nearest Neighbors",
+          "notes": "Neighborhood voting in feature space."
+        },
+        "Shallow_NN": {
+          "type": "Shallow Neural Network",
+          "notes": "Lightweight nonlinear baseline."
+        }
+      },
+      "hierarchical_structure": {
+        "level_1": "Binary classification: Cancer vs. Non-Cancer",
+        "level_2a": "Subtype classification: BCC vs. Melanoma",
+        "level_2b": "Subtype classification: Nevus vs. Pigmented Benign Keratosis (PBK)"
+      }
+    },
+    "training_details": {
+      "cross_validation": "Stratified 5-fold cross-validation",
+      "preprocessing": {
+        "smart_cleaning": "Margin-based removal of 80 samples per class using preliminary ECOC classifier confidence margins",
+        "upsampling": "Controlled upsampling to 327 samples per class (total 1308)",
+        "normalization": "Z-score normalization applied strictly within training splits"
+      },
+      "implementation": "MATLAB R2022"
+    },
+    "classification_or_output_head": {
+      "flat_output": "4-class probability distribution (BCC, Melanoma, Nevus, PBK)",
+      "hierarchical_output": {
+        "level_1_output": "Binary label (Cancer/Non-Cancer)",
+        "level_2_output": "Subtype label within branch"
+      }
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Support Vector Machine with Radial Basis Function kernel (SVM-RBF)",
+    "Random Forest",
+    "k-Nearest Neighbors (KNN)",
+    "Shallow Neural Network",
+    "Error-Correcting Output Codes (ECOC) classifier (used for preliminary margin-based smart cleaning)"
+  ],
+  "preprocessing_techniques": [
+    "Margin-based smart cleaning: Removal of low-reliability samples based on ECOC classifier confidence margins (80 samples per class removed).",
+    "Controlled upsampling: Balancing class distribution by upsampling to a common count of 327 samples per class (total 1308 images) without synthesizing new content.",
+    "Z-score normalization: Standardization of all features applied strictly within training splits to prevent information leakage.",
+    "mRMR feature selection: Minimum-Redundancy Maximum-Relevance ranking to reduce dimensionality, retaining the top 300 features.",
+    "Discrete Cosine Transform (DCT): Applied to 8x8 blocks of image data for energy compaction.",
+    "Lesion segmentation/masking: Derivation of lesion masks using adaptive thresholding and largest-blob selection for region-based feature computation."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Controlled Upsampling",
+      "details": "Class balancing was performed by controlled replication (upsampling) to a common class count of 327 samples per class, resulting in a total of 1308 samples. The paper explicitly states this was done 'without synthesizing new image content' or generating synthetic images."
+    }
+  ],
+  "conclusions": [
+    "A classical machine learning framework using hand-crafted features (HOG, LBP, Hu moments, color, and geometry) and SVM-RBF classification achieves a mean accuracy of 82.87% for four-class dermoscopic skin lesion classification (BCC, melanoma, nevus, PBK), demonstrating strong performance without deep learning.",
+    "The proposed two-level hierarchical classification system achieves an overall accuracy of 81.80%, with a Level-1 malignancy detection ROC AUC of 0.9383, indicating strong discrimination between cancer and non-cancer lesions.",
+    "Oracle analysis reveals high intra-branch separability (94.04% for BCC vs. melanoma and 94.19% for nevus vs. PBK), confirming that the primary source of residual loss in the hierarchical model is Level-1 routing errors rather than poor subtype separability.",
+    "Margin-based smart cleaning and controlled upsampling effectively mitigate label noise and class imbalance, with the best flat model (SVM-RBF) outperforming Random Forest (81.65%), Shallow NN (80.97%), and KNN (60.24%).",
+    "The hierarchical approach is constrained by error propagation from Level-1 to Level-2; improving routing reliability through confidence-aware thresholds and uncertainty handling is identified as a key direction for future work.",
+    "The study highlights the viability of classical ML pipelines in resource-constrained clinical settings where deep learning's data and computational demands may limit adoption, provided robust preprocessing and feature selection are employed."
+  ],
+  "important_remarks": [
+    "The study uses a private, custom dataset of 1,445 images rather than standard public benchmarks (e.g., HAM10000, ISIC), limiting direct comparability with existing literature and raising concerns about external generalizability.",
+    "The dataset exhibits moderate class imbalance (Melanoma: 407, Nevus: 309) which was addressed via controlled upsampling to 327 samples per class; this synthetic balancing may not reflect real-world prevalence distributions.",
+    "Margin-based smart cleaning removed 80 samples per class (total 320 removed) based on a preliminary ECOC classifier; this aggressive filtering risks removing informative borderline cases and may introduce selection bias.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals for accuracy differences) was performed; performance comparisons between models rely solely on descriptive statistics (mean accuracy across folds).",
+    "The hierarchical system's overall accuracy (81.80%) is significantly lower than the oracle Level-2 accuracy (>94%), indicating that Level-1 routing errors are the primary bottleneck; the paper acknowledges this but does not provide robust uncertainty quantification or deferral mechanisms in the final model.",
+    "Implementation details are limited to MATLAB R2022 without open-source code release, hindering reproducibility and independent verification of the preprocessing pipeline (smart cleaning, upsampling, feature selection).",
+    "The paper claims strong clinical relevance for resource-constrained settings but does not report inference latency, computational complexity, or memory usage metrics to substantiate the 'fast' claim beyond runtime reduction via parallelization."
+  ]
+}

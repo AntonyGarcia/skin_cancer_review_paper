@@ -1,0 +1,272 @@
+{
+  "file_name": "Li et al. - 2024 - Sketch-Supervised Histopathology Tumour Segmentation Dual CNN-Transformer With Global Normalised CA.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning method called DCTGN-CAM, which is a dual CNN-Transformer network with global normalised class activation map (CAM), to perform sketch-supervised tumour segmentation on skin cancer histopathology images (specifically basal cell carcinoma, squamous papilloma, and seborrheic keratosis) from the private BSS dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new deep learning method called DCTGN-CAM for sketch-supervised histopathology tumour segmentation. It details the development of a dual CNN-Transformer network, introduces a private BSS dataset and annotations on the public PAIP2019 dataset, and reports quantitative results (e.g., 76.68% IOU, 86.69% Dice) comparing the proposed method against state-of-the-art baselines. The structure includes standard research sections such as Abstract, Introduction, Methods, Experiments and Results, and Conclusion, indicating it is an original technical study rather than a review."
+  },
+  "title": "Sketch-Supervised Histopathology Tumour Segmentation: Dual CNN-Transformer With Global Normalised CAM",
+  "authors": [
+    "Yilong Li",
+    "Linyan Wang",
+    "Xingru Huang",
+    "Yaqi Wang",
+    "Le Dong",
+    "Ruiquan Ge",
+    "Huiyu Zhou",
+    "Juan Ye",
+    "Qianni Zhang"
+  ],
+  "doi": "10.1109/JBHI.2023.3289984",
+  "journal": "IEEE Journal of Biomedical and Health Informatics",
+  "year": 2024,
+  "article_type": "Journal article",
+  "brief_summary": "This study proposes DCTGN-CAM, a sketch-supervised method for histopathology tumour segmentation using a dual CNN-Transformer network and a modified global normalised class activation map. The approach addresses the challenge of limited supervision by training on coarse, scribbling-like annotations rather than precise boundaries. The method was evaluated on a private skin cancer dataset (BSS) containing basal cell carcinoma, squamous papilloma, and seborrheic keratosis, as well as the public PAIP2019 liver cancer dataset. On the BSS dataset, the model achieved 76.68% IOU and 86.69% Dice scores, outperforming state-of-the-art methods. On the PAIP2019 dataset, it demonstrated a Dice gain of 8.37% compared to the U-Net baseline, confirming its effectiveness for sketch-supervised segmentation tasks.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell cancer",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "One of three cancer types included in the private BSS dataset used for sketch-supervised tumour segmentation experiments."
+    },
+    {
+      "lesion_type": "Squamous papilloma",
+      "paper_terms": [
+        "squamous papilloma",
+        "SP"
+      ],
+      "role": "Target class",
+      "details": "One of three cancer types included in the private BSS dataset used for sketch-supervised tumour segmentation experiments."
+    },
+    {
+      "lesion_type": "Seborrheic keratosis",
+      "paper_terms": [
+        "seborrheic keratosis cancer",
+        "SKC"
+      ],
+      "role": "Target class",
+      "details": "One of three cancer types included in the private BSS dataset used for sketch-supervised tumour segmentation experiments."
+    },
+    {
+      "lesion_type": "Liver cancer",
+      "paper_terms": [
+        "liver cancer",
+        "hepatocellular carcinomas",
+        "HCC"
+      ],
+      "role": "Target class",
+      "details": "The disease category of the public PAIP2019 dataset, used to evaluate the generalizability of the proposed method for sketch-based tumour segmentation."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Tumour regions in histopathology images",
+        "primary": true,
+        "details": "The paper focuses on sketch-supervised tumour segmentation. The model produces accurate patch-based tumour classification probabilities which are then used with a global normalised class activation map (GN-CAM) to infer tumour location and boundaries, resulting in segmentation masks. Performance is evaluated using segmentation metrics such as IOU and Dice score."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Tumour presence (binary) and tumour class probabilities",
+        "primary": false,
+        "details": "The underlying network (DCT) is trained as a binary classification network using cross-entropy loss to produce tumour classification probabilities. However, these probabilities serve as an intermediate step for the primary segmentation task rather than the final diagnostic output."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "BSS Dataset",
+      "description": "A private skin cancer histopathology dataset collected from the Second Affiliated Hospital of Zhejiang University, China, over 4 years. It contains Whole Slide Images (WSIs) of three types of skin cancers. Fine (F-labels) and coarse (P-labels) annotations were created by experts.",
+      "classes_used": [
+        "Basal cell cancer (BCC)",
+        "Squamous papilloma (SP)",
+        "Seborrheic keratosis cancer (SKC)"
+      ],
+      "counts": {
+        "total": 150,
+        "training": 90,
+        "validation": 30,
+        "testing": 30,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the DCTGN-CAM model with coarse (P-label) annotations.",
+        "validation": "Used for validation (20% of WSIs).",
+        "testing": "Used for testing (20% of WSIs) and inference (600k testing patches).",
+        "other": "Fine labels (F-labels) were used as ground truth for evaluation."
+      }
+    },
+    {
+      "name": "PAIP2019 Dataset",
+      "description": "A public liver cancer histopathology dataset released by the PAIP Liver Cancer Segmentation Challenge (MICCAI 2019). It contains high-quality annotations for hepatocellular carcinoma (HCC). Coarse annotations were generated by inviting experts to simulate sketch supervision.",
+      "classes_used": [
+        "Liver cancer (Hepatocellular carcinoma / HCC)"
+      ],
+      "counts": {
+        "total": 50,
+        "training": 30,
+        "validation": 10,
+        "testing": 10,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the model with coarse annotations (P-labels) created by four histopathologists.",
+        "validation": "Used for validation (20% of WSIs).",
+        "testing": "Used for testing (20% of WSIs) and inference (475k testing patches).",
+        "other": "Original high-quality annotations from the challenge were used as fine labels (F-labels) for evaluation."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Recall",
+    "Specificity",
+    "Accuracy",
+    "IOU",
+    "Dice"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics (IOU, Dice, Recall, Specificity, Accuracy) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "BSS Dataset": {
+      "metric": [
+        "Recall",
+        "Specificity",
+        "Accuracy",
+        "IOU",
+        "Dice"
+      ],
+      "models": {
+        "DCTGN-CAM (AR+DCT+GN-CAM+NE)": {
+          "Recall": "88.28%",
+          "Specificity": "98.90%",
+          "Accuracy": "97.08%",
+          "IOU": "76.68%",
+          "Dice": "86.69%"
+        },
+        "DCT (Sketch-based tumour segmentation performances)": {
+          "Recall": "84.44%",
+          "Specificity": "97.85%",
+          "Accuracy": "96.23%",
+          "IOU": "71.33%",
+          "Dice": "83.12%"
+        },
+        "VGG+GN-CAM+NE (with AR module)": {
+          "Recall": "81.96%",
+          "IOU": "70.83%",
+          "Dice": "82.62%"
+        },
+        "VGG+CAM+NE (with AR module)": {
+          "Specificity": "98.90%",
+          "Precision": "88.29%"
+        },
+        "VF+CAM (Baseline comparison)": {
+          "Recall improvement": "-14.55%",
+          "IOU improvement": "-14.04%",
+          "Dice improvement": "-10.76%"
+        }
+      },
+      "notes": "The proposed DCTGN-CAM method outperforms state-of-the-art methods. The DCT network outperforms VGG and VF methods. The AR module improved segmentation precision from 83.97% to 88.29% for VGG+CAM+NE. The highest performance metrics were achieved using classification-based segmentation methods."
+    },
+    "PAIP2019 Dataset": {
+      "metric": [
+        "Dice"
+      ],
+      "models": {
+        "DCTGN-CAM": {
+          "Dice gain vs U-Net": "8.37%"
+        },
+        "DCTGN-CAM (vs U-Net)": {
+          "Recall increase": "approx. 9%",
+          "Accuracy increase": "approx. 4%",
+          "IOU increase": "approx. 13%",
+          "Dice increase": "approx. 12%"
+        }
+      },
+      "notes": "The method demonstrates a Dice gain of 8.37% compared with U-Net as the baseline network. It outperforms U-Net by approximately 9% in Recall, 4% in Accuracy, 13% in IOU, and 12% in Dice. The method shows better segmentation results on every evaluation metric compared to existing methods on this dataset."
+    }
+  },
+  "architecture_used": {
+    "main_model": "DCTGN-CAM (Dual CNN-Transformer with Global Normalised Class Activation Map)",
+    "pretraining": "null",
+    "input_size": "512x512 patches",
+    "architecture_details": {
+      "backbone": "Dual CNN-Transformer network (DCT)",
+      "structure": "5-stage dual-branch architecture consisting of a local CNN branch and a global Transformer branch",
+      "cnn_branch": "Residual blocks with three 3x3 convolutional layers per block; replaces standard VGG fully convolutional blocks to prevent gradient vanishing",
+      "transformer_branch": "Global Transformer block similar to SWIN Transformer, including patch partition, patch embedding, parallel SWIN encoder, patch merging, and patch expanding",
+      "feature_fusion": "Fusion of global and local tumour features from the CNN and Transformer branches",
+      "classification_head": "Linear layer + BatchNorm + ReLU + SoftMax",
+      "post_processing_modules": [
+        "Annotation Refinement (AR) module using K-Means clustering",
+        "Global Normalised Class Activation Map (GN-CAM) visualizer",
+        "Noise Eliminator (NE)"
+      ]
+    },
+    "training_details": {
+      "loss_function": "Binary cross-entropy loss",
+      "optimizer": "SGD",
+      "learning_rate": 0.0001,
+      "epochs": 500,
+      "hardware": "Nvidia RTX 3080 GPU"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification head",
+      "output": "Tumour classification probabilities for image patches",
+      "segmentation_inference": "GN-CAM combines local and global heat maps to infer tumour boundaries; final masks obtained via Noise Eliminator"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "DCTGN-CAM",
+    "DCT",
+    "VGG",
+    "VF",
+    "VGG+GN-CAM+NE",
+    "VGG+CAM+NE",
+    "VF+CAM",
+    "U-Net"
+  ],
+  "preprocessing_techniques": [
+    "Patch extraction: Images divided into 512x512 patches for consistent input sizes.",
+    "Annotation Refinement (AR): Unsupervised K-means clustering applied to refine coarse annotations by re-examining tissue membership along mask margins based on pixel colors.",
+    "Noise Eliminator (NE): Convolutional Conditional Random Fields (CRFs) applied to refine segmentation results.",
+    "Global Normalised Class Activation Map (GN-CAM): Fusion of class activation heat maps from inside patches and the whole Whole Slide Image (WSI) to capture global context and prevent noise."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed DCTGN-CAM framework, which combines a dual CNN-Transformer network with a global normalised class activation map, effectively performs sketch-supervised tumour segmentation in histopathology images.",
+    "The method achieves superior performance compared to state-of-the-art weakly supervised methods, demonstrating a Dice gain of 8.37% over the U-Net baseline on the public PAIP2019 liver cancer dataset.",
+    "On the private BSS skin cancer dataset, the model achieved 76.68% IOU and 86.69% Dice scores, outperforming existing methods and accounting for four out of the five best performances in the comparison.",
+    "The dual CNN-Transformer architecture leverages both local and global tumour features, with the Transformer component providing global context feature encoding that is more suitable for sketch-based segmentation than pure CNN methods.",
+    "The approach enables accurate tumour segmentation using coarse, scribbling-like annotations, significantly reducing the labelling cost and time for pathologists compared to acquiring high-quality, detailed ground truth boundaries.",
+    "The method demonstrates good generalization across different tissue types (skin cancer and liver cancer) and datasets, proving its universality for sketch-supervised tumour segmentation tasks.",
+    "Classification-based segmentation methods are shown to be more effective than pixel-wise segmentation-based methods (like U-Net) when trained solely on coarse labels, as they avoid the large false-positive errors associated with direct pixel-wise supervision on coarse data.",
+    "The Annotation Refinement (AR) module using K-means clustering and the Noise Eliminator (NE) module are robust and efficient components that improve segmentation precision and reduce false-positive pixels."
+  ],
+  "important_remarks": [
+    "The study relies on a private BSS dataset collected from a single institution (Second Affiliated Hospital of Zhejiang University), which limits external validation and generalizability to other populations or scanners.",
+    "The method's performance is critically dependent on the assumption that coarse annotations (P-labels) include all tumour regions; the paper notes that P-labels may contain false positive samples, which could negatively impact results if the 'all tumour regions' premise is violated.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed; performance comparisons are based on descriptive metrics (IOU, Dice, etc.) without significance testing.",
+    "The PAIP2019 dataset used for cross-dataset validation is a public liver cancer dataset, while the primary development and fine-label ground truth come from a private skin cancer dataset, creating a domain shift that tests generalizability but limits direct clinical translation to skin cancer without further validation.",
+    "The coarse annotations for the public PAIP2019 dataset were generated by inviting experts to simulate sketch supervision, which introduces potential variability and subjectivity compared to the original high-quality challenge annotations used as ground truth.",
+    "The paper does not report the number of model parameters or computational complexity (FLOPs), limiting the assessment of deployment feasibility in resource-constrained clinical settings.",
+    "The method uses a classification-based approach with CAM to infer segmentation, which avoids false-positive errors associated with pixel-wise supervision on coarse labels but may lack the boundary precision of fully supervised pixel-wise methods if high-quality labels were available."
+  ]
+}

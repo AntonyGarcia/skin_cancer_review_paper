@@ -1,0 +1,216 @@
+{
+  "file_name": "schilling_2022_automated_annotator_variability_inspection_for_biomedical_image_s.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses uncertainty-aware Deep Neural Networks (specifically a U-Net architecture with Monte Carlo Dropout) to develop automated inspection pipelines for identifying intra- and inter-annotator variability in biomedical image segmentation. These methods were evaluated using the ISIC 2017 Melanoma image segmentation dataset, which involves dermatology/skin cancer lesion segmentation."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, proposing two novel automated methods (inspection pipelines) to identify intra- and inter-annotator variability using uncertainty-aware deep neural networks. It includes specific sections for 'Material and methods', 'Results and discussion', and demonstrates the proposed pipelines using the ISIC 2017 Melanoma dataset, which constitutes new results rather than a summary of prior literature."
+  },
+  "title": "Automated Annotator Variability Inspection for Biomedical Image Segmentation",
+  "authors": [
+    "Marcel P. Schilling",
+    "Tim Scherr",
+    "Friedrich R. Münke",
+    "Oliver Neumann",
+    "Mark Schutera",
+    "Ralf Mikut",
+    "Markus Reischl"
+  ],
+  "doi": "10.1109/ACCESS.2022.3140378",
+  "journal": "IEEE Access",
+  "year": 2022,
+  "article_type": "Research paper",
+  "brief_summary": "This study addresses the challenge of annotation noise in biomedical image segmentation by proposing two automated inspection pipelines to identify intra- and inter-annotator variability using uncertainty-aware deep neural networks. The authors utilize a U-Net architecture with Monte Carlo Dropout to estimate prediction uncertainty, which serves as a proxy for annotation quality. The methods were evaluated on the ISIC 2017 Melanoma image segmentation dataset, which contains dermoscopic images of skin lesions. The evaluation involved simulating various types of annotation noise and assessing the pipelines' ability to detect inconsistencies through metrics such as AUC and Pearson correlation. Key results demonstrated that the uncertainty-aware approach significantly improved the detection of noisy annotations compared to methods ignoring uncertainty, achieving AUC values greater than 0.5 and correlation coefficients above 0.81. The study concludes that these automated pipelines can effectively assist medical experts in focused re-inspection and the detection of different annotation styles.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "ISIC 2017 Melanoma"
+      ],
+      "role": "Target class",
+      "details": "The study uses the ISIC 2017 Melanoma image segmentation dataset, which contains dermoscopic images of skin lesions with a focus on melanoma detection and segmentation. The dataset includes 2000 training and 600 test samples with binary lesion masks."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary lesion masks (segmentation masks) for skin lesions in dermoscopic images.",
+        "primary": true,
+        "details": "The paper focuses on biomedical image segmentation tasks, specifically using the ISIC 2017 Melanoma dataset which contains binary lesion masks. The proposed methods use a U-Net architecture to generate segmentation masks (predictions y_hat) and utilizes uncertainty estimation (via Monte Carlo Dropout) to inspect annotator variability in these segmentation masks. The primary output is a segmentation mask, not a class label or continuous regression value."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017 Melanoma image segmentation dataset",
+      "description": "A public dataset from the International Skin Imaging Collaboration (ISIC) challenge 2017, containing dermoscopic images of skin lesions with binary lesion masks provided by experts. It was used as the primary dataset for evaluating the proposed automated inspection pipelines for intra- and inter-annotator variability.",
+      "classes_used": [
+        "Melanoma",
+        "Lesion (binary mask)"
+      ],
+      "counts": {
+        "total": 2600,
+        "training": 2000,
+        "validation": null,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "The training subset (2000 samples) was used to train the uncertainty-aware U-Net models. For noise simulation experiments, the training dataset was exclusively taken into account to simulate noisy annotations.",
+        "validation": "An 80/20 random split of the training data was used for validation during model training. Additionally, 5-fold cross-validation was performed on the training set to assess robustness.",
+        "testing": "The test subset (600 samples) was used to evaluate the segmentation performance (DSC_test) of models trained on clean and corrupted data, and to assess the impact of annotation noise on generalization.",
+        "other": "The dataset was assumed to be initially clean and correct for the purpose of simulating intra- and inter-annotator noise types (e.g., undersized, oversized, jitter, hole, approximation) to evaluate the inspection pipelines."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice Similarity Coefficient (DSC)",
+    "DSC_test",
+    "Area Under Curve (AUC)",
+    "Receiver Operating Characteristic (ROC)",
+    "True Positive Rate (TPR)",
+    "False Positive Rate (FPR)",
+    "Pearson correlation coefficient (Rpearson)",
+    "Weighted Root Mean Square Error (WRMSE)",
+    "Root Mean Square Error (RMSE)",
+    "iDAIS (inverted sampling score / uncertainty metric)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Pearson correlation coefficient (Rpearson)",
+      "purpose": "To evaluate the uncertainty estimation (iDAIS) by analyzing the correlation between the uncertainty metric and the mismatch of network prediction to ground-truth annotation (1-DSC).",
+      "type": "Correlation analysis"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) curve",
+      "purpose": "To assess the performance of the intra-annotator variability inspection pipeline, using the inverted sampling score as the decision criterion.",
+      "type": "Classification performance evaluation"
+    },
+    {
+      "method": "Area Under Curve (AUC)",
+      "purpose": "To quantify the performance of the inspection pipeline based on the ROC curve, where AUC > 0.5 indicates superior performance to random classifiers.",
+      "type": "Classification performance metric"
+    },
+    {
+      "method": "Weighted Root Mean Square Error (WRMSE)",
+      "purpose": "To evaluate the inter-annotator inspection quality by comparing the predicted consistency score against a reference mismatch derived from simulated noisy annotations, using inverted uncertainty as weights.",
+      "type": "Regression/Consistency error metric"
+    },
+    {
+      "method": "Root Mean Square Error (RMSE)",
+      "purpose": "To evaluate inter-annotator inspection quality when uncertainty is not taken into account (weights equal to one).",
+      "type": "Regression/Consistency error metric"
+    },
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "To assess the robustness of evaluation scores concerning random train-validation splits.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Standard deviation (σ)",
+      "purpose": "To report the variability of the Dice Similarity Coefficient (DSC) across the 5-fold cross-validation splits, showing σ(DSC) < 1.5%.",
+      "type": "Descriptive statistic"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance was evaluated using descriptive metrics such as Area Under Curve (AUC), Pearson correlation coefficient, and Root Mean Square Error (RMSE), with AUC > 0.5 used as a threshold to indicate performance superior to random classification."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017 Melanoma image segmentation dataset": {
+      "experiment": "Inter-annotator Variability Inspection (Consistency Score and Error Metrics)",
+      "metric": "Consistency Score (θ) and RMSE/WRMSE",
+      "models": {
+        "Inter-annotator Inspection Pipeline": {
+          "similar_annotation_styles_θ_range": "[0.878, 0.931]",
+          "undersized_vs_oversized_θ": "0.521 / 0.553",
+          "undersized_vs_normal_θ": "0.665 / 0.665",
+          "threshold_for_re_inspection": "θ ≤ 0.8 (empirical choice)",
+          "best_iDAIS_selection": "Using iDAIS of the prediction where sample xi belonged to during training leads to best overall results in terms of WRMSE"
+        }
+      },
+      "notes": "Similar annotation styles are predicted as most similar. Different annotation styles show lower predicted similarity. Quality assessment metric correlates with amount of difference in annotation styles. Interchangeability law holds for simulated inter-annotator variability."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Uncertainty-aware U-Net",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "backbone": "U-Net",
+      "modification": "Extended by inserting dropout layers to enable uncertainty estimation via Monte Carlo Dropout (MCD)",
+      "implementation_framework": "PyTorch Lightning",
+      "augmentation_library": "Albumentations",
+      "image_processing_libraries": [
+        "OpenCV",
+        "scikit-image"
+      ]
+    },
+    "training_details": {
+      "split_ratio": "80/20 (train/validation)",
+      "cross_validation": "5-fold",
+      "hyperparameter_optimization": "Random search",
+      "logging_tool": "Weights & Biases",
+      "uncertainty_samples_T": 20
+    },
+    "classification_or_output_head": {
+      "output_type": "Segmentation mask",
+      "uncertainty_metric": "iDAIS (inverted Dice agreement score)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Uncertainty-aware Deep Neural Networks (DNNs)",
+    "Uncertainty-aware U-Net",
+    "U-Net",
+    "Deep Neural Networks (DNNs)",
+    "CleanNet",
+    "Rank Pruning",
+    "Confident Learning framework"
+  ],
+  "preprocessing_techniques": [
+    "Resizing of segmentation masks to ensure comparable results independent of initial image size (using nearest-neighbor interpolation to preserve class information)",
+    "Resizing of corrupted annotation masks back to their original size (using nearest-neighbor interpolation)",
+    "Random shuffling of the dataset prior to splitting for noise simulation",
+    "Splitting the dataset into training and test subsets (2000 training, 600 test samples)",
+    "Splitting the training dataset into two equal-sized parts for inter-annotator variability simulation",
+    "Splitting the training dataset into two parts controlled by a corruption ratio parameter (γ) for intra-annotator variability simulation"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Data augmentation via Albumentations library",
+      "details": "The paper states that data augmentation provided by the Albumentations library was used during the training of the uncertainty-aware U-Net. However, specific augmentation techniques (e.g., geometric transforms, color transforms) and their parameters (probabilities, ranges) are not detailed in the provided text, referring instead to supplementary materials for such details."
+    }
+  ],
+  "conclusions": [
+    "Uncertainty-aware deep neural networks, specifically using Monte Carlo Dropout with a U-Net architecture, can effectively identify intra- and inter-annotator variability in biomedical image segmentation tasks.",
+    "The proposed automated inspection pipelines significantly improve the detection of noisy annotations compared to methods that ignore uncertainty, achieving Area Under Curve (AUC) values greater than 0.5 and Pearson correlation coefficients above 0.81.",
+    "The inter-annotator variability inspection method does not require multiple annotations per sample, making it suitable for division of labor annotation scenarios where time or cost restrictions prevent repeated annotations.",
+    "Similar annotation styles are predicted as highly similar (consistency score θ ∈ [0.878, 0.931]), while different annotation styles show lower predicted similarity, allowing for the detection of generally different annotation styles.",
+    "An empirical threshold of θ ≤ 0.8 for the consistency score is suggested to trigger focused re-inspection of noisy annotations before merging datasets.",
+    "Using the inverted Dice agreement score (iDAIS) of the prediction from the training sample leads to the best overall results in terms of Weighted Root Mean Square Error (WRMSE) for inter-annotator inspection.",
+    "The approach has potential for interpretability and active learning by identifying samples that are both uncertain and hard to predict, helping experts prioritize data acquisition to improve model performance.",
+    "The method assumes a corruption rate (γ) less than 0.5 for meaningful functionality; high corruption rates can cause the network to converge on predicting the noise type rather than correct annotations, leading to misleading classification (AUC < 0.5).",
+    "The interchangeability law holds for simulated inter-annotator variability, as the consistency scores are symmetric when comparing different simulated annotation styles."
+  ],
+  "important_remarks": [
+    "The study relies entirely on simulated annotation noise (e.g., undersized, oversized, jitter, hole, approximation) rather than real-world inter-annotator disagreements, which limits the ecological validity of the findings.",
+    "The method assumes the initial dataset is clean and correct; its performance degrades significantly if the corruption rate (gamma) exceeds 0.5, causing the network to predict noise types instead of correct annotations (AUC < 0.5).",
+    "Evaluation was conducted exclusively on the ISIC 2017 Melanoma dataset, lacking external validation on other biomedical imaging domains or lesion types, which restricts generalizability.",
+    "The paper does not report formal statistical hypothesis testing (e.g., p-values); performance is assessed using descriptive metrics like AUC and Pearson correlation, with AUC > 0.5 used as a threshold for superiority over random classification.",
+    "Specific data augmentation techniques and hyperparameters are not detailed in the main text, referring instead to supplementary materials, which hinders reproducibility.",
+    "The proposed inter-annotator inspection method does not require multiple annotations per sample, making it suitable for division-of-labor scenarios, but this also means it cannot directly measure true inter-annotator agreement without simulation.",
+    "Some simulated noise types (jitter, hole) unexpectedly improved DNN generalization (DSC_test), suggesting that certain types of annotation noise may act as a form of regularization, which is a counter-intuitive finding requiring careful interpretation."
+  ]
+}

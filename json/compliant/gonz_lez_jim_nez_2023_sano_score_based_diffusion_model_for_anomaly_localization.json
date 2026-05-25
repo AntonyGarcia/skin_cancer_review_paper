@@ -1,0 +1,236 @@
+{
+  "file_name": "gonz_lez_jim_nez_2023_sano_score_based_diffusion_model_for_anomaly_localization.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a score-based diffusion model (SANO), a deep learning generative model, for unsupervised anomaly localization in dermatology. It was trained on healthy hand images and evaluated on tasks including detecting jewelry and localizing hand eczema in clinical images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents SANO, a novel score-based diffusion model for unsupervised anomaly localization in dermatology. It introduces a new method, trains it on the 11k Hands dataset, evaluates it on jewelry detection and hand eczema localization tasks using the PhotoBox dataset, and compares its performance against competing approaches. The conclusion explicitly states 'This research paper introduced SANO...'"
+  },
+  "title": "SANO: Score-based Diffusion Model for Anomaly Localization in Dermatology",
+  "authors": [
+    "Alvaro Gonzalez-Jimenez",
+    "Simone Lionetti",
+    "Marc Pouly",
+    "Alexander A. Navarini"
+  ],
+  "doi": "10.1109/CVPRW59228.2023.00300",
+  "journal": "2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study introduces SANO, a score-based diffusion model for unsupervised anomaly localization in dermatology, designed to overcome the need for large annotated datasets and robustness to domain shifts. The method leverages log-likelihood gradients from score-based diffusion models to highlight abnormal regions without requiring additional computational costs. SANO was trained on a public non-clinical dataset of healthy hand images and evaluated on detecting jewelry within the same domain and localizing hand eczema in clinical images. The evaluation demonstrated that SANO outperforms competing unsupervised anomaly localization methods, particularly showing superior performance under significant domain shifts. These results highlight SANO's potential for digital dermatology applications requiring robustness to varied acquisition conditions.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Hand eczema",
+      "paper_terms": [
+        "hand eczema",
+        "eczema"
+      ],
+      "role": "Target class",
+      "details": "The paper evaluates the SANO model on the task of localizing hand eczema in clinical images from the PhotoBox dataset. This is the primary clinical anomaly studied in the dermatology application."
+    },
+    {
+      "lesion_type": "Jewelry",
+      "paper_terms": [
+        "jewelry",
+        "ornaments"
+      ],
+      "role": "Target class (non-clinical anomaly)",
+      "details": "The paper evaluates the model on detecting jewelry within images from the 11k Hands dataset. While not a skin lesion, it is the primary anomaly target used to benchmark the model's performance in the same domain before applying it to clinical eczema."
+    },
+    {
+      "lesion_type": "Healthy skin",
+      "paper_terms": [
+        "healthy skin",
+        "healthy hands",
+        "healthy hand images"
+      ],
+      "role": "Normal class (training data)",
+      "details": "The model is trained on a dataset of healthy hand images (from 11k Hands) without ornaments to learn the distribution of normal skin for unsupervised anomaly localization."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Anomaly localization masks for jewelry and hand eczema",
+        "primary": true,
+        "details": "The paper focuses on unsupervised anomaly localization. It produces a log-likelihood gradient map (anomaly score heatmap) and generates segmentation masks by setting a threshold on deviations from typical values. The model is evaluated on detecting jewelry (pixel-level localization) and localizing hand eczema in clinical images, with performance measured using metrics like AUROC and segmentation accuracy."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "11k Hands",
+      "description": "A public non-clinical dataset of industrial hand images used for benchmarking and training. It contains images of hands with and without jewelry.",
+      "classes_used": [
+        "Healthy hands (without jewelry)",
+        "Hands with jewelry (ornaments)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the SANO model on healthy hand images without ornaments to learn the distribution of normal skin.",
+        "validation": "Used to tune threshold parameters for segmentation mask generation (split into two equal parts, grouped by subject).",
+        "testing": "Used to evaluate the localization of jewelry within the same domain.",
+        "other": "Used as a benchmark dataset to demonstrate robustness before applying to clinical data."
+      }
+    },
+    {
+      "name": "PhotoBox",
+      "description": "A private dataset collected at a university hospital containing images of hand eczema. Images were taken in a controlled structure with LED illumination and a green background.",
+      "classes_used": [
+        "Hand eczema"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": "One part of the anomalous images was used for tuning threshold parameters (grouped by patient).",
+        "testing": "The other part of the anomalous images was used for evaluation of hand eczema localization.",
+        "other": "Used to prove robustness on clinical pictures with a domain shift."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area Under the Precision-Recall Curve (AUPRC)",
+    "Area Under the Receiver Operating Characteristic curve (AUROC)",
+    "Dice coefficient",
+    "Intersection over Union (IoU)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Bootstrap resampling",
+      "purpose": "To estimate the uncertainty (standard deviations) of performance metrics (AUROC, AUPRC) due to the finite size of the evaluation set.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Stratified sampling",
+      "purpose": "Used within the bootstrap procedure to ensure random selection with replacement was stratified over individuals in the dataset.",
+      "type": "Sampling method"
+    },
+    {
+      "method": "Mahalanobis squared norm",
+      "purpose": "Used as a heuristic criterion for identifying anomalies based on gradient deviations from zero, providing a conservative normalcy criterion for non-Gaussian distributions.",
+      "type": "Anomaly detection criterion"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing. Uncertainty was estimated using bootstrap resampling to compute standard deviations of performance metrics (AUROC, AUPRC), but no p-values or significance tests were reported."
+  },
+  "results_obtained_in_each_dataset": {
+    "MVTec": {
+      "metric": "AUROC",
+      "models": {
+        "AE": "0.946(1)",
+        "VAE": "0.937(2)",
+        "ceVAE": "0.941(2)",
+        "VQ-VAE": "0.946(2)",
+        "AnoVAEGAN": "0.943(2)",
+        "SANO": "0.963(2)"
+      },
+      "notes": "SANO outperforms EBM. For textures, SANO obtains better results compared to considered baselines. For objects, it maintains good performance except on cable and transistor images."
+    },
+    "11k Hands (Jewelry Localization)": {
+      "metric": "AUROC",
+      "models": {
+        "AE": "0.641(3)",
+        "VAE": "0.634(5)",
+        "ceVAE": "0.714(5)",
+        "VQ-VAE": "0.819(4)",
+        "AnoVAEGAN": "0.769(3)",
+        "SANO": "0.912(3)"
+      },
+      "notes": "SANO outperforms all considered reconstruction-based approaches. Standard deviations are estimates from 1000 bootstrap runs stratified over individuals."
+    },
+    "PhotoBox (Hand Eczema Localization)": {
+      "metric": "AUROC",
+      "models": {
+        "AE": "0.641(3)",
+        "VAE": "0.634(5)",
+        "ceVAE": "0.714(5)",
+        "VQ-VAE": "0.819(4)",
+        "AnoVAEGAN": "0.769(3)",
+        "SANO": "0.912(3)"
+      },
+      "notes": "SANO achieves a Dice score of 0.358 and an IoU of 0.231. Performance is superior by a large margin compared to baselines despite the domain shift."
+    }
+  },
+  "architecture_used": {
+    "main_model": "SANO (Score-based Diffusion Model)",
+    "pretraining": "Not reported; trained from scratch on healthy hand images from the 11k Hands dataset.",
+    "input_size": "256x256 pixels",
+    "architecture_details": {
+      "backbone": "U-Net",
+      "description": "Approximates the score s_theta(x, t) using a U-Net architecture as suggested by Song et al. [11].",
+      "diffusion_parameters": {
+        "time_steps": 1000,
+        "beta_min": 0.0001,
+        "beta_max": 0.02
+      },
+      "implementation": "Public codebase from https://github.com/yang-song/score_sde_pytorch"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.0002,
+      "batch_size": 64,
+      "iterations": 400000,
+      "data_augmentation": "None"
+    },
+    "classification_or_output_head": {
+      "output_type": "Log-likelihood gradient map (anomaly score heatmap)",
+      "segmentation_method": "Thresholding based on deviations from typical values observed during training; threshold selected to maximize F1 score on validation set."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "SANO (Score-based Diffusion Model)",
+    "Autoencoder (AE)",
+    "Variational Autoencoder (VAE)",
+    "Context-encoding Variational Autoencoder (ceVAE)",
+    "VQ-VAE",
+    "AnoVAEGAN",
+    "EBM (Energy-Based Model)",
+    "AnoGAN"
+  ],
+  "preprocessing_techniques": [
+    "Resizing all images to 256x256 pixels",
+    "No data augmentation employed"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The study introduced SANO, a novel unsupervised anomaly localization method that utilizes the log-likelihood gradient magnitude from score-based diffusion models rather than reconstruction error.",
+    "SANO outperforms competing unsupervised anomaly localization methods (including AE, VAE, ceVAE, VQ-VAE, and AnoGAN) on the 11k Hands dataset for jewelry detection without introducing additional computational costs.",
+    "SANO demonstrates superior robustness to significant domain shifts, maintaining high performance when applied to clinical images of hand eczema from the PhotoBox dataset, whereas reconstruction-based methods suffer considerable performance drops due to context changes.",
+    "The results indicate that SANO is a promising step for developing deep learning solutions for digital dermatology that can operate effectively under a wide range of uncontrolled acquisition conditions.",
+    "The approach addresses key challenges in dermatology by circumventing the need for large annotated datasets and mitigating biases associated with unstandardized image acquisition and skin tone variations."
+  ],
+  "important_remarks": [
+    "The model was trained exclusively on a public non-clinical dataset of healthy hand images (11k Hands), which may limit its generalizability to diverse skin tones or other anatomical regions not represented in the training data.",
+    "The clinical evaluation relied on the PhotoBox dataset, a private dataset collected in a controlled structure with LED illumination and a green background, which may not reflect the variability of real-world uncontrolled acquisition conditions.",
+    "The study addresses the significant bias in dermatology AI caused by training data consisting mostly of white skin samples, but does not provide specific performance metrics stratified by skin tone.",
+    "The approach circumvents the need for large annotated datasets, addressing the high cost and ethical concerns associated with manual annotation and biopsy in dermatology.",
+    "SANO demonstrates superior robustness to domain shifts compared to reconstruction-based methods (AE, VAE, etc.), maintaining high performance when applied to clinical images despite the shift from industrial to clinical contexts.",
+    "The threshold for segmentation mask generation was tuned on a validation set split by subject to avoid data leakage, but the specific heuristic or optimization method for threshold selection is not fully detailed beyond maximizing F1 on validation.",
+    "The paper highlights that unsupervised anomaly localization cannot produce a diagnosis and often leads to less accurate segmentation masks compared to supervised methods, representing a fundamental limitation of the approach."
+  ]
+}

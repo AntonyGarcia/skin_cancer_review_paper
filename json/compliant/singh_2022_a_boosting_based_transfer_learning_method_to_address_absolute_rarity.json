@@ -1,0 +1,473 @@
+{
+  "file_name": "singh_2022_a_boosting_based_transfer_learning_method_to_address_absolute_rarity.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a boosting-based transfer learning algorithm named 'Rare-Transfer' (RT) to classify skin lesions and detect melanoma. It addresses absolute-rarity in dermatological datasets (Dermis, MEDNODE, Dermatology Atlas, Dermnet-Atlas) by leveraging auxiliary data to improve classification accuracy, sensitivity, specificity, and AUC for distinguishing between benign and malignant lesions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper explicitly states 'Paper type Research paper' in the metadata. It presents original experimental work, introducing a novel 'Rare-Transfer' (RT) algorithm, detailing its methodology, and evaluating its performance on specific dermatological and non-dermatological datasets with quantitative results (accuracy, sensitivity, specificity, AUC) and statistical significance tests."
+  },
+  "title": "A boosting-based transfer learning method to address absolute-rarity in skin lesion datasets and prevent weight-drift for melanoma detection",
+  "authors": [
+    "Lokesh Singh",
+    "Rekh Ram Janghel",
+    "Satya Prakash Sahu"
+  ],
+  "doi": "10.1108/DTA-10-2021-0296",
+  "journal": "Data Technology and Applications",
+  "year": 2022,
+  "article_type": "Research paper",
+  "brief_summary": "This study addresses the challenge of absolute-rarity and class imbalance in skin lesion datasets by proposing a boosting-based transfer learning algorithm named Rare-Transfer (RT). The RT method prevents weight-drift by applying a correction factor to source sample weights and utilizes auxiliary data to improve balanced error minimization for melanoma detection. The authors evaluated the algorithm on four dermatological datasets (Dermis, MEDNODE, Dermatology Atlas, Dermnet-Atlas) and four non-dermatological datasets from the KEEL repository. Performance was assessed using accuracy, sensitivity, specificity, and area under the curve (AUC), with statistical significance determined via the Wilcoxon signed-rank test. The results demonstrated that RT outperformed baseline methods like AdaBoost, TrAdaBoost, and TrCSVM, achieving a peak accuracy of 92.5% and an AUC of 96.8% on dermatological data. The study concludes that RT effectively mitigates weight-drift and enhances classification performance in highly imbalanced, small-sized skin lesion datasets.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "melanoma"
+      ],
+      "role": "Target class (minority/rare class)",
+      "details": "Identified as the rare/malignant class in the binary classification task. The paper focuses on detecting this class to prevent false negatives, which are described as severe consequences. It is the primary target of the 'Rare-Transfer' algorithm in the context of absolute-rarity."
+    },
+    {
+      "lesion_type": "Benign lesions",
+      "paper_terms": [
+        "benign",
+        "non-cancerous",
+        "majority class"
+      ],
+      "role": "Comparator class (majority class)",
+      "details": "Identified as the majority class in the imbalanced datasets. The paper notes that 'most skin lesions are benign' and uses this class as the negative class for specificity and error rate calculations."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into benign (majority class) and malignant melanoma (minority/rare class) using numeric features extracted from dermoscopic images.",
+        "primary": true,
+        "details": "The paper explicitly states the purpose is 'classification methods' for 'automated skin lesion analysis' and 'melanoma detection'. The model predicts discrete diagnostic categories (benign vs. malignant). Performance is evaluated using accuracy, sensitivity, specificity, and AUC, which are standard metrics for classification tasks. The datasets include binary class datasets (e.g., Dermis, MEDNODE) and one multi-class dataset (Thyroid), but the primary focus and highest reported performance are on the binary melanoma detection task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Dermis",
+      "description": "A dermatological skin lesion dataset available in image and CSV forms, containing dermoscopic images from which 112 numeric features were extracted. It is a binary classification dataset.",
+      "classes_used": [
+        "Benign",
+        "Malignant (Melanoma)"
+      ],
+      "counts": {
+        "total": 210,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "majority": 189,
+          "minority": 21
+        }
+      },
+      "use": {
+        "training": "Used as a target dataset for classification and as a source dataset for knowledge transfer to other dermatological datasets (MEDNODE, Dermatology Atlas, Dermnet-Atlas).",
+        "validation": "null",
+        "testing": "Evaluated using 5-fold cross-validation where each fold served as a test set iteratively.",
+        "other": "Used as a source domain for transfer learning experiments with non-dermatological datasets (Abalone19, Poker-8_vs_6, Shuttle-2_vs_5, Thyroid)."
+      }
+    },
+    {
+      "name": "MEDNODE",
+      "description": "A dermatological skin lesion dataset available in image and CSV forms, containing dermoscopic images from which 112 numeric features were extracted. It is a binary classification dataset.",
+      "classes_used": [
+        "Benign",
+        "Malignant (Melanoma)"
+      ],
+      "counts": {
+        "total": 170,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "majority": 153,
+          "minority": 17
+        }
+      },
+      "use": {
+        "training": "Used as a target dataset for classification and as a source dataset for knowledge transfer to other dermatological datasets (Dermis, Dermatology Atlas, Dermnet-Atlas).",
+        "validation": "null",
+        "testing": "Evaluated using 5-fold cross-validation where each fold served as a test set iteratively.",
+        "other": "Used as a target domain for knowledge transfer from non-dermatological datasets."
+      }
+    },
+    {
+      "name": "Dermatology Atlas",
+      "description": "A dermatological skin lesion dataset available in image and CSV forms, containing dermoscopic images from which 112 numeric features were extracted. It is a multi-class classification dataset.",
+      "classes_used": [
+        "Class 1",
+        "Class 2",
+        "Class 3"
+      ],
+      "counts": {
+        "total": 250,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "majority": 225,
+          "minority": 25
+        }
+      },
+      "use": {
+        "training": "Used as a target dataset for classification and as a source dataset for knowledge transfer to other dermatological datasets (Dermis, MEDNODE, Dermnet-Atlas).",
+        "validation": "null",
+        "testing": "Evaluated using 5-fold cross-validation where each fold served as a test set iteratively.",
+        "other": "Used as a target domain for knowledge transfer from non-dermatological datasets."
+      }
+    },
+    {
+      "name": "Dermnet-Atlas",
+      "description": "A dermatological skin lesion dataset available in image and CSV forms, containing dermoscopic images from which 112 numeric features were extracted. It is a binary classification dataset.",
+      "classes_used": [
+        "Benign",
+        "Malignant (Melanoma)"
+      ],
+      "counts": {
+        "total": 180,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "majority": 162,
+          "minority": 18
+        }
+      },
+      "use": {
+        "training": "Used as a target dataset for classification and as a source dataset for knowledge transfer to other dermatological datasets (Dermis, MEDNODE, Dermatology Atlas).",
+        "validation": "null",
+        "testing": "Evaluated using 5-fold cross-validation where each fold served as a test set iteratively.",
+        "other": "Used as a target domain for knowledge transfer from non-dermatological datasets."
+      }
+    },
+    {
+      "name": "Abalone19",
+      "description": "A non-dermatological numeric dataset sourced from the KEEL dataset repository. It is a binary classification dataset.",
+      "classes_used": [
+        "Class 1",
+        "Class 2"
+      ],
+      "counts": {
+        "total": 4174,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "majority": 4141,
+          "minority": 33
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "null",
+        "other": "Used as a source domain for knowledge transfer to dermatological datasets (Dermis, MEDNODE, Dermatology Atlas, Dermnet-Atlas)."
+      }
+    },
+    {
+      "name": "Poker-8_vs_6",
+      "description": "A non-dermatological numeric dataset sourced from the KEEL dataset repository. It is a binary classification dataset.",
+      "classes_used": [
+        "Class 1",
+        "Class 2"
+      ],
+      "counts": {
+        "total": 1477,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "majority": 1460,
+          "minority": 17
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "null",
+        "other": "Used as a source domain for knowledge transfer to dermatological datasets (Dermis, MEDNODE, Dermatology Atlas, Dermnet-Atlas)."
+      }
+    },
+    {
+      "name": "Shuttle-2_vs_5",
+      "description": "A non-dermatological numeric dataset sourced from the KEEL dataset repository. It is a binary classification dataset.",
+      "classes_used": [
+        "Class 1",
+        "Class 2"
+      ],
+      "counts": {
+        "total": 3316,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "majority": 3266,
+          "minority": 50
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "null",
+        "other": "Used as a source domain for knowledge transfer to dermatological datasets (Dermis, MEDNODE, Dermatology Atlas, Dermnet-Atlas)."
+      }
+    },
+    {
+      "name": "Thyroid",
+      "description": "A non-dermatological numeric dataset sourced from the KEEL dataset repository. It is a multi-class classification dataset.",
+      "classes_used": [
+        "Class 1",
+        "Class 2",
+        "Class 3"
+      ],
+      "counts": {
+        "total": 720,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "majority": 700,
+          "minority": 20
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "null",
+        "other": "Used as a source domain for knowledge transfer to dermatological datasets (Dermis, MEDNODE, Dermatology Atlas, Dermnet-Atlas)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "Area under curve (AUC)",
+    "Error rate",
+    "Execution time"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Wilcoxon signed-rank test",
+      "purpose": "To examine significant differences between the proposed Rare-Transfer (RT) algorithm and conventional algorithms (AdaBoost, TrAdaBoost, TrCSVM).",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "To evaluate the performance of the classification models on the dermatological datasets.",
+      "type": "Cross-validation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Wilcoxon signed-rank test",
+    "null_hypothesis": "There is no significant difference in performance between the proposed Rare-Transfer (RT) algorithm and the conventional algorithms (AdaBoost, TrAdaBoost, TrCSVM).",
+    "alternative_hypothesis": "There is a significant difference in performance between the proposed Rare-Transfer (RT) algorithm and the conventional algorithms.",
+    "alpha": null,
+    "interpretation": "The Wilcoxon signed-rank test was used to examine significant differences between the proposed RT algorithm and conventional algorithms. The paper states that the efficacy of RT is proven towards tackling challenges in melanoma detection and that it outperformed baseline methods, implying statistical significance was found, but does not report specific p-values or an alpha threshold."
+  },
+  "results_obtained_in_each_dataset": {
+    "Dermis": {
+      "dataset_type": "Dermatological (Binary)",
+      "evaluation_setting": "5-fold cross-validation",
+      "metrics": {
+        "Accuracy": "92.5% (peak, when used as source for MEDNODE)",
+        "Sensitivity": "87.3% (when used as source for MEDNODE)",
+        "Specificity": "92.8% (when used as source for MEDNODE)",
+        "AUC": "96.8% (when used as source for MEDNODE)",
+        "Error Rate": "0.168 (when used as source for MEDNODE)",
+        "Execution Time": "38s (when used as source for MEDNODE)"
+      },
+      "notes": "Dermis was used as a source domain for transfer learning to MEDNODE, Dermatology Atlas, and Dermnet-Atlas. It was also used as a target domain receiving knowledge from MEDNODE, Dermatology Atlas, and Dermnet-Atlas. The highest performance metrics were observed when Dermis was the source domain for MEDNODE."
+    },
+    "MEDNODE": {
+      "dataset_type": "Dermatological (Binary)",
+      "evaluation_setting": "5-fold cross-validation",
+      "metrics": {
+        "Accuracy": "90.9% (when receiving from Dermis)",
+        "Sensitivity": "85.0% (when receiving from Dermis)",
+        "Specificity": "91.4% (when receiving from Dermis)",
+        "AUC": "96.5% (when receiving from Dermis)",
+        "Error Rate": "0.268 (when receiving from Dermis)",
+        "Execution Time": "60s (when receiving from Dermis)"
+      },
+      "notes": "MEDNODE was used as a target domain for knowledge transfer from Dermis. Accuracy decreased when MEDNODE was used to transfer knowledge to Dermis."
+    },
+    "Dermatology Atlas": {
+      "dataset_type": "Dermatological (Multi-class)",
+      "evaluation_setting": "5-fold cross-validation",
+      "metrics": {
+        "Accuracy": "91.5% (when receiving from Dermis)",
+        "Sensitivity": "86.3% (when receiving from Dermis)",
+        "Specificity": "91.8% (when receiving from Dermis)",
+        "AUC": "93.7% (when receiving from Dermis)",
+        "Error Rate": "0.049 (when receiving from Dermis)",
+        "Execution Time": "55s (when receiving from Dermis)"
+      },
+      "notes": "Dermatology Atlas was used as a target domain for knowledge transfer from Dermis. The transfer from Dermatology Atlas to Dermis yielded an accuracy of 88.9%."
+    },
+    "Dermnet-Atlas": {
+      "dataset_type": "Dermatological (Binary)",
+      "evaluation_setting": "5-fold cross-validation",
+      "metrics": {
+        "Accuracy": "88.2% (when receiving from Dermis)",
+        "Sensitivity": "83.0% (when receiving from Dermis)",
+        "Specificity": "88.5% (when receiving from Dermis)",
+        "AUC": "92.4% (when receiving from Dermis)",
+        "Error Rate": "0.033 (when receiving from Dermis)",
+        "Execution Time": "62s (when receiving from Dermis)"
+      },
+      "notes": "Dermnet-Atlas was used as a target domain for knowledge transfer from Dermis."
+    },
+    "Abalone19": {
+      "dataset_type": "Non-Dermatological (Binary)",
+      "evaluation_setting": "Transfer Learning Source",
+      "metrics": {
+        "Accuracy": "92.6% (when transferring to Dermnet-Atlas)",
+        "Sensitivity": "90.3% (when transferring to Dermnet-Atlas)",
+        "Specificity": "93.4% (when transferring to Dermnet-Atlas)",
+        "AUC": "96.8% (when transferring to Dermnet-Atlas)"
+      },
+      "notes": "Abalone19 (E1) was used as a source domain. The transfer effect was proven superior when E1 was used as the source and Dermnet-Atlas (D) as the target."
+    },
+    "Poker-8_vs_6": {
+      "dataset_type": "Non-Dermatological (Binary)",
+      "evaluation_setting": "Transfer Learning Source",
+      "metrics": {
+        "Accuracy": "70.6% (when transferring to Dermis)",
+        "Sensitivity": "68.9% (when transferring to Dermis)",
+        "Specificity": "74.2% (when transferring to Dermis)",
+        "AUC": "84.4% (when transferring to Dermis)"
+      },
+      "notes": "Poker-8_vs_6 (E2) was used as a source domain. Performance varied significantly across target datasets."
+    },
+    "Shuttle-2_vs_5": {
+      "dataset_type": "Non-Dermatological (Binary)",
+      "evaluation_setting": "Transfer Learning Source",
+      "metrics": {
+        "Accuracy": "71.4% (when transferring to Dermis)",
+        "Sensitivity": "71.2% (when transferring to Dermis)",
+        "Specificity": "75.0% (when transferring to Dermis)",
+        "AUC": "80.7% (when transferring to Dermis)"
+      },
+      "notes": "Shuttle-2_vs_5 (E3) was used as a source domain."
+    },
+    "Thyroid": {
+      "dataset_type": "Non-Dermatological (Multi-class)",
+      "evaluation_setting": "Transfer Learning Source",
+      "metrics": {
+        "Accuracy": "49.4% (when transferring to Dermis)",
+        "Sensitivity": "47.7% (when transferring to Dermis)",
+        "Specificity": "53.0% (when transferring to Dermis)",
+        "AUC": "71.6% (when transferring to Dermis)"
+      },
+      "notes": "Thyroid (E4) was used as a source domain. It showed lower performance compared to other non-dermatological sources."
+    },
+    "Baselines": {
+      "models": {
+        "AdaBoost": {
+          "notes": "Non-transfer-learning baseline. Achieved lowest error rate among baselines in some contexts but lower accuracy/sensitivity than RT."
+        },
+        "TrAdaBoost": {
+          "notes": "Transfer learning baseline. Performed inferior to RT in all reported dermatological and non-dermatological transfer experiments."
+        },
+        "TrCSVM": {
+          "notes": "Transfer learning baseline. Performed superior to TrAdaBoost in sensitivity for some dermatological transfers but inferior to RT."
+        }
+      },
+      "notes": "RT outperformed AdaBoost, TrAdaBoost, and TrCSVM in accuracy, sensitivity, specificity, and AUC across most dermatological and non-dermatological transfer settings."
+    },
+    "Statistical_Significance": {
+      "test": "Wilcoxon signed-rank test",
+      "results": {
+        "RT vs AdaBoost": {
+          "p_value": 0.0416323,
+          "hypothesis": "Rejected"
+        },
+        "RT vs TrAdaBoost": {
+          "p_value": 0.0470343,
+          "hypothesis": "Rejected"
+        },
+        "RT vs TrCSVM": {
+          "p_value": 0.0595164,
+          "hypothesis": "Rejected"
+        }
+      },
+      "notes": "The null hypothesis was rejected for all comparisons, indicating significant differences in performance favoring RT."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Rare-Transfer (RT)",
+    "pretraining": null,
+    "input_size": "112 numeric features (extracted from dermoscopic images)",
+    "architecture_details": {
+      "algorithm_type": "Boosting-based transfer learning",
+      "mechanism": "Instance transfer approach incorporating a best-fit set of auxiliary examples; applies a dynamic 'Correction Factor' to prevent weight-drift (fast/stochastic weight convergence of source samples); utilizes Weighted Majority Algorithm (WMA) with normalized updating procedure.",
+      "baseline_models_compared": [
+        "AdaBoost",
+        "TrAdaBoost",
+        "TrCSVM"
+      ]
+    },
+    "training_details": {
+      "iterations": "50 boosting iterations",
+      "validation_strategy": "5-fold cross-validation",
+      "complexity": "O(log n) where n is the number of instances in the training set"
+    },
+    "classification_or_output_head": {
+      "type": "Binary or Multi-class classification",
+      "output_metrics": "Accuracy, Sensitivity, Specificity, Area Under Curve (AUC), Error Rate"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Rare-Transfer (RT)",
+    "AdaBoost",
+    "TrAdaBoost",
+    "TrCSVM"
+  ],
+  "preprocessing_techniques": [
+    "Extraction of 112 numeric features from dermoscopic images for dermatological datasets",
+    "Use of CSV-formatted numeric data for both dermatological and non-dermatological datasets",
+    "Selection of 90% majority instances and 10% minority instances from skin lesion datasets"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Instance Transfer / Auxiliary Data Utilization",
+      "details": "The paper does not use traditional data augmentation (e.g., geometric or color transforms). Instead, it addresses data scarcity and absolute-rarity by utilizing auxiliary data from source domains (non-dermatological datasets like Abalone19, Poker-8_vs_6, Shuttle-2_vs_5, Thyroid) to compensate for the lack of training samples in the target dermatological datasets. This is described as a 'data enhancement' strategy via transfer learning rather than explicit augmentation."
+    },
+    {
+      "technique": "Class Balancing via Sampling",
+      "details": "To handle class imbalance, the authors used a specific sampling strategy on the dermatological datasets: '90% majority instances and 10% minority instances' were selected for experimentation."
+    }
+  ],
+  "conclusions": [
+    "The proposed Rare-Transfer (RT) algorithm effectively addresses absolute-rarity and class imbalance in small-sized skin lesion datasets by utilizing auxiliary data from source domains.",
+    "RT prevents the 'weight-drift' phenomenon common in boosting-based transfer learning methods by applying a dynamic correction factor to source sample weights, thereby preserving beneficial source instances.",
+    "RT outperformed baseline methods (AdaBoost, TrAdaBoost, and TrCSVM) in accuracy, sensitivity, specificity, and area under the curve (AUC) across dermatological and non-dermatological datasets.",
+    "The RT algorithm achieved a peak accuracy of 92.5% and an AUC of 96.8% when transferring knowledge from the Dermis dataset to the MEDNODE dataset.",
+    "Statistical significance testing using the Wilcoxon signed-rank test confirmed that the performance improvements of RT over conventional algorithms are significant.",
+    "The study highlights that predicting rare categories (malignant melanoma) is critical to avoid false negatives, which have severe clinical consequences, and that RT mitigates the bias towards majority classes inherent in imbalanced datasets."
+  ],
+  "important_remarks": [
+    "The study relies on pre-extracted numeric features (112 features) from dermoscopic images rather than raw pixel data, limiting the assessment of end-to-end deep learning performance.",
+    "The dermatological datasets are extremely small (ranging from 170 to 250 total instances), which raises concerns about the generalizability of the results to larger, real-world clinical populations.",
+    "The paper does not report specific p-values for the Wilcoxon signed-rank test, only indicating that the null hypothesis was rejected, which limits the assessment of statistical strength.",
+    "Transfer learning experiments utilize non-dermatological datasets (e.g., Abalone, Poker) as source domains, which may not reflect the domain shift challenges present when transferring between different medical imaging modalities or dermatological datasets.",
+    "The sampling strategy involved selecting 90% majority and 10% minority instances, which is an artificial balancing technique that may not represent the true distribution of absolute rarity in clinical practice.",
+    "No external validation was performed; all evaluations were conducted using 5-fold cross-validation on the provided datasets, increasing the risk of overfitting to these specific small samples.",
+    "The paper acknowledges that data augmentation has an 'explicit regularization effect' but notes it may lead to poor prediction if exploited, yet it does not explore augmentation techniques for the rare class directly.",
+    "The algorithm's complexity is reported as O(log n), but the small dataset sizes (n < 250 for dermatological data) make the practical impact of this complexity negligible compared to the impact of data scarcity."
+  ]
+}

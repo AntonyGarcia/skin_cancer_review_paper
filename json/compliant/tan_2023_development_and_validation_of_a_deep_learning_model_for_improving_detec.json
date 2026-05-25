@@ -1,0 +1,402 @@
+{
+  "file_name": "tan_2023_development_and_validation_of_a_deep_learning_model_for_improving_detec.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed and validated deep learning models (using EfficientNet B0 and MobileNetV2 architectures) to detect non-melanoma skin cancers (basal cell carcinoma and squamous cell carcinoma) in Mohs micrographic surgery frozen sections. The study utilized tile-based classification, weakly supervised learning, and convolutional neural networks to achieve high accuracy in identifying tumor regions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as an 'Original Article' (Line 1). It describes the development and validation of deep learning models using archival and prospective datasets (Lines 62-64, 116-119), reports original experimental results including performance metrics like AUPRC and AUROC (Lines 67-70, 210-229), and includes standard research sections such as Methods, Results, and Discussion."
+  },
+  "title": "Development and validation of a deep learning model for improving detection of non-melanoma skin cancers treated with Mohs micrographic surgery",
+  "authors": [
+    "Eugene Tan",
+    "Sophie Lim",
+    "Duncan Lamont",
+    "Richard Epstein",
+    "David Lim",
+    "Frank PY Lin"
+  ],
+  "doi": "10.1016/j.jdin.2023.10.007",
+  "journal": "JAAD International",
+  "year": 2023,
+  "article_type": "Original Article",
+  "brief_summary": "This study developed and validated deep learning models to detect non-melanoma skin cancers (basal cell and squamous cell carcinomas) in Mohs micrographic surgery frozen sections. The models, based on EfficientNet B0 and MobileNetV2 architectures, were trained on 1,423 archival focused-microscopic view images and validated on a prospective temporal cohort of 374 images. Evaluation metrics included pixel-level area under the precision-recall curve (AUPRC) and area under the receiver operating characteristic curve (AUROC) at 40x and 100x magnifications. The best fully supervised models achieved high accuracy, with median AUPRCs of 0.966 for basal cell carcinoma and 0.904 for squamous cell carcinoma at 100x magnification. Weakly supervised learning models also demonstrated high precision, though with slightly lower discriminability compared to fully supervised approaches. The findings support the potential of AI-assisted margin control to enhance surgical efficiency and reduce interobserver discordance in Mohs surgery.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC",
+        "nodular BCC",
+        "micronodular BCC"
+      ],
+      "role": "Target class",
+      "details": "Primary target for detection models; included in both development (archival) and validation (prospective) cohorts. Specific subtypes mentioned in figure legends include nodular and micronodular BCC."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma",
+        "SCC",
+        "invasive squamous cell carcinomas"
+      ],
+      "role": "Target class",
+      "details": "Primary target for detection models; included in both development and validation cohorts. The study notes limited cases of SCC and insufficient data hampering performance at 40x magnification."
+    },
+    {
+      "lesion_type": "Actinic keratosis",
+      "paper_terms": [
+        "actinic keratoses"
+      ],
+      "role": "Comparator class",
+      "details": "Included as extra controls in the training dataset to help train BCC models (and vice versa for SCC models) to distinguish tumor from non-tumor regions."
+    },
+    {
+      "lesion_type": "Normal skin",
+      "paper_terms": [
+        "normal skin",
+        "non-tumor region",
+        "controls"
+      ],
+      "role": "Comparator class",
+      "details": "Included as extra controls in the training dataset to distinguish tumor from non-tumor regions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of image tiles as containing tumor (positive) or non-tumor/control (negative) for Basal Cell Carcinoma (BCC) and Squamous Cell Carcinoma (SCC).",
+        "primary": true,
+        "details": "The study employed tile-based classification using a sliding prediction window technique. Tiles were labeled 'positive' if tumors occupied ≥10% of the area or categorized as controls. Models (EfficientNet B0 and MobileNetV2) used a final softmax layer with categorical cross-entropy loss to predict class probabilities. The task was evaluated using metrics such as Average Precision (AP), Area Under the Precision-Recall Curve (AUPRC), and Area Under the Receiver Operating Characteristic Curve (AUROC). Additionally, weakly supervised learning (WSL) was explored, where classifiers were trained on top-level diagnoses without expert annotations."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Development Cohort (Archival)",
+      "description": "Archival focused-microscopic view (FMV) images of skin lesions from patients who underwent Mohs micrographic surgery (MMS) for non-melanoma skin cancer (NMSC) at a Mohs surgical unit in Melbourne, Australia, between February 20, 2015, and December 1, 2018. Images were acquired using a Leica ICC50W camera attached to a DM1000 microscope at 40x and 100x magnification.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Squamous cell carcinoma (SCC)",
+        "Non-tumor/Normal skin"
+      ],
+      "counts": {
+        "total": 1423,
+        "training": 1423,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "BCC": 187,
+          "SCC": 33
+        }
+      },
+      "use": {
+        "training": "Used for model development and training. The dataset consisted of 1,423 FMV images from 154 patients. For cross-validation, 267 images at 100x magnification from 66 patients had annotated ground truth masks, with 241 images (90%) from 59 patients containing ≥10% non-tumor region suitable for leave-one-out cross-validation (LOOCV).",
+        "validation": "null",
+        "testing": "null",
+        "other": "Used for internal model validity assessment via patient-level leave-one-out cross-validation (LOOCV)."
+      }
+    },
+    {
+      "name": "Validation Cohort (Temporal/Prospective)",
+      "description": "Prospectively collected FMV images from patients who underwent MMS for NMSC at the same institution after the study's conception, specifically between January 24, 2019, and December 6, 2021. Images were acquired using the same protocol and equipment as the development cohort.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Squamous cell carcinoma (SCC)"
+      ],
+      "counts": {
+        "total": 374,
+        "training": null,
+        "validation": null,
+        "testing": 374,
+        "per_class": {
+          "BCC": 206,
+          "SCC": 168
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used for external temporal validation of the deep learning models. The cohort included 66 patients. For BCC, 206 images at 100x and 95 at 40x were analyzed. For SCC, 168 images were analyzed (implied from total 374 minus 206 BCC images, though specific SCC image count is not explicitly broken down in the text, the total patient count is 66).",
+        "other": "Used for exploratory analysis of weakly supervised learning (WSL) models."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "pixel-level AUPRC",
+    "AUROC",
+    "highest Dice coefficient",
+    "folds enrichment of precision (FEP)",
+    "Average Precision",
+    "Fleiss' kappa"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Fleiss' kappa",
+      "purpose": "To measure inter-rater agreement for identifying tumor presence in segmentation masks prepared by multiple experts.",
+      "type": "Inter-reader agreement"
+    },
+    {
+      "method": "Leave-one-out cross-validation (LOOCV)",
+      "purpose": "To assess internal model validity and estimate performance metrics (AUPRC, AUROC, Dice coefficient) on the development cohort while preventing data leakage between patients.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Ordinary bootstrap resampling",
+      "purpose": "To estimate confidence intervals (CI) for performance metrics over 10,000 iterations.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Paired Wilcoxon test",
+      "purpose": "To compare performance metrics (AUPRC, AUROC) between different model architectures (EfficientNet vs. MobileNet) on the same images.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Chi-squared test",
+      "purpose": "To compare the number of Mohs micrographic surgery (MMS) stages per operation between the development and validation cohorts.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Significance threshold adjustment",
+      "purpose": "To control for Type I error rate in multiple comparisons.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Paired Wilcoxon test; Chi-squared test",
+    "null_hypothesis": "There is no difference in performance metrics (AUPRC, AUROC) between model architectures (EfficientNet vs. MobileNet) on the same images; There is no difference in the number of Mohs micrographic surgery stages per operation between the development and validation cohorts.",
+    "alternative_hypothesis": "There is a difference in performance metrics between model architectures; There is a difference in the number of Mohs micrographic surgery stages per operation between the development and validation cohorts.",
+    "alpha": 0.01,
+    "interpretation": "Significance was interpreted using a Type I error rate set at 0.01, adjusted for multiple testing. For example, the chi-squared test showed a significant difference in MMS stages between cohorts (p<0.001). Paired Wilcoxon tests were used to compare model performances, with specific p-values reported (e.g., p=0.23, p=0.11, p=0.009, p=0.0034, p=0.10, p=0.03, p=0.21, p<0.001) to determine statistical significance of differences in AUPRC and AUROC."
+  },
+  "results_obtained_in_each_dataset": {
+    "Development Cohort (Archival)": {
+      "Basal Cell Carcinoma (BCC) - 100x Magnification": {
+        "metric": "LOOCV Performance",
+        "models": {
+          "EfficientNet B0": {
+            "median_AUPRC": "0.939 (95% CI: 0.923 – 0.953)",
+            "median_AUROC": "0.900 (95% CI: 0.873 – 0.923)",
+            "median_Dice_coefficient": "0.892 (95% CI: 0.883 – 0.903)",
+            "FEP": "2.56-fold (95% CI: 2.45 – 2.71)"
+          },
+          "MobileNetV2": {
+            "median_AUPRC": "0.949 (95% CI: 0.932 – 0.960)",
+            "median_AUROC": "0.917 (95% CI: 0.904 – 0.931)",
+            "median_Dice_coefficient": "0.897 (95% CI: 0.888 – 0.907)",
+            "FEP": "2.67-fold (95% CI: 2.52 – 2.84)"
+          }
+        },
+        "notes": "Analysis based on 241 images from 59 patients. Both architectures showed strong discrimination."
+      },
+      "Basal Cell Carcinoma (BCC) - 40x Magnification": {
+        "metric": "LOOCV Performance",
+        "models": {
+          "EfficientNet B0": {
+            "median_AUPRC": "0.944",
+            "median_AUROC": "0.954 (95% CI: 0.942 – 0.970)",
+            "median_Dice_coefficient": "0.899 (95% CI: 0.884 – 0.911)"
+          },
+          "MobileNetV2": {
+            "median_AUPRC": "0.944",
+            "median_AUROC": "0.948 (95% CI: 0.926 – 0.968)",
+            "median_Dice_coefficient": "0.897 (95% CI: 0.870 – 0.909)"
+          }
+        },
+        "notes": "Analysis based on 147 of 149 images. Highly concordant performances seen at this magnification. Median FEP was 4-fold enrichment over baseline."
+      },
+      "Squamous Cell Carcinoma (SCC) - 100x Magnification": {
+        "metric": "LOOCV Performance",
+        "models": {
+          "EfficientNet B0": {
+            "median_AUPRC": "0.910 (95% CI: 0.878 – 0.963)",
+            "median_AUROC": "0.903 (95% CI: 0.795 – 0.939)",
+            "median_Dice_coefficient": "0.929 (95% CI: 0.887 – 0.973)",
+            "median_FEP": "2.66 (95% CI: 2.41 – 3.12)"
+          },
+          "MobileNetV2": {
+            "median_AUPRC": "0.920 (95% CI: 0.888 – 0.980)",
+            "median_AUROC": "0.912 (95% CI: 0.834 – 0.960)",
+            "median_Dice_coefficient": "0.959 (95% CI: 0.878 – 0.973)",
+            "median_FEP": "2.74 (95% CI: 2.28 – 3.30)"
+          }
+        },
+        "notes": "Analysis based on 25 images from 10 patients containing ≥10% non-tumor region."
+      },
+      "Squamous Cell Carcinoma (SCC) - 40x Magnification": {
+        "metric": "LOOCV Performance",
+        "models": {
+          "EfficientNet B0": {
+            "median_AUPRC": "0.795 (95% CI: 0.560 – 0.927)",
+            "median_AUROC": "0.747 (95% CI: 0.678 – 0.877)"
+          },
+          "MobileNetV2": {
+            "median_AUPRC": "0.701 (95% CI: 0.336 – 0.979)",
+            "median_AUROC": "0.768 (95% CI: 0.448 – 0.981)"
+          }
+        },
+        "notes": "Analysis based on 7 images. Moderate AUPRCs achieved. Insufficient data hampered performance."
+      }
+    },
+    "Validation Cohort (Temporal/Prospective)": {
+      "Basal Cell Carcinoma (BCC) - 100x Magnification": {
+        "metric": "External Validation Performance",
+        "models": {
+          "EfficientNet B0": {
+            "median_AUPRC": "0.966 (95% CI: 0.957 – 0.972)",
+            "median_AUROC": "0.889 (95% CI: 0.869 – 0.904)"
+          },
+          "MobileNetV2": {
+            "median_AUPRC": "0.966 (implied similar to EfficientNet as no diff reported)",
+            "median_AUROC": "0.889 (implied similar to EfficientNet as no diff reported)"
+          }
+        },
+        "notes": "Analysis on 206 images from 58 patients. No significant performance difference between EfficientNet and MobileNet (median difference in AUPRC 0.00013, p=0.23; in AUROC 0.0021, p=0.11)."
+      },
+      "Basal Cell Carcinoma (BCC) - 40x Magnification": {
+        "metric": "External Validation Performance",
+        "models": {
+          "EfficientNet B0": {
+            "median_AUPRC": "0.943 (95% CI: 0.919 – 0.958)",
+            "median_AUROC": "0.922 (95% CI: 0.905 – 0.948)"
+          },
+          "MobileNetV2": {
+            "median_AUPRC": "0.943 (implied similar to EfficientNet)",
+            "median_AUROC": "0.922 (implied similar to EfficientNet)"
+          }
+        },
+        "notes": "Analysis on 95 images. Higher precision and discrimination seen in EfficientNet models at 40x compared to MobileNet (median difference in AUPRC 0.0069, p=0.009; in AUROC 0.016, p=0.0034)."
+      },
+      "Squamous Cell Carcinoma (SCC) - 100x Magnification": {
+        "metric": "External Validation Performance",
+        "models": {
+          "EfficientNet B0": {
+            "median_AUPRC": "0.904 (95% CI: 0.851 – 0.936)",
+            "median_AUROC": "0.767 (95% CI: 0.700 – 0.865)"
+          },
+          "MobileNetV2": {
+            "median_AUPRC": "0.904 (implied similar to EfficientNet)",
+            "median_AUROC": "0.767 (implied similar to EfficientNet)"
+          }
+        },
+        "notes": "High precision evident with moderate discriminability. No significant differences observed in AUPRC between MobileNet and EfficientNet (median difference -0.009, p=0.10; in AUROC -0.031, p=0.03)."
+      },
+      "Squamous Cell Carcinoma (SCC) - 40x Magnification": {
+        "metric": "External Validation Performance",
+        "models": {
+          "Best 40x Models": {
+            "median_AUPRC": "0.536 (95% CI: 0.38 – 0.81)",
+            "median_AUROC": "0.577 (95% CI: 0.520 – 0.706)"
+          }
+        },
+        "notes": "Only modest AUPRC and AUROC achieved by the best 40x models."
+      },
+      "Weakly Supervised Learning (WSL) Models - BCC": {
+        "metric": "Exploratory Analysis Performance",
+        "models": {
+          "EfficientNet B0 (WSL, t=0.5)": {
+            "AUROC": "0.826",
+            "median_pairwise_difference_AUROC_vs_MS1": "-0.042 (p<0.001)"
+          },
+          "MobileNetV2 (WSL, t=0.5)": {
+            "AUROC": "0.790",
+            "median_pairwise_difference_AUROC_vs_MS1": "-0.046 (p<0.001)"
+          }
+        },
+        "notes": "WSL models showed high precision (AUPRC >0.9) but lower discriminability compared to fully supervised MS1 models."
+      },
+      "BCC Images Resized 40x to 100x": {
+        "metric": "Resizing Analysis",
+        "models": {
+          "Resized Model": {
+            "median_AUROC": "0.897 (95% CI: 0.869 – 0.904)",
+            "median_pairwise_difference_AUROC_vs_40x_model": "-0.014 (p=0.21)",
+            "median_AUPRC": "0.843 (95% CI: 0.801 – 0.897)",
+            "median_difference_AUPRC_vs_40x_model": "-0.039 (p<0.001)"
+          }
+        },
+        "notes": "Resizing resulted in similar discriminability but lowered precision compared to native 40x models."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Convolutional Neural Networks based on EfficientNet B0 or MobileNetV2 feature extractors",
+    "pretraining": "Feature extractors were pretrained on ImageNet and obtained from Tensorflow Hub for weight initialization before full fine-tuning",
+    "input_size": "224x224 pixels (split tiles)",
+    "architecture_details": {
+      "backbone": "EfficientNet B0 or MobileNetV2",
+      "custom_layers": "Feature extraction layers concatenated with 3 dense layers",
+      "output_head": "Final softmax layer",
+      "loss_function": "Categorical cross-entropy",
+      "training_schedule": {
+        "epochs": "Limited to 200 epochs",
+        "techniques": [
+          "Image augmentation",
+          "Early stopping"
+        ]
+      },
+      "framework": "TensorFlow 2.7.0",
+      "training_mode": [
+        "Fully supervised learning (MS1)",
+        "Weakly supervised learning (MS2, exploratory)"
+      ]
+    },
+    "training_details": {
+      "optimizer": null,
+      "hyperparameters": {
+        "tile_size": "224x224 pixels",
+        "magnifications": [
+          "40x",
+          "100x"
+        ],
+        "labeling_threshold": "Tiles labeled 'positive' if tumors occupied ≥10% of the area"
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Softmax layer",
+      "function": "Categorical cross-entropy loss for binary classification (tumor vs. non-tumor/control)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNet B0",
+    "MobileNetV2",
+    "Weakly supervised learning (WSL) models"
+  ],
+  "preprocessing_techniques": [
+    "Tile-based classification using a sliding prediction window technique with overlapping predictions",
+    "Splitting images into 224x224 pixel tiles",
+    "Image augmentation during training",
+    "Resizing 40x magnification images to 100x magnification for comparative analysis",
+    "Reshaping ground truth masks to fill boundaries prescribed by the deep learning algorithm"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Image augmentation",
+      "details": "Used during training to prevent overfitting. Specific geometric or color transform parameters were not reported in the text."
+    }
+  ],
+  "conclusions": [
+    "Deep learning models demonstrate high accuracy in detecting non-melanoma skin cancers (basal cell carcinoma and squamous cell carcinoma) in Mohs micrographic surgery frozen sections.",
+    "The best fully supervised models achieved high precision, with median average precision of 0.966 for basal cell carcinoma at 100x magnification and 0.904 for squamous cell carcinoma at 100x magnification.",
+    "Deep learning has the potential to enhance surgical margin control and increase operational efficiency in Mohs surgery by serving as a 'second read' to reduce interobserver discordance and human error.",
+    "Weakly supervised learning models achieved high precision (AUPRC >0.9) but exhibited lower discriminability compared to fully supervised models.",
+    "The study is limited by being a single-institution study with a limited number of squamous cell carcinoma cases and rare non-melanoma skin cancer subtypes."
+  ],
+  "important_remarks": [
+    "Single-institution study limits generalizability; variations in surgical techniques, sample preparation, and imaging acquisition at other sites could impact model accuracy.",
+    "Limited number of squamous cell carcinoma (SCC) cases hampered model performance, particularly at 40x magnification where insufficient data resulted in modest AUPRC (0.536) and AUROC (0.577).",
+    "Validation cohort had a significantly lower number of Mohs micrographic surgery (MMS) stages per operation compared to the development cohort (p<0.001), indicating potential cohort differences.",
+    "Weakly supervised learning (WSL) models showed high precision but lower discriminability (AUROC) compared to fully supervised models, suggesting WSL is less effective for this specific task without expert annotations.",
+    "Resizing 40x images to 100x magnification lowered precision (median AUPRC 0.843 vs 0.943 for native 40x models), indicating that image resolution is critical for performance.",
+    "The study relied on archival images from a single Mohs unit, which may not represent the diversity of non-melanoma skin cancer subtypes or imaging conditions found in broader clinical practice.",
+    "Manual semantic segmentation for ground truth was identified as a rate-limiting step due to the tedious nature of the task and the need for expert knowledge, highlighting a barrier to scalable model development.",
+    "The study did not evaluate performance on whole slide images, limiting the assessment of margin control capabilities compared to potential high-resolution digital pathology approaches."
+  ]
+}

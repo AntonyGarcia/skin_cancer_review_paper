@@ -1,0 +1,277 @@
+{
+  "file_name": "yap_2018_multimodal_skin_lesion_classification_using_deep_learning.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning, specifically convolutional neural networks (CNNs) based on the ResNet-50 architecture, to perform multimodal skin lesion classification. The method combined dermatoscopic images, macroscopic images, and patient metadata using late fusion techniques to classify lesions into five classes (nevus, melanoma, basal cell carcinoma, squamous cell carcinoma, pigmented benign keratoses) and for binary melanoma detection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as a 'Regular Article' and presents original experimental work. It introduces a new multimodal deep learning method using ResNet-50 architectures and late fusion, evaluates it on a newly curated dataset of 2917 cases, and reports original quantitative results (AUC, mAP) comparing different modality combinations against baselines."
+  },
+  "title": "Multimodal Skin Lesion Classification using Deep Learning",
+  "authors": [
+    "Jordan Yap",
+    "William Yolland",
+    "Philipp Tschandl"
+  ],
+  "doi": "10.1111/exd.13777",
+  "journal": "Experimental Dermatology",
+  "year": 2018,
+  "article_type": "Regular Article",
+  "brief_summary": "This study developed a multimodal deep learning method to classify skin lesions by combining dermatoscopic images, macroscopic images, and patient metadata. The researchers utilized late fusion techniques with ResNet-50 architectures to perform both binary melanoma detection and five-class classification (nevus, melanoma, basal cell carcinoma, squamous cell carcinoma, and pigmented benign keratoses). The model was evaluated on a newly curated dataset of 2,917 histopathologically verified cases. The multimodal classifier significantly outperformed a baseline using only macroscopic images, achieving an AUC of 0.866 for melanoma detection and a mean average precision of 0.729 for multiclass classification. Additionally, the results demonstrated that dermatoscopic images alone provided higher performance than macroscopic images for automated diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi"
+      ],
+      "role": "Target class",
+      "details": "One of the five classes in the 5-class classification task. Included in the dataset of 2917 histopathologically verified cases. About 15% of nevi were falsely labeled as malignant by the model."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the five classes in the 5-class classification task and the positive class in the binary melanoma detection task. Included in the dataset of 2917 histopathologically verified cases."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "One of the five classes in the 5-class classification task. Included in the dataset of 2917 histopathologically verified cases. The paper notes that BCCs may be more commonly found on the nose, which could introduce bias if not filtered."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma",
+        "SCC"
+      ],
+      "role": "Target class",
+      "details": "One of the five classes in the 5-class classification task. Included in the dataset of 2917 histopathologically verified cases. The paper hypothesizes that performance on this class may increase when macroscopic images are combined with dermatoscopic images due to visible scale or keratin plugs."
+    },
+    {
+      "lesion_type": "Benign Keratosis",
+      "paper_terms": [
+        "pigmented benign keratoses",
+        "bkl",
+        "seborrheic keratoses"
+      ],
+      "role": "Target class",
+      "details": "One of the five classes in the 5-class classification task. Included in the dataset of 2917 histopathologically verified cases. The sample size for this group was noted to be very small."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary melanoma detection (melanoma vs. non-melanoma) and 5-class multiclass classification (nevus, melanoma, basal cell carcinoma, squamous cell carcinoma, pigmented benign keratoses)",
+        "primary": true,
+        "details": "The paper explicitly states it evaluated the method on a 'binary classification task' for melanoma detection and a '5 class classification task'. The model outputs discrete diagnostic categories using a 5-way softmax layer. Performance was measured using AUC for binary detection and mAP/Top-1 Accuracy for multiclass classification."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "MetaOptima Multimodal Dataset",
+      "description": "A newly curated dataset of 2917 histopathologically verified skin lesion cases provided by MetaOptima Technology Inc. Each case includes a dermatoscopic image, a macroscopic (clinical close-up) image, and patient metadata (age, gender, body location). Cases were selected to be free of identifiable features (e.g., eyes, jewelry) to reduce bias. Only disease classes with more than 100 cases were included.",
+      "classes_used": [
+        "nevus",
+        "melanoma",
+        "basal cell carcinoma",
+        "squamous cell carcinoma",
+        "pigmented benign keratoses (bkl)"
+      ],
+      "counts": {
+        "total": 2917,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the multimodal deep learning model (ResNet-50 based) and the metadata-only random forest classifier.",
+        "validation": "Used for hyperparameter tuning via 5-fold cross-validation for the metadata-only classifier.",
+        "testing": "Used for evaluating the final performance of the multimodal classifier and single-modality baselines.",
+        "other": "null"
+      }
+    },
+    {
+      "name": "ISIC 2017 Classification Challenge Training Data",
+      "description": "Publicly available dermatoscopic images and diagnoses from the International Skin Imaging Collaboration (ISIC) archive, used to fine-tune the single-image tower model to ensure competitive performance against state-of-the-art models.",
+      "classes_used": [
+        "Multiple classes from the ISIC 2017 challenge (specific class distribution not detailed in text, but used for binary classification task evaluation)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to fine-tune the single-image tower model (ResNet-50) to benchmark its performance against the ISIC 2017 leaderboard.",
+        "validation": "null",
+        "testing": "null",
+        "other": "Used for benchmarking/verification of the base model's capability, not for the primary multimodal experiments."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "mean average precision (mAP)",
+    "Top-1 Accuracy (Top-1 Acc)",
+    "area under the ROC curve for detecting melanoma (AU CMelanoma)",
+    "area under the ROC curve for detecting any kind of skin cancer (AU CCancer)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "Used for hyperparameter tuning (grid-search) of the metadata-only random forest classifier and for evaluating the performance of different modality combinations (averaged across combinations) to estimate model stability and uncertainty.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "95% confidence intervals",
+      "purpose": "Used to depict uncertainty in the results of the 5-fold cross-validation for the grid search of embedding dimensions and modality combination performance.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Grid-search",
+      "purpose": "Used to search for optimal parameters for the random forest classifier and to determine the depth and width of the embedding network layers.",
+      "type": "Hyperparameter optimization"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance comparisons were made using point estimates (AUC, mAP) and 95% confidence intervals derived from 5-fold cross-validation to depict uncertainty, but no statistical significance tests were conducted or reported."
+  },
+  "results_obtained_in_each_dataset": {
+    "MetaOptima Multimodal Dataset": {
+      "binary_melanoma_detection": {
+        "models": {
+          "multimodal_classifier (dsc + macro + meta)": {
+            "AU_C_Melanoma": "0.866"
+          },
+          "baseline_classifier (macroscopic image only)": {
+            "AU_C_Melanoma": "0.784"
+          },
+          "single_modality_dermoscopic (dsc)": {
+            "AU_C_Melanoma": "0.831"
+          },
+          "single_modality_dermoscopic_plus_macroscopic (dsc + macro)": {
+            "AU_C_Melanoma": "0.866"
+          },
+          "single_modality_dermoscopic_plus_metadata (dsc + meta)": {
+            "AU_C_Melanoma": "null"
+          },
+          "metadata_only_random_forest": {
+            "mAP": "0.402"
+          },
+          "metadata_only_embedding_network": {
+            "mAP": "0.391"
+          }
+        },
+        "notes": "The multimodal classifier outperformed the baseline using only a single macroscopic image. Adding metadata to the dermatoscopic and macroscopic images caused a slight decrease in AUC for melanoma detection (from 0.866 to 0.861)."
+      },
+      "five_class_multiclass_classification": {
+        "models": {
+          "multimodal_classifier (dsc + macro + meta)": {
+            "mAP": "0.729"
+          },
+          "baseline_classifier (macroscopic image only)": {
+            "mAP": "0.598"
+          },
+          "single_modality_dermoscopic (dsc)": {
+            "mAP": "0.669"
+          },
+          "single_modality_dermoscopic_plus_macroscopic (dsc + macro)": {
+            "mAP": "0.726"
+          }
+        },
+        "notes": "Combining dermatoscopic and macroscopic images improved mAP. The addition of metadata slightly boosted mAP to 0.729. Confusion matrices indicated that macroscopic images primarily helped classify squamous cell carcinomas, while metadata helped classify basal cell carcinomas but increased misclassification of squamous cell carcinoma as basal cell carcinoma. About 15% of nevi were falsely labeled as malignant by the dsc + macro model."
+      },
+      "single_image_benchmarking": {
+        "models": {
+          "ResNet-50_fine_tuned_on_ISIC_2017": {
+            "average_AUC": "0.858"
+          }
+        },
+        "notes": "The base model placed among the top 30% of ISIC 2017 ranked submissions. Dermatoscopic images yielded consistently higher performance than macroscopic images for automated diagnosis."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet-50",
+    "pretraining": "Pre-trained on ILSVRC 2015 (ImageNet) for 1000-way classification",
+    "input_size": "Not reported",
+    "architecture_details": {
+      "backbone": "Modified ResNet-50 convolutional neural network (CNN)",
+      "backbone_modifications": "Softmax and 1000-dimensional fully-connected layer removed; flattened output from average pooling layer used as 2048-dimensional image feature vector",
+      "fusion_strategy": "Late fusion",
+      "embedding_network": "Composed of two 1024-dimensional fully connected layers with ReLU activation function",
+      "modality_handling": "Two separate towers for dermatoscopic and macroscopic images (weights not shared); metadata processed separately",
+      "feature_concatenation": "Image feature vectors from towers concatenated with metadata feature vector before passing to embedding network"
+    },
+    "training_details": {
+      "optimizer": "Not reported",
+      "loss_function": "Not reported",
+      "hyperparameters": "Depth and width of embedding network layers decided via grid-search",
+      "training_schedule": "Not reported",
+      "fine_tuning": "Single image tower model fine-tuned on ISIC 2017 classification challenge training data for benchmarking"
+    },
+    "classification_or_output_head": {
+      "type": "5-way softmax layer",
+      "input_to_head": "Output from the embedding network (concatenated features from image towers and metadata)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet-50",
+    "Inception-V3",
+    "ResNet-152",
+    "Random Forest classifier",
+    "Embedding network (composed of two 1024-dimensional fully connected layers with ReLU activation and a 5-way softmax layer)"
+  ],
+  "preprocessing_techniques": [
+    "Manual screening to select cases with sufficient image quality",
+    "Filtering out cases with identifiable features (e.g., eyes, jewelry, facial landmarks, garment parts) to reduce bias",
+    "Aggregation of fine-grained histopathologic diagnoses into higher-level disease classes by a dermatologist",
+    "Filtering to include only disease classes with more than 100 cases",
+    "Automatic cropping of the largest square from the center of images (no manual cropping performed)",
+    "Fine-tuning on ISIC 2017 classification challenge training data (used for benchmarking base model performance)"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed multimodal deep learning classifier, which combines dermatoscopic images, macroscopic images, and patient metadata using late fusion with ResNet-50 architectures, outperforms a baseline classifier using only a single macroscopic image.",
+    "For binary melanoma detection, the multimodal classifier achieved an AUC of 0.866 compared to 0.784 for the macroscopic-only baseline.",
+    "For five-class multiclass classification, the multimodal classifier achieved a mean average precision (mAP) of 0.729 compared to 0.598 for the macroscopic-only baseline.",
+    "Automated diagnosis using dermatoscopic images yields higher performance than using macroscopic images alone.",
+    "Combining dermatoscopic and macroscopic images improves classification accuracy, with the macroscopic modality primarily aiding in the classification of squamous cell carcinomas.",
+    "The addition of patient metadata (age, gender, body location) slightly boosted multiclass classification performance (mAP 0.729) and helped classify basal cell carcinomas, but also led to increased misclassification of squamous cell carcinomas as basal cell carcinomas.",
+    "The inclusion of basic metadata fields (age, location, sex) did not significantly improve accuracy for distinguishing nevi from melanoma, suggesting that other clinical attributes (e.g., nevus count, history of melanoma) may be more informative.",
+    "The base single-image model, when fine-tuned on ISIC 2017 data, achieved an average AUC of 0.858, placing it among the top 30% of submissions on the ISIC 2017 leaderboard.",
+    "The study utilized a newly curated dataset of 2,917 histopathologically verified cases to evaluate the method."
+  ],
+  "important_remarks": [
+    "The dataset consists exclusively of histopathologically verified cases, meaning all lesions were excised by physicians; this introduces selection bias as the model is trained on lesions deemed suspicious enough for removal, limiting generalizability to primary care or screening settings.",
+    "Approximately 15% of nevi were falsely labeled as malignant by the multimodal model; however, the authors note that in clinical practice, 100% of these benign cases were excised due to physician suspicion, suggesting the model's 'errors' may align with clinical caution rather than diagnostic failure.",
+    "The study did not report formal statistical hypothesis testing (e.g., p-values) for performance comparisons; uncertainty was estimated only via 95% confidence intervals from 5-fold cross-validation.",
+    "The sample size for pigmented benign keratoses (bkl) was very small, rendering conclusions about performance on this specific class unreliable.",
+    "The inclusion of basic metadata (age, gender, location) did not significantly improve accuracy for distinguishing nevi from melanoma, suggesting that more specific clinical attributes (e.g., nevus count, history of melanoma) are required for this distinction but were not available in the dataset.",
+    "The model's performance on squamous cell carcinoma may be influenced by visible features like scale or keratin plugs in macroscopic images, which might be obscured in dermatoscopic images using immersion fluid.",
+    "The study highlights that current state-of-the-art models are heavily dependent on restrictive image specifications (e.g., centered lesions, strict coverage areas) and may be unstable in real-world clinical practice where such controls are absent.",
+    "Basal cell carcinomas may be more commonly found on the nose; the dataset was filtered to remove identifiable features (like noses) to prevent the network from learning location-based biases rather than lesion features.",
+    "The base single-image model was fine-tuned on ISIC 2017 data for benchmarking, but the primary multimodal experiments were conducted on a proprietary, newly curated dataset of 2,917 cases, limiting external validation opportunities."
+  ]
+}

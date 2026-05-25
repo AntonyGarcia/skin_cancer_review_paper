@@ -1,0 +1,248 @@
+{
+  "file_name": "zhao_2022_research_on_melanoma_image_segmentation_by_incorporating_medical_prior.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning model (UNet with ResNet34 backbone) incorporating medical prior knowledge (star shape prior encoded in the loss function) for melanoma image segmentation, a dermatology/skin cancer task, evaluated on the ISIC-2017 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new melanoma image segmentation method incorporating medical prior knowledge (star shape prior) into a UNet model's loss function. It includes specific sections for Methods, Results (with quantitative metrics like mIoU and Dice on the ISIC-2017 dataset), and Ablation experiments, indicating it is an original technical study rather than a review."
+  },
+  "title": "Research on melanoma image segmentation by incorporating medical prior knowledge",
+  "authors": [
+    "Hong Zhao",
+    "Aolong Wang",
+    "Chenpeng Zhang"
+  ],
+  "doi": "10.7717/peerj-cs.1122",
+  "journal": "PeerJ Comput. Sci.",
+  "year": 2022,
+  "article_type": "Research article",
+  "brief_summary": "This study addresses the challenge of melanoma image segmentation in dermatology by incorporating medical prior knowledge to improve segmentation fidelity. The authors propose a UNet model with a ResNet34 backbone that encodes a star shape prior into the loss function as a regularization term to penalize internal hole and external island errors. The method was evaluated on the ISIC-2017 dataset, which contains 220 malignant melanoma images split into training, evaluation, and test sets. Experimental results demonstrated that the proposed model achieved a mean Intersection over Union (mIoU) of 87.41% and a Dice Similarity Coefficient of 93.49%. These metrics ranked the model first among compared methods, including UNet, FC-DenseNet, and Attention UNet, indicating superior performance on this small, low-quality dataset. The study concludes that incorporating anatomical priors significantly enhances segmentation accuracy and clinical value for melanoma diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma",
+        "malignant samples"
+      ],
+      "role": "Target class",
+      "details": "The study focuses exclusively on the segmentation of malignant melanoma images. The dataset used (ISIC-2017/ISICM) contained 10,000 images of skin lesions divided into benign and malignant categories, but only the 220 images of malignant melanoma were used in the experiments."
+    },
+    {
+      "lesion_type": "Skin lesions",
+      "paper_terms": [
+        "skin lesions",
+        "dermatoscopic images of skin lesions"
+      ],
+      "role": "Mentioned only",
+      "details": "The paper mentions that the source dataset (ISICM) contains 10,000 dermatoscopic images of skin lesions, but specifies that only the malignant subset was used for the segmentation task. Benign lesions are not studied or segmented in the experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Melanoma lesion masks in dermatoscopic images",
+        "primary": true,
+        "details": "The paper focuses on melanoma image segmentation using a UNet model with a ResNet34 backbone. The model predicts pixel-wise segmentation masks for malignant melanoma lesions. The task is evaluated using metrics such as mean Intersection over Union (mIoU) and Dice Similarity Coefficient on the ISIC-2017 dataset."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Melanoma Data set (ISICM)",
+      "description": "A dataset constructed by the Society for Medical Impact Informatics (SIIM) in collaboration with the International Skin Imaging Collaboration (ISIC Archive). It contains dermatoscopic images of skin lesions with professional descriptions and segmentation labels. The study specifically used the malignant melanoma subset.",
+      "classes_used": [
+        "Malignant melanoma"
+      ],
+      "counts": {
+        "total": 220,
+        "training": 132,
+        "validation": 44,
+        "testing": 44,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the UNet model with ResNet34 backbone incorporating star shape prior loss function.",
+        "validation": "Used for evaluation (validation set) during the experimental process.",
+        "testing": "Used for testing the final model performance.",
+        "other": "The full ISICM contains 10,000 images (benign and malignant), but only the 220 malignant samples were used in this study."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "mIoU (Mean Intersection over Union)",
+    "Dice Similarity Coefficient",
+    "mAP (mean Average Precision)",
+    "Jaccard"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using quantitative metrics (mIoU, Dice, mAP, Jaccard) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC-2017": {
+      "dataset_description": "220 malignant melanoma images split into training (132), evaluation (44), and test (44) sets in a 6:2:2 ratio.",
+      "models": {
+        "Non-regular item group (baseline) with Cross entropy loss": {
+          "mIoU": "85.10%",
+          "mAP": "92.56%",
+          "Dice": "92.68%",
+          "Jaccard": "86.76%"
+        },
+        "Non-regular item group (baseline) with Dice loss": {
+          "mIoU": "85.72%",
+          "mAP": "92.61%",
+          "Dice": "92.89%",
+          "Jaccard": "86.95%"
+        },
+        "Unsegmented star prior group with Cross entropy loss (a=1, b=0.01)": {
+          "mIoU": "85.31%",
+          "mAP": "92.61%",
+          "Dice": "92.86%",
+          "Jaccard": "86.98%"
+        },
+        "Unsegmented star prior group with Dice loss (a=1, b=0.01)": {
+          "mIoU": "85.90%",
+          "mAP": "92.65%",
+          "Dice": "93.10%",
+          "Jaccard": "87.18%"
+        },
+        "Non-center distance scaling group with Cross entropy loss (a=1, b=0.33, l=0.02, q=0.05)": {
+          "mIoU": "84.97%",
+          "mAP": "92.57%",
+          "Dice": "92.79%",
+          "Jaccard": "86.78%"
+        },
+        "Non-center distance scaling group with Cross entropy loss (a=1, b=0.33, l=0.02, q=0.1)": {
+          "mIoU": "84.79%",
+          "mAP": "92.50%",
+          "Dice": "92.71%",
+          "Jaccard": "86.65%"
+        },
+        "Non-center distance scaling group with Dice loss (a=1, b=0.33, l=0.02, q=0.05)": {
+          "mIoU": "85.42%",
+          "mAP": "92.61%",
+          "Dice": "92.97%",
+          "Jaccard": "87.01%"
+        },
+        "Non-center distance scaling group with Dice loss (a=1, b=0.33, l=0.02, q=0.1)": {
+          "mIoU": "85.38%",
+          "mAP": "92.56%",
+          "Dice": "92.92%",
+          "Jaccard": "86.85%"
+        },
+        "Segmented star prior group with Cross entropy loss (a=1, b=0.33, l=0.1, q=0.5)": {
+          "mIoU": "86.48%",
+          "mAP": "92.89%",
+          "Dice": "93.05%",
+          "Jaccard": "87.22%"
+        },
+        "Segmented star prior group with Cross entropy loss (a=1, b=0.33, l=0.1, q=1)": {
+          "mIoU": "86.78%",
+          "mAP": "93.08%",
+          "Dice": "93.22%",
+          "Jaccard": "87.50%"
+        },
+        "Segmented star prior group with Dice loss (a=1, b=0.33, l=0.1, q=0.5)": {
+          "mIoU": "87.09%",
+          "mAP": "92.95%",
+          "Dice": "93.26%",
+          "Jaccard": "87.40%"
+        },
+        "Segmented star prior group with Dice loss (a=1, b=0.33, l=0.1, q=1)": {
+          "mIoU": "87.41%",
+          "mAP": "93.13%",
+          "Dice": "93.49%",
+          "Jaccard": "87.69%"
+        }
+      },
+      "notes": "The model incorporating medical prior knowledge (Segmented star prior group with Dice loss, a=1, b=0.33, l=0.1, q=1) achieved the highest performance with an mIoU of 87.41% and a Dice Similarity Coefficient of 93.49%, ranking first among compared methods. The baseline (Non-regular item group) showed lower accuracy due to internal hole and external island errors. The unsegmented star prior group struggled with weight selection. The non-center distance scaling group showed that varying weights l and q generally decreased performance compared to the segmented star prior group."
+    }
+  },
+  "architecture_used": {
+    "main_model": "UNet with ResNet34 backbone",
+    "pretraining": "ImageNet pre-trained model used for freezing training for the first 100 epochs",
+    "input_size": "256x256 (images scaled to 256x256 with padding)",
+    "architecture_details": {
+      "backbone": "ResNet34",
+      "structure": "Encoder-decoder structure with skip connections; upward path for context information, downward path for target location",
+      "prior_knowledge": "Star shape prior encoded into the loss function as a regularization term (Lsh) to penalize internal hole and external island errors"
+    },
+    "training_details": {
+      "framework": "PyTorch",
+      "optimizer": "Adam",
+      "initial_learning_rate": "1E-3",
+      "epochs": 400,
+      "learning_rate_schedule": "Learning rate attenuation applied for the last 200 epochs; every five epochs attenuated to 95% of the original learning rate",
+      "hardware": "NVIDIA GTX1060"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask output",
+      "loss_functions": [
+        "Cross-entropy loss (Lce)",
+        "Dice loss",
+        "Star shape prior regularization term (Lsh)"
+      ],
+      "loss_formula": "L(X, Y, h) = a*Lce + b*Lsh",
+      "hyperparameters": {
+        "a": 1,
+        "b": 0.33,
+        "l": 0.1,
+        "q": 1
+      }
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "UNet with ResNet34 backbone",
+    "UNet",
+    "FC-DenseNet",
+    "SSPFCN",
+    "Attention UNet"
+  ],
+  "preprocessing_techniques": [
+    "Scaling images to 256x256 while maintaining the original aspect ratio",
+    "Padding edges to achieve 256x256 input size",
+    "Image flipping (data augmentation)",
+    "Brightness adjustment (data augmentation)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Image flipping",
+      "details": "Applied during preprocessing as a data augmentation method."
+    },
+    {
+      "technique": "Brightness adjustment",
+      "details": "Applied during preprocessing as a data augmentation method."
+    }
+  ],
+  "conclusions": [
+    "Incorporating medical prior knowledge (specifically a star shape prior encoded in the loss function) significantly improves the fidelity and accuracy of melanoma image segmentation compared to models without such priors.",
+    "The proposed UNet model with ResNet34 backbone and segmented star prior regularization achieved the highest performance (mIoU: 87.41%, Dice: 93.49%) among compared methods (UNet, FC-DenseNet, SSPFCN, Attention UNet) on the small, low-quality ISIC-2017 dataset.",
+    "The segmented star prior loss function effectively penalizes specific anatomical errors, such as internal hole and external island errors, which are common in standard segmentation models on small datasets.",
+    "The method demonstrates high clinical value for computer-aided diagnosis of melanoma, particularly in scenarios with limited data availability.",
+    "The proposed approach avoids the need for separate intensity normalization stages, thereby reducing computational complexity compared to some hybrid loss function approaches.",
+    "Ablation studies confirmed that the specific design of the star prior term (segmented with center distance scaling) is crucial; unsegmented priors or non-scaled variants resulted in lower performance or difficulty in weight selection."
+  ],
+  "important_remarks": [
+    "The study is limited to a very small dataset of only 220 malignant melanoma images from the ISIC-2017 dataset, which may limit the generalizability of the results to broader clinical populations.",
+    "The model was evaluated exclusively on the ISIC-2017 dataset without external validation on independent datasets, raising concerns about potential overfitting to this specific data distribution.",
+    "No statistical significance testing (e.g., p-values) was reported for the performance comparisons between the proposed method and baseline models.",
+    "The dataset used contains only malignant melanoma samples, ignoring benign lesions and other skin lesion types present in the full ISICM dataset, which limits the scope of the clinical application demonstrated.",
+    "The paper acknowledges that the ISIC-2017 dataset is characterized by low quality and sample imbalance, which are known challenges that may affect the robustness of the model in real-world scenarios.",
+    "The proposed method relies on the assumption that melanoma lesions exhibit a star-shaped convex structure, which may not hold true for all melanoma subtypes or atypical presentations, potentially leading to segmentation errors for non-conforming shapes.",
+    "The hardware used for training and testing was a consumer-grade NVIDIA GTX1060, which may not reflect the computational requirements for deployment in diverse clinical settings.",
+    "The study does not address potential data leakage risks or provide detailed information on the preprocessing pipeline's impact on data integrity beyond standard scaling and augmentation."
+  ]
+}

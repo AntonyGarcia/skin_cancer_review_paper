@@ -1,0 +1,222 @@
+{
+  "file_name": "Demidova et al. - 2020 - Skin cancer classification computer system development with deep learning.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed and applied a deep neural network architecture (specifically a Convolutional Neural Network or CNN) to classify dermoscopic images of skin lesions (melanoma vs. benign) using the ISIC dataset, achieving 92% accuracy."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and application of a deep neural network (CNN) for skin cancer classification. It describes specific methods (data preprocessing, model architecture, Adam optimizer), reports results from computer experiments on the ISIC dataset (92-93% accuracy), and includes a confusion matrix. Although published in CEUR Workshop Proceedings, it contains new empirical results rather than summarizing prior literature."
+  },
+  "title": "Skin cancer classification computer system development with deep learning",
+  "authors": [
+    "Anastasia V. Demidova",
+    "Dmitry S. Kulyabov",
+    "Eugeny Yu. Shchetinin"
+  ],
+  "doi": null,
+  "journal": "CEUR Workshop Proceedings",
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the classification of dermoscopic images to distinguish between malignant melanoma and benign skin lesions using deep learning. The authors developed a custom convolutional neural network (CNN) architecture and trained it on the publicly available ISIC dataset, which was balanced by reducing sample sizes. The model was evaluated using accuracy and sensitivity metrics, employing the Adam optimizer and binary cross-entropy loss function. Computer experiments demonstrated that the proposed approach achieved an accuracy of 92% to 93% on the test sample. This performance was reported as significantly higher than other algorithms previously applied to the same dataset. The results suggest the potential for developing intelligent diagnostic systems to assist in the early detection of melanoma.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for the binary classification task. The paper focuses on early detection of melanoma. The dataset was balanced by reducing samples to 200 images per class."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "benign skin lesions"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary classification task. The paper states the goal is to classify images containing 'either malignant or benign skin lesions'. Specific benign subtypes (e.g., nevus, BCC) are not distinguished in the experiment, only grouped as 'benign'."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of dermoscopic images into malignant (melanoma) or benign skin lesions",
+        "primary": true,
+        "details": "The paper explicitly states the problem is 'classification of skin diseases, namely, melanoma at an early stage' and 'classification of a dermoscopic image containing either malignant or benign skin lesions'. The model predicts discrete diagnostic categories (Benign vs Malignant) using a binary cross-entropy loss function and achieves 92-93% accuracy on the test sample."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Archive (International Skin Imaging Collaboration)",
+      "description": "A publicly available international repository of dermoscopic images. The specific subset used in this study contained 1,279 images, which was originally pre-divided into 900 training and 379 test images. The dataset was balanced by reducing the sample size to 200 images per class.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {
+          "Melanoma": 200,
+          "Benign": 200
+        }
+      },
+      "use": {
+        "training": "Used for training the custom Convolutional Neural Network (CNN) model. The original training set was reduced and balanced to 200 images per class, and subsequently augmented via rotation, flipping, cropping, brightness/contrast adjustment, etc., to increase the dataset size.",
+        "validation": null,
+        "testing": "Used for evaluating the model's performance, achieving 92-93% accuracy on the test sample.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "sensitivity",
+    "specificity",
+    "precision",
+    "loss function",
+    "binary crossentropy",
+    "confusion matrix"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It claims the proposed approach's accuracy (92-93%) is 'significantly higher' than other algorithms, but this is a descriptive comparison without statistical validation."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC Archive": {
+      "metric": "accuracy",
+      "models": {
+        "Proposed DCNN (Custom CNN)": {
+          "accuracy": "92%"
+        }
+      },
+      "notes": "The paper reports an accuracy of 92% on the test sample. Another section mentions 93% accuracy. The calculated accuracy from the confusion matrix is 0.925 (92.5%). The result is described as 'significantly higher than other algorithms in this data set have shown'."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Custom Convolutional Neural Network (CNN)",
+    "pretraining": null,
+    "input_size": "32x32x3 (32x32 spatial features, 3 color channels)",
+    "architecture_details": {
+      "framework": "Keras with TensorFlow backend",
+      "layer_sequence": [
+        {
+          "layer_type": "Conv2D",
+          "filters": 32,
+          "kernel_size": "3x3",
+          "activation": "relu",
+          "output_shape": "(30, 30, 32)"
+        },
+        {
+          "layer_type": "MaxPooling2D",
+          "pool_size": "3x3"
+        },
+        {
+          "layer_type": "Flatten"
+        },
+        {
+          "layer_type": "Dense (Fully Connected)",
+          "units": 128,
+          "activation": "relu"
+        },
+        {
+          "layer_type": "Dense (Output)",
+          "units": 1,
+          "activation": "sigmoid"
+        }
+      ]
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "loss_function": "binary_crossentropy",
+      "epochs": 25,
+      "batch_size": 10,
+      "data_augmentation": [
+        "rotation",
+        "flipping",
+        "random cropping",
+        "brightness adjustment",
+        "contrast adjustment",
+        "pixel jitter",
+        "aspect ratio change",
+        "random shifting",
+        "zooming",
+        "vertical and horizontal shifting"
+      ],
+      "random_seed": "constant arbitrary value"
+    },
+    "classification_or_output_head": {
+      "type": "Dense layer with 1 node",
+      "activation": "sigmoid",
+      "task": "Binary classification (Benign vs Malignant)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Custom Convolutional Neural Network (CNN)",
+    "DCNN (Deep Convolutional Neural Network)",
+    "k-nearest neighbor algorithm (kNN)",
+    "logistic regression",
+    "decision trees",
+    "support vector machines (SVM)",
+    "AlexNet",
+    "VGG16",
+    "ResNet-18",
+    "MEDNODE expert system"
+  ],
+  "preprocessing_techniques": [
+    "Lighting effect correction by excluding a certain range of gradients",
+    "Segmentation mask application using k-means classifier to isolate lesion areas",
+    "Pixel value normalization from [0, 255] to [0, 1]",
+    "Image resizing to 224 pixels",
+    "Color space conversion from RGB to HSV (Hue, Saturation, Value)",
+    "Two-way filter application to preserve sharp edges",
+    "Conversion to halftone images to reduce complexity and dimension",
+    "Edge detection using Canny border selection algorithm"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Rotation, flipping, random cropping, changing the aspect ratio of the image, random shifting, zooming, and vertical and horizontal shifting."
+    },
+    {
+      "technique": "Color/Intensity Transforms",
+      "details": "Adjusting brightness, adjusting contrast, and pixel jitter."
+    },
+    {
+      "technique": "Class Balancing",
+      "details": "Reducing the sample size to obtain a balanced ratio of images for each class (200 images per class) due to the unbalanced nature of the original dataset."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep learning approach using a custom convolutional neural network (CNN) achieved an accuracy of 92% to 93% on the test sample of the ISIC dataset for classifying dermoscopic images of melanoma versus benign skin lesions.",
+    "The reported accuracy of the proposed method is significantly higher than that of other algorithms previously applied to the same ISIC dataset.",
+    "The study demonstrates the potential of developing intelligent medical diagnostic systems based on visualization to assist doctors in making effective decisions for the early detection of melanoma.",
+    "Future research will focus on improving CNN architecture accuracy, acquiring more training data, and applying new training algorithms.",
+    "The ultimate goal of the research is to deploy the model as a usable mobile application for online diagnosis of melanoma at early stages."
+  ],
+  "important_remarks": [
+    "The study uses a significantly reduced and artificially balanced subset of the ISIC dataset (200 images per class for training and testing), which limits the generalizability of the results compared to the full, imbalanced dataset.",
+    "The paper claims the proposed accuracy (92-93%) is 'significantly higher' than other algorithms, but provides no statistical hypothesis testing (e.g., p-values) to support this comparative claim.",
+    "There is inconsistency in the reported dataset sizes and splits across sections (e.g., 1,279 total images vs. 1,255 images; test set sizes of 379 vs. 200), raising concerns about reproducibility and data leakage risks due to unclear handling of the original train/test split.",
+    "The model architecture is relatively simple (custom CNN with only 32 filters and one pooling layer) compared to state-of-the-art deep learning models, which may explain the modest performance gains despite the claim of superiority.",
+    "The research was conducted on limited hardware (Intel Core i5, 8 GB RAM, NVIDIA GeForce 820M), which may constrain the complexity of models that can be practically deployed in resource-constrained clinical settings.",
+    "The paper does not report standard deviation or confidence intervals for the accuracy metrics, making it difficult to assess the stability of the model's performance.",
+    "The 'benign' class is a heterogeneous group of various non-melanoma skin lesions, meaning the model cannot distinguish between different types of benign conditions, limiting its specific clinical utility for differential diagnosis."
+  ]
+}

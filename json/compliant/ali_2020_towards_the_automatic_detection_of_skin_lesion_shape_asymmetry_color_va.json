@@ -1,0 +1,284 @@
+{
+  "file_name": "ali_2020_towards_the_automatic_detection_of_skin_lesion_shape_asymmetry_color_va.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a decision tree classifier to predict skin lesion asymmetry based on extracted features (SIFT based similarity, projection profiles, and skewness). It also utilized U-Net, a deep learning encoder-decoder network, for skin lesion segmentation in dermoscopic images to compare against the proposed Otsu-based method."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'RESEARCH ARTICLE' in the header. It presents original experimental work, including the development of an automated approach for detecting skin lesion asymmetry, color variegation, and diameter using methods like Otsu's segmentation, decision trees, and k-means clustering. The paper includes specific sections for Methods, Results (e.g., 80% accuracy for the decision tree), and Data Availability, indicating it reports new technical results rather than summarizing prior literature."
+  },
+  "title": "Towards the automatic detection of skin lesion shape asymmetry, color variegation and diameter in dermoscopic images",
+  "authors": [
+    "Abder-Rahman Ali",
+    "Jingpeng Li",
+    "Sally Jane O’Shea"
+  ],
+  "doi": "10.1371/journal.pone.0234352",
+  "journal": "PLOS ONE",
+  "year": 2020,
+  "article_type": "Research article",
+  "brief_summary": "This study proposes an automated computer vision system to objectively evaluate the ABCD rule criteria (Asymmetry, Color variegation, and Diameter) for early melanoma detection in dermoscopic images. The authors utilized an improved Otsu-based segmentation method (Otsu-II) and compared it against a U-Net deep learning model, achieving a higher Dice similarity coefficient of 88% versus 76.2%. Asymmetry was assessed using a decision tree classifier trained on SIFT-based similarity, projection profiles, and skewness features, yielding 80% accuracy. Color variegation was quantified by identifying suspicious colors within the CIELab color space, while diameter was measured using Feret’s diameter. The research demonstrates that the proposed approach provides more precise border detection than U-Net and offers an objective alternative to subjective clinical assessments.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma",
+        "early melanoma",
+        "stage 0 melanoma",
+        "metastatic melanoma",
+        "stage IV melanoma",
+        "thin melanomas"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on detecting features (asymmetry, color variegation, diameter) indicative of melanoma. The dataset sourced from the ISIC archive (challenge2018.isic-archive.com) was used to train and test a decision tree for asymmetry classification (symmetric vs asymmetric) and to analyze color variegation associated with melanoma. The paper notes that melanoma is the primary target for early detection using the ABCD rule."
+    },
+    {
+      "lesion_type": "Benign pigmented skin lesions",
+      "paper_terms": [
+        "benign pigmented skin lesions",
+        "benign lesions",
+        "atypical nevi",
+        "symmetric images"
+      ],
+      "role": "Comparator class",
+      "details": "Used as a comparator to melanoma. The paper contrasts melanoma with benign lesions which are typically circular and symmetric. The decision tree was trained on 136 asymmetric and 28 symmetric images (derived from the dataset) to distinguish between these states, with symmetric lesions representing the benign/non-melanoma or non-asymmetric class."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin lesion asymmetry (symmetric vs asymmetric)",
+        "primary": true,
+        "details": "The paper uses a decision tree classifier trained on extracted features (SIFT-based similarity, projection profiles, and skewness) to predict whether a skin lesion is symmetric or asymmetric. The model achieved 80% accuracy in this binary classification task."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion border/mask",
+        "primary": false,
+        "details": "The paper employs an improved Otsu-based method (Otsu-II) and compares it against a U-Net deep learning encoder-decoder network to segment skin lesions from dermoscopic images. This is a preprocessing step for the classification task, not the primary diagnostic prediction task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection grand challenge dataset",
+      "description": "A public dataset sourced from the ISIC archive (challenge2018.isic-archive.com) containing dermoscopic images of skin lesions. The study utilized a subset of 204 randomly chosen images from this dataset for the primary experiments.",
+      "classes_used": [
+        "Nevus (benign)",
+        "Melanoma (malignant)"
+      ],
+      "counts": {
+        "total": 204,
+        "training": 164,
+        "validation": null,
+        "testing": 40,
+        "per_class": {
+          "nevus": 175,
+          "melanoma": 29
+        }
+      },
+      "use": {
+        "training": "Used to train a decision tree classifier for asymmetry detection (136 asymmetric and 28 symmetric images derived from the subset) and to train the U-Net segmentation model (1935 images from the broader ISIC dataset were used for U-Net training, though the specific 204 subset was used for testing/comparison).",
+        "validation": "null",
+        "testing": "Used to test the decision tree classifier (33 asymmetric and 7 symmetric images) and to evaluate the segmentation performance (Dice similarity) of the proposed Otsu-II method and U-Net.",
+        "other": "Used to evaluate segmentation performance on specific subsets: 129 images with large skin lesions and 162 images with small skin lesions."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice similarity coefficient",
+    "Accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Decision Tree Classifier",
+      "purpose": "To predict skin lesion asymmetry (symmetric vs asymmetric) based on extracted features (SIFT-based similarity, projection profiles, and skewness).",
+      "type": "Classification algorithm"
+    },
+    {
+      "method": "K-means Clustering",
+      "purpose": "To identify dominant colors within skin lesions in the CIELab color space for the purpose of quantifying color variegation.",
+      "type": "Clustering algorithm"
+    },
+    {
+      "method": "Correlation Method",
+      "purpose": "To compare horizontal and vertical projection profiles (histograms) to measure shape symmetry.",
+      "type": "Similarity metric"
+    },
+    {
+      "method": "Standard Deviation",
+      "purpose": "Used in the proposed Otsu-II segmentation method to measure the statistical distribution/spread of pixel intensities in each class to determine the optimal threshold.",
+      "type": "Statistical measure"
+    },
+    {
+      "method": "Dice Similarity Coefficient",
+      "purpose": "To evaluate and compare the performance of the proposed Otsu-II segmentation method against the U-Net deep learning model.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Accuracy",
+      "purpose": "To evaluate the performance of the decision tree classifier in determining asymmetry.",
+      "type": "Evaluation metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using accuracy (80% for the decision tree) and Dice similarity coefficient (88% for Otsu-II vs 76.2% for U-Net) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018 (Mixed Dataset - 204 images)": {
+      "metric": "Dice Similarity Coefficient",
+      "models": {
+        "Otsu": {
+          "Dice Similarity Coefficient": "82.5%"
+        },
+        "Otsu-II": {
+          "Dice Similarity Coefficient": "87.7%"
+        },
+        "Otsu-II0": {
+          "Dice Similarity Coefficient": "85.6%"
+        },
+        "Proposed Segmentation Approach (Otsu-II + KNN Matting)": {
+          "Dice Similarity Coefficient": "88%"
+        },
+        "U-Net": {
+          "Dice Similarity Coefficient": "76.2%"
+        }
+      },
+      "notes": "The proposed segmentation approach (Otsu-II with KNN matting) achieved 88% Dice similarity, outperforming U-Net (76.2%). Otsu-II improved upon the original Otsu method (87.7% vs 82.5%). Otsu-II0 performed poorly on small lesions but was included in the mixed set evaluation."
+    },
+    "ISIC 2018 (Small Lesions Dataset - 162 images)": {
+      "metric": "Dice Similarity Coefficient",
+      "models": {
+        "Otsu": {
+          "Dice Similarity Coefficient": "71.2%"
+        },
+        "Otsu-II": {
+          "Dice Similarity Coefficient": "74%"
+        },
+        "Otsu-II0": {
+          "Dice Similarity Coefficient": "49.6%"
+        }
+      },
+      "notes": "Otsu-II0 showed poor performance on small images due to lack of robustness to artifacts like hair and rulers."
+    },
+    "ISIC 2018 (Large Lesions Dataset - 129 images)": {
+      "metric": "Dice Similarity Coefficient",
+      "models": {
+        "Otsu": {
+          "Dice Similarity Coefficient": "84.6%"
+        },
+        "Otsu-II": {
+          "Dice Similarity Coefficient": "88.7%"
+        },
+        "Otsu-II0": {
+          "Dice Similarity Coefficient": "88.5%"
+        }
+      },
+      "notes": "Otsu-II and Otsu-II0 performed similarly well on large lesions, with Otsu-II slightly higher."
+    },
+    "ISIC 2018 (Asymmetry Classification - 204 images)": {
+      "metric": "Accuracy",
+      "models": {
+        "Decision Tree Classifier": {
+          "Accuracy": "80%"
+        }
+      },
+      "notes": "The decision tree was trained on 136 asymmetric and 28 symmetric images (80% of data) and tested on 33 asymmetric and 7 symmetric images (20% of data). It correctly predicted 30 asymmetric and 2 symmetric images. The model performed better on asymmetric images due to class imbalance in training data."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Decision Tree Classifier (CART - Classification and Regression Trees) for asymmetry classification; U-Net (deep learning encoder-decoder network) for segmentation comparison; K-means Clustering for color variegation; Otsu-II (improved Otsu thresholding) for segmentation.",
+    "pretraining": "null",
+    "input_size": "256 × 256 pixels",
+    "architecture_details": {
+      "decision_tree": {
+        "algorithm": "CART (Classification and Regression Trees)",
+        "structure": "Binary tree",
+        "features_used": [
+          "SIFT based similarity (128-dimensional local feature vectors)",
+          "Projection profiles (horizontal and vertical histograms)",
+          "Skewness"
+        ],
+        "training_data": "136 asymmetric and 28 symmetric images",
+        "testing_data": "33 asymmetric and 7 symmetric images"
+      },
+      "u_net": {
+        "type": "Deep learning encoder-decoder network",
+        "usage": "Compared against proposed Otsu-II method for segmentation",
+        "training_data": "1935 images from ISIC dataset (specific training details not reported in context)"
+      },
+      "k_means": {
+        "clusters": 7,
+        "color_space": "CIELab",
+        "purpose": "Identify dominant colors for color variegation"
+      },
+      "otsu_ii": {
+        "type": "Improved Otsu thresholding method",
+        "post_processing": "KNN (K-nearest Neighbors) matting"
+      }
+    },
+    "training_details": {
+      "decision_tree": {
+        "accuracy": "80%",
+        "correct_predictions": "30 asymmetric and 2 symmetric images"
+      },
+      "u_net": {
+        "dice_similarity_coefficient": "76.2%"
+      },
+      "otsu_ii": {
+        "dice_similarity_coefficient": "87.7% (on mixed dataset)",
+        "dice_similarity_coefficient_with_knn_matting": "88%"
+      }
+    },
+    "classification_or_output_head": {
+      "decision_tree_output": "Binary classification (symmetric vs asymmetric)",
+      "color_variegation_output": "Number of suspicious colors",
+      "diameter_output": "Feret’s diameter in millimeters"
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Decision Tree Classifier (CART)",
+    "U-Net",
+    "K-means Clustering",
+    "KNN (K-nearest Neighbors) matting"
+  ],
+  "preprocessing_techniques": [
+    "Saliency detection using Discriminative Regional Feature Integration (DRFI) to locate salient objects",
+    "Improved Otsu thresholding (Otsu-II) to create binary image masks from salient objects",
+    "Morphological operations (erosion and dilation) applied to binary masks to generate trimaps",
+    "KNN (K-nearest Neighbors) matting to create alpha mattes for accurate foreground/background distinction",
+    "Merging original color images with corresponding alpha mattes to extract skin lesions and remove background/artifacts"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed automated computer vision system provides an objective evaluation of the ABCD rule criteria (Asymmetry, Color variegation, and Diameter) for early melanoma detection, addressing the subjectivity inherent in clinical assessments.",
+    "The improved Otsu-based segmentation method (Otsu-II) combined with KNN matting achieved a Dice similarity coefficient of 88%, outperforming the U-Net deep learning model which achieved 76.2%.",
+    "The Otsu-II method demonstrated superior border detection precision compared to the U-Net model, particularly in handling artifacts and varying lesion sizes.",
+    "A decision tree classifier trained on SIFT-based similarity, projection profiles, and skewness features achieved 80% accuracy in predicting skin lesion asymmetry (symmetric vs. asymmetric).",
+    "The decision tree classifier performed better on asymmetric images than symmetric ones, likely due to class imbalance in the training data (136 asymmetric vs. 28 symmetric images).",
+    "Color variegation was successfully quantified by identifying suspicious colors within the CIELab color space using K-means clustering, providing an objective measure for a key melanoma indicator.",
+    "Feret’s diameter was utilized to objectively measure skin lesion diameter, addressing the limitation that 10% of melanomas are missed in early diagnosis due to having a diameter less than 6mm.",
+    "The study demonstrates that automated, objective measures for asymmetry, color variegation, and diameter can aid in the early detection of melanoma, potentially leading to higher survival rates."
+  ],
+  "important_remarks": [
+    "The study relies on a small, imbalanced dataset for asymmetry classification (204 images total; 136 asymmetric vs. 28 symmetric for training), leading to a decision tree accuracy of 80% that performed better on the majority class (asymmetric) than the minority class (symmetric).",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to validate the significance of the performance differences between the proposed Otsu-II method and the U-Net baseline.",
+    "The U-Net model used for comparison was trained on a different subset of the ISIC dataset (1935 images) than the one used for testing the proposed method (204 images), which may introduce dataset bias or distribution mismatch in the comparison.",
+    "The segmentation method (Otsu-II0) showed poor robustness to artifacts (hair, rulers) specifically in images with small skin lesions (Dice score 49.6% vs 88.7% for large lesions), indicating a limitation in handling varying lesion sizes and common dermoscopic artifacts.",
+    "The diameter measurement required manual spatial calibration using a ruler present in one specific image to convert pixels to millimeters (29.7 pixels/mm), which may not generalize to images lacking such calibration markers.",
+    "The asymmetry feature extraction and classification were validated by a single dermatologist (Dr. Sally O’Shea), introducing potential inter-observer variability bias not accounted for in the ground truth labels.",
+    "The paper acknowledges that the current dataset lacks balanced symmetric and asymmetric samples and suggests that future work requires more labor-intensive labeling to improve the decision tree's performance."
+  ]
+}

@@ -1,0 +1,423 @@
+{
+  "file_name": "jumutc_2026_multispectral_imaging_and_autofluorescence_photobleaching_combined_i.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a multi-head neural network architecture (deep learning) for skin cancer classification. Specifically, it employed a multi-target, multi-head neural network with specialized loss functions to classify hyperspectral images of skin lesions (melanoma vs. non-melanoma) using a proprietary dataset enriched with autofluorescence photobleaching data. The study also utilized InceptionResNetV2 and ResNet50 backbones and the Nadam optimizer."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled 'TYPE Original Research' and presents a study investigating the efficacy of multi-target, multi-head neural network architectures for skin cancer classification. It includes original methods (proprietary dataset, multi-head architecture with specialized loss functions), experimental results (AUC-PR scores, accuracy metrics on proprietary and ISIC datasets), and discussion of new findings, rather than summarizing prior literature."
+  },
+  "title": "Multispectral imaging and autofluorescence photobleaching combined in a multi-head neural network for skin cancer classification",
+  "authors": [
+    "Vilen Jumutc",
+    "Andrey Bondarenko",
+    "Mihails Kovalovs",
+    "Dmitrijs Bliznuks",
+    "Ilze Lihacova",
+    "Alexey Lihachev",
+    "Dmitrijs Bliznuks"
+  ],
+  "doi": "10.3389/fmed.2026.1763105",
+  "journal": "Frontiers in Medicine",
+  "year": 2026,
+  "article_type": "Original Research",
+  "brief_summary": "This study addresses the challenge of hyperspectral skin cancer classification by combining multispectral imaging with autofluorescence photobleaching data. The authors employed a multi-target, multi-head neural network architecture where each head utilized specialized loss functions to optimize accuracy, sensitivity, and precision-recall simultaneously. The model was evaluated on a proprietary hyperspectral dataset enriched with photobleaching features and the public ISIC dermoscopic dataset. Results demonstrated that the multi-head approach significantly improved classification performance compared to conventional single-head models, achieving AUC-PR scores of 0.850 ± 0.032 and 0.822 ± 0.022 for the proprietary and ISIC datasets, respectively. The findings suggest that aggregating outputs from multiple heads enhances robustness and detection of subtle spectral differences indicative of melanoma.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "C43",
+        "D03.9"
+      ],
+      "role": "Target class",
+      "details": "Mapped from proprietary classes C43 and D03.9. In the ISIC dataset, the 'malignant' class is mapped to 'Melanoma', predominantly representing melanoma."
+    },
+    {
+      "lesion_type": "Non-melanoma Malignant/In Situ",
+      "paper_terms": [
+        "Malignant (non-melanoma)",
+        "C44",
+        "C46",
+        "D09",
+        "Keratoacanthoma"
+      ],
+      "role": "Target class",
+      "details": "Mapped from proprietary classes C44, C46, D09, and Keratoacanthoma. In the ISIC dataset, the 'intermediate' class is mapped to this category, grouping non-melanoma malignancies and premalignant lesions."
+    },
+    {
+      "lesion_type": "Other/Benign",
+      "paper_terms": [
+        "Other",
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "Mapped from proprietary 'Other' category (all rest classes) and ISIC 'benign' class."
+    },
+    {
+      "lesion_type": "Non-melanoma skin lesions",
+      "paper_terms": [
+        "non-melanoma",
+        "benign lesions"
+      ],
+      "role": "Comparator class",
+      "details": "Referenced in the context of differentiating melanoma from non-melanoma tissues and benign lesions misclassified as malignant."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories of skin lesions (Melanoma, Malignant/non-melanoma, Other/benign)",
+        "primary": true,
+        "details": "The paper explicitly focuses on 'skin cancer classification' using a multi-head neural network. The model predicts discrete classes: Melanoma (mapped from proprietary C43/D03.9 and ISIC 'malignant'), Malignant/non-melanoma (mapped from proprietary C44/C46/D09/Keratoacanthoma and ISIC 'intermediate'), and Other/benign (mapped from proprietary 'Other' and ISIC 'benign'). The task involves optimizing accuracy, sensitivity, and precision-recall for these discrete categories, with final classifications obtained by aggregating outputs from multiple heads via simple averaging."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Proprietary Multispectral Dataset",
+      "description": "A proprietary multispectral dataset enriched with autofluorescence photobleaching tabular data, previously developed for skin lesion classification. It was obtained from a portable multispectral device equipped with narrow-band LEDs (405 nm, 526 nm, 663 nm, 964 nm) and an IDS uEye color camera. The dataset contains hyperspectral images and time-dependent fluorescence intensity profiles derived from 10 sequential autofluorescence images per lesion. The dataset is constantly updated and currently has more than 4,000 lesions, with 2,066 lesions specifically selected for investigating photobleaching dynamics.",
+      "classes_used": [
+        "Melanoma (mapped from C43 and D03.9)",
+        "Malignant (non-melanoma) (mapped from C44, C46, D09, and Keratoacanthoma)",
+        "Other (benign) (mapped from all other classes)"
+      ],
+      "counts": {
+        "total": 4000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the multi-head neural network. The study employed five fixed random cross-validation splits (80% training, 10% validation, 10% testing) with 15 total training runs (3 repeats per split).",
+        "validation": "Used for monitoring validation loss decay and selecting the best checkpointed model based on validation performance.",
+        "testing": "Used for final evaluation of classification accuracy and AUC-PR scores.",
+        "other": "Used for UMAP clustering analysis to assess class separability of photobleaching features."
+      }
+    },
+    {
+      "name": "ISIC Public Dataset",
+      "description": "The International Skin Imaging Collaboration (ISIC) public dataset, a collection of dermoscopic (RGB) images for skin lesion study and diagnosis. The study used a subsample of 50,000 images spanning three major classes. This dataset provides standardized, curated high-quality clinical images from multiple international clinical centers.",
+      "classes_used": [
+        "Malignant (mapped to proprietary 'Melanoma')",
+        "Intermediate (mapped to proprietary 'Malignant (non-melanoma)')",
+        "Benign (mapped to proprietary 'Other')"
+      ],
+      "counts": {
+        "total": 50000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the multi-head neural network. A single split was generated, and training was repeated three times.",
+        "validation": "Used for monitoring validation loss decay and selecting the best checkpointed model.",
+        "testing": "Used for final evaluation of classification accuracy and AUC-PR scores.",
+        "other": "Used for external comparison of model performance against the proprietary dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "AUC-PR (Area Under the Precision-Recall Curve)",
+    "Precision",
+    "Recall",
+    "Purity clustering quality metric",
+    "T-statistic",
+    "P-value",
+    "Cohen's d (effect size)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Cross-validation",
+      "purpose": "To split the proprietary dataset into training, validation, and test folds (80%, 10%, 10%) and repeat training to ensure robustness.",
+      "type": "Resampling method"
+    },
+    {
+      "method": "T-test",
+      "purpose": "To compare the performance of Multi-Head architectures against Single-Head configurations and assess statistical significance of improvements.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Cohen's d",
+      "purpose": "To estimate the effect size of the difference between group means (Multi-Head vs. Single-Head).",
+      "type": "Effect size metric"
+    },
+    {
+      "method": "Standard Deviation",
+      "purpose": "To report variability and uncertainty in accuracy and AUC-PR scores across multiple training runs/splits.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "UMAP clustering analysis",
+      "purpose": "To assess class separability of photobleaching features and guide the selection of the optimal number of tabular inputs.",
+      "type": "Dimensionality reduction/Exploratory analysis"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "T-test",
+    "null_hypothesis": "There is no significant difference in performance (Accuracy or AUC-PR) between the Multi-Head architecture and the Single-Head architecture.",
+    "alternative_hypothesis": "There is a significant difference in performance (Accuracy or AUC-PR) between the Multi-Head architecture and the Single-Head architecture.",
+    "alpha": 0.05,
+    "interpretation": "The paper reports p-values from T-tests comparing Multi-Head vs. Single-Head configurations. For the InceptionResNetV2 backbone, many comparisons yielded low p-values (e.g., 0.021365 for Accuracy), indicating statistically significant performance improvements for the Multi-Head architecture. For the ResNet50 backbone, p-values were higher (e.g., 0.524544 for Accuracy), suggesting the differences were not statistically significant. Cohen's d was also reported as an effect size metric."
+  },
+  "results_obtained_in_each_dataset": {
+    "Proprietary Multispectral Dataset": {
+      "metric": "Accuracy and AUC-PR (Area Under the Precision-Recall Curve)",
+      "models": {
+        "Multi-Head InceptionResNetV2 (No tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.798 ± 0.036",
+          "AUC-PR": "0.850 ± 0.032"
+        },
+        "Multi-Head InceptionResNetV2 (No tabular inputs, CE, BCE)": {
+          "Accuracy": "0.789 ± 0.035",
+          "AUC-PR": "0.838 ± 0.032"
+        },
+        "Single-Head InceptionResNetV2 (No tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.768 ± 0.030",
+          "AUC-PR": "0.823 ± 0.039"
+        },
+        "Single-Head InceptionResNetV2 (No tabular inputs, CE, BCE)": {
+          "Accuracy": "0.786 ± 0.036",
+          "AUC-PR": "0.830 ± 0.036"
+        },
+        "Multi-Head InceptionResNetV2 (With 3 tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.781 ± 0.038",
+          "AUC-PR": "0.836 ± 0.031"
+        },
+        "Multi-Head InceptionResNetV2 (With 3 tabular inputs, CE, BCE)": {
+          "Accuracy": "0.772 ± 0.035",
+          "AUC-PR": "0.828 ± 0.022"
+        },
+        "Single-Head InceptionResNetV2 (With 3 tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.780 ± 0.029",
+          "AUC-PR": "0.809 ± 0.035"
+        },
+        "Single-Head InceptionResNetV2 (With 3 tabular inputs, CE, BCE)": {
+          "Accuracy": "0.759 ± 0.041",
+          "AUC-PR": "0.784 ± 0.047"
+        },
+        "Multi-Head ResNet50 (No tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.770 ± 0.047",
+          "AUC-PR": "0.826 ± 0.037"
+        },
+        "Multi-Head ResNet50 (No tabular inputs, CE, BCE)": {
+          "Accuracy": "0.765 ± 0.045",
+          "AUC-PR": "0.814 ± 0.056"
+        },
+        "Single-Head ResNet50 (No tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.758 ± 0.046",
+          "AUC-PR": "0.825 ± 0.027"
+        },
+        "Single-Head ResNet50 (No tabular inputs, CE, BCE)": {
+          "Accuracy": "0.755 ± 0.054",
+          "AUC-PR": "0.815 ± 0.037"
+        },
+        "Multi-Head ResNet50 (With 3 tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.774 ± 0.052",
+          "AUC-PR": "0.817 ± 0.048"
+        },
+        "Multi-Head ResNet50 (With 3 tabular inputs, CE, BCE)": {
+          "Accuracy": "0.752 ± 0.059",
+          "AUC-PR": "0.809 ± 0.045"
+        },
+        "Single-Head ResNet50 (With 3 tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.746 ± 0.050",
+          "AUC-PR": "0.791 ± 0.045"
+        },
+        "Single-Head ResNet50 (With 3 tabular inputs, CE, BCE)": {
+          "Accuracy": "0.751 ± 0.041",
+          "AUC-PR": "0.786 ± 0.045"
+        },
+        "Multi-Head InceptionResNetV2 (With 5 tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.776 ± 0.051",
+          "AUC-PR": "0.823 ± 0.044"
+        },
+        "Multi-Head InceptionResNetV2 (With 5 tabular inputs, CE, BCE)": {
+          "Accuracy": "0.788 ± 0.038",
+          "AUC-PR": "0.826 ± 0.030"
+        },
+        "Multi-Head InceptionResNetV2 (With 10 tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.774 ± 0.037",
+          "AUC-PR": "0.819 ± 0.041"
+        },
+        "Multi-Head InceptionResNetV2 (With 10 tabular inputs, CE, BCE)": {
+          "Accuracy": "0.784 ± 0.035",
+          "AUC-PR": "0.831 ± 0.038"
+        },
+        "Multi-Head ResNet50 (With 5 tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.768 ± 0.044",
+          "AUC-PR": "0.820 ± 0.033"
+        },
+        "Multi-Head ResNet50 (With 5 tabular inputs, CE, BCE)": {
+          "Accuracy": "0.755 ± 0.052",
+          "AUC-PR": "0.815 ± 0.043"
+        },
+        "Multi-Head ResNet50 (With 10 tabular inputs, CE, BCE & KL)": {
+          "Accuracy": "0.771 ± 0.049",
+          "AUC-PR": "0.825 ± 0.039"
+        },
+        "Multi-Head ResNet50 (With 10 tabular inputs, CE, BCE)": {
+          "Accuracy": "0.771 ± 0.055",
+          "AUC-PR": "0.819 ± 0.041"
+        }
+      },
+      "notes": "The multi-head architecture with InceptionResNetV2 and CE, BCE & KL losses without tabular inputs achieved the best performance (Accuracy: 0.798 ± 0.036, AUC-PR: 0.850 ± 0.032). Statistical significance tests (Table 6) showed that for InceptionResNetV2, the Multi-Head vs Single-Head comparison for Accuracy had a p-value of 0.021365 (Cohen's d: 0.890276), while for AUC-PR it was 0.064473 (Cohen's d: 0.702829). For ResNet50, the differences were not statistically significant (Accuracy p=0.524544, AUC-PR p=0.972119 for No tabular inputs; Accuracy p=0.156088, AUC-PR p=0.146973 for With 3 tabular inputs)."
+    },
+    "ISIC Public Dataset": {
+      "metric": "Accuracy and AUC-PR (Area Under the Precision-Recall Curve)",
+      "models": {
+        "Multi-Head InceptionResNetV2 (CE, BCE & KL)": {
+          "Accuracy": "0.981 ± 0.000",
+          "AUC-PR": "0.822 ± 0.022"
+        },
+        "Multi-Head InceptionResNetV2 (CE, BCE)": {
+          "Accuracy": "0.982 ± 0.002",
+          "AUC-PR": "0.820 ± 0.011"
+        },
+        "Single-Head InceptionResNetV2 (CE, BCE & KL)": {
+          "Accuracy": "0.982 ± 0.001",
+          "AUC-PR": "0.807 ± 0.004"
+        },
+        "Single-Head InceptionResNetV2 (CE, BCE)": {
+          "Accuracy": "0.981 ± 0.001",
+          "AUC-PR": "0.801 ± 0.032"
+        },
+        "Multi-Head ResNet50 (CE, BCE & KL)": {
+          "Accuracy": "0.976 ± 0.002",
+          "AUC-PR": "0.679 ± 0.016"
+        },
+        "Multi-Head ResNet50 (CE, BCE)": {
+          "Accuracy": "0.975 ± 0.001",
+          "AUC-PR": "0.684 ± 0.017"
+        },
+        "Single-Head ResNet50 (CE, BCE & KL)": {
+          "Accuracy": "0.977 ± 0.001",
+          "AUC-PR": "0.677 ± 0.008"
+        },
+        "Single-Head ResNet50 (CE, BCE)": {
+          "Accuracy": "0.976 ± 0.000",
+          "AUC-PR": "0.675 ± 0.002"
+        }
+      },
+      "notes": "The multi-head approach using InceptionResNetV2 with CE, BCE & KL losses achieved the best AUC-PR (0.822 ± 0.022). The pre-trained InceptionResNetV2 backbone improved results for all inspected models on average. Tabular data was not used for the ISIC dataset as photobleaching features were unavailable."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multi-head neural network with a shared feature extractor and two parallel classification heads (Multi-Head InceptionResNetV2 or Multi-Head ResNet50)",
+    "pretraining": "InceptionResNetV2 backbone initialized from a pretrained checkpoint (except the first layer, which was modified to have 12 channels for the proprietary dataset). ResNet50 backbone was randomly initialized.",
+    "input_size": "448 × 448 spatial dimensions for images; tabular inputs varied (0, 3, 5, or 10 features)",
+    "architecture_details": {
+      "backbone": [
+        "InceptionResNetV2 (pretrained)",
+        "ResNet50 (randomly initialized)"
+      ],
+      "shared_encoder": "Convolutional neural network feature extractor learning common representation from input dermoscopic images",
+      "heads": "Two parallel heads appended to the shared encoder",
+      "head_1": {
+        "description": "Processes soft targets, backbone-extracted features, and auto-fluorescence photobleaching tabular data",
+        "structure": "Multi-layer perceptron (MLP) connected to concatenation of shared features and tabular inputs",
+        "loss_functions": [
+          "Binary Cross-Entropy (BCE)",
+          "Kullback-Leibler (KL) divergence"
+        ]
+      },
+      "head_2": {
+        "description": "Standard multiclass classification with hard targets (one-hot encoded)",
+        "structure": "Multi-layer perceptron (MLP) connected to the shared feature map",
+        "loss_functions": [
+          "Categorical Cross-Entropy (CE)"
+        ]
+      },
+      "aggregation": "Simple averaging of outputs from all heads"
+    },
+    "training_details": {
+      "optimizer": "Nadam",
+      "learning_rate": 0.0002,
+      "weight_decay": 0.0001,
+      "batch_size": 4,
+      "epochs": {
+        "proprietary_dataset": 50,
+        "isic_dataset": 10
+      },
+      "learning_rate_scheduler": "Reduce-on-plateau (factor 0.5, patience 5 epochs for proprietary; 2 epochs for ISIC)",
+      "augmentation": [
+        "Gamma correction",
+        "Contrast adjustment",
+        "Gaussian noise (for images and tabular inputs)"
+      ],
+      "normalization": "Images self-normalized to pixel values in [0, 1]",
+      "hardware": "Nvidia RTX 4090 GPU with 24GB RAM",
+      "framework": "fuse-med-ml (Python 3.10.15)"
+    },
+    "classification_or_output_head": {
+      "type": "Multi-layer Perceptron (MLP)",
+      "output_aggregation": "Simple averaging of head outputs"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Multi-head neural network",
+    "Multi-head InceptionResNetV2",
+    "Multi-head ResNet50",
+    "Single-head InceptionResNetV2",
+    "Single-head ResNet50",
+    "CNN classifier",
+    "GoogLeNet"
+  ],
+  "preprocessing_techniques": [
+    "Cross-polarization configuration to suppress specular reflection from the skin surface",
+    "Mask R-CNN segmentation model to delineate lesion regions and reference markers for autofluorescence images",
+    "Inversion and merging of lesion and marker masks",
+    "Computation of mean pixel intensities within lesion and skin regions to derive time-dependent fluorescence intensity profiles",
+    "Retention of only lesion-derived intensity features (discarding skin background features) for photobleaching tabular inputs",
+    "Selection of the first four images from the 10-image sequence for photobleaching features based on UMAP clustering purity analysis",
+    "Self-normalization of images to pixel values in [0, 1]",
+    "Gamma correction (data augmentation)",
+    "Contrast adjustment (data augmentation)",
+    "Gaussian noise addition to images and tabular inputs (data augmentation)",
+    "Modification of the first layer of the pretrained InceptionResNetV2 backbone to accept 12 channels for the proprietary dataset"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Gamma correction",
+      "details": "Applied to input images during training."
+    },
+    {
+      "technique": "Contrast adjustment",
+      "details": "Applied to input images during training."
+    },
+    {
+      "technique": "Gaussian noise addition",
+      "details": "Added to input images and tabular photobleaching inputs during training."
+    }
+  ],
+  "conclusions": [
+    "Multi-head neural network architectures with specialized loss functions significantly improve classification accuracy and precision-recall performance compared to conventional single-head models for hyperspectral skin cancer classification.",
+    "The proposed multi-head, multi-loss approach achieved the best performance on both the proprietary multispectral dataset (AUC-PR: 0.850 ± 0.032) and the public ISIC dataset (AUC-PR: 0.822 ± 0.022).",
+    "Aggregating outputs from multiple heads via simple averaging enhances robustness, reduces variance, and improves prediction stability by allowing the network to simultaneously optimize for accuracy, sensitivity, and precision-recall.",
+    "The pre-trained InceptionResNetV2 backbone consistently improved results across all inspected models compared to randomly initialized backbones like ResNet50.",
+    "The addition of autofluorescence photobleaching tabular data improved accuracy for the ResNet50 backbone but did not consistently improve performance for the pre-trained InceptionResNetV2 backbone, suggesting potential negative transfer or noise introduction for larger pre-trained models.",
+    "The study acknowledges limitations regarding dataset generalization, noting that the proprietary dataset, while novel, is modest in size and may not fully represent the diversity of skin tones, lesion locations, and disease subtypes encountered in global clinical practice.",
+    "Future work should address photobleaching variability by developing adaptive acquisition strategies and normalization techniques, as well as expanding datasets through multi-center collaborations and federated learning to mitigate overfitting risks associated with hyperspectral data dimensionality.",
+    "Integrating attention mechanisms and class activation mapping techniques specifically designed for hyperspectral data is identified as a necessary step to enhance model interpretability."
+  ],
+  "important_remarks": [
+    "The proprietary dataset, while novel, is modest in size (>2,000 lesions with photobleaching data), posing overfitting risks due to hyperspectral data dimensionality and potentially lacking diversity in skin tones, lesion locations, and disease subtypes.",
+    "The study acknowledges that the proprietary dataset may not fully represent the diversity encountered in global clinical practice, limiting external generalizability without multi-center validation.",
+    "Autofluorescence photobleaching features were unavailable for the ISIC dataset; thus, tabular inputs were not used for ISIC, creating a modality gap between the proprietary and public dataset evaluations.",
+    "For pre-trained InceptionResNetV2, adding UMAP-selected photobleaching tabular features introduced noise rather than signal, suggesting negative transfer for larger pre-trained models, whereas it benefited randomly initialized ResNet50.",
+    "Statistical significance of the multi-head advantage varied by backbone: significant for InceptionResNetV2 (Accuracy p=0.021) but not for ResNet50 (Accuracy p=0.525), indicating backbone dependency of the architectural benefit.",
+    "The ISIC dataset mapping groups non-melanoma malignancies and premalignant lesions into an 'intermediate' class, which may obscure specific diagnostic distinctions compared to strict histopathological correspondence.",
+    "Photobleaching signal saturation occurs after initial illumination seconds; using more than the first four images in the sequence degrades clustering quality by introducing noise-dominated frames.",
+    "The study relies on a single split for the ISIC dataset and five fixed random splits for the proprietary dataset, which may limit the robustness of performance estimates compared to more extensive cross-validation or external test sets."
+  ]
+}

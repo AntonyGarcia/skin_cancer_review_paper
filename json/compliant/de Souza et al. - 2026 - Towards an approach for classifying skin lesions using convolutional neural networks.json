@@ -1,0 +1,276 @@
+{
+  "file_name": "de Souza et al. - 2026 - Towards an approach for classifying skin lesions using convolutional neural networks.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning approach based on a modified ResNet18 Convolutional Neural Network (CNN) with attention mechanisms to classify skin lesions as benign or malignant. The model was trained on the ISIC dataset using TensorFlow and Keras, and Gradient-weighted Class Activation Mapping (Grad-CAM) was employed for explainability."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work developing a modified ResNet18 CNN with attention mechanisms for classifying skin lesions. It details a specific methodology including preprocessing, data augmentation, and Grad-CAM explainability, and reports original results (99.42% training accuracy, 88.12% validation accuracy, AUC-ROC 0.8715) on the ISIC dataset. Although published in conference proceedings (ICAART 2026), it is an original technical study rather than a review."
+  },
+  "title": "Towards an Approach for Classifying Skin Lesions Using Convolutional Neural Networks",
+  "authors": [
+    "Rodrigo Guedes de Souza",
+    "Fabricio Ourique",
+    "Analúcia Schiaffino Morales",
+    "Antonio Carlos Sobieranski",
+    "Alison R. Panisson"
+  ],
+  "doi": "10.5220/0014283600004052",
+  "journal": "Proceedings of the 18th International Conference on Agents and Artificial Intelligence (ICAART 2026)",
+  "year": 2026,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of early skin cancer detection by developing a deep learning approach to classify skin lesions as benign or malignant. The authors implemented a modified ResNet18 Convolutional Neural Network with attention mechanisms, trained on the International Skin Imaging Collaboration (ISIC) dataset. To enhance model generalization and address class imbalance, the pipeline included tailored preprocessing, data augmentation, and a weighted loss function. Explainability was integrated using Gradient-weighted Class Activation Mapping (Grad-CAM) to provide visual heatmaps supporting clinical decision-making. The model achieved an accuracy of 99.42% on the test set and 88.12% on the validation set, with an AUC-ROC of 0.92 and specificity of 0.96. These results highlight the potential of CNN-based methods to assist in automated screening scenarios where expert dermatological evaluation may be limited.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "benign lesions",
+        "benign class"
+      ],
+      "role": "Target class",
+      "details": "One of the two binary classification targets. The dataset originally contained approximately 7186-7200 benign images (e.g., nevi/moles mentioned in introduction as examples of benign lesions) from the ISIC 2018 dataset."
+    },
+    {
+      "lesion_type": "Malignant skin lesions",
+      "paper_terms": [
+        "malignant",
+        "malignant lesions",
+        "malignant class",
+        "malignant tumors"
+      ],
+      "role": "Target class",
+      "details": "One of the two binary classification targets. The dataset originally contained approximately 1230-1200 malignant images. The paper notes that malignant lesions include melanoma and other carcinomas. This class was the minority class, addressed via data augmentation and weighted loss."
+    },
+    {
+      "lesion_type": "Indeterminate skin lesions",
+      "paper_terms": [
+        "indeterminate",
+        "indeterminate class"
+      ],
+      "role": "Exclusion/mentioned only",
+      "details": "Mentioned as a class present in the original ISIC 2018 dataset (2634 images) that 'remained non-determinate after the preprocessing' and was not used as a target class in the binary benign vs. malignant classification task."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Mentioned only (example)",
+      "details": "Mentioned in the Introduction as an example of a malignant skin cancer that may invade surrounding tissues. Not explicitly isolated as a separate class in the experiments."
+    },
+    {
+      "lesion_type": "Nevi (Moles)",
+      "paper_terms": [
+        "nevi",
+        "moles"
+      ],
+      "role": "Mentioned only (example)",
+      "details": "Mentioned in the Introduction as an example of benign lesions without risk of progression. Not explicitly isolated as a separate class in the experiments."
+    },
+    {
+      "lesion_type": "Carcinomas",
+      "paper_terms": [
+        "carcinomas"
+      ],
+      "role": "Mentioned only (example)",
+      "details": "Mentioned in the Introduction as examples of malignant lesions. Not explicitly isolated as a separate class in the experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into benign or malignant categories.",
+        "primary": true,
+        "details": "The paper explicitly states the goal is to 'classify skin lesions as benign or malignant'. The model outputs a single scalar probability via a sigmoid function for binary decision-making. The task involves distinguishing between two discrete diagnostic categories (benign vs. malignant) using a modified ResNet18 CNN trained on the ISIC dataset."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018 Dataset",
+      "description": "The International Skin Imaging Collaboration (ISIC) 2018 dataset, containing high-quality dermatoscopic images of skin lesions. The original dataset provided 12,279 images. The study processed this dataset by excluding the 'indeterminate' class (2,634 images) and focusing on benign and malignant classes. Data augmentation was applied to the malignant class to address class imbalance.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 12279,
+        "training": 13386,
+        "validation": 1663,
+        "testing": null,
+        "per_class": {
+          "benign_original": 7186,
+          "malignant_original": 1230,
+          "indeterminate_excluded": 2634,
+          "malignant_augmented_training": 6200,
+          "benign_training": 7186
+        }
+      },
+      "use": {
+        "training": "Used for training the modified ResNet18 CNN. The benign class (7,186 images) was used directly, while the malignant class (originally 1,230 images) was augmented to approximately 6,200 images, resulting in a total training set of 13,386 images.",
+        "validation": "Used for validation. A separate set of 1,663 images (described as testing/validation set in the text) was maintained for performance evaluation during training.",
+        "testing": "The text refers to a 'testing (validation) set' of 1,663 images used to evaluate generalization. It also reports test set accuracy of 99.42% in the abstract, but the specific count for a distinct final test set is not clearly separated from the validation set count of 1,663 in the methodology section.",
+        "other": "The original dataset also contained an 'indeterminate' class (2,634 images) which was excluded from the binary classification task after preprocessing."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Loss",
+    "AUC-ROC",
+    "Specificity",
+    "Negative Predictive Value (NPV)",
+    "Sensitivity"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "AUC-ROC (Area Under the Receiver Operating Characteristic Curve)",
+      "purpose": "To assess the model's discriminative power and ability to distinguish between benign and malignant lesions across varied thresholds.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Weighted Binary Cross-Entropy Loss",
+      "purpose": "To handle class imbalance by increasing the importance of the malignant class during training.",
+      "type": "Loss Function"
+    },
+    {
+      "method": "Adam Optimizer",
+      "purpose": "To update model weights during training with a learning rate of 0.0001 and weight decay to prevent overfitting.",
+      "type": "Optimization Algorithm"
+    },
+    {
+      "method": "Validation Accuracy Monitoring",
+      "purpose": "To gauge potential overfitting by comparing training accuracy (99.42%) with validation accuracy (88.12%) and to select the best model checkpoint.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Specificity and Negative Predictive Value (NPV)",
+      "purpose": "To ensure benign cases are accurately identified and false positives are kept to a minimum.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Sensitivity",
+      "purpose": "To measure the detection rate of malignant lesions.",
+      "type": "Performance Metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "No hypothesis testing was reported; the paper reports performance metrics (accuracy, AUC-ROC, specificity, sensitivity) without statistical significance tests or p-values."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018 Dataset": {
+      "split": "Overall Evaluation",
+      "models": {
+        "Modified ResNet18": {
+          "auc_roc": "0.8715",
+          "specificity": "94.94%",
+          "negative_predictive_value": "90.88%",
+          "sensitivity": "51.24%"
+        }
+      },
+      "notes": "The model achieved an AUC-ROC of 0.8715. Specificity was 94.94% and NPV was 90.88%. Sensitivity was low at 51.24%, indicating difficulty in detecting malignant lesions."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Modified ResNet18",
+    "pretraining": "Pre-trained on ImageNet (Deng et al., 2009)",
+    "input_size": "299 x 299 pixels",
+    "architecture_details": {
+      "backbone": "ResNet18",
+      "modifications": "The final fully connected layer was replaced with a new linear layer outputting a single scalar, followed by a sigmoid function for binary classification.",
+      "implementation_framework": "PyTorch",
+      "attention_mechanisms": "Included (mentioned in abstract and introduction, but specific architectural details not provided in the text)"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.0001,
+      "weight_decay": "Applied (specific value not reported)",
+      "loss_function": "BCEWithLogitsLoss (Binary Cross-Entropy with Logits) with a higher positive weight for the malignant class",
+      "epochs": 20,
+      "batch_processing": "Mini-batches",
+      "hardware": "GPU (if available)",
+      "checkpointing": "Best model checkpoint saved based on validation accuracy improvement"
+    },
+    "classification_or_output_head": {
+      "type": "Binary Classification",
+      "output_layer": "Single scalar output via linear layer",
+      "activation": "Sigmoid function",
+      "decision": "Binary decision between benign and malignant"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Modified ResNet18",
+    "ResNet18",
+    "EfficientNet-B0",
+    "EfficientNet-B2",
+    "ResNet50",
+    "EfficientNet-B4",
+    "DenseNet"
+  ],
+  "preprocessing_techniques": [
+    "Exclusion of the 'indeterminate' class (2,634 images) from the ISIC 2018 dataset to focus on benign and malignant classes.",
+    "Standardization of image dimensions to 299 x 299 pixels to align with the pre-trained ResNet18 input requirements.",
+    "Standardization of intensity distributions to minimize variability from background, lighting, and noise.",
+    "Data augmentation applied exclusively to the malignant class using the Albumentations library, including: random rotations, horizontal and vertical flips, affine transformations, brightness-contrast adjustments, and elastic distortions."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random rotations",
+      "details": "Applied to malignant class images; range up to 20 degrees."
+    },
+    {
+      "technique": "Horizontal and vertical flips",
+      "details": "Applied to malignant class images."
+    },
+    {
+      "technique": "Affine transformations",
+      "details": "Applied to malignant class images."
+    },
+    {
+      "technique": "Brightness-contrast adjustments",
+      "details": "Applied to malignant class images."
+    },
+    {
+      "technique": "Elastic distortions/deformations",
+      "details": "Applied to malignant class images."
+    },
+    {
+      "technique": "Random translations and scaling",
+      "details": "Applied to training set images using TorchVision library."
+    },
+    {
+      "technique": "Class-balancing augmentation (Synthetic data generation)",
+      "details": "Aggressive augmentation applied exclusively to the malignant class (minority class) using the Albumentations library to generate multiple augmented copies of each image, increasing the malignant class count from ~1,230 to ~6,200 samples."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep learning approach using a modified ResNet18 Convolutional Neural Network with attention mechanisms and tailored preprocessing/augmentation pipelines demonstrates potential for assisting in early skin cancer detection, particularly in automated screening scenarios with limited access to dermatology specialists.",
+    "The model achieved high discriminative performance with an AUC-ROC of 0.8715, high specificity (94.94%), and high negative predictive value (90.88%), effectively minimizing false positives for benign lesions.",
+    "Despite high training accuracy (99.42%), the model exhibited signs of overfitting, evidenced by a lower validation accuracy (88.12%) and low sensitivity (51.24%), indicating a struggle to detect malignant lesions compared to benign ones.",
+    "The integration of Gradient-weighted Class Activation Mapping (Grad-CAM) provided visual explanations that highlight lesion regions influencing predictions, enhancing transparency and supporting clinical trust in the model's decision-making process.",
+    "The imbalance between sensitivity and specificity underscores the challenges of classifying skin lesions and highlights the need for further refinement, such as optimizing data augmentation, class weighting, or exploring alternative architectures/ensemble methods to improve malignant lesion detection."
+  ],
+  "important_remarks": [
+    "The paper reports conflicting accuracy metrics: the abstract states 99.42% accuracy on the test set, while the results section and training table indicate 99.42% training accuracy and 88.12% validation accuracy, creating ambiguity regarding the final test set performance.",
+    "There is a discrepancy in reported metrics: the abstract cites an AUC-ROC of 0.92 and specificity of 0.96, whereas the detailed results section reports an AUC-ROC of 0.8715, specificity of 94.94%, and notably low sensitivity of 51.24%.",
+    "The model exhibits significant signs of overfitting, evidenced by the large gap between training accuracy (99.42%) and validation accuracy (88.12%) and the low sensitivity (51.24%) for the malignant class.",
+    "Data augmentation was applied exclusively to the malignant class (increasing samples from ~1,230 to ~6,200) to address class imbalance, which may introduce bias or limit the generalizability of the model to real-world distributions where such augmentation is not present.",
+    "The study lacks external validation, relying solely on the ISIC 2018 dataset, which limits the assessment of the model's robustness across different imaging devices, populations, or clinical settings.",
+    "No statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to validate the significance of the reported performance metrics.",
+    "The implementation framework is inconsistently reported: the abstract mentions TensorFlow and Keras, while the methodology and code references explicitly describe the use of PyTorch.",
+    "The 'indeterminate' class from the ISIC 2018 dataset (2,634 images) was excluded from the binary classification task, potentially limiting the model's applicability in clinical scenarios where indeterminate lesions are common.",
+    "The paper does not report the number of model parameters or computational complexity, making it difficult to assess the model's efficiency for potential deployment in resource-constrained environments."
+  ]
+}

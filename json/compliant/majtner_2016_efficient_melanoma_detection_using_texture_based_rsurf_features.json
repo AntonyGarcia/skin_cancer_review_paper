@@ -1,0 +1,197 @@
+{
+  "file_name": "majtner_2016_efficient_melanoma_detection_using_texture_based_rsurf_features.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper presents a fully automated melanoma recognition system that uses computer vision and machine learning techniques. Specifically, it employs Chan-Vese segmentation for lesion segmentation, extracts texture-based RSurf features, and uses a weighted k-NN (k-nearest neighbors) classifier to distinguish between melanoma and benign lesions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents a fully automated melanoma recognition system using texture-based RSurf features and a weighted k-NN classifier. It describes a specific methodology including image preprocessing, Chan-Vese segmentation, feature extraction, and classification, followed by an experimental evaluation on a dataset of 110 images with reported performance metrics (accuracy, sensitivity, specificity). This structure and content indicate original experimental research rather than a review of prior literature."
+  },
+  "title": "Efficient Melanoma Detection Using Texture-Based RSurf Features",
+  "authors": [
+    "Tomáš Majtner",
+    "Sule Yildirim-Yayilgan",
+    "Jon Yngve Hardeberg"
+  ],
+  "doi": "10.1007/978-3-319-41501-7_4",
+  "journal": "ICIAR 2016",
+  "year": 2016,
+  "article_type": "Conference paper",
+  "brief_summary": "This study presents a fully automated system for melanoma detection using texture-based RSurf features to distinguish between melanoma and benign lesions. The pipeline includes image preprocessing, lesion segmentation via a two-stage Chan-Vese method, feature extraction using RSurf descriptors, and classification with a weighted k-NN classifier. The system was evaluated on a dataset of 110 dermoscopic images acquired from a private dermatology practice in Germany. Experimental results demonstrated a classification accuracy of 97.27%, with a sensitivity of 90% and specificity of 98%. The authors conclude that RSurf features offer strong discrimination power and computational efficiency suitable for clinical practice.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "Malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for detection; 10 melanoma lesions were included in the experimental dataset of 110 images."
+    },
+    {
+      "lesion_type": "Benign lesion",
+      "paper_terms": [
+        "Benign lesions",
+        "Benign",
+        "Moles"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class used for classification comparison; 100 benign lesions were included in the experimental dataset. The paper notes that benign lesions are similar to melanomas in early stages and originate from melanocytes."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (Melanoma vs. Benign lesion)",
+        "primary": true,
+        "details": "The paper describes a fully automated melanoma recognition system that classifies dermoscopic images into two discrete classes: melanoma or benign lesions. The system uses a weighted k-NN classifier to determine the proper class for each examined image. Performance is evaluated using classification accuracy (97.27%), sensitivity (90%), and specificity (98%)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Private Dermatology Practice Dataset (Pulheim, Germany)",
+      "description": "A collection of dermoscopic images acquired from a private dermatology practice in Pulheim, Germany, provided by Kajsa Møllersen and Herbert Kirchesch. Images were taken between 2009 and 2012 using a Canon G10 digital camera with a DermLite FOTO dermatoscope. Lesions were histopathologically confirmed by a dermatopathologist.",
+      "classes_used": [
+        "Melanoma",
+        "Benign lesion"
+      ],
+      "counts": {
+        "total": 110,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 10,
+          "Benign lesion": 100
+        }
+      },
+      "use": {
+        "training": "Used for leave-one-out cross-validation to train the weighted k-NN classifier.",
+        "validation": "Used for leave-one-out cross-validation to tune parameters (Gaussian sigma, feature vector length, directions).",
+        "testing": "Used for leave-one-out cross-validation to evaluate final performance metrics (accuracy, sensitivity, specificity).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "classification accuracy",
+    "sensitivity",
+    "specificity",
+    "F1 score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Leave-one-out cross-validation",
+      "purpose": "To evaluate the classification performance (accuracy, sensitivity, specificity) and tune hyperparameters (Gaussian sigma, feature vector length, directions) on the dataset of 110 images.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Parametric study",
+      "purpose": "To determine the optimal values for Gaussian sigma (σ = 0.5) and feature vector length (20 elements) by observing their influence on final classification results.",
+      "type": "Parameter tuning"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using classification accuracy, sensitivity, specificity, and F1 score via leave-one-out cross-validation."
+  },
+  "results_obtained_in_each_dataset": {
+    "Private Dermatology Practice Dataset (Pulheim, Germany)": {
+      "metric": [
+        "classification accuracy",
+        "sensitivity",
+        "specificity",
+        "F1 score"
+      ],
+      "models": {
+        "Weighted k-NN (k=3) with RSurf features": {
+          "classification accuracy": "97.27%",
+          "sensitivity": "90%",
+          "specificity": "98%",
+          "F1 score": "0.86"
+        }
+      },
+      "notes": "The results were obtained using leave-one-out cross-validation on a dataset of 110 images (10 melanoma, 100 benign). Optimal parameters were determined via parametric study: Gaussian sigma (σ) = 0.5, feature vector length = 20 elements (5 bins per characteristic function), and directions = 0°, 45°, 90°, 135°. The paper notes that direct comparison with other literature is difficult due to different image sets, but states that results are promising compared to approaches using classification accuracy close to 90%."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Weighted k-Nearest Neighbors (k-NN) classifier",
+    "pretraining": null,
+    "input_size": "800 x 600 pixels (downsampled from original 1600 x 1200 pixels)",
+    "architecture_details": {
+      "feature_extractor": "RSurf texture features",
+      "segmentation_method": "Two-stage Chan-Vese segmentation via graph cuts",
+      "preprocessing": "RGB to greyscale conversion based on channel entropy; Gaussian filtering with sigma (σ) = 0.5",
+      "feature_extraction_params": {
+        "directions": [
+          "0°",
+          "45°",
+          "90°",
+          "135°"
+        ],
+        "feature_vector_length": 20,
+        "bins_per_characteristic_function": 5,
+        "characteristic_functions": [
+          "Slope length",
+          "Height difference",
+          "Sum of intensity values",
+          "Number of sign changes of second derivation"
+        ]
+      }
+    },
+    "training_details": {
+      "classifier_implementation": "MESSIF framework",
+      "k_value": 3,
+      "distance_metric": "L1 metric",
+      "validation_method": "Leave-one-out cross-validation",
+      "hyperparameter_tuning": "Parametric study for Gaussian sigma and feature vector length"
+    },
+    "classification_or_output_head": {
+      "type": "Weighted k-NN",
+      "weighting_scheme": "Weights depend on distance between query image and neighbor; nearest neighbor has highest impact"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "weighted k-NN classifier",
+    "k-NN",
+    "fuzzy c-means",
+    "linear discriminant analysis",
+    "SVM"
+  ],
+  "preprocessing_techniques": [
+    "RGB to greyscale conversion based on channel entropy",
+    "Image downsampling by a factor of 2 (from 1600 x 1200 pixels to 800 x 600 pixels)",
+    "Gaussian filtering with sigma (σ) = 0.5 to suppress noise",
+    "Intensity normalization of input image for segmentation",
+    "Elimination of black background via circular skin detection",
+    "Lesion segmentation using two-stage Chan-Vese method via graph cuts to create a mask"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed fully automated melanoma recognition system, which employs a single set of texture-based RSurf features, achieved a classification accuracy of 97.27%, sensitivity of 90%, specificity of 98%, and an F1 score of 0.86 on a dataset of 110 images.",
+    "RSurf features demonstrate strong discrimination power for melanoma recognition tasks and are suitable for use in clinical practice due to their fast extraction time and computational efficiency.",
+    "The system pipeline, consisting of image preprocessing, two-stage Chan-Vese segmentation via graph cuts, RSurf feature extraction, and weighted k-NN classification, provides a fast, efficient, and well-defined solution for melanoma classification.",
+    "The authors acknowledge that direct comparison with other literature is difficult due to the use of different image sets, but note that their results are promising compared to approaches typically achieving classification accuracy close to 90%.",
+    "A limitation acknowledged by the authors is that the study was performed on a small dataset (110 images) from a single private dermatology practice, and future work will focus on applying these features to larger datasets including other skin conditions."
+  ],
+  "important_remarks": [
+    "The study is limited by a very small dataset size (110 images total), with a highly imbalanced class distribution (10 melanoma vs. 100 benign lesions), which may lead to overoptimistic performance estimates for the minority class.",
+    "The dataset was sourced from a single private dermatology practice in Pulheim, Germany, introducing potential population and equipment bias (Canon G10 camera, DermLite FOTO dermatoscope) that limits generalizability to other clinical settings or imaging devices.",
+    "No external validation was performed; the system was evaluated solely using leave-one-out cross-validation on the internal dataset, raising concerns about overfitting and lack of robustness assessment on independent data.",
+    "The paper acknowledges that direct comparison with other literature is difficult due to the use of different image sets, and does not report statistical significance tests (p-values) to validate the superiority of the results.",
+    "RSurf features are noted to be noise-sensitive, requiring careful parameter tuning (Gaussian sigma = 0.5) to suppress noise without degrading classification performance, which may limit robustness in noisy clinical environments.",
+    "The preprocessing step (image downsampling by factor of 2) may result in loss of fine-grained texture details critical for early melanoma detection, although it was chosen for computational efficiency.",
+    "The system relies on histopathological confirmation for ground truth labels, which is a strength, but the small sample size means rare melanoma subtypes or atypical presentations may not be adequately represented."
+  ]
+}

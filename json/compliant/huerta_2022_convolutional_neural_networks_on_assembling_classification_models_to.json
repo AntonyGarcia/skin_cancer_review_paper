@@ -1,0 +1,422 @@
+{
+  "file_name": "huerta_2022_convolutional_neural_networks_on_assembling_classification_models_to.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used Convolutional Neural Networks (CNNs), specifically assembling classification models using EfficientNet and VGG-19 architectures, to detect melanoma skin cancer from dermoscopic images in the SIIM-ISIC dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the assembly of classification models using Convolutional Neural Networks (EfficientNet and VGG-19) on the SIIM-ISIC dataset to detect melanoma. It details specific methodology (data augmentation, K-Fold cross-validation), training parameters, and reports new empirical results (92.85% accuracy, 71.50% sensitivity, 94.89% specificity), rather than merely summarizing prior literature."
+  },
+  "title": "Convolutional Neural Networks on Assembling Classification Models to Detect Melanoma Skin Cancer",
+  "authors": [
+    "Hugo Vega-Huerta",
+    "Renzo Villanueva-Alarcón",
+    "David Mauricio",
+    "Juan Gamarra-Moreno",
+    "Hugo D. Calderon-Vilca",
+    "Diego Rodriguez",
+    "Ciro Rodriguez"
+  ],
+  "doi": "10.3991/ijoe.v18i14.34435",
+  "journal": "iJOE",
+  "year": 2022,
+  "article_type": "Research paper",
+  "brief_summary": "This study aimed to detect melanoma skin cancer by assembling classification models using Convolutional Neural Networks on the SIIM-ISIC dataset. The researchers trained 21 models based on architectures such as EfficientNet and VGG-19, utilizing data augmentation and 5-fold cross-validation to optimize performance. The best assembly performance was achieved by combining EfficientNet and VGG-19 architectures. The model attained an accuracy of 92.85%, a sensitivity of 71.50%, and a specificity of 94.89%. These results indicate that assembling classification models can effectively improve the accuracy of melanoma detection in dermoscopic images.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "melanoma-type skin cancer",
+        "malignant (with the presence of Melanoma)"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for binary classification (presence of Melanoma). In the SIIM-ISIC dataset, this corresponds to the 'target' variable value 1 and 'benign_malignant' indicator 'Yes'."
+    },
+    {
+      "lesion_type": "Benign skin lesions (Non-Melanoma)",
+      "paper_terms": [
+        "benign (without Melanoma)",
+        "No Melanoma",
+        "benign skin lesions",
+        "benign"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class for binary classification (absence of Melanoma). In the SIIM-ISIC dataset, this corresponds to the 'target' variable value 0 and 'benign_malignant' indicator 'No'."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions as benign (without Melanoma) or malignant (with Melanoma)",
+        "primary": true,
+        "details": "The paper explicitly states the objective is to 'assemble classification models to detect a case of melanoma'. The target variable is binary: 'No Melanoma:0; Melanoma:1'. The models output probabilities for the presence of Melanoma, and performance is evaluated using accuracy, sensitivity, and specificity, which are standard metrics for binary classification tasks."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "SIIM-ISIC Dataset (2020 and 2019)",
+      "description": "A consolidated repository of dermatoscopic images of skin lesions from the International Skin Imaging Collaboration (ISIC) and the Society for Imaging Informatics in Medicine (SIIM). The 2020 repository contains 33,126 images, and the 2019 dataset contains 25,331 images. Images are in DICOM format and include contextual metadata (patient_id, sex, age_approx, anatom_site_general_challenge). Diagnoses were confirmed by histopathology for melanoma and expert verification for benign lesions.",
+      "classes_used": [
+        "Benign (without Melanoma)",
+        "Malignant (with Melanoma)"
+      ],
+      "counts": {
+        "total": 58457,
+        "training": 46765,
+        "validation": null,
+        "testing": 11692,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training 21 classification models using an 80/20 split (46,765 images) and K-Fold cross-validation (K=5).",
+        "validation": "Used for model validation during the K-Fold cross-validation process and for the loss function.",
+        "testing": "Used for evaluation of the trained models (11,692 images, 20% of the total dataset).",
+        "other": "Metadata from the dataset was also used to evaluate if inclusion improved image classification performance."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "AUC (Area Under the Curve)",
+    "Precision",
+    "F Score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "K-Fold Cross-Validation",
+      "purpose": "To divide the dataset for training and validation, ensuring the entire dataset is used for training while reserving data for model validation and loss function calculation. Specifically, 5-fold cross-validation was applied to each module, and the final probability was obtained by averaging the probabilities from the 5 sub-models.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Data Splitting (80/20 Rule)",
+      "purpose": "To partition the dataset into training (80%) and evaluation/testing (20%) sets based on Pareto's Law, ensuring both partitions are represented by benign and malignant types.",
+      "type": "Data partitioning"
+    },
+    {
+      "method": "AUC (Area Under the Curve) Comparison",
+      "purpose": "To compare the performance of different scenarios (e.g., with/without data augmentation, 5-fold vs. 10-fold K-Fold) and parameter configurations for the metadata classification module.",
+      "type": "Performance metric comparison"
+    },
+    {
+      "method": "Accuracy, Sensitivity, and Specificity Calculation",
+      "purpose": "To evaluate the diagnostic test reliability and performance of the final assembled model on the evaluation set (11,692 images).",
+      "type": "Performance metrics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons between scenarios (e.g., with/without data augmentation, different K-Fold values, or voting methods) were based on direct comparison of metrics such as Accuracy, Sensitivity, Specificity, and AUC, without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "SIIM-ISIC Dataset (2020 and 2019)": {
+      "split": "80% Training (46,765 images), 20% Evaluation (11,692 images)",
+      "evaluation_setting": "5-fold Cross-Validation on training set; Final evaluation on 20% test set",
+      "models": {
+        "Image Classification Module (Individual Models)": {
+          "description": "Performance of 21 individual models (7 architectures x 3 image sizes) using Data Augmentation and 5-fold K-Fold",
+          "best_individual_model": {
+            "architecture": "EfficientNet B6",
+            "image_size": "384x384",
+            "AUC": "93.16%",
+            "Accuracy": "91.48%",
+            "Precision": "50.88%",
+            "Sensitivity": "70.52%",
+            "Specificity": "93.49%",
+            "F Score": "59.11%"
+          },
+          "top_5_models_by_sensitivity": [
+            {
+              "rank": 1,
+              "architecture": "EfficientNet B6",
+              "image_size": "384x384",
+              "AUC": "93.16%",
+              "Accuracy": "91.48%",
+              "Precision": "50.88%",
+              "Sensitivity": "70.52%",
+              "Specificity": "93.49%",
+              "F Score": "59.11%"
+            },
+            {
+              "rank": 2,
+              "architecture": "EfficientNet B6",
+              "image_size": "256x256",
+              "AUC": "92.67%",
+              "Accuracy": "90.80%",
+              "Precision": "48.11%",
+              "Sensitivity": "68.66%",
+              "Specificity": "92.92%",
+              "F Score": "56.58%"
+            },
+            {
+              "rank": 3,
+              "architecture": "VGG19",
+              "image_size": "256x256",
+              "AUC": "84.57%",
+              "Accuracy": "79.67%",
+              "Precision": "25.42%",
+              "Sensitivity": "68.66%",
+              "Specificity": "80.72%",
+              "F Score": "37.10%"
+            },
+            {
+              "rank": 4,
+              "architecture": "EfficientNet B6",
+              "image_size": "512x512",
+              "AUC": "93.09%",
+              "Accuracy": "91.94%",
+              "Precision": "52.99%",
+              "Sensitivity": "68.46%",
+              "Specificity": "94.19%",
+              "F Score": "59.74%"
+            },
+            {
+              "rank": 5,
+              "architecture": "VGG19",
+              "image_size": "384x384",
+              "AUC": "85.20%",
+              "Accuracy": "80.74%",
+              "Precision": "26.55%",
+              "Sensitivity": "68.27%",
+              "Specificity": "81.93%",
+              "F Score": "38.23%"
+            }
+          ]
+        },
+        "Image Module Assemblies (Voting)": {
+          "description": "Assembly of top 3 and top 5 models using Soft and Hard Voting",
+          "scenario_1": {
+            "method": "Soft Voting - Top 3 Models",
+            "Precision": "57.92%",
+            "Accuracy": "92.95%",
+            "Specificity": "95.10%",
+            "Sensitivity": "70.52%",
+            "F Score": "63.60%"
+          },
+          "scenario_2": {
+            "method": "Hard Voting - Top 3 Models",
+            "Precision": "57.36%",
+            "Accuracy": "92.85%",
+            "Specificity": "94.98%",
+            "Sensitivity": "70.62%",
+            "F Score": "63.30%"
+          },
+          "scenario_3": {
+            "method": "Soft Voting - Top 5 Models",
+            "Precision": "56.97%",
+            "Accuracy": "92.78%",
+            "Specificity": "94.88%",
+            "Sensitivity": "70.81%",
+            "F Score": "63.14%"
+          },
+          "scenario_4": {
+            "method": "Hard Voting - Top 5 Models",
+            "Precision": "56.94%",
+            "Accuracy": "92.79%",
+            "Specificity": "94.83%",
+            "Sensitivity": "71.50%",
+            "F Score": "63.40%"
+          }
+        },
+        "Final Assembled Model (Image + Metadata)": {
+          "description": "Weighted assembly of Image Module (Hard Voting Top 5) and Metadata Module",
+          "best_scenario": {
+            "image_module_weight": "0.9 (90%)",
+            "metadata_module_weight": "0.1 (10%)",
+            "Accuracy": "92.85%",
+            "Precision": "57.25%",
+            "Sensitivity": "71.50%",
+            "Specificity": "94.89%",
+            "F Score": "63.59%",
+            "notes": "Improved by 0.06% in Accuracy and Specificity compared to Image Module only (Scenario 1)"
+          },
+          "other_scenarios": [
+            {
+              "image_weight": 1.0,
+              "metadata_weight": 0.0,
+              "Accuracy": "92.79%",
+              "Precision": "56.94%",
+              "Sensitivity": "71.50%",
+              "Specificity": "94.83%",
+              "F Score": "63.40%"
+            },
+            {
+              "image_weight": 0.8,
+              "metadata_weight": 0.2,
+              "Accuracy": "94.23%",
+              "Precision": "67.47%",
+              "Sensitivity": "65.43%",
+              "Specificity": "96.98%",
+              "F Score": "66.43%"
+            },
+            {
+              "image_weight": 0.7,
+              "metadata_weight": 0.3,
+              "Accuracy": "94.65%",
+              "Precision": "73.97%",
+              "Sensitivity": "59.84%",
+              "Specificity": "97.99%",
+              "F Score": "66.16%"
+            },
+            {
+              "image_weight": 0.5,
+              "metadata_weight": 0.5,
+              "Accuracy": "94.70%",
+              "Precision": "82.50%",
+              "Sensitivity": "49.85%",
+              "Specificity": "98.99%",
+              "F Score": "62.15%"
+            }
+          ]
+        },
+        "Metadata Classification Module": {
+          "description": "Performance of metadata module alone on validation data",
+          "best_configuration": {
+            "epochs": 20,
+            "batch_size": 40,
+            "activation": "Softmax",
+            "learning_rate": 0.001,
+            "optimizer": "SGD",
+            "neurons": 5,
+            "AUC": "82.23%"
+          }
+        },
+        "Scenario Comparison (Data Augmentation and K-Fold)": {
+          "description": "Validation of Data Augmentation and K-Fold techniques using EfficientNet-b6 and 384x384 image size",
+          "scenario_1": {
+            "data_augmentation": "No",
+            "k_folds": 5,
+            "AUC": "76.84%"
+          },
+          "scenario_2": {
+            "data_augmentation": "Yes",
+            "k_folds": 5,
+            "AUC": "94.83%"
+          },
+          "scenario_3": {
+            "data_augmentation": "Yes",
+            "k_folds": 10,
+            "AUC": "93.62%"
+          }
+        }
+      },
+      "notes": "The final proposed solution is the assembly of the Image Module (Hard Voting on Top 5 models by sensitivity) and Metadata Module with weights 0.9 and 0.1 respectively, achieving 92.85% Accuracy, 71.50% Sensitivity, and 94.89% Specificity."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Assembled classification models using EfficientNet (B4, B5, B6) and VGG-19 architectures for image classification, combined with a metadata classification module.",
+    "pretraining": "Not explicitly reported; standard pre-trained weights for EfficientNet and VGG-19 are implied by the use of these architectures in similar contexts, but the text does not specify.",
+    "input_size": "Image inputs: 256x256, 384x384, or 512x512 pixels (3 channels). Metadata inputs: categorical/discrete variables (mean_color, sex, age_approx, anatom_site_general).",
+    "architecture_details": {
+      "image_module": {
+        "architectures": [
+          "EfficientNet B4",
+          "EfficientNet B5",
+          "EfficientNet B6",
+          "InceptionV3",
+          "ResNet101",
+          "ResNet50",
+          "VGG19"
+        ],
+        "input_layer": "3-dimensional array (Height, Width, 3)",
+        "pooling_layer": "GlobalAveragePooling2d",
+        "dense_layer": "Sigmoid",
+        "data_augmentation": "Saturation (110%), Contrast (120%), Brightness (120%), Rotation (90 degrees), Zoom (6), Mirror rotation",
+        "k_folds": 5
+      },
+      "metadata_module": {
+        "type": "Neural Network",
+        "layers": 3,
+        "neurons": 5,
+        "activation": "Softmax",
+        "input_variables": [
+          "mean_color",
+          "sex",
+          "age_approx",
+          "anatom_site_general"
+        ]
+      }
+    },
+    "training_details": {
+      "image_module": {
+        "epochs": 12,
+        "batch_size": 36,
+        "loss_function": "Binary Cross-Entropy Loss",
+        "learning_rate": 0.001,
+        "optimizer": "Adam"
+      },
+      "metadata_module": {
+        "epochs": 20,
+        "batch_size": 40,
+        "learning_rate": 0.001,
+        "optimizer": "SGD"
+      }
+    },
+    "classification_or_output_head": {
+      "image_module": "Sigmoid activation for probability output",
+      "metadata_module": "Softmax activation",
+      "assembly_method": "Weighted assembly of Image Module (Hard Voting on Top 5 models by sensitivity) and Metadata Module. Best weights: Image 0.9, Metadata 0.1."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNet B4",
+    "EfficientNet B5",
+    "EfficientNet B6",
+    "InceptionV3",
+    "ResNet50",
+    "ResNet101",
+    "VGG19",
+    "Metadata Classification Module (Neural Network with 3 layers)"
+  ],
+  "preprocessing_techniques": [
+    "Data Augmentation applied to images to improve performance, including: saturation (110%), contrast (120%), brightness (120%), rotation (90 degrees), zoom (factor of 6), and mirror rotation (flip).",
+    "Image resizing to input dimensions of 256x256, 384x384, or 512x512 pixels.",
+    "Conversion of DICOM standard format images into 3-dimensional array format (Height, Width, 3) for the image classification module.",
+    "Creation of a 'mean_color' variable representing the average contrast of the image, obtained by averaging all array values (range 0-255)."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Color Transforms",
+      "details": "Saturation (110%), Contrast (120%), and Brightness (120%)."
+    },
+    {
+      "technique": "Geometric Transforms",
+      "details": "Rotation (90 degrees), Zoom (factor of 6), and Mirror rotation (flip)."
+    },
+    {
+      "technique": "Application Method",
+      "details": "Functions applied randomly and sequentially based on a random operation between 0 and 1; if the result is 1, the process is applied."
+    }
+  ],
+  "conclusions": [
+    "Assembling classification models using Convolutional Neural Networks (specifically EfficientNet and VGG-19 architectures) effectively improves the accuracy of melanoma skin cancer detection in dermoscopic images.",
+    "The proposed assembled model achieved an accuracy of 92.85%, a sensitivity of 71.50%, and a specificity of 94.89% on the evaluation set.",
+    "The inclusion of contextual metadata (patient sex, age, anatom site, and mean color) improved the model's performance, resulting in a 0.06% increase in both accuracy and specificity compared to using image data alone.",
+    "Data augmentation techniques (saturation, contrast, brightness, rotation, zoom, and mirror rotation) significantly enhanced model performance, increasing the AUC from 76.84% to 94.83% when combined with 5-fold K-Fold cross-validation.",
+    "Among individual architectures, EfficientNet B6 with an image size of 384x384 pixels demonstrated the best performance for image classification.",
+    "The study acknowledges that automatic identification of skin cancer remains challenging due to the high visual similarity of various skin lesions and variations in skin conditions such as color and natural hair."
+  ],
+  "important_remarks": [
+    "The study relies on a single dataset (SIIM-ISIC) without external validation on independent cohorts, limiting generalizability to other populations or imaging devices.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed; performance comparisons between scenarios were based on direct metric comparison without significance testing.",
+    "The model exhibits low sensitivity (71.50%) relative to high specificity (94.89%), indicating a higher risk of false negatives (missing melanoma cases) which is critical in cancer screening.",
+    "The inclusion of metadata (sex, age, anatom site) provided only marginal improvement (0.06% in accuracy and specificity), suggesting limited clinical utility of these specific demographic features in this assembly.",
+    "The paper does not report pre-training weights for the EfficientNet and VGG-19 architectures, creating ambiguity regarding the reproducibility of the transfer learning setup.",
+    "The dataset split was justified by 'Pareto’s Law' rather than standard random stratification protocols, which may introduce selection bias if the split was not truly random.",
+    "The study acknowledges that automatic identification is challenging due to high visual similarity of lesions and variations in skin conditions, yet does not report performance stratified by skin type (Fitzpatrick scale) or anatomical site.",
+    "Data leakage risk exists if the 'patient_id' was not strictly used to ensure that images from the same patient did not appear in both training and testing sets, although the paper claims an 80/20 split."
+  ]
+}

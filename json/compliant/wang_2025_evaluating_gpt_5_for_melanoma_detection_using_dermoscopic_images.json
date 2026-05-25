@@ -1,0 +1,358 @@
+{
+  "file_name": "wang_2025_evaluating_gpt_5_for_melanoma_detection_using_dermoscopic_images.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The study used the large language model GPT-5 (via OpenAI API) to perform melanoma detection tasks, including primary diagnosis, differential diagnosis, and malignancy discrimination, on dermoscopic images from the ISIC Archive and HAM10K datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental results evaluating the diagnostic performance of the GPT-5 model on dermoscopic images from the ISIC Archive and HAM10K datasets. It includes specific methods (prompting via OpenAI API, random selection of images), quantitative results (sensitivity, specificity, accuracy, F1 scores, Cohen's kappa, AUC), and comparisons with ground truth and prior studies, which characterizes it as an original research study rather than a review."
+  },
+  "title": "Evaluating GPT-5 for Melanoma Detection Using Dermoscopic Images",
+  "authors": [
+    "Qingguo Wang",
+    "Ihunna Amugo",
+    "Harshana Rajakaruna",
+    "Maria Johnson Irudayam",
+    "Hua Xie",
+    "Anil Shanker",
+    "Samuel E. Adunyah"
+  ],
+  "doi": "10.3390/diagnostics15233052",
+  "journal": "Diagnostics",
+  "year": 2025,
+  "article_type": "Article",
+  "brief_summary": "This study evaluated the diagnostic performance of the large language model GPT-5 for melanoma detection using dermoscopic images from the ISIC Archive and HAM10K datasets. GPT-5 was prompted via the OpenAI API to perform primary diagnosis, differential diagnosis, and malignancy discrimination, with outputs compared against histopathology-verified ground truth. The model achieved modest accuracy in primary diagnosis but showed markedly improved performance in top-3 differential diagnoses, with sensitivity exceeding 93% and accuracy reaching 92%. For malignancy discrimination, GPT-5 demonstrated more balanced sensitivity and specificity compared to GPT-4-based models, indicating superior reliability. However, the study noted a tendency for GPT-5 to misclassify melanoma as benign, highlighting the need for cautious clinical interpretation.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class (malignant)",
+      "details": "Primary target of detection; grouped as malignant. 250 cases from HAM10K and subset from ISIC Archive used."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "nevi",
+        "keratosis-like lesions",
+        "dermatofibromas",
+        "vascular lesions"
+      ],
+      "role": "Comparator class (benign)",
+      "details": "Grouped as benign for malignancy discrimination task. Nevi, keratosis-like lesions, dermatofibromas, and vascular lesions were explicitly grouped as benign. 250 cases from HAM10K used."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Primary diagnosis (top-1), differential diagnosis (top-3), and malignancy discrimination (malignant vs. benign)",
+        "primary": true,
+        "details": "The study evaluates GPT-5 on three classification tasks: (1) top-1 primary diagnosis, where the model predicts a single lesion class; (2) top-3 differential diagnosis, where the model predicts an ordered list of three likely classes, with correctness defined by the ground truth appearing in the top three; and (3) malignancy discrimination, a binary classification task distinguishing melanoma (malignant) from benign skin lesions. Performance was measured using sensitivity, specificity, accuracy, F1 score, Cohen's kappa, and AUC."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Archive",
+      "description": "A publicly accessible repository of histopathology-verified skin lesion images from the International Skin Imaging Collaboration. The study used a subset of 100 dermoscopic images previously included in a benchmark study by Shifai et al., including clinical diagnosis, anatomical site, Breslow thickness, and patient characteristics.",
+      "classes_used": [
+        "Melanoma (grouped as malignant)",
+        "Nevi (grouped as benign)",
+        "Keratosis-like lesions (grouped as benign)",
+        "Dermatofibromas (grouped as benign)",
+        "Vascular lesions (grouped as benign)"
+      ],
+      "counts": {
+        "total": 100,
+        "training": null,
+        "validation": null,
+        "testing": 100,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for evaluation of GPT-5's diagnostic performance on top-1 diagnosis, top-3 differential diagnosis, and malignancy discrimination.",
+        "other": "Used for comparison with prior studies (Shifai et al., Liu et al.) that used the same 100-image subset."
+      }
+    },
+    {
+      "name": "HAM10K (Human Against Machine with 10,000 training images)",
+      "description": "A public dataset containing 10,015 dermoscopic images released as a training set for academic machine learning purposes via the ISIC Archive. The study randomly selected a balanced subset of 500 images.",
+      "classes_used": [
+        "Melanoma (malignant)",
+        "Benign skin lesions (benign)"
+      ],
+      "counts": {
+        "total": 500,
+        "training": null,
+        "validation": null,
+        "testing": 500,
+        "per_class": {
+          "melanoma": 250,
+          "benign": 250
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for evaluation of GPT-5's diagnostic performance on top-1 diagnosis, top-3 differential diagnosis, and malignancy discrimination.",
+        "other": "Used for comparison with prior study (Sattler et al.) which also used a random selection of 500 images from HAM10K."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "sensitivity",
+    "specificity",
+    "accuracy",
+    "F1 score",
+    "Cohen's kappa",
+    "area under the curve (AUC)",
+    "precision"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Cohen's kappa",
+      "purpose": "To assess agreement between GPT-5 predictions and ground truth beyond chance expectations.",
+      "type": "Inter-rater agreement"
+    },
+    {
+      "method": "Receiver operating characteristic (ROC) curves and Area Under the Curve (AUC)",
+      "purpose": "To quantify the model’s ability to discriminate malignant from benign lesions across decision thresholds.",
+      "type": "Threshold-independent performance"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons between GPT-5 and other models (GPT-4V, GPT-4T, GPT-4o) were based on direct comparison of point estimates (sensitivity, specificity, accuracy, F1 score, Cohen's kappa, AUC) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC Archive": {
+      "description": "100 dermoscopic images from the ISIC Archive used for evaluation of GPT-5's diagnostic performance.",
+      "experiments": {
+        "top-1 diagnosis": {
+          "model": "GPT-5",
+          "metrics": {
+            "sensitivity": "46.0%",
+            "specificity": "76.0%",
+            "accuracy": "61.0%",
+            "F1 score": "54.0%",
+            "Cohen's kappa": "0.220",
+            "AUC": "0.535"
+          }
+        },
+        "top-3 differential diagnosis": {
+          "model": "GPT-5",
+          "metrics": {
+            "sensitivity": "100%",
+            "specificity": "86.2%",
+            "accuracy": "92.0%",
+            "F1 score": "91.3%"
+          }
+        },
+        "malignancy discrimination": {
+          "model": "GPT-5",
+          "metrics": {
+            "sensitivity": "56.0%",
+            "specificity": "72.0%",
+            "accuracy": "64.0%",
+            "F1 score": "60.9%",
+            "Cohen's kappa": "0.280",
+            "AUC": "0.672"
+          }
+        }
+      },
+      "comparisons": {
+        "GPT-4V (Shifai et al.)": {
+          "top-1 diagnosis": {
+            "sensitivity": "32.0%",
+            "specificity": "40.0%",
+            "accuracy": "36.0%",
+            "F1 score": "33.3%"
+          },
+          "top-3 differential diagnosis": {
+            "sensitivity": "56.0%",
+            "specificity": "53.3%",
+            "accuracy": "54.7%",
+            "F1 score": "55.3%"
+          },
+          "malignancy discrimination": {
+            "sensitivity": "46.0%",
+            "specificity": "78.0%",
+            "accuracy": "62.0%",
+            "F1 score": "54.8%"
+          }
+        },
+        "GPT-4V (Liu et al.)": {
+          "top-1 diagnosis": {
+            "sensitivity": "56.9%",
+            "specificity": "38.8%",
+            "accuracy": "48.0%",
+            "F1 score": "52.2%"
+          },
+          "top-3 differential diagnosis": {
+            "sensitivity": "78.0%",
+            "specificity": null,
+            "accuracy": null,
+            "F1 score": null
+          },
+          "malignancy discrimination": {
+            "sensitivity": "45.1%",
+            "specificity": "42.9%",
+            "accuracy": "44.0%",
+            "F1 score": "45.1%"
+          }
+        }
+      },
+      "notes": "GPT-5 showed a tendency to misclassify malignant lesions as benign. Performance in top-3 differential diagnosis was markedly improved compared to top-1. GPT-5 outperformed GPT-4V across all three tasks."
+    },
+    "HAM10K": {
+      "description": "500 randomly selected dermoscopic images (250 melanoma, 250 benign) from the HAM10K dataset.",
+      "experiments": {
+        "top-1 diagnosis": {
+          "model": "GPT-5",
+          "metrics": {
+            "sensitivity": "50.4%",
+            "specificity": "85.6%",
+            "accuracy": "68.0%",
+            "F1 score": "61.5%",
+            "Cohen's kappa": "0.360",
+            "AUC": "0.512"
+          }
+        },
+        "top-3 differential diagnosis": {
+          "model": "GPT-5",
+          "metrics": {
+            "sensitivity": "93.2%",
+            "specificity": "100%",
+            "accuracy": "96.6%",
+            "F1 score": "96.5%"
+          }
+        },
+        "malignancy discrimination": {
+          "model": "GPT-5",
+          "metrics": {
+            "sensitivity": "65.1%",
+            "specificity": "76.8%",
+            "accuracy": "70.9%",
+            "F1 score": "69.1%",
+            "Cohen's kappa": "0.417",
+            "AUC": "0.763"
+          }
+        }
+      },
+      "comparisons": {
+        "GPT-4T (Sattler et al.)": {
+          "malignancy discrimination": {
+            "sensitivity": "76.3%",
+            "specificity": "32.9%",
+            "accuracy": "54.6%",
+            "F1 score": "62.7%"
+          }
+        },
+        "GPT-4o (Sattler et al.)": {
+          "malignancy discrimination": {
+            "sensitivity": "96.8%",
+            "specificity": "18.4%",
+            "accuracy": "57.7%",
+            "F1 score": "69.5%"
+          }
+        }
+      },
+      "temperature_sensitivity": {
+        "description": "Performance for malignancy discrimination on HAM10K at different sampling temperatures.",
+        "results": {
+          "temperature_1.0": {
+            "sensitivity": "65.1%",
+            "specificity": "76.8%",
+            "accuracy": "70.9%",
+            "precision": "73.6%",
+            "F1 score": "69.1%"
+          },
+          "temperature_0": {
+            "sensitivity": "64.8%",
+            "specificity": "76.0%",
+            "accuracy": "70.4%",
+            "precision": "73.0%",
+            "F1 score": "68.6%"
+          }
+        }
+      },
+      "notes": "GPT-5 demonstrated stronger performance on HAM10K compared to ISIC. GPT-5 showed a more balanced sensitivity and specificity for malignancy discrimination compared to GPT-4T and GPT-4o. Performance was consistent across temperature settings 0 and 1.0."
+    }
+  },
+  "architecture_used": {
+    "main_model": "GPT-5 (Generative Pre-trained Transformer 5)",
+    "pretraining": "Not reported; model was used \"as is\" without fine-tuning or external training.",
+    "input_size": "Not reported; dermoscopic images were submitted via the OpenAI API with standardized prompts.",
+    "architecture_details": {
+      "model_family": "Large Language Model (LLM) / Multimodal LLM (MLLM)",
+      "developer": "OpenAI",
+      "release_date": "August 2025",
+      "capabilities": "Integrates visual and auditory inputs with textual data",
+      "access_method": "OpenAI Application Programming Interface (API)",
+      "prompting": "Standardized prompts consisting of an instruction specifying the diagnostic task and a formatting instruction requesting output in JSON format."
+    },
+    "training_details": {
+      "training_type": "None (Zero-shot inference)",
+      "fine_tuning": "None",
+      "hyperparameters": {
+        "temperature": "Default 1.0; also tested at 0"
+      }
+    },
+    "classification_or_output_head": {
+      "output_format": "JSON (JavaScript Object Notation)",
+      "tasks": [
+        "Top-1 primary diagnosis",
+        "Top-3 differential diagnoses",
+        "Malignancy discrimination (binary classification)"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "GPT-5",
+    "GPT-4V",
+    "GPT-4T",
+    "GPT-4o",
+    "Inception-v4",
+    "ResNet",
+    "DenseNet",
+    "EfficientNet",
+    "LLaVA",
+    "FotoFinder’s Moleanalyzer-Pro",
+    "DermaSensor’s spectroscopy-based device"
+  ],
+  "preprocessing_techniques": [
+    "No specific image preprocessing techniques (e.g., resizing, normalization, hair removal) were reported; dermoscopic images were submitted directly via the OpenAI API with standardized prompts."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "GPT-5 outperformed GPT-4 and its derivatives (GPT-4V, GPT-4T, GPT-4o) in melanoma detection tasks on both the ISIC Archive and HAM10K datasets.",
+    "GPT-5 demonstrated markedly improved performance in top-3 differential diagnoses compared to top-1 primary diagnosis, achieving sensitivity >93%, specificity >86%, accuracy ≥92%, and F1 score >91% on the HAM10K dataset.",
+    "For malignancy discrimination, GPT-5 showed a more balanced sensitivity and specificity compared to GPT-4-based models, resulting in more reliable classification overall.",
+    "GPT-5 exhibited a tendency to misclassify melanoma (malignant lesions) as benign, highlighting a risk of false negatives.",
+    "The study highlights GPT-5's potential for clinical decision support and medical education but underscores the need for cautious clinical interpretation and further refinement due to the bias toward benign classification."
+  ],
+  "important_remarks": [
+    "GPT-5 exhibits a clinically significant bias toward misclassifying malignant melanoma as benign (false negatives), with 27 melanomas incorrectly labeled as benign in the top-1 diagnosis on the ISIC dataset.",
+    "The study relies on small, non-representative subsets (100 images from ISIC Archive and 500 random images from HAM10K) rather than full benchmark splits, limiting generalizability.",
+    "Comparisons with prior GPT-4V studies (Shifai et al., Liu et al.) used identical ISIC subsets but different prompt formulations or model versions, potentially confounding direct performance comparisons.",
+    "Comparisons with Sattler et al. on HAM10K used independent random sampling of 500 images, meaning the test sets likely had minimal overlap, reducing the validity of direct metric comparisons.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to assess the significance of performance differences between GPT-5 and baseline models.",
+    "The model was used in a zero-shot inference mode via the OpenAI API without fine-tuning, which may not reflect optimal clinical deployment strategies requiring domain adaptation.",
+    "Performance metrics for malignancy discrimination showed lower sensitivity (56.0% on ISIC, 65.1% on HAM10K) compared to specificity, highlighting a risk of missing cancer diagnoses in clinical settings.",
+    "The study acknowledges that GPT-5's performance in top-3 differential diagnosis is markedly superior to top-1, suggesting its utility lies in providing a differential list rather than a single definitive diagnosis."
+  ]
+}

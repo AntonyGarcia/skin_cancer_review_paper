@@ -1,0 +1,477 @@
+{
+  "file_name": "jiang_2025_dmff_net_a_multi_scale_feature_fusion_network_based_on_deeplabv3_for.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes DMFF-Net, a deep learning-based multi-scale feature fusion network derived from DeepLabV3, to perform skin lesion segmentation. The study utilizes computer vision techniques, including Global Grid Coordinate Attention (GGCAM), Multi-Scale Depthwise Separable Dilated Convolution (MDSDC), and Mid-High Level Feature Fusion (MHLFF) modules, to achieve segmentation results on dermatological datasets (ISIC 2016, ISIC 2017, ISIC 2018, and PH2)."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as 'TYPE Original Research' in the header. It presents a novel algorithm (DMFF-Net) based on DeepLabV3, describes specific methodological modules (GGCAM, MDSDC, MHLFF), and reports original experimental results and performance metrics (MIoU, Accuracy, F1 scores) on public datasets (ISIC 2016, 2017, 2018, PH2)."
+  },
+  "title": "DMFF-Net: a multi-scale feature fusion network based on DeepLabV3 for skin lesion segmentation",
+  "authors": [
+    "Tao Jiang",
+    "Shange Wang",
+    "Lin Xu",
+    "Ji Yin",
+    "Linshuai Zhang",
+    "Yujie Zhang",
+    "Jing Guo",
+    "Pengfei Zhang"
+  ],
+  "doi": "10.3389/fmed.2025.1633209",
+  "journal": "Frontiers in Medicine",
+  "year": 2025,
+  "article_type": "Original Research",
+  "brief_summary": "This study addresses the challenge of precise skin lesion segmentation for early skin cancer detection by proposing DMFF-Net, a multi-scale feature fusion network based on DeepLabV3. The model integrates a Global Grid Coordinate Attention Module (GGCAM), a Multi-Scale Depthwise Separable Dilated Convolution (MDSDC) module, and a Mid-High Level Feature Fusion (MHLFF) module to enhance feature extraction and boundary accuracy. The proposed method was evaluated on four public datasets: ISIC 2016, ISIC 2017, ISIC 2018, and PH2. Performance was assessed using metrics including Mean Intersection over Union (MIoU), Accuracy, and F1 score. DMFF-Net achieved MIoU values of 89.31%, 91.47%, and 86.93% on the ISIC 2016, 2017, and 2018 datasets, respectively, significantly outperforming existing advanced methods. The results demonstrate that DMFF-Net effectively preserves spatial details and improves feature representation, highlighting its potential as a robust tool for dermatological diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesion",
+        "skin lesions"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the segmentation of skin lesions in general, utilizing datasets (ISIC 2016, ISIC 2017, ISIC 2018, PH2) that contain various types of skin lesions including melanoma, nevus, and others, but the paper does not perform classification or report specific lesion type distributions, treating the target as the lesion mask itself."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "melanoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the Introduction as a context for the importance of skin cancer detection and early diagnosis, but not as a specific class label used in the segmentation experiments."
+    },
+    {
+      "lesion_type": "Nonmelanoma skin cancer",
+      "paper_terms": [
+        "nonmelanoma skin cancer",
+        "keratinocyte carcinomas"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the Introduction and References regarding incidence statistics, but not used as a target label in the study's experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks (binary segmentation of lesion regions from background)",
+        "primary": true,
+        "details": "The paper explicitly states the objective is 'precise skin lesion segmentation'. The model DMFF-Net is designed to output segmentation masks. Evaluation metrics include Mean Intersection over Union (MIoU), Accuracy, F1 score, Recall, and Precision, which are standard for segmentation tasks. The loss function used is Binary Cross-Entropy (BCE) for binary classification segmentation. Datasets used include ISIC 2016, ISIC 2017, ISIC 2018, and PH2, which provide ground truth label maps for segmentation."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2016",
+      "description": "A publicly available dataset from the International Skin Imaging Collaboration (ISIC) used for skin lesion segmentation, containing dermoscopic images and corresponding label maps.",
+      "classes_used": [
+        "skin lesion (binary mask)"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the DMFF-Net model.",
+        "validation": "Not explicitly reported for this dataset; validation was likely performed using the ISIC 2017 validation set or internal splits as per standard ISIC challenge protocols, but specific counts are not provided in the text.",
+        "testing": "Used for testing the DMFF-Net model.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2017",
+      "description": "A publicly available dataset from the International Skin Imaging Collaboration (ISIC) used for skin lesion segmentation, containing dermoscopic images and corresponding label maps.",
+      "classes_used": [
+        "skin lesion (binary mask)"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the DMFF-Net model.",
+        "validation": "Used for validation of the DMFF-Net model.",
+        "testing": "Used for testing the DMFF-Net model.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A publicly available dataset from the International Skin Imaging Collaboration (ISIC) intended for skin lesion segmentation, containing RGB images and corresponding label maps. It is described as larger and more diverse than ISIC 2016 and 2017.",
+      "classes_used": [
+        "skin lesion (binary mask)"
+      ],
+      "counts": {
+        "total": 2596,
+        "training": 1817,
+        "validation": 260,
+        "testing": 519,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the DMFF-Net model (70% split).",
+        "validation": "Used for validation of the DMFF-Net model (10% split).",
+        "testing": "Used for testing the DMFF-Net model (20% split).",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A publicly available dermoscopic image database for research and benchmarking, hosted by the International Skin Imaging Collaboration context, containing dermoscopic images and corresponding label maps.",
+      "classes_used": [
+        "skin lesion (binary mask)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Not explicitly reported.",
+        "validation": "Not explicitly reported.",
+        "testing": "Used for testing/evaluation of the DMFF-Net model.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Mean Intersection over Union (MIoU)",
+    "Accuracy (Acc)",
+    "F1 score",
+    "Mean Recall (MRecall)",
+    "Precision"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using quantitative metrics (MIoU, Accuracy, F1 score) and visual inspection, with claims of superiority based on higher metric values rather than statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2016": {
+      "metric": [
+        "MIoU",
+        "Accuracy",
+        "F1 Score",
+        "Precision",
+        "Recall"
+      ],
+      "models": {
+        "DMFF-Net": {
+          "MIoU": "89.31%",
+          "Accuracy": "96.93%",
+          "F1 Score": "95.62%",
+          "Precision": "95.03%",
+          "Recall": "93.53%"
+        },
+        "DCSAU-Net": {
+          "Note": "Strongest competing baseline; DMFF-Net improved MIoU by 4.19% and Accuracy by 1.01% over this model."
+        }
+      },
+      "notes": "DMFF-Net achieved the best performance across almost all metrics. It demonstrated a strong balance between recall and F1, accurately capturing lesion boundaries while reducing false positives compared to MALUNET and FPN."
+    },
+    "ISIC 2017": {
+      "metric": [
+        "MIoU",
+        "Accuracy",
+        "F1 Score",
+        "Mean Recall",
+        "Precision"
+      ],
+      "models": {
+        "DMFF-Net": {
+          "MIoU": "91.47%",
+          "Accuracy": "97.33%",
+          "F1 Score": "94.91%",
+          "Mean Recall": "95.17%",
+          "Precision": "95.76%"
+        },
+        "DCSAU-Net": {
+          "Note": "Strongest competing baseline; DMFF-Net's MIoU was 6.35% higher than DCSAU-Net."
+        },
+        "TransUNet": {
+          "MIoU": "90.51%",
+          "Accuracy": "98.65%",
+          "F1 Score": "94.88%",
+          "Mean Recall": "94.69%",
+          "Precision": "95.51%",
+          "Params": "105.28M",
+          "FLOPs": "25.35G"
+        }
+      },
+      "notes": "DMFF-Net consistently achieved the best performance across all five evaluation metrics. It showed superior segmentation reliability under artifact interference (hair occlusion) compared to TransUNet, despite TransUNet having fewer FLOPs."
+    },
+    "ISIC 2018": {
+      "metric": [
+        "MIoU",
+        "Accuracy",
+        "F1 Score",
+        "Mean Recall",
+        "Precision"
+      ],
+      "models": {
+        "DMFF-Net": {
+          "MIoU": "86.93%",
+          "Accuracy": "94.78%",
+          "F1 Score": "93.61%",
+          "Mean Recall": "92.49%",
+          "Precision": "93.30%"
+        },
+        "DCSAU-Net": {
+          "Note": "Strongest competing baseline; DMFF-Net surpassed it by 5.37% in MIoU."
+        },
+        "Unet": {
+          "MIoU": "74.36%",
+          "Accuracy": "94.15%",
+          "F1 Score": "82.98%",
+          "Mean Recall": "90.25%",
+          "Precision": "79.50%"
+        },
+        "Unet++": {
+          "MIoU": "79.07%",
+          "Accuracy": "95.21%",
+          "F1 Score": "85.07%",
+          "Mean Recall": "87.95%",
+          "Precision": "85.11%"
+        },
+        "DeeplabV3+": {
+          "MIoU": "77.86%",
+          "Accuracy": "95.06%",
+          "F1 Score": "85.48%",
+          "Mean Recall": "92.09%",
+          "Precision": "81.61%"
+        },
+        "FPN": {
+          "MIoU": "76.21%",
+          "Accuracy": "94.73%",
+          "F1 Score": "84.57%",
+          "Mean Recall": "90.44%",
+          "Precision": "82.74%"
+        },
+        "EGEUNET": {
+          "MIoU": "78.34%",
+          "Accuracy": "94.18%",
+          "F1 Score": "87.85%",
+          "Mean Recall": "86.46%",
+          "Precision": "89.29%"
+        },
+        "MALUNET": {
+          "MIoU": "76.10%",
+          "Accuracy": "93.54%",
+          "F1 Score": "86.43%",
+          "Mean Recall": "84.47%",
+          "Precision": "88.47%"
+        }
+      },
+      "notes": "DMFF-Net delivered the most competitive performance across all evaluation metrics. Although overall accuracy was slightly lower than U-Net++ and DeepLabV3+, DMFF-Net's consistently higher MIoU and F1 scores indicated more accurate lesion boundary capture."
+    },
+    "PH2": {
+      "metric": [
+        "Qualitative Assessment"
+      ],
+      "models": {
+        "DMFF-Net": {
+          "Note": "Used for cross-dataset validation to assess generalization. Visual comparisons confirmed DMFF-Net preserves clearer and more accurate lesion contours compared to TransUNet, demonstrating stronger robustness to occlusion and lighting variation."
+        }
+      },
+      "notes": "Quantitative metrics for PH2 were not explicitly reported in the provided text chunks; results are described qualitatively via visual comparison with TransUNet."
+    },
+    "Ablation Study (ISIC 2017)": {
+      "metric": [
+        "MIoU",
+        "Accuracy",
+        "F1 Score",
+        "Params (M)",
+        "FLOPs (G)"
+      ],
+      "models": {
+        "Baseline (DeepLabV3)": {
+          "MIoU": "89.34%",
+          "Accuracy": "96.08%",
+          "F1 Score": "95.31%",
+          "Params": "6.870",
+          "FLOPs": "38.59"
+        },
+        "Model 1 (Baseline + MHLFF)": {
+          "MIoU": "89.19%",
+          "Accuracy": "96.05%",
+          "F1 Score": "94.90%",
+          "Params": "4.522",
+          "FLOPs": "29.47"
+        },
+        "Model 2 (Model 1 + MDSDC)": {
+          "MIoU": "90.90%",
+          "Accuracy": "97.18%",
+          "F1 Score": "95.10%",
+          "Params": "6.470",
+          "FLOPs": "31.48"
+        },
+        "Model 3 (Final DMFF-Net)": {
+          "MIoU": "91.47%",
+          "Accuracy": "97.33%",
+          "F1 Score": "94.91%",
+          "Params": "4.520",
+          "FLOPs": "29.47"
+        },
+        "Baseline + ASPP": {
+          "MIoU": "90.96%",
+          "Accuracy": "97.20%",
+          "F1 Score": "95.12%",
+          "Params": "6.870",
+          "FLOPs": "38.593"
+        },
+        "Baseline + MDSDC": {
+          "MIoU": "89.19%",
+          "Accuracy": "96.05%",
+          "F1 Score": "94.90%",
+          "Params": "4.522",
+          "FLOPs": "29.479"
+        },
+        "Baseline + MHLFF": {
+          "MIoU": "89.19%",
+          "Accuracy": "96.05%",
+          "F1 Score": "94.91%",
+          "Params": "4.522",
+          "FLOPs": "29.47"
+        },
+        "Baseline + GGCAM": {
+          "MIoU": "91.34%",
+          "Accuracy": "97.68%",
+          "F1 Score": "97.10%",
+          "Params": "6.476",
+          "FLOPs": "31.481"
+        },
+        "Baseline + GGCAM + MHLFF": {
+          "MIoU": "91.05%",
+          "Accuracy": "97.21%",
+          "F1 Score": "95.10%",
+          "Params": "4.520",
+          "FLOPs": "29.47"
+        }
+      },
+      "notes": "Ablation experiments on ISIC 2017 showed that adding GGCAM and MHLFF modules progressively improved performance. The final model (Model 3) achieved the highest MIoU (91.47%) with reduced parameters and FLOPs compared to the baseline. Single-module ablation showed GGCAM provided noticeable accuracy gains, while MDSDC reduced computational cost."
+    }
+  },
+  "architecture_used": {
+    "main_model": "DMFF-Net (a multi-scale feature fusion network based on DeepLabV3)",
+    "pretraining": "Not explicitly reported; DeepLabV3 is used as the baseline model.",
+    "input_size": "512x512",
+    "architecture_details": {
+      "backbone": "DeepLabV3",
+      "modules": [
+        "Global Grid Coordinate Attention Module (GGCAM)",
+        "Multi-Scale Depthwise Separable Dilated Convolution (MDSDC)",
+        "Mid-High Level Feature Fusion (MHLFF)"
+      ],
+      "mhlff_structure": "Integrates mid-level features (from 7th layer) and high-level features (from final layer). Mid-level features pass through 1x1 convolution and batch normalization. High-level features pass through 3x3 dilated convolution (dilation rate 2), upsampling, and 1x1 convolution. Outputs are combined via element-wise addition and ReLU activation.",
+      "loss_function": "Binary Cross-Entropy (BCE)",
+      "optimizer": "Stochastic Gradient Descent (SGD)",
+      "optimizer_hyperparameters": {
+        "momentum": 0.9,
+        "initial_learning_rate": "7e-3",
+        "learning_rate_schedule": "Polynomial decay"
+      },
+      "training_schedule": {
+        "epochs": 180,
+        "batch_size": 8
+      },
+      "data_augmentation": [
+        "Random horizontal flipping",
+        "Random vertical flipping",
+        "Random cropping"
+      ],
+      "hardware": "NVIDIA GeForce RTX 3080 GPU",
+      "framework": "PyTorch"
+    },
+    "training_details": {
+      "epochs": 180,
+      "batch_size": 8,
+      "optimizer": "SGD",
+      "learning_rate": "7e-3 (polynomial decay)",
+      "momentum": 0.9,
+      "loss_function": "Binary Cross-Entropy (BCE)"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask output",
+      "details": "Binary segmentation of skin lesion regions from background."
+    },
+    "approximate_parameters": {
+      "DMFF-Net": "4.25M",
+      "Baseline (DeepLabV3)": "6.870M",
+      "Baseline+ASPP": "6.870M",
+      "Baseline+MDSDC": "4.522M",
+      "Baseline+MHLFF": "4.522M",
+      "Baseline+GGCAM": "6.476M",
+      "Baseline+GGCAM+MHLFF": "4.520M"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "DMFF-Net",
+    "DeepLabV3",
+    "DCSAU-Net",
+    "TransUNet",
+    "U-Net",
+    "U-Net++",
+    "DeepLabV3+",
+    "FPN",
+    "EGEUNET",
+    "MALUNET",
+    "FAT-Net",
+    "EIU-Net",
+    "FCN",
+    "TrUNet",
+    "MEFP-Net",
+    "FC-DPN"
+  ],
+  "preprocessing_techniques": [
+    "Input image resizing to 512x512 pixels",
+    "Data augmentation during training: random horizontal flipping, random vertical flipping, and random cropping"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random horizontal flipping",
+      "details": "Applied during training to improve generalization and robustness against overfitting."
+    },
+    {
+      "technique": "Random vertical flipping",
+      "details": "Applied during training to improve generalization and robustness against overfitting."
+    },
+    {
+      "technique": "Random cropping",
+      "details": "Applied during training to improve generalization and robustness against overfitting."
+    }
+  ],
+  "conclusions": [
+    "DMFF-Net, a multi-scale feature fusion network based on DeepLabV3, significantly improves skin lesion segmentation accuracy by preserving crucial spatial details and enhancing feature representation through the integration of Global Grid Coordinate Attention (GGCAM), Multi-Scale Depthwise Separable Dilated Convolution (MDSDC), and Mid-High Level Feature Fusion (MHLFF) modules.",
+    "DMFF-Net outperforms existing advanced methods on multiple public datasets, achieving MIoU values of 89.31%, 91.47%, and 86.93% on ISIC 2016, ISIC 2017, and ISIC 2018, respectively, demonstrating robustness and effectiveness in handling unclear boundaries and low contrast.",
+    "The combination of GGCAM and MHLFF modules provides complementary benefits, where GGCAM enhances global semantic context and MHLFF strengthens multi-scale feature fusion, resulting in superior segmentation performance with reduced computational cost compared to the baseline.",
+    "While DMFF-Net shows strong performance, it still faces challenges with blurry edges and irregularly shaped lesions, indicating a need for future work to incorporate stronger edge detection mechanisms.",
+    "The current study is limited by the lack of diversity in datasets representing real-world clinical conditions; future research should incorporate more diverse large-scale datasets and utilize transfer learning or self-supervised learning to improve resilience in practical scenarios.",
+    "Future work aims to decrease total parameters via model compression and lightweight design techniques to enable efficient real-time inference on edge devices and extend application from research to real-world clinical environments."
+  ],
+  "important_remarks": [
+    "The study lacks formal statistical hypothesis testing (e.g., p-values, confidence intervals); performance superiority is claimed based solely on higher metric values without statistical significance verification.",
+    "External validation is limited to qualitative visual comparisons on the PH2 dataset; quantitative metrics for PH2 were not explicitly reported, limiting the assessment of generalization.",
+    "The paper acknowledges limitations regarding dataset diversity, noting that the current public datasets do not fully represent real-world clinical conditions, and suggests future work on diverse large-scale datasets.",
+    "No pretraining strategy is explicitly reported for the baseline DeepLabV3 model, which may affect reproducibility and performance baseline comparisons.",
+    "The model faces challenges with blurry edges and irregularly shaped lesions, indicating a need for stronger edge detection mechanisms in future iterations.",
+    "Deployment concerns are noted regarding the need for model compression and lightweight design to enable efficient real-time inference on edge devices for clinical use."
+  ]
+}

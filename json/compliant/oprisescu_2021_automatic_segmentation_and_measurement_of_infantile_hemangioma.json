@@ -1,0 +1,232 @@
+{
+  "file_name": "oprisescu_2021_automatic_segmentation_and_measurement_of_infantile_hemangioma.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used K-means clustering (an unsupervised machine learning algorithm) for the automatic segmentation of infantile hemangiomas. The method also employed the Karhunen-Loeve transform for feature selection and Hough transform for ruler detection, but K-means is the primary AI/ML technique used to obtain the segmentation results."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents an original algorithm for the automatic segmentation and measurement of infantile hemangiomas. It details specific methods (K-means clustering, Karhunen-Loeve transform, Hough transform), describes the construction of a dataset of 30 images from a hospital, and reports experimental results including a mean border error of 9.31%. The structure includes Introduction, Materials and Methods, Results, and Discussion, which is characteristic of an original research study rather than a review."
+  },
+  "title": "Automatic Segmentation and Measurement of Infantile Hemangioma",
+  "authors": [
+    "Serban Oprisescu",
+    "Mihai Ciuc",
+    "Alina Sultana"
+  ],
+  "doi": "10.3390/sym13010138",
+  "journal": "Symmetry",
+  "year": 2021,
+  "article_type": "Article",
+  "brief_summary": "This study presents an algorithm for the automatic segmentation and measurement of infantile hemangioma lesions from digital photographs containing a ruler. The method utilizes K-means clustering for segmentation, supported by the Karhunen-Loeve transform for feature selection and Hough transform for ruler detection and image scale computation. The dataset consisted of 30 RGB images acquired from the Marie Curie children’s hospital in Bucharest. Segmentation performance was evaluated against manual ground truth using a mean border error metric. The proposed algorithm achieved a mean border error of 9.31%, which was lower than the 14.6% error of the previous version and outperformed four other comparison methods.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Infantile hemangioma",
+      "paper_terms": [
+        "Infantile hemangiomas",
+        "IH",
+        "hemangioma",
+        "hemangioma lesion"
+      ],
+      "role": "Target class",
+      "details": "The primary target for automatic segmentation and measurement in the study. The dataset consisted of 30 RGB images containing infantile hemangioma lesions acquired from the Marie Curie children’s hospital in Bucharest."
+    },
+    {
+      "lesion_type": "Skin",
+      "paper_terms": [
+        "skin",
+        "healthy skin",
+        "under-illuminated skin areas"
+      ],
+      "role": "Comparator class / Background",
+      "details": "The background tissue against which the hemangioma lesions were segmented. The algorithm aimed to discriminate between textured hemangioma areas and smoother skin areas, particularly under-illuminated skin regions that might have similar color."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary mask of infantile hemangioma lesion pixels",
+        "primary": true,
+        "details": "The paper presents an algorithm for the automatic segmentation of infantile hemangioma lesions from digital photographs. The method uses K-means clustering to partition the image into classes and selects the hemangioma class to produce a binary segmentation mask. Performance was evaluated using border error against manual ground truth segmentations."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Marie Curie children’s hospital dataset",
+      "description": "A private dataset of 30 RGB digital photographs of infantile hemangioma lesions acquired from the Marie Curie children’s hospital in Bucharest. The images were taken during a specific research project (grant number: PN-II-PTPCCA-2013-4-0201) over a period of around two years. Each image contains a hemangioma lesion on various body parts (chest, legs, face, etc.) and a ruler placed near the lesion for scale computation. Images were acquired using different cameras and under different illumination conditions.",
+      "classes_used": [
+        "Infantile hemangioma",
+        "Skin (background)"
+      ],
+      "counts": {
+        "total": 30,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "The entire dataset of 30 images was used for the development and testing of the automatic segmentation and measurement algorithm. The paper does not report a separate training/validation/testing split; the algorithm was tested on all 30 images.",
+        "validation": "Manual segmentations ('ground truth') provided for all 30 images were used to assess segmentation accuracy (border error).",
+        "testing": "All 30 images were used to evaluate the performance of the proposed algorithm, specifically calculating the mean border error (9.31%) and comparing it with four other methods on the same dataset.",
+        "other": "The dataset was also used to compute the image scale and ruler detection robustness."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "mean border error",
+    "border error",
+    "minimum border error",
+    "maximum border error"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics (mean border error) and comparisons with other methods without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Marie Curie children’s hospital dataset": {
+      "metric": "Border Error (BE)",
+      "models": {
+        "Proposed Method (K-means + Karhunen-Loeve + TV filters)": {
+          "mean_BE": "9.31%",
+          "min_BE": "2.16%",
+          "max_BE": "25.64%",
+          "BE_less_than_20_percent": "93% of images"
+        },
+        "Method from [14] (Previous version)": {
+          "mean_BE": "14.6%"
+        },
+        "MAP-Markov [9]": {
+          "mean_BE": "20.3%"
+        },
+        "RG-FCM [10]": {
+          "mean_BE": "15.5%"
+        },
+        "SOM-MMRNC [11]": {
+          "mean_BE": "14.8%"
+        },
+        "Method from [6] (Comparison on different database)": {
+          "mean_BE": "32.1%",
+          "min_BE": "3.6%",
+          "max_BE": "247.7%"
+        }
+      },
+      "notes": "The proposed algorithm achieved a mean border error of 9.31%, which was lower than the 14.6% error of the previous version [14] and outperformed four other comparison methods (MAP-Markov, RG-FCM, SOM-MMRNC) on the same dataset. The high maximum BE of 25.64% was attributed to a very small and fragmented hemangioma where morphological opening removed small fragments. For the comparison method from [6], the databases were different."
+    }
+  },
+  "architecture_used": {
+    "main_model": "K-means clustering algorithm",
+    "pretraining": null,
+    "input_size": "Approximately 1300 × 1200 pixels (RGB images)",
+    "architecture_details": {
+      "algorithm_type": "Unsupervised machine learning (clustering)",
+      "feature_extraction": "Karhunen-Loeve transform applied to a seven-plane image",
+      "input_planes": [
+        "L* component from L*a*b*",
+        "a* component from L*a*b*",
+        "b* component from L*a*b*",
+        "Total Variation (TV) image from first 5x5 symmetrical filter on L*",
+        "Total Variation (TV) image from second 3x3 symmetrical filter on L*",
+        "H plane from HSV (shifted 50°)",
+        "S plane from HSV"
+      ],
+      "dimensionality_reduction": "Karhunen-Loeve transform used to select the five most important planes from the seven input planes",
+      "clustering_parameters": {
+        "algorithm": "K-means",
+        "number_of_classes": 6
+      },
+      "post_processing": [
+        "Selection of hemangioma class based on maximum a* average value or maximum TV value",
+        "Elimination of regions smaller than a threshold",
+        "Elimination of regions with weak borders using Sobel operator gradient threshold"
+      ],
+      "additional_components": [
+        "Hough transform for ruler detection",
+        "Total variation calculation for line selection",
+        "Optical Character Recognition (OCR) for digit identification",
+        "Geometric correction/transformation"
+      ]
+    },
+    "training_details": {
+      "training_method": "Unsupervised learning (no training phase reported)",
+      "hyperparameters": {
+        "k_means_clusters": 6,
+        "ruler_line_min_length": "250 pixels",
+        "reddish_pixel_threshold": "85% of max a* value",
+        "hsv_h_shift": "50 degrees"
+      },
+      "optimizer": null,
+      "loss_function": null,
+      "training_schedule": null
+    },
+    "classification_or_output_head": {
+      "type": "Cluster assignment",
+      "selection_criteria": "Class with maximum a* average value; if tie, class with maximum TV value"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "K-means clustering",
+    "Perceptron",
+    "MAP-Markov segmentation",
+    "Fuzzy C-means (FCM)",
+    "RG-FCM (Region Growing based on FCM)",
+    "Self-Organizing Map (SOM) network",
+    "SOM-MMRNC (Self-Organizing Map followed by morphological method)",
+    "Otsu method",
+    "Canny method",
+    "GVF snakes",
+    "Shortest path method",
+    "Standard linear CNN",
+    "Two-inputs DAG topology CNN",
+    "Crop-based classifier based on standard linear convolutional neural network"
+  ],
+  "preprocessing_techniques": [
+    "Geometric correction/transform to ensure lesions are viewed perpendicular to the camera",
+    "Rotation of the image to align the ruler vertically",
+    "Extraction of the centimeter area from the ruler",
+    "Extraction of digits from the centimeter area",
+    "Optical Character Recognition (OCR) for digit identification",
+    "Geometric alignment of the detected digit to its corresponding frontal template",
+    "Application of 2D total variation filters (5x5 and 3x3 symmetrical kernels) on the L* component to highlight texture",
+    "Addition of (maxL - L(i,j)) to TV values to emphasize darker hemangioma areas",
+    "Creation of a binary mask to keep only reddish pixels (RGB red component > green and blue components) using a threshold of 85% of the maximum a* value",
+    "Multiplication of TV images with the binary mask to isolate hemangioma pixels",
+    "Application of Karhunen-Loeve transform for feature selection (selecting the five most important planes from seven)",
+    "Elimination of regions smaller than a threshold",
+    "Elimination of regions with weak borders using Sobel operator gradient threshold"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed algorithm for automatic segmentation and measurement of infantile hemangioma lesions achieved a mean border error of 9.31% on a dataset of 30 images, which represents an improvement of at least 5% compared to the previous version of the algorithm (14.6% error).",
+    "The proposed method outperformed four other comparison methods (MAP-Markov, RG-FCM, SOM-MMRNC, and a method from [6]) in terms of segmentation accuracy on the same dataset.",
+    "The algorithm is robust for image scale computation, correctly estimating the ruler distance and direction for all tested images, even in the presence of objects with similar colors.",
+    "Geometric correction ensures that lesions are viewed perpendicular to the camera, which is necessary for accurate assessment of lesion shape and size for evolution follow-up.",
+    "The segmentation performance was high for 93% of the images, with a border error smaller than 20%.",
+    "The highest border error (25.64%) was attributed to a very small and fragmented hemangioma where morphological opening removed small fragments that were similar to the skin.",
+    "Segmentation accuracy is lower in images with very low contrast between the lesion and the skin, as demonstrated by the worst segmentation cases.",
+    "The use of 2D total variation filters helps discriminate between textured hemangioma areas and smoother skin areas, addressing confusion caused by under-illuminated skin regions with similar color."
+  ],
+  "important_remarks": [
+    "The study relies on a very small, single-center dataset of only 30 images acquired from one hospital (Marie Curie children’s hospital in Bucharest), limiting generalizability and raising concerns about population or dataset bias.",
+    "No external validation was performed; the algorithm was tested solely on the internal dataset, and no independent test set was reported.",
+    "The paper does not report a separate training/validation/testing split; the entire dataset was used for development and testing, which poses a risk of overfitting or optimistic performance estimates.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was conducted to validate the significance of the performance improvements over comparison methods.",
+    "Segmentation accuracy is notably lower in images with very low contrast between the lesion and the skin, as demonstrated by the worst segmentation cases (BE up to 25.64%).",
+    "The highest border error (25.64%) was attributed to a very small and fragmented hemangioma where morphological opening removed small fragments similar to the skin, indicating a limitation in handling fragmented lesions.",
+    "The method requires the presence of a ruler in the image for scale computation, which may limit its applicability in clinical settings where rulers are not consistently used.",
+    "The algorithm's performance depends on geometric correction to ensure lesions are viewed perpendicular to the camera, which is a prerequisite for accurate measurement but may not always be feasible in routine practice.",
+    "The study did not report data leakage risks explicitly, but the lack of a held-out test set and the small sample size increase the risk that results may not generalize to new data.",
+    "The comparison with other methods (MAP-Markov, RG-FCM, SOM-MMRNC) was performed on the same dataset, which may not reflect real-world performance differences across diverse clinical scenarios."
+  ]
+}

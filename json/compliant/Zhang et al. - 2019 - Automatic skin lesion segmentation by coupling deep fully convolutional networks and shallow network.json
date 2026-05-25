@@ -1,0 +1,344 @@
+{
+  "file_name": "Zhang et al. - 2019 - Automatic skin lesion segmentation by coupling deep fully convolutional networks and shallow network.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning, specifically coupling deep fully convolutional networks (FCNs) with a shallow network using textons, to perform automatic skin lesion segmentation in dermoscopic images for melanoma diagnosis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents a novel fully automatic method for skin lesion segmentation by coupling deep fully convolutional networks with a shallow network. It details the proposed architecture, implementation specifics (MatConvNet, CUDA), and experimental evaluation on ISBI 2016 and ISBI 2017 datasets with quantitative results (accuracy, Dice, Jaccard). The abstract and introduction explicitly state the contribution of a new framework and provide comparative evidence, distinguishing it from a review."
+  },
+  "title": "Automatic skin lesion segmentation by coupling deep fully convolutional networks and shallow network with textons",
+  "authors": [
+    "Lei Zhang",
+    "Guang Yang",
+    "Xujiong Ye"
+  ],
+  "doi": "10.1117/1.JMI.6.2.024001",
+  "journal": "Journal of Medical Imaging",
+  "year": 2019,
+  "article_type": "Journal article",
+  "brief_summary": "This study presents a fully automatic method for skin lesion segmentation in dermoscopic images to aid in melanoma diagnosis. The proposed architecture couples a deep fully convolutional network (FCN) with a shallow network that encodes domain-specific prior knowledge via textons derived from spatial filters. The model was trained and evaluated on the ISBI 2016 and ISBI 2017 skin lesion challenge datasets using metrics such as accuracy, Dice coefficient, and Jaccard index. Experimental results demonstrated that the proposed method achieved competitive performance compared to state-of-the-art methods, including those utilizing data augmentation. Notably, the model showed robust generalization capabilities without requiring data augmentation or comprehensive parameter tuning. The findings suggest that integrating hand-crafted prior knowledge into deep networks effectively enhances segmentation accuracy for challenging cases with fuzzy boundaries and artifacts.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "Malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on skin lesion segmentation to aid in the diagnosis of melanoma. The abstract and introduction explicitly state that segmentation is an important step in computer-aided diagnosis of melanoma. The study uses the ISBI 2016 and ISBI 2017 skin lesion challenge datasets, which contain images of melanoma and other skin lesions, but the primary clinical context provided is melanoma."
+    },
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "dermoscopic images"
+      ],
+      "role": "Segmentation target",
+      "details": "The paper performs automatic segmentation of skin lesions in general. The experiments are conducted on the ISBI 2016 and ISBI 2017 datasets, which include various types of skin lesions (benign and malignant), but the paper does not explicitly list or distinguish specific benign lesion types (e.g., nevus, BCC) in the context of the segmentation task results, focusing instead on the general task of delineating the lesion boundary for melanoma diagnosis."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary mask delineating the skin lesion boundary in dermoscopic images.",
+        "primary": true,
+        "details": "The paper performs automatic skin lesion segmentation. The model outputs a probability map which is converted to a binary mask using a dual-threshold method. The task is evaluated using segmentation metrics including accuracy, Dice coefficient, Jaccard index, sensitivity, and specificity on the ISBI 2016 and ISBI 2017 datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISBI 2016 Skin Lesion Challenge Dataset",
+      "description": "A public dataset from the International Symposium on Biomedical Imaging 2016 challenge, hosted by the International Skin Imaging Collaboration (ISIC), containing dermoscopic images of skin lesions with expert manual delineation ground truth.",
+      "classes_used": [
+        "Lesion (binary mask)",
+        "Background"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": 100,
+        "testing": 379,
+        "per_class": {}
+      },
+      "use": {
+        "training": "The 900 training images were used for training. Additionally, 100 images were randomly split from the training set for validation to determine optimal hyperparameters (epochs, batch size, learning rate). The full 900 training images were then used for final model training.",
+        "validation": "100 images randomly split from the training set were used for validation to tune hyperparameters.",
+        "testing": "The 379 testing images were used for independent evaluation of the model's performance.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISBI 2017 Skin Lesion Challenge Dataset",
+      "description": "A public dataset from the International Symposium on Biomedical Imaging 2017 challenge, hosted by the International Skin Imaging Collaboration (ISIC), containing dermoscopic images of skin lesions with expert manual delineation ground truth.",
+      "classes_used": [
+        "Lesion (binary mask)",
+        "Background"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "The 2000 training images were used for training the network.",
+        "validation": "The 150 validation images were used to validate convergence and determine the maximal number of epochs and other hyperparameters.",
+        "testing": "The 600 testing images were used for independent evaluation of the model's performance.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Dice coefficient",
+    "Jaccard index",
+    "Sensitivity",
+    "Specificity"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive statistics (Accuracy, Dice coefficient, Jaccard index, Sensitivity, Specificity) on the ISBI 2016 and ISBI 2017 datasets without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISBI 2016 Challenge Testing Dataset": {
+      "metric": "Accuracy, Dice Coefficient, Jaccard Index, Sensitivity, Specificity",
+      "models": {
+        "Proposed Method (Setting c - two 5x5 conv layers)": {
+          "Accuracy": "94.9471",
+          "Dice": "0.8976",
+          "Jaccard": "0.8277",
+          "Sensitivity": "91.8634",
+          "Specificity": "95.2059"
+        },
+        "Proposed Method (Setting b - one 5x5 conv layer)": {
+          "Accuracy": "94.8577",
+          "Dice": "0.8958",
+          "Jaccard": "0.8249",
+          "Sensitivity": "90.2079",
+          "Specificity": "95.3334"
+        },
+        "Proposed Method (Setting a - one 7x7 conv layer)": {
+          "Accuracy": "94.9641",
+          "Dice": "0.8928",
+          "Jaccard": "0.8216",
+          "Sensitivity": "89.7343",
+          "Specificity": "96.0928"
+        },
+        "Yuan (Best performing team in challenge)": {
+          "Accuracy": "0.955",
+          "Dice": "0.912",
+          "Jaccard": "0.847",
+          "Sensitivity": "0.918",
+          "Specificity": "0.966"
+        },
+        "EXB": {
+          "Accuracy": "0.953",
+          "Dice": "0.910",
+          "Jaccard": "0.843",
+          "Sensitivity": "0.910",
+          "Specificity": "0.965"
+        },
+        "CUMED17": {
+          "Accuracy": "0.949",
+          "Dice": "0.897",
+          "Jaccard": "0.829",
+          "Sensitivity": "0.911",
+          "Specificity": "0.957"
+        },
+        "Mahmudur": {
+          "Accuracy": "0.952",
+          "Dice": "0.895",
+          "Jaccard": "0.822",
+          "Sensitivity": "0.880",
+          "Specificity": "0.969"
+        },
+        "FCN (Standard FCN only)": {
+          "Accuracy": "0.941",
+          "Dice": "0.886",
+          "Jaccard": "0.814",
+          "Sensitivity": "0.917",
+          "Specificity": "0.949"
+        },
+        "SFU-mial": {
+          "Accuracy": "0.944",
+          "Dice": "0.885",
+          "Jaccard": "0.811",
+          "Sensitivity": "0.915",
+          "Specificity": "0.955"
+        },
+        "TMUteam": {
+          "Accuracy": "0.946",
+          "Dice": "0.888",
+          "Jaccard": "0.810",
+          "Sensitivity": "0.832",
+          "Specificity": "0.987"
+        }
+      },
+      "notes": "The proposed method with setting (c) achieved the best Jaccard index among the proposed settings. Yuan and EXB achieved higher Jaccard indices (0.847 and 0.843 respectively) than the proposed method (0.8277). The proposed method outperformed the standard FCN on all metrics. The proposed method was trained without data augmentation or additional external datasets."
+    },
+    "ISBI 2017 Challenge Testing Dataset": {
+      "metric": "Accuracy, Dice Coefficient, Jaccard Index, Sensitivity, Specificity",
+      "models": {
+        "Proposed Method (Setting c - two 5x5 conv layers)": {
+          "Accuracy": "92.7284",
+          "Dice": "0.8181",
+          "Jaccard": "0.7294",
+          "Sensitivity": "83.7175",
+          "Specificity": "96.3854"
+        },
+        "Proposed Method (Setting b - one 5x5 conv layer)": {
+          "Accuracy": "92.6068",
+          "Dice": "0.8165",
+          "Jaccard": "0.7262",
+          "Sensitivity": "83.9807",
+          "Specificity": "96.1468"
+        },
+        "Proposed Method (Setting a - one 7x7 conv layer)": {
+          "Accuracy": "92.5956",
+          "Dice": "0.8142",
+          "Jaccard": "0.7252",
+          "Sensitivity": "82.3548",
+          "Specificity": "96.6418"
+        },
+        "Yading": {
+          "Accuracy": "0.934",
+          "Dice": "0.849",
+          "Jaccard": "0.765",
+          "Sensitivity": "0.825",
+          "Specificity": "0.975"
+        },
+        "Matt": {
+          "Accuracy": "0.932",
+          "Dice": "0.847",
+          "Jaccard": "0.762",
+          "Sensitivity": "0.820",
+          "Specificity": "0.978"
+        },
+        "INESC": {
+          "Accuracy": "0.922",
+          "Dice": "0.824",
+          "Jaccard": "0.735",
+          "Sensitivity": "0.813",
+          "Specificity": "0.968"
+        },
+        "Ours (Proposed Method)": {
+          "Accuracy": "0.927",
+          "Dice": "0.818",
+          "Jaccard": "0.729",
+          "Sensitivity": "0.837",
+          "Specificity": "0.964"
+        },
+        "FCN (Standard FCN only)": {
+          "Accuracy": "0.923",
+          "Dice": "0.811",
+          "Jaccard": "0.719",
+          "Sensitivity": "0.816",
+          "Specificity": "0.964"
+        },
+        "Vic": {
+          "Accuracy": "0.922",
+          "Dice": "0.810",
+          "Jaccard": "0.718",
+          "Sensitivity": "0.789",
+          "Specificity": "0.975"
+        },
+        "Juana": {
+          "Accuracy": "0.915",
+          "Dice": "0.797",
+          "Jaccard": "0.715",
+          "Sensitivity": "0.774",
+          "Specificity": "0.970"
+        }
+      },
+      "notes": "The proposed method with setting (c) achieved the highest sensitivity (0.837) among the listed methods. Yading and Matt achieved higher Jaccard indices (0.765 and 0.762 respectively) than the proposed method (0.729). The proposed method outperformed the standard FCN on all metrics. The proposed method was trained using only the 2000 training images provided by the challenge without data augmentation."
+    },
+    "Input Size Comparison (ISBI 2016)": {
+      "metric": "Accuracy, Dice, Jaccard, Sensitivity, Specificity",
+      "models": {
+        "384x384 Input": {
+          "Accuracy": "94.9471",
+          "Dice": "0.8976",
+          "Jaccard": "0.8277",
+          "Sensitivity": "91.8634",
+          "Specificity": "95.2059"
+        },
+        "256x256 Input": {
+          "Accuracy": "94.9110",
+          "Dice": "0.8970",
+          "Jaccard": "0.8255",
+          "Sensitivity": "90.0697",
+          "Specificity": "95.6065"
+        }
+      },
+      "notes": "Results with 384x384 input size were slightly better than 256x256, particularly in Jaccard index. The best Jaccard value is marked as bold in the source table."
+    }
+  },
+  "architecture_used": {
+    "extraction_error": "Expecting ',' delimiter: line 33 column 21 (char 1863)",
+    "answer": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Proposed Method (Coupling deep fully convolutional networks and shallow network with textons)",
+    "FCN (Fully Convolutional Network)",
+    "VGG16",
+    "ResNet",
+    "U-net",
+    "FCRN (Fully Convolutional Residual Network)",
+    "Yuan (Best performing team in ISBI 2016 challenge)",
+    "EXB",
+    "CUMED17",
+    "Mahmudur",
+    "SFU-mial",
+    "TMUteam",
+    "Yading",
+    "Matt",
+    "INESC",
+    "Vic",
+    "Juana"
+  ],
+  "preprocessing_techniques": [
+    "Resizing input images to 256x256 or 384x384 pixels",
+    "Patch extraction from training data for texton dictionary generation",
+    "K-means clustering of filter responses to generate textons",
+    "Dual-threshold method applied to probability maps to obtain binary segmentation masks (thresholds 0.95 for candidate pixels and 0.5 for whole lesion region)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "None",
+      "details": "The paper explicitly states that the proposed method is robust without the need for data augmentation. The abstract notes: 'Our method is robust without the need for data augmentation or comprehensive parameter tuning.' Section 4.3.1 and the notes in the results tables confirm that the proposed method was trained without data augmentation or additional external datasets, contrasting it with other state-of-the-art methods that may use it."
+    }
+  ],
+  "conclusions": [
+    "The proposed method, which couples deep fully convolutional networks (FCNs) with a shallow network encoding domain-specific prior knowledge via textons, effectively improves skin lesion segmentation accuracy.",
+    "Integrating hand-crafted prior knowledge (textons derived from spatial filters simulating V1 receptive fields) into a deep network trained in an end-to-end manner enhances the model's ability to handle challenging cases with fuzzy boundaries and artifacts.",
+    "The proposed method demonstrates robust generalization capabilities without the need for data augmentation or comprehensive parameter tuning.",
+    "The method achieved competitive performance on the ISBI 2016 and ISBI 2017 skin lesion challenge datasets, outperforming the standard FCN baseline on all evaluated metrics (Accuracy, Dice, Jaccard, Sensitivity, Specificity).",
+    "On the ISBI 2016 testing dataset, the proposed method (Setting c) achieved an accuracy of 94.9471%, Dice coefficient of 0.8976, and Jaccard index of 0.8277.",
+    "On the ISBI 2017 testing dataset, the proposed method (Setting c) achieved an accuracy of 92.7284%, Dice coefficient of 0.8181, and Jaccard index of 0.7294.",
+    "Using two 5x5 convolutional layers in the integrating layer (Setting c) yielded better segmentation performance compared to using a single convolutional layer with 7x7 or 5x5 filters, likely due to increased model complexity and nonlinearity.",
+    "Larger input image sizes (384x384) provided slightly better segmentation performance (particularly in Jaccard index) compared to smaller sizes (256x256) by preserving more image details.",
+    "The method shows promise for computer-aided diagnosis of melanoma by providing accurate delineation of skin lesions, which is critical for early detection and treatment."
+  ],
+  "important_remarks": [
+    "The study lacks external validation beyond the ISBI 2016 and 2017 challenge datasets, limiting generalizability assessment to other clinical populations or imaging devices.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed; performance comparisons rely on descriptive statistics, which may not account for variance or significance.",
+    "The method was trained without data augmentation, which contrasts with many state-of-the-art methods that use augmentation; while this demonstrates robustness, it may limit performance on highly imbalanced or rare lesion types.",
+    "The paper acknowledges failure cases involving inhomogeneous appearances and irregular shapes (Fig. 6), indicating potential limitations in handling complex texture variations.",
+    "The model relies on textons derived from spatial filters simulating V1 receptive fields; this domain-specific prior knowledge is a key strength but may not generalize to non-dermoscopic imaging modalities.",
+    "The study uses publicly available challenge datasets with expert manual delineation as ground truth, which may introduce bias if the expert annotations are inconsistent or if the dataset does not represent the full spectrum of melanoma stages and skin types.",
+    "The proposed method achieves competitive performance but does not outperform the top-ranked teams (e.g., Yuan, EXB) on the ISBI 2016 dataset in terms of Jaccard index, suggesting room for improvement in boundary precision."
+  ]
+}

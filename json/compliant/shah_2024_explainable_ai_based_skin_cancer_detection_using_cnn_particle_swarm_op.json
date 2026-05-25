@@ -1,0 +1,433 @@
+{
+  "file_name": "shah_2024_explainable_ai_based_skin_cancer_detection_using_cnn_particle_swarm_op.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used AI methods including Convolutional Neural Networks (Xception), Particle Swarm Optimization (PSO) for feature selection, and machine learning classifiers (Subspace KNN, Medium Gaussian SVM) to perform skin cancer detection and classification on the ISIC 2018 and HAM10000 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, including the development of a comprehensive AI pipeline combining CNNs, Particle Swarm Optimization, and machine learning classifiers. It reports new results from evaluations on the ISIC 2018 and HAM10000 datasets, achieving specific accuracy metrics (e.g., 98.5% on ISIC 2018), and includes sections on methods, results, and ablation studies rather than summarizing prior literature."
+  },
+  "title": "Explainable AI-Based Skin Cancer Detection Using CNN, Particle Swarm Optimization and Machine Learning",
+  "authors": [
+    "Syed Adil Hussain Shah",
+    "Syed Taimoor Hussain Shah",
+    "Roa’a Khaled",
+    "Andrea Buccoliero",
+    "Syed Baqir Hussain Shah",
+    "Angelo Di Terlizzi",
+    "Giacomo Di Benedetto",
+    "Marco Agostino Deriu"
+  ],
+  "doi": "10.3390/jimaging10120332",
+  "journal": "J. Imaging",
+  "year": 2024,
+  "article_type": "Article",
+  "brief_summary": "This study proposes an explainable AI pipeline for skin cancer detection to address the limitations of traditional visual diagnosis and existing AI models. The methodology integrates the Xception convolutional neural network with Particle Swarm Optimization for feature dimensionality reduction and machine learning classifiers, specifically Subspace KNN and Medium Gaussian SVM. The model was evaluated on the ISIC 2018 and HAM10000 datasets, achieving classification accuracies of 98.5% and 86.1%, respectively. Explainable AI techniques, including Grad-CAM, LIME, and Occlusion Sensitivity, were employed to enhance model interpretability for clinical trust. The results demonstrate that combining transfer learning with PSO-based feature selection yields a robust, efficient, and interpretable solution for automated skin cancer diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "benign keratosis-like lesions (bkl)",
+        "dermatofibroma (df)",
+        "melanocytic nevi (nv)",
+        "vascular lesions (vasc)"
+      ],
+      "role": "Target class",
+      "details": "Used as a binary classification target in the ISIC 2018 dataset (1800 images) and as a merged category in the HAM10000 dataset (8061 samples: bkl, df, nv, vasc)."
+    },
+    {
+      "lesion_type": "Malignant skin lesions",
+      "paper_terms": [
+        "malignant",
+        "actinic keratoses and intraepithelial carcinoma (akiec)",
+        "Basal cell carcinoma (bcc)",
+        "melanoma (mel)"
+      ],
+      "role": "Target class",
+      "details": "Used as a binary classification target in the ISIC 2018 dataset (1497 images) and as a merged category in the HAM10000 dataset (1954 samples: akiec, bcc, mel)."
+    },
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "Basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as one of the four most common primary kinds of skin cells/cancer, but not used as a distinct class in the experiments (grouped into 'malignant' for HAM10000)."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma",
+        "SCC"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as one of the four most common primary kinds of skin cells/cancer, but not used as a distinct class in the experiments."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "MEL"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as one of the four most common primary kinds of skin cells/cancer. In the HAM10000 dataset, it was used as a specific class (mel) but grouped into the 'malignant' category for the binary classification task."
+    },
+    {
+      "lesion_type": "Merkel cell carcinoma",
+      "paper_terms": [
+        "Merkel cell carcinoma",
+        "MCC"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as one of the four most common primary kinds of skin cells/cancer, but not used in the experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into benign or malignant categories",
+        "primary": true,
+        "details": "The paper performs binary classification on the ISIC 2018 dataset (benign vs. malignant) and the HAM10000 dataset (grouped into benign vs. malignant). The model predicts discrete diagnostic categories using CNN feature extraction combined with machine learning classifiers (Subspace KNN, Medium Gaussian SVM, etc.). Metrics reported include accuracy, sensitivity, specificity, precision, and F1 score."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A publicly available dataset from the ISIC 2018 challenge, hosted on Kaggle, designed for malignant vs. benign skin lesion classification. It contains dermoscopy images in RGB format (224x244 pixels).",
+      "classes_used": [
+        "benign",
+        "malignant"
+      ],
+      "counts": {
+        "total": 3297,
+        "training": 2637,
+        "validation": null,
+        "testing": 660,
+        "per_class": {
+          "benign": {
+            "total": 1800,
+            "training": 1440,
+            "testing": 360
+          },
+          "malignant": {
+            "total": 1497,
+            "training": 1197,
+            "testing": 300
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the Xception network and subsequent classifiers (Subspace KNN, Medium Gaussian SVM) after data augmentation increased the size to 10,548 images (5760 benign, 4788 malignant).",
+        "validation": "Used for validation during training via a 70:30 split of the training set at runtime (K-fold).",
+        "testing": "Used for final testing of the model performance.",
+        "other": null
+      }
+    },
+    {
+      "name": "HAM10000",
+      "description": "The Human Against Machine with 10,000 images dataset, publicly available on Kaggle. It contains 10,015 dermoscopic images with metadata (age, gender, location) and is imbalanced. In this study, it was treated as a completely unseen holdout set.",
+      "classes_used": [
+        "benign",
+        "malignant"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": 10015,
+        "per_class": {
+          "benign": 8061,
+          "malignant": 1954
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as a completely unseen holdout set for external validation/testing of the model trained on ISIC 2018.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "Precision",
+    "F1-Score",
+    "AUC",
+    "Confusion Matrix",
+    "ROC Curve",
+    "Computational Costs",
+    "Training Times",
+    "Prediction Speeds"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "Used for training and validation of machine learning classifiers to evaluate performance metrics.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Confusion Matrix",
+      "purpose": "Used to visualize and analyze the performance of classifiers by showing true vs. predicted classes.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "ROC Curve and AUC",
+      "purpose": "Used to evaluate the discriminatory capability of classifiers, with AUC values reported to indicate performance (e.g., >0.99 for top classifiers).",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Ablation Study",
+      "purpose": "Used to validate the effectiveness of specific components, such as freezing task-specific layers in the Xception architecture and the impact of PSO-based feature selection.",
+      "type": "Experimental design"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using accuracy, sensitivity, specificity, precision, F1-score, AUC, and computational metrics via 5-fold cross-validation and comparison on a holdout set."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018": {
+      "experiment_1_transfer_learned_xception": {
+        "models": {
+          "Softmax": {
+            "validation_accuracy": 94.2,
+            "validation_sensitivity": 95.9,
+            "validation_specificity": 92.2,
+            "validation_precision": 93.3,
+            "validation_f1": 94.6,
+            "testing_accuracy": 89.7,
+            "testing_sensitivity": 93.9,
+            "testing_specificity": 84.6,
+            "testing_precision": 85.8,
+            "testing_f1": 89.7
+          }
+        },
+        "notes": "Experiment 1 utilized a transfer-learned Xception network with a Softmax classifier. The model achieved high sensitivity but moderate specificity."
+      },
+      "experiment_2_deep_features_ml_classifiers": {
+        "models": {
+          "Medium Gaussian SVM (MG-SVM)": {
+            "testing_accuracy": 89.6,
+            "testing_sensitivity": 93.4,
+            "testing_specificity": 85.5,
+            "testing_precision": 86.9,
+            "testing_f1": 90.0
+          },
+          "Linear SVM (L-SVM)": {
+            "testing_accuracy": 89.2,
+            "testing_sensitivity": 92.8,
+            "testing_specificity": 85.4
+          },
+          "Cubic SVM (C-SVM)": {
+            "testing_accuracy": 89.2,
+            "testing_sensitivity": 92.6,
+            "testing_specificity": 85.4
+          },
+          "Cosine KNN (Cos-KNN)": {
+            "testing_accuracy": 89.4,
+            "testing_sensitivity": 95.0,
+            "testing_specificity": 84.0
+          },
+          "Weighted KNN (W-KNN)": {
+            "testing_accuracy": 89.1,
+            "testing_sensitivity": 94.7,
+            "testing_specificity": 83.7
+          },
+          "Boosted Trees Ensemble": {
+            "testing_accuracy": 89.1,
+            "testing_sensitivity": 93.1,
+            "testing_specificity": 84.9
+          },
+          "Bagged Trees Ensemble": {
+            "testing_accuracy": 89.1,
+            "testing_sensitivity": 93.4,
+            "testing_specificity": 85.8
+          }
+        },
+        "notes": "Experiment 2 used features extracted from the Xception network without PSO feature selection. MG-SVM was the top performer among SVMs. Table 5 reports training accuracy for MG-SVM as 98.4% and testing accuracy as 89.5% (text says 89.6% in section 5, Table 5 says 89.5/89.6 split format likely train/test). Table 8 lists MG-SVM testing accuracy as 89.6%."
+      },
+      "experiment_3_pso_feature_selection_ml_classifiers": {
+        "models": {
+          "Subspace KNN Ensemble": {
+            "validation_accuracy": 97.6,
+            "validation_sensitivity": 97.9,
+            "validation_specificity": 97.1,
+            "validation_precision": 97.5,
+            "validation_f1": 97.8,
+            "testing_accuracy": 98.5,
+            "testing_sensitivity": 98.1,
+            "testing_specificity": 98.9,
+            "testing_precision": 99.2,
+            "testing_f1": 98.6
+          },
+          "Fine-KNN": {
+            "testing_accuracy": 98.2,
+            "testing_sensitivity": 98.0,
+            "testing_specificity": 98.3
+          },
+          "Cubic SVM (C-SVM)": {
+            "testing_accuracy": 98.0,
+            "testing_sensitivity": 97.5,
+            "testing_specificity": 98.3,
+            "testing_f1": 98.0
+          }
+        },
+        "notes": "Experiment 3 integrated PSO-based feature selection (reducing dimensions from 1024 to 504/508). Subspace KNN achieved the highest performance. AUC values for top classifiers exceeded 0.99."
+      }
+    },
+    "HAM10000": {
+      "holdout_results": {
+        "models": {
+          "Xception (Experiment 1)": {
+            "accuracy": 80.3,
+            "sensitivity": 94.2,
+            "specificity": 49.8,
+            "precision": 80.5,
+            "f1": 86.8
+          },
+          "Xception + Gaussian SVM (Experiment 2)": {
+            "accuracy": 81.05,
+            "sensitivity": 89.1,
+            "specificity": 51.3,
+            "precision": 87.1,
+            "f1": 88.0
+          },
+          "Xception + PSO + Subspace KNN (Experiment 3)": {
+            "accuracy": 86.1,
+            "sensitivity": 91.42,
+            "specificity": 64.31,
+            "precision": 91.3,
+            "f1": 91.3,
+            "auc": 0.8785
+          }
+        },
+        "notes": "HAM10000 was used as a completely unseen holdout set. The best results were obtained in Experiment 3 using Xception with PSO feature selection and Subspace KNN classification. The model demonstrated high sensitivity but lower specificity for benign cases."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Xception (Convolutional Neural Network)",
+    "pretraining": "Pre-trained CNN model (weights from original dataset, likely ImageNet, though not explicitly named, it is described as 'pre-trained' and 'transfer learning' was used); layers excluding the last dense, softmax, and classification layers were excluded; upper layers were frozen.",
+    "input_size": "224x244 pixels (RGB dermoscopy images from ISIC 2018 dataset)",
+    "architecture_details": {
+      "backbone": "Xception-Net, derived from Inception architecture, consisting of 36 convolutional layers integrating depth-wise separable convolutions.",
+      "modifications": [
+        "Exclusion of pre-trained layers including the last dense, softmax, and classification layers.",
+        "Freezing of weights of the upper layers.",
+        "Addition of a global average pooling (GAP) layer.",
+        "Addition of a fully connected layer with 1024 neurons.",
+        "Addition of a dropout layer with a probability score of 0.5.",
+        "Addition of a final fully connected layer with 2 neurons for binary classification (benign vs. malignant)."
+      ],
+      "layer_types": [
+        "Depth-wise separable convolutions",
+        "Global Average Pooling (GAP)",
+        "Fully Connected (Dense) layers",
+        "Dropout layer"
+      ]
+    },
+    "training_details": {
+      "optimizer": "Adam optimizer",
+      "loss_function": "Not explicitly reported (implied binary cross-entropy due to 2-neuron output and classification task, but not stated)",
+      "hyperparameters": {
+        "epochs": 30,
+        "mini_batch_size": 16,
+        "initial_learning_rate": "1e-4",
+        "data_shuffling": "Before each epoch"
+      },
+      "validation_schedule": "Validation data provided every 50 mini-batches",
+      "hardware": "NVIDIA RTX 2060 GPU (6GB RAM), Intel Core i7 10th gen, 8GB RAM",
+      "software": "MATLAB 2023b"
+    },
+    "classification_or_output_head": {
+      "type": "Fully connected layer with 2 neurons",
+      "purpose": "Binary classification (benign vs. malignant)",
+      "alternative_classifiers_used": [
+        "Softmax (on the modified Xception network)",
+        "Machine Learning Classifiers: Subspace KNN Ensemble, Medium Gaussian SVM (MG-SVM), Linear SVM, Cubic SVM, Fine KNN, Cosine KNN, Weighted KNN, Boosted Trees Ensemble, Bagged Trees Ensemble, etc."
+      ]
+    },
+    "approximate_parameters": "Not explicitly reported; described as having 'reduced number of parameters' due to depth-wise separable convolutions compared to standard Inception."
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Xception",
+    "InceptionV3",
+    "MobileNet",
+    "EfficientNet",
+    "Vision Transformers (ViT)",
+    "Hybrid ViT-CNN models",
+    "Softmax",
+    "Linear SVM (L-SVM)",
+    "Quadratic SVM (Q-SVM)",
+    "Cubic SVM (C-SVM)",
+    "Fine Gaussian SVM (FG-SVM)",
+    "Medium Gaussian SVM (MG-SVM)",
+    "Coarse Gaussian SVM (CG-SVM)",
+    "Fine KNN (F-KNN)",
+    "Medium KNN (M-KNN)",
+    "Coarse KNN (C-KNN)",
+    "Cosine KNN (Cos-KNN)",
+    "Weighted KNN (W-KNN)",
+    "Boosted Trees Ensemble (BT-Ensemble)",
+    "Bagged Trees Ensemble (BAGT-Ensemble)",
+    "Sub-space Discriminant Ensemble (SD-Ensemble)",
+    "Subspace KNN Ensemble (SK-Ensemble)",
+    "RUSBoosted Trees Ensemble (RBT-Ensemble)"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation applied to training images to address class imbalance and enhance robustness",
+    "Random rotation of images with angles ranging from -180 to 180 degrees",
+    "Gaussian blur with a standard deviation of 2 to smooth images and diminish high-frequency noise",
+    "Image sharpening with an Amount of 2, Radius of 1, and Threshold of 0 to enhance edge sharpness and detail prominence",
+    "Dataset division into training and testing subsets (70:30 ratio for training/validation split via K-fold cross-validation)",
+    "Grouping of HAM10000 dataset classes into binary categories: benign (bkl, df, nv, vasc) and malignant (akiec, bcc, mel)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random Rotation",
+      "details": "Applied to training images with rotation angles randomly generated within the range of -180 to 180 degrees to introduce variations in object orientations."
+    },
+    {
+      "technique": "Gaussian Blur",
+      "details": "Applied with a standard deviation of 2 to smooth images, diminish high-frequency noise, and bolster resilience to noise and minor variations."
+    },
+    {
+      "technique": "Image Sharpening",
+      "details": "Applied with an 'Amount' of 2, 'Radius' of 1, and 'Threshold' of 0 to enhance edge sharpness and detail prominence, ensuring all pixels undergo sharpening."
+    }
+  ],
+  "conclusions": [
+    "The proposed explainable AI pipeline, combining the Xception convolutional neural network with Particle Swarm Optimization (PSO) for feature selection and machine learning classifiers, achieved high classification accuracy of 98.5% on the ISIC 2018 dataset and 86.1% on the unseen HAM10000 holdout dataset.",
+    "Xception was identified as the optimal CNN architecture among tested models (including InceptionV3, MobileNet, and EfficientNet) due to its balance of computational efficiency and performance.",
+    "Particle Swarm Optimization effectively reduced feature dimensionality from 1024 to 508 features, significantly enhancing computational efficiency while maintaining or improving classification performance.",
+    "The Subspace KNN ensemble classifier, when combined with PSO-selected features, outperformed other machine learning classifiers (such as Medium Gaussian SVM and Cubic SVM) in Experiment 3 on the ISIC 2018 dataset, achieving 98.5% accuracy, 98.1% sensitivity, and 98.9% specificity.",
+    "Explainable AI techniques, including Grad-CAM, LIME, and Occlusion Sensitivity, were successfully employed to enhance model interpretability, addressing the lack of transparency often associated with deep learning models.",
+    "The model demonstrated robust generalization capabilities on the imbalanced HAM10000 dataset, although it exhibited lower specificity for benign cases (64.31%) compared to its high sensitivity for malignant cases (91.42%).",
+    "Freezing the upper layers of the pre-trained Xception network and using transfer learning was validated as an effective strategy for skin cancer detection.",
+    "The integration of PSO-based feature selection with machine learning classifiers provided a more robust, efficient, and interpretable solution for automated skin cancer diagnosis compared to standalone CNN architectures or models without feature selection."
+  ],
+  "important_remarks": [
+    "The model was evaluated on the HAM10000 dataset as a completely unseen holdout set, which demonstrates generalization capability but limits direct comparison with studies that used HAM10000 for training.",
+    "The proposed method achieved high sensitivity (91.42%) but notably lower specificity (64.31%) on the HAM10000 holdout set, indicating a tendency to misclassify benign lesions as malignant.",
+    "Data augmentation was applied to the ISIC 2018 training set to balance classes, increasing the training size from 2,637 to 10,548 images; however, the specific augmentation techniques (rotation, blur, sharpening) may introduce artifacts not present in real clinical data.",
+    "The study groups multiple distinct lesion types (e.g., bkl, df, nv, vasc) into a single 'benign' class and (akiec, bcc, mel) into a 'malignant' class, which masks potential performance disparities among specific subtypes within these broad categories.",
+    "No formal statistical hypothesis testing (e.g., p-values) was reported; performance comparisons rely on point estimates of accuracy, sensitivity, and specificity.",
+    "The hardware used for training (NVIDIA RTX 2060, 6GB RAM) is consumer-grade, which may limit the scalability or reproducibility of the computational efficiency claims for larger-scale clinical deployments.",
+    "The paper claims state-of-the-art performance but does not provide confidence intervals for the reported metrics, making it difficult to assess the statistical significance of the results.",
+    "The integration of Particle Swarm Optimization (PSO) for feature selection adds computational complexity during the training phase, although it reduces inference dimensionality."
+  ]
+}

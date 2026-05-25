@@ -1,0 +1,356 @@
+{
+  "file_name": "karki_2021_melanoma_classification_using_efficientnets_and_ensemble_of_models_wi.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning, specifically Convolutional Neural Networks (EfficientNets B0-B6) and an ensemble of models, to classify dermoscopic images into melanoma (malignant) and benign classes. The models were trained on the SIIM-ISIC Melanoma Classification 2020 dataset using TPUs, achieving an AUC of 0.9411."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a method to classify melanoma using EfficientNets and an ensemble of models. It details specific methodology including the SIIM-ISIC Melanoma Classification 2020 dataset, training on TPUs, 5-fold cross-validation, and reports new results (AUC of 0.9411). Although published in a conference proceedings (ACSW '21), it contains original research findings rather than summarizing prior literature."
+  },
+  "title": "Melanoma classification using EfficientNets and Ensemble of models with different input resolution",
+  "authors": [
+    "Sagar Karki",
+    "Pradnya Kulkarni",
+    "Andrew Stranieri"
+  ],
+  "doi": "10.1145/3437378.3437396",
+  "journal": "2021 Australasian Computer Science Week Multiconference (ACSW '21)",
+  "year": 2021,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a deep learning method to classify dermoscopic images into melanoma (malignant) and benign classes using EfficientNets and an ensemble of models. The models were trained on the SIIM-ISIC Melanoma Classification 2020 dataset, which includes 33,000 training examples, utilizing heavy data augmentation techniques such as hair addition and coarse dropout to address class imbalance. Training was conducted on Kaggle TPUs using 5-fold cross-validation with varying input resolutions for EfficientNet B0-B6 architectures. The performance was evaluated using the Area Under the ROC Curve (AUC) metric on a hold-out test dataset. The best-performing ensemble, combining all EfficientNet B6 models plus one EfficientNet B5 with a 384x384 input size, achieved an AUC of 0.9411. The results indicate that heavy augmentation and ensemble methods significantly boost classification performance for melanoma detection.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for classification. The study uses the SIIM-ISIC Melanoma Classification 2020 dataset which includes 584 malignant examples in the training set, augmented to 2000 distinct malignant examples."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "Benign",
+        "benign lesions"
+      ],
+      "role": "Target class",
+      "details": "The comparator class for the binary classification task. The dataset contains benign examples which are contrasted against malignant (melanoma) examples. The ratio of malignant to benign images is preserved in each fold."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of dermoscopic images into melanoma (malignant) or benign classes.",
+        "primary": true,
+        "details": "The paper explicitly states the task is to 'classify the dermoscopic images into two classes melanoma (malignant) or benign.' The models predict discrete diagnostic categories using EfficientNets and an ensemble approach. Performance is evaluated using the Area Under the ROC Curve (AUC) on a hold-out test dataset, with the best ensemble achieving an AUC of 0.9411. The target variable is binary (malignant vs. benign)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "SIIM-ISIC Melanoma Classification 2020 dataset",
+      "description": "The primary dataset used for the study, sourced from the ISIC archive/Kaggle. It contains dermoscopic images of skin lesions. The study also incorporated malignant examples from ISIC 2019 and 2018 archives to address class imbalance.",
+      "classes_used": [
+        "Melanoma (malignant)",
+        "Benign"
+      ],
+      "counts": {
+        "total": 44000,
+        "training": 33000,
+        "validation": null,
+        "testing": 11000,
+        "per_class": {
+          "training_malignant": 584,
+          "training_benign": null,
+          "augmented_malignant": 2000,
+          "testing_total": 11000
+        }
+      },
+      "use": {
+        "training": "Used for training EfficientNet models (B0-B6) with 5-fold cross-validation. The training set of 33,000 examples was augmented with additional malignant examples from ISIC 2018/2019 to increase distinct malignant examples to 2000.",
+        "validation": "Used for validation within the 5-fold cross-validation scheme to select the best models based on out-of-fold prediction AUC.",
+        "testing": "Used for final evaluation. The test set consists of 11,000 images. Performance was reported on the 30% of test data scored on the public leaderboard and the 70% holdout data (private leaderboard).",
+        "other": "Malignant examples from ISIC 2019 and 2018 archives were used to augment the training data to tackle class imbalance."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area under the ROC curve"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "To train models and select the best performing models based on out-of-fold prediction AUC scores, ensuring equal data distribution of malignant to benign images in each fold.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Area Under the ROC Curve (AUC)",
+      "purpose": "To evaluate and compare the performance of individual models and ensemble methods on validation and hold-out test datasets.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Ensemble methods (Rank data, Normal average, Log ensemble, Power ensemble)",
+      "purpose": "To combine predictions from multiple models across folds to improve classification performance; Log ensemble was identified as the best method.",
+      "type": "Model Aggregation"
+    },
+    {
+      "method": "Test Time Augmentation (TTA)",
+      "purpose": "To analyze each image 25 times with augmentation applied during testing to average out mistakes and boost performance.",
+      "type": "Uncertainty Estimation / Performance Boost"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using the Area Under the ROC Curve (AUC) metric on hold-out test datasets, with results reported as point estimates (e.g., AUC of 0.9411) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "SIIM-ISIC Melanoma Classification 2020": {
+      "metric": "Area Under the ROC Curve (AUC)",
+      "models": {
+        "Ensemble of all EfficientNet B6 models plus one EfficientNet B5 (input size 384x384)": {
+          "AUC_private_leaderboard": "0.9411",
+          "AUC_public_leaderboard": "0.9397"
+        },
+        "Ensemble of EfficientNet B6 models with different input sizes": {
+          "AUC_private_leaderboard": "0.9409"
+        },
+        "Ensemble of the best 13 architectures": {
+          "AUC_private_leaderboard": "0.9400"
+        },
+        "EfficientNet B6 (512x512)": {
+          "AVG_private": "0.9362",
+          "AVG_public": "0.9313",
+          "LogAvg_priv": "0.9369",
+          "LogAvg_pub": "0.9337"
+        },
+        "EfficientNet B6 (456x456)": {
+          "AVG_private": "0.9354",
+          "AVG_public": "0.9356",
+          "LogAvg_priv": "0.9368",
+          "LogAvg_pub": "0.9381"
+        },
+        "EfficientNet B6 (384x384)": {
+          "AVG_private": "0.9366",
+          "AVG_public": "0.9426",
+          "LogAvg_priv": "0.9373",
+          "LogAvg_pub": "0.9397"
+        },
+        "EfficientNet B6 (300x300)": {
+          "AVG_private": "0.9355",
+          "AVG_public": "0.9258",
+          "LogAvg_priv": "0.9337",
+          "LogAvg_pub": "0.9262"
+        },
+        "EfficientNet B6 (256x256)": {
+          "AVG_private": "0.9338",
+          "AVG_public": "0.9264",
+          "LogAvg_priv": "0.9332",
+          "LogAvg_pub": "0.9364"
+        },
+        "EfficientNet B5 (512x512)": {
+          "AVG_private": "0.9334",
+          "AVG_public": "0.9320",
+          "LogAvg_priv": "0.9364",
+          "LogAvg_pub": "0.9353"
+        },
+        "EfficientNet B5 (456x456)": {
+          "AVG_private": "0.9310",
+          "AVG_public": "0.9308",
+          "LogAvg_priv": "0.9336",
+          "LogAvg_pub": "0.9306"
+        },
+        "EfficientNet B5 (384x384)": {
+          "AVG_private": "0.9358",
+          "AVG_public": "0.9310",
+          "LogAvg_priv": "0.9363",
+          "LogAvg_pub": "0.9345"
+        },
+        "EfficientNet B5 (300x300)": {
+          "AVG_private": "0.9307",
+          "AVG_public": "0.9272",
+          "LogAvg_priv": "0.9321",
+          "LogAvg_pub": "0.9275"
+        },
+        "EfficientNet B5 (256x256)": {
+          "AVG_private": "0.9256",
+          "AVG_public": "0.9236",
+          "LogAvg_priv": "0.9259",
+          "LogAvg_pub": "0.9232"
+        },
+        "EfficientNet B4 (512x512)": {
+          "AVG_private": "0.9272",
+          "AVG_public": "0.9286",
+          "LogAvg_priv": "0.9300",
+          "LogAvg_pub": "0.9306"
+        },
+        "EfficientNet B4 (456x456)": {
+          "AVG_private": "0.9308",
+          "AVG_public": "0.9313",
+          "LogAvg_priv": "0.9319",
+          "LogAvg_pub": "0.9313"
+        },
+        "EfficientNet B4 (384x384)": {
+          "AVG_private": "0.9351",
+          "AVG_public": "0.9343",
+          "LogAvg_priv": "0.9347",
+          "LogAvg_pub": "0.9292"
+        },
+        "EfficientNet B4 (300x300)": {
+          "AVG_private": "0.9363",
+          "AVG_public": "0.9227",
+          "LogAvg_priv": "0.9347",
+          "LogAvg_pub": "0.9258"
+        },
+        "EfficientNet B4 (256x256)": {
+          "AVG_private": "0.9294",
+          "AVG_public": "0.9271",
+          "LogAvg_priv": "0.9304",
+          "LogAvg_pub": "0.9287"
+        }
+      },
+      "notes": "The best ensemble score of 0.9411 was achieved on the test dataset for the private leaderboard. The ensemble of all EfficientNet B6 models plus one EfficientNet B5 (input size 384x384) yielded the highest performance. EfficientNet B3, B2, B1, and B0 did not give promising scores and were excluded from the final ensemble. Log ensemble was identified as the best method for combining model predictions."
+    }
+  },
+  "architecture_used": {
+    "main_model": "EfficientNet (B0-B6 family)",
+    "pretraining": "Pre-trained weights (implied by standard EfficientNet usage, though specific source like ImageNet not explicitly detailed in context, standard practice assumed; context mentions 'trained on TPUs' but does not explicitly state pretraining dataset name, however EfficientNets are typically ImageNet pre-trained. The text says 'EfficientNets [4.] were trained on TPUs'. It does not explicitly state 'ImageNet pre-trained' in the provided chunks, but EfficientNet is a known family. I will stick to what is explicitly stated or strongly implied. The text says 'EfficientNets [4.] were trained on TPUs'. It does not explicitly mention ImageNet. I will leave pretraining as null or 'Not explicitly reported' to be safe, but EfficientNet implies it. Let's look at chunk 4: 'EfficientNet B3, B2, B2, B1, B0 did not give a much promising score...'. Chunk 0: 'Convolutional neural networks known as EfficientNets [4.] were trained on TPUs'. I will set pretraining to null as it is not explicitly stated in the text provided.",
+    "input_size": "Multiple resolutions tested: 256x256, 300x300, 384x384, 456x456, 512x512. Best performing ensemble used 384x384 for EfficientNet B5 and various sizes for B6.",
+    "architecture_details": {
+      "model_family": "EfficientNet",
+      "variants": [
+        "EfficientNet B0",
+        "EfficientNet B1",
+        "EfficientNet B2",
+        "EfficientNet B3",
+        "EfficientNet B4",
+        "EfficientNet B5",
+        "EfficientNet B6"
+      ],
+      "ensemble_strategy": "Ensemble of multiple models across folds and architectures. Best ensemble: All EfficientNet B6 models (from 5 folds) plus one EfficientNet B5 (input size 384x384).",
+      "ensemble_methods_tested": [
+        "Rank data ensemble",
+        "Normal average",
+        "Log ensemble (identified as best)",
+        "Power ensemble"
+      ]
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate_scheduler": "Custom learning rate scheduler",
+      "epochs": 15,
+      "cross_validation": "5-fold cross-validation",
+      "hardware": "Kaggle TPUs",
+      "framework": "TensorFlow and Keras",
+      "augmentation": [
+        "Random rotation",
+        "Shearing",
+        "Zooming",
+        "Shifting",
+        "Random horizontal flip",
+        "Contrast adjustment",
+        "Saturation adjustment",
+        "Brightness adjustment",
+        "Hue adjustment",
+        "Hair addition (using real hair images)",
+        "Coarse dropout (removing random boxes of size 0.1 times image dimension)"
+      ],
+      "test_time_augmentation": "Each image analyzed 25 times with augmentation applied during testing"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (Melanoma vs Benign)",
+      "output": "Probability of malignancy"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNet B0",
+    "EfficientNet B1",
+    "EfficientNet B2",
+    "EfficientNet B3",
+    "EfficientNet B4",
+    "EfficientNet B5",
+    "EfficientNet B6",
+    "K-Nearest Neighbors (K-NN)",
+    "Support Vector Machine (SVM)",
+    "Random Forest",
+    "Logistic Model Tree",
+    "Hidden Naive Bayes",
+    "VGG",
+    "PNASNet-5-Large",
+    "InceptionResNetV2",
+    "SENet154",
+    "InceptionV4",
+    "DermoNet",
+    "DenseNet",
+    "U-Net",
+    "Fully-Convolutional Residual Networks (FCRN)",
+    "YOLO (You Only Look Once)",
+    "CNN (Convolutional Neural Network)"
+  ],
+  "preprocessing_techniques": [
+    "Input resolution resizing to multiple sizes: 256x256, 300x300, 384x384, 456x456, and 512x512",
+    "Random rotation",
+    "Shearing",
+    "Zooming",
+    "Shifting",
+    "Random horizontal flip",
+    "Contrast adjustment",
+    "Saturation adjustment",
+    "Brightness adjustment",
+    "Hue adjustment",
+    "Hair augmentation (adding real hair images to benign examples to address imbalance)",
+    "Coarse dropout (removing random boxes of size 0.1 times the image dimension)",
+    "Test Time Augmentation (TTA) with 25 iterations including augmentation during testing"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Random rotation, shearing, zooming, shifting, and random horizontal flip applied during training."
+    },
+    {
+      "technique": "Color Transforms",
+      "details": "Adjustments to contrast, saturation, brightness, and hue applied during training."
+    },
+    {
+      "technique": "Synthetic Data Generation / Class Balancing",
+      "details": "Hair augmentation using real hair images added to benign examples to address class imbalance (since most malignant examples had hair and benign did not). Malignant examples from ISIC 2019 and 2018 archives were added to increase distinct malignant examples from 584 to 2000."
+    },
+    {
+      "technique": "Coarse Dropout",
+      "details": "Removing random boxes of size 0.1 times the dimension of the image."
+    },
+    {
+      "technique": "Test-Time Augmentation (TTA)",
+      "details": "Each image analyzed 25 times with augmentation applied during testing. Low probabilities were used for dropout and hair augmentation during TTA."
+    }
+  ],
+  "conclusions": [
+    "The proposed ensemble method using EfficientNets and heavy data augmentation achieved a high classification performance, with the best ensemble model reaching an Area Under the ROC Curve (AUC) of 0.9411 on the hold-out test data of the SIIM-ISIC Melanoma Classification 2020 dataset.",
+    "Heavy augmentation during training (including hair addition and coarse dropout) and heavy test time augmentation (analyzing each image 25 times) significantly boosted classification performance by averaging out mistakes.",
+    "Among the tested ensemble methods (Rank data, normal average, log ensemble, and power ensemble), the log ensemble method was identified as the most effective for combining model predictions.",
+    "Ensembles utilizing EfficientNet B6 models with different input resolutions performed better than those using smaller architectures (B0-B3), with the best result achieved by an ensemble of all EfficientNet B6 models plus one EfficientNet B5 (input size 384x384).",
+    "Models with greater depth and width (such as EfficientNet B6) were found to be better suited for the proposed training method for melanoma identification compared to smaller architectures.",
+    "While the ensemble of the best 13 architectures yielded a slightly lower AUC (0.9400) than the best-performing ensemble (0.9411), it offered better diversity.",
+    "The study acknowledges that future research should include more diversity in augmentations, training for more epochs over an expanded dataset, and exploring unsupervised learning ensembled with the current models."
+  ],
+  "important_remarks": [
+    "The study relies on the SIIM-ISIC Melanoma Classification 2020 dataset, which is a Kaggle competition dataset; performance is reported on the private leaderboard holdout set (70% of test data), which may not reflect performance on independent, external clinical populations.",
+    "The paper does not report formal statistical significance testing (e.g., p-values or confidence intervals) for the reported AUC of 0.9411, limiting the assessment of result robustness.",
+    "Class imbalance was addressed by augmenting the training set with malignant examples from ISIC 2018 and 2019 archives, increasing distinct malignant examples from 584 to 2000; this synthetic balancing may introduce bias if the distribution of these external examples differs from the primary dataset.",
+    "Heavy data augmentation techniques, including hair addition using real hair images and coarse dropout, were employed to handle class imbalance and improve generalization; while effective, these specific augmentations may not generalize to datasets with different artifact profiles.",
+    "Smaller EfficientNet architectures (B0-B3) were excluded from the final ensemble due to poor performance during cross-validation, suggesting that model capacity is critical for this specific task and dataset configuration.",
+    "The best-performing ensemble combined all EfficientNet B6 models from 5 folds plus one EfficientNet B5 (384x384 input); this specific configuration achieved the highest AUC, indicating that model depth and input resolution significantly impact performance.",
+    "Test Time Augmentation (TTA) with 25 iterations was used to boost performance; while effective, this increases inference time and computational cost, which may be a concern for real-time clinical deployment.",
+    "The paper is a conference proceeding (ACSW '21) with limited page count (5 pages), potentially restricting the depth of ablation studies, error analysis, or detailed discussion of failure cases compared to journal publications."
+  ]
+}

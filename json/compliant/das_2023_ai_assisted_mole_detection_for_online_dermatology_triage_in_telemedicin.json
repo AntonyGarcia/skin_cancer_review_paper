@@ -1,0 +1,330 @@
+{
+  "file_name": "das_2023_ai_assisted_mole_detection_for_online_dermatology_triage_in_telemedicin.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used AI, specifically deep learning models including a Nested hierarchical Transformer (NesT), Vision Transformer (ViT), Big Transfer (BiT), and Inception-v4, to perform mole detection (binary classification of mole presence) in dermatological images for online triage in telemedicine settings."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of AI models (NesT, ViT, BiT, Inception-v4) for mole detection using a dataset of over 26,000 clinical images. It includes specific methodology, model descriptions, and reported performance metrics (e.g., macro average recall of 0.955), which characterizes it as an original research study rather than a review."
+  },
+  "title": "AI-assisted mole detection for online dermatology triage in telemedicine settings",
+  "authors": [
+    "Debarpan Das",
+    "Elcin Ergin",
+    "Bruno Morel",
+    "Michelle Noga",
+    "Derek Emery",
+    "Kumaradevan Punithakumar"
+  ],
+  "doi": "10.1016/j.imu.2023.101311",
+  "journal": "Informatics in Medicine Unlocked",
+  "year": 2023,
+  "article_type": "Research article",
+  "brief_summary": "This study developed an AI-assisted triage system for online dermatology to detect the presence of skin moles in patient-uploaded images. The researchers employed state-of-the-art deep learning models, specifically a Nested hierarchical Transformer (NesT), Vision Transformer (ViT), Big Transfer (BiT), and Inception-v4, to perform binary classification of mole presence. The models were trained and evaluated on a combined dataset of over 26,000 clinical images sourced from OROHealth Inc and the public Danderm dataset. The evaluation focused on performance metrics such as recall, accuracy, and precision to assess the system's ability to flag moles for dermatologist review. The best-performing model achieved a macro average recall of 0.955, along with an overall accuracy of 0.962 and macro average precision of 0.958. The results demonstrate the potential of deep learning to efficiently triage patients in telemedicine settings by identifying cases requiring in-person consultation.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Mole (Melanocytic Nevus)",
+      "paper_terms": [
+        "mole",
+        "moles",
+        "nevus",
+        "melanocytic nevi"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on binary classification for the presence of moles. Images belonging to 'nevus' and 'melanoma' from the Danderm dataset, and specific mole-labeled images from the private OROHealth dataset, were grouped into the 'mole' class. The private dataset had 451 mole samples initially, increased to 1054 with public data. The task is detecting if a mole is present."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Target class (grouped with moles)",
+      "details": "Melanoma images from the public Danderm dataset were considered as 'moles' for the purpose of this binary detection task. The paper notes that early identification of moles is crucial due to malignant melanoma."
+    },
+    {
+      "lesion_type": "Tumors",
+      "paper_terms": [
+        "tumors"
+      ],
+      "role": "Target class (grouped with moles)",
+      "details": "Images labeled as 'tumors' from the public Danderm dataset were also considered as 'moles' for the detection task. The paper states: 'images under nevus, melanoma, and tumors are considered moles'."
+    },
+    {
+      "lesion_type": "Non-mole skin conditions",
+      "paper_terms": [
+        "non-moles",
+        "non-mole images",
+        "other conditions"
+      ],
+      "role": "Comparator class",
+      "details": "All other skin conditions in the dataset that were not classified as nevus, melanoma, or tumor were labeled as 'non-moles'. The private dataset contained images from more than 40 different disease classes, all of which were grouped into the non-mole class for this binary task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary presence of a mole (mole vs. non-mole)",
+        "primary": true,
+        "details": "The paper performs binary classification to detect the presence of moles in dermatological images. The task involves distinguishing between images containing moles (grouping nevus, melanoma, and tumors) and non-mole images. The models (NesT, ViT, BiT, Inception-v4) output class predictions for triage purposes, with performance evaluated using metrics like recall, accuracy, and precision."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "OROHealth Private Dataset",
+      "description": "A private collection of real-world clinical images curated by OROHealth Inc from dermatologists in collaboration with Dermago. The images were classified into more than 40 different disease classes by two Canadian board-certified dermatologists.",
+      "classes_used": [
+        "Mole (grouped from nevus and melanoma classes)",
+        "Non-mole (grouped from >40 other disease classes)"
+      ],
+      "counts": {
+        "total": 24972,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "mole": 451,
+          "non-mole": 24521
+        }
+      },
+      "use": {
+        "training": "Used as the primary source of data; sub-sampled to no more than 600 images per class in the final training set to address class imbalance.",
+        "validation": "null",
+        "testing": "null",
+        "other": "Images from the same patient were not included in more than one set (training, validation, or test) to prevent data leakage."
+      }
+    },
+    {
+      "name": "Danderm Dataset",
+      "description": "A publicly available atlas built using photos taken during the private practice of clinical dermatology. It delivers a broad spectrum of clinical cases, sometimes belonging to the same disease.",
+      "classes_used": [
+        "Nevus",
+        "Melanoma",
+        "Tumors",
+        "Other conditions (non-moles)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "mole_class_contribution": 603
+        }
+      },
+      "use": {
+        "training": "Images labeled as nevus, melanoma, and tumors were included to increase the number of mole samples from 451 to 1054. The rest were labeled as non-moles.",
+        "validation": "null",
+        "testing": "null",
+        "other": "Used to augment the private dataset to address class imbalance."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "macro average recall",
+    "overall accuracy",
+    "macro average precision",
+    "recall",
+    "precision",
+    "F1 score",
+    "test-no_mole-recall",
+    "test-mole-f1-score",
+    "test-no_mole-f1-score",
+    "test-mole-recall",
+    "test accuracy"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics such as recall, accuracy, and precision, and models were compared based on these metric values without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Combined Dataset (OROHealth Private + Danderm Public)": {
+      "description": "A combined dataset of over 26,000 clinical images. The private OROHealth dataset (24,972 images) was augmented with mole-labeled images from the public Danderm dataset to increase mole samples from 451 to 1,054. Sub-sampling was applied to no more than 600 images per class in the final training set.",
+      "models": {
+        "NesT (Nested hierarchical Transformer)": {
+          "macro_average_recall": "0.955",
+          "overall_accuracy": "0.962",
+          "macro_average_precision": "0.958",
+          "test_mole_recall": "0.934",
+          "test_no_mole_recall": "Not explicitly reported as a single number, but noted as outperforming cosine annealing scheduler",
+          "test_mole_f1_score": "Not explicitly reported as a single number, but noted as outperforming cosine annealing scheduler",
+          "test_no_mole_f1_score": "Not explicitly reported as a single number, but noted as outperforming cosine annealing scheduler",
+          "best_hyperparameters": {
+            "optimizer": "Adam",
+            "loss_function": "Cross entropy",
+            "learning_rate": "0.01",
+            "batch_size": "32",
+            "scheduler": "One-cycle"
+          }
+        },
+        "ViT (Vision Transformer - Base)": {
+          "performance_note": "Evaluated; NesT outperformed it in macro average recall",
+          "best_hyperparameters": "Not explicitly reported for ViT specifically, but compared against NesT"
+        },
+        "ViT_21k (Vision Transformer - ImageNet-21k pretrained)": {
+          "performance_note": "Evaluated; NesT outperformed it in macro average recall",
+          "best_hyperparameters": "Not explicitly reported for ViT_21k specifically, but compared against NesT"
+        },
+        "BiT (Big Transfer)": {
+          "performance_note": "Evaluated; NesT outperformed it in macro average recall",
+          "best_hyperparameters": "Not explicitly reported for BiT specifically, but compared against NesT"
+        },
+        "Inception-v4": {
+          "performance_note": "Evaluated; NesT outperformed it in macro average recall",
+          "best_hyperparameters": "Not explicitly reported for Inception-v4 specifically, but compared against NesT"
+        }
+      },
+      "scheduler_comparison": {
+        "one_cycle_vs_cosine_annealing": {
+          "winner": "One-cycle scheduler",
+          "reason": "Outperformed cosine annealing in overall accuracy, recall on non-mole images, and F1 scores for both mole and non-mole images, despite slightly inferior recall on mole images.",
+          "metrics_where_cosine_annealing_fared_better": [
+            "Recall on images with moles (test-mole-recall)"
+          ]
+        }
+      },
+      "confusion_matrix_best_model": {
+        "model": "NesT",
+        "true_mole_predicted_mole": 127,
+        "true_mole_predicted_non_mole": 9,
+        "true_non_mole_predicted_mole": 7,
+        "true_non_mole_predicted_non_mole": 277,
+        "total_mole_samples": 136,
+        "total_non_mole_samples": 284,
+        "total_samples": 420
+      },
+      "notes": "The paper reports that the NesT model achieved a macro average recall of 0.955, overall accuracy of 0.962, and macro average precision of 0.958. The best performing NesT model had a test-mole recall of 93.4%. The study compared 22 experiments with different hyperparameter combinations. No statistical significance tests (p-values) were reported."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Nested hierarchical Transformer (NesT) was the primary model evaluated as the best performer. Other models compared included Vision Transformer (ViT) base, ViT pre-trained on ImageNet-21k (ViT_21k), Big Transfer (BiT), and Inception-v4.",
+    "pretraining": "ViT base, BiT, and Inception-v4 were pre-trained on ImageNet. ViT_21k was pre-trained on ImageNet-21k. NesT was trained from scratch or with standard initialization as it is a nested hierarchical transformer designed for data efficiency, though specific pretraining weights for NesT are not explicitly detailed beyond its architectural definition.",
+    "input_size": "224x224 (after RandomResizedCrop augmentation), with final resizing to 256x256 for some operations. ViT_21k specifically used a patch size of 32x32.",
+    "architecture_details": {
+      "NesT": {
+        "type": "Nested hierarchical Transformer",
+        "components": [
+          "Linearly projected patch embeddings",
+          "Blocks stacked with canonical transformers at every hierarchy",
+          "Multi-head Self-Attention (MSA) layer",
+          "Feed-forward fully connected layer (FFN) with skip-connections",
+          "Normalization layer",
+          "Spatial aggregation via convolution, layer normalization, or max pooling"
+        ],
+        "mechanism": "Spatially neighboring blocks are aggregated via simple spatial operations on the image plane, creating a hierarchical structure. The number of sequences remains constant while the total number of blocks reduces at each hierarchy level until 1 block remains at the top-most hierarchy."
+      },
+      "ViT": {
+        "type": "Vision Transformer",
+        "variants": [
+          "Base version",
+          "ViT_21k (ImageNet-21k pretrained, patch size 32x32)"
+        ]
+      },
+      "BiT": {
+        "type": "Big Transfer ResNetV2"
+      },
+      "Inception-v4": {
+        "type": "Inception-v4"
+      }
+    },
+    "training_details": {
+      "optimizer": "Adam (best performing), Stochastic gradient descent (tested)",
+      "loss_function": "Cross entropy (best performing), Focal loss, Asymmetric single label loss",
+      "learning_rate": "0.01 (best performing), 0.001, 0.1",
+      "batch_size": "32 (best performing), 16, 64",
+      "scheduler": "One-cycle (best performing), Cosine annealing",
+      "data_augmentation": [
+        "Image resizing",
+        "RandomResizedCrop (crop size 0.15 to 1 times area)",
+        "RandomHorizontalFlip (prob 0.5)",
+        "RandomVerticalFlip (prob 0.5)",
+        "RandomRotation (-90 to 90 degrees)",
+        "Mixup data augmentation"
+      ],
+      "hardware": "NVIDIA Tesla P4 GPUs on Google Cloud Platform",
+      "framework": "timm library, torchvision transforms"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification",
+      "output": "Probability of mole presence (mole vs. non-mole)",
+      "details": "The models output class predictions for triage purposes. The final layer is a fully connected layer for binary classification."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Nested hierarchical Transformer (NesT)",
+    "Vision Transformer (ViT)",
+    "ViT (ImageNet-21k pretrained)",
+    "Big Transfer ResNetV2 (BiT)",
+    "Inception-v4"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to 256x256 pixels",
+    "RandomResizedCrop augmentation (cropping a random part of size ranging from 0.15 to 1 times the area of the input image)",
+    "RandomHorizontalFlip (probability 0.5)",
+    "RandomVerticalFlip (probability 0.5)",
+    "RandomRotation (rotation between -90 and 90 degrees)",
+    "Mixup data augmentation",
+    "Sub-sampling of training data to no more than 600 images per class to address class imbalance"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Image Resizing",
+      "details": "Resized input images to a specified size of 256x256 pixels."
+    },
+    {
+      "technique": "RandomResizedCrop",
+      "details": "Crops a random part of the image with size ranging from 0.15 to 1 times the area of the input image, followed by resizing to 224x224 pixels."
+    },
+    {
+      "technique": "RandomHorizontalFlip",
+      "details": "Randomly flips the image horizontally with a probability of 0.5."
+    },
+    {
+      "technique": "RandomVerticalFlip",
+      "details": "Randomly flips the image vertically with a probability of 0.5."
+    },
+    {
+      "technique": "RandomRotation",
+      "details": "Randomly rotates the image by an angle ranging from -90 to 90 degrees."
+    },
+    {
+      "technique": "Mixup",
+      "details": "Synthetic data generation technique that randomly selects image pairs and linearly interpolates them. The interpolation coefficient lambda is drawn from a Beta distribution with alpha set to 0.1."
+    },
+    {
+      "technique": "Sub-sampling",
+      "details": "Class balancing augmentation applied to the training set, limiting the number of images to no more than 600 per class to address class imbalance."
+    }
+  ],
+  "conclusions": [
+    "The Nested hierarchical Transformer (NesT) model achieved the best performance for mole detection, yielding a macro average recall of 0.955, overall accuracy of 0.962, and macro average precision of 0.958.",
+    "The NesT model achieved a test recall of 93.4% for images containing moles, demonstrating its ability to accurately detect moles in new images from a large dataset of real-world clinical pictures.",
+    "The one-cycle learning rate scheduler outperformed the cosine annealing scheduler across most metrics, including overall accuracy, recall on non-mole images, and F1 scores for both mole and non-mole classes, despite a slightly inferior recall on mole images.",
+    "The proposed AI-assisted triage system has the potential to improve efficiency in telemedicine by flagging moles in patient-uploaded images, thereby directing patients to in-person consultations and reducing wait times for dermatology appointments.",
+    "The study acknowledges limitations regarding generalizability, noting that the majority of images used were of lighter skin complexion and the number of mole samples was small.",
+    "Incorporating datasets with diverse skin types and increasing the number of mole samples are expected to improve the model's generalizability.",
+    "The application of AI in teledermatology is still in an early stage of business development, with abundant problems and great potential for innovation in areas such as patient history maintenance and screening."
+  ],
+  "important_remarks": [
+    "The study acknowledges a significant limitation regarding generalizability: the majority of images used were of lighter skin complexion, potentially introducing demographic bias.",
+    "The number of mole samples was small (initially 451, increased to 1054 via public data augmentation), constituting only 4.12% of the total dataset, which poses a risk of underrepresentation of the positive class.",
+    "Class imbalance was addressed by sub-sampling the majority class (non-moles) to no more than 600 images per class in the final training set, which may discard valuable data.",
+    "The paper did not report any statistical significance tests (p-values) or confidence intervals for the performance metrics; comparisons were based on descriptive metrics alone.",
+    "External validation on a separate, unseen clinical dataset was not performed; the system requires validation over a large-scale dataset before integration into clinical practice.",
+    "The application of the AI system is currently limited to triaging and providing preliminary information, not for definitive diagnosis or treatment recommendation.",
+    "Data leakage risks were mitigated by ensuring that images from the same patient were not included in more than one set (training, validation, or test).",
+    "The models were trained on a combination of private clinical data (OROHealth) and public data (Danderm), which may introduce heterogeneity in image quality and annotation standards."
+  ]
+}

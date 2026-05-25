@@ -1,0 +1,552 @@
+{
+  "file_name": "yun_2025_sgnet_a_structure_guided_network_with_dual_domain_boundary_enhancement.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes SGNet, a deep learning model using a hybrid CNN–Mamba framework (specifically Visual Mamba encoder) for skin lesion segmentation in dermoscopic images. It was evaluated on dermatology datasets (ISIC2017, ISIC2018, PH2) to achieve computer-aided diagnosis results."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel deep learning architecture, SGNet, for skin lesion segmentation. It details the methodology (hybrid CNN-Mamba framework, specific modules like DDBE and STFU), describes experimental setups on datasets (ISIC2017, ISIC2018, PH2), and presents original quantitative results and ablation studies comparing SGNet against state-of-the-art methods. The structure includes standard research sections such as Introduction, Methods, Results, and Conclusion, indicating it is an original experimental study rather than a review."
+  },
+  "title": "SGNet: A Structure-Guided Network with Dual-Domain Boundary Enhancement and Semantic Fusion for Skin Lesion Segmentation",
+  "authors": [
+    "Haijiao Yun",
+    "Qingyu Du",
+    "Ziqing Han",
+    "Mingjing Li",
+    "Le Yang",
+    "Xinyang Liu",
+    "Chao Wang",
+    "Weitian Ma"
+  ],
+  "doi": "10.3390/s25154652",
+  "journal": "Sensors",
+  "year": 2025,
+  "article_type": "Article",
+  "brief_summary": "This study proposes SGNet, a structure-guided deep learning network for skin lesion segmentation in dermoscopic images to address challenges like irregular shapes and blurred boundaries. The model integrates a hybrid CNN–Mamba framework using a Visual Mamba encoder, a Dual-Domain Boundary Enhancer, and a Semantic-Texture Fusion Unit to improve feature extraction and boundary delineation. The authors evaluated SGNet on the ISIC2017, ISIC2018, and PH2 datasets, comparing its performance against state-of-the-art segmentation methods. Experimental results demonstrated that SGNet achieved superior segmentation accuracy, with average improvements of 3.30% in mean Intersection over Union and 1.77% in Dice Similarity Coefficient. Ablation studies confirmed the effectiveness of the proposed modules, highlighting the model's robustness and potential for computer-aided dermatological diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "dermoscopic images",
+        "lesion"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the segmentation of skin lesions in dermoscopic images. The datasets used (ISIC2017, ISIC2018, PH2) contain various types of skin lesions, including malignant and benign ones, but the paper treats them as a single segmentation target class without distinguishing specific histological subtypes in the experimental labels."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma",
+        "high-risk lesions"
+      ],
+      "role": "Mentioned only / Clinical context",
+      "details": "Melanoma is mentioned in the Introduction and Abstract as the deadliest skin cancer and a key motivation for the research. The PH2 dataset is noted for containing melanoma samples, which are used to test the model's robustness for high-risk lesions, but melanoma is not isolated as a separate classification or segmentation class in the reported results."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks in dermoscopic images",
+        "primary": true,
+        "details": "The paper proposes SGNet for skin lesion segmentation. The model predicts pixel-wise masks for lesion regions. Performance is evaluated using segmentation metrics such as mean Intersection over Union (mIoU), Dice Similarity Coefficient (DSC), accuracy, sensitivity, specificity, and Hausdorff Distance 95% (HD95) on the ISIC2017, ISIC2018, and PH2 datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2017",
+      "description": "A large-scale skin image collection from the International Skin Imaging Collaboration (ISIC) 2017 challenge, used for skin lesion segmentation tasks.",
+      "classes_used": [
+        "Skin lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 2000,
+        "training": 1250,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the SGNet model.",
+        "validation": "Used for validation during the training process.",
+        "testing": "Used for testing and quantitative comparison with state-of-the-art methods.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC2018",
+      "description": "A large-scale skin image collection from the International Skin Imaging Collaboration (ISIC) 2018 challenge, used for skin lesion segmentation tasks.",
+      "classes_used": [
+        "Skin lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 1620,
+        "validation": 195,
+        "testing": 779,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the SGNet model.",
+        "validation": "Used for validation during the training process.",
+        "testing": "Used for testing and quantitative comparison with state-of-the-art methods.",
+        "other": "Used for ablation studies to assess the contribution of individual modules (DDBE, STFU, GMSR, SAGM)."
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A dermoscopic image database for research and benchmarking, containing high-quality annotations and melanoma samples. It was used for external validation to evaluate the model's generalization performance and robustness on high-risk lesions.",
+      "classes_used": [
+        "Skin lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": 0,
+        "validation": 0,
+        "testing": 200,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for external validation of the ISIC2018-trained model to assess generalization and robustness.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "mean Intersection over Union (mIoU)",
+    "Dice Similarity Coefficient (DSC)",
+    "accuracy (ACC)",
+    "sensitivity (SE)",
+    "specificity (SP)",
+    "Hausdorff Distance 95% (HD95)",
+    "parameters",
+    "FLOPs",
+    "inference time"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Statistical significance test (specific test name not reported, but p-values provided for DSC comparison)",
+    "null_hypothesis": "There is no significant difference in the Dice Similarity Coefficient (DSC) between SGNet and the baseline methods.",
+    "alternative_hypothesis": "SGNet has a significantly higher DSC than the baseline methods.",
+    "alpha": 0.05,
+    "interpretation": "The reported p-values (e.g., 0.0013 for nnUNet, 0.0181 for SwinUnet, 0.0076 for VM-UNetV2) indicate statistically significant improvements in DSC performance for SGNet compared to the baseline methods, as all p-values are less than 0.05."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2017": {
+      "metric": "mIoU, DSC, ACC, SP, SE",
+      "models": {
+        "UNet": {
+          "mIoU": "78.30",
+          "DSC": "87.83",
+          "ACC": "95.39",
+          "SP": "98.16",
+          "SE": "84.14"
+        },
+        "FAT-Net": {
+          "mIoU": "79.13",
+          "DSC": "88.35",
+          "ACC": "92.11",
+          "SP": "97.39",
+          "SE": "87.51"
+        },
+        "UNet++": {
+          "mIoU": "80.68",
+          "DSC": "89.31",
+          "ACC": "95.95",
+          "SP": "98.47",
+          "SE": "85.69"
+        },
+        "UNetV2": {
+          "mIoU": "82.63",
+          "DSC": "90.49",
+          "ACC": "96.31",
+          "SP": "98.17",
+          "SE": "88.77"
+        },
+        "MFEFNet": {
+          "mIoU": "80.36",
+          "DSC": "89.11",
+          "ACC": "95.76",
+          "SP": "97.70",
+          "SE": "87.86"
+        },
+        "VM-UNet": {
+          "mIoU": "78.95",
+          "DSC": "88.23",
+          "ACC": "95.44",
+          "SP": "97.63",
+          "SE": "86.54"
+        },
+        "VM-UNetV2": {
+          "mIoU": "80.54",
+          "DSC": "89.22",
+          "ACC": "95.75",
+          "SP": "97.39",
+          "SE": "89.07"
+        },
+        "MHorUNet": {
+          "mIoU": "82.51",
+          "DSC": "90.42",
+          "ACC": "96.29",
+          "SP": "98.18",
+          "SE": "88.61"
+        },
+        "SwinUnet": {
+          "mIoU": "81.17",
+          "DSC": "89.94",
+          "ACC": "95.98",
+          "SP": "97.24",
+          "SE": "90.90"
+        },
+        "SGNet": {
+          "mIoU": "83.52",
+          "DSC": "91.02",
+          "ACC": "96.45",
+          "SP": "97.76",
+          "SE": "91.11"
+        }
+      },
+      "notes": "SGNet improved mIoU by an average of 4.01% and DSC by 2.28% compared to other methods."
+    },
+    "ISIC2018": {
+      "metric": "mIoU, DSC, ACC, SP, SE",
+      "models": {
+        "UNet": {
+          "mIoU": "79.20",
+          "DSC": "88.39",
+          "ACC": "94.47",
+          "SP": "97.18",
+          "SE": "87.07"
+        },
+        "FAT-Net": {
+          "mIoU": "79.40",
+          "DSC": "88.52",
+          "ACC": "95.17",
+          "SP": "97.22",
+          "SE": "84.39"
+        },
+        "UNet++": {
+          "mIoU": "79.00",
+          "DSC": "88.27",
+          "ACC": "94.99",
+          "SP": "97.67",
+          "SE": "85.49"
+        },
+        "UNetV2": {
+          "mIoU": "81.13",
+          "DSC": "89.58",
+          "ACC": "95.49",
+          "SP": "97.68",
+          "SE": "87.75"
+        },
+        "MFEFNet": {
+          "mIoU": "81.15",
+          "DSC": "89.59",
+          "ACC": "95.37",
+          "SP": "96.80",
+          "SE": "90.31"
+        },
+        "VM-UNet": {
+          "mIoU": "79.40",
+          "DSC": "88.51",
+          "ACC": "95.07",
+          "SP": "97.64",
+          "SE": "86.02"
+        },
+        "VM-UNetV2": {
+          "mIoU": "80.92",
+          "DSC": "89.45",
+          "ACC": "95.34",
+          "SP": "97.19",
+          "SE": "86.93"
+        },
+        "MHorUNet": {
+          "mIoU": "81.44",
+          "DSC": "89.77",
+          "ACC": "95.55",
+          "SP": "97.56",
+          "SE": "88.53"
+        },
+        "SwinUnet": {
+          "mIoU": "81.56",
+          "DSC": "89.84",
+          "ACC": "95.63",
+          "SP": "97.93",
+          "SE": "87.52"
+        },
+        "SGNet": {
+          "mIoU": "82.56",
+          "DSC": "90.45",
+          "ACC": "95.73",
+          "SP": "96.89",
+          "SE": "91.61"
+        }
+      },
+      "notes": "SGNet improved mIoU by an average of 2.87% and DSC by 1.52% compared to other methods. In Table 7, SGNet achieved DSC 90.19 ± 0.17 and HD95 13.10 ± 0.25. p-values for DSC comparison: nnUNet (0.0013), SwinUnet (0.0181), VM-UNetV2 (0.0076)."
+    },
+    "PH2": {
+      "metric": "mIoU, DSC, ACC, SP, SE",
+      "models": {
+        "UNet": {
+          "mIoU": "80.10",
+          "DSC": "88.95",
+          "ACC": "92.73",
+          "SP": "93.67",
+          "SE": "90.75"
+        },
+        "FAT-Net": {
+          "mIoU": "81.87",
+          "DSC": "90.03",
+          "ACC": "92.61",
+          "SP": "95.16",
+          "SE": "89.40"
+        },
+        "UNet++": {
+          "mIoU": "79.93",
+          "DSC": "88.84",
+          "ACC": "92.88",
+          "SP": "95.28",
+          "SE": "87.84"
+        },
+        "UNetV2": {
+          "mIoU": "82.60",
+          "DSC": "90.47",
+          "ACC": "93.75",
+          "SP": "94.56",
+          "SE": "91.98"
+        },
+        "MFEFNet": {
+          "mIoU": "83.08",
+          "DSC": "90.76",
+          "ACC": "93.87",
+          "SP": "94.13",
+          "SE": "93.32"
+        },
+        "VM-UNet": {
+          "mIoU": "80.24",
+          "DSC": "89.04",
+          "ACC": "92.83",
+          "SP": "97.64",
+          "SE": "90.03"
+        },
+        "VM-UNetV2": {
+          "mIoU": "82.00",
+          "DSC": "90.15",
+          "ACC": "93.36",
+          "SP": "92.94",
+          "SE": "94.24"
+        },
+        "MHorUNet": {
+          "mIoU": "83.56",
+          "DSC": "91.04",
+          "ACC": "94.12",
+          "SP": "94.83",
+          "SE": "92.63"
+        },
+        "SwinUnet": {
+          "mIoU": "81.06",
+          "DSC": "89.54",
+          "ACC": "92.98",
+          "SP": "92.87",
+          "SE": "93.20"
+        },
+        "SGNet": {
+          "mIoU": "84.21",
+          "DSC": "91.42",
+          "ACC": "94.26",
+          "SP": "93.98",
+          "SE": "94.84"
+        }
+      },
+      "notes": "SGNet improved mIoU by an average of 3.22% and DSC by 1.73% compared to other methods. Model trained on ISIC2018 was directly applied to PH2 for external validation."
+    },
+    "Ablation Study (ISIC2018)": {
+      "metric": "mIoU, DSC",
+      "models": {
+        "Baseline": {
+          "mIoU": "80.34",
+          "DSC": "89.10"
+        },
+        "Validation1 (DDBE)": {
+          "mIoU": "81.95",
+          "DSC": "90.08"
+        },
+        "Validation2 (DDBE + STFU)": {
+          "mIoU": "82.26",
+          "DSC": "90.27"
+        },
+        "SGNet (DDBE + STFU + GMSR + SAGM)": {
+          "mIoU": "82.56",
+          "DSC": "91.02"
+        }
+      },
+      "notes": "Compared to baseline, SGNet achieved relative improvements of 2.76% in mIoU and 2.15% in DSC."
+    },
+    "Computational Efficiency": {
+      "metric": "Parameters (M), FLOPs (G), Inference Time (s)",
+      "models": {
+        "UNet": {
+          "Parameters": "32.08",
+          "FLOPs": "16.59",
+          "Inference Time": "0.008"
+        },
+        "FAT-Net": {
+          "Parameters": "28.76",
+          "FLOPs": "49.39",
+          "Inference Time": "0.035"
+        },
+        "UNet++": {
+          "Parameters": "47.20",
+          "FLOPs": "65.58",
+          "Inference Time": "0.112"
+        },
+        "UNetV2": {
+          "Parameters": "25.15",
+          "FLOPs": "43.20",
+          "Inference Time": "0.048"
+        },
+        "MFEFNet": {
+          "Parameters": "48.36",
+          "FLOPs": "14.03",
+          "Inference Time": "0.019"
+        },
+        "VM-UNet": {
+          "Parameters": "22.03",
+          "FLOPs": "4.11",
+          "Inference Time": "0.009"
+        },
+        "VM-UNetV2": {
+          "Parameters": "22.77",
+          "FLOPs": "4.40",
+          "Inference Time": "0.010"
+        },
+        "MHorUNet": {
+          "Parameters": "4.96",
+          "FLOPs": "9.19",
+          "Inference Time": "0.038"
+        },
+        "SwinUnet": {
+          "Parameters": "41.39",
+          "FLOPs": "11.37",
+          "Inference Time": "0.214"
+        },
+        "SGNet": {
+          "Parameters": "30.26",
+          "FLOPs": "7.92",
+          "Inference Time": "0.012"
+        }
+      },
+      "notes": null
+    }
+  },
+  "architecture_used": {
+    "main_model": "SGNet",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "framework": "Hybrid CNN–Mamba framework",
+      "backbone": "Visual Mamba (VMamba) encoder",
+      "encoder_channels": [
+        96,
+        192,
+        384,
+        768
+      ],
+      "modules": [
+        {
+          "name": "Dual-Domain Boundary Enhancer (DDBE)",
+          "description": "Refines boundary representations and suppresses noise through spatial and frequency-domain processing. Uses 1x1 Conv, Batch Normalization, GELU, 3x3 Conv for spatial branch, and RFFT/IRFFT with learnable complex-valued weight modulation for frequency branch."
+        },
+        {
+          "name": "Semantic-Texture Fusion Unit (STFU)",
+          "description": "Adaptively integrates low-level texture with high-level semantic features."
+        },
+        {
+          "name": "Structure-Aware Guidance Module (SAGM)",
+          "description": "Generates coarse segmentation maps to provide global structural guidance."
+        },
+        {
+          "name": "Guided Multi-Scale Refiner (GMSR)",
+          "description": "Optimizes boundary details through multi-scale semantic attention mechanism."
+        }
+      ]
+    },
+    "training_details": {
+      "optimizer": "AdamW",
+      "initial_learning_rate": "1e-3",
+      "scheduler": "CosineAnnealingLR",
+      "batch_size": 16,
+      "epochs": 100,
+      "loss_function": "BCE-Dice",
+      "hardware": "NVIDIA GeForce GTX 3090 GPU",
+      "framework": "PyTorch 2.0.1",
+      "data_augmentation": [
+        "Random flipping",
+        "Random rotation"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "description": "Outputs pixel-wise masks for skin lesion regions."
+    },
+    "approximate_parameters": "30.26 M"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "SGNet",
+    "UNet",
+    "FAT-Net",
+    "UNet++",
+    "UNetV2",
+    "MFEFNet",
+    "VM-UNet",
+    "VM-UNetV2",
+    "MHorUNet",
+    "SwinUnet",
+    "nnU-Net"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation: Random flipping and random rotation",
+    "Normalization: Applied to reduce artifacts such as hair interference",
+    "Input resizing: Images resized to 256 × 256 pixels for ISIC2017, ISIC2018, and PH2 datasets"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random flipping",
+      "details": "Applied during training to reduce artifacts and improve robustness."
+    },
+    {
+      "technique": "Random rotation",
+      "details": "Applied during training to reduce artifacts and improve robustness."
+    }
+  ],
+  "conclusions": [
+    "SGNet, a structure-guided network integrating a hybrid CNN–Mamba framework with Visual Mamba encoder, Dual-Domain Boundary Enhancer (DDBE), Semantic-Texture Fusion Unit (STFU), Structure-Aware Guidance Module (SAGM), and Guided Multi-Scale Refiner (GMSR), achieves superior skin lesion segmentation performance compared to state-of-the-art methods.",
+    "On the ISIC2017 dataset, SGNet improved mean Intersection over Union (mIoU) by an average of 4.01% and Dice Similarity Coefficient (DSC) by 2.28% compared to other methods.",
+    "On the ISIC2018 dataset, SGNet improved mIoU by an average of 2.87% and DSC by 1.52% compared to other methods.",
+    "On the PH2 dataset, used for external validation, SGNet improved mIoU by an average of 3.22% and DSC by 1.73%, demonstrating strong generalization ability on unseen data.",
+    "Statistical significance tests confirmed that SGNet's DSC improvements over baseline methods (e.g., nnUNet, SwinUnet, VM-UNetV2) were statistically significant (p < 0.05).",
+    "SGNet balances computational efficiency and segmentation accuracy, requiring 30.26 M parameters, 7.92 G FLOPs, and 0.012 s inference time, which is more efficient than models like SwinUnet (0.214 s) and UNet++ (65.58 G FLOPs).",
+    "Ablation studies confirmed the effectiveness of each proposed module (DDBE, STFU, GMSR, SAGM), with SGNet achieving relative improvements of 2.76% in mIoU and 2.15% in DSC over the baseline.",
+    "SGNet exhibits slightly lower specificity compared to some competing models on ISIC2017 and ISIC2018 datasets, which the authors attribute to the model's design emphasis on enhancing sensitivity to lesion regions and refining fine boundaries, potentially leading to increased false positives in non-lesion areas with similar visual characteristics."
+  ],
+  "important_remarks": [
+    "The PH2 dataset was used for external validation but contains only 200 images, limiting the robustness of generalization claims.",
+    "The study acknowledges that SGNet has slightly lower specificity compared to some competing models on ISIC2017 and ISIC2018, attributed to an emphasis on sensitivity which may increase false positives.",
+    "Performance degrades in cases with severe hair interference, where frequency-domain modeling struggles to suppress high-frequency artifacts, leading to mis-segmentation.",
+    "The model exhibits blurred or uncertain boundary predictions in low-contrast backgrounds where intensity differences between lesion and healthy skin are minimal.",
+    "Datasets may contain label noise due to annotator inconsistencies and blurred boundaries; the paper notes this as a potential adverse factor on segmentation performance.",
+    "No statistical significance testing was reported for the PH2 dataset results, only for ISIC2018 comparisons against specific baselines (nnUNet, SwinUnet, VM-UNetV2).",
+    "The model was trained on ISIC2018 and directly applied to PH2 without fine-tuning, which tests generalization but may not reflect optimal clinical deployment performance.",
+    "The paper does not report confidence intervals for the primary metrics, only mean values and p-values for specific comparisons."
+  ]
+}

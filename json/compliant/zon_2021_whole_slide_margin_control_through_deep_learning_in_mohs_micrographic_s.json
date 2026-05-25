@@ -1,0 +1,227 @@
+{
+  "file_name": "zon_2021_whole_slide_margin_control_through_deep_learning_in_mohs_micrographic_s.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed and evaluated deep learning models (a U-Net architecture for segmentation and a convolutional neural network for classification) to automate the detection of basal cell carcinoma (BCC) and classification of BCC-negative slides in whole-slide images from Mohs micrographic surgery."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work developing and evaluating two deep learning models (U-Net for segmentation and CNN for classification) on a dataset of 171 digitized H&E frozen slides from 70 patients. It reports specific quantitative results (Dice score of 0.66, AUC of 0.90) and concludes with a proof-of-principle application, which fits the definition of a research paper producing new results."
+  },
+  "title": "Whole-slide margin control through deep learning in Mohs micrographic surgery for basal cell carcinoma",
+  "authors": [
+    "Mike C.M. van Zon",
+    "José D. van der Waa",
+    "Mitko Veta",
+    "Gertruud A.M. Krekels"
+  ],
+  "doi": "10.1111/exd.14306",
+  "journal": "Experimental Dermatology",
+  "year": 2021,
+  "article_type": "Concise Communication",
+  "brief_summary": "This study developed and evaluated a deep learning framework to automate the detection of basal cell carcinoma (BCC) and classify BCC-negative slides in whole-slide images from Mohs micrographic surgery. The methodology utilized a U-Net architecture for tumor segmentation and a convolutional neural network for slide-level classification, trained on 171 digitized H&E frozen slides from 70 patients. The models were evaluated using five-fold cross-validation against manual ground truth annotations provided by a senior dermatologist. Quantitative results demonstrated an average Dice score of 0.66 for BCC segmentation and an area under the receiver operating characteristic curve (AUC) of 0.90 for slide classification. The authors conclude that deep learning models offer a feasible option to reduce the workload and costs associated with histological analysis in BCC care.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "The primary target for segmentation and classification. The study focused on detecting BCC in whole-slide images from Mohs micrographic surgery. The dataset included 73 BCC-positive slides and 98 BCC-negative slides. The BCC lesions included 'all common histological variants'."
+    },
+    {
+      "lesion_type": "Incidental nevi",
+      "paper_terms": [
+        "incidental nevi"
+      ],
+      "role": "Mentioned only / Confounder",
+      "details": "Mentioned in the discussion as difficult cases that the model predicts as BCC due to morphological resemblance, but not a target class for the study's primary classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise segmentation of Basal Cell Carcinoma (BCC) tumor regions in whole-slide images.",
+        "primary": false,
+        "details": "A U-Net architecture was used for pixel-wise segmentation of BCC. Performance was evaluated using Dice scores (average 0.66) against manual ground truth annotations."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Slide-level classification of whole-slide images as BCC-positive or BCC-negative.",
+        "primary": true,
+        "details": "A convolutional neural network (CNN) was used to classify whole-slide images as containing BCC or being negative. The model output probabilities for BCC presence, and the final slide-level prediction was based on the highest BCC probability obtained over all evaluated patches. Performance was evaluated using AUC (average 0.90)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "MohsA Skin Centre Cohort",
+      "description": "A private dataset of 171 digitized H&E frozen whole-slide images (WSIs) from 70 different patients who underwent Mohs micrographic surgery (MMS) for basal cell carcinoma (BCC) between October 2018 and March 2019. The slides were scanned using a Hamamatsu NaNoZoomer 2.0-XR at 40x magnification. Ground truth was established by manual annotation of tumor regions by a senior dermatologist.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC) positive",
+        "BCC negative"
+      ],
+      "counts": {
+        "total": 171,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "BCC positive": 73,
+          "BCC negative": 98
+        }
+      },
+      "use": {
+        "training": "Used for training the U-Net segmentation model and the CNN classification model via five-fold cross-validation. Each fold contained 14 patients and approximately 34 slides.",
+        "validation": "Used for validation during the five-fold cross-validation process (one fold held out per iteration).",
+        "testing": "Used for testing during the five-fold cross-validation process (one fold held out per iteration).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice score",
+    "Area under the receiver operating characteristic curve (AUC)",
+    "Receiver operating characteristic (ROC)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "To evaluate the performance of the deep learning models (U-Net segmentation and CNN classification) by dividing the dataset of 171 slides from 70 patients into five folds, repeating experiments five times with each fold serving as the test set once.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Dice score",
+      "purpose": "To quantitatively measure the overlap between the automated tumor segmentation and the manual pixel-level ground truth annotations.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Area under the receiver operating characteristic curve (AUC)",
+      "purpose": "To evaluate the slide-level classification performance of the CNN model, calculated by averaging ROC curves over each fold.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Receiver operating characteristic (ROC) curve",
+      "purpose": "To visualize and calculate the AUC for the slide-level classification model across different thresholds for each fold.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Mean and standard deviation",
+      "purpose": "To report the average performance and variability of the Dice scores and AUC values across the five folds (e.g., Dice score 0.66 ± 0.25, AUC 0.90 ± 0.08).",
+      "type": "Descriptive statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive statistics (mean and standard deviation) of Dice scores and AUC values across five-fold cross-validation."
+  },
+  "results_obtained_in_each_dataset": {
+    "MohsA Skin Centre Cohort": {
+      "split": "Five-fold cross-validation",
+      "experiment": "U-Net Segmentation and CNN Classification",
+      "models": {
+        "U-Net (Segmentation)": {
+          "Dice score (Average)": "0.66 ± 0.25",
+          "Fold 1 Dice": "0.52 ± 0.32",
+          "Fold 2 Dice": "0.77 ± 0.13",
+          "Fold 3 Dice": "0.70 ± 0.20",
+          "Fold 4 Dice": "0.66 ± 0.24",
+          "Fold 5 Dice": "0.61 ± 0.29"
+        },
+        "CNN (Classification)": {
+          "AUC (Average)": "0.90 ± 0.08",
+          "Fold 1 AUC": "0.87 ± 0.09",
+          "Fold 2 AUC": "0.92 ± 0.08",
+          "Fold 3 AUC": "0.89 ± 0.09",
+          "Fold 4 AUC": "0.93 ± 0.06",
+          "Fold 5 AUC": "0.89 ± 0.09"
+        }
+      },
+      "notes": "The dataset consisted of 171 slides from 70 patients (73 BCC-positive, 98 BCC-negative). The U-Net model segmented BCC regions, and the CNN classified slides. Fold 4 showed an outlier AUC of 0.77 in the discussion text, but Table 1 lists it as 0.93 ± 0.06; the table values are used here. Difficult cases included incidental nevi and small superficial BCCs."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two-model framework: 1) U-Net for pixel-wise segmentation of Basal Cell Carcinoma (BCC); 2) Convolutional Neural Network (CNN) for slide-level classification of BCC-positive vs. BCC-negative whole-slide images.",
+    "pretraining": "null",
+    "input_size": "U-Net: 256 × 256 patches sampled from 4× magnification (2 μm/pixel). CNN: 256 × 256 patches at 8 μm/pixel (1.25× magnification) consisting of 6 channels (RGB image data + corresponding segmentation mask).",
+    "architecture_details": {
+      "segmentation_model": "Original U-Net architecture implementation.",
+      "classification_model": "Convolutional Neural Network (CNN) applied in a patch-based fashion.",
+      "patch_overlap": "50% overlap for CNN input patches.",
+      "tissue_detection": "Simple tissue detection algorithm applied to speed up computation; only positive areas evaluated by U-Net.",
+      "augmentation": "Rotation, blurring, contrast, and colour augmentation applied to U-Net training patches."
+    },
+    "training_details": {
+      "optimizer": "null",
+      "loss_function": "null",
+      "hyperparameters": "null",
+      "training_schedule": "Five-fold cross-validation. Each fold contained 14 patients and approximately 34 slides. Each fold served as the test set once, with three folds for training and one for validation in each iteration. Experiments repeated five times."
+    },
+    "classification_or_output_head": {
+      "segmentation_output": "Pixel-wise segmentation map of BCC regions.",
+      "classification_output": "Probability that a patch contains BCC. Final slide-level prediction based on the highest BCC probability obtained over all evaluated patches."
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net",
+    "Convolutional Neural Network (CNN)"
+  ],
+  "preprocessing_techniques": [
+    "Digitization of H&E frozen slides using a Hamamatsu NaNoZoomer 2.0-XR digital slide scanner at 40x magnification (0.23 μm pixel size)",
+    "Manual annotation of tumor regions by a senior dermatologist to establish ground truth",
+    "Additional manual annotations of areas resembling BCC morphology on BCC-negative slides to prevent oversampling from hypodermis and ensure sufficient negative training data",
+    "Simple tissue detection algorithm applied to speed up computation and filter out negative areas for the U-Net segmentation model",
+    "Patch extraction: 256 × 256 patches sampled from 4x magnification (2 μm/pixel) for U-Net training, extracted from random locations within manual annotations",
+    "Patch extraction: 256 × 256 patches at 8 μm/pixel (1.25x magnification) for CNN classification input",
+    "Data augmentation for U-Net training patches: rotation, blurring, contrast, and color augmentation",
+    "Creation of 6-channel input patches for CNN consisting of RGB image data and corresponding segmentation mask",
+    "Whole-slide processing via patch-based fashion with 50% overlap for CNN classification"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Applied to U-Net training patches to prevent overfitting and accommodate for staining variation."
+    },
+    {
+      "technique": "Blurring",
+      "details": "Applied to U-Net training patches to prevent overfitting and accommodate for staining variation."
+    },
+    {
+      "technique": "Contrast adjustment",
+      "details": "Applied to U-Net training patches to prevent overfitting and accommodate for staining variation."
+    },
+    {
+      "technique": "Color augmentation",
+      "details": "Applied to U-Net training patches to prevent overfitting and accommodate for staining variation."
+    }
+  ],
+  "conclusions": [
+    "Deep learning models using whole-slide images (WSIs) are a feasible option to improve clinical workflow and reduce costs in the histological analysis of basal cell carcinoma (BCC) during Mohs micrographic surgery (MMS).",
+    "The proposed two-model framework (U-Net for segmentation and CNN for classification) demonstrated promising results with an average Dice score of 0.66 for BCC segmentation and an average AUC of 0.90 for slide-level classification.",
+    "The classification model can effectively filter out false positives generated by the segmentation model, allowing for the deprioritization or discarding of BCC-negative slides.",
+    "The segmentation model faces challenges with areas resembling BCC morphology (leading to false positives) and BCC surrounded by scar tissue (leading to missed detections).",
+    "The study is a proof-of-principle application with preliminary results based on a relatively small and diverse dataset.",
+    "Future work involves expanding the methodology to a larger dataset from multiple centers and potentially using ground truth from multiple pathologists to assess inter-observer variability.",
+    "Automated analysis of low-risk tumors and negative slides may become essential in the near future to manage the rising incidence of chronic skin cancer and reduce the burden on dermatologists and pathologists."
+  ],
+  "important_remarks": [
+    "The study is a proof-of-principle application with preliminary results based on a relatively small and diverse dataset (171 slides from 70 patients).",
+    "Ground truth was established by manual annotation by only one senior dermatologist, which limits the assessment of inter-observer variability.",
+    "The dataset is sourced from a single center (MohsA Skin Centre), raising concerns about external validation and generalizability to other populations or scanners.",
+    "The segmentation model faces challenges with areas resembling BCC morphology (leading to false positives) and BCC surrounded by scar tissue (leading to missed detections).",
+    "Fold 4 showed an outlier AUC of 0.77 in the discussion, attributed to a relatively large amount of small superficial BCCs in that test set, indicating potential variability in performance on specific tumor subtypes.",
+    "Incidental nevi were identified as difficult cases that the model predicts as BCC due to morphological resemblance, suggesting a need for more training data on such confounders.",
+    "No formal hypothesis testing, p-values, or significance tests were reported; performance was evaluated using descriptive statistics (mean and standard deviation) across five-fold cross-validation.",
+    "The study did not report on data leakage risks beyond the standard five-fold cross-validation procedure, and the small sample size increases the risk of overfitting despite augmentation techniques."
+  ]
+}

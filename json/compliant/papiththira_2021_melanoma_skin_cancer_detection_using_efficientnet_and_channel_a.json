@@ -1,0 +1,347 @@
+{
+  "file_name": "papiththira_2021_melanoma_skin_cancer_detection_using_efficientnet_and_channel_a.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep transfer learning with the EfficientNet pre-trained model and a channel attention module to classify melanoma from non-melanoma moles using clinical and dermoscopic images from the UMGC and HAM10000 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel deep transfer learning approach using EfficientNet and a channel attention module for melanoma detection. It details a specific methodology, implements the model on UMGC and HAM10000 datasets, and reports new experimental results (accuracy, sensitivity, specificity) comparing the proposed method against state-of-the-art approaches. Although published in a conference proceedings (IEEE ICIIS), it contains original research results rather than being a review or survey."
+  },
+  "title": "Melanoma Skin Cancer Detection Using EfficientNet and Channel Attention Module",
+  "authors": [
+    "S. Papiththira",
+    "T. Kokul"
+  ],
+  "doi": "10.1109/ICIIS53135.2021.9660759",
+  "journal": "2021 IEEE 16th International Conference on Industrial and Information Systems (ICIIS)",
+  "year": 2021,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a deep transfer learning approach for melanoma detection using an EfficientNet pre-trained model combined with a channel attention module to classify melanoma from non-melanoma moles. The method processes raw clinical and dermoscopic images without pre-processing to ensure real-time detection speed. The proposed models were evaluated on the UMGC and HAM10000 benchmark datasets, utilizing EfficientNet-B3 for clinical images and EfficientNet-B5 for dermoscopic images. Experimental results demonstrated that the approach outperforms state-of-the-art methods, achieving classification accuracies of 84.12% on the UMGC dataset and 96.32% on the HAM10000 dataset. The study concludes that the integration of channel attention with EfficientNet effectively boosts melanoma-specific features and improves detection performance.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "Malignant Melanoma",
+        "melanoma moles"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for detection. The study classifies melanoma from non-melanoma moles. The HAM10000 dataset contained 1113 melanoma images."
+    },
+    {
+      "lesion_type": "Non-melanoma",
+      "paper_terms": [
+        "non-melanoma",
+        "non-melanoma moles",
+        "other skin cancer",
+        "normal mole"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary classification task. The HAM10000 dataset contained 8902 non-melanoma images, which included 'other skin cancer and normal mole images'. The UMGC dataset is described as containing clinical and dermoscopic images of melanoma and non-melanoma moles."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of melanoma vs non-melanoma moles",
+        "primary": true,
+        "details": "The paper performs binary classification to distinguish between melanoma and non-melanoma (including other skin cancers and normal moles) using clinical and dermoscopic images. The model predicts discrete diagnostic categories (melanoma vs. non-melanoma) with reported classification accuracy, sensitivity, and specificity metrics (84.12% and 96.32% on UMGC and HAM10000 datasets respectively)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000",
+      "description": "A benchmark dataset containing dermatoscopic images of skin lesions. It is described as highly unbalanced, originally containing 1113 melanoma images and 8902 non-melanoma images (including other skin cancer and normal mole images). Data augmentation was applied to the melanoma class to balance the dataset, increasing the total melanoma count to 8904.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 17805,
+        "training": 10683,
+        "validation": 3562,
+        "testing": 3561,
+        "per_class": {
+          "melanoma": 8904,
+          "non_melanoma": 8902
+        }
+      },
+      "use": {
+        "training": "Used for training the EfficientNet-B5 model with a fixed training/testing split (10,683 training, 3,561 testing, 3,562 validation).",
+        "validation": "Used for validation (3,562 samples).",
+        "testing": "Used for testing (3,561 samples).",
+        "other": null
+      }
+    },
+    {
+      "name": "UMGC (University of Vavuniya Melanoma Dataset)",
+      "description": "A benchmark dataset containing clinical images of skin lesions. It is a small dataset with 170 total images. The paper notes it does not have a predefined split for training and testing.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 170,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "melanoma": 70,
+          "non_melanoma": 100
+        }
+      },
+      "use": {
+        "training": "Used for training the EfficientNet-B3 model via 5-fold cross-validation. In each fold, 3 groups were used for training.",
+        "validation": "Used for validation via 5-fold cross-validation. In each fold, 2 groups were used for validation and testing.",
+        "testing": "Used for testing via 5-fold cross-validation. In each fold, 2 groups were used for validation and testing.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "Detection Speed"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "To evaluate the performance of the proposed approach on the UMGC benchmark dataset, which did not have a predefined split for training and testing. The final performance was measured by averaging the metrics of each fold.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Averaging metrics",
+      "purpose": "To calculate the final performance metrics (accuracy, sensitivity, specificity) for the UMGC dataset by averaging the results from each fold of the 5-fold cross-validation.",
+      "type": "Aggregation"
+    },
+    {
+      "method": "Fixed training-testing split",
+      "purpose": "To evaluate the performance on the HAM10000 benchmark dataset using its predefined split (10,683 training, 3,561 testing, 3,562 validation).",
+      "type": "Data Splitting"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive statistics (accuracy, sensitivity, specificity) and qualitative statements such as 'outperforms' and 'significantly contributes' without statistical validation."
+  },
+  "results_obtained_in_each_dataset": {
+    "UMGC": {
+      "metric": [
+        "Accuracy",
+        "Sensitivity",
+        "Specificity"
+      ],
+      "models": {
+        "Proposed Approach (EfficientNet-B3 + Channel Attention)": {
+          "Accuracy": "84.12%",
+          "Sensitivity": "86.99%",
+          "Specificity": "80.00%"
+        },
+        "Proposed Approach (Without Channel Attention)": {
+          "Accuracy": "81.18%",
+          "Sensitivity": "84.00%",
+          "Specificity": "77.14%"
+        },
+        "Baseline Comparisons": {
+          "[7]": {
+            "Accuracy": "82.35%",
+            "Sensitivity": "74.28%",
+            "Specificity": "88.00%"
+          },
+          "[8]": {
+            "Accuracy": "82.00%",
+            "Sensitivity": "80.00%",
+            "Specificity": "83.00%"
+          },
+          "[14]": {
+            "Accuracy": "81.00%",
+            "Sensitivity": "81.00%",
+            "Specificity": "80.00%"
+          },
+          "[9]": {
+            "Accuracy": "81.00%",
+            "Sensitivity": "80.00%",
+            "Specificity": "81.00%"
+          },
+          "[15]": {
+            "Accuracy": "79.00%",
+            "Sensitivity": "65.00%",
+            "Specificity": "88.00%"
+          },
+          "[11]": {
+            "Accuracy": "79.00%",
+            "Sensitivity": "73.90%",
+            "Specificity": "77.80%"
+          },
+          "[18]": {
+            "Accuracy": "77.10%",
+            "Sensitivity": "80.70%",
+            "Specificity": "73.50%"
+          },
+          "[10]": {
+            "Accuracy": "76.00%",
+            "Sensitivity": "82.00%",
+            "Specificity": "71.00%"
+          }
+        }
+      },
+      "notes": "The UMGC dataset was evaluated using 5-fold cross-validation. The final performance was measured by averaging the metrics of each fold. The proposed approach outperformed state-of-the-art approaches in accuracy and sensitivity."
+    },
+    "HAM10000": {
+      "metric": [
+        "Accuracy",
+        "Sensitivity",
+        "Specificity"
+      ],
+      "models": {
+        "Proposed Approach (EfficientNet-B5 + Channel Attention)": {
+          "Accuracy": "96.32%",
+          "Sensitivity": "98.71%",
+          "Specificity": "93.94%"
+        },
+        "Baseline Comparisons": {
+          "[12]": {
+            "Accuracy": "96.10%",
+            "Sensitivity": "94.16%",
+            "Specificity": "98.03%"
+          },
+          "[13]": {
+            "Accuracy": "95.09%",
+            "Sensitivity": "91.57%",
+            "Specificity": "N/G"
+          },
+          "[2]": {
+            "Accuracy": "93.00%",
+            "Sensitivity": "60.40%",
+            "Specificity": "97.10%"
+          },
+          "[24]": {
+            "Accuracy": "92.70%",
+            "Sensitivity": "65.00%",
+            "Specificity": "97.00%"
+          },
+          "[4]": {
+            "Accuracy": "92.08%",
+            "Sensitivity": "92.53%",
+            "Specificity": "N/G"
+          },
+          "[22]": {
+            "Accuracy": "90.40%",
+            "Sensitivity": "58.50%",
+            "Specificity": "94.50%"
+          },
+          "[25]": {
+            "Accuracy": "83.23%",
+            "Sensitivity": "85.00%",
+            "Specificity": "87.00%"
+          },
+          "[35]": {
+            "Accuracy": "74.75%",
+            "Sensitivity": "72.84%",
+            "Specificity": "90.09%"
+          }
+        }
+      },
+      "notes": "The HAM10000 dataset used a fixed training/testing split (10,683 training, 3,561 testing, 3,562 validation). N/G denotes Not Given. The proposed approach outperformed state-of-the-art approaches in accuracy and sensitivity."
+    },
+    "Detection Speed": {
+      "metric": "Detection Speed in Seconds",
+      "models": {
+        "Clinical Images (EfficientNet-B3 model)": "1.82",
+        "Dermatoscopic Images (EfficientNet-B5 model)": "2.66"
+      },
+      "notes": "The proposed approach is able to identify a melanoma mole in real-time speed from a skin image."
+    }
+  },
+  "architecture_used": {
+    "main_model": "EfficientNet (EfficientNet-B3 for UMGC dataset, EfficientNet-B5 for HAM10000 dataset)",
+    "pretraining": "Pre-trained on ImageNet dataset",
+    "input_size": "188x188 for UMGC (EfficientNet-B3), 256x256 for HAM10000 (EfficientNet-B5)",
+    "architecture_details": {
+      "backbone": "EfficientNet with compound scaling",
+      "blocks": "Seven Mobile Inverted Bottleneck Convolution (MBConv) blocks cloned from EfficientNet",
+      "attention_module": "Channel Attention Module included at the end of the CNN model",
+      "attention_structure": "Global Average Pooling (GAP) -> Fully Connected (FC) layer with C/r neurons (r=24) -> Sigmoid activation -> Element-wise multiplication with input features",
+      "activation_functions": "Swish activation function used in MBConv blocks and input; Sigmoid in attention module",
+      "pooling": "Global Average Pooling (GAP) used instead of fully-connected layers for final feature aggregation"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "loss_function": "Binary cross entropy",
+      "learning_rate": 0.0001,
+      "epochs": 100,
+      "batch_size": 16,
+      "fine_tuning_strategy": "Last few convolutional layers and channel attention module trained; remaining layers of pre-trained model frozen",
+      "hardware": "NVIDIA K80 GPU via Google Colab",
+      "framework": "Python with Keras"
+    },
+    "classification_or_output_head": {
+      "type": "Global Average Pooling (GAP) followed by channel attention module",
+      "output": "Binary classification (Melanoma vs Non-melanoma)"
+    },
+    "approximate_parameters": {
+      "EfficientNet-B3": "12 Millions",
+      "EfficientNet-B5": "30 Millions"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNet-B3",
+    "EfficientNet-B5",
+    "EfficientNet-B0",
+    "EfficientNet-B1",
+    "EfficientNet-B2",
+    "EfficientNet-B4",
+    "EfficientNet-B6",
+    "EfficientNet-B7",
+    "ResNet",
+    "DenseNet-161",
+    "ResNet-200",
+    "Xception",
+    "MobileNet",
+    "Inception-V3",
+    "CNN based hierarchical classifier",
+    "Light-weight deep learning model",
+    "Scratch CNN architecture",
+    "Support Vector Machine (SVM)",
+    "Artificial Neural Networks (ANN)"
+  ],
+  "preprocessing_techniques": [
+    "No preprocessing techniques were applied to the raw clinical and dermoscopic images to ensure real-time detection speed.",
+    "Data augmentation was applied to the melanoma class of the HAM10000 dataset to balance the class distribution (increasing melanoma count from 1113 to 8904)."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Class balancing via synthetic sample generation",
+      "details": "Applied to the melanoma class of the HAM10000 dataset to balance the class distribution. Seven additional images were generated from each original melanoma image, increasing the total melanoma count from 1113 to 8904."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep transfer learning approach using EfficientNet combined with a channel attention module effectively classifies melanoma from non-melanoma moles using raw clinical and dermoscopic images without pre-processing.",
+    "The integration of a channel attention module significantly boosts melanoma-specific features and improves classification performance, as evidenced by higher accuracy, sensitivity, and specificity compared to the model without the module.",
+    "The proposed approach outperforms state-of-the-art methods on both the UMGC and HAM10000 benchmark datasets, achieving classification accuracies of 84.12% and 96.32%, respectively.",
+    "The method achieves real-time detection speeds of 1.82 seconds for clinical images (EfficientNet-B3) and 2.66 seconds for dermoscopic images (EfficientNet-B5).",
+    "The study demonstrates that deep transfer learning with EfficientNet is effective for melanoma detection even with fewer training samples, leveraging pre-trained knowledge from ImageNet.",
+    "Performance differences were observed between datasets, with the HAM10000 dataset (dermoscopic images) yielding higher performance than the UMGC dataset (clinical images), attributed to the difficulty of classifying clinical images and the larger sample size of HAM10000."
+  ],
+  "important_remarks": [
+    "The UMGC dataset is extremely small (170 images total), which limits the generalizability and statistical robustness of the results for clinical images.",
+    "The HAM10000 dataset is highly imbalanced (1113 melanoma vs 8902 non-melanoma); the paper addresses this by generating synthetic samples for the melanoma class (increasing count to 8904), which may introduce data leakage or overfitting risks if not handled with strict separation.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to validate the significance of performance improvements over state-of-the-art baselines.",
+    "The study claims 'real-time' detection speed (1.82s for clinical, 2.66s for dermoscopic), but these times likely include inference only and do not account for end-to-end system latency or mobile deployment constraints.",
+    "Performance varies significantly between datasets (84.12% on UMGC vs 96.32% on HAM10000), attributed to image type difficulty and sample size, highlighting potential bias towards dermoscopic images.",
+    "The paper does not report external validation on independent datasets beyond UMGC and HAM10000, limiting evidence of clinical applicability.",
+    "The 'non-melanoma' class in HAM10000 includes 'other skin cancer and normal mole images,' which may confuse binary classification if the goal is specifically melanoma vs. benign nevi.",
+    "The code is open-sourced, which is a strength for reproducibility, but the small sample size of UMGC remains a critical limitation for clinical deployment."
+  ]
+}

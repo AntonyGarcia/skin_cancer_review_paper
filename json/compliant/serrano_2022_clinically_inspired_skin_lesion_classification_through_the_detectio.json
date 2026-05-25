@@ -1,0 +1,628 @@
+{
+  "file_name": "serrano_2022_clinically_inspired_skin_lesion_classification_through_the_detectio.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a Convolutional Neural Network (CNN) and Deep Neural Network (DNN) architecture to classify skin lesions into Basal Cell Carcinoma (BCC) and non-BCC. The method combines original dermoscopic images with deep and handcrafted color/texture features to detect dermoscopic criteria for clinically inspired classification."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development of a new method for skin lesion classification using CNNs and handcrafted features. It includes specific sections for Methods, Results (with quantitative metrics like sensitivity, specificity, and accuracy), and Conclusions based on a newly developed annotated database of 692 BCC images. While it references prior work in the Introduction, its primary purpose is to report new technical results and validation, not to summarize existing literature."
+  },
+  "title": "Clinically Inspired Skin Lesion Classification through the Detection of Dermoscopic Criteria for Basal Cell Carcinoma",
+  "authors": [
+    "Carmen Serrano",
+    "Manuel Lazo",
+    "Amalia Serrano",
+    "Tomás Toledo‐Pastrana",
+    "Rubén Barros‐Tornay",
+    "Begoña Acha"
+  ],
+  "doi": "10.3390/jimaging8070197",
+  "journal": "J. Imaging",
+  "year": 2022,
+  "article_type": "Article",
+  "brief_summary": "This study presents a clinically inspired method to classify skin lesions as Basal Cell Carcinoma (BCC) or non-BCC by detecting specific dermoscopic criteria. The proposed approach combines a Convolutional Neural Network (CNN) with deep and handcrafted color and texture features extracted from uniform color spaces and color appearance models. The method was validated using a newly developed annotated database of 692 BCC images containing 2221 different patterns. Evaluation results demonstrate that the classifier incorporating additional color and texture features outperforms a CNN using only original images, achieving a sensitivity of 0.99, specificity of 0.94, and accuracy of 0.97. The study concludes that this methodology provides an accurate and explainable classification tool for dermatologists by mimicking their diagnostic process.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "Basal Cell Carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for classification and dermoscopic pattern detection. The study uses a newly developed annotated database of 692 BCC images."
+    },
+    {
+      "lesion_type": "Non-Basal Cell Carcinoma",
+      "paper_terms": [
+        "non-BCC",
+        "non-Basal Cell Carcinoma"
+      ],
+      "role": "Comparator class",
+      "details": "The comparator class in the binary classification task (BCC vs. non-BCC). The paper mentions 'many benign lesions' that can be confused with BCC but does not list specific non-BCC lesion types (e.g., nevus, SCC) present in the dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into Basal Cell Carcinoma (BCC) or non-BCC, and detection of specific BCC dermoscopic patterns (e.g., pigment network, ulceration, ovoid nests).",
+        "primary": true,
+        "details": "The paper explicitly states the objective is to 'classify skin lesions into BCC and non-BCC' and to 'identify the different BCC dermoscopic patterns'. The method uses a CNN to detect dermoscopic criteria (binary presence/absence of features) which are then used to determine the final BCC vs. non-BCC label. Performance metrics reported include sensitivity, specificity, accuracy, and AUC for these discrete categories."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Custom Annotated BCC Database",
+      "description": "A newly developed private database of dermoscopic images collected from patients in the Andalusian Health System (Hospital Universitario Virgen Macarena, Seville, Spain) over approximately 9 months. Images were collected via teledermatology consultations and confirmed by biopsy. The database includes annotations of specific BCC dermoscopic patterns.",
+      "classes_used": [
+        "Basal Cell Carcinoma (BCC)",
+        "Pigment Network",
+        "Ulceration",
+        "Blue-Gray Ovoid Nests",
+        "Multiple B/G Globules",
+        "Maple Leaf",
+        "Spoke-Wheel",
+        "Arborizing Telangiectasia"
+      ],
+      "counts": {
+        "total": 692,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Pigment Network": 614,
+          "Ulceration": 352,
+          "Blue-Gray Ovoid Nests": 338,
+          "Multiple B/G Globules": 150,
+          "Maple Leaf": 177,
+          "Spoke-Wheel": 64,
+          "Arborizing Telangiectasia": 526
+        }
+      },
+      "use": {
+        "training": "Used for training the CNN and classifier, combined with handcrafted color/texture features due to limited size.",
+        "validation": null,
+        "testing": "Used for testing the classification performance of BCC vs non-BCC and pattern detection.",
+        "other": "Used to develop and validate a user-friendly annotation software tool."
+      }
+    },
+    {
+      "name": "HAM10000 Database",
+      "description": "A public dataset of multi-source dermatoscopic images of common pigmented skin lesions. Non-BCC images were extracted from this database for the study's comparator class.",
+      "classes_used": [
+        "Non-Basal Cell Carcinoma (non-BCC)",
+        "Pigmented Benign Keratosis",
+        "Nevus",
+        "Lentigo",
+        "Seborrheic Keratosis",
+        "Actinic Keratosis",
+        "Melanoma",
+        "Squamous Cell Carcinoma",
+        "Hemangioma"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": 671,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as the source for non-BCC images (671 images) to build the non-BCC database for binary classification (BCC vs non-BCC).",
+        "other": "Ground truth for these images was confirmed by pathology, follow-up, expert consensus, or in vivo confocal microscopy."
+      }
+    },
+    {
+      "name": "ISIC Challenge 2018 Dataset",
+      "description": "A public dataset of BCC dermoscopic images made available during the 2018 International Skin Imaging Collaboration (ISIC) challenge. Mentioned as an example of existing public databases but not explicitly used for training or testing in the reported results.",
+      "classes_used": [
+        "Basal Cell Carcinoma (BCC)"
+      ],
+      "counts": {
+        "total": 514,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Referenced to highlight the lack of public databases with pattern segmentation; used to show example images in Figure 1."
+      }
+    },
+    {
+      "name": "ISIC Challenge 2019 Dataset",
+      "description": "A public dataset of BCC dermoscopic images made available during the 2019 International Skin Imaging Collaboration (ISIC) challenge. Mentioned in the context of limited public databases.",
+      "classes_used": [
+        "Basal Cell Carcinoma (BCC)"
+      ],
+      "counts": {
+        "total": 3323,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Referenced to highlight the lack of public databases with pattern segmentation."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Accuracy",
+    "Area Under the Curve (AUC)",
+    "Positive Predictive Value (PPV)",
+    "Confusion Matrix",
+    "Receiver Operating Characteristic (ROC) Curve"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Sensitivity, Specificity, Accuracy, Positive Predictive Value (PPV)",
+      "purpose": "To evaluate the performance of the classification models for detecting BCC dermoscopic patterns and for binary classification of BCC vs. non-BCC lesions.",
+      "type": "Performance Metrics"
+    },
+    {
+      "method": "Area Under the Curve (AUC)",
+      "purpose": "To assess the diagnostic ability of the classifiers for individual dermoscopic patterns and for the BCC vs. non-BCC classification task.",
+      "type": "Performance Metrics"
+    },
+    {
+      "method": "Confusion Matrix",
+      "purpose": "To visualize the distribution of true and false positives/negatives for the BCC vs. non-BCC classification.",
+      "type": "Evaluation Tool"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) Curve",
+      "purpose": "To illustrate the trade-off between sensitivity and specificity for the BCC vs. non-BCC classification, specifically when using CIECAM16 color quantization.",
+      "type": "Evaluation Tool"
+    },
+    {
+      "method": "Binary Cross-Entropy Loss",
+      "purpose": "Used as the loss function during the training of the neural networks to account for multiple classes potentially being assigned to the same image.",
+      "type": "Optimization/Loss Function"
+    },
+    {
+      "method": "Data Augmentation (Rotations and Flipping)",
+      "purpose": "To overcome limitations imposed by the small database size by multiplying the number of training images by 4.",
+      "type": "Data Preprocessing"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using sensitivity, specificity, accuracy, AUC, and confusion matrices, with comparisons made based on metric values rather than statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Custom Annotated BCC Database (BCC vs Non-BCC Classification)": {
+      "description": "Binary classification of lesions into Basal Cell Carcinoma (BCC) or non-BCC using the proposed method with CIECAM16 color quantization and Color Cooccurrence Matrix (CCM) features.",
+      "models": {
+        "Proposed Method (CIECAM16 + CCM)": {
+          "Sensitivity": 0.9934,
+          "Specificity": 0.9423,
+          "Accuracy": 0.9699,
+          "Positive Predictive Value (PPV)": 0.9527,
+          "AUC": 0.997
+        },
+        "Proposed Method (CIELAB + CCM)": {
+          "Sensitivity": 0.9673,
+          "Specificity": 0.9703,
+          "Accuracy": 0.9685,
+          "Positive Predictive Value (PPV)": 0.9789,
+          "AUC": null
+        }
+      },
+      "notes": "The classifier with additional color and texture features outperforms a CNN using only original images. The best results were attained when color differences were estimated in CIECAM16. Sensitivity of 0.99, specificity of 0.94, and accuracy of 0.97 are reported in the abstract as rounded values."
+    },
+    "Custom Annotated BCC Database (Dermoscopic Pattern Detection - Test 1)": {
+      "description": "Classification of dermoscopic patterns using Architecture 1 (Original RGB images only).",
+      "models": {
+        "Architecture 1 (Original RGB)": {
+          "Pigment Network": {
+            "Specificity": 0.89,
+            "Sensitivity": 0.91,
+            "AUC": 0.95
+          },
+          "Ulceration": {
+            "Specificity": 0.74,
+            "Sensitivity": 0.87,
+            "AUC": 0.87
+          },
+          "Ovoid Nest": {
+            "Specificity": 0.61,
+            "Sensitivity": 0.83,
+            "AUC": 0.77
+          },
+          "Multiple Globules": {
+            "Specificity": 0.69,
+            "Sensitivity": 0.66,
+            "AUC": 0.74
+          },
+          "Maple Leaf": {
+            "Specificity": 0.69,
+            "Sensitivity": 0.76,
+            "AUC": 0.79
+          },
+          "Spoke-Wheel": {
+            "Specificity": 0.9,
+            "Sensitivity": 0.48,
+            "AUC": 0.83
+          },
+          "Arborizing Telangiectasia": {
+            "Specificity": 0.71,
+            "Sensitivity": 0.88,
+            "AUC": 0.88
+          },
+          "Average": {
+            "Specificity": 0.75,
+            "Sensitivity": 0.77,
+            "AUC": 0.83
+          }
+        }
+      },
+      "notes": "Test 1 attained poor results. Sensitivity of 0.48 was achieved for spoke-wheel dermoscopic features. Specificity under 0.7 was attained for three dermoscopic features."
+    },
+    "Custom Annotated BCC Database (Dermoscopic Pattern Detection - Test 2)": {
+      "description": "Classification of dermoscopic patterns using Architecture 2 (Original RGB + Color-quantified images).",
+      "models": {
+        "Architecture 2 (Dual Network + CIELAB Quantization)": {
+          "Pigment Network": {
+            "Specificity": 0.95,
+            "Sensitivity": 0.97,
+            "AUC": 0.99
+          },
+          "Ulceration": {
+            "Specificity": 0.82,
+            "Sensitivity": 0.7,
+            "AUC": 0.85
+          },
+          "Ovoid Nest": {
+            "Specificity": 0.7,
+            "Sensitivity": 0.68,
+            "AUC": 0.77
+          },
+          "Multiple Globules": {
+            "Specificity": 0.74,
+            "Sensitivity": 0.63,
+            "AUC": 0.75
+          },
+          "Maple Leaf": {
+            "Specificity": 0.86,
+            "Sensitivity": 0.72,
+            "AUC": 0.86
+          },
+          "Spoke-Wheel": {
+            "Specificity": 0.95,
+            "Sensitivity": 0.36,
+            "AUC": 0.88
+          },
+          "Arborizing Telangiectasia": {
+            "Specificity": 0.77,
+            "Sensitivity": 0.79,
+            "AUC": 0.85
+          },
+          "Average": {
+            "Specificity": 0.83,
+            "Sensitivity": 0.69,
+            "AUC": 0.85
+          }
+        },
+        "Architecture 2 (Dual Network + CIECAM16 Quantization)": {
+          "Pigment Network": {
+            "Specificity": 0.94,
+            "Sensitivity": 0.95,
+            "AUC": 0.98
+          },
+          "Ulceration": {
+            "Specificity": 0.81,
+            "Sensitivity": 0.86,
+            "AUC": 0.91
+          },
+          "Ovoid Nest": {
+            "Specificity": 0.65,
+            "Sensitivity": 0.73,
+            "AUC": 0.76
+          },
+          "Multiple Globules": {
+            "Specificity": 0.6,
+            "Sensitivity": 0.68,
+            "AUC": 0.71
+          },
+          "Maple Leaf": {
+            "Specificity": 0.78,
+            "Sensitivity": 0.72,
+            "AUC": 0.82
+          },
+          "Spoke-Wheel": {
+            "Specificity": 0.84,
+            "Sensitivity": 0.73,
+            "AUC": 0.85
+          },
+          "Arborizing Telangiectasia": {
+            "Specificity": 0.73,
+            "Sensitivity": 0.88,
+            "AUC": 0.87
+          },
+          "Average": {
+            "Specificity": 0.77,
+            "Sensitivity": 0.79,
+            "AUC": 0.84
+          }
+        }
+      },
+      "notes": "The best classification results in Test 2 were attained with the dual network fed with the original image plus the CIECAM16-quantized image. Poor results for spoke-wheel and multi-globules (AUC under 0.8) are attributed to limited training data and class imbalance."
+    },
+    "Custom Annotated BCC Database (Dermoscopic Pattern Detection - Test 3)": {
+      "description": "Classification of dermoscopic patterns using Architecture 3 (Original RGB + Color-quantified images + Texture features).",
+      "models": {
+        "Architecture 3 (Triple Network + CIELAB Quantization + GLCM L*)": {
+          "Pigment Network": {
+            "Specificity": 0.92,
+            "Sensitivity": 0.99,
+            "AUC": 0.99
+          },
+          "Ulceration": {
+            "Specificity": 0.8,
+            "Sensitivity": 0.82,
+            "AUC": 0.9
+          },
+          "Ovoid Nest": {
+            "Specificity": 0.71,
+            "Sensitivity": 0.68,
+            "AUC": 0.8
+          },
+          "Multiple Globules": {
+            "Specificity": 0.78,
+            "Sensitivity": 0.77,
+            "AUC": 0.86
+          },
+          "Maple Leaf": {
+            "Specificity": 0.77,
+            "Sensitivity": 0.69,
+            "AUC": 0.81
+          },
+          "Spoke-Wheel": {
+            "Specificity": 0.72,
+            "Sensitivity": 0.86,
+            "AUC": 0.89
+          },
+          "Arborizing Telangiectasia": {
+            "Specificity": 0.72,
+            "Sensitivity": 0.85,
+            "AUC": 0.87
+          },
+          "Average": {
+            "Specificity": 0.77,
+            "Sensitivity": 0.81,
+            "AUC": 0.87
+          }
+        },
+        "Architecture 3 (Triple Network + CIECAM16 Quantization + GLCM L*)": {
+          "Pigment Network": {
+            "Specificity": 0.97,
+            "Sensitivity": 0.97,
+            "AUC": 0.98
+          },
+          "Ulceration": {
+            "Specificity": 0.76,
+            "Sensitivity": 0.81,
+            "AUC": 0.87
+          },
+          "Ovoid Nest": {
+            "Specificity": 0.6,
+            "Sensitivity": 0.88,
+            "AUC": 0.79
+          },
+          "Multiple Globules": {
+            "Specificity": 0.78,
+            "Sensitivity": 0.79,
+            "AUC": 0.86
+          },
+          "Maple Leaf": {
+            "Specificity": 0.8,
+            "Sensitivity": 0.77,
+            "AUC": 0.85
+          },
+          "Spoke-Wheel": {
+            "Specificity": 0.79,
+            "Sensitivity": 0.71,
+            "AUC": 0.89
+          },
+          "Arborizing Telangiectasia": {
+            "Specificity": 0.73,
+            "Sensitivity": 0.79,
+            "AUC": 0.89
+          },
+          "Average": {
+            "Specificity": 0.78,
+            "Sensitivity": 0.82,
+            "AUC": 0.88
+          }
+        },
+        "Architecture 3 (Triple Network + CIELAB Quantization + CIELAB CCM)": {
+          "Pigment Network": {
+            "Specificity": 0.98,
+            "Sensitivity": 0.97,
+            "AUC": 0.99
+          },
+          "Ulceration": {
+            "Specificity": 0.82,
+            "Sensitivity": 0.75,
+            "AUC": 0.89
+          },
+          "Ovoid Nest": {
+            "Specificity": 0.74,
+            "Sensitivity": 0.84,
+            "AUC": 0.86
+          },
+          "Multiple Globules": {
+            "Specificity": 0.78,
+            "Sensitivity": 0.68,
+            "AUC": 0.8
+          },
+          "Maple Leaf": {
+            "Specificity": 0.78,
+            "Sensitivity": 0.68,
+            "AUC": 0.85
+          },
+          "Spoke-Wheel": {
+            "Specificity": 0.89,
+            "Sensitivity": 0.97,
+            "AUC": 0.96
+          },
+          "Arborizing Telangiectasia": {
+            "Specificity": 0.76,
+            "Sensitivity": 0.87,
+            "AUC": 0.91
+          },
+          "Average": {
+            "Specificity": 0.82,
+            "Sensitivity": 0.82,
+            "AUC": 0.89
+          }
+        },
+        "Architecture 3 (Triple Network + CIECAM16 Quantization + CIECAM16 CCM)": {
+          "Pigment Network": {
+            "Specificity": 0.98,
+            "Sensitivity": 0.97,
+            "AUC": 0.99
+          },
+          "Ulceration": {
+            "Specificity": 0.86,
+            "Sensitivity": 0.92,
+            "AUC": 0.94
+          },
+          "Ovoid Nest": {
+            "Specificity": 0.85,
+            "Sensitivity": 0.83,
+            "AUC": 0.91
+          },
+          "Multiple Globules": {
+            "Specificity": 0.79,
+            "Sensitivity": 0.87,
+            "AUC": 0.89
+          },
+          "Maple Leaf": {
+            "Specificity": 0.72,
+            "Sensitivity": 0.82,
+            "AUC": 0.82
+          },
+          "Spoke-Wheel": {
+            "Specificity": 0.87,
+            "Sensitivity": 0.93,
+            "AUC": 0.96
+          },
+          "Arborizing Telangiectasia": {
+            "Specificity": 0.68,
+            "Sensitivity": 0.99,
+            "AUC": 0.91
+          },
+          "Average": {
+            "Specificity": 0.82,
+            "Sensitivity": 0.9,
+            "AUC": 0.92
+          }
+        }
+      },
+      "notes": "Introduction of GLCM parameters improved results slightly. CCM parameters improved classification further, with AUC over 0.8 for all BCC feature classifications. CIECAM16 quantization yielded slightly better results than CIELAB."
+    }
+  },
+  "architecture_used": {
+    "main_model": "VGG16 (Convolutional Neural Network)",
+    "pretraining": "First convolutional layers pre-trained with the ImageNet dataset",
+    "input_size": "256 × 256 pixels",
+    "architecture_details": {
+      "base_architecture": "VGG16",
+      "configurations": [
+        {
+          "name": "Architecture 1",
+          "description": "Single VGG16 CNN with original RGB images as input, followed by one fully connected layer."
+        },
+        {
+          "name": "Architecture 2 (Dual Classification)",
+          "description": "Two parallel VGG16 CNNs processing original RGB and color-quantized images (CIELAB or CIECAM16), followed by fully connected layers. Outputs concatenated and fed into a Multilayer Perceptron (MLP) classifier."
+        },
+        {
+          "name": "Architecture 3 (Triple Classification)",
+          "description": "Dual classification module (original RGB + color-quantized images via VGG16s) combined with texture features (GLCM or Color Cooccurrence Matrix). Texture descriptors pass through an MLP classifier before concatenation with the dual module outputs, which then feed a final MLP classifier."
+        }
+      ],
+      "layers": "Convolutional layers from VGG16, new fully connected layers (FCL) optimized for the application, and Multilayer Perceptron (MLP) classifiers for concatenation and final classification.",
+      "heads": "7 neurons in the last layer corresponding to 7 BCC patterns (Pigment Network, Ulceration, Blue-Gray Ovoid Nests, Multiple B/G Globules, Maple Leaf, Spoke-Wheel, Arborizing Telangiectasia). Each neuron provides a probability thresholded for final classification.",
+      "classifier_head": "Multilayer Perceptron (MLP) for concatenating outputs and final classification; fully connected layers optimized for the specific problem."
+    },
+    "training_details": {
+      "optimizer": "AdamGrad",
+      "loss_function": "Binary Cross-Entropy",
+      "batch_size": 32,
+      "learning_rate": "Adaptive",
+      "fine_tuning": "New fully connected layers and last convolutional layers were fine-tuned for the specific problem."
+    },
+    "classification_or_output_head": {
+      "type": "Multilayer Perceptron (MLP)",
+      "output_units": 7,
+      "output_type": "Probability per class (thresholded for binary presence/absence of dermoscopic patterns)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Convolutional Neural Network (CNN)",
+    "Deep Neural Network (DNN)",
+    "VGG16",
+    "Multilayer Perceptron (MLP)",
+    "Architecture 1 (Single VGG16 CNN with original RGB images)",
+    "Architecture 2 (Dual VGG16 CNNs with original RGB and color-quantized images)",
+    "Architecture 3 (Triple classification with VGG16s, color-quantized images, and texture features)",
+    "GLCM (Gray-Level Co-occurrence Matrix) texture feature extractor",
+    "CCM (Color Co-occurrence Matrix) texture feature extractor"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation: Rotations (90°, 180°, 270°) and random horizontal and vertical flipping to multiply training images by 4.",
+    "Color space transformation: Conversion of original RGB images into uniform color spaces (CIELAB, CIELUV) and color appearance models (CIECAM16) for color quantization.",
+    "Texture feature extraction: Calculation of Gray-Level Co-occurrence Matrix (GLCM) features from the lightness component (L*) and Color Co-occurrence Matrix (CCM) features.",
+    "Color normalization: Explicitly not applied, as images were taken under the same conditions and color transformation was avoided for data augmentation to preserve diagnostic color information."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms (Rotations and Flipping)",
+      "details": "Applied to multiply the number of training images by 4 (from 1371 to 5484). Transformations included 90°, 180°, and 270° rotations, as well as random horizontal and vertical flipping."
+    },
+    {
+      "technique": "Color Normalization",
+      "details": "Not applied. The authors explicitly avoided color normalization and color transformation for data augmentation to preserve diagnostic color information, as images were taken under the same conditions."
+    }
+  ],
+  "conclusions": [
+    "The proposed methodology, which combines a Deep Neural Network (DNN) with original dermoscopic images, quantized color images (using CIECAM16), and handcrafted color-texture features (Color Cooccurrence Matrix), successfully detects BCC dermoscopic patterns and classifies lesions as BCC or non-BCC.",
+    "The integration of color and texture features significantly improves classification performance compared to a DNN using only original RGB images, increasing specificity from 0.75 to 0.82, sensitivity from 0.77 to 0.90, and AUC from 0.83 to 0.92 for pattern detection.",
+    "The proposed color cooccurrence matrix (CCM) features improve classification results over Gray-Level Co-occurrence Matrix (GLCM) features, achieving an AUC over 0.8 for all BCC feature classifications.",
+    "When classifying lesions into BCC versus non-BCC based on detected dermoscopic features, the method achieved a sensitivity of 0.9934, specificity of 0.9423, and accuracy of 0.9699.",
+    "The classification is clinically explainable because it is based on the detection of specific dermoscopic features that dermatologists use for diagnosis, providing physicians with an explanation alongside the binary classification.",
+    "The study acknowledges that the small size of the retrospective database limited the quality of the results, particularly for rare patterns like spoke-wheel and multi-globules, and notes that the real-world applicability of such systems remains unknown due to the retrospective nature of the data."
+  ],
+  "important_remarks": [
+    "The study relies on a small, retrospective database of 692 BCC images collected from a single center (Hospital Universitario Virgen Macarena), which limits the generalizability and real-world applicability of the results.",
+    "The non-BCC comparator class (671 images) was derived from the public HAM10000 dataset, introducing potential population and dataset bias compared to the proprietary BCC data.",
+    "Performance for rare dermoscopic patterns (e.g., spoke-wheel, multiple globules) was poor (AUC < 0.8) due to significant class imbalance and limited training data for these specific features.",
+    "The paper does not report formal statistical significance testing (p-values or confidence intervals) for the performance comparisons; results are compared based on metric values alone.",
+    "Data leakage risks are present as the non-BCC images were sourced from a public dataset (HAM10000) while BCC images were private, potentially affecting the independence of the test set if overlap with other studies exists.",
+    "The intended clinical use is as a prioritization tool for teledermatology to reduce dermatologist workload, but prospective validation is required to confirm real-world utility.",
+    "The study followed the STARD 2015 guidelines for reporting diagnostic accuracy, enhancing the transparency of the diagnostic test evaluation."
+  ]
+}

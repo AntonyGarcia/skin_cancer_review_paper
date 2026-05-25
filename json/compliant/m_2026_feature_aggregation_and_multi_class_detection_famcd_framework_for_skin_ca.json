@@ -1,0 +1,269 @@
+{
+  "file_name": "m_2026_feature_aggregation_and_multi_class_detection_famcd_framework_for_skin_ca.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning framework (FAMCD) for multi-class skin cancer classification (melanoma, pre-melanoma, non-melanoma) using the HAM10000 dataset. It employs a fine-tuned EfficientNetB3 model for feature extraction, U-Net for lesion segmentation, Monte Carlo dropout for uncertainty estimation, and LIME for explainable AI visualizations."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new framework (FAMCD) for skin cancer classification. It details specific methods including feature extraction, model architecture (EfficientNetB3, U-Net), uncertainty estimation (Monte Carlo dropout), and evaluation on the HAM10000 dataset with reported metrics (accuracy, AUC-ROC, TUI, BPS, SCE). Although published in a conference proceedings (ICITIIT), it contains original results and technical contributions rather than summarizing prior literature."
+  },
+  "title": "Feature Aggregation and Multi-Class Detection (FAMCD) Framework for Skin Cancer Classification",
+  "authors": [
+    "Ifjaz Ahmed",
+    "M Sahithy Ayyagari",
+    "Uma Maheswari M",
+    "Premaladha Jayaraman"
+  ],
+  "doi": "10.1109/ICITIIT68860.2026.11499731",
+  "journal": "2026 International Conference on Innovative Trends in Information Technology (ICITIIT)",
+  "year": 2026,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes the FAMCD framework for multi-class skin cancer classification into non-melanoma, pre-melanoma, and melanoma categories using the HAM10000 dataset. The system integrates hair removal preprocessing, U-Net-based lesion segmentation, and feature extraction combining handcrafted ABCD-rule features with deep features from a fine-tuned EfficientNetB3 model. To address reliability, the framework employs Monte Carlo dropout for uncertainty estimation and LIME for explainable AI visualizations. Evaluation metrics included standard classification scores and three novel measures: Total Uncertainty Index (TUI), Boundary Preservation Score (BPS), and Structure Consistency Error (SCE). The model achieved an overall accuracy of 86.16% and a macro-AUC-ROC of 0.8151, though it showed limitations in handling class imbalance with a balanced accuracy of 0.3562. The results suggest that while the system offers strong interpretability and uncertainty quantification, further optimization is needed for rare classes and boundary precision.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the three primary classes in the multi-class classification task (non-melanoma, pre-melanoma, melanoma) using the HAM10000 dataset. The paper notes the model performs poorly on rare classes like pre-melanoma compared to the majority class (implied to be melanoma or non-melanoma depending on specific split, but explicitly states 'rare, like pre-melanoma' and 'majority class' distinction)."
+    },
+    {
+      "lesion_type": "Pre-melanoma",
+      "paper_terms": [
+        "pre-melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the three primary classes in the multi-class classification task. Identified as a 'rare' class with which the model had limitations (low balanced accuracy and macro recall)."
+    },
+    {
+      "lesion_type": "Non-melanoma",
+      "paper_terms": [
+        "non-melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the three primary classes in the multi-class classification task. The paper mentions class imbalance between pre-melanoma and melanoma, implying non-melanoma is the third category in the HAM10000 taxonomy used."
+    },
+    {
+      "lesion_type": "Benign lesions",
+      "paper_terms": [
+        "benign lesions",
+        "harmless-looking skin spots",
+        "benign"
+      ],
+      "role": "Comparator class / Mentioned only",
+      "details": "Referenced in the context of distinguishing malignant from benign lesions and as 'harmless-looking skin spots' that are often missed. The 'non-melanoma' class in HAM10000 typically includes benign conditions like nevi, seborrheic keratosis, etc., but the paper does not list specific benign subtypes (e.g., nevus, BCC, SCC) individually as separate experimental targets, grouping them under 'non-melanoma' or general 'benign'."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Multi-class skin cancer diagnosis (non-melanoma, pre-melanoma, melanoma) using the HAM10000 dataset.",
+        "primary": true,
+        "details": "The paper explicitly describes a 'multi-class detection' and 'multi-class skin lesion classification' task. The model predicts discrete diagnostic categories (non-melanoma, pre-melanoma, melanoma) using a hybrid architecture of EfficientNetB3 and Gradient Boosted Classifier (GBC). Evaluation metrics include accuracy, macro-AUC-ROC, balanced accuracy, macro recall, and macro F1-score, which are standard for classification tasks. While segmentation (U-Net) and uncertainty estimation (Monte Carlo Dropout) are components of the pipeline, the primary predictive output is the class label."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion boundary/region mask.",
+        "primary": false,
+        "details": "The framework includes a U-Net architecture for 'lesion segmentation' to extract the area of suspicion. Metrics like Boundary Preservation Score (BPS) and Structure Consistency Error (SCE) are used to evaluate the quality of the predicted segmentation masks against ground truth, but this serves as a preprocessing/feature extraction step for the primary classification task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000",
+      "description": "A public dermoscopic image dataset comprising more than 10,000 images, used for multi-class skin cancer classification. The dataset was relabeled into 3 classes for this study.",
+      "classes_used": [
+        "Non-melanoma",
+        "Pre-melanoma",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 7010,
+        "validation": 1502,
+        "testing": 1503,
+        "per_class": {
+          "Non-melanoma": 8575,
+          "Pre-melanoma": 327,
+          "Melanoma": 1113
+        }
+      },
+      "use": {
+        "training": "Used for training the FAMCD framework, including the fine-tuned EfficientNetB3 model and the Gradient Boosted Classifier (GBC), with stratified sampling to maintain class distribution.",
+        "validation": "Used for validation during the training process (1502 images).",
+        "testing": "Used for final evaluation of classification performance (accuracy, AUC-ROC, balanced accuracy, macro recall, macro F1-score) and uncertainty metrics (TUI, BPS, SCE) (1503 images).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Macro-AUC-ROC",
+    "Balanced Accuracy",
+    "Macro Recall",
+    "Macro F1-score",
+    "Total Uncertainty Index (TUI)",
+    "Boundary Preservation Score (BPS)",
+    "Structure Consistency Error (SCE)",
+    "Predictive Entropy",
+    "Mean Variance",
+    "Dice Score",
+    "Jaccard Index",
+    "Confusion Matrix",
+    "Precision",
+    "Recall",
+    "F1-score",
+    "Hausdorff Distance"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Monte Carlo Dropout",
+      "purpose": "To approximate epistemic uncertainty by generating multiple stochastic forward passes (10 passes) during inference to assess prediction stability and confidence.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Predictive Entropy",
+      "purpose": "To measure the model's degree of uncertainty across classes for each prediction, indicating how equally probable the model considers multiple classes.",
+      "type": "Uncertainty metric"
+    },
+    {
+      "method": "Mean Variance",
+      "purpose": "To calculate the spread or variance in predicted probabilities across the 10 Monte Carlo samples, establishing confidence stability for each sample.",
+      "type": "Uncertainty metric"
+    },
+    {
+      "method": "Total Uncertainty Index (TUI)",
+      "purpose": "To quantify and order predictions by reliability, combining variance and predictive entropy into a single score to identify questionable or difficult cases requiring expert examination.",
+      "type": "Uncertainty metric"
+    },
+    {
+      "method": "Boundary Preservation Score (BPS)",
+      "purpose": "To measure the alignment between predicted and ground truth lesion boundaries, serving as a metric for boundary precision and structural consistency.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Structure Consistency Error (SCE)",
+      "purpose": "To quantify the difference in shape between predicted and true structures, measured as the average symmetric surface distance (Hausdorff distance) between contours.",
+      "type": "Evaluation metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. It reports descriptive performance metrics (accuracy, AUC-ROC, balanced accuracy, etc.) and uncertainty indices (TUI, BPS, SCE) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "split": "Test set (1503 images)",
+      "models": {
+        "FAMCD (Feature Aggregation and Multi-Class Detection)": {
+          "overall_accuracy": "0.8616",
+          "macro_AUC_ROC": "0.8151",
+          "balanced_accuracy": "0.3562",
+          "macro_recall": "0.3562",
+          "macro_F1_score": "0.3519",
+          "Total_Uncertainty_Index_TUI": "1.0847",
+          "Boundary_Preservation_Score_BPS": "0.4000",
+          "Structure_Consistency_Error_SCE": "0.4875"
+        }
+      },
+      "notes": "The model showed limitations in handling class imbalance, particularly between pre-melanoma and melanoma classes. The BPS score of 0.4000 indicates room for improvement in lesion boundary detection. The SCE of 0.4875 corresponds to 80% retained data/structure consistency. The system achieved a confidence retention of 80%."
+    }
+  },
+  "architecture_used": {
+    "main_model": "FAMCD (Feature Aggregation and Multi-Class Detection) framework, a hybrid system combining EfficientNetB3 for feature extraction and Gradient Boosted Classifier (GBC) for classification.",
+    "pretraining": "EfficientNetB3 was pre-trained (implied by 'fine-tuned' and standard practice, though specific pre-training dataset like ImageNet is not explicitly named in the provided text, it is a standard pretrained model).",
+    "input_size": "128x128 pixels (resized from original 600x450). EfficientNetB3 conceptual input resolution is 300x300.",
+    "architecture_details": {
+      "backbone": "EfficientNetB3",
+      "backbone_structure": "Stem, 7 Stages (containing repeated MBConv blocks), and a Head. Scaling coefficients: Depth (d=αϕ, α≈3.0), Width (w=βϕ, β=1.2), Resolution (r=γϕ, γ=1.25).",
+      "segmentation_component": "U-Net with boundary refinement (Otsu thresholding and contour alignment).",
+      "feature_extraction": "Hybrid aggregation of handcrafted features (ABCD rule: Asymmetry, Border irregularity, Color variance, Diameter) and deep features from EfficientNetB3.",
+      "classifier": "Gradient Boosted Classifier (GBC)",
+      "regularization": "Frequency-domain dropout (converting feature maps to frequency domain and dropping random frequency components) and standard dropout.",
+      "augmentation": "Mix-up augmentation."
+    },
+    "training_details": {
+      "loss_function": "Focal loss (used to overcome class imbalance during EfficientNetB3 fine-tuning).",
+      "optimizer": "Not explicitly reported.",
+      "hyperparameters": {
+        "mc_dropout_passes": 10,
+        "efficientnet_scaling": {
+          "depth_coefficient_alpha": "Approximately 3.0",
+          "width_coefficient_beta": 1.2,
+          "resolution_coefficient_gamma": 1.25
+        }
+      },
+      "training_schedule": "Not explicitly reported."
+    },
+    "classification_or_output_head": {
+      "type": "Gradient Boosted Classifier (GBC)",
+      "input_to_head": "Concatenated handcrafted features and deep features from EfficientNetB3.",
+      "classes": [
+        "Non-melanoma",
+        "Pre-melanoma",
+        "Melanoma"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "FAMCD (Feature Aggregation and Multi-Class Detection) framework",
+    "EfficientNetB3",
+    "Gradient Boosted Classifier (GBC)",
+    "U-Net",
+    "Monte Carlo Dropout",
+    "LIME (Local Interpretable Model-agnostic Explanations)",
+    "ResNet",
+    "DenseNet",
+    "InceptionV3",
+    "K-Nearest Neighbors (KNN)",
+    "Random Forests (RF)",
+    "Support Vector Machines (SVMs)"
+  ],
+  "preprocessing_techniques": [
+    "Hair artifact removal using a black-hat morphological filter for identification, followed by binary thresholding and inpainting to fill hair pixels with surrounding skin texture",
+    "Image resizing from original 600x450 pixels to 128x128 pixels",
+    "Pixel value normalization/scaling between 0 and 1",
+    "Conversion of masked lesion areas to greyscale for feature extraction",
+    "Otsu thresholding for segmentation mask post-processing",
+    "Contour alignment for boundary perfection in segmentation masks",
+    "Stratified data splitting to maintain class distribution across training, validation, and test sets"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Mix-up augmentation",
+      "details": "Used during the training of the fine-tuned EfficientNetB3 model to further generalize the model."
+    }
+  ],
+  "conclusions": [
+    "The proposed FAMCD framework, which integrates handcrafted ABCD-rule features with deep features from a fine-tuned EfficientNetB3 model and a Gradient Boosted Classifier, achieved an overall accuracy of 86.16% and a macro-AUC-ROC of 0.8151 on the HAM10000 dataset.",
+    "The model demonstrated significant limitations in handling class imbalance, evidenced by a low balanced accuracy (0.3562), macro recall (0.3562), and macro F1-score (0.3519), particularly performing poorly on the rare pre-melanoma class compared to the majority class.",
+    "The framework successfully incorporated uncertainty estimation via Monte Carlo Dropout, resulting in a Total Uncertainty Index (TUI) of 1.0847, which helps flag vague or high-uncertainty predictions for expert review.",
+    "The system achieved a Boundary Preservation Score (BPS) of 0.4000, indicating that lesion boundary detection requires further optimization, and a Structure Consistency Error (SCE) of 0.4875, corresponding to 80% retained data/structure consistency.",
+    "The integration of LIME for explainable AI provided intuitive visual explanations that enhance physician understanding of the model's reasoning, fostering greater trust in its decisions.",
+    "Frequency-domain dropout was identified as a novel technique that enhances generalization by avoiding fitting to noise, complementing the hybrid feature aggregation approach.",
+    "While the system offers strong interpretability and uncertainty quantification, further optimization is needed for rare classes and boundary precision to improve clinical readiness and real-world deployment."
+  ],
+  "important_remarks": [
+    "The model exhibits significant class imbalance issues, performing poorly on the rare 'pre-melanoma' class (balanced accuracy 0.3562, macro recall 0.3562) despite high overall accuracy (0.8616).",
+    "The study relies exclusively on the HAM10000 dataset, which may introduce population bias and limits the generalizability of the results to other demographics or imaging devices.",
+    "External validation is absent; the framework was not tested on independent, multi-center datasets, raising concerns about real-world clinical deployment robustness.",
+    "Lesion boundary detection is weak, evidenced by a low Boundary Preservation Score (BPS) of 0.4000, indicating potential inaccuracies in segmentation critical for surgical planning.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to validate the significance of the performance improvements over baseline methods.",
+    "The paper does not report the optimizer used for training the EfficientNetB3 model, limiting reproducibility of the deep learning component.",
+    "The framework uses a hybrid approach (EfficientNetB3 + Gradient Boosted Classifier) rather than an end-to-end deep learning model, which may complicate optimization and deployment.",
+    "Uncertainty estimation via Monte Carlo Dropout (10 passes) adds computational overhead during inference, which may impact real-time clinical utility.",
+    "The study is published in a conference proceeding (ICITIIT 2026), which typically has less rigorous peer review compared to high-impact journals."
+  ]
+}

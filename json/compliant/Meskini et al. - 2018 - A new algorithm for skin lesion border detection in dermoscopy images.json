@@ -1,0 +1,187 @@
+{
+  "file_name": "Meskini et al. - 2018 - A new algorithm for skin lesion border detection in dermoscopy images.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses computational algorithms for skin lesion border detection in dermoscopy images, specifically employing Particle Swarm Optimization (PSO) to select optimal RGB-to-gray conversion coefficients, Otsu's method for shading detection and initial contouring, and the Chan-Vese active contour model for segmentation. These are computational modeling and optimization techniques used to automate the segmentation task in a dermatology context."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents an original algorithm for skin lesion border detection, detailing specific methods (Particle Swarm Optimization, Chan-Vese active contour), a dataset of 145 dermoscopic images, and quantitative results (94% accuracy, 78.5% sensitivity, 99% specificity). It includes sections for Background, Methods, Results, and Conclusion, indicating it is an original experimental study rather than a review."
+  },
+  "title": "A New Algorithm for Skin Lesion Border Detection in Dermoscopy Images",
+  "authors": [
+    "Meskini E.",
+    "Helfroush M. S.",
+    "Kazemi K.",
+    "Sepaskhah M."
+  ],
+  "doi": null,
+  "journal": "J Biomed Phys Eng",
+  "year": 2018,
+  "article_type": "Original research article",
+  "brief_summary": "This study proposes a new algorithm for automated skin lesion border detection in dermoscopy images to support computer-aided diagnosis of melanoma. The method employs Particle Swarm Optimization to select optimal RGB-to-gray conversion coefficients and uses a multi-Otsu thresholding scheme for initial contouring before applying the Chan-Vese active contour model for final segmentation. Preprocessing steps include hair attenuation and shading effect removal to address common artifacts. The algorithm was evaluated on a dataset of 145 dermoscopic images, comprising 79 benign and 75 melanoma cases, with expert-traced boundaries serving as the gold standard. The proposed method achieved a mean accuracy of 94%, sensitivity of 78.5%, and specificity of 99%, outperforming a competing edge-based algorithm. The results indicate that the proposed approach accurately segments lesions while maintaining lower computational complexity compared to existing methods.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "melanoma lesion"
+      ],
+      "role": "Target class",
+      "details": "75 cases of melanoma lesion were included in the dataset of 145 dermoscopic images used for evaluation."
+    },
+    {
+      "lesion_type": "Benign lesion",
+      "paper_terms": [
+        "benign lesion",
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "79 cases of benign lesion were included in the dataset of 145 dermoscopic images used for evaluation."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion border/contour in dermoscopy images",
+        "primary": true,
+        "details": "The paper proposes an algorithm for automated skin lesion border detection (segmentation) using Chan-Vese active contours. The model predicts a binary mask or contour delineating the lesion from the background. Evaluation metrics include accuracy, sensitivity, and specificity based on pixel-wise comparison with expert-traced ground truth boundaries."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Dermoscopy Atlas",
+      "description": "A collection of dermoscopic images obtained from the Dermoscopy Atlas (referenced as [7] in the text, corresponding to Dermis.net). The images were RGB format with a resolution of 980x720 pixels.",
+      "classes_used": [
+        "Benign lesion",
+        "Melanoma lesion"
+      ],
+      "counts": {
+        "total": 145,
+        "training": null,
+        "validation": null,
+        "testing": 145,
+        "per_class": {
+          "Benign lesion": 79,
+          "Melanoma lesion": 75
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "The entire dataset of 145 images was used to evaluate the proposed segmentation algorithm. Expert-traced boundaries served as the gold standard for evaluation.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics (accuracy, sensitivity, specificity) and qualitative comparison with a competing method."
+  },
+  "results_obtained_in_each_dataset": {
+    "Dermoscopy Atlas (145 images: 79 benign, 75 melanoma)": {
+      "metric": [
+        "Accuracy",
+        "Sensitivity",
+        "Specificity"
+      ],
+      "models": {
+        "Proposed Method (Chan-Vese active contour with PSO-optimized RGB-to-gray conversion, multi-Otsu initial contour, hair/shading attenuation)": {
+          "Accuracy": "94%",
+          "Sensitivity": "78.5%",
+          "Specificity": "99%"
+        },
+        "Sáez et al. [18] (Edge-based method using all three RGB channels)": {
+          "Accuracy": "84.6%",
+          "Sensitivity": "58%",
+          "Specificity": "99%"
+        }
+      },
+      "notes": "The proposed method achieved a mean accuracy of 94%, sensitivity of 78.5%, and specificity of 99%. It outperformed the competing edge-based algorithm by Sáez et al. [18], which achieved 84.6% accuracy and 58% sensitivity. Both methods achieved 99% specificity. The paper notes that specificity is high for most algorithms due to the large background area, but the proposed method showed superior lesion segmentation. The proposed method also has lower computational complexity than the competing method."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Chan-Vese active contour model (region-based geometric active contour)",
+    "pretraining": null,
+    "input_size": "980x720 pixels (RGB images)",
+    "architecture_details": {
+      "model_type": "Active Contour / Level Set Method",
+      "core_algorithm": "Chan-Vese variational framework for segmenting an input image into two separated homogeneous regions",
+      "preprocessing_steps": [
+        "Hair attenuation using Tossie et al. method and restoration via average intensity of neighboring pixels (m=9 window)",
+        "Shading effect detection using Otsu algorithm and removal using method from [13]",
+        "RGB to Gray Level conversion using Particle Swarm Optimization (PSO) to select optimal weights [wr, wg, wb]",
+        "Anisotropic diffusion filter for smoothing and noise removal",
+        "Initial contour generation using Multi-Otsu thresholding and morphological erosion (disk structuring element, 15 pixels radius)"
+      ],
+      "optimization_method": "Particle Swarm Optimization (PSO) for selecting RGB-to-gray conversion coefficients",
+      "hyperparameters": {
+        "hair_restoration_window_size": "9x9",
+        "shading_detection_window_size": "20x20",
+        "erosion_disk_radius": "15 pixels",
+        "level_set_epsilon": "1.0"
+      }
+    },
+    "training_details": {
+      "training_type": "Not applicable (algorithmic segmentation, not learned model)",
+      "optimizer": "Particle Swarm Optimization (for coefficient selection)",
+      "loss_function": "Chan-Vese energy function: E(c1, c2, φ) = λ1 ∫|I(x)-c1|²H(φ)dx + λ2 ∫|I(x)-c2|²(1-H(φ))dx + ν∫H(φ)dx + μ∫|∇H(φ)|dx",
+      "iterations": "Not explicitly reported; stopping criterion based on insignificant change in curve between two consecutive iterations"
+    },
+    "classification_or_output_head": {
+      "output_type": "Binary segmentation mask / Lesion border contour",
+      "post_processing": "Removal of small unwanted regions via morphological operations"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Chan-Vese active contour model",
+    "Particle Swarm Optimization (PSO)",
+    "Multi-Otsu thresholding method",
+    "Sáez et al. edge-based method"
+  ],
+  "preprocessing_techniques": [
+    "Hair attenuation using Tossie et al. method for detection and restoration via average intensity of neighboring pixels within a 9x9 window",
+    "Shading effect detection using Otsu algorithm with four 20x20 windows at image corners",
+    "Shading effect removal using the algorithm from reference [13]",
+    "RGB to Gray Level conversion using Particle Swarm Optimization (PSO) to select optimal weights [wr, wg, wb]",
+    "Anisotropic diffusion filter for smoothing and noise removal",
+    "Initial contour generation using Multi-Otsu thresholding",
+    "Morphological erosion with a disk structuring element of 15 pixels radius to ensure initial contour is inside the lesion",
+    "Post-processing removal of small unwanted regions via morphological operations"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed method accurately segments skin lesions from dermoscopy images, achieving a mean accuracy of 94%, sensitivity of 78.5%, and specificity of 99% on a dataset of 145 images (79 benign, 75 melanoma).",
+    "The proposed algorithm outperforms the competing edge-based method by Sáez et al., which achieved 84.6% accuracy and 58% sensitivity, while both methods achieved 99% specificity.",
+    "The proposed method has lower computational complexity compared to the competing edge-based method because it utilizes grayscale images rather than all three RGB channels.",
+    "Shading effect attenuation is critical for accurate segmentation, as shading can create structures in non-lesion regions that mimic lesion pixels, leading to misclassification.",
+    "Using Particle Swarm Optimization (PSO) to select optimal RGB-to-gray conversion coefficients improves segmentation accuracy compared to standard luminance conversion, as it enhances contrast between the lesion and healthy skin.",
+    "The red channel coefficient was found to be zero due to low contrast between the lesion and background, with green and blue channels serving as the dominant sources of information.",
+    "The method effectively addresses common dermoscopy artifacts, including hair occlusion and shading, as well as challenges related to low contrast and irregular borders."
+  ],
+  "important_remarks": [
+    "The study relies on a small, single-institution dataset of only 145 dermoscopic images (79 benign, 75 melanoma) from the Dermoscopy Atlas, limiting generalizability and raising concerns about dataset bias.",
+    "No external validation was performed; the algorithm was evaluated solely on the internal dataset, which is a significant limitation for clinical applicability.",
+    "The paper does not report any statistical significance tests (e.g., p-values) to validate the superiority of the proposed method over the baseline (Sáez et al.), relying only on descriptive metrics.",
+    "The high specificity (99%) for both methods is noted to be potentially inflated due to the large background area in dermoscopy images, making sensitivity and accuracy more critical but less robustly validated metrics.",
+    "The method is not a deep learning model but a traditional computer vision algorithm (Chan-Vese active contour with PSO optimization), which may lack the feature extraction capabilities of modern deep learning approaches.",
+    "The preprocessing steps, particularly shading detection and removal, rely on assumptions (e.g., lesion location in the center) that may not hold for all clinical images, potentially affecting robustness.",
+    "The red channel coefficient was found to be zero by the PSO algorithm, indicating that the method's performance is heavily dependent on the green and blue channels, which may not be consistent across different imaging devices or skin types."
+  ]
+}

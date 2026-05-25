@@ -1,0 +1,275 @@
+{
+  "file_name": "yang_2018_skin_lesion_analysis_by_multi_target_deep_neural_networks.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a multi-target deep convolutional neural network (DCNN) combining U-Net and GoogleNet architectures to perform automatic skin lesion segmentation and classification (melanoma and seborrheic keratosis detection) on dermoscopic images from the ISIC 2017 Challenge."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel multi-target deep convolutional neural network (DCNN) for skin lesion segmentation and classification. It details the network architecture (combining U-Net and GoogleNet), describes the experimental setup using the ISIC 2017 Challenge dataset, and reports quantitative results (IoU and AUC metrics) comparing the proposed model against baselines. The authors explicitly state it is the 'first demonstration' of such an end-to-end model in this domain, indicating it is an original technical study rather than a review."
+  },
+  "title": "Skin Lesion Analysis by Multi-Target Deep Neural Networks",
+  "authors": [
+    "Xulei Yang",
+    "Hangxing Li",
+    "Li Wang",
+    "Si Yong Yeo",
+    "Yi Su",
+    "Zeng Zeng"
+  ],
+  "doi": null,
+  "journal": null,
+  "year": 2018,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a novel multi-target deep convolutional neural network (DCNN) to simultaneously perform skin lesion segmentation and classification of melanoma and seborrheic keratosis. The model integrates U-Net and GoogleNet architectures into a single end-to-end framework with three branches for shared feature extraction. Experiments were conducted using the International Skin Imaging Collaboration (ISIC) 2017 Challenge dataset, which included 2000 training samples, 150 validation samples, and 600 testing samples. The authors evaluated segmentation performance using the Intersection-over-Union (IoU) metric and classification performance using the Area Under the Curve (AUC). The proposed multi-target model achieved superior results compared to single-target baselines, with an IoU of 0.741 on the test set for segmentation and an AUC of 0.886 for classification. The results demonstrate that the multi-target architecture boosts performance through shared features and offers higher computational efficiency than separate models.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "Melanoma"
+      ],
+      "role": "Target class",
+      "details": "Used as a binary classification target (melanoma vs. non-melanoma) in Branch-2 of the multi-target DCNN. The ISIC 2017 dataset contained 374 melanoma samples in the training set."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "SK"
+      ],
+      "role": "Target class",
+      "details": "Used as a binary classification target (SK vs. non-SK) in Branch-3 of the multi-target DCNN. The ISIC 2017 dataset contained 254 SK samples in the training set."
+    },
+    {
+      "lesion_type": "Skin Lesion (General)",
+      "paper_terms": [
+        "skin lesion",
+        "lesion",
+        "lesion object"
+      ],
+      "role": "Segmentation target",
+      "details": "The primary segmentation target in Branch-1, where the model generates a binary mask for the lesion region within the image."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion mask",
+        "primary": false,
+        "details": "Branch-1 generates a binary mask image indicating the lesion region within the dermoscopic image. Evaluated using Intersection-over-Union (IoU) metric."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Probability of melanoma",
+        "primary": true,
+        "details": "Branch-2 performs binary classification to predict the probability of the image containing melanoma (melanoma vs. non-melanoma). Evaluated using Area Under the Curve (AUC) metric."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Probability of seborrheic keratosis",
+        "primary": true,
+        "details": "Branch-3 performs binary classification to predict the probability of the image containing seborrheic keratosis (SK vs. non-SK). Evaluated using Area Under the Curve (AUC) metric."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017 Challenge Dataset",
+      "description": "Dermoscopic images from the International Skin Imaging Collaboration (ISIC) 2017 Challenge on skin lesion analysis toward melanoma detection. The dataset includes annotations for lesion classification and manually-traced lesion borders by clinicians.",
+      "classes_used": [
+        "Melanoma",
+        "Seborrheic Keratosis (SK)",
+        "Non-melanoma",
+        "Non-SK",
+        "Skin Lesion (Segmentation)"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "melanoma_in_training": 374,
+          "seborrheic_keratosis_in_training": 254
+        }
+      },
+      "use": {
+        "training": "Used for training the multi-target DCNN model via 10-fold cross-validation on the 2000 training samples.",
+        "validation": "Used for validation (150 samples) to evaluate segmentation (IoU) and classification (AUC) performance.",
+        "testing": "Used for testing (600 samples) to evaluate segmentation (IoU) and classification (AUC) performance and submit results to the challenge website.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Intersection-over-Union (IoU)",
+    "Jaccard Index",
+    "Area Under the Curve (AUC)",
+    "Dice Coefficient (DC)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10-fold cross-validation",
+      "purpose": "To train and evaluate the deep learning models, with final accuracy estimated by averaging the values produced by each fold.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Dice Coefficient (DC)",
+      "purpose": "Used to define the loss function for the segmentation target to maximize the overlap between the automatically segmented region and the ground truth.",
+      "type": "Loss function / Metric"
+    },
+    {
+      "method": "Binary cross entropy (log loss)",
+      "purpose": "Used as the loss function for the binary classification targets (melanoma and seborrheic keratosis) to maximize classification accuracy.",
+      "type": "Loss function"
+    },
+    {
+      "method": "Jaccard Index (Intersection-over-Union, IoU)",
+      "purpose": "Used as an evaluation metric to measure the overlap between the automatically segmented region and the manually segmented ground truth.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Area Under the Curve (AUC)",
+      "purpose": "Used as an evaluation metric to measure how well the classification models distinguish between diagnostic groups (diseased/normal).",
+      "type": "Evaluation Metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons between the proposed multi-target DCNN and baseline models (U-Net, GoogleNet) were made using quantitative metrics (IoU and AUC) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017 Challenge": {
+      "segmentation": {
+        "metric": "Intersection-over-Union (IoU)",
+        "models": {
+          "Our proposed multi-target model": {
+            "Validation Set": "0.776",
+            "Testing Set": "0.741"
+          },
+          "U-Net [16]": {
+            "Validation Set": "0.764",
+            "Testing Set": "0.737"
+          }
+        },
+        "notes": "The proposed multi-target model achieved higher IoU scores than the single-target U-Net baseline on both validation and testing sets."
+      },
+      "classification": {
+        "metric": "Area Under the Curve (AUC)",
+        "models": {
+          "Our proposed multi-target model": {
+            "Validation Set": "0.926",
+            "Testing Set": "0.886"
+          },
+          "GoogleNet [17]": {
+            "Validation Set": "0.903",
+            "Testing Set": "0.857"
+          }
+        },
+        "notes": "The proposed multi-target model achieved higher AUC scores than the single-target GoogleNet baseline on both validation and testing sets. The paper notes that segmentation appears to boost classification performance significantly."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multi-target Deep Convolutional Neural Network (DCNN) combining U-Net and GoogleNet architectures",
+    "pretraining": "null",
+    "input_size": "128x128",
+    "architecture_details": {
+      "backbone": "GoogleNet (22-layer deep neural network)",
+      "segmentation_branch": "U-Net architecture with five additional deconvolutional/upsampling layers",
+      "classification_branches": "Two branches (Branch-2 for Melanoma, Branch-3 for Seborrheic Keratosis), each with one additional average-pooling layer and two fully-connected layers",
+      "shared_layers": "Five convolutional layers and max-pooling layers from GoogleNet used to extract shared features for all three targets",
+      "activation_functions": "ReLU after every convolution and deconvolution operation; Softmax for segmentation output; Sigmoid for classification outputs",
+      "layers": "Total 22 layers from GoogleNet backbone plus additional layers for segmentation and classification heads"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "optimizer_hyperparameters": {
+        "learning_rate": 0.01,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": "1e-08"
+      },
+      "weight_initialization": "0 mean and 0.1 standard deviation Gaussian distribution",
+      "loss_functions": {
+        "segmentation": "Dice Coefficient (DC) based loss: 1 - DC = 1 - (2(A ∩ G) / (A + G))",
+        "classification": "Binary cross entropy (log loss)"
+      },
+      "epochs": 15,
+      "batch_size": 32,
+      "validation_method": "10-fold cross-validation",
+      "data_augmentation": [
+        "Random rotation",
+        "Shifts",
+        "Shear",
+        "Scale",
+        "Flips",
+        "Mean-variance normalization",
+        "Color space transformation",
+        "Elastic transformation"
+      ]
+    },
+    "classification_or_output_head": {
+      "segmentation_output": "Binary mask image (lesion region)",
+      "classification_outputs": [
+        "Probability of Melanoma (Branch-2)",
+        "Probability of Seborrheic Keratosis (Branch-3)"
+      ],
+      "output_activation": "Sigmoid for classification probabilities"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Multi-target Deep Convolutional Neural Network (DCNN)",
+    "U-Net",
+    "GoogleNet"
+  ],
+  "preprocessing_techniques": [
+    "Image augmentation: random rotation, shifts, shear, scale, and flips",
+    "Mean-variance normalization",
+    "Color space transformation",
+    "Elastic transformation",
+    "Input resizing to 128x128 pixels"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Random rotation, shifts, shear, scale, and flips were implemented to create artificial images."
+    },
+    {
+      "technique": "Color/Intensity Transforms",
+      "details": "Mean-variance normalization and color space transformation were implemented."
+    },
+    {
+      "technique": "Elastic Deformation",
+      "details": "Elastic transformation was implemented to enhance augmentation."
+    }
+  ],
+  "conclusions": [
+    "The proposed multi-target deep convolutional neural network (DCNN) simultaneously performs skin lesion segmentation and classification (melanoma and seborrheic keratosis) in a single end-to-end model.",
+    "The multi-target DCNN achieved superior performance compared to single-target baseline models (U-Net for segmentation and GoogleNet for classification) on the ISIC 2017 Challenge dataset.",
+    "The proposed model achieved an Intersection-over-Union (IoU) of 0.741 on the testing set for segmentation and an Area Under the Curve (AUC) of 0.886 for classification.",
+    "Segmentation performance significantly boosts classification performance, whereas the converse effect was not observed.",
+    "Integrating multiple targets into a single model improves computational efficiency for both training and testing compared to separate models.",
+    "Different branches in the multi-target architecture share detected features, allowing them to boost each other towards a better solution.",
+    "The multi-target DCNN architecture is scalable and stable, allowing for the potential inclusion of additional targets, such as localizing dermoscopic features, in future work."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC 2017 Challenge dataset, which limits the assessment of external validity and generalizability to other populations or imaging devices.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed to confirm the significance of performance differences between the multi-target model and baselines; comparisons were based solely on mean metric scores.",
+    "The dataset exhibits class imbalance in the training set, with only 374 melanoma and 254 seborrheic keratosis samples out of 2000 total training images.",
+    "The paper does not report computational efficiency metrics (e.g., FLOPs, inference time) despite claiming higher efficiency; the claim is qualitative.",
+    "The model was evaluated on a held-out test set from the same challenge, but there is no evidence of independent external validation on a separate clinical cohort.",
+    "The study focuses only on segmentation and classification, explicitly deferring the localization of dermoscopic features, which limits the scope of clinical utility assessment.",
+    "Data leakage risk is mitigated by the use of 10-fold cross-validation on the training set and a separate held-out test set, but the small validation set (150 samples) may lead to high variance in performance estimates."
+  ]
+}

@@ -1,0 +1,326 @@
+{
+  "file_name": "marchetti_2023_3d_whole_body_skin_imaging_for_automated_melanoma_detection.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The study used automated analysis of 3D whole-body skin images to discriminate melanoma from non-melanoma lesions. Specifically, it employed a 'trained convolutional neural network' within the Vectra DermaGraphix software to filter tile images and identify lesions based on probability, size, and contrast thresholds. Additionally, LASSO logit models and Firth logit models were used for variable selection and prediction modeling to achieve an AUC of 0.94."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is labeled as a 'SHORT REPORT' and describes an original experimental, retrospective, observational study. It presents new results from a 'proof-of-concept pilot study' involving the automated analysis of 3D whole-body skin images from 35 patients to discriminate melanoma from non-melanoma lesions, reporting specific metrics such as an AUC of 0.94. It is not a review of prior literature."
+  },
+  "title": "3D Whole-­body skin imaging for automated melanoma detection",
+  "authors": [
+    "M. A. Marchetti",
+    "Z. H. Nazir",
+    "J. K. Nanda",
+    "S. W. Dusza",
+    "B. M. D'Alessandro",
+    "J. DeFazio",
+    "A. C. Halpern",
+    "V. M. Rotemberg",
+    "A. A. Marghoob"
+  ],
+  "doi": "10.1111/jdv.18924",
+  "journal": "Journal of the European Academy of Dermatology and Venereology",
+  "year": 2023,
+  "article_type": "Short report",
+  "brief_summary": "This proof-of-concept pilot study evaluated whether automated analysis of 3D whole-body skin images can distinguish melanoma from non-melanoma lesions. The retrospective, single-center study analyzed data from 35 patients diagnosed with melanoma who had undergone 3D imaging using the VECTRA WB360 system within 90 days prior to biopsy. Automated lesion characteristics were extracted via Vectra DermaGraphix software, and a prediction model was developed using LASSO logit models for variable selection and Firth logit models for analysis. The model achieved an area under the receiver operating characteristic curve (AUC) of 0.94 (95% CI: 0.92–0.96) in discriminating melanoma from other skin lesions. The study concluded that automated analysis of whole-body 3D images can discriminate melanoma with high accuracy, though further validation with larger datasets is needed.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "primary cutaneous melanoma",
+        "melanoma in situ",
+        "invasive melanomas"
+      ],
+      "role": "Target class",
+      "details": "The study focused on discriminating melanoma from non-melanoma lesions. The dataset included 49 lesions of melanoma (representing 43 unique melanomas) from 35 patients. Subtypes included melanoma in situ (n=29, 67%) and invasive melanomas (n=14, with Breslow thickness ranging from 0.2 to 2.1 mm)."
+    },
+    {
+      "lesion_type": "Non-melanoma skin lesions",
+      "paper_terms": [
+        "non-melanoma",
+        "other skin lesions",
+        "benign skin lesions"
+      ],
+      "role": "Comparator class",
+      "details": "Served as the negative class for the binary classification task. The dataset included 22,489 lesions that were not melanoma. The paper notes that the segmentation tool may have been trained on data limited to benign skin lesions, and some non-melanoma lesions may have been unrecognized melanomas."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. non-melanoma lesion status",
+        "primary": true,
+        "details": "Binary classification task where the dependent variable was melanoma lesional status coded as 0 = not melanoma and 1 = melanoma. The model used LASSO logit models for variable selection and Firth logit models for analysis to discriminate melanoma from other skin lesions, achieving an AUC of 0.94. Predicted probabilities were estimated and ranked within each patient."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Memorial Sloan Kettering Cancer Center (MSKCC) 3D Whole-Body Skin Imaging Cohort",
+      "description": "A single-center, retrospective, observational convenience sample of patients diagnosed with melanoma at a tertiary care cancer hospital. Data consisted of 3D whole-body skin images captured using the VECTRA WB360 imaging system within 90 days prior to diagnostic skin biopsy. The dataset included automated morphological and anatomic data for all visible lesions >2 mm.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 23538,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "melanoma": 49,
+          "non_melanoma": 22489
+        }
+      },
+      "use": {
+        "training": "Used for variable selection via LASSO logit models and model development via Firth logit models with multiple 10-fold cross-validations.",
+        "validation": "Used for internal validation via multiple 10-fold cross-validations to achieve the most parsimonious model.",
+        "testing": "Used for final performance evaluation (AUC calculation) on the same dataset; no external testing set was used.",
+        "other": "The dataset was used for proof-of-concept demonstration of automated analysis of whole-body 3D images to discriminate melanoma from other skin lesions."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area under the receiver operating characteristic curve (AUC)",
+    "95% Confidence Interval (CI)",
+    "Sensitivity",
+    "Specificity",
+    "Predicted probability",
+    "Percentile rank",
+    "ROC area",
+    "Standard error (SE)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "LASSO logit models",
+      "purpose": "Variable selection to limit out-of-sample prediction error.",
+      "type": "Regularization"
+    },
+    {
+      "method": "Firth logit models",
+      "purpose": "To limit potential bias associated with the limited number of melanomas in relation to non-melanomas in the dataset.",
+      "type": "Bias reduction"
+    },
+    {
+      "method": "Multiple 10-fold cross-validations",
+      "purpose": "To achieve the most parsimonious model during variable selection and model development.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) curve analysis",
+      "purpose": "To evaluate the discriminatory ability of the prediction model and individual variables (Area Under the Curve).",
+      "type": "Performance metric"
+    },
+    {
+      "method": "95% Confidence Intervals (CI)",
+      "purpose": "To estimate the uncertainty of the AUC and individual variable ROC areas.",
+      "type": "Confidence Interval"
+    },
+    {
+      "method": "Standard Error (SE)",
+      "purpose": "To quantify the variability of the ROC area estimates for individual variables.",
+      "type": "Uncertainty Estimation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). It reported performance metrics such as the Area Under the Curve (AUC) with 95% Confidence Intervals and descriptive statistics."
+  },
+  "results_obtained_in_each_dataset": {
+    "MSKCC 3D Whole-Body Skin Imaging Cohort": {
+      "metric": "Area Under the Receiver Operating Characteristic Curve (AUC)",
+      "models": {
+        "15-variable prediction model (LASSO logit variable selection + Firth logit analysis)": {
+          "AUC": "0.94",
+          "95% CI": "0.92–0.96"
+        }
+      },
+      "notes": "Patient-level analysis results: 14 (28%) melanoma lesions had the highest predicted score or were in the 99th percentile among all lesions for an individual patient. At a model-based threshold associated with 95% sensitivity, the model could reduce the number of lesions requiring examination by 75%. Nine out of 11 melanoma lesions scoring below the 90th percentile were incorrectly segmented."
+    },
+    "Individual Variable Discrimination (Table 1)": {
+      "metric": "ROC Area, Standard Error (SE), 95% CI",
+      "models": {
+        "Size (Area)": {
+          "ROC Area": "0.8600",
+          "SE": "0.0361",
+          "95% CI Lower": "0.78933",
+          "95% CI Upper": "0.93076"
+        },
+        "Size (Smallest Diameter)": {
+          "ROC Area": "0.8712",
+          "SE": "0.0322",
+          "95% CI Lower": "0.80811",
+          "95% CI Upper": "0.93425"
+        },
+        "Colour (Variation)": {
+          "ROC Area": "0.8349",
+          "SE": "0.0349",
+          "95% CI Lower": "0.76653",
+          "95% CI Upper": "0.9032"
+        },
+        "Colour (Asymmetry)": {
+          "ROC Area": "0.8242",
+          "SE": "0.0354",
+          "95% CI Lower": "0.75486",
+          "95% CI Upper": "0.8936"
+        },
+        "Colour (Contrast a*)": {
+          "ROC Area": "0.5239",
+          "SE": "0.0487",
+          "95% CI Lower": "0.42832",
+          "95% CI Upper": "0.61942"
+        },
+        "Colour (Contrast b*)": {
+          "ROC Area": "0.7762",
+          "SE": "0.0308",
+          "95% CI Lower": "0.71585",
+          "95% CI Upper": "0.83656"
+        },
+        "Colour (Contrast L*)": {
+          "ROC Area": "0.7626",
+          "SE": "0.0372",
+          "95% CI Lower": "0.68965",
+          "95% CI Upper": "0.83547"
+        },
+        "Colour (Contrast L* and b*)": {
+          "ROC Area": "0.7617",
+          "SE": "0.0371",
+          "95% CI Lower": "0.68912",
+          "95% CI Upper": "0.83437"
+        },
+        "Colour (Lightness Variation)": {
+          "ROC Area": "0.7245",
+          "SE": "0.0365",
+          "95% CI Lower": "0.65304",
+          "95% CI Upper": "0.79605"
+        },
+        "Border (Jaggedness)": {
+          "ROC Area": "0.6804",
+          "SE": "0.0391",
+          "95% CI Lower": "0.60368",
+          "95% CI Upper": "0.75705"
+        },
+        "Border (Asymmetry Angle)": {
+          "ROC Area": "0.5465",
+          "SE": "0.0434",
+          "95% CI Lower": "0.46146",
+          "95% CI Upper": "0.63146"
+        },
+        "Anatomic Site (Head/neck)": {
+          "ROC Area": "0.5764",
+          "SE": "0.028",
+          "95% CI Lower": "0.52166",
+          "95% CI Upper": "0.63123"
+        },
+        "Anatomic Site (Anterior torso)": {
+          "ROC Area": "0.5272",
+          "SE": "0.0326",
+          "95% CI Lower": "0.46327",
+          "95% CI Upper": "0.59119"
+        },
+        "Anatomic Site (Posterior torso)": {
+          "ROC Area": "0.5531",
+          "SE": "0.028",
+          "95% CI Lower": "0.49823",
+          "95% CI Upper": "0.60793"
+        },
+        "Anatomic Site (Upper extremity)": {
+          "ROC Area": "0.5216",
+          "SE": "0.0237",
+          "95% CI Lower": "0.47513",
+          "95% CI Upper": "0.56799"
+        },
+        "Anatomic Site (Lower extremity)": {
+          "ROC Area": "0.5222",
+          "SE": "0.0301",
+          "95% CI Lower": "0.46307",
+          "95% CI Upper": "0.58125"
+        }
+      },
+      "notes": "Table 1 lists individual variable ability to discriminate melanoma from non-melanoma lesions. The prediction model's individual ROC area is reported as 0.9399 (SE 0.0117, 95% CI 0.9169–0.9629) in Table 1, while the text reports 0.94 (95% CI: 0.92–0.96)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "LASSO logit models (for variable selection) and Firth logit models (for analysis/prediction). A trained convolutional neural network was used within Vectra DermaGraphix software for filtering tile images during segmentation, but details of this CNN are not reported.",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "segmentation_component": "Vectra DermaGraphix software used an iterative multi-level segmentation algorithm to extract blob-like objects from 2D source images. Tiles were filtered using a trained convolutional neural network based on lesion probability, size, and contrast thresholds.",
+      "prediction_model": "15-variable prediction model. Variables included 11 morphological features (size, colour, border) and 4 anatomic site indicators. Anatomic location was forced for inclusion. Variable selection was performed using LASSO logit models. Final analysis used Firth logit models to limit bias.",
+      "variables": [
+        "Size (Area)",
+        "Size (Smallest Diameter)",
+        "Colour (Variation)",
+        "Colour (Asymmetry)",
+        "Colour (Contrast a*)",
+        "Colour (Contrast b*)",
+        "Colour (Contrast L*)",
+        "Colour (Contrast L* and b*)",
+        "Colour (Lightness Variation)",
+        "Border (Jaggedness)",
+        "Border (Asymmetry Angle)",
+        "Anatomic Site (Head/neck)",
+        "Anatomic Site (Anterior torso)",
+        "Anatomic Site (Posterior torso)",
+        "Anatomic Site (Upper extremity)",
+        "Anatomic Site (Lower extremity)"
+      ]
+    },
+    "training_details": {
+      "method": "Multiple 10-fold cross-validations were performed to achieve the most parsimonious model.",
+      "software": "Stata/MP v16.1",
+      "hyperparameters": "null"
+    },
+    "classification_or_output_head": {
+      "type": "Logistic regression (Firth logit)",
+      "output": "Predicted probability of melanoma (natural log transformation)",
+      "threshold": "Model-based threshold associated with 95% sensitivity"
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Vectra DermaGraphix software (automated analysis tool)",
+    "Trained convolutional neural network (used within Vectra DermaGraphix for filtering tile images)",
+    "LASSO logit models (used for variable selection)",
+    "Firth logit models (used for prediction analysis)"
+  ],
+  "preprocessing_techniques": [
+    "Iterative multi-level segmentation algorithm applied to 2D source images to extract blob-like objects",
+    "Perspective distortion correction with respect to reconstructed 3D image geometry (skin surface orientation and camera orientation) to generate cropped tile images",
+    "Filtering of tile images using a trained convolutional neural network based on lesion probability, size, and contrast thresholds",
+    "Automatic identification and quantification of lesion characteristics (size, colour, border) for lesions >2 mm",
+    "No post-processing conducted to remove automatically identified artifacts (e.g., nipples, umbilici, scars, shadows, skin folds)"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "Automated analysis of whole-body 3D-images using simple image processing techniques can discriminate melanoma from other skin lesions with high accuracy (AUC 0.94).",
+    "The prediction model achieved an area under the receiver operating characteristic curve (AUC) of 0.94 (95% CI: 0.92–0.96).",
+    "At a model-based threshold associated with 95% sensitivity, the model could reduce the number of lesions requiring examination by 75%.",
+    "The study was limited by the accuracy of segmentation, which may have been affected by the segmentation tool being trained on data limited to benign skin lesions or limitations in image resolution.",
+    "Nine out of 11 melanoma lesions scoring below the 90th percentile were incorrectly segmented.",
+    "Further studies with larger, higher quality, and more representative 3D-imaging datasets are needed to improve and validate these results."
+  ],
+  "important_remarks": [
+    "The study is a proof-of-concept pilot with a small, single-center convenience sample of only 35 patients, limiting generalizability.",
+    "The dataset lacks external validation; the model was evaluated using internal cross-validation on the same dataset used for development.",
+    "The population is heavily biased: all patients were White, and those with melanoma (including 67% in situ) were over-represented compared to the general population.",
+    "3D images from patients not diagnosed with melanoma were excluded, preventing assessment of the tool's performance in a true screening population without known disease.",
+    "Some non-melanoma lesions in the dataset may have been unrecognized melanomas, potentially inflating the model's apparent accuracy.",
+    "The segmentation tool used to extract lesion features was likely trained on data limited to benign skin lesions, which may have contributed to the incorrect segmentation of 9 out of 11 melanoma lesions that scored below the 90th percentile.",
+    "No post-processing was conducted to remove automatically identified artifacts (e.g., nipples, umbilici, scars, shadows, skin folds), which could introduce noise or false positives.",
+    "The prediction model relies on simple image processing features (size, color, border) rather than deep learning, and these features were not developed using datasets containing melanoma examples.",
+    "There is a risk of overdiagnosis and unnecessary biopsies if this technology is deployed without careful implementation, as noted by the authors referencing thyroid and kidney cancer screening lessons.",
+    "The study did not include patients with melanomas on volar surfaces, genitalia, or hair-bearing scalp, as these areas are generally not visible in the 3D imaging system."
+  ]
+}

@@ -1,0 +1,297 @@
+{
+  "file_name": "zon_2020_segmentation_and_classification_of_melanoma_and_nevus_in_whole_slide_im.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a deep learning framework comprising a U-Net architecture for semantic segmentation of melanoma and nevus regions in whole slide images, followed by a Convolutional Neural Network (CNN) for slide-level classification. This AI system was applied to dermatology/histopathology tasks to classify skin biopsies as melanoma, nevus, or negative."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and evaluation of a deep learning framework (U-Net and CNN) for segmenting and classifying melanoma and nevus in whole slide images. It reports specific results from training on 232 slides and testing on 331 independent slides, including metrics like Dice scores and F1-scores. Although published in the proceedings of the IEEE ISBI 2020 symposium, it contains original data, methods, and results rather than summarizing prior literature."
+  },
+  "title": "SEGMENTATION AND CLASSIFICATION OF MELANOMA AND NEVUS IN WHOLE SLIDE IMAGES",
+  "authors": [
+    "Mike van Zon",
+    "Nikolas Stathonikos",
+    "Willeke A.M. Blokx",
+    "Selim Komina",
+    "Sybren L.N Maas",
+    "Josien P.W. Pluim",
+    "Paul J. van Diest",
+    "Mitko Veta"
+  ],
+  "doi": null,
+  "journal": "2020 IEEE 17th International Symposium on Biomedical Imaging (ISBI)",
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study developed a deep learning framework to assist pathologists in the segmentation and classification of melanoma and nevus in whole slide images (WSI). The system utilized a U-Net architecture for semantic segmentation of skin lesions, followed by a Convolutional Neural Network (CNN) for slide-level classification into melanoma, nevus, or negative categories. The models were trained and validated on 232 manually annotated slides from the University Medical Center Utrecht and tested on an independent set of 331 slides. The U-Net achieved a Dice score of 0.835 ± 0.08 on the validation set, while the CNN classification achieved a weighted F1-score of 0.954 on the independent test dataset. The results demonstrate that the automated system can accurately segment lesion areas and classify whole slides, potentially supporting diagnostic workflows by highlighting high-risk regions.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the three primary diagnostic classes used in the segmentation and classification tasks. The dataset included 176 melanoma slides (83 in training, 176 in test). The model aimed to segment melanoma regions and classify slides as melanoma."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi",
+        "common nevus"
+      ],
+      "role": "Target class",
+      "details": "One of the three primary diagnostic classes. The dataset included 62 nevus slides (97 in training, 62 in test). The model aimed to segment nevus regions and classify slides as nevus."
+    },
+    {
+      "lesion_type": "Negative (Normal Skin)",
+      "paper_terms": [
+        "negative",
+        "negative for both",
+        "normal skin"
+      ],
+      "role": "Target class",
+      "details": "One of the three primary diagnostic classes representing normal skin without melanoma or nevus. The dataset included 52 negative slides (52 in training, 52 in test)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise classification of melanoma, nevus, and negative regions within whole slide images.",
+        "primary": false,
+        "details": "The paper uses a U-Net architecture to perform semantic segmentation, producing a multi-class prediction map (melanoma, nevus, negative) for each pixel. Performance was measured using Dice scores (0.835 ± 0.08 on validation set)."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Slide-level diagnosis of melanoma, nevus, or negative for both.",
+        "primary": true,
+        "details": "The paper uses a CNN to classify whole slide images (WSI) into one of three discrete diagnostic categories: melanoma, nevus, or negative. The model outputs softmax probabilities for these classes, and the final global label is determined by these probabilities. Performance was measured using a weighted F1-score of 0.954 on the independent test dataset."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "University Medical Center Utrecht (UMCU) Diagnostic Pathology Archive",
+      "description": "A private dataset consisting of skin excision and biopsy slides retrieved from the diagnostic pathology archive of the University Medical Center Utrecht, The Netherlands. The slides were stained with hematoxylin and eosin (H&E). Cases were selected based on diagnoses of melanoma, common nevus, or negative for both (normal skin). One slide per case was selected. The dataset was scanned using two different scanners: Philips Ultra Fast Scanner and Hamamatsu Nanozoomer 2.0 XR.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus (Common Nevus)",
+        "Negative (Normal Skin)"
+      ],
+      "counts": {
+        "total": 563,
+        "training": 232,
+        "validation": null,
+        "testing": 331,
+        "per_class": {
+          "training": {
+            "Melanoma": 83,
+            "Nevus": 97,
+            "Negative": 52
+          },
+          "testing": {
+            "Melanoma": 176,
+            "Nevus": 62,
+            "Negative": 52
+          }
+        }
+      },
+      "use": {
+        "training": "232 slides were manually annotated by pathologists and used for training the U-Net segmentation model and the CNN classification model. Twenty percent of the training slides were reserved as a validation set for hyperparameter tuning and early stopping.",
+        "validation": "20% of the 232 training slides (approximately 46 slides) were reserved as a validation set to monitor loss and prevent overfitting during training.",
+        "testing": "331 independent slides were reserved for testing the slide-level classification performance. These slides were not manually annotated but relied on clinical diagnosis from pathology reports.",
+        "other": "The dataset was split by scanner type to ensure the model was not scanner-dependent. Some slides were scanned on both scanners to balance the dataset, particularly for the nevus class."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice score",
+    "Accuracy",
+    "F1-score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Dice score",
+      "purpose": "To evaluate the performance of the U-Net semantic segmentation model by comparing model predictions to manual ground truth annotations within the annotation bounding box.",
+      "type": "Segmentation metric"
+    },
+    {
+      "method": "Accuracy",
+      "purpose": "To evaluate the performance of the U-Net semantic segmentation model by comparing model predictions to manual ground truth annotations.",
+      "type": "Segmentation metric"
+    },
+    {
+      "method": "Weighted F1-score",
+      "purpose": "To evaluate the performance of the CNN slide-level classification model on the independent test dataset. The threshold for the F1-score was selected based on the highest score obtained on the validation set.",
+      "type": "Classification metric"
+    },
+    {
+      "method": "Confidence intervals (Mean ± Standard Deviation)",
+      "purpose": "To report the variability of the Dice scores and Accuracy metrics for the segmentation results across different scanners and classes.",
+      "type": "Descriptive statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive statistics (Dice scores, Accuracy, F1-scores) and confusion matrices."
+  },
+  "results_obtained_in_each_dataset": {
+    "University Medical Center Utrecht (UMCU) Diagnostic Pathology Archive": {
+      "validation_set": {
+        "description": "Segmentation performance evaluated on 20% of the 232 training slides (approx. 46 slides) using manual ground truth annotations.",
+        "models": {
+          "U-Net": {
+            "Dice_score": {
+              "Combined_classes": "0.835 ± 0.09",
+              "Melanoma": "0.84 ± 0.08",
+              "Nevus": "0.83 ± 0.10"
+            },
+            "Accuracy": {
+              "Combined_classes": "0.915 ± 0.07",
+              "Melanoma": "0.92 ± 0.06",
+              "Nevus": "0.89 ± 0.08"
+            }
+          }
+        },
+        "notes": "Results are broken down by scanner type (Philips and Hamamatsu) and combined classes. The U-Net was trained with hard-negative mining. The Dice score for combined classes was 0.835 ± 0.09."
+      },
+      "independent_test_set": {
+        "description": "Slide-level classification performance evaluated on 331 independent slides using clinical diagnosis from pathology reports. No manual segmentations were available for this set.",
+        "models": {
+          "CNN (fed by U-Net segmentation)": {
+            "weighted_F1_score": "0.954",
+            "confusion_matrix": {
+              "Melanoma": {
+                "True Melanoma": 173,
+                "True Nevus": 0,
+                "True Negative": 3
+              },
+              "Nevus": {
+                "True Melanoma": 3,
+                "True Nevus": 57,
+                "True Negative": 2
+              },
+              "Negative": {
+                "True Melanoma": 7,
+                "True Nevus": 0,
+                "True Negative": 86
+              }
+            },
+            "misclassification_details": {
+              "Melanoma_misclassified_as_Negative": 3,
+              "Nevus_misclassified_as_Melanoma": 3,
+              "Nevus_misclassified_as_Negative": 2,
+              "Negative_misclassified_as_Melanoma": 7
+            }
+          }
+        },
+        "notes": "Out of 176 melanoma slides, 173 were correctly classified. Out of 62 nevus slides, 57 were correctly classified. The 3 misclassified melanoma slides were early stage and small. Misclassifications of nevi and negatives were mainly due to tissue artifacts and inflammation."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two-model framework: U-Net for semantic segmentation followed by a Convolutional Neural Network (CNN) for slide-level classification.",
+    "pretraining": "Not reported.",
+    "input_size": {
+      "U-Net": "1024x1024 patches (stride 854 pixels) for evaluation; 512x512 patches for training.",
+      "CNN": "256x256 6-channel patches (tissue patch + corresponding semantic segmentation)."
+    },
+    "architecture_details": {
+      "U-Net": {
+        "type": "Fully convolutional U-Net architecture.",
+        "implementation": "Implemented in Keras using TensorFlow backend.",
+        "tissue_detection": "Pre-processing step converting RGB to HSV, calculating Otsu's threshold on H and S channels to create a binary mask; only positive tissue areas evaluated by U-Net."
+      },
+      "CNN": {
+        "type": "Three-layer CNN followed by a fully connected layer.",
+        "implementation": "Implemented in Keras using TensorFlow backend."
+      }
+    },
+    "training_details": {
+      "U-Net": {
+        "loss_function": "Categorical cross-entropy.",
+        "optimizer": "ADAM with decoupled weight decay (initially); Stochastic Gradient Descent (SGD) (later phase with hard-negative mining).",
+        "batch_size": 6,
+        "data_augmentation": "Random rotation, color channel shifts, contrast augmentation, Gaussian blurring, random zooming.",
+        "training_schedule": "Initial training continued until validation loss did not increase over 12,500 consecutive iterations. Hard-negative mining phase continued until validation loss did not increase for 5,000 iterations.",
+        "hard_negative_mining": "Initial model predictions split into 1000x1000 pixel patches (50% overlap), binned by accuracy; 40 patches evenly distributed across bins saved to replace random sampling."
+      },
+      "CNN": {
+        "loss_function": "Categorical cross-entropy.",
+        "optimizer": "ADAM.",
+        "batch_size": 12,
+        "training_schedule": "Training halted if validation loss did not increase over 250 consecutive iterations."
+      }
+    },
+    "classification_or_output_head": {
+      "U-Net": "Multi-class prediction map (melanoma, nevus, negative) for each pixel.",
+      "CNN": "Fully connected layer with softmax output layer producing probabilities for 3 classes (melanoma, nevus, negative). Global slide label determined by highest probability, with higher importance placed on melanoma than nevi."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net",
+    "Convolutional Neural Network (CNN)",
+    "Random Forest Classifier",
+    "Support Vector Machines (SVM)"
+  ],
+  "preprocessing_techniques": [
+    "Tissue detection via conversion from RGB to HSV color space, calculation of Otsu's threshold on H and S channels, and creation of a binary mask to evaluate only positive tissue areas.",
+    "Patch extraction: U-Net trained on 512x512 patches sampled from 1000x1000 areas; evaluated on 1024x1024 patches with a stride of 854 pixels to prevent border artifacts.",
+    "Patch extraction: CNN trained and evaluated on 256x256 patches with 50% overlap.",
+    "Data augmentation during U-Net training: random rotation, color channel shifts, contrast augmentation, Gaussian blurring, and random zooming.",
+    "Hard-negative mining: Initial model predictions split into 1000x1000 pixel patches (50% overlap), binned by accuracy, with 40 patches evenly distributed across bins saved to replace random sampling for training.",
+    "Scanner balancing: Extra nevus slides scanned on Hamamatsu scanner to ensure comparable numbers per class."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random rotation",
+      "details": "Applied to 512x512 patches during U-Net training to compensate for slide blurring artifacts and variations."
+    },
+    {
+      "technique": "Color channel shifts",
+      "details": "Applied to 512x512 patches during U-Net training to compensate for differences in pixel size and staining between scanners."
+    },
+    {
+      "technique": "Contrast augmentation",
+      "details": "Applied to 512x512 patches during U-Net training to compensate for slide blurring artifacts."
+    },
+    {
+      "technique": "Gaussian blurring",
+      "details": "Applied to 512x512 patches during U-Net training to compensate for slide blurring artifacts."
+    },
+    {
+      "technique": "Random zooming",
+      "details": "Applied to 512x512 patches during U-Net training to compensate for the difference in pixel size between the Philips and Hamamatsu scanners."
+    },
+    {
+      "technique": "Hard-negative mining",
+      "details": "Used to balance the training set by replacing random sampling. Initial model predictions were split into 1,000x1,000 pixel patches (50% overlap), binned by accuracy compared to ground truth, and 40 patches evenly distributed across bins were saved for each slide."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep learning framework combining a U-Net for semantic segmentation and a CNN for slide-level classification achieved high accuracy in segmenting and classifying melanoma and nevus in whole slide images.",
+    "The U-Net segmentation model achieved a Dice score of 0.835 ± 0.08 on the validation set, demonstrating effective pixel-wise classification of melanoma, nevus, and negative regions.",
+    "The CNN classification model achieved a weighted F1-score of 0.954 on an independent test set of 331 slides, correctly classifying 173 out of 176 melanoma slides and 57 out of 62 nevus slides.",
+    "The system successfully creates a risk map overlay that highlights areas of predicted melanoma and nevus, potentially assisting pathologists by prioritizing cases and focusing on high-risk regions.",
+    "The model misclassified three early-stage, small melanoma slides as negative, indicating that the model had not been trained sufficiently on these specific cases.",
+    "Misclassifications of nevi and negative slides were primarily attributed to tissue artifacts and inflammation being detected as melanoma areas, highlighting limitations in handling complex histological contexts despite hard-negative mining.",
+    "The study demonstrates that automated segmentation and classification can support diagnostic workflows, although expert review remains important for accurate diagnosis."
+  ],
+  "important_remarks": [
+    "The study is limited to clear-cut cases of melanoma and nevus; performance on challenging intermediate cases like dysplastic nevi and Spitz tumors was not evaluated.",
+    "The clinical impact of the system was not assessed, and agreement with a panel of specialists was not explored, only comparison with original diagnoses.",
+    "The model misclassified three early-stage, small melanoma slides as negative, indicating insufficient training data for these specific subtypes.",
+    "Misclassifications of nevi and negative slides were primarily due to tissue artifacts and inflammation being detected as melanoma areas, despite hard-negative mining.",
+    "The dataset was sourced from a single institution (University Medical Center Utrecht), potentially limiting generalizability to other populations or scanners.",
+    "The test set relied on clinical diagnoses from pathology reports rather than manual expert annotations, which may introduce ground truth noise."
+  ]
+}

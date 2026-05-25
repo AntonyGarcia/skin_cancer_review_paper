@@ -1,0 +1,473 @@
+{
+  "file_name": "Zhi et al. - 2024 - Masked autoencoders with generalizable self-distillation for skin lesion segmentation.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning method called TEDMAE (Teacher-Student Masked Autoencoder with generalizable self-distillation) for skin lesion segmentation. It employs self-supervised learning, masked autoencoders, and specific augmentation strategies (Exterior Conversion Augmentation and Dynamic Feature Generation) to segment skin lesions in dermoscopy images from datasets like ISIC2017 and PH2."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as an 'ORIGINAL ARTICLE' and presents a novel method (TEDMAE) for skin lesion segmentation. It includes original experimental results, comparisons with state-of-the-art methods on public datasets (ISIC2017, ISIC2019, PH2), and specific performance metrics (Dice, Jaccard, HD95), indicating it produces new empirical results rather than summarizing prior literature."
+  },
+  "title": "Masked autoencoders with generalizable self-distillation for skin lesion segmentation",
+  "authors": [
+    "Yichen Zhi",
+    "Hongxia Bie",
+    "Jiali Wang",
+    "Lihan Ren"
+  ],
+  "doi": "10.1007/s11517-024-03086-z",
+  "journal": "Medical & Biological Engineering & Computing",
+  "year": 2025,
+  "article_type": "Original research article",
+  "brief_summary": "This study addresses the challenge of skin lesion segmentation by proposing TEDMAE, a Teacher-Student Masked Autoencoder with generalizable self-distillation. The method employs self-supervised learning to pre-train on unlabeled data and incorporates Exterior Conversion Augmentation and Dynamic Feature Generation to enhance global feature generalization. The model was evaluated on three public dermatology datasets: ISIC2019 for pre-training, and ISIC2017 and PH2 for fine-tuning and testing. Performance was measured using Dice, Jaccard, and HD95 metrics, with the model demonstrating superior segmentation and generalization capabilities compared to state-of-the-art methods. Specifically, TEDMAE achieved Dice scores of 82.1% on ISIC2017 and 91.2% on PH2, validating its effectiveness in handling diverse skin lesion characteristics.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesion",
+        "skin lesions",
+        "diseased regions",
+        "cutaneous lesions"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on the segmentation of skin lesions in general using dermoscopy images from the ISIC2019, ISIC2017, and PH2 datasets. It does not specify or distinguish between specific pathological subtypes (e.g., melanoma, nevus, BCC) in the provided context, treating the target as the lesion region itself."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion regions in dermoscopy images",
+        "primary": true,
+        "details": "The paper focuses on skin lesion segmentation, predicting pixel-wise masks for diseased regions. Performance is evaluated using Dice coefficient, Jaccard index, and HD95 metrics on datasets ISIC2017 and PH2."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2019",
+      "description": "International Skin Imaging Collaboration 2019 dataset, comprising RGB skin lesion JPEG images used for self-supervised pre-training.",
+      "classes_used": [
+        "Skin lesions (unlabeled for pre-training)"
+      ],
+      "counts": {
+        "total": 25331,
+        "training": 25331,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for self-supervised pre-training of the TEDMAE model.",
+        "validation": null,
+        "testing": null,
+        "other": "Pre-training"
+      }
+    },
+    {
+      "name": "ISIC 2017",
+      "description": "International Skin Imaging Collaboration 2017 dataset, containing RGB skin lesion JPEG images with expert annotations, used for fine-tuning and testing segmentation performance.",
+      "classes_used": [
+        "Skin lesion (binary mask)"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for fine-tuning the pre-trained model.",
+        "validation": "Used for validation during fine-tuning experiments.",
+        "testing": "Used to evaluate the model's segmentation performance.",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "PH2 dataset, containing annotated dermoscopic lesion images used to validate the model's generalizability on an external dataset.",
+      "classes_used": [
+        "Skin lesion (binary mask)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to test the model's generalizability by replacing the test sets of other experiments.",
+        "other": "External validation of generalization capabilities"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient",
+    "Jaccard index",
+    "95% Hausdorff distance",
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "F1 Score"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using point estimates of metrics (Dice, Jaccard, HD95) across different experimental groups and datasets without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2017": {
+      "description": "Segmentation performance evaluated on the ISIC2017 dataset using varying proportions of labeled training data (100%, 75%, 50%, 25%, 5%, 2.5%).",
+      "metrics": [
+        "Dice (%)",
+        "Jaccard (%)",
+        "HD-95% (pix.)"
+      ],
+      "models": {
+        "TEDMAE (Ours)": {
+          "Dice_100%": "82.1",
+          "Dice_75%": "81.3",
+          "Dice_50%": "80.7",
+          "Dice_25%": "79.6",
+          "Dice_5%": "76.2",
+          "Dice_2.5%": "75.7",
+          "Jaccard_100%": "72.6",
+          "Jaccard_75%": "71.5",
+          "Jaccard_50%": "71.4",
+          "Jaccard_25%": "69.8",
+          "Jaccard_5%": "65.5",
+          "Jaccard_2.5%": "65.0",
+          "HD95_100%": "13.0",
+          "HD95_75%": "14.1",
+          "HD95_50%": "15.3",
+          "HD95_25%": "17.5",
+          "HD95_5%": "21.8",
+          "HD95_2.5%": "23.9"
+        },
+        "TEDMAE (ReLU)": {
+          "Dice_100%": "81.8",
+          "Dice_75%": "80.5",
+          "Dice_50%": "80.0",
+          "Dice_25%": "79.4",
+          "Dice_5%": "75.4",
+          "Dice_2.5%": "72.9",
+          "Jaccard_100%": "72.3",
+          "Jaccard_75%": "70.7",
+          "Jaccard_50%": "69.8",
+          "Jaccard_25%": "68.1",
+          "Jaccard_5%": "64.2",
+          "Jaccard_2.5%": "61.9",
+          "HD95_100%": "13.1",
+          "HD95_75%": "14.2",
+          "HD95_50%": "15.9",
+          "HD95_25%": "18.4",
+          "HD95_5%": "25.2",
+          "HD95_2.5%": "26.9"
+        },
+        "Random": {
+          "Dice_100%": "80.4",
+          "Dice_75%": "79.5",
+          "Dice_50%": "77.8",
+          "Dice_25%": "76.9",
+          "Dice_5%": "69.7",
+          "Dice_2.5%": "67.7",
+          "Jaccard_100%": "70.9",
+          "Jaccard_75%": "69.6",
+          "Jaccard_50%": "67.4",
+          "Jaccard_25%": "66.5",
+          "Jaccard_5%": "57.8",
+          "Jaccard_2.5%": "57.6",
+          "HD95_100%": "14.7",
+          "HD95_75%": "15.0",
+          "HD95_50%": "18.5",
+          "HD95_25%": "20.4",
+          "HD95_5%": "28.3",
+          "HD95_2.5%": "32.5"
+        },
+        "MAE": {
+          "Dice_100%": "80.5",
+          "Dice_75%": "79.6",
+          "Dice_50%": "79.2",
+          "Dice_25%": "78.8",
+          "Dice_5%": "67.7",
+          "Dice_2.5%": "68.8",
+          "Jaccard_100%": "71.1",
+          "Jaccard_75%": "69.9",
+          "Jaccard_50%": "69.1",
+          "Jaccard_25%": "67.9",
+          "Jaccard_5%": "56.1",
+          "Jaccard_2.5%": "57.4",
+          "HD95_100%": "15.5",
+          "HD95_75%": "15.8",
+          "HD95_50%": "17.0",
+          "HD95_25%": "19.8",
+          "HD95_5%": "30.6",
+          "HD95_2.5%": "32.0"
+        },
+        "DINO": {
+          "Dice_100%": "81.0",
+          "Dice_75%": "79.5",
+          "Dice_50%": "78.3",
+          "Dice_25%": "77.7",
+          "Dice_5%": "74.5",
+          "Dice_2.5%": "69.6",
+          "Jaccard_100%": "71.7",
+          "Jaccard_75%": "69.8",
+          "Jaccard_50%": "68.3",
+          "Jaccard_25%": "67.9",
+          "Jaccard_5%": "63.8",
+          "Jaccard_2.5%": "58.3",
+          "HD95_100%": "15.0",
+          "HD95_75%": "15.2",
+          "HD95_50%": "17.2",
+          "HD95_25%": "19.1",
+          "HD95_5%": "27.1",
+          "HD95_2.5%": "39.6"
+        },
+        "FreMAE": {
+          "Dice_100%": "81.0",
+          "Dice_75%": "80.0",
+          "Dice_50%": "79.8",
+          "Dice_25%": "77.3",
+          "Dice_5%": "70.5",
+          "Dice_2.5%": "69.5",
+          "Jaccard_100%": "71.8",
+          "Jaccard_75%": "70.5",
+          "Jaccard_50%": "69.5",
+          "Jaccard_25%": "67.3",
+          "Jaccard_5%": "58.5",
+          "Jaccard_2.5%": "57.8",
+          "HD95_100%": "14.9",
+          "HD95_75%": "15.2",
+          "HD95_50%": "16.7",
+          "HD95_25%": "20.3",
+          "HD95_5%": "27.9",
+          "HD95_2.5%": "28.9"
+        }
+      },
+      "notes": "TEDMAE achieved the best scores across all metrics and label proportions compared to baselines (Random, MAE, DINO, FreMAE). Substituting GELU with ReLU resulted in a minor reduction in performance."
+    },
+    "PH2": {
+      "description": "Generalizable segmentation performance evaluated on the external PH2 dataset. Models were pre-trained on ISIC2019 and fine-tuned on ISIC2017, then tested on PH2.",
+      "metrics": [
+        "Dice (%)",
+        "Jaccard (%)",
+        "HD-95% (pix.)"
+      ],
+      "models": {
+        "TEDMAE (Ours)": {
+          "Dice_100%": "91.2",
+          "Dice_75%": "91.0",
+          "Dice_50%": "90.9",
+          "Dice_25%": "90.2",
+          "Dice_5%": "88.3",
+          "Dice_2.5%": "87.6",
+          "Jaccard_100%": "84.5",
+          "Jaccard_75%": "84.2",
+          "Jaccard_50%": "84.1",
+          "Jaccard_25%": "82.9",
+          "Jaccard_5%": "80.6",
+          "Jaccard_2.5%": "79.7",
+          "HD95_100%": "8.9",
+          "HD95_75%": "10.3",
+          "HD95_50%": "11.9",
+          "HD95_25%": "16.6",
+          "HD95_5%": "26.4",
+          "HD95_2.5%": "32.0"
+        },
+        "TEDMAE (ReLU)": {
+          "Dice_100%": "91.2",
+          "Dice_75%": "90.8",
+          "Dice_50%": "90.4",
+          "Dice_25%": "89.7",
+          "Dice_5%": "88.1",
+          "Dice_2.5%": "87.4",
+          "Jaccard_100%": "84.3",
+          "Jaccard_75%": "83.7",
+          "Jaccard_50%": "83.5",
+          "Jaccard_25%": "82.1",
+          "Jaccard_5%": "80.1",
+          "Jaccard_2.5%": "79.4",
+          "HD95_100%": "10.6",
+          "HD95_75%": "13.8",
+          "HD95_50%": "15.6",
+          "HD95_25%": "20.4",
+          "HD95_5%": "26.7",
+          "HD95_2.5%": "36.3"
+        },
+        "Random": {
+          "Dice_100%": "88.3",
+          "Dice_75%": "88.1",
+          "Dice_50%": "84.6",
+          "Dice_25%": "81.9",
+          "Dice_5%": "79.7",
+          "Dice_2.5%": "66.4",
+          "Jaccard_100%": "80.0",
+          "Jaccard_75%": "79.5",
+          "Jaccard_50%": "76.6",
+          "Jaccard_25%": "72.0",
+          "Jaccard_5%": "69.7",
+          "Jaccard_2.5%": "53.6",
+          "HD95_100%": "16.6",
+          "HD95_75%": "21.6",
+          "HD95_50%": "31.1",
+          "HD95_25%": "35.0",
+          "HD95_5%": "45.2",
+          "HD95_2.5%": "90.8"
+        },
+        "MAE": {
+          "Dice_100%": "90.1",
+          "Dice_75%": "89.1",
+          "Dice_50%": "87.9",
+          "Dice_25%": "86.7",
+          "Dice_5%": "84.7",
+          "Dice_2.5%": "80.7",
+          "Jaccard_100%": "82.6",
+          "Jaccard_75%": "80.9",
+          "Jaccard_50%": "79.3",
+          "Jaccard_25%": "77.3",
+          "Jaccard_5%": "76.2",
+          "Jaccard_2.5%": "69.9",
+          "HD95_100%": "16.6",
+          "HD95_75%": "40.1",
+          "HD95_50%": "40.3",
+          "HD95_25%": "44.7",
+          "HD95_5%": "48.4",
+          "HD95_2.5%": "78.2"
+        },
+        "DINO": {
+          "Dice_100%": "90.2",
+          "Dice_75%": "88.5",
+          "Dice_50%": "87.6",
+          "Dice_25%": "86.7",
+          "Dice_5%": "86.0",
+          "Dice_2.5%": "83.0",
+          "Jaccard_100%": "83.1",
+          "Jaccard_75%": "81.7",
+          "Jaccard_50%": "80.5",
+          "Jaccard_25%": "77.7",
+          "Jaccard_5%": "76.8",
+          "Jaccard_2.5%": "73.7",
+          "HD95_100%": "11.8",
+          "HD95_75%": "16.4",
+          "HD95_50%": "21.8",
+          "HD95_25%": "33.6",
+          "HD95_5%": "35.3",
+          "HD95_2.5%": "62.4"
+        },
+        "FreMAE": {
+          "Dice_100%": "90.0",
+          "Dice_75%": "89.0",
+          "Dice_50%": "88.4",
+          "Dice_25%": "87.8",
+          "Dice_5%": "81.9",
+          "Dice_2.5%": "79.7",
+          "Jaccard_100%": "82.5",
+          "Jaccard_75%": "80.5",
+          "Jaccard_50%": "80.0",
+          "Jaccard_25%": "79.0",
+          "Jaccard_5%": "72.1",
+          "Jaccard_2.5%": "69.7",
+          "HD95_100%": "11.3",
+          "HD95_75%": "20.1",
+          "HD95_50%": "21.1",
+          "HD95_25%": "34.5",
+          "HD95_5%": "42.0",
+          "HD95_2.5%": "44.8"
+        }
+      },
+      "notes": "TEDMAE demonstrated superior generalization capabilities, achieving the best results across all three metrics in all six experimental groups compared to baselines. Confusion matrix analysis on PH2 showed TEDMAE achieved 93.81% accuracy, 95.41% precision, 95.43% recall, and 95.42% F1 Score, outperforming Random, MAE, DINO, and FreMAE."
+    }
+  },
+  "architecture_used": {
+    "main_model": "TEDMAE (Teacher-Student Masked Autoencoder with generalizable self-distillation)",
+    "pretraining": "Self-supervised pre-training on unlabeled ISIC 2019 dataset (25,331 images) for 300 epochs using Masked Image Modeling (MIM). The model utilizes a Teacher-Student architecture where the Student is a standard MAE and the Teacher is an EMA-updated version of the Student. The Teacher incorporates Exterior Conversion Augmentation (EC) and Dynamic Feature Generation (DF) to enhance global feature generalization.",
+    "input_size": "Not explicitly reported (images are RGB JPEGs from ISIC datasets; EC transforms input X to X4 preserving shape H x W x Ch).",
+    "architecture_details": {
+      "backbone": "Vision Transformer (ViT) for both Encoder and Decoder components of the Student model; Encoder-only ViT for the Teacher model.",
+      "encoder_structure": "Standard ViT Encoder.",
+      "decoder_structure": "Standard ViT Decoder (for reconstruction).",
+      "teacher_components": [
+        "Exterior Conversion Augmentation (EC): Uses random convolutional kernels sampled from Gaussian distribution, Leaky ReLU for non-linear transformation, and linear interpolation with a random coefficient beta from U(0,1).",
+        "Dynamic Feature Generation (DF): Uses dynamic convolutions with attention weights generated via global average pooling, fully connected layers (with 4x dimension reduction), ReLU, and Softmax to balance performance and computational load."
+      ],
+      "loss_function": "L = L1(Y_hat, X) + L2(P1, P2) * alpha. L1 is the reconstruction loss (MSE between reconstructed pixels Y_hat and original pixels X). L2 is the distillation loss between probability distributions P1 (from Student) and P2 (from Teacher after Centering and SoftMax). Alpha controls the weight of the global distillation loss.",
+      "activation_function": "GELU (default), with ablation study using ReLU.",
+      "teacher_update": "Exponential Moving Average (EMA) of Student weights."
+    },
+    "training_details": {
+      "optimizer": "Not explicitly reported.",
+      "batch_size": {
+        "pretraining": 128,
+        "fine_tuning": 16
+      },
+      "epochs": {
+        "pretraining": 300,
+        "fine_tuning": "Not explicitly reported (varied by labeled data subset: 100%, 75%, 50%, 25%, 5%, 2.5%)."
+      },
+      "hardware": "Nvidia Geforce RTX 4090 GPU",
+      "framework": "Pytorch"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation Decoder",
+      "details": "The Student model includes a Decoder to reconstruct masked pixels. For downstream segmentation tasks, the pre-trained encoder is fine-tuned. Specific segmentation head architecture (e.g., U-Net style, MLP-Mixer) is not detailed in the provided context, but the model outputs pixel-wise masks."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "TEDMAE (Teacher-Student Masked Autoencoder with generalizable self-distillation)",
+    "TEDMAE (ReLU)",
+    "Random",
+    "MAE (Masked Autoencoder)",
+    "DINO (Emerging Properties in Self-Supervised Vision Transformers)",
+    "FreMAE (Fourier Transform Meets Masked Autoencoders for Medical Image Segmentation)"
+  ],
+  "preprocessing_techniques": [
+    "Exterior Conversion Augmentation (EC): A preprocessing strategy applied during pre-training that uses random convolutional kernels sampled from a Gaussian distribution, Leaky ReLU for nonlinear transformation, and linear interpolation with a random coefficient beta from U(0,1) to transform input images while preserving shape. The output is renormalized to match the Frobenius norm of the original input.",
+    "Dynamic Feature Generation (DF): A feature enhancement strategy employing dynamic convolutions with attention weights generated via global average pooling, fully connected layers (with 4x dimension reduction), ReLU, and Softmax to balance performance and computational load.",
+    "Masked Image Modeling (MIM): Input images are masked (parts of the image are hidden) during the pre-training phase, and the model is trained to reconstruct the original pixels.",
+    "Centering and SoftMax: Applied to teacher model outputs to derive probability distributions for self-distillation loss calculation."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Exterior Conversion Augmentation (EC)",
+      "details": "A preprocessing strategy applied during pre-training that transforms input images to alter intensity and texture while preserving shape. It uses a stochastic convolution kernel sampled from a Gaussian distribution N(0, I) with a small receptive field, Leaky ReLU for nonlinear transformation, and linear interpolation with a random coefficient beta from U(0,1). The output is renormalized to match the Frobenius norm of the original input."
+    },
+    {
+      "technique": "Dynamic Feature Generation (DF)",
+      "details": "A feature enhancement strategy employing dynamic convolutions with attention weights generated via global average pooling, fully connected layers (with 4x dimension reduction), ReLU, and Softmax. This balances performance and computational load by adapting to the unique content of each image."
+    },
+    {
+      "technique": "Masked Image Modeling (MIM)",
+      "details": "Input images are masked (parts of the image are hidden) during the pre-training phase, and the model is trained to reconstruct the original pixels."
+    }
+  ],
+  "conclusions": [
+    "The proposed TEDMAE method, which incorporates a Teacher-Student architecture with generalizable self-distillation, outperforms state-of-the-art self-supervised learning methods (Random, MAE, DINO, FreMAE) in skin lesion segmentation.",
+    "TEDMAE demonstrated optimal segmentation performance on the ISIC2017 dataset, achieving a Dice score of 82.1%, a Jaccard index of 72.6%, and an HD95 of 13.0 pixels.",
+    "TEDMAE demonstrated superior generalization capabilities on the external PH2 dataset, achieving a Dice score of 91.2%, a Jaccard index of 84.5%, and an HD95 of 8.9 pixels.",
+    "The method maintains high performance even with limited labeled data, showing robustness across varying proportions of training labels (100% down to 2.5%).",
+    "The inclusion of Exterior Conversion Augmentation (EC) and Dynamic Feature Generation (DF) enhances the global feature generalization of the pre-trained model, addressing limitations of standard MAE in capturing holistic image information.",
+    "The default GELU activation function contributes to better performance compared to ReLU, likely due to its effectiveness in handling complex network architectures and intricate data distributions."
+  ],
+  "important_remarks": [
+    "The study lacks formal statistical hypothesis testing (e.g., p-values, confidence intervals); performance comparisons rely solely on point estimates of metrics (Dice, Jaccard, HD95) without significance testing.",
+    "The model was evaluated on only two public datasets (ISIC2017 and PH2) for segmentation, which limits the assessment of external validation and generalizability to other skin lesion populations or imaging devices.",
+    "The PH2 dataset used for external validation contains only 200 images, which is a small sample size for robust generalization assessment.",
+    "The paper does not report the optimizer used for training, nor the specific number of epochs for the fine-tuning phase, limiting reproducibility.",
+    "The study focuses on general skin lesion segmentation without distinguishing between specific pathological subtypes (e.g., melanoma vs. nevus), which may limit clinical relevance for specific diagnostic tasks.",
+    "The method relies on self-supervised pre-training on unlabeled data (ISIC2019) followed by fine-tuning on labeled data; performance drops significantly with very low labeled data (2.5% Dice score of 75.7% on ISIC2017), indicating dependency on some labeled data.",
+    "The authors acknowledge that the current approach involves pixel reconstruction which may cause precision loss, and suggest future work on feature-level loss calculation."
+  ]
+}

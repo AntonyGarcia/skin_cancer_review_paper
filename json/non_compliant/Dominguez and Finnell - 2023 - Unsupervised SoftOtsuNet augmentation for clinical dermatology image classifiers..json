@@ -1,0 +1,357 @@
+{
+  "file_name": "Dominguez and Finnell - 2023 - Unsupervised SoftOtsuNet augmentation for clinical dermatology image classifiers..json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Deep Neural Networks (DNNs), specifically a novel unsupervised network called SoftOtsuNet (combining a differentiable adaptation of Otsu's Method and CutOut augmentation) integrated with classifiers like EfficientNet and ConvNext, to perform data augmentation for clinical dermatology image classification tasks on datasets such as Fitzpatrick17k, Diverse Dermatology Images, and VisualDx."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel unsupervised deep learning architecture (SoftOtsuNet) for data augmentation. It includes a Methods section detailing the algorithm design, a Results section with quantitative performance metrics (accuracy improvements) on specific datasets (Fitzpatrick17k, Diverse Dermatology Images, VisualDx), and a comparison against baseline models, which characterizes it as an original technical study rather than a review."
+  },
+  "title": "Unsupervised SoftOtsuNet Augmentation for Clinical Dermatology Image Classifiers",
+  "authors": [
+    "Miguel Dominguez",
+    "John T. Finnell"
+  ],
+  "doi": null,
+  "journal": null,
+  "year": 2023,
+  "article_type": "Research paper",
+  "brief_summary": "This study addresses the challenge of irrelevant background bias in clinical dermatology images by proposing SoftOtsuNet, an unsupervised deep learning augmentation method that dynamically masks background pixels using a differentiable adaptation of Otsu's Method and CutOut. The authors evaluated this approach on three datasets: Fitzpatrick17k, Diverse Dermatology Images, and a proprietary VisualDx dataset, using classifiers such as EfficientNet and ConvNext. SoftOtsuNet outperformed baseline and other augmentation methods, achieving accuracy improvements of 0.75%, 1.76%, and 0.92% respectively. Additionally, the method maintained or improved demographic equity across Fitzpatrick skin types, as measured by Gini scores, without increasing inference costs since the network is discarded at test time. The results demonstrate that integrating human-engineered unsupervised priors with deep learning can effectively mitigate bias and enhance classifier performance in dermatology.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Cutaneous T-cell lymphoma",
+      "paper_terms": [
+        "cutaneous T-cell lymphoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the Introduction as an example of a disease potentially biased by irrelevant background information (e.g., objects in a doctor's office), but not a target class in the experiments."
+    },
+    {
+      "lesion_type": "Psoriasis",
+      "paper_terms": [
+        "Psoriasis"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the Introduction as an example of a prediction task to illustrate how DNNs might learn from background markers rather than exclusively from lesions."
+    },
+    {
+      "lesion_type": "Malignant lesions",
+      "paper_terms": [
+        "malignant",
+        "malignant/not malignant"
+      ],
+      "role": "Target class (grouped)",
+      "details": "Used in the Diverse Dermatology Images (DDI) dataset evaluation, where 78 diagnoses were categorized into 'malignant' or 'not malignant' for binary classification via linear SVMs."
+    },
+    {
+      "lesion_type": "Benign lesions",
+      "paper_terms": [
+        "not malignant"
+      ],
+      "role": "Target class (grouped)",
+      "details": "Used in the Diverse Dermatology Images (DDI) dataset evaluation as the complement to malignant lesions."
+    },
+    {
+      "lesion_type": "Dermatological diagnoses (Expert)",
+      "paper_terms": [
+        "Expert diagnosis",
+        "diagnosis"
+      ],
+      "role": "Target class",
+      "details": "Predicted from 269 separate classes in the proprietary VisualDx dataset."
+    },
+    {
+      "lesion_type": "Dermatological diagnoses (Consumer)",
+      "paper_terms": [
+        "Consumer diagnosis"
+      ],
+      "role": "Target class",
+      "details": "Predicted from 191 separate classes (a strict subset of Expert diagnosis) in the proprietary VisualDx dataset."
+    },
+    {
+      "lesion_type": "Lesion morphology",
+      "paper_terms": [
+        "Lesion prediction",
+        "lesion morphology"
+      ],
+      "role": "Target class",
+      "details": "Predicted from 80 separate classes in the proprietary VisualDx dataset."
+    },
+    {
+      "lesion_type": "Dermatological diagnoses (Fitzpatrick17k)",
+      "paper_terms": [
+        "diagnoses"
+      ],
+      "role": "Target class",
+      "details": "The Fitzpatrick17k dataset contains 114 diagnoses, which served as the target classes for the primary classification experiments."
+    },
+    {
+      "lesion_type": "Dermatological diagnoses (DDI)",
+      "paper_terms": [
+        "diagnoses"
+      ],
+      "role": "Target class",
+      "details": "The Diverse Dermatology Images dataset contains 78 separate diagnoses, used for feature extraction and linear SVM classification."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Dermatological diagnoses (categorical labels)",
+        "primary": true,
+        "details": "The paper evaluates classifiers (EfficientNet, ConvNext) on three datasets for diagnostic classification: Fitzpatrick17k (114 diagnoses), Diverse Dermatology Images (DDI) (78 diagnoses categorized into malignant vs. not malignant for binary classification via linear SVMs), and a proprietary VisualDx dataset (Expert diagnosis: 269 classes, Consumer diagnosis: 191 classes, Lesion morphology: 80 classes). The primary task is predicting discrete diagnostic categories."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Fitzpatrick17k",
+      "description": "A publicly available large-scale labeled clinical dermatology dataset consisting of images representing all six Fitzpatrick skin types.",
+      "classes_used": [
+        "114 diagnoses"
+      ],
+      "counts": {
+        "total": 16577,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training classifiers (EfficientNetB4) with five random stratified splits of 80% training and 20% validation.",
+        "validation": "Used for validation within the five-fold cross-validation splits (20% of data per split).",
+        "testing": "Not explicitly tested on a separate held-out test set; performance evaluated via five-fold cross-validation accuracy.",
+        "other": "Used to extract features for linear SVM classification on the Diverse Dermatology Images dataset."
+      }
+    },
+    {
+      "name": "Diverse Dermatology Images (DDI)",
+      "description": "A small dataset of clinical dermatology images used to evaluate how well networks trained on Fitzpatrick17k generalize to an unseen dataset.",
+      "classes_used": [
+        "78 separate diagnoses",
+        "malignant",
+        "not malignant"
+      ],
+      "counts": {
+        "total": 656,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Not used for training the primary classifiers; features were extracted from Fitzpatrick17k-trained networks.",
+        "validation": "Used for validation within five-fold cross-validation splits (20% of data per split) for training linear SVMs.",
+        "testing": "Not explicitly tested on a separate held-out test set; performance evaluated via five-fold cross-validation accuracy of linear SVMs.",
+        "other": "Used to evaluate linear separability of malignant vs. not malignant lesions using features from Fitzpatrick17k-trained networks."
+      }
+    },
+    {
+      "name": "VisualDx Internal Dataset",
+      "description": "A proprietary dataset from VisualDx containing clinical dermatology images with expert and consumer diagnosis labels and lesion morphology labels.",
+      "classes_used": [
+        "Expert diagnosis (269 classes)",
+        "Consumer diagnosis (191 classes)",
+        "Lesion morphology (80 classes)"
+      ],
+      "counts": {
+        "total": 130663,
+        "training": 86157,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training ConvNext-Base classifiers with an 80% training split (of the 130,663 images, 86,157 had diagnosis labels and 107,841 had lesion labels).",
+        "validation": "Used for validation with a 10% split to tune the baseline network.",
+        "testing": "Used for testing with a 10% split to report final accuracy metrics.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Top-1 Accuracy",
+    "Top-3 Accuracy",
+    "Gini Score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "To evaluate and compare the performance of different augmentation methods (Baseline, CutOut, RandAugment, SoftOtsuNet) on the Fitzpatrick17k dataset by splitting data into five random stratified splits of 80% training and 20% validation.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Gini Score",
+      "purpose": "To assess demographic equity among classifier accuracies across the six Fitzpatrick skin types, serving as a summary measure of inequity.",
+      "type": "Inequality metric"
+    },
+    {
+      "method": "Linear Support Vector Machine (SVM)",
+      "purpose": "To perform binary classification (malignant vs. not malignant) on the Diverse Dermatology Images dataset using features extracted from Fitzpatrick17k-trained networks, evaluated via five-fold cross-validation.",
+      "type": "Classification algorithm"
+    },
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "To evaluate the linear SVM classifiers on the Diverse Dermatology Images dataset.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Stratified splitting",
+      "purpose": "To ensure representative distribution of classes in the training and validation sets for the Fitzpatrick17k dataset splits.",
+      "type": "Data splitting strategy"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance comparisons were made using mean accuracy and Gini scores across five-fold cross-validation splits, with standard deviations reported for the DDI dataset, but no statistical significance testing was performed or reported."
+  },
+  "results_obtained_in_each_dataset": {
+    "Fitzpatrick17k": {
+      "metric": "Accuracy (Mean Five-fold)",
+      "models": {
+        "Baseline (BL)": "66.4%",
+        "CutOut (CO)": "66.3%",
+        "RandAugment (RA)": "66.3%",
+        "CutOut + RandAugment (CO+RA)": "66.3%",
+        "SoftOtsuNet (Ours)": "66.9%",
+        "SoftOtsuNet + RandAugment (Ours + RA)": "66.9%"
+      },
+      "notes": "SoftOtsuNet achieved a 0.75% improvement over the baseline. SoftOtsuNet maintained the same Gini score (0.060) as the Baseline, while other methods slightly increased the Gini score. Per-skin-type accuracies were reported in Table 3, with SoftOtsuNet yielding top accuracy for three out of six Fitzpatrick skin types on average."
+    },
+    "Diverse Dermatology Images (DDI)": {
+      "metric": "Accuracy (Mean ± Std Dev over 25 runs)",
+      "models": {
+        "Baseline (BL)": "73.8% ± 4.56%",
+        "CutOut (CO)": "75.1% ± 3.82%",
+        "RandAugment (RA)": "74.9% ± 2.97%",
+        "CutOut + RandAugment (CO+RA)": "75.1% ± 3.82%",
+        "SoftOtsuNet (Ours)": "75.1% ± 3.31%",
+        "SoftOtsuNet + RandAugment (Ours + RA)": "74.9% ± 3.50%"
+      },
+      "notes": "Results are based on linear SVM classifiers trained on features extracted from Fitzpatrick17k-trained networks. SoftOtsuNet methods achieved a 1.76% improvement over the baseline. SoftOtsuNet achieved a lower average Gini score (0.031 for Ours, 0.025 for Ours + RA) compared to Baseline (0.032), indicating more equitable performance across Fitzpatrick skin type clusters (I/II, III/IV, V/VI). CutOut and CO+RA achieved higher accuracy on skin types V/VI at the expense of I/II."
+    },
+    "VisualDx Internal Dataset": {
+      "metric": "Accuracy (Top-1 and Top-3)",
+      "models": {
+        "Baseline": {
+          "Expert Diagnosis Top-1": "54.6%",
+          "Expert Diagnosis Top-3": "73.7%",
+          "Consumer Diagnosis Top-1": "61.2%",
+          "Consumer Diagnosis Top-3": "79.9%",
+          "Lesion Morphology Top-1": "52.8%",
+          "Lesion Morphology Top-3": "80.5%"
+        },
+        "SoftOtsuNet (Our Method)": {
+          "Expert Diagnosis Top-1": "55.1%",
+          "Expert Diagnosis Top-3": "74.2%",
+          "Consumer Diagnosis Top-1": "61.2%",
+          "Consumer Diagnosis Top-3": "80.1%",
+          "Lesion Morphology Top-1": "52.8%",
+          "Lesion Morphology Top-3": "80.5%"
+        }
+      },
+      "notes": "Evaluated on a single 80/10/10 train/val/test split using ConvNext-Base backbone. SoftOtsuNet significantly improved Expert diagnosis accuracy (0.92% improvement in Top-1). It matched or surpassed baseline performance on Consumer diagnosis and Lesion morphology tasks."
+    }
+  },
+  "architecture_used": {
+    "main_model": "SoftOtsuNet (unsupervised augmentation network) integrated with EfficientNetB4 and ConvNext-Base classifiers",
+    "pretraining": "EfficientNetB4 classifier initialized with pretrained weights from ImageNet and Noisy Student self-training; SoftOtsuNet randomly initialized with Kaiming initialization",
+    "input_size": "Not explicitly reported (images from Fitzpatrick17k, DDI, and VisualDx datasets)",
+    "architecture_details": {
+      "SoftOtsuNet": "Off-the-shelf U-Net segmentation network adapted to produce a soft mask M. Uses a differentiable adaptation of Otsu's Method with loss function L_soft_otsu combining intra-class variance (L_intra_var) and mean separation (L_mean_sep). Masking output is combined with CutOut (random rectangle set to zero) to prevent local minima. Mask M is used to mix input image X with random noise N: X_aug = M ⊙ X + (1 - M) ⊙ N. Gradient signal from classifier is detached from SoftOtsuNet.",
+      "Classifier": "EfficientNetB4 (for Fitzpatrick17k) and ConvNext-Base (for VisualDx). No architectural tuning (layers, convolutions, dropout) performed.",
+      "Greyscale Conversion": "ITU-R Recommendation BT.709 formula: x_L = 0.2125*x_R + 0.7154*x_G + 0.0721*x_B"
+    },
+    "training_details": {
+      "optimizer": "Stochastic Gradient Descent (SGD) with Nesterov momentum (0.9)",
+      "loss_function": "Combined loss L = L_ce + L_soft_otsu. L_ce is standard cross-entropy classification loss. L_soft_otsu is the unsupervised prior loss. Gradient from L_ce is detached from SoftOtsuNet.",
+      "hyperparameters": {
+        "epochs": 250,
+        "batch_size": 60,
+        "learning_rate": "Initial 0.01 with cosine decay schedule (no warm restarts)",
+        "label_smoothing": "α = 0.2",
+        "RandAugment_params": "M=15, N=1 (for baseline comparisons)",
+        "CutOut": "Applied to 50% of samples; additional random rectangle set to zero in SoftOtsuNet mask"
+      },
+      "training_schedule": "Five-fold cross-validation (80% train, 20% val) for Fitzpatrick17k. Single 80/10/10 train/val/test split for VisualDx. 16-bit floating point computation via PyTorch autocast."
+    },
+    "classification_or_output_head": {
+      "Fitzpatrick17k": "EfficientNetB4 classifier head for 114 diagnoses",
+      "DDI": "Linear Support Vector Machine (SVM) trained on features extracted from Fitzpatrick17k-trained networks",
+      "VisualDx": "ConvNext-Base classifier heads for Expert Diagnosis (269 classes), Consumer Diagnosis (191 classes), and Lesion Morphology (80 classes)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "SoftOtsuNet",
+    "EfficientNetB4",
+    "ConvNext-Base",
+    "Linear Support Vector Machine (SVM)",
+    "CutOut",
+    "RandAugment"
+  ],
+  "preprocessing_techniques": [
+    "SoftOtsuNet unsupervised augmentation: Dynamic masking of background pixels using a differentiable adaptation of Otsu's Method to generate a soft mask, combined with CutOut augmentation (setting a random rectangle to zero) to prevent local minima.",
+    "Greyscale conversion: Conversion of input images to greyscale using the ITU-R Recommendation BT.709 formula (x_L = 0.2125*x_R + 0.7154*x_G + 0.0721*x_B) to exploit bimodal histogram priors.",
+    "Mask smoothing: Application of Laplacian smoothing via 2x2 average pooling and bilinear interpolation to encourage low-frequency details in the generated mask.",
+    "Noise injection: Replacement of masked background regions with random noise (X_aug = M ⊙ X + (1 - M) ⊙ N) to create augmented training samples.",
+    "CutOut: Randomly setting a rectangle in the image to zero (applied to 50% of samples for baseline comparisons).",
+    "RandAugment: Automated data augmentation with reduced search space (M=15, N=1) applied in combination with SoftOtsuNet for some experiments."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "SoftOtsuNet",
+      "details": "Unsupervised dynamic masking of background pixels using a differentiable adaptation of Otsu's Method to generate a soft mask M. The input image X is mixed with uniform random noise N using the formula X_aug = M ⊙ X + (1 - M) ⊙ N. To prevent local minima, a random additional rectangle is set to zero in the predicted mask. The network is discarded at inference time."
+    },
+    {
+      "technique": "CutOut",
+      "details": "Applied to 50% of samples during training by setting a random rectangle in the image to zero. Used as a baseline augmentation and integrated into SoftOtsuNet to prevent the masking network from settling into static masks."
+    },
+    {
+      "technique": "RandAugment",
+      "details": "Automated data augmentation applied with parameters M=15 (number of augmentation operations) and N=1 (magnitude of each operation). Used in combination with SoftOtsuNet for the 'Ours + RA' configuration."
+    },
+    {
+      "technique": "Random Flips and Crops",
+      "details": "Minimal augmentation applied to the Baseline (BL) EfficientNetB4 classifier."
+    },
+    {
+      "technique": "Greyscale Conversion",
+      "details": "Input RGB images converted to greyscale using the ITU-R Recommendation BT.709 formula (x_L = 0.2125*x_R + 0.7154*x_G + 0.0721*x_B) to exploit bimodal histogram priors for Otsu's Method."
+    },
+    {
+      "technique": "Mask Smoothing",
+      "details": "Laplacian smoothing applied via 2x2 average pooling and bilinear interpolation to the predicted mask to encourage low-frequency details."
+    }
+  ],
+  "conclusions": [
+    "SoftOtsuNet, an unsupervised augmentation method that dynamically masks irrelevant background pixels using a differentiable adaptation of Otsu's Method, outperforms baseline and other augmentation methods (CutOut, RandAugment) on clinical dermatology image classification tasks.",
+    "SoftOtsuNet achieved accuracy improvements of 0.75% on the Fitzpatrick17k dataset, 1.76% on the Diverse Dermatology Images (DDI) dataset, and 0.92% on the proprietary VisualDx dataset compared to baselines.",
+    "The method mitigates bias from irrelevant background information (e.g., objects in a doctor's office) without requiring costly supervised pixel-wise segmentation labels.",
+    "SoftOtsuNet maintains or improves demographic equity across Fitzpatrick skin types, as measured by Gini scores, without increasing inference costs since the network is discarded at test time.",
+    "Integrating human-engineered unsupervised priors with deep learning allows large data-driven models to benefit from domain knowledge, suggesting a shift towards 'Prior Engineering' rather than relying solely on supervised deep learning or manual feature engineering.",
+    "The approach is scalable and economical compared to manual pixelwise labeling or hand-editing of images, which would impose astronomical costs.",
+    "On the DDI dataset, SoftOtsuNet achieved more equitable performance across skin type clusters (I/II, III/IV, V/VI) compared to CutOut and RandAugment, which improved accuracy on darker skin types (V/VI) at the expense of lighter skin types (I/II).",
+    "On the VisualDx dataset, SoftOtsuNet significantly improved Expert diagnosis accuracy (Top-1) while matching or surpassing baseline performance on Consumer diagnosis and Lesion morphology tasks."
+  ],
+  "important_remarks": [
+    "The study relies on a proprietary VisualDx dataset (130,663 images) for the largest evaluation, which limits external reproducibility and generalizability compared to the public Fitzpatrick17k and DDI datasets.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed; performance comparisons were based on mean accuracy and Gini scores across cross-validation splits.",
+    "The Diverse Dermatology Images (DDI) dataset is small (656 images) with high class imbalance (78 diagnoses), requiring the use of linear SVMs on extracted features rather than end-to-end deep learning training.",
+    "The SoftOtsuNet architecture is discarded at inference time, meaning it adds no computational overhead during deployment, but its effectiveness is strictly limited to the training phase.",
+    "The method assumes a bimodal histogram in greyscale images to apply Otsu's method, which may not hold for all clinical dermatology images or lighting conditions.",
+    "The paper does not report standard deviations for the Fitzpatrick17k results, only for the DDI dataset, making it difficult to assess variance for the primary public dataset evaluation.",
+    "The Gini score is used as a proxy for demographic equity across Fitzpatrick skin types, but it is a summary metric that may mask specific per-class performance disparities.",
+    "The VisualDx evaluation used a single 80/10/10 train/val/test split, which may not be as robust as the five-fold cross-validation used for the Fitzpatrick17k dataset."
+  ]
+}

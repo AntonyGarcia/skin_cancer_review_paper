@@ -1,0 +1,518 @@
+{
+  "file_name": "chang_2022_melanoma_detection_using_xgb_classifier_combined_with_feature_extract.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used AI/ML methods for melanoma detection in dermatology. Specifically, it employed transfer learning (MELA-CNN) for automatic feature extraction from dermoscopy images, combined with an Extreme Gradient Boosting (XGB) classifier. The study also utilized K-means SMOTE for handling imbalanced data and integrated patient metadata (age and gender) to improve classification performance."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work developing a melanoma detection model using an XGB classifier combined with feature extraction (MELA-CNN) and K-means SMOTE. It details specific methods (ISIC2018/2019 datasets, 10-fold cross-validation), proposes four improvement strategies, and reports new experimental results and performance metrics (e.g., F1-score of 0.861). Although it includes a brief literature review in the introduction, the primary contribution is the development and validation of a new diagnostic algorithm, not a systematic review of prior literature."
+  },
+  "title": "Melanoma Detection Using XGB Classifier Combined with Feature Extraction and K-means SMOTE Techniques",
+  "authors": [
+    "Chih-Chi Chang",
+    "Yu-Zhen Li",
+    "Hui-Ching Wu",
+    "Ming-Hseng Tseng"
+  ],
+  "doi": "10.3390/diagnostics12071747",
+  "journal": "Diagnostics",
+  "year": 2022,
+  "article_type": "Article",
+  "brief_summary": "This study developed a computer-aided diagnosis model for melanoma detection using dermoscopy images from the ISIC 2018 and 2019 datasets, which comprised 2299 records. The proposed method integrated transfer learning via the MELA-CNN architecture for automatic feature extraction with an Extreme Gradient Boosting (XGB) classifier. To address data imbalance and improve performance, the model incorporated patient metadata (age and gender) and utilized K-means SMOTE oversampling techniques. The evaluation employed stratified 10-fold cross-validation, comparing the proposed approach against dermatologist handcrafted features and other deep learning feature extractors. The results demonstrated that the combination of MELA-CNN, metadata, K-means SMOTE, and XGB significantly outperformed previous models, achieving an F1-score of 0.861. The study concludes that these improvement strategies provide statistically significant enhancements for melanoma classification.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "MM",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for binary classification (benign vs. MM). The dataset contained 450 MM cases out of 2299 total records."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "Benign",
+        "benign skin lesions"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary classification task. The dataset contained 1849 benign cases out of 2299 total records."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into benign or malignant melanoma (MM) categories.",
+        "primary": true,
+        "details": "The paper explicitly states the task is 'binary classification of benign and MM' using dermoscopy images from the ISIC2018 and ISIC2019 datasets. The model predicts discrete diagnostic labels (benign vs. malignant melanoma) using an XGB classifier combined with feature extraction (MELA-CNN) and metadata. Performance was evaluated using metrics typical for classification such as Accuracy, Precision, Recall, AUC, and F1-score."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2018 and ISIC2019 (Integrated)",
+      "description": "A combined dataset formed by integrating the ISIC Challenge 2018 dataset (containing dermoscopy images and five dermatologist handcrafted features: pigment networks, negative networks, streaks, globules, and milia-like cysts) and the ISIC Challenge 2019 dataset (containing patient age and gender metadata). The study utilized 2299 manually annotated records from these sources.",
+      "classes_used": [
+        "Benign",
+        "Malignant Melanoma (MM)"
+      ],
+      "counts": {
+        "total": 2299,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign": 1849,
+          "Malignant Melanoma": 450
+        }
+      },
+      "use": {
+        "training": "Used for training the XGB classifier combined with MELA-CNN feature extraction and K-means SMOTE, evaluated via stratified 10-fold cross-validation.",
+        "validation": "Used for validation within the stratified 10-fold cross-validation process.",
+        "testing": "Used for testing within the stratified 10-fold cross-validation process.",
+        "other": "Served as the primary source for both image features (via ISIC2018 handcrafted annotations and MELA-CNN extraction) and patient metadata (age and gender from ISIC2019)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (ACC)",
+    "Precision (PRE)",
+    "Recall (REC)",
+    "F1-score",
+    "AUC",
+    "True Positive (TP)",
+    "True Negative (TN)",
+    "False Positive (FP)",
+    "False Negative (FN)",
+    "True Positive Rate (TPR)",
+    "False Positive Rate (FPR)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Stratified K-fold cross-validation",
+      "purpose": "To evaluate the performance of the models by dividing the data into 10 mutually exclusive groups while maintaining the class distribution in each fold, addressing data imbalance.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Paired t-test",
+      "purpose": "To evaluate whether the difference in MM detection ability (specifically REC or F1-score) between the proposed enhancement strategy and baseline models is statistically significant.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Significance threshold (p < 0.05)",
+      "purpose": "To determine statistical significance in the paired t-test; a p-value less than 0.05 indicates a statistically significant difference in classification performance between two models.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Paired t-test",
+    "null_hypothesis": "The mean difference in the 10-fold validated REC or F1-score between the two models is 0.",
+    "alternative_hypothesis": "There is a statistically significant difference in the classification performance (REC or F1-score) between the two models.",
+    "alpha": 0.05,
+    "interpretation": "A p-value less than 0.05 indicates a statistically significant difference in the classification performance between the two models."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2018_and_ISIC2019": {
+      "experiment_1_feature_extraction": {
+        "description": "Comparison of five feature extraction techniques combined with XGB classifier",
+        "models": {
+          "Dermatologist Handcrafted": {
+            "ACC": 0.8,
+            "PRE": 0.401,
+            "REC": 0.036,
+            "AUC": 0.613,
+            "F1": 0.064
+          },
+          "MELA-CNN": {
+            "ACC": 0.913,
+            "PRE": 0.837,
+            "REC": 0.693,
+            "AUC": 0.83,
+            "F1": 0.756
+          },
+          "VGG16": {
+            "ACC": 0.814,
+            "PRE": 0.569,
+            "REC": 0.189,
+            "AUC": 0.738,
+            "F1": 0.282
+          },
+          "InceptionResNetV2": {
+            "ACC": 0.822,
+            "PRE": 0.655,
+            "REC": 0.204,
+            "AUC": 0.752,
+            "F1": 0.309
+          },
+          "Inception V3": {
+            "ACC": 0.819,
+            "PRE": 0.641,
+            "REC": 0.198,
+            "AUC": 0.746,
+            "F1": 0.295
+          }
+        },
+        "notes": "MELA-CNN significantly outperformed other techniques. The dermatologist handcrafted method had the worst performance."
+      },
+      "experiment_2_metadata": {
+        "description": "Performance evaluation of adding metadata (age and gender) to feature sets",
+        "models": {
+          "5 Features (Handcrafted)": {
+            "ACC": 0.8,
+            "PRE": 0.401,
+            "REC": 0.036,
+            "AUC": 0.613,
+            "F1": 0.064
+          },
+          "7 Features (Handcrafted + Metadata)": {
+            "ACC": 0.821,
+            "PRE": 0.582,
+            "REC": 0.327,
+            "AUC": 0.789,
+            "F1": 0.415
+          },
+          "256 Features (MELA-CNN)": {
+            "ACC": 0.913,
+            "PRE": 0.837,
+            "REC": 0.693,
+            "AUC": 0.83,
+            "F1": 0.756
+          },
+          "258 Features (MELA-CNN + Metadata)": {
+            "ACC": 0.926,
+            "PRE": 0.844,
+            "REC": 0.764,
+            "AUC": 0.865,
+            "F1": 0.8
+          }
+        },
+        "notes": "Adding metadata increased the F1-score for the dermatologist handcrafted method by 35.1% (from 0.064 to 0.415) and for MELA-CNN by 4.4% (from 0.756 to 0.800)."
+      },
+      "experiment_3_oversampling": {
+        "description": "Performance evaluation of 10 oversampling techniques combined with XGB and 258 features",
+        "models": {
+          "Original (No Sampling)": {
+            "ACC": 0.926,
+            "PRE": 0.844,
+            "REC": 0.764,
+            "AUC": 0.864,
+            "F1": 0.8
+          },
+          "K-Means SMOTE": {
+            "ACC": 0.946,
+            "PRE": 0.873,
+            "REC": 0.853,
+            "AUC": 0.97,
+            "F1": 0.861
+          },
+          "RandomOverSampler": {
+            "ACC": 0.939,
+            "PRE": 0.862,
+            "REC": 0.822,
+            "AUC": 0.964,
+            "F1": 0.84
+          },
+          "SMOTE": {
+            "ACC": 0.937,
+            "PRE": 0.833,
+            "REC": 0.849,
+            "AUC": 0.966,
+            "F1": 0.839
+          },
+          "SVMSMOTE": {
+            "ACC": 0.934,
+            "PRE": 0.825,
+            "REC": 0.851,
+            "AUC": 0.967,
+            "F1": 0.835
+          },
+          "SMOTETomek": {
+            "ACC": 0.934,
+            "PRE": 0.829,
+            "REC": 0.844,
+            "AUC": 0.967,
+            "F1": 0.835
+          },
+          "BorderlineSMOTE": {
+            "ACC": 0.933,
+            "PRE": 0.811,
+            "REC": 0.862,
+            "AUC": 0.967,
+            "F1": 0.834
+          },
+          "SMOTE-RandomUnderSampler": {
+            "ACC": 0.933,
+            "PRE": 0.821,
+            "REC": 0.844,
+            "AUC": 0.966,
+            "F1": 0.831
+          },
+          "SMOTENC": {
+            "ACC": 0.932,
+            "PRE": 0.82,
+            "REC": 0.849,
+            "AUC": 0.968,
+            "F1": 0.83
+          },
+          "SMOTEENN": {
+            "ACC": 0.924,
+            "PRE": 0.77,
+            "REC": 0.889,
+            "AUC": 0.967,
+            "F1": 0.822
+          },
+          "ADASYN": {
+            "ACC": 0.924,
+            "PRE": 0.788,
+            "REC": 0.847,
+            "AUC": 0.966,
+            "F1": 0.814
+          }
+        },
+        "notes": "K-means SMOTE showed the most obvious improvement in test performance, achieving the highest F1-score of 0.861."
+      },
+      "experiment_4_classifiers": {
+        "description": "Performance evaluation of 13 ML algorithms using K-means SMOTE and 258 features",
+        "models": {
+          "XGB Classifier": {
+            "ACC": 0.946,
+            "PRE": 0.873,
+            "REC": 0.853,
+            "AUC": 0.97,
+            "F1": 0.861
+          },
+          "Logistic Regression": {
+            "ACC": 0.941,
+            "PRE": 0.841,
+            "REC": 0.864,
+            "AUC": 0.969,
+            "F1": 0.852
+          },
+          "Gradient Boosting": {
+            "ACC": 0.94,
+            "PRE": 0.851,
+            "REC": 0.842,
+            "AUC": 0.965,
+            "F1": 0.845
+          },
+          "Bagging Classifier": {
+            "ACC": 0.939,
+            "PRE": 0.837,
+            "REC": 0.851,
+            "AUC": 0.965,
+            "F1": 0.845
+          },
+          "SVM": {
+            "ACC": 0.939,
+            "PRE": 0.859,
+            "REC": 0.833,
+            "AUC": 0.968,
+            "F1": 0.844
+          },
+          "HistGB Classifier": {
+            "ACC": 0.939,
+            "PRE": 0.861,
+            "REC": 0.822,
+            "AUC": 0.968,
+            "F1": 0.839
+          },
+          "Random Forest": {
+            "ACC": 0.936,
+            "PRE": 0.837,
+            "REC": 0.842,
+            "AUC": 0.964,
+            "F1": 0.838
+          },
+          "MLP": {
+            "ACC": 0.937,
+            "PRE": 0.862,
+            "REC": 0.811,
+            "AUC": 0.963,
+            "F1": 0.834
+          },
+          "AdaBoost": {
+            "ACC": 0.929,
+            "PRE": 0.806,
+            "REC": 0.844,
+            "AUC": 0.961,
+            "F1": 0.823
+          },
+          "K-Neighbors Classifier": {
+            "ACC": 0.925,
+            "PRE": 0.808,
+            "REC": 0.816,
+            "AUC": 0.922,
+            "F1": 0.809
+          },
+          "SGD-LR": {
+            "ACC": 0.922,
+            "PRE": 0.783,
+            "REC": 0.836,
+            "AUC": 0.956,
+            "F1": 0.806
+          },
+          "Decision Tree": {
+            "ACC": 0.911,
+            "PRE": 0.759,
+            "REC": 0.804,
+            "AUC": 0.871,
+            "F1": 0.78
+          },
+          "Gaussian NB": {
+            "ACC": 0.766,
+            "PRE": 0.452,
+            "REC": 0.867,
+            "AUC": 0.846,
+            "F1": 0.593
+          }
+        },
+        "notes": "XGB significantly outperformed all other ML algorithms with an F1-score of 0.861 and AUC of 0.970."
+      },
+      "statistical_significance_tests": {
+        "description": "Paired t-test results for REC and F1-score comparisons between model configurations",
+        "tests": [
+          {
+            "comparison": "5 Features vs. 256 Features (REC)",
+            "p_value": "1.81×10^-9",
+            "result": "Statistically significant"
+          },
+          {
+            "comparison": "256 Features vs. 258 Features (REC)",
+            "p_value": "2.03×10^-2",
+            "result": "Statistically significant"
+          },
+          {
+            "comparison": "258 Features vs. 258 Features + K-Means SMOTE (REC)",
+            "p_value": "7.07×10^-4",
+            "result": "Statistically significant"
+          }
+        ],
+        "notes": "All p-values were less than 0.05, confirming statistically significant performance improvements for the use of MELA-CNN, addition of metadata, and use of K-means SMOTE."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Extreme Gradient Boosting (XGB) classifier combined with MELA-CNN feature extractor",
+    "pretraining": "MELA-CNN was developed using transfer learning with the InceptionResNetV2 architecture as the backbone, pre-trained on the ImageNet dataset (one million images for 1000 classes), and fine-tuned on the target dermoscopy dataset.",
+    "input_size": "224x224 RGB images for VGG16 and InceptionV3; 299x299 RGB images for InceptionResNetV2; MELA-CNN used the feature maps from the average pooling layer of InceptionResNetV2.",
+    "architecture_details": {
+      "feature_extractor": "MELA-CNN",
+      "backbone": "InceptionResNetV2",
+      "backbone_details": "InceptionResNetV2 replaces pooling layers in Inception modules A, B, and C with ResNet connections. It comprises 47 layers (for InceptionV3 baseline) and uses batch normalization.",
+      "mela_cnn_structure": "Retrieves feature maps from the average pooling layer of InceptionResNetV2, adds a fully connected layer with 256 nodes, applies ReLU activation, followed by batch normalization and Sigmoid layers.",
+      "classifier": "XGB Classifier",
+      "classifier_details": "Extreme Gradient Boosting algorithm used for binary classification (benign vs. malignant melanoma).",
+      "feature_dimensions": {
+        "dermatologist_handcrafted": 5,
+        "vgg16": 512,
+        "inception_v3": 2048,
+        "inceptionresnetv2": 1536,
+        "mela_cnn": 256,
+        "final_input_to_xgb": 258
+      }
+    },
+    "training_details": {
+      "optimization": "Fine-tuning process for MELA-CNN weights on the target dataset.",
+      "data_balancing": "K-means SMOTE oversampling technique applied to handle class imbalance.",
+      "validation": "Stratified 10-fold cross-validation.",
+      "metadata_integration": "Patient age and gender metadata were concatenated with the 256 MELA-CNN features to form a 258-dimensional feature vector for the XGB classifier."
+    },
+    "classification_or_output_head": {
+      "type": "Binary Classification",
+      "output": "Predictive label for Melanoma (MM) vs. Benign",
+      "metrics": "Accuracy, Precision, Recall, AUC, F1-score"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "XGB Classifier",
+    "MELA-CNN",
+    "VGG16",
+    "InceptionResNetV2",
+    "Inception V3",
+    "Logistic Regression",
+    "Gradient Boosting",
+    "Bagging Classifier",
+    "SVM",
+    "HistGB Classifier",
+    "Random Forest",
+    "MLP",
+    "AdaBoost",
+    "K-Neighbors Classifier",
+    "SGD-LR",
+    "Decision Tree",
+    "Gaussian NB"
+  ],
+  "preprocessing_techniques": [
+    "Integration of ISIC2018 and ISIC2019 datasets",
+    "Use of dermatologist handcrafted features (pigment networks, negative networks, streaks, globules, milia-like cysts)",
+    "Addition of patient metadata (age and gender)",
+    "K-means SMOTE oversampling technique for handling imbalanced data",
+    "Stratified 10-fold cross-validation"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "K-means SMOTE",
+      "details": "Oversampling technique used to handle class imbalance. It combines SMOTE with k-means clustering: data is grouped using k-means, clusters with minority classes accounting for less than 50% are selected, samples are assigned to sparse clusters, and SMOTE is performed within these clusters to increase minority samples to match majority samples."
+    },
+    {
+      "technique": "RandomOverSampler",
+      "details": "Oversampling technique compared in the study for class balance."
+    },
+    {
+      "technique": "SMOTE",
+      "details": "Synthetic Minority Over-sampling Technique used to solve data imbalance by randomly selecting k-nearest neighbor samples to increase minority category transactions."
+    },
+    {
+      "technique": "SVMSMOTE",
+      "details": "Oversampling technique compared in the study for class balance."
+    },
+    {
+      "technique": "SMOTETomek",
+      "details": "Oversampling technique compared in the study for class balance."
+    },
+    {
+      "technique": "BorderlineSMOTE",
+      "details": "Oversampling technique compared in the study for class balance."
+    },
+    {
+      "technique": "SMOTE-RandomUnderSampler",
+      "details": "Oversampling technique compared in the study for class balance."
+    },
+    {
+      "technique": "SMOTENC",
+      "details": "Oversampling technique for categorical and numerical data compared in the study for class balance."
+    },
+    {
+      "technique": "SMOTEENN",
+      "details": "Oversampling technique compared in the study for class balance."
+    },
+    {
+      "technique": "ADASYN",
+      "details": "Adaptive Synthetic Sampling technique compared in the study for class balance."
+    }
+  ],
+  "conclusions": [
+    "The proposed melanoma detection model, which combines the MELA-CNN feature extractor, patient metadata (age and gender), K-means SMOTE oversampling, and an XGB classifier, significantly outperforms previous related models.",
+    "MELA-CNN, developed via transfer learning using InceptionResNetV2, was the most efficient feature extraction technique, achieving an F1-score of 0.756, whereas dermatologist handcrafted features yielded the worst performance (F1-score 0.064).",
+    "Adding patient metadata (age and gender) to image features statistically significantly improved classification performance, increasing the F1-score by 35.1% for handcrafted features and by 4.4% for MELA-CNN features.",
+    "K-means SMOTE was identified as the optimal oversampling technique for handling class imbalance, improving the F1-score from 0.800 to 0.861 compared to no sampling.",
+    "The Extreme Gradient Boosting (XGB) classifier significantly outperformed 12 other tested machine learning algorithms (including Logistic Regression, SVM, and Random Forest), achieving the highest F1-score of 0.861 and AUC of 0.970.",
+    "Paired t-tests confirmed that the performance improvements from using MELA-CNN, adding metadata, and applying K-means SMOTE were statistically significant (p < 0.05)."
+  ],
+  "important_remarks": [
+    "The study is limited by a small dataset size (2299 records) and lacks external validation on independent cohorts, relying solely on stratified 10-fold cross-validation within the ISIC2018/2019 datasets.",
+    "The dataset exhibits significant class imbalance (1849 benign vs. 450 malignant melanoma cases), necessitating the use of K-means SMOTE oversampling, which may introduce synthetic data bias.",
+    "The model relies on patient metadata (age and gender) from ISIC2019; performance may degrade in populations where this demographic data is unavailable or inaccurate.",
+    "The authors explicitly acknowledge that the model has not been tested on a larger amount of case data or more categories of skin lesions, limiting its generalizability to broader clinical settings.",
+    "The study compares the proposed model against other works using different validation methods (e.g., holdout splits) and datasets, making direct performance comparisons difficult and potentially biased.",
+    "The feature extraction method (MELA-CNN) uses transfer learning from InceptionResNetV2 pre-trained on ImageNet, which may not fully capture domain-specific dermoscopy features compared to models trained specifically on medical imaging data."
+  ]
+}

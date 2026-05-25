@@ -1,0 +1,288 @@
+{
+  "file_name": "Liu et al. - 2021 - DiaMole Mole detection and segmentation software for mobile phone skin images.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed DiaMole, a software for mole detection and segmentation in mobile phone skin images, utilizing multiple deep learning algorithms. Specifically, it used object detection algorithms (YOLOv3, Faster R-CNN, RetinaNet) to locate moles and the UNet model for precise mole boundary segmentation. The study evaluated these AI models using metrics like mean average precision (mAP) on datasets including MoleMapper and ISIC 2018."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'Research Article' in the header. It describes the development and evaluation of a new software tool, DiaMole, for mole detection and segmentation. The paper details original experimental methods, including the use of specific datasets (MoleMapper, ISIC 2018), implementation of deep learning algorithms (YOLOv3, Faster R-CNN, UNet), and reports original results such as performance metrics (mAP). It does not summarize prior literature but presents new technical findings."
+  },
+  "title": "DiaMole: Mole Detection and Segmentation Software for Mobile Phone Skin Images",
+  "authors": [
+    "Shuai Liu",
+    "Zheng Chen",
+    "Huahui Zhou",
+    "Kunlin He",
+    "Meiyu Duan",
+    "Qichen Zheng",
+    "Pengcheng Xiong",
+    "Lan Huang",
+    "Qiong Yu",
+    "Guoxiong Su",
+    "Fengfeng Zhou"
+  ],
+  "doi": "10.1155/2021/6698176",
+  "journal": "Journal of Healthcare Engineering",
+  "year": 2021,
+  "article_type": "Research Article",
+  "brief_summary": "This study developed DiaMole, a user-friendly software tool for detecting and segmenting skin moles in mobile phone images to aid in early melanoma screening. The system integrates three object detection algorithms—YOLOv3, Faster R-CNN, and RetinaNet—to locate moles, followed by a UNet model for precise boundary segmentation. The authors evaluated these algorithms using the mean average precision (mAP) metric on datasets including MoleMapper and ISIC 2018. Among the individual detectors, Faster R-CNN achieved the highest mAP of 0.835, while the integrated algorithm achieved an mAP of 0.4228 but avoided missing detections. The software allows users to manually annotate missed moles and save masks for further research, demonstrating its utility for dermatological studies using non-professional mobile imagery.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Mole",
+      "paper_terms": [
+        "mole",
+        "skin moles",
+        "candidate mole"
+      ],
+      "role": "Target class",
+      "details": "The primary target of the DiaMole software for detection and segmentation. The study focuses on detecting and segmenting moles from mobile phone skin images using datasets like MoleMapper and ISIC 2018."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Context/Motivation",
+      "details": "Mentioned as the malignant skin lesion that may develop from benign moles and is a major cause of skin cancer death. It serves as the clinical motivation for mole detection but is not a direct classification target or segmentation label in the DiaMole experiments."
+    },
+    {
+      "lesion_type": "Benign lesion",
+      "paper_terms": [
+        "benign lesions"
+      ],
+      "role": "Context/Motivation",
+      "details": "Moles are described as benign lesions from which melanoma may develop. This is a general category mentioned in the motivation section."
+    },
+    {
+      "lesion_type": "Scar",
+      "paper_terms": [
+        "scar"
+      ],
+      "role": "False positive/Exclusion",
+      "details": "Mentioned in the results section where FR-CNN and RetinaNet incorrectly recognized a scar as a mole in one of the locally collected samples (Figure 8(d))."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Detection",
+        "target": "Bounding boxes for moles and coins",
+        "primary": true,
+        "details": "The paper evaluates object detection algorithms (YOLOv3, Faster R-CNN, RetinaNet) to locate moles and coins by generating bounding boxes. Performance was measured using mean average precision (mAP)."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Precise mole boundary masks",
+        "primary": true,
+        "details": "The paper utilizes a UNet model to segment the precise boundary of each mole within the detected bounding boxes, producing image masks."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "MoleMapper",
+      "description": "A public dataset of skin moles captured by the Apple ResearchKit (iPhone). The study used images from this dataset, annotating bounding boxes using labelImg. Only images containing both moles and coins (size meters) were retained.",
+      "classes_used": [
+        "mole",
+        "coin"
+      ],
+      "counts": {
+        "total": 2415,
+        "training": 1691,
+        "validation": null,
+        "testing": 724,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the object detection models (YOLOv3, Faster R-CNN, RetinaNet) and tune hyperparameters.",
+        "validation": "null",
+        "testing": "Used to independently evaluate the trained object detection models.",
+        "other": "null"
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A public dataset from the ISIC 2018 challenge, consisting of dermoscopy images used to train the segmentation model.",
+      "classes_used": [
+        "mole"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the UNet segmentation model.",
+        "validation": "null",
+        "testing": "null",
+        "other": "null"
+      }
+    },
+    {
+      "name": "Local Cohort (Mobile Phone Images)",
+      "description": "A privately collected dataset of mobile phone skin images. It includes images from two sub-groups: one from 10 participants (5 male, 5 female) using iPhone 6S and other devices, and another from 6 additional participants. Images were captured using various mobile operating systems (iOS and Android).",
+      "classes_used": [
+        "mole",
+        "scar"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "null",
+        "validation": "Used to independently evaluate the trained model alongside the 30% test split of MoleMapper.",
+        "testing": "Used to evaluate performance on everyday life mobile phone images and verify influence of different mobile operating systems.",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "mean average precision (mAP)",
+    "average precision (AP)",
+    "recall",
+    "precision"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using deterministic metrics such as mean average precision (mAP), average precision (AP), recall, and precision."
+  },
+  "results_obtained_in_each_dataset": {
+    "MoleMapper": {
+      "split": "30% test set (724 images)",
+      "task": "Object Detection (Mole and Coin)",
+      "metric": "mAP",
+      "models": {
+        "Faster R-CNN (FR-CNN)": {
+          "mAP": "0.835",
+          "AP_Coin": "0.906",
+          "AP_Mole": "0.763"
+        },
+        "RetinaNet": {
+          "mAP": "0.773",
+          "AP_Coin": "0.901",
+          "AP_Mole": "0.644"
+        },
+        "YOLOv3": {
+          "mAP": "0.444",
+          "AP_Coin": "0.467",
+          "AP_Mole": "0.420"
+        },
+        "ALL (Integrated via NMS)": {
+          "mAP": "0.4228",
+          "AP_Coin": "0.4565",
+          "AP_Mole": "0.389"
+        }
+      },
+      "notes": "FR-CNN achieved the best mAP. The integrated algorithm ALL avoided missing mole detections despite lower mAP. RetinaNet and FR-CNN performed well on 'Coin' detection (AP > 0.9) but lower on 'Mole' detection compared to FR-CNN."
+    },
+    "ISIC 2018": {
+      "split": "Training set (2,594 images)",
+      "task": "Mole Segmentation",
+      "models": {
+        "UNet": {
+          "metric": "Training Source",
+          "value": "Used to train the UNet model for precise mole boundary segmentation. Specific quantitative segmentation metrics (e.g., Dice, IoU) were not reported in the text."
+        }
+      },
+      "notes": "The UNet model was trained on this dataset. The paper states that when object detection was performed first (using ALL), the UNet model accurately detected precise boundaries of moles in mobile phone images (Figure 6), but no specific numerical segmentation metric is provided."
+    },
+    "Local Cohort (Mobile Phone Images)": {
+      "split": "Validation/Demonstration",
+      "task": "Object Detection and Segmentation",
+      "models": {
+        "ALL (Integrated)": {
+          "metric": "Detection Success",
+          "value": "Detected all eye-observable moles in images from different mobile operating systems (iOS 14.2, Android 10, Android 10.1.0) and qualities."
+        }
+      },
+      "notes": "Qualitative results showed that image quality and mobile operating systems had negligible impact on detection performance. One scar was incorrectly recognized as a mole by FR-CNN and RetinaNet in one sample (Figure 8d). Running times were averaged over three images per OS: iOS 14.2, Android 10, and Android 10.1.0 (Figure 10), but specific time values are not listed in the text."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Integrated system comprising three object detection algorithms (YOLOv3, Faster R-CNN, RetinaNet) combined via Non-Maximum Suppression (NMS) for detection, followed by a UNet model for segmentation.",
+    "pretraining": "The UNet segmentation model utilized a pretrained VGG-16 model as its base model.",
+    "input_size": "MoleMapper dataset images: 320 × 568 pixels; ISIC 2018 dataset images: 224 × 224 pixels; Local cohort images varied (e.g., 1080 × 1440, 4032 × 3024, 3000 × 4000).",
+    "architecture_details": {
+      "object_detection_models": {
+        "YOLOv3": {
+          "description": "One-stage detector calculating bounding boxes at three scales using feature pyramid networks. Uses logistic regression for bounding box evaluation and a series of 3x3 and 1x1 convolutional layer duets for class label prediction."
+        },
+        "Faster R-CNN (FR-CNN)": {
+          "description": "Two-stage detector utilizing a Region Proposal Network (RPN) to generate high-quality region proposals."
+        },
+        "RetinaNet": {
+          "description": "Dense detector using a focal loss function to reduce training bias caused by dataset imbalance."
+        },
+        "Integration": "NMS (Non-Maximum Suppression) strategy used to combine results from YOLOv3, FR-CNN, and RetinaNet into a consensus algorithm denoted as 'ALL'."
+      },
+      "segmentation_model": {
+        "name": "UNet",
+        "base_architecture": "Convolutional Neural Network (CNN) with UNet architecture",
+        "backbone": "VGG-16 (pretrained)",
+        "input_handling": "Bounding boxes from object detection are cropped and fed as dermoscopy-like images to the UNet model."
+      }
+    },
+    "implementation_details": {
+      "programming_language": "Python 3.6.2",
+      "frameworks": [
+        "TensorFlow 1.12.0",
+        "Keras 2.2.4",
+        "OpenCV 4.1.1.26"
+      ],
+      "other_packages": [
+        "Numpy 1.17.2",
+        "Pandas 0.25.1",
+        "Scikit-image 0.16.1",
+        "Matplotlib 3.1.1",
+        "Pillow"
+      ]
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "YOLOv3",
+    "Faster R-CNN",
+    "RetinaNet",
+    "UNet",
+    "VGG-16"
+  ],
+  "preprocessing_techniques": [
+    "Bounding box cropping: Images containing moles were cropped based on bounding boxes generated by object detection algorithms (YOLOv3, Faster R-CNN, RetinaNet) to create dermoscopy-like inputs for the UNet segmentation model.",
+    "Dataset filtering: The MoleMapper dataset was filtered to retain only images containing both moles and coins (size meters).",
+    "Image annotation: Bounding boxes for the MoleMapper dataset were manually annotated using the open-source software labelImg.",
+    "Manual annotation: Users could manually draw bounding boxes for candidate moles missed by the algorithms within the DiaMole software."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "DiaMole is a user-friendly software tool designed to automatically detect and segment skin moles from mobile phone images to aid dermatological research.",
+    "The software integrates three object detection algorithms (YOLOv3, Faster R-CNN, and RetinaNet) combined via Non-Maximum Suppression (NMS) to locate moles, achieving a mean average precision (mAP) of 0.4228 for the integrated algorithm, which effectively avoids missing mole detections despite not having the highest individual mAP.",
+    "Among individual detectors, Faster R-CNN achieved the highest mAP of 0.835.",
+    "A UNet model with a pretrained VGG-16 backbone is used to precisely segment the boundaries of detected moles, treating cropped bounding boxes as dermoscopy-like images.",
+    "The software allows clinical users to manually annotate candidate moles missed by the algorithms and save the resulting masks and annotations for further investigations.",
+    "The study demonstrated that image quality and different mobile operating systems (iOS and Android) had negligible impact on the detection performance of the software.",
+    "The software addresses the limitation that previous mole detection algorithms were often trained on dermoscopy images rather than mobile phone images, providing a solution for non-professional imagery."
+  ],
+  "important_remarks": [
+    "The study acknowledges a potential overfitting risk due to the small dataset size (2,415 images) and the use of a simple 70/30 train-test split without a separate validation set.",
+    "The UNet segmentation model was trained on ISIC 2018 dermoscopy images but applied to mobile phone images; specific quantitative segmentation metrics (e.g., Dice, IoU) were not reported.",
+    "The integrated algorithm 'ALL' achieved a lower mAP (0.4228) than individual detectors like Faster R-CNN (0.835) but was selected to avoid missing mole detections.",
+    "False positives occurred where scars were incorrectly identified as moles by Faster R-CNN and RetinaNet in the local cohort.",
+    "The software's running time is noted as a limitation, with YOLOv3 being the slowest and FR-CNN the fastest (no more than 15.95 seconds), potentially affecting user efficiency.",
+    "The local cohort used for validation was small (7 participants) and limited to specific mobile operating systems (iOS 14.2, Android 10, Android 10.1.0), limiting generalizability.",
+    "The MoleMapper dataset images were resized to 320x568 pixels for training, which may impact performance on higher-resolution mobile images."
+  ]
+}

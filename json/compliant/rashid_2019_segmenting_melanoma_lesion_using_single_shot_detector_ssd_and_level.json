@@ -1,0 +1,284 @@
+{
+  "file_name": "rashid_2019_segmenting_melanoma_lesion_using_single_shot_detector_ssd_and_level.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a deep convolutional neural network, specifically the Single Shot Detector (SSD) with a VGG base network, for the localization of melanoma lesions in dermoscopic images. This AI method was part of a pipeline that also included level set segmentation for precise boundary extraction, evaluated on the ISIC 2016 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving a novel pipeline for melanoma lesion segmentation using Single Shot Detector (SSD) and Level Set techniques. It details specific methodology (preprocessing, localization, segmentation), describes experiments conducted on the ISIC 2016 dataset, and reports quantitative results (precision, recall, Jaccard index, Dice score) compared against state-of-the-art methods. Although published in a conference proceedings (MACS 2019), it contains original research results rather than summarizing prior literature."
+  },
+  "title": "Segmenting melanoma Lesion using Single Shot Detector (SSD) and Level Set Segmentation Technique",
+  "authors": [
+    "Faaiza Rashid",
+    "Aun Irtaza",
+    "Nudrat Nida",
+    "Ali Javed",
+    "Hafiz Malik",
+    "Khalid Mahmood Malik"
+  ],
+  "doi": null,
+  "journal": "2019 13th International Conference on Mathematics, Actuarial Science, Computer Science and Statistics (MACS)",
+  "year": 2019,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a novel pipeline for the automatic segmentation of melanoma lesions in dermoscopic images to address challenges posed by artifacts and visual similarity to normal skin. The methodology employs a three-step process: preprocessing to remove hair and other artifacts, localization of the lesion using a Single Shot Detector (SSD) with a VGG base network, and precise boundary extraction via a level set segmentation algorithm. The proposed approach was evaluated on the ISIC 2016 dataset, which contains 379 testing images with ground truth annotations. The SSD localization module achieved 94% precision and 83% recall, while the combined segmentation method yielded an accuracy of 0.90, a Dice score of 0.901, and a Jaccard index of 0.82. Comparative analysis demonstrated that the proposed SSD and level set combination outperformed traditional segmentation methods and standalone level set techniques, validating its effectiveness for computer-aided melanoma diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "Melanoma lesion",
+        "Melanoma skin cancer"
+      ],
+      "role": "Target class",
+      "details": "The primary target for detection and segmentation in the study. The paper focuses on segmenting melanoma lesions in dermoscopic images from the ISIC 2016 dataset. The SSD model was trained to detect melanoma lesions versus healthy skin (background)."
+    },
+    {
+      "lesion_type": "Healthy skin (Non-lesion)",
+      "paper_terms": [
+        "healthy skin",
+        "normal skin",
+        "background"
+      ],
+      "role": "Comparator class / Background",
+      "details": "Used as the negative class for the SSD detection task. The paper states that if the IOU score is less than 0.6, the region is considered 'healthy skin'. It also mentions visual similarity between melanoma lesions and normal skin as a challenge."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Melanoma lesion boundary/mask",
+        "primary": true,
+        "details": "The primary goal is the automatic segmentation of melanoma lesions in dermoscopic images. The pipeline uses a Single Shot Detector (SSD) for localization (bounding box detection) followed by a level set segmentation algorithm (Chan-Vese model) to extract precise boundaries. Performance is evaluated using segmentation metrics: Jaccard index (0.82), Dice score (0.901), Accuracy (0.90), Sensitivity (0.83), and Specificity (0.98)."
+      },
+      {
+        "task_type": "Detection",
+        "target": "Melanoma lesion bounding box",
+        "primary": false,
+        "details": "The SSD network is used to localize the melanoma lesion by predicting bounding boxes. It classifies regions as 'Melanoma lesion' (if IOU > 0.6) or 'healthy skin' (if IOU < 0.6). Performance is evaluated using Precision (94%) and Recall (83%)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2016 (Skin Lesion Analysis Towards Melanoma Detection Challenge Dataset)",
+      "description": "A publicly available dataset provided by the International Skin Imaging Collaboration (ISIC) in 2016, containing dermoscopic images of skin lesions with ground truth annotations.",
+      "classes_used": [
+        "Melanoma lesion",
+        "Healthy skin (background)"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for fine-tuning the SSD model via transfer learning from COCO dataset.",
+        "validation": null,
+        "testing": "Used for performance evaluation of the proposed segmentation and detection pipeline.",
+        "other": "Used for comparative analysis against state-of-the-art methods."
+      }
+    },
+    {
+      "name": "COCO Dataset",
+      "description": "A large-scale object detection, segmentation, and captioning dataset used for pre-training the base SSD network.",
+      "classes_used": [
+        "General object classes"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for pre-training the SSD object-detection model before transfer learning.",
+        "validation": null,
+        "testing": null,
+        "other": "Pretraining source for the SSD backbone."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Precision",
+    "Recall",
+    "Accuracy",
+    "Dice score",
+    "Jaccard index",
+    "Sensitivity",
+    "Specificity",
+    "IOU (Intersection over Union)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics (Precision, Recall, Accuracy, Dice score, Jaccard index, Sensitivity, Specificity) and compared against state-of-the-art methods without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2016": {
+      "metric": [
+        "Precision",
+        "Recall",
+        "Accuracy (Ac)",
+        "Dice Score (Di)",
+        "Jaccard Index (Jc)",
+        "Sensitivity (SE)",
+        "Specificity (SP)"
+      ],
+      "models": {
+        "SSD (VGG as base network)": {
+          "Precision": "94%",
+          "Recall": "83%"
+        },
+        "Proposed Method (SSD + Level Set Segmentation)": {
+          "Accuracy (Ac)": "0.90",
+          "Dice Score (Di)": "0.901",
+          "Jaccard Index (Jc)": "0.82",
+          "Sensitivity (SE)": "0.83",
+          "Specificity (SP)": "0.98"
+        },
+        "FCN": {
+          "Jaccard Index (Jc)": "0.86"
+        },
+        "Segnet": {
+          "Jaccard Index (Jc)": "0.86"
+        },
+        "RCNN": {
+          "Jaccard Index (Jc)": "0.93"
+        },
+        "Level Set (alone)": {
+          "Jaccard Index (Jc)": "0.46"
+        },
+        "Adaptive thresholding": {
+          "Accuracy (Ac)": "0.72",
+          "Dice Score (Di)": "0.56",
+          "Jaccard Index (Jc)": "0.45",
+          "Specificity (SP)": "0.8"
+        },
+        "ISO": {
+          "Accuracy (Ac)": "0.82",
+          "Dice Score (Di)": "0.68",
+          "Jaccard Index (Jc)": "0.56",
+          "Specificity (SP)": "0.77"
+        },
+        "Yen thresholding": {
+          "Accuracy (Ac)": "0.81",
+          "Dice Score (Di)": "0.67",
+          "Jaccard Index (Jc)": "0.58",
+          "Specificity (SP)": "0.77"
+        },
+        "Level set active contour": {
+          "Accuracy (Ac)": "0.70",
+          "Dice Score (Di)": "0.58",
+          "Jaccard Index (Jc)": "0.46",
+          "Specificity (SP)": "0.79"
+        },
+        "Statistical region growing": {
+          "Accuracy (Ac)": "0.73",
+          "Dice Score (Di)": "0.55",
+          "Jaccard Index (Jc)": "0.43",
+          "Specificity (SP)": "0.76"
+        },
+        "Bootstrap learning": {
+          "Accuracy (Ac)": "0.78",
+          "Dice Score (Di)": "0.72",
+          "Jaccard Index (Jc)": "0.57",
+          "Specificity (SP)": "0.75"
+        },
+        "Contextual hypergraph": {
+          "Accuracy (Ac)": "0.83",
+          "Dice Score (Di)": "0.75",
+          "Jaccard Index (Jc)": "0.60",
+          "Specificity (SP)": "0.78"
+        },
+        "Sparse coding": {
+          "Accuracy (Ac)": "0.91",
+          "Dice Score (Di)": "0.80",
+          "Jaccard Index (Jc)": "0.67",
+          "Specificity (SP)": "0.86"
+        }
+      },
+      "notes": "The proposed SSD and Level Set method outperformed the standalone Level Set method by 36% in Jaccard Index. RCNN achieved a higher Jaccard Index (0.93) but was noted as computationally expensive. Traditional methods generally performed lower than the proposed method in terms of Jaccard Index."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Single Shot Detector (SSD) with VGG base network",
+    "pretraining": "Pre-trained on COCO dataset, then fine-tuned on ISIC 2016 dataset via transfer learning",
+    "input_size": null,
+    "architecture_details": {
+      "type": "Single forward pass object detection network",
+      "mechanism": "Makes predictions from several feature maps at multiple scales and aspect ratios using K default boundary boxes; eliminates region proposal stage",
+      "base_network": "VGG"
+    },
+    "training_details": {
+      "optimizer": "RMSprop",
+      "learning_rate": 0.004,
+      "decaying_factor": 0.95,
+      "batch_size": 24,
+      "iou_threshold": 0.6
+    },
+    "classification_or_output_head": {
+      "output_type": "Boundary box scores and confidence scores",
+      "classes": [
+        "Melanoma lesion",
+        "Healthy skin"
+      ],
+      "post_processing": "Non-maximum suppression"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Single Shot Detector (SSD) with VGG base network",
+    "FCN",
+    "Segnet",
+    "RCNN",
+    "Level Set Segmentation (Chan-Vese model)",
+    "Adaptive thresholding",
+    "ISO",
+    "Yen thresholding",
+    "Level set active contour",
+    "Statistical region growing",
+    "Bootstrap learning",
+    "Contextual hypergraph",
+    "Sparse coding"
+  ],
+  "preprocessing_techniques": [
+    "Morphological closing and opening operations using line structuring elements (S1) at 90 and 180 degrees to remove hair and ruler markings",
+    "Dilation followed by erosion operations on dermoscopic images to eliminate thick/thin hair and clinical artifacts",
+    "Skin enhancement to improve visual quality and remove artifacts such as hair, ruler markings, blood vessels, and color charts"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed pipeline combining Single Shot Detector (SSD) for localization and Level Set segmentation for boundary extraction effectively addresses challenges posed by artifacts (hair, ruler markings) and visual similarity to normal skin in dermoscopic images.",
+    "The SSD module achieved 94% precision and 83% recall for melanoma lesion localization on the ISIC 2016 dataset.",
+    "The combined SSD and Level Set segmentation method achieved an accuracy of 0.90, a Dice score of 0.901, and a Jaccard index of 0.82 on the ISIC 2016 testing set.",
+    "The proposed method outperformed standalone Level Set segmentation by 36% in Jaccard Index, demonstrating the benefit of accurate lesion localization via SSD.",
+    "The proposed method outperformed traditional segmentation techniques (including thresholding, statistical region growing, and bootstrap learning) in terms of Jaccard Index.",
+    "While the proposed method performed well, the RCNN method achieved a higher Jaccard Index (0.93) but was noted as computationally expensive and complex due to its region proposal stage.",
+    "Deep learning approaches FCN and Segnet achieved a Jaccard Index of 0.86, which is lower than the proposed method's 0.82.",
+    "The SSD approach allows for real-time processing and low complexity overhead compared to multi-stage detection networks like RCNN.",
+    "The method automatically excludes artifacts such as ruler markings, color calibration charts, and dark background frames, which hinders precise segmentation in other methods."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC 2016 dataset for both training and testing, with no external validation on independent datasets to assess generalizability.",
+    "Transfer learning was employed, fine-tuning an SSD model pre-trained on the COCO dataset (general objects) to the ISIC 2016 melanoma dataset, which may introduce domain bias.",
+    "No statistical significance testing (e.g., p-values) was performed; comparisons with state-of-the-art methods are based solely on descriptive metrics.",
+    "The RCNN method achieved a higher Jaccard Index (0.93) than the proposed method (0.82), but the authors note it is computationally expensive, highlighting a trade-off between accuracy and efficiency.",
+    "The paper does not report confidence intervals for the reported metrics (Accuracy, Dice, Jaccard, etc.).",
+    "The preprocessing step uses morphological operations to remove hair and ruler markings, which may inadvertently remove or alter lesion features if artifacts are close to the lesion boundary.",
+    "The IOU threshold of 0.6 is used to classify regions as melanoma vs. healthy skin; this arbitrary threshold may impact precision and recall performance.",
+    "The dataset contains only 379 testing images, which is a relatively small sample size for evaluating deep learning models in medical imaging.",
+    "The paper acknowledges that dermoscopy procedures are time-consuming and limited by the availability of dermatologists, but does not provide clinical workflow integration data or deployment feasibility analysis."
+  ]
+}

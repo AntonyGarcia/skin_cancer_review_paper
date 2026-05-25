@@ -1,0 +1,337 @@
+{
+  "file_name": "wang_2025_dffr_net_a_dual_branch_feature_fusion_and_refinement_network_for_skin.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes DFFR-Net, a deep learning model for skin lesion segmentation using a dual-branch encoder combining Parallel Visual Mamba (PVM) and Convolutional Neural Networks (CNN), evaluated on the ISIC 2017 and ISIC 2018 dermatology datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents DFFR-Net, a novel deep learning architecture for skin lesion segmentation, and reports original experimental results including quantitative comparisons (MIoU, DSC, etc.) and ablation studies on the ISIC 2017 and ISIC 2018 datasets. Although published in a conference proceedings (ICAHN), it contains original technical contributions and empirical validation rather than summarizing prior literature."
+  },
+  "title": "DFFR-Net: A dual-branch feature fusion and refinement network for skin lesion segmentation",
+  "authors": [
+    "Shenghan Wang",
+    "Li Cao",
+    "He Deng",
+    "Yan Wang"
+  ],
+  "doi": "10.1109/ICAHN67688.2025.00021",
+  "journal": "2025 International Conference on Artificial Intelligence, Human-Computer Interaction and Natural Language Processing (ICAHN)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes DFFR-Net, a novel deep learning architecture for skin lesion segmentation that addresses challenges in feature extraction and computational complexity. The model utilizes a dual-branch encoder combining Parallel Visual Mamba (PVM) for global features and Convolutional Neural Networks (CNN) for local features, integrated via a Global-Local Fusion Block (GLFB) and refined by a Multi-level Multi-scale Attention Block (MMAB). The authors evaluated the method on the ISIC 2017 and ISIC 2018 dermatology datasets using metrics including MIoU, DSC, Accuracy, Sensitivity, and Specificity. Experimental results demonstrate that DFFR-Net outperforms four state-of-the-art approaches, achieving the highest scores in MIoU, DSC, and Accuracy on both datasets. Additionally, the model maintains a low computational complexity with 0.1017 million parameters and 0.086 G FLOPs, indicating its potential for real-time medical image processing.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "skin lesion segmentation"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the segmentation of skin lesions in general, using the ISIC 2017 and ISIC 2018 datasets which contain dermoscopic images of various skin conditions. While melanoma is mentioned in the context of early diagnosis, the experiments are performed on the general 'skin lesion' segmentation task provided by the datasets, not specific histological classes."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the abstract and introduction as a specific type of skin cancer for which early diagnosis is crucial, but not used as a specific label or class in the segmentation experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks",
+        "primary": true,
+        "details": "The paper proposes DFFR-Net for 'skin lesion segmentation'. The model generates a segmentation map/mask for each input dermoscopic image. Evaluation metrics include MIoU, DSC (Dice Similarity Coefficient), Accuracy, Sensitivity, and Specificity, which are standard for binary segmentation tasks. The output is a pixel-wise classification of lesion vs. background, not a continuous regression value or a discrete diagnostic class label."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public dermatology dataset released by the International Skin Imaging Collaboration (ISIC) containing dermoscopic images of skin lesions with segmentation mask labels. Images were originally sized at 576x767 pixels and normalized to 256x256 pixels for input.",
+      "classes_used": [
+        "Skin lesion (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 2000,
+        "training": 1250,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the DFFR-Net model.",
+        "validation": "Used for validation during the training process.",
+        "testing": "Used for testing and evaluating the segmentation accuracy of DFFR-Net and comparing it against state-of-the-art methods (MALUNet, VM-UNet, VM-UNet v2, Ultralight VM-UNet).",
+        "other": "Used for ablation experiments to validate the effectiveness of the dual-branch encoder, GLFB, and MMAB components."
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A public dermatology dataset released by the International Skin Imaging Collaboration (ISIC) containing dermoscopic images of skin lesions with segmentation mask labels. Images were originally sized at 2016x3024 pixels and normalized to 256x256 pixels for input.",
+      "classes_used": [
+        "Skin lesion (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 1815,
+        "validation": 259,
+        "testing": 520,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the DFFR-Net model.",
+        "validation": "Used for validation during the training process.",
+        "testing": "Used for testing and evaluating the segmentation accuracy of DFFR-Net and comparing it against state-of-the-art methods (MALUNet, VM-UNet, VM-UNet v2, Ultralight VM-UNet).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Mean Intersection over Union (MIoU)",
+    "Dice Similarity Coefficient (DSC)",
+    "Accuracy (Acc)",
+    "Specificity (Spe)",
+    "Sensitivity (Sen)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were based on direct metric values (MIoU, DSC, Accuracy, etc.) without statistical significance analysis."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "metric": "MIoU, DSC, Acc, Spe, Sen",
+      "models": {
+        "MALUNet": {
+          "MIoU": "81.94%",
+          "DSC": "90.07%",
+          "Acc": "96.07%",
+          "Spe": "97.74%",
+          "Sen": "89.35%"
+        },
+        "VM-UNet": {
+          "MIoU": "82.66%",
+          "DSC": "90.51%",
+          "Acc": "96.25%",
+          "Spe": "97.92%",
+          "Sen": "89.54%"
+        },
+        "VM-UNet v2": {
+          "MIoU": "81.82%",
+          "DSC": "90.00%",
+          "Acc": "96.01%",
+          "Spe": "97.51%",
+          "Sen": "89.99%"
+        },
+        "Ultralight VM-UNet": {
+          "MIoU": "81.38%",
+          "DSC": "89.73%",
+          "Acc": "95.93%",
+          "Spe": "97.69%",
+          "Sen": "88.92%"
+        },
+        "DFFR-Net (Ours)": {
+          "MIoU": "82.71%",
+          "DSC": "90.54%",
+          "Acc": "96.26%",
+          "Spe": "97.91%",
+          "Sen": "89.63%"
+        }
+      },
+      "notes": "DFFR-Net achieved the highest scores in MIoU, DSC, and Acc. It obtained the second-best results for Spe and Sen. The model has 0.1017M parameters and 0.086G FLOPs."
+    },
+    "ISIC 2018": {
+      "metric": "MIoU, DSC, Acc, Spe, Sen",
+      "models": {
+        "MALUNet": {
+          "MIoU": "78.37%",
+          "DSC": "87.87%",
+          "Acc": "94.91%",
+          "Spe": "97.69%",
+          "Sen": "84.89%"
+        },
+        "VM-UNet": {
+          "MIoU": "78.84%",
+          "DSC": "88.17%",
+          "Acc": "94.84%",
+          "Spe": "96.61%",
+          "Sen": "88.46%"
+        },
+        "VM-UNet v2": {
+          "MIoU": "79.37%",
+          "DSC": "88.50%",
+          "Acc": "94.91%",
+          "Spe": "96.26%",
+          "Sen": "90.06%"
+        },
+        "Ultralight VM-UNet": {
+          "MIoU": "78.38%",
+          "DSC": "87.89%",
+          "Acc": "94.70%",
+          "Spe": "96.44%",
+          "Sen": "88.40%"
+        },
+        "DFFR-Net (Ours)": {
+          "MIoU": "79.96%",
+          "DSC": "88.86%",
+          "Acc": "95.22%",
+          "Spe": "97.30%",
+          "Sen": "87.75%"
+        }
+      },
+      "notes": "DFFR-Net achieved the highest scores in MIoU, DSC, and Acc. It obtained the second-best result for Spe. It failed to achieve the best result for Sen but was close to the best (VM-UNet v2)."
+    },
+    "Ablation Study (ISIC 2017)": {
+      "metric": "MIoU, DSC, Acc, Spe, Sen",
+      "models": {
+        "En_PVM only": {
+          "MIoU": "80.63%",
+          "DSC": "89.29%",
+          "Acc": "95.35%",
+          "Spe": "97.36%",
+          "Sen": "90.24%"
+        },
+        "En_Conv only": {
+          "MIoU": "79.36%",
+          "DSC": "88.49%",
+          "Acc": "95.14%",
+          "Spe": "97.03%",
+          "Sen": "87.57%"
+        },
+        "En_PVM + En_Conv": {
+          "MIoU": "81.41%",
+          "DSC": "89.61%",
+          "Acc": "95.26%",
+          "Spe": "97.47%",
+          "Sen": "87.41%"
+        },
+        "En_PVM + En_Conv + GLFB": {
+          "MIoU": "80.80%",
+          "DSC": "89.88%",
+          "Acc": "95.80%",
+          "Spe": "97.62%",
+          "Sen": "88.50%"
+        },
+        "DFFR-Net (Full Model)": {
+          "MIoU": "82.71%",
+          "DSC": "90.54%",
+          "Acc": "96.26%",
+          "Spe": "97.91%",
+          "Sen": "89.63%"
+        }
+      },
+      "notes": "The full model incorporating GLFB and MMAB outperformed all others in terms of DSC, MIoU, Acc, and Spe, and achieved a suboptimal result in terms of Sen. The dual-branch encoder results were superior to single-branch encoders."
+    }
+  },
+  "architecture_used": {
+    "main_model": "DFFR-Net",
+    "pretraining": null,
+    "input_size": "256x256 pixels",
+    "architecture_details": {
+      "encoder_type": "Dual-branch encoder",
+      "encoder_branches": [
+        "Parallel Visual Mamba (PVM)-based encoder for global features",
+        "Convolution-based encoder for local features"
+      ],
+      "encoder_components": {
+        "PVM_block": {
+          "structure": "Four VSS blocks modeling long-range dependencies",
+          "mechanism": "Splits input features into four parallel parts, each processed by a Vision Mamba (VM) unit, followed by residual concatenation and adjustment factor optimization"
+        },
+        "Conv_block": {
+          "components": [
+            "3x3 standard convolution",
+            "Maximum pooling"
+          ]
+        }
+      },
+      "fusion_module": "Global-Local Fusion Block (GLFB)",
+      "fusion_details": {
+        "mechanism": "Fuses local and global features from each encoder layer",
+        "components": [
+          "Parallel convolutions for local details",
+          "Efficient Additive Attention (EAA) unit for long-range dependencies",
+          "Element-wise addition",
+          "Normalization",
+          "Multi-layer Perceptron (MLP) unit"
+        ]
+      },
+      "refinement_module": "Multi-level Multi-scale Attention Block (MMAB)",
+      "refinement_details": "Injects detailed information from low-level feature maps and semantic information from high-level feature maps into each level for feature refinement",
+      "decoder_type": "Standard decoder with upsampling",
+      "depth": "4 levels (l=1 to l=4)",
+      "channel_progression": "Channels increase from C to 16C across encoder levels"
+    },
+    "training_details": {
+      "framework": "PyTorch",
+      "hardware": "NVIDIA A40 GPU with 48 GB RAM",
+      "optimizer": "AdamW",
+      "loss_function": "Binary Cross Entropy and Dice loss",
+      "epochs": 250,
+      "batch_size": 8,
+      "data_augmentation": [
+        "Horizontal flips",
+        "Vertical flips"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation map generation",
+      "output": "Pixel-wise segmentation mask of size 256x256"
+    },
+    "approximate_parameters": "0.1017 million"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "DFFR-Net",
+    "MALUNet",
+    "VM-UNet",
+    "VM-UNet v2",
+    "Ultralight VM-UNet",
+    "U-Net",
+    "TransUNet",
+    "Attention U-net",
+    "RS3Mamba"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing: Images from ISIC 2017 (originally 576x767 pixels) and ISIC 2018 (originally 2016x3024 pixels) were normalized/resized to 256x256 pixels for input.",
+    "Data augmentation: Horizontal flips and vertical flips were applied during training."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal flips",
+      "details": "Applied during training to ensure model fairness across all compared methods."
+    },
+    {
+      "technique": "Vertical flips",
+      "details": "Applied during training to ensure model fairness across all compared methods."
+    }
+  ],
+  "conclusions": [
+    "The proposed DFFR-Net, which combines a Parallel Visual Mamba (PVM) encoder for global features and a Convolution-based encoder for local features, effectively addresses challenges in skin lesion segmentation such as insufficient feature extraction and high computational complexity.",
+    "DFFR-Net outperforms four state-of-the-art methods (MALUNet, VM-UNet, VM-UNet v2, and Ultralight VM-UNet) on the ISIC 2017 and ISIC 2018 datasets, achieving the highest scores in MIoU, DSC, and Accuracy.",
+    "On the ISIC 2017 dataset, DFFR-Net achieved an MIoU of 82.71%, DSC of 90.54%, and Accuracy of 96.26%. On the ISIC 2018 dataset, it achieved an MIoU of 79.96%, DSC of 88.86%, and Accuracy of 95.22%.",
+    "The model maintains low computational complexity with 0.1017 million parameters and 0.086 G FLOPs, indicating its potential for real-time medical image processing.",
+    "Ablation studies confirm that the dual-branch encoder, Global-Local Fusion Block (GLFB), and Multi-level Multi-scale Attention Block (MMAB) all contribute positively to segmentation accuracy, with the full model outperforming variants lacking these components.",
+    "DFFR-Net demonstrates superior ability to capture tiny lesion features and retain texture and structure information, resulting in smooth, clear, and accurate boundaries compared to other methods that struggle with irregular morphology or mis-segmentation."
+  ],
+  "important_remarks": [
+    "The study lacks external validation, relying exclusively on the ISIC 2017 and ISIC 2018 datasets, which limits the assessment of generalizability to other populations or imaging devices.",
+    "No statistical significance testing (e.g., p-values) was performed; performance comparisons are based solely on point estimates of metrics like MIoU and DSC.",
+    "The model did not achieve the highest sensitivity (Sen) on either dataset (ISIC 2017: 89.63% vs. VM-UNet v2's 89.99%; ISIC 2018: 87.75% vs. VM-UNet v2's 90.06%), indicating potential trade-offs in detecting smaller or lower-contrast lesions compared to the best-performing comparator.",
+    "The paper does not report data leakage risks or detailed cross-validation protocols, relying on a single random split of the datasets into training, validation, and testing sets.",
+    "While the model claims low computational complexity (0.1017M parameters, 0.086G FLOPs), it is not the most lightweight option compared to Ultralight VM-UNet (0.0495M parameters, 0.060G FLOPs), suggesting a trade-off between efficiency and accuracy.",
+    "The dataset splits are described as 'randomly divided,' which may introduce bias if the distribution of lesion types or image qualities is not stratified across splits.",
+    "The study focuses on binary segmentation of 'skin lesions' generally rather than specific histological classes (e.g., melanoma vs. benign), limiting direct clinical relevance for differential diagnosis."
+  ]
+}

@@ -1,0 +1,391 @@
+{
+  "file_name": "jain_2023_high_resolution_full_field_optical_coherence_tomography_microscope_for.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a convolutional neural network (CNN) based on U-Net for segmentation and ResNet18 for classification to detect and delineate nodular basal cell carcinoma (nBCC) in high-resolution full-field optical coherence tomography (FF-OCT) images of fresh ex vivo skin specimens. The AI model achieved a diagnostic accuracy of 87.6%±5.9% and sensitivity of 93.2%±2.1% for tumor detection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'Research Article' and a 'feasibility study'. It presents original experimental data from 113 freshly excised skin specimens imaged with FF-OCT, includes a 'Material And Methods' section detailing patient cohorts and imaging protocols, reports specific results including diagnostic accuracy metrics for expert readers and a deep learning algorithm, and discusses limitations of the study."
+  },
+  "title": "High resolution full-field optical coherence tomography microscope for the evaluation of freshly excised skin specimens during Mohs surgery: A feasibility study",
+  "authors": [
+    "Manu Jain",
+    "Shu-Wen Chang",
+    "Kiran Singh",
+    "Nicholas R. Kurtansky",
+    "Sheng-Lung Huang",
+    "Homer H. Chen",
+    "Chih-Shan Jason Chen"
+  ],
+  "doi": "10.21203/rs.3.rs-2659197/v1",
+  "journal": null,
+  "year": 2023,
+  "article_type": "Research Article",
+  "brief_summary": "This feasibility study evaluated high-resolution full-field optical coherence tomography (FF-OCT) for assessing tumor margins in 113 freshly excised skin specimens from Mohs surgery patients. The research aimed to detect non-melanoma skin cancers, particularly basal cell carcinoma (BCC), by comparing FF-OCT imaging features against histopathology ground truth. Two expert readers performed blinded analyses, achieving an average diagnostic accuracy of 88.1% and sensitivity of 93.7%. Additionally, a deep learning pipeline combining a U-Net segmentation model and a ResNet18 classifier was developed to automate tumor detection and delineation. The AI model achieved a diagnostic accuracy of 87.6%±5.9% and a mean intersection-over-union of 60.3%±10.1% for nodular BCC segmentation. The study concludes that FF-OCT combined with AI algorithms shows promise for rapid, automated surgical margin assessment.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "BCC",
+        "basal cell carcinoma"
+      ],
+      "role": "Target class",
+      "details": "73 cases (65% of total 113 tissues). Subtypes studied include nodular BCC (nBCC, 46 cases), infiltrative BCC (iBCC) / micro-nodular BCC (mnBCC, 43 cases), and superficial BCC (sBCC, 3 cases). nBCC was the primary focus for AI segmentation and detection."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma",
+      "paper_terms": [
+        "SCC",
+        "squamous cell carcinoma"
+      ],
+      "role": "Target class",
+      "details": "15 cases (13% of total 113 tissues). Also noted in 2 cases as basosquamous cell carcinoma."
+    },
+    {
+      "lesion_type": "Basosquamous cell carcinoma",
+      "paper_terms": [
+        "BCC & SCC",
+        "basosquamous cell carcinoma"
+      ],
+      "role": "Target class",
+      "details": "2 cases (2% of total 113 tissues)."
+    },
+    {
+      "lesion_type": "Cylindroma",
+      "paper_terms": [
+        "Cylindroma",
+        "Other tumors"
+      ],
+      "role": "Target class",
+      "details": "Included in the 'Other' category (5 cases total, 4%). Cylindroma specifically described in results."
+    },
+    {
+      "lesion_type": "Normal skin / Non-tumor tissue",
+      "paper_terms": [
+        "normal structures",
+        "non-tumor tissues",
+        "No BCC",
+        "negative for tumors"
+      ],
+      "role": "Comparator class",
+      "details": "18 cases (15.9% of total 113 tissues) were negative for tumors. Used as negative control for tumor detection and segmentation."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Nodular basal cell carcinoma (nBCC) pixels/masks delineated from normal structures in FF-OCT images.",
+        "primary": false,
+        "details": "A U-Net based convolutional neural network was used to segment nBCC regions. Performance was evaluated using mean intersection-over-union (mIOU), achieving 60.3%±10.1% with focal loss. The task involved pixel-wise classification of nBCC vs non-nBCC pixels."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Presence of nodular basal cell carcinoma (nBCC) in excised tissue patches/specimens.",
+        "primary": true,
+        "details": "A ResNet18 classification model was built on top of U-Net segmentation results to detect nBCC in excised tissues. The model predicted discrete diagnostic categories (nBCC present vs absent). Performance metrics included diagnostic accuracy (87.6%±5.9%), sensitivity (93.2%±2.1%), and specificity (81.2%±9.2%). The task involved binary classification of tissue patches/specimens."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Memorial Sloan Kettering Mohs Surgery FF-OCT Cohort",
+      "description": "A collection of 113 freshly excised skin specimens obtained from patients undergoing Mohs surgery for non-melanoma skin cancers (NMSCs) at Memorial Sloan Kettering Skin Cancer Center between April 2017 and February 2020. The tissues were imaged using a high-resolution full-field optical coherence tomography (FF-OCT) microscope (ApolloVue® B100). Ground truth was provided by corresponding histopathology sections.",
+      "classes_used": [
+        "Nodular Basal Cell Carcinoma (nBCC)",
+        "Infiltrative/Micro-nodular Basal Cell Carcinoma (iBCC/mnBCC)",
+        "Superficial Basal Cell Carcinoma (sBCC)",
+        "Squamous Cell Carcinoma (SCC)",
+        "Basosquamous Cell Carcinoma",
+        "Other tumors (e.g., Cylindroma)",
+        "Normal skin / No BCC"
+      ],
+      "counts": {
+        "total": 113,
+        "training": null,
+        "validation": null,
+        "testing": 113,
+        "per_class": {
+          "nBCC": 46,
+          "iBCC/mnBCC": 43,
+          "sBCC": 3,
+          "SCC": 15,
+          "Basosquamous": 2,
+          "Other": 5,
+          "No BCC": 18
+        }
+      },
+      "use": {
+        "training": "Images from 23 nodular BCC (nBCC) specimens from this cohort were used to generate patches for training the deep learning algorithm. Specifically, 1,253 image patches with nBCC and 22,386 small patches (10,193 with nBCC pixels) were generated for training the U-Net segmentation and ResNet18 classification models.",
+        "validation": "5-fold cross-validation was applied during the training of the AI models.",
+        "testing": "The full set of 113 FF-OCT mosaics was used as a test set for the blinded analysis by two expert readers. The AI model's performance was evaluated on this cohort (or a subset thereof for the specific nBCC detection task) using metrics like diagnostic accuracy, sensitivity, specificity, and mIOU.",
+        "other": "Used for defining FF-OCT features of normal and neoplastic skin lesions and for validating the feasibility of the FF-OCT device for surgical margin assessment."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "diagnostic accuracy",
+    "sensitivity",
+    "specificity",
+    "positive predictive value",
+    "negative predictive value",
+    "mean intersection-over-union (mIOU)",
+    "Cohen's Kappa"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "Applied during the training of the deep learning models (U-Net segmentation and ResNet18 classification) to evaluate performance and mitigate overfitting.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Focal Loss",
+      "purpose": "Used as a loss function to address class imbalance between nBCC and non-nBCC pixels and to focus training on hard negatives during the segmentation model training.",
+      "type": "Loss function"
+    },
+    {
+      "method": "Cohen's Kappa",
+      "purpose": "Used to measure the inter-reader agreement between the two expert readers for tumor presence assessment.",
+      "type": "Inter-reader agreement"
+    },
+    {
+      "method": "95% Confidence Intervals (CI)",
+      "purpose": "Reported for sensitivity, specificity, positive predictive value, and negative predictive value for both expert readers and average metrics to estimate the precision of the diagnostic accuracy estimates.",
+      "type": "Confidence interval"
+    },
+    {
+      "method": "Mean Intersection-over-Union (mIOU)",
+      "purpose": "Used to quantitatively evaluate the image segmentation performance by measuring the overlap between predicted and annotated image pixels.",
+      "type": "Metric"
+    },
+    {
+      "method": "Cross-entropy loss",
+      "purpose": "Used as the baseline loss function for evaluation during the CNN training phase before the adoption of focal loss.",
+      "type": "Loss function"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values) for the comparison of diagnostic accuracies or AI model performance. Statistical analysis was limited to descriptive metrics (accuracy, sensitivity, specificity), 95% confidence intervals for these metrics, and Cohen's Kappa for inter-reader agreement."
+  },
+  "results_obtained_in_each_dataset": {
+    "Memorial Sloan Kettering Mohs Surgery FF-OCT Cohort (113 specimens)": {
+      "expert_readers": {
+        "average_metrics": {
+          "tumor_presence_sensitivity": "93.7%",
+          "tumor_presence_specificity": "58.3%",
+          "tumor_presence_ppv": "92.2%",
+          "tumor_presence_npv": "64.4%",
+          "bcc_classification_sensitivity": "87.3%",
+          "bcc_classification_specificity": "57.9%",
+          "bcc_classification_ppv": "80.4%",
+          "bcc_classification_npv": "69.8%",
+          "scc_classification_sensitivity": "41.2%",
+          "scc_classification_specificity": "95.8%",
+          "scc_classification_ppv": "63.6%",
+          "scc_classification_npv": "90.2%",
+          "other_tumors_classification_sensitivity": "30.0%",
+          "other_tumors_classification_specificity": "97.7%",
+          "other_tumors_classification_ppv": "41.7%",
+          "other_tumors_classification_npv": "96.8%",
+          "nbcc_subtyping_sensitivity": "79.3%",
+          "nbcc_subtyping_specificity": "60.4%",
+          "nbcc_subtyping_ppv": "57.9%",
+          "nbcc_subtyping_npv": "81.2%",
+          "ibcc_mnbcc_subtyping_sensitivity": "33.7%",
+          "ibcc_mnbcc_subtyping_specificity": "87.9%",
+          "ibcc_mnbcc_subtyping_ppv": "62.1%",
+          "ibcc_mnbcc_subtyping_npv": "68.4%",
+          "sbcc_subtyping_sensitivity": "0.0%",
+          "sbcc_subtyping_specificity": "98.6%",
+          "sbcc_subtyping_ppv": "NaN",
+          "sbcc_subtyping_npv": "97.3%",
+          "no_bcc_sensitivity": "56.6%",
+          "no_bcc_specificity": "86.7%",
+          "no_bcc_ppv": "68.1%",
+          "no_bcc_npv": "79.8%"
+        },
+        "reader_1_metrics": {
+          "tumor_presence_sensitivity": "91.6% (84.1%, 96.3%)",
+          "tumor_presence_specificity": "55.6% (30.8%, 78.5%)",
+          "tumor_presence_ppv": "91.6% (84.1%, 96.3%)",
+          "tumor_presence_npv": "55.6% (30.8%, 78.5%)",
+          "bcc_classification_sensitivity": "85.3% (75.3%, 92.4%)",
+          "bcc_classification_specificity": "52.6% (35.8%, 69%)",
+          "bcc_classification_ppv": "78.1% (67.5%, 86.4%)",
+          "bcc_classification_npv": "64.5% (45.4%, 80.8%)",
+          "scc_classification_sensitivity": "41.2% (18.4%, 67.1%)",
+          "scc_classification_specificity": "95.8% (89.7%, 98.9%)",
+          "scc_classification_ppv": "63.6% (30.8%, 89.1%)",
+          "scc_classification_npv": "90.2% (82.7%, 95.2%)",
+          "other_tumors_classification_sensitivity": "20.0% (0.5%, 71.6%)",
+          "other_tumors_classification_specificity": "99.1% (95%, 100%)",
+          "other_tumors_classification_ppv": "50.0% (1.3%, 98.7%)",
+          "other_tumors_classification_npv": "96.4% (91%, 99%)",
+          "nbcc_subtyping_sensitivity": "73.9% (58.9%, 85.7%)",
+          "nbcc_subtyping_specificity": "59.7% (47%, 71.5%)",
+          "nbcc_subtyping_ppv": "55.7% (42.4%, 68.5%)",
+          "nbcc_subtyping_npv": "76.9% (63.2%, 87.5%)",
+          "ibcc_mnbcc_subtyping_sensitivity": "25.6% (13.5%, 41.2%)",
+          "ibcc_mnbcc_subtyping_specificity": "87.1% (77%, 94%)",
+          "ibcc_mnbcc_subtyping_ppv": "55.0% (31.5%, 76.9%)",
+          "ibcc_mnbcc_subtyping_npv": "65.6% (55%, 75.1%)",
+          "sbcc_subtyping_sensitivity": "0.0% (0%, 70.8%)",
+          "sbcc_subtyping_specificity": "97.3% (92.2%, 99.4%)",
+          "sbcc_subtyping_ppv": "0.0% (0%, 70.8%)",
+          "sbcc_subtyping_npv": "97.3% (92.2%, 99.4%)",
+          "no_bcc_sensitivity": "50.0% (33.4%, 66.6%)",
+          "no_bcc_specificity": "84.0% (73.7%, 91.5%)",
+          "no_bcc_ppv": "61.3% (42.2%, 78.2%)",
+          "no_bcc_npv": "76.8% (66.2%, 85.4%)"
+        },
+        "reader_2_metrics": {
+          "tumor_presence_sensitivity": "95.8% (89.6%, 98.8%)",
+          "tumor_presence_specificity": "61.1% (35.7%, 82.7%)",
+          "tumor_presence_ppv": "92.9% (85.8%, 97.1%)",
+          "tumor_presence_npv": "73.3% (44.9%, 92.2%)",
+          "bcc_classification_sensitivity": "89.3% (80.1%, 95.3%)",
+          "bcc_classification_specificity": "63.2% (46%, 78.2%)",
+          "bcc_classification_ppv": "82.7% (72.7%, 90.2%)",
+          "bcc_classification_npv": "75.0% (56.6%, 88.5%)",
+          "scc_classification_sensitivity": "41.2% (18.4%, 67.1%)",
+          "scc_classification_specificity": "95.8% (89.7%, 98.9%)",
+          "scc_classification_ppv": "63.6% (30.8%, 89.1%)",
+          "scc_classification_npv": "90.2% (82.7%, 95.2%)",
+          "other_tumors_classification_sensitivity": "40.0% (5.3%, 85.3%)",
+          "other_tumors_classification_specificity": "96.3% (90.8%, 99%)",
+          "other_tumors_classification_ppv": "33.3% (4.3%, 77.7%)",
+          "other_tumors_classification_npv": "97.2% (92%, 99.4%)",
+          "nbcc_subtyping_sensitivity": "84.8% (71.1%, 93.7%)",
+          "nbcc_subtyping_specificity": "61.2% (48.5%, 72.9%)",
+          "nbcc_subtyping_ppv": "60.0% (47.1%, 72%)",
+          "nbcc_subtyping_npv": "85.4% (72.2%, 93.9%)",
+          "ibcc_mnbcc_subtyping_sensitivity": "41.9% (27%, 57.9%)",
+          "ibcc_mnbcc_subtyping_specificity": "88.6% (78.7%, 94.9%)",
+          "ibcc_mnbcc_subtyping_ppv": "69.2% (48.2%, 85.7%)",
+          "ibcc_mnbcc_subtyping_npv": "71.3% (60.6%, 80.5%)",
+          "sbcc_subtyping_sensitivity": "0.0% (0%, 70.8%)",
+          "sbcc_subtyping_specificity": "100.0% (96.7%, 100%)",
+          "sbcc_subtyping_ppv": "NaN (0%, 100%)",
+          "sbcc_subtyping_npv": "97.3% (92.4%, 99.5%)",
+          "no_bcc_sensitivity": "63.2% (46%, 78.2%)",
+          "no_bcc_specificity": "89.3% (80.1%, 95.3%)",
+          "no_bcc_ppv": "75.0% (56.6%, 88.5%)",
+          "no_bcc_npv": "82.7% (72.7%, 90.2%)"
+        }
+      },
+      "inter_reader_agreement": {
+        "tumor_presence_cohens_kappa": "0.327 (0.092, 0.562)",
+        "tumor_type_cohens_kappa": "0.349 (0.184, 0.514)",
+        "bcc_cohens_kappa": "0.362 (0.173, 0.551)",
+        "scc_cohens_kappa": "0.396 (0.119, 0.673)",
+        "other_cohens_kappa": "0.230 (-0.167, 0.626)",
+        "sbcc_cohens_kappa": "0.000 (-0.001, 0.001)",
+        "nbcc_cohens_kappa": "0.319 (0.144, 0.494)",
+        "ibcc_mnbcc_cohens_kappa": "0.185 (-0.02, 0.389)",
+        "no_bcc_cohens_kappa": "0.318 (0.127, 0.509)"
+      },
+      "deep_learning_models": {
+        "segmentation_model_only": {
+          "cross_entropy_loss": {
+            "mean_iou": "46.4%±12.7%"
+          },
+          "focal_loss": {
+            "mean_iou": "51.6%±11.9%"
+          }
+        },
+        "segmentation_plus_classification_models": {
+          "cross_entropy_loss_hard_vote": {
+            "accuracy": "87.8%±6.8%",
+            "sensitivity": "93.5%±2.2%",
+            "specificity": "81.1%±9.9%",
+            "ppv": "80.4%±10.8%",
+            "npv": "93.2%±2.3%",
+            "mean_iou": "60.1%±10.6%"
+          },
+          "focal_loss_hard_vote": {
+            "accuracy": "87.6%±5.9%",
+            "sensitivity": "93.2%±2.1%",
+            "specificity": "81.2%±9.2%",
+            "ppv": "80.5%±11.3%",
+            "npv": "93.3%±1.6%",
+            "mean_iou": "60.3%±10.1%"
+          },
+          "focal_loss_soft_vote": {
+            "accuracy": "87.6%±5.9%",
+            "sensitivity": "93.2%±2.1%",
+            "specificity": "81.2%±9.2%",
+            "ppv": "80.5%±11.3%",
+            "npv": "93.3%±1.6%",
+            "mean_iou": "60.3%±10.1%"
+          }
+        }
+      },
+      "notes": "The AI model achieved a diagnostic accuracy of 87.6%±5.9% and a mean intersection-over-union of 60.3%±10.1% for nodular BCC segmentation. The study noted that false positives in segmentation were likely due to the similar OCT appearance between nBCC and sebaceous glands. Readers overcalled the presence of nodular BCC in 54% and 58% of all cases, with positive predictive values of 55.7% and 60.0% respectively. SCC and sBCC had low sensitivity but very high specificity. The inter-rater reliability for tumor presence was fair (Cohen's Kappa = 0.327)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "U-Net segmentation model combined with ResNet18 classification model",
+    "pretraining": "null",
+    "input_size": "512 x 512 pixels (patches generated from images >5,000 x 5,000 pixels)",
+    "architecture_details": {
+      "segmentation_backbone": "U-Net with symmetric down and up samplings",
+      "classification_backbone": "ResNet18",
+      "post_processing": "Image erosion process applied to reduce fragmented dusty pixels; voting strategy adopted on U-Net outputs by partitioning 512x512-pixel patches to 128x128-pixel patches for hard and soft votings"
+    },
+    "training_details": {
+      "loss_functions": [
+        "Cross-entropy loss (baseline)",
+        "Focal loss (to mitigate class imbalance and focus on hard negatives)"
+      ],
+      "validation_method": "5-fold cross-validation",
+      "training_data": "1,253 image patches with nBCC for CNN training; 22,386 small patches (10,193 with nBCC pixels) generated for training"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (nBCC present vs absent)",
+      "strategy": "Hard vote and Soft vote strategies on partitioned patches"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net",
+    "ResNet18",
+    "Convolutional Neural Network (CNN)"
+  ],
+  "preprocessing_techniques": [
+    "Image patching: Large FF-OCT images (>5,000 x 5,000 pixels) were chopped into 512 x 512 pixel patches for CNN training.",
+    "Patch partitioning: 512x512-pixel patches were further partitioned into 128x128-pixel patches for voting strategies.",
+    "Image erosion: A post-segmentation image erosion process was applied to reduce fragmented dusty pixels.",
+    "Voting strategies: Hard vote and soft vote strategies were adopted on U-Net outputs to differentiate tumor nodules from other tissues."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "High-resolution full-field optical coherence tomography (FF-OCT) can rapidly image fresh ex vivo tissues at cellular resolution, facilitating the evaluation of surgical margins during Mohs surgery.",
+    "Two expert readers achieved an average diagnostic accuracy of 88.1% and sensitivity of 93.7% for tumor detection using FF-OCT, though specificity was lower (58.3%).",
+    "The inter-rater reliability between two expert readers was fair (Cohen's Kappa = 0.327), indicating moderate agreement on tumor presence and type.",
+    "A deep learning pipeline combining a U-Net segmentation model and a ResNet18 classifier achieved a diagnostic accuracy of 87.6%±5.9% and a mean intersection-over-union (mIOU) of 60.3%±10.1% for nodular basal cell carcinoma (nBCC).",
+    "The AI model demonstrated high sensitivity (93.2%±2.1%) and specificity (81.2%±9.2%) for nBCC detection, outperforming the segmentation-only model.",
+    "False positives in both expert reading and AI segmentation were largely attributed to the difficulty in distinguishing nBCC tumor nodules from sebaceous glands due to similar OCT appearances.",
+    "Squamous cell carcinoma (SCC) and superficial basal cell carcinoma (sBCC) exhibited low sensitivity for detection, potentially due to incomplete visualization of the epidermis caused by tissue flattening in tangentially excised specimens.",
+    "The study acknowledges limitations including a small sample size, particularly for SCCs, and the challenge of interpreting grayscale images, suggesting future work should involve larger cohorts and AI-driven colorization to reduce the learning curve."
+  ],
+  "important_remarks": [
+    "The study is a feasibility study with a small sample size (113 specimens), particularly limiting for Squamous Cell Carcinoma (SCC) and superficial BCC subtypes, which resulted in low sensitivity for these classes.",
+    "There is a significant limitation in specificity (average 58.3%) due to the difficulty in distinguishing nodular BCC tumor nodules from sebaceous glands, which have similar OCT appearances.",
+    "Inter-rater reliability between two expert readers was only fair (Cohen's Kappa = 0.327), indicating moderate agreement and potential subjectivity in reading grayscale FF-OCT images.",
+    "The AI model was trained exclusively on nodular BCC (nBCC) cases (23 specimens), limiting its generalizability to other BCC subtypes or SCCs.",
+    "Tissue flattening caused by tangential excision and imaging preparation led to incomplete visualization of the epidermis, contributing to low sensitivity for epidermal-originating tumors like SCC and sBCC.",
+    "The study was conducted at a single center (Memorial Sloan Kettering) using a specific device (ApolloVue® B100), raising concerns about external validation and generalizability to other settings or devices.",
+    "Potential conflict of interest exists as one author is a co-founder/Chief Science Officer of the device manufacturer (Apollo Medical Optics, Ltd.).",
+    "The AI pipeline relies on 5-fold cross-validation within a single cohort; there is no mention of an independent external test set, posing a risk of overfitting or optimistic performance estimates.",
+    "The study uses fresh ex vivo tissues, which may not fully replicate the conditions of in vivo clinical imaging or the workflow of intraoperative margin assessment."
+  ]
+}

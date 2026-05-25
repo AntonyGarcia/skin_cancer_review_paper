@@ -1,0 +1,415 @@
+{
+  "file_name": "ahamed_2024_optimizing_skin_lesion_segmentation_with_unet_and_attention_guidance.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning, specifically an Attention-guided UNet (UNet + AG) architecture, to perform skin lesion segmentation on the ISIC 2017 and ISIC 2018 datasets. The study employs test-time augmentation (TTA) and various pre-processing techniques to achieve segmentation results for melanoma and other skin lesions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and training of an Attention-guided UNet model with Test-Time Augmentation for skin lesion segmentation. It reports specific quantitative results (mDSC, mIoU, recall, precision) on the ISIC 2017 and ISIC 2018 datasets, compares performance against other models, and details the methodology, architecture, and experimental setup. Although published in a conference proceedings (ICEEICT), it contains original research findings rather than summarizing prior literature."
+  },
+  "title": "Optimizing Skin Lesion Segmentation with UNet and Attention-Guidance Utilizing Test Time Augmentation",
+  "authors": [
+    "Md. Faysal Ahamed",
+    "Md. Munawar Hossain",
+    "Mekhala Mariam Mary",
+    "Md. Rabiul Islam"
+  ],
+  "doi": "10.1109/ICEEICT62016.2024.10534522",
+  "journal": "2024 6th International Conference on Electrical Engineering and Information & Communication Technology (ICEEICT)",
+  "year": 2024,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of precise skin lesion segmentation for melanoma detection by proposing an Attention-guided UNet (UNet + AG) architecture enhanced with Test-Time Augmentation (TTA). The model was trained and evaluated on the ISIC 2017, ISIC 2018, and combined datasets, utilizing advanced preprocessing and spatial augmentation techniques. Performance was assessed using metrics including mean Dice Similarity Coefficient (mDSC), mean Intersection over Union (mIoU), recall, and precision. On the ISIC 2017 dataset, the model achieved an mDSC of 91.93% and mIoU of 88.15%, while on ISIC 2018, it reached an mDSC of 92.17% and mIoU of 90.26%. When trained on the combined dataset, the method attained an mDSC of 92.30% and mIoU of 90.06%, demonstrating superior real-time performance and scalability for computer-aided diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on skin lesion segmentation for melanoma detection. The abstract and introduction explicitly mention 'precise melanoma segmentation' and 'early diagnosis of skin cancer'. The ISIC 2017 and ISIC 2018 datasets used contain melanoma cases, and the ROC-AUC metric is described as reflecting the model's ability to distinguish between melanoma and non-melanoma."
+    },
+    {
+      "lesion_type": "Non-melanoma skin lesions",
+      "paper_terms": [
+        "non melanoma",
+        "benign skin lesions",
+        "benign and malignant skin lesions"
+      ],
+      "role": "Comparator class / Included in dataset",
+      "details": "The paper mentions distinguishing between melanoma and non-melanoma. The dataset description states that images depict 'a variety of benign and malignant skin lesions, including melanoma, nevi, basal cell carcinoma, and others.' The CAD system is described as monitoring 'benign skin lesions' to avert progression."
+    },
+    {
+      "lesion_type": "Nevi",
+      "paper_terms": [
+        "nevi"
+      ],
+      "role": "Included in dataset (mentioned only)",
+      "details": "Listed in the dataset description (Section III.A) as one of the types of benign and malignant skin lesions present in the ISIC 2017 and ISIC 2018 datasets, but not explicitly isolated as a primary segmentation target in the results."
+    },
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma"
+      ],
+      "role": "Included in dataset (mentioned only)",
+      "details": "Listed in the dataset description (Section III.A) as one of the types of benign and malignant skin lesions present in the ISIC 2017 and ISIC 2018 datasets, but not explicitly isolated as a primary segmentation target in the results."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks (binary segmentation of melanoma and other skin lesions from dermoscopic images)",
+        "primary": true,
+        "details": "The paper explicitly focuses on 'skin lesion segmentation' using an Attention-guided UNet (UNet + AG) architecture. The model predicts pixel-wise masks for skin lesions. Performance is evaluated using segmentation metrics: mean Dice Similarity Coefficient (mDSC), mean Intersection over Union (mIoU), recall, and precision. The study uses the ISIC 2017 and ISIC 2018 datasets for training and testing the segmentation task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public dataset from the International Skin Imaging Collaboration (ISIC) 2017 challenge containing dermoscopic images of skin lesions. The dataset includes images depicting benign and malignant skin lesions, such as melanoma, nevi, and basal cell carcinoma.",
+      "classes_used": [
+        "Melanoma",
+        "Nevi",
+        "Basal cell carcinoma",
+        "Benign skin lesions",
+        "Malignant skin lesions"
+      ],
+      "counts": {
+        "total": 2000,
+        "training": 1600,
+        "validation": 200,
+        "testing": 200,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the Attention-guided UNet model (UNet + AG) with Test-Time Augmentation (TTA).",
+        "validation": "Used for validation during the training process.",
+        "testing": "Used for testing and evaluating the model's segmentation performance (mDSC, mIoU, recall, precision).",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A public dataset from the International Skin Imaging Collaboration (ISIC) 2018 challenge containing dermoscopic images of skin lesions. The dataset includes images depicting benign and malignant skin lesions, such as melanoma, nevi, and basal cell carcinoma.",
+      "classes_used": [
+        "Melanoma",
+        "Nevi",
+        "Basal cell carcinoma",
+        "Benign skin lesions",
+        "Malignant skin lesions"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 10015,
+        "validation": 1002,
+        "testing": 1001,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the Attention-guided UNet model (UNet + AG) with Test-Time Augmentation (TTA). Note: The text states '10,015 training samples as well as for the validation set and the test set 1002 and 1001 images are needed respectively', implying the total count is 10,015, with specific splits for validation and testing.",
+        "validation": "Used for validation during the training process.",
+        "testing": "Used for testing and evaluating the model's segmentation performance (mDSC, mIoU, recall, precision).",
+        "other": null
+      }
+    },
+    {
+      "name": "Combined ISIC Dataset",
+      "description": "A combined dataset created by merging the ISIC 2017 and ISIC 2018 datasets. It contains dermoscopic images of various benign and malignant skin lesions.",
+      "classes_used": [
+        "Melanoma",
+        "Nevi",
+        "Basal cell carcinoma",
+        "Benign skin lesions",
+        "Malignant skin lesions"
+      ],
+      "counts": {
+        "total": 12015,
+        "training": 9612,
+        "validation": 1202,
+        "testing": 1201,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the Attention-guided UNet model (UNet + AG) with Test-Time Augmentation (TTA).",
+        "validation": "Used for validation during the training process.",
+        "testing": "Used for testing and evaluating the model's segmentation performance (mDSC, mIoU, recall, precision).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice Similarity Coefficient (DSC)",
+    "mDSC",
+    "Intersection over Union (IoU)",
+    "mIoU",
+    "Precision",
+    "Recall",
+    "Frame per Second (FPS)",
+    "ROC-AUC",
+    "AUC-PR"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive statistics (mDSC, mIoU, recall, precision, FPS) and visual inspection of ROC-AUC and AUC-PR curves without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "metric": [
+        "mDSC",
+        "mIoU",
+        "Recall",
+        "Precision",
+        "FPS"
+      ],
+      "models": {
+        "UNet": {
+          "mDSC": "0.8892",
+          "mIoU": "0.8564",
+          "Recall": "0.8922",
+          "Precision": "0.8864",
+          "FPS": "22"
+        },
+        "UNet++": {
+          "mDSC": "0.8810",
+          "mIoU": "0.8583",
+          "Recall": "0.8999",
+          "Precision": "0.9011",
+          "FPS": "20"
+        },
+        "UNet+TTA": {
+          "mDSC": "0.9221",
+          "mIoU": "0.8977",
+          "Recall": "0.9274",
+          "Precision": "0.9169",
+          "FPS": "19"
+        },
+        "UNet+AG": {
+          "mDSC": "0.9098",
+          "mIoU": "0.8689",
+          "Recall": "0.9206",
+          "Precision": "0.8993",
+          "FPS": "30"
+        },
+        "UNet+AG+TTA": {
+          "mDSC": "0.9193",
+          "mIoU": "0.8815",
+          "Recall": "0.9272",
+          "Precision": "0.9115",
+          "FPS": "32"
+        }
+      },
+      "notes": "The proposed UNet+AG+TTA model achieved the highest performance on the ISIC 2017 dataset. The paper also reports a ROC-AUC of 0.9676 and AUC-PR values ranging from 0.93377 to 0.9636 for the combined dataset evaluation, with UNet+AG+TTA achieving the highest AUC-PR of 0.9636."
+    },
+    "ISIC 2018": {
+      "metric": [
+        "mDSC",
+        "mIoU",
+        "Recall",
+        "Precision",
+        "FPS"
+      ],
+      "models": {
+        "UNet": {
+          "mDSC": "0.87288",
+          "mIoU": "0.8564",
+          "Recall": "0.8689",
+          "Precision": "0.8769",
+          "FPS": "21"
+        },
+        "UNet++": {
+          "mDSC": "0.87881",
+          "mIoU": "0.8888",
+          "Recall": "0.9120",
+          "Precision": "0.8798",
+          "FPS": "23"
+        },
+        "UNet+TTA": {
+          "mDSC": "0.87987",
+          "mIoU": "0.8465",
+          "Recall": "0.8752",
+          "Precision": "0.8846",
+          "FPS": "22"
+        },
+        "UNet+AG": {
+          "mDSC": "0.89904",
+          "mIoU": "0.9102",
+          "Recall": "0.8967",
+          "Precision": "0.9014",
+          "FPS": "28"
+        },
+        "UNet+AG+TTA": {
+          "mDSC": "0.92175",
+          "mIoU": "0.9026",
+          "Recall": "0.9234",
+          "Precision": "0.9201",
+          "FPS": "34"
+        }
+      },
+      "notes": "The proposed UNet+AG+TTA model achieved the highest performance on the ISIC 2018 dataset."
+    },
+    "Combined ISIC Dataset": {
+      "metric": [
+        "mDSC",
+        "mIoU",
+        "Recall",
+        "Precision",
+        "FPS"
+      ],
+      "models": {
+        "UNet": {
+          "mDSC": "0.8737",
+          "mIoU": "0.8511",
+          "Recall": "0.8661",
+          "Precision": "0.8814",
+          "FPS": "27"
+        },
+        "UNet++": {
+          "mDSC": "0.8889",
+          "mIoU": "0.8590",
+          "Recall": "0.9221",
+          "Precision": "0.8971",
+          "FPS": "24"
+        },
+        "UNet+TTA": {
+          "mDSC": "0.8795",
+          "mIoU": "0.8699",
+          "Recall": "0.8936",
+          "Precision": "0.8658",
+          "FPS": "28"
+        },
+        "UNet+AG": {
+          "mDSC": "0.9007",
+          "mIoU": "0.8877",
+          "Recall": "0.9124",
+          "Precision": "0.8893",
+          "FPS": "31"
+        },
+        "UNet+AG+TTA": {
+          "mDSC": "0.9230",
+          "mIoU": "0.9006",
+          "Recall": "0.9391",
+          "Precision": "0.9074",
+          "FPS": "30"
+        }
+      },
+      "notes": "The proposed UNet+AG+TTA model achieved the highest performance on the combined dataset. The paper notes that results align with the level of agreement observed among expert dermatologists."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Attention-guided UNet (UNet + AG) with Test-Time Augmentation (TTA)",
+    "pretraining": "null",
+    "input_size": "256x256",
+    "architecture_details": {
+      "base_architecture": "U-Net",
+      "variants_compared": [
+        "UNet",
+        "UNet++",
+        "UNet+TTA",
+        "UNet+AG",
+        "UNet+AG+TTA"
+      ],
+      "attention_mechanism": "Attention gates incorporated into each skip connection in an encoder-decoder structure. Uses a grid-based gating mechanism to harness spatial information across scales. Processes two input vectors (xl from skip connection and g from lower-level layer) to generate attention coefficients via convolutional operations, dimension adjustment, element-wise summation, ReLU activation, and sigmoid layer.",
+      "encoder_decoder_structure": "Contracting pathway to gather contextual information and symmetric expanding pathway for accurate localization.",
+      "layers": "23 convolutional layers (for the base UNet architecture)",
+      "activation_functions": [
+        "ReLU",
+        "Sigmoid"
+      ]
+    },
+    "training_details": {
+      "optimizer": "null",
+      "loss_function": "Dice Similarity Coefficient (DSC) and Intersection over Union (IoU) metrics used for evaluation; loss function details not explicitly named but implied by metrics",
+      "epochs": 50,
+      "batch_size": "null",
+      "learning_rate": "null",
+      "augmentation_during_training": [
+        "Horizontal flip",
+        "Vertical flip",
+        "90-degree random rotation",
+        "Transpose",
+        "Grayscale conversion",
+        "RGB shifting"
+      ],
+      "preprocessing": [
+        "Nearest neighbor interpolation to resize samples to 256x256",
+        "Morphological filters",
+        "Inpainting"
+      ],
+      "post_processing": "Test-Time Augmentation (TTA) applied during inference to improve segmentation precision by averaging sample predictions with improved data."
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "details": "Pixel-wise binary segmentation of skin lesions. Output generated via a sigmoid layer producing attention coefficients and final segmentation map."
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "UNet",
+    "UNet++",
+    "UNet+TTA",
+    "UNet+AG",
+    "UNet+AG+TTA",
+    "Attention-guided UNet",
+    "ResUNet++",
+    "ResUNet"
+  ],
+  "preprocessing_techniques": [
+    "Nearest neighbor interpolation to resize samples to 256x256",
+    "Morphological filters",
+    "Inpainting",
+    "Horizontal flip",
+    "Vertical flip",
+    "90-degree random rotation",
+    "Transpose",
+    "Grayscale conversion",
+    "RGB shifting"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Spatial Augmentation",
+      "details": "Applied to the training set only. Techniques included horizontal flip, vertical flip, 90-degree random rotation, and transpose."
+    },
+    {
+      "technique": "Pixel-level Transformation",
+      "details": "Applied to the training set only. Techniques included grayscale conversion and RGB shifting."
+    },
+    {
+      "technique": "Test-Time Augmentation (TTA)",
+      "details": "Applied during the post-processing/inference phase to improve segmentation precision. It involves averaging sample predictions with improved data to correct issues like overfitting and handle variations in lighting, positions, and skin types."
+    }
+  ],
+  "conclusions": [
+    "The proposed Attention-guided UNet with Test-Time Augmentation (UNet+AG+TTA) achieved superior segmentation performance compared to standard UNet, UNet++, UNet+TTA, and UNet+AG models across ISIC 2017, ISIC 2018, and combined datasets.",
+    "On the ISIC 2017 dataset, the UNet+AG+TTA model achieved a mean Dice Similarity Coefficient (mDSC) of 91.93%, mean Intersection over Union (mIoU) of 88.15%, recall of 92.72%, and precision of 91.15%.",
+    "On the ISIC 2018 dataset, the UNet+AG+TTA model achieved an mDSC of 92.17%, mIoU of 90.26%, recall of 92.34%, and precision of 92.01%.",
+    "When trained on the combined ISIC 2017 and 2018 dataset, the model achieved an mDSC of 92.30%, mIoU of 90.06%, recall of 93.91%, and precision of 90.74%.",
+    "The UNet+AG+TTA model demonstrated superior real-time performance with a Frame per Second (FPS) score of 32 on ISIC 2017, 34 on ISIC 2018, and 30 on the combined dataset, outperforming other tested architectures.",
+    "The combination of attention guidance and test-time augmentation effectively improved segmentation precision and helped correct issues such as overfitting by introducing diversity during the inference phase.",
+    "The model achieved a maximum ROC-AUC score of 0.9676 and an AUC-PR score of 0.9636, indicating strong capability in distinguishing between melanoma and non-melanoma lesions.",
+    "The obtained results align with the level of agreement observed among expert dermatologists, suggesting clinical reliability.",
+    "The study acknowledges that while performance analysis is common, there is a need for future investigations to incorporate real-time video analysis to address practical clinical concerns regarding real-time performance."
+  ],
+  "important_remarks": [
+    "The study is published in a conference proceeding (ICEEICT) rather than a peer-reviewed journal, which may limit the depth of methodological scrutiny compared to journal publications.",
+    "The paper does not report any statistical significance testing (e.g., p-values) for performance comparisons between the proposed UNet+AG+TTA model and baseline models; differences are presented as descriptive statistics only.",
+    "The model was evaluated exclusively on the ISIC 2017 and ISIC 2018 datasets; there is no external validation on independent datasets from different institutions or populations, raising concerns about generalizability and dataset bias.",
+    "The claim that results 'align with the level of agreement observed among expert dermatologists' is unsupported by any inter-observer variability data or comparison to human performance metrics within the paper.",
+    "Test-Time Augmentation (TTA) was applied during inference, which increases computational latency and memory requirements during deployment, potentially impacting real-time clinical utility despite the reported FPS scores.",
+    "The paper does not disclose the specific loss function used for training, only mentioning that metrics like DSC and IoU were used for evaluation, which creates ambiguity regarding the optimization objective.",
+    "Data leakage risk exists if the 'Combined' dataset split was not strictly disjoint from the individual ISIC 2017 and 2018 test sets, although the paper claims separate training; the exact overlap handling is not fully detailed.",
+    "The study focuses on segmentation masks rather than diagnostic classification accuracy (e.g., sensitivity/specificity for melanoma detection), limiting direct clinical relevance for diagnosis without a downstream classifier.",
+    "No information is provided regarding the handling of class imbalance between melanoma and non-melanoma lesions, which is a critical factor in skin lesion analysis.",
+    "The paper acknowledges the need for future work on real-time video analysis, indicating that the current static image-based approach may not fully address practical clinical workflow constraints."
+  ]
+}

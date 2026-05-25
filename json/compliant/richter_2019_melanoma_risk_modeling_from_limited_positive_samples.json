@@ -1,0 +1,409 @@
+{
+  "file_name": "richter_2019_melanoma_risk_modeling_from_limited_positive_samples.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used machine learning techniques, specifically classifiers including logistic regression, naïve Bayes, support vector machines, decision trees, random forests, and regularized gradient boosted trees (XGBoost), to build a melanoma risk prediction model using dermatology electronic health record data."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as an 'ORIGINAL ARTICLE' and presents original experimental results. It describes a study using the MAMEL dataset of 9,531,408 patients to build and evaluate melanoma risk prediction models using various machine learning classifiers (logistic regression, naïve Bayes, SVM, decision trees, random forests, XGBoost) and data sampling techniques. The authors report new findings on class imbalance and model performance, including statistical analyses (ANOVA, HSD tests) and AUC metrics, rather than summarizing prior literature."
+  },
+  "title": "Melanoma risk modeling from limited positive samples",
+  "authors": [
+    "Aaron N. Richter",
+    "Taghi M. Khoshgoftaar"
+  ],
+  "doi": "10.1007/s13721-019-0186-4",
+  "journal": "Network Modeling Analysis in Health Informatics and Bioinformatics",
+  "year": 2019,
+  "article_type": "Original research article",
+  "brief_summary": "This study addresses the challenge of class imbalance in melanoma risk prediction by modeling patient risk using limited positive samples from a large dermatology electronic health record dataset. The researchers utilized the MAMEL dataset, comprising 9,531,408 patients with only 17,246 (0.18%) developing melanoma, to evaluate six machine learning classifiers including logistic regression, SVM, random forests, and XGBoost. To mitigate the impact of severe class imbalance, the authors applied random undersampling (RUS) techniques and derived datasets with varying numbers of positive samples. The main evaluation approach involved comparing model performance using the Area Under the Curve (AUC) metric across different classifier configurations and sampling ratios. The key result demonstrated that randomly removing negative cases significantly improved model performance, with XGBoost achieving the highest AUC scores. The study concludes that because negative samples are more homogeneous than positive ones, a large number of negative instances is not required for accurate risk modeling, provided sufficient positive samples are available.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "positive cases",
+        "positive samples",
+        "new melanoma"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on predicting the risk of developing melanoma. The positive class consists of patients who developed melanoma (17,246 instances in the original dataset)."
+    },
+    {
+      "lesion_type": "Non-melanoma (Healthy/No Melanoma)",
+      "paper_terms": [
+        "negative cases",
+        "negative samples",
+        "healthy patients",
+        "patients that did not develop melanoma"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class consists of patients who did not develop melanoma in the subsequent year (9,514,162 instances in the original dataset). The paper treats this as a binary classification problem between melanoma and non-melanoma."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary class variable representing whether a patient developed melanoma (positive) or did not develop melanoma (negative) in the subsequent year.",
+        "primary": true,
+        "details": "The paper explicitly states it builds a 'melanoma skin cancer risk model' using 'classifiers' (logistic regression, naïve Bayes, SVM, decision trees, random forests, XGBoost) to predict a 'binary class variable'. The task is framed as predicting individual risk of developing melanoma, which is treated as a binary classification problem (melanoma vs. non-melanoma) evaluated using AUC (Area Under the Curve) and true positive/negative rates."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "MAMEL (Modernizing Analytics for Melanoma)",
+      "description": "A large-scale electronic health record (EHR) dataset containing de-identified data from routine dermatology office visits for 9,531,408 unique patients in the United States, collected from 2011 to 2016. The dataset includes 117,516 features per patient (after one-hot encoding) such as age, sex, race, diagnoses, procedures, and billing codes. The class label indicates whether the patient developed melanoma in the subsequent year (2017).",
+      "classes_used": [
+        "Melanoma (Positive)",
+        "No Melanoma (Negative)"
+      ],
+      "counts": {
+        "total": 9531408,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 17246,
+          "No Melanoma": 9514162
+        }
+      },
+      "use": {
+        "training": "Used as the primary dataset for training machine learning classifiers (Logistic Regression, Naïve Bayes, SVM, Decision Trees, Random Forests, XGBoost) to predict melanoma risk. The study also derived subsets with limited positive samples (100, 200, 1000, 5000) from this dataset for training.",
+        "validation": "Used for hyperparameter tuning via grid search with 5-fold cross-validation on the original dataset.",
+        "testing": "Used for evaluating model performance using Area Under the Curve (AUC) metrics. Results were averaged over five repeats of random undersampling.",
+        "other": "Used to derive simulated imbalanced datasets with varying numbers of positive samples (100, 200, 1000, 5000) to study the impact of class imbalance. Also used for K-means clustering analysis to assess sample homogeneity."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area Under the Curve (AUC)",
+    "True Positive Rate",
+    "True Negative Rate",
+    "Analysis of Variance (ANOVA)",
+    "Tukey's honestly significant difference (HSD) test",
+    "Welch's t-test",
+    "Root Mean Square Deviation (RMSD)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Analysis of Variance (ANOVA)",
+      "purpose": "To determine if observed differences in model performance (AUC) across factors (Dataset, Classifier, RUS Ratio) and their interactions were statistically significant.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Tukey's honestly significant difference (HSD) test",
+      "purpose": "To determine significant group differences for factors and interactions resulting from the ANOVA tests, grouping factor levels based on statistical significance.",
+      "type": "Post-hoc test"
+    },
+    {
+      "method": "Welch's t-test",
+      "purpose": "Used for head-to-head comparisons of model performance.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "K-means clustering",
+      "purpose": "To assess the homogeneity of samples within the positive and negative classes.",
+      "type": "Clustering algorithm"
+    },
+    {
+      "method": "Root Mean Square Deviation (RMSD)",
+      "purpose": "Used to calculate the distance between instances and cluster centers in the K-means clustering analysis.",
+      "type": "Metric"
+    },
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "To evaluate model performance and mitigate overfitting during training and testing phases.",
+      "type": "Resampling method"
+    },
+    {
+      "method": "Random Undersampling (RUS)",
+      "purpose": "Data sampling technique applied to mitigate class imbalance by removing negative instances.",
+      "type": "Data sampling technique"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Analysis of Variance (ANOVA), Tukey's honestly significant difference (HSD) test, Welch's t-test",
+    "null_hypothesis": "There are no statistically significant differences in model performance (AUC) across the levels of the factors (Dataset, Classifier, RUS Ratio) or their interactions.",
+    "alternative_hypothesis": "There are statistically significant differences in model performance (AUC) across the levels of the factors (Dataset, Classifier, RUS Ratio) or their interactions.",
+    "alpha": null,
+    "interpretation": "The paper reports p-values of 0.000 for all factors and interactions in the ANOVA tests (Tables 4 and 7), indicating that the null hypothesis was rejected. The HSD test was used to group factor levels based on statistical significance (e.g., Group A > Group B > Group C), and Welch's t-test was used for head-to-head comparisons. The results showed that removing negative samples (RUS) significantly improved model performance."
+  },
+  "results_obtained_in_each_dataset": {
+    "MAMEL_Original_17246": {
+      "description": "Original dataset with 17,246 positive samples and 9,514,162 negative samples. Evaluated with and without Random Undersampling (RUS).",
+      "metrics": [
+        "AUC (Area Under the Curve)"
+      ],
+      "models": {
+        "XGB": {
+          "AUC_no_RUS": "0.80",
+          "AUC_with_RUS_0.5": "0.780",
+          "notes": "Least affected by class imbalance. Performed better or equivalent to all other classifiers with or without RUS."
+        },
+        "LR": {
+          "AUC_no_RUS": "null",
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Statistically equivalent performance to XGB, SVM on the 17,246 dataset."
+        },
+        "SVM": {
+          "AUC_no_RUS": "null",
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Statistically equivalent performance to XGB, LR on the 17,246 dataset."
+        },
+        "RF": {
+          "AUC_no_RUS": "null",
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Showed highest AUC for the 1000 and 200 datasets with 0.5 RUS ratio, but less affected by imbalance than DT on the 17,246 dataset."
+        },
+        "NB": {
+          "AUC_no_RUS": "null",
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Statistically equivalent performance to XGB, LR, SVM on the 17,246 dataset."
+        },
+        "DT": {
+          "AUC_no_RUS": "null",
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Most affected by class imbalance. Poor performance without RUS."
+        }
+      },
+      "notes": "The 17,246 dataset without RUS performed worse than the 5000 and 1000 datasets with RUS. XGB achieved top performance across most scenarios."
+    },
+    "MAMEL_Simulated_5000": {
+      "description": "Simulated dataset with 5,000 positive samples. Derived by sampling from the original positive class.",
+      "metrics": [
+        "AUC"
+      ],
+      "models": {
+        "XGB": {
+          "AUC_with_RUS_0.5": "0.771",
+          "notes": "High performance, similar to 17,246 dataset."
+        },
+        "LR": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Statistically equivalent performance to XGB, SVM on the 5000 dataset."
+        },
+        "SVM": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Statistically equivalent performance to XGB, LR on the 5000 dataset."
+        },
+        "RF": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Showed highest AUC for the 1000 and 200 datasets with 0.5 RUS ratio."
+        },
+        "NB": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Statistically equivalent performance to XGB, LR, SVM on the 5000 dataset."
+        },
+        "DT": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Significantly affected by class imbalance."
+        }
+      },
+      "notes": "The 5000 dataset with RUS performed better than the original 17,246 dataset without RUS."
+    },
+    "MAMEL_Simulated_1000": {
+      "description": "Simulated dataset with 1,000 positive samples.",
+      "metrics": [
+        "AUC"
+      ],
+      "models": {
+        "RF": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Showed highest AUC for the 1000 and 200 datasets with 0.5 RUS ratio."
+        },
+        "XGB": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "High performance."
+        },
+        "LR": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Performance dropped compared to larger datasets but remained statistically equivalent to SVM/NB."
+        },
+        "SVM": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Performance dropped compared to larger datasets."
+        },
+        "NB": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Performance dropped compared to larger datasets."
+        },
+        "DT": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Severely affected by class imbalance."
+        }
+      },
+      "notes": "The 1000 dataset with RUS performed better than the original 17,246 dataset without RUS."
+    },
+    "MAMEL_Simulated_200": {
+      "description": "Simulated dataset with 200 positive samples.",
+      "metrics": [
+        "AUC"
+      ],
+      "models": {
+        "RF": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Showed highest AUC for the 1000 and 200 datasets with 0.5 RUS ratio."
+        },
+        "XGB": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Maintained high performance."
+        },
+        "LR": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Performance significantly lower than on larger datasets."
+        },
+        "SVM": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Performance significantly lower than on larger datasets."
+        },
+        "NB": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Performance significantly lower than on larger datasets."
+        },
+        "DT": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Poor performance due to overfitting."
+        }
+      },
+      "notes": "The 200 dataset had statistically similar performance to the 100 dataset across all classifiers."
+    },
+    "MAMEL_Simulated_100": {
+      "description": "Simulated dataset with 100 positive samples.",
+      "metrics": [
+        "AUC"
+      ],
+      "models": {
+        "RF": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Showed highest AUC for the 1000 and 200 datasets with 0.5 RUS ratio."
+        },
+        "XGB": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Maintained high performance."
+        },
+        "LR": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Performance significantly lower than on larger datasets."
+        },
+        "SVM": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Performance significantly lower than on larger datasets."
+        },
+        "NB": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Performance significantly lower than on larger datasets."
+        },
+        "DT": {
+          "AUC_with_RUS_0.5": "null",
+          "notes": "Poor performance due to overfitting."
+        }
+      },
+      "notes": "The 200 dataset had statistically similar performance to the 100 dataset across all classifiers."
+    },
+    "Global_Averages": {
+      "description": "Average AUC across all datasets and classifiers for specific factors.",
+      "metrics": [
+        "AUC",
+        "SD"
+      ],
+      "models": {
+        "Best_RUS_Ratio": {
+          "AUC": "0.753",
+          "SD": "0.040",
+          "notes": "RUS ratio of 0.5 achieved the highest average AUC."
+        },
+        "Best_Classifier": {
+          "AUC": "0.768",
+          "SD": "0.039",
+          "notes": "XGB was the highest performing classifier across all datasets and RUS ratios."
+        },
+        "Worst_Classifier": {
+          "AUC": "0.693",
+          "SD": "0.087",
+          "notes": "DT was the lowest performing classifier overall."
+        },
+        "Baseline_No_RUS": {
+          "AUC": "0.670",
+          "SD": "0.106",
+          "notes": "No RUS (ratio 0) had the lowest average AUC."
+        }
+      },
+      "notes": "Every RUS ratio achieved significantly higher AUC than no RUS. XGB was least affected by the number of positive samples and RUS ratios."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Six classifiers: Logistic Regression (LR), Naïve Bayes (NB), Support Vector Machine (SVM), Decision Tree (DT), Random Forest (RF), and Regularized Gradient Boosted Trees (XGBoost/XGB).",
+    "pretraining": "null",
+    "input_size": "117,516 features (derived from EHR data including age, sex, race, diagnoses, procedures, and billing codes via one-hot encoding).",
+    "architecture_details": {
+      "Logistic_Regression": "Linear model with L2 regularization parameter C. Multinomial variant used.",
+      "Naive_Bayes": "Multinomial Naïve Bayes with smoothing parameter alpha.",
+      "SVM": "Linear kernel with L2 penalty parameter C. Probabilities calibrated using Platt’s method.",
+      "Decision_Tree": "Tree-like graph structure. Splitting stopped based on maximum depth.",
+      "Random_Forest": "Ensemble of multiple decision trees with predictions decided by majority voting.",
+      "XGBoost": "Regularized gradient boosted trees."
+    },
+    "training_details": {
+      "framework": "Apache Spark for big data processing; Python data science ecosystem (scikit-learn, etc.) for model training and evaluation.",
+      "hyperparameter_selection": "Grid search with 5-fold cross-validation on the original dataset with RUS to a 35:65 class ratio, evaluated using AUC. Initial values from literature, refined by finding 'peaks' in AUC values.",
+      "sampling_technique": "Random Undersampling (RUS) of the majority (negative) class. Ratios tested: 0.5, 0.35, 0.25, 0.1, 0.01, and 0 (no RUS).",
+      "dataset_variations": "Original dataset (17,246 positive samples) and simulated datasets with 5,000, 1,000, 200, and 100 positive samples.",
+      "repeats": "Experiments repeated five times for each dataset with different numbers of positive instances to reduce bias."
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification",
+      "target": "Whether a patient developed melanoma in the subsequent year (positive) or did not (negative)."
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Logistic Regression (LR)",
+    "Naïve Bayes (NB)",
+    "Support Vector Machine (SVM)",
+    "Decision Tree (DT)",
+    "Random Forest (RF)",
+    "Regularized Gradient Boosted Trees (XGBoost/XGB)",
+    "K-means clustering"
+  ],
+  "preprocessing_techniques": [
+    "Random Undersampling (RUS) of the majority (negative) class to mitigate class imbalance, using target ratios of 0.01, 0.1, 0.25, 0.35, 0.5, and 0 (no sampling).",
+    "Removal of features with zero variance (features having the same value in all samples).",
+    "Feature scaling for classifiers dependent on distribution assumptions (Naïve Bayes, SVM, Logistic Regression).",
+    "Feature selection by retaining the top 1000 features ranked by the χ² statistic for Naïve Bayes, SVM, and Logistic Regression.",
+    "One-hot encoding of categorical data to create 117,516 total features.",
+    "Aggregation of data across all visits for each patient to create one instance per patient."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random Undersampling (RUS)",
+      "details": "Applied to the majority (negative) class to mitigate class imbalance. Target RUS ratios (positive class ratio) tested: 0.5, 0.35, 0.25, 0.1, 0.01, and 0 (no sampling). The technique involved randomly removing negative instances from the training datasets. It was applied within each fold of cross-validation. The study also derived simulated imbalanced datasets with limited positive samples (100, 200, 1000, 5000) from the original positive class to simulate severe imbalance."
+    }
+  ],
+  "conclusions": [
+    "Randomly removing negative cases (majority class) from training datasets significantly improved model performance for melanoma risk prediction.",
+    "K-means clustering analysis revealed that negative samples (healthy patients) exhibit greater homogeneity than positive samples (melanoma patients), explaining why removing redundant negative instances improves performance.",
+    "XGBoost was the highest-performing classifier across all datasets and Random Undersampling (RUS) ratios, achieving an AUC of 0.80 on the original dataset and maintaining high performance even with limited positive samples.",
+    "Decision Trees were the most affected by class imbalance, showing poor performance without RUS due to overfitting, while Logistic Regression, Naïve Bayes, and SVM were less affected.",
+    "Datasets with fewer positive samples (e.g., 5,000 or 1,000) combined with RUS performed better than the original dataset with 17,246 positive samples and no RUS.",
+    "A RUS ratio of 0.5 achieved the highest average AUC (0.753) among all tested sampling ratios.",
+    "The study provides a reference framework for future risk models, suggesting that a large number of negative instances is not required for accurate risk modeling if sufficient positive samples are available, due to the homogeneity of the negative class.",
+    "For big data, the class ratio is not an appropriate metric for the impact of class imbalance; adequate performance can be achieved with a low class ratio (0.18%) if the absolute number of positive samples is sufficient (17,246)."
+  ],
+  "important_remarks": [
+    "The study relies on the MAMEL dataset, which contains de-identified electronic health record data from routine dermatology office visits in the United States (2011-2016); results may not generalize to other populations or clinical settings without external validation.",
+    "The dataset exhibits extreme class imbalance (0.18% positive cases), and the findings suggest that removing negative samples improves performance due to the high homogeneity of the negative class; this may not apply to datasets with more heterogeneous negative samples.",
+    "The paper does not report an external validation on a separate, independent dataset; all experiments were conducted on derived subsets of the single MAMEL dataset.",
+    "The study focuses on predicting the risk of developing melanoma in the subsequent year using administrative and clinical codes; it does not address the detection of existing lesions, limiting direct clinical applicability for immediate diagnosis.",
+    "The authors note that for big data, class ratio is not an appropriate metric for imbalance impact; adequate performance was achieved with a low class ratio (0.18%) provided sufficient absolute positive samples (17,246) were available.",
+    "The computational cost was significant, requiring over 53 CPU core-days to train and score 10,200 individual models, which may limit deployment feasibility in resource-constrained environments.",
+    "The study used Random Undersampling (RUS) of the majority class; while effective, this approach discards potentially useful information from the negative class, and the optimal RUS ratio (0.5) was determined empirically rather than theoretically.",
+    "The feature engineering involved one-hot encoding of categorical data, resulting in a sparse matrix with 117,516 features; the impact of feature selection methods on model interpretability and performance was not extensively analyzed beyond retaining top features for specific classifiers."
+  ]
+}

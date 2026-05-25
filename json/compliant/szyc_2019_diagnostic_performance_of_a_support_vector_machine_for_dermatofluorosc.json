@@ -1,0 +1,241 @@
+{
+  "file_name": "szyc_2019_diagnostic_performance_of_a_support_vector_machine_for_dermatofluorosc.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a Support Vector Machine (SVM), a machine learning algorithm, to classify pigmented skin lesions as malignant melanoma or non-melanoma based on dermatofluoroscopic fluorescence spectra. The SVM was trained on 17,918 fluorescence spectra and validated on 165 lesions, achieving a sensitivity of 91.7% (95.8% with ROI normalization) and specificity of 83.0% (80.9% with ROI normalization)."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The article is titled 'Diagnostic Performance of a Support Vector Machine for Dermatofluoroscopic Melanoma Recognition: The Results of the Retrospective Clinical Study on 214 Pigmented Skin Lesions.' It presents original experimental results from a retrospective clinical study (post-market clinical follow-up) where a new machine learning algorithm (SVM) was developed, trained on 17,918 fluorescence spectra, and validated on 165 lesions to determine diagnostic accuracy (sensitivity 91.7%, specificity 83.0%). The paper includes specific methods, results, and statistical analysis, distinguishing it from a review."
+  },
+  "title": "Diagnostic Performance of a Support Vector Machine for Dermatofluoroscopic Melanoma Recognition: The Results of the Retrospective Clinical Study on 214 Pigmented Skin Lesions",
+  "authors": [
+    "Łukasz Szyc",
+    "Uwe Hillen",
+    "Constantin Scharlach",
+    "Friederike Kauer",
+    "Claus Garbe"
+  ],
+  "doi": "10.3390/diagnostics9030103",
+  "journal": "Diagnostics",
+  "year": 2019,
+  "article_type": "Article",
+  "brief_summary": "This retrospective clinical study evaluated the diagnostic performance of a support vector machine (SVM) for distinguishing malignant melanoma from non-melanoma pigmented skin lesions using dermatofluoroscopic fluorescence spectra. The SVM classifier was trained on 17,918 spectra from 49 lesions and validated on a hold-out set of 165 lesions from the FLIMMA study, with histopathological ground truth established by consensus among three independent pathologists. The model achieved a sensitivity of 91.7% and specificity of 83.0% without region of interest normalization, which improved to 95.8% sensitivity and 80.9% specificity when image segmentation-based ROI normalization was applied. The area under the receiver operating characteristic curve was 0.946, indicating strong diagnostic accuracy. These results suggest that dermatofluoroscopy combined with SVM analysis offers objective criteria to reduce unnecessary excisions in melanoma detection.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Malignant melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "melanoma",
+        "MM",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for the SVM classifier. In the validation set of 165 lesions, there were 24 cases of malignant melanoma. In the false positive analysis, 22 cases were unequivocally diagnosed as melanoma by all three pathologists, and 5 were equivocal (1 MM, 2 non-melanoma)."
+    },
+    {
+      "lesion_type": "Non-melanoma pigmented skin lesions",
+      "paper_terms": [
+        "non-melanoma",
+        "benign",
+        "not melanoma",
+        "benign nevus",
+        "dysplastic nevus",
+        "nevus",
+        "pigmented BCC"
+      ],
+      "role": "Comparator class",
+      "details": "The comparator class for the SVM classifier. In the validation set of 165 lesions, there were 141 non-melanoma lesions. Specific subtypes included dysplastic nevi (12 cases in false positives), nevi (11 cases in false positives), and other lesions such as pigmented basal cell carcinoma (BCC) (4 cases in false positives). The FLIMMA study originally involved PSLs clinically diagnosed as malignant melanoma or dysplastic nevus."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Malignant melanoma vs. non-melanoma pigmented skin lesions",
+        "primary": true,
+        "details": "Binary classification task where the Support Vector Machine (SVM) classifier predicts discrete diagnostic categories (malignant melanoma labeled as 1, non-melanoma labeled as 0) based on dermatofluoroscopic fluorescence spectra. The model uses a scoring system with a cut-off value of 28 to classify lesions."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "FLIMMA Study Cohort (Post-Market Clinical Follow-up)",
+      "description": "A retrospective clinical study (post-market clinical follow-up) derived from the prospective, multicenter observational study 'FLIMMA'. It consists of formalin-fixed paraffin-embedded (FFPE) tissue samples from pigmented skin lesions (PSLs) originally scanned in vivo with the DermaFC device. The samples were re-examined by two independent pathologists in addition to the first diagnosis, resulting in three histopathological results per sample for consensus ground truth.",
+      "classes_used": [
+        "Malignant melanoma (labeled as 1)",
+        "Non-melanoma pigmented skin lesions (labeled as 0)"
+      ],
+      "counts": {
+        "total": 214,
+        "training": 49,
+        "validation": null,
+        "testing": 165,
+        "per_class": {
+          "training_malignant": null,
+          "training_benign": null,
+          "testing_malignant": 24,
+          "testing_benign": 141
+        }
+      },
+      "use": {
+        "training": "Used to train the Support Vector Machine (SVM) classifier. The training set comprised 49 lesions, from which 17,918 fluorescence spectra were extracted. The data was partitioned into 20 folds for k-fold cross-validation during the training phase.",
+        "validation": "K-fold cross-validation (k=20) was used internally on the training set to estimate generalization error and select the best SVM models. No separate external validation set was used for hyperparameter tuning.",
+        "testing": "Used for final hold-out validation of the diagnostic performance. The test set consisted of 165 lesions not used in the training phase. Diagnostic accuracy (sensitivity 91.7%, specificity 83.0%) and Area Under the Curve (AUC 0.946) were calculated on this set.",
+        "other": "The original FLIMMA study involved 476 PSLs clinically diagnosed as malignant melanoma or dysplastic nevus. This study utilized the subset of 214 available samples from the University of Tuebingen for post-market clinical follow-up."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "sensitivity",
+    "specificity",
+    "diagnostic accuracy",
+    "diagnostic odd ratio (DOR)",
+    "receiver operating characteristics (ROC) curve",
+    "area under the curve (AUC)",
+    "cross-validation error",
+    "generalization error",
+    "accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "k-fold cross-validation",
+      "purpose": "To estimate generalization error and select the best SVM models during the training phase on the 49-sample training set.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Hold-out validation",
+      "purpose": "To validate the final diagnostic performance (sensitivity, specificity, AUC) on a separate test set of 165 lesions not used in training.",
+      "type": "Validation"
+    },
+    {
+      "method": "Receiver Operating Characteristics (ROC) curve analysis",
+      "purpose": "To evaluate the diagnostic performance of the SVM classifier and calculate the Area Under the Curve (AUC).",
+      "type": "Diagnostic accuracy metric"
+    },
+    {
+      "method": "Diagnostic Odd Ratio (DOR)",
+      "purpose": "To quantify the diagnostic accuracy of the dermatofluoroscopy method.",
+      "type": "Diagnostic metric"
+    },
+    {
+      "method": "Sensitivity and Specificity calculation",
+      "purpose": "To determine the true positive and true negative rates of the SVM classifier for diagnosing malignant melanoma.",
+      "type": "Diagnostic metric"
+    },
+    {
+      "method": "Consensus diagnosis by pathologists",
+      "purpose": "To establish the ground truth for lesion classification (malignant vs. non-melanoma) using three independent histopathologists.",
+      "type": "Ground truth establishment"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Diagnostic performance was evaluated using sensitivity, specificity, diagnostic accuracy, diagnostic odd ratio (DOR), and area under the receiver operating characteristic curve (AUC)."
+  },
+  "results_obtained_in_each_dataset": {
+    "FLIMMA Study Cohort (Hold-out Validation Set)": {
+      "description": "Validation set of 165 pigmented skin lesions (PSLs) not used in training. Ground truth established by consensus of three pathologists (24 malignant melanoma, 141 non-melanoma).",
+      "models": {
+        "SVM (Third-order polynomial kernel, Box constraint 0.165, No ROI normalization)": {
+          "sensitivity": "91.7%",
+          "specificity": "83.0%",
+          "true_positives": "22",
+          "false_negatives": "2",
+          "true_negatives": "117",
+          "false_positives": "24",
+          "diagnostic_accuracy": "83.0%",
+          "diagnostic_odd_ratio": "53.625",
+          "area_under_curve": "0.946"
+        },
+        "SVM (Third-order polynomial kernel, Box constraint 0.165, With ROI normalization)": {
+          "sensitivity": "95.8%",
+          "specificity": "80.9%",
+          "true_positives": "23",
+          "false_negatives": "1",
+          "true_negatives": "114",
+          "false_positives": "27",
+          "diagnostic_accuracy": "83.0%",
+          "diagnostic_odd_ratio": "53.625",
+          "area_under_curve": "0.946"
+        }
+      },
+      "notes": "The model with ROI normalization improved sensitivity from 91.7% to 95.8% but decreased specificity from 83.0% to 80.9%. The cut-off value for classification was 28. One melanoma was overseen (score 27) due to suboptimal scan area covering only ~50% of the lesion. False positives included 22 unequivocal melanomas, 5 equivocal cases, 11 nevi, 12 dysplastic nevi, and 4 other lesions (e.g., pigmented BCC). Average score for true negatives was 17.17 (median 18); average score for false positives was 31.22 (median 30); average score for true positives was 37.65 (median 38)."
+    },
+    "Training Set (Internal Cross-Validation)": {
+      "description": "Training set of 49 lesions from which 17,918 fluorescence spectra were extracted. Used for k-fold cross-validation (k=20) to estimate generalization error and select the best SVM models.",
+      "models": {
+        "SVM (Best models selected via k-fold CV)": {
+          "generalization_error": "Estimated via k-fold cross-validation",
+          "best_kernel": "Third-order polynomial",
+          "best_box_constraint": "0.165"
+        }
+      },
+      "notes": "The training set comprised 49 lesions. The diagnostic performance of dermatofluoroscopy was calculated on the separate test set of 165 lesions. All three pathologists agreed on the diagnosis in 86% of cases (184 of 214 total samples in the PMCF study subset)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Support Vector Machine (SVM)",
+    "pretraining": null,
+    "input_size": "2D array (matrix) of dimensions: Number of observations x 751 (750 predictors + 1 response column). Predictors correspond to fluorescence spectra in the spectral range between 382 nm and 680 nm.",
+    "architecture_details": {
+      "model_family": "Support Vector Machine",
+      "kernel_function": "Third-order polynomial",
+      "box_constraint_C": 0.165,
+      "solver": "Iterative Single Data Algorithm (ISDA)",
+      "implementation": "MATLAB Statistics and Machine Learning Toolbox",
+      "input_preprocessing": "Spectral range truncated to omit signal above 680 nm; spectra with low signal intensity (below 10 counts) in the range 480-600 nm excluded."
+    },
+    "training_details": {
+      "training_method": "Supervised learning",
+      "cross_validation": "20-fold cross-validation (k=20) on the training set of 49 lesions (17,918 spectra)",
+      "hyperparameter_selection": "Box constraint (C), kernel function, and kernel scale optimized during model selection",
+      "best_hyperparameters": {
+        "kernel": "Third-order polynomial",
+        "box_constraint": 0.165
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Linear scoring system",
+      "description": "Score scales linearly with the number of 'malignant' spectra (class 1). Classification threshold (cut-off) set at 28.",
+      "normalization": "Region of Interest (ROI) normalization using image segmentation (Li thresholding via Scikit-image library) applied in one variant to correct for incomplete scanning area."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Support Vector Machine (SVM)",
+    "Artificial Neural Network"
+  ],
+  "preprocessing_techniques": [
+    "Spectral range truncation to omit signals above 680 nm",
+    "Exclusion of spectra with low signal intensity (below 10 counts) in the 480-600 nm range",
+    "Region of Interest (ROI) normalization using image segmentation (Li thresholding) to correct for incomplete scanning area and low-pigmented regions",
+    "Normalization factors applied to adjust final score based on fraction of lesion scanned and involvement of low-pigmented regions"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The support vector machine (SVM) classifier demonstrated high diagnostic performance for distinguishing malignant melanoma from non-melanoma pigmented skin lesions using dermatofluoroscopic fluorescence spectra, achieving a sensitivity of 91.7% and specificity of 83.0%.",
+    "The application of image segmentation-based region of interest (ROI) normalization improved the sensitivity to 95.8%, although it resulted in a slight decrease in specificity to 80.9%.",
+    "The SVM model achieved an area under the receiver operating characteristic curve (AUC) of 0.946, indicating strong diagnostic accuracy.",
+    "The study suggests that dermatofluoroscopy combined with SVM analysis provides objective criteria that can help reduce unnecessary excisions in melanoma detection.",
+    "The correction of the final score using ROI normalization factors is particularly important for lesions with pronounced or dominated regression where the scanning area may be incomplete."
+  ],
+  "important_remarks": [
+    "The study is a retrospective post-market clinical follow-up of the prospective FLIMMA trial, limiting the generalizability of the initial findings.",
+    "The training dataset is extremely small (49 lesions), which raises concerns about overfitting and the robustness of the Support Vector Machine model.",
+    "The validation cohort (165 lesions) is derived from a single center (University of Tuebingen), lacking external multi-center validation.",
+    "The study population is biased towards clinically diagnosed malignant melanoma or dysplastic nevi, potentially limiting applicability to broader dermatological populations.",
+    "Ground truth was established by consensus of three pathologists, with agreement in only 86% of cases, indicating potential diagnostic uncertainty in the reference standard.",
+    "One melanoma case was missed (false negative) due to suboptimal scanning area covering only ~50% of the lesion, highlighting sensitivity to operator technique.",
+    "The paper does not report formal hypothesis testing, p-values, or confidence intervals for the diagnostic metrics.",
+    "ROI normalization improved sensitivity but decreased specificity, indicating a trade-off that requires careful clinical interpretation.",
+    "The study compares SVM performance against historical data rather than current state-of-the-art deep learning models in a head-to-head prospective trial."
+  ]
+}

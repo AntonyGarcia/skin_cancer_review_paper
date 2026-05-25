@@ -1,0 +1,291 @@
+{
+  "file_name": "naranpanawa_2024_a_tiered_quadruplet_network_with_patient_specific_mining_and_dy.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep metric learning approach, specifically a 'Tiered Quadruplet Network' (DMT-Quadruplet) with patient-specific mining and dynamic margins, implemented using a ResNet18 backbone and a CNN classifier. This AI model was used to classify 'ugly duckling' skin lesions for melanoma detection using the Brisbane Naevus Morphology Study (BNMS) dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel 'Tiered Quadruplet Network' (DMT-Quadruplet) for ugly duckling lesion classification. It details specific methods (patient-specific mining, dynamic margins), implementation details (ResNet18, PyTorch, NVIDIA Tesla V100), and reports quantitative results (sensitivity, specificity, AUC) on the Brisbane Naevus Morphology Study dataset, which are characteristic of a primary research study rather than a review."
+  },
+  "title": "A TIERED QUADRUPLET NETWORK WITH PATIENT-SPECIFIC MINING AND DYNAMIC MARGIN FOR IMPROVED UGLY DUCKLING LESION CLASSIFICATION",
+  "authors": [
+    "Nathasha Naranpanawa",
+    "H. Peter Soyer",
+    "Adam Mothershaw",
+    "Gayan K. Kulatilleke",
+    "Zongyuan Ge",
+    "Brigid Betz-Stablein",
+    "Shekhar S. Chandra"
+  ],
+  "doi": "10.1109/ISBI56570.2024.10635546",
+  "journal": "2024 IEEE International Symposium on Biomedical Imaging (ISBI)",
+  "year": 2024,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes the DMT-Quadruplet network, a deep metric learning framework designed to improve the classification of 'ugly duckling' skin lesions for melanoma detection. The method utilizes a two-tiered quadruplet network with patient-specific mining and dynamic margins to capture both inter-patient and intra-patient lesion features. The model was evaluated on the Brisbane Naevus Morphology Study (BNMS) dataset, which contained 10,493 images from 37 participants. Experimental results demonstrated that the proposed method achieved a sensitivity of 71.2%, significantly outperforming baseline classifiers and traditional metric learning approaches. The approach effectively handles class imbalance and provides robust feature separation for both patient-specific and patient-agnostic contexts.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Ugly Duckling lesion (suspicious for melanoma)",
+      "paper_terms": [
+        "ugly duckling",
+        "UD",
+        "ugly duckling lesions",
+        "suspicious pigmented lesions",
+        "outlier ugly ducklings"
+      ],
+      "role": "Target class",
+      "details": "Defined as a visually different outlier from surrounding naevi on an individual, considered suspicious for malignancy (melanoma). Annotated as 'ugly duckling' in the SkinUD dataset derived from the Brisbane Naevus Morphology Study (BNMS)."
+    },
+    {
+      "lesion_type": "Normal nevus (common mole)",
+      "paper_terms": [
+        "normal",
+        "naevi",
+        "nevus",
+        "common characteristics of nevi"
+      ],
+      "role": "Comparator class",
+      "details": "Defined as the typical lesions on an individual that resemble one another. Annotated as 'normal' in the SkinUD dataset. The dataset had an approximate 1:32 ratio between UD and normal lesions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into 'ugly duckling' (suspicious for melanoma) or 'normal' (common nevus) categories.",
+        "primary": true,
+        "details": "The paper explicitly states the goal is 'ugly duckling lesion classification' and uses a 'binary CNN classifier' in the second stage of the pipeline. The model predicts discrete diagnostic categories (UD vs. normal) based on visual similarity metrics learned via a tiered quadruplet network. Performance is evaluated using classification metrics such as sensitivity, specificity, precision, F1-score, and AUC."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "SkinUD",
+      "description": "A de-identified dataset derived from the Brisbane Naevus Morphology Study (BNMS). All lesions were annotated as normal or ugly duckling by a board-certified dermatologist with 30+ years of experience using in-house annotation software.",
+      "classes_used": [
+        "normal",
+        "ugly duckling"
+      ],
+      "counts": {
+        "total": 10493,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training both the Quadruplet network and the CNN classifier. Images were center-cropped, resized, randomly flipped, and UD samples were duplicated by 10-fold.",
+        "validation": null,
+        "testing": "Used for testing the classification performance of various metric learning-based classifiers.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Specificity",
+    "Sensitivity",
+    "Recall",
+    "Precision",
+    "F1-score",
+    "AUC",
+    "Accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "K-Means clustering",
+      "purpose": "To cluster embeddings of an individual's samples into two groups for calculating the patient-specific dynamic margin.",
+      "type": "Clustering algorithm"
+    },
+    {
+      "method": "t-SNE (t-Distributed Stochastic Neighbor Embedding)",
+      "purpose": "To obtain 2D embeddings for samples in the test set to visualize and illustrate cluster separations in metric space.",
+      "type": "Dimensionality reduction"
+    },
+    {
+      "method": "Mean and Standard Deviation reporting",
+      "purpose": "To report classification performance metrics (Specificity, Sensitivity, Recall, Precision, F1-score, AUC, Accuracy) across experiments, indicating variability in results.",
+      "type": "Descriptive statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It reported classification performance metrics (sensitivity, specificity, etc.) with standard deviations but did not perform statistical significance testing between models."
+  },
+  "results_obtained_in_each_dataset": {
+    "SkinUD": {
+      "split": "Test set",
+      "description": "Derived from the Brisbane Naevus Morphology Study (BNMS), containing 10,493 images from 37 participants with an approximate 1:32 ratio between ugly duckling (UD) and normal lesions.",
+      "models": {
+        "ResNet18": {
+          "Specificity": "96.4±1.3",
+          "Sensitivity": "46.2±6.2",
+          "Recall": "71.3±2.8",
+          "Precision": "66.3±3.0",
+          "F1-score": "68.1±2.6",
+          "AUC": "84.0±0.0",
+          "Accuracy": "94.0±1.4"
+        },
+        "ResNet34": {
+          "Specificity": "96.3±0.6",
+          "Sensitivity": "47.4±4.4",
+          "Recall": "71.9±2.3",
+          "Precision": "66.1±2.7",
+          "F1-score": "68.4±2.4",
+          "AUC": "88.7±3.1",
+          "Accuracy": "94.0±0.8"
+        },
+        "Baseline CNN classifiers": {
+          "VGG16": {
+            "Specificity": "94.9±0.9",
+            "Sensitivity": "54.6±10.0",
+            "Recall": "74.7±4.5",
+            "Precision": "63.9±0.2",
+            "F1-score": "67.4±1.0",
+            "AUC": "90.7±1.4",
+            "Accuracy": "92.7±0.5"
+          },
+          "EfficientNetB0": {
+            "Specificity": "97.6±0.2",
+            "Sensitivity": "40.4±0.5",
+            "Recall": "69.0±0.2",
+            "Precision": "68.9±0.8",
+            "F1-score": "68.9±0.3",
+            "AUC": "89.7±1.8",
+            "Accuracy": "95.0±0.0"
+          }
+        },
+        "Traditional metric losses": {
+          "Naïve Siamese": {
+            "Specificity": "93.4±0.3",
+            "Sensitivity": "60.1±2.5",
+            "Recall": "76.8±1.1",
+            "Precision": "62.5±0.3",
+            "F1-score": "66.3±0.4",
+            "AUC": "86.8±1.4",
+            "Accuracy": "91.7±0.5"
+          },
+          "Naïve Triplet": {
+            "Specificity": "93.9±1.6",
+            "Sensitivity": "51.9±2.6",
+            "Recall": "76.4±3.5",
+            "Precision": "63.3±1.0",
+            "F1-score": "66.9±0.6",
+            "AUC": "88.5±0.0",
+            "Accuracy": "92.0±1.4"
+          }
+        },
+        "Patient-specific metric losses": {
+          "Patient-specific Triplet (PS-Triplet)": {
+            "Specificity": "94.5±3.1",
+            "Sensitivity": "58.8±6.1",
+            "Recall": "73.9±4.2",
+            "Precision": "64.5±3.6",
+            "F1-score": "66.8±2.4",
+            "AUC": "87.1±0.0",
+            "Accuracy": "92.3±2.5"
+          },
+          "Patient-specific Tiered Quadruplet (T-Quad)": {
+            "Specificity": "93.5±1.5",
+            "Sensitivity": "63.0±7.2",
+            "Recall": "78.3±2.8",
+            "Precision": "63.3±0.9",
+            "F1-score": "67.2±0.9",
+            "AUC": "88.3±0.0",
+            "Accuracy": "91.7±1.2"
+          },
+          "Patient-specific Tiered Quadruplet + Dynamic Margin (DMT-Quad)": {
+            "Specificity": "91.7±1.4",
+            "Sensitivity": "71.2±5.9",
+            "Recall": "81.4±2.2",
+            "Precision": "62.2±0.8",
+            "F1-score": "66.3±0.9",
+            "AUC": "90.2±0.0",
+            "Accuracy": "90.3±1.3"
+          }
+        }
+      },
+      "notes": "The DMT-Quadruplet model achieved the highest sensitivity (71.2%) and recall (81.4%), and the highest AUC (90.2%) among all tested models. It outperformed the baseline ResNet18 classifier by 54% in sensitivity. The DMT-Quadruplet showed better separation of UD lesions in t-SNE visualizations compared to Naive Triplet."
+    }
+  },
+  "architecture_used": {
+    "main_model": "DMT-Quadruplet (Dynamic Margin Tiered Quadruplet Network)",
+    "pretraining": "Not reported (trained from scratch on the SkinUD dataset)",
+    "input_size": "Not reported (images were center-cropped, resized, and randomly flipped)",
+    "architecture_details": {
+      "backbone": "ResNet18",
+      "backbone_modification": "The last layer of the ResNet18 backbone was substituted with a fully-connected layer to generate a 128-dimensional embedding.",
+      "framework": "Two-stage framework",
+      "stage_1": "Quadruplet network for feature extraction using patient-specific mining and dynamic margins.",
+      "stage_2": "Binary CNN classifier trained on the embeddings from the frozen backbone.",
+      "mining_strategy": "Patient-specific tiered quadruplet mining (Tier 1: inter-patient, Tier 2: intra-patient) with online random-hard mining for furthest negative and secondary-negative samples.",
+      "dynamic_margin": "Calculated using K-Means clustering on individual patient embeddings; distance between cluster centroids used as margin alpha_x."
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": "0.0001",
+      "loss_function": "Tiered Quadruplet Loss (L_DMT-Quad) combining patient-level and lesion-level losses with margins alpha (1.0) and beta (1.5). Second stage used Cross Entropy loss.",
+      "data_augmentation": "Center-cropping, resizing, random vertical/horizontal flipping, 10-fold duplication of ugly duckling samples.",
+      "hardware": "NVIDIA Tesla V100 32GB GPU",
+      "software": "PyTorch"
+    },
+    "classification_or_output_head": {
+      "type": "Binary CNN classifier",
+      "details": "The original last layer of the backbone CNN was added back for binary classification. All layers of the quadruplet network were frozen during this stage, and only the parameters of the last layer were updated."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "DMT-Quadruplet (Dynamic Margin Tiered Quadruplet Network)",
+    "Patient-specific Tiered Quadruplet (T-Quad)",
+    "Patient-specific Triplet (PS-Triplet)",
+    "Naïve Triplet",
+    "Naïve Siamese",
+    "ResNet18",
+    "ResNet34",
+    "VGG16",
+    "EfficientNetB0"
+  ],
+  "preprocessing_techniques": [
+    "Center-cropping",
+    "Resizing",
+    "Random vertical and horizontal flipping",
+    "10-fold duplication of ugly duckling (UD) samples to handle class imbalance"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Images were center-cropped, resized, and randomly flipped both vertically and horizontally."
+    },
+    {
+      "technique": "Class Balancing Augmentation",
+      "details": "Ugly duckling (UD) samples were duplicated by 10-fold to handle class imbalance."
+    }
+  ],
+  "conclusions": [
+    "The proposed DMT-Quadruplet network, which combines patient-specific mining with a dynamic margin in a tiered quadruplet architecture, significantly improves the classification of 'ugly duckling' lesions for melanoma detection compared to traditional classifiers and baseline models.",
+    "The DMT-Quadruplet model achieved the highest sensitivity (71.2%) and recall (81.4%) among all tested models, representing a 54% improvement over the baseline ResNet18 classifier and a 37% improvement over the naive triplet classifier.",
+    "The method successfully addresses the challenge of inter-patient phenotypic variability by learning features at both patient-level (inter-patient) and lesion-level (intra-patient) tiers, allowing for effective separation of lesions in both patient-specific and patient-agnostic contexts.",
+    "The use of a dynamic margin, calculated via K-Means clustering of individual patient embeddings, allows for more useful quadruplets to be mined within individuals compared to fixed margins, which might inaccurately discard useful triplets.",
+    "The tiered quadruplet architecture effectively incorporates lesion-level information through secondary-negative samples, providing a global view of lesion features that boosts performance.",
+    "The DMT-Quadruplet model demonstrates robust feature separation for minority class lesions (ugly ducklings) and handles class imbalance effectively, although it exhibits slightly lower specificity (91.7%) and accuracy (90.3%) compared to the baseline ResNet18 (96.4% and 94.0%, respectively).",
+    "t-SNE visualizations confirm that the DMT-Quadruplet provides better separation of ugly duckling lesions and clustering of lesions within the same individual compared to naive triplet methods.",
+    "The proposed two-stage pipeline, combining a quadruplet-based feature extractor with a binary CNN classifier, can effectively assist clinicians in early melanoma detection by identifying the most suspicious lesions, thereby saving time and effort."
+  ],
+  "important_remarks": [
+    "The study is limited to a single, small dataset (SkinUD/BNMS) with only 37 participants, raising concerns about generalizability and external validation.",
+    "The dataset exhibits extreme class imbalance (approx. 1:32 ratio of ugly duckling to normal lesions), which was addressed by 10-fold duplication of minority class samples rather than advanced sampling techniques.",
+    "The paper does not report formal statistical significance testing (p-values) between models, relying instead on descriptive statistics (mean ± standard deviation) for performance comparison.",
+    "The proposed DMT-Quadruplet model achieved the highest sensitivity (71.2%) but had lower specificity (91.7%) and accuracy (90.3%) compared to the baseline ResNet18 (96.4% specificity, 94.0% accuracy), indicating a trade-off between sensitivity and false positive rates.",
+    "The annotations were provided by a single board-certified dermatologist with 30+ years of experience, introducing potential single-observer bias and lack of inter-observer variability assessment.",
+    "The model was trained from scratch on the SkinUD dataset without reported pre-training on larger external dermatological datasets, which may limit feature robustness.",
+    "The paper acknowledges that 'ugly duckling' lesions are not mutually exclusive with melanoma diagnoses, noting that not all melanomas exhibit ugly duckling characteristics, which limits the clinical scope of the binary classification task.",
+    "One author (HPS) has significant conflicts of interest, including shareholding in dermatology companies and consulting roles, which may introduce bias in study design or interpretation."
+  ]
+}

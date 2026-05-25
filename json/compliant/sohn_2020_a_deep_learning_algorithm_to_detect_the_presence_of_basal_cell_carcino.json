@@ -1,0 +1,159 @@
+{
+  "file_name": "sohn_2020_a_deep_learning_algorithm_to_detect_the_presence_of_basal_cell_carcino.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a deep learning algorithm based on a 2-dimensional ResNet-50 model pretrained with ImageNet to detect the presence of basal cell carcinoma (BCC) on Mohs micrographic surgery frozen sections. The model achieved an area under the receiver operating characteristic curve of 0.753."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The article is a 'Research Letter' that describes an original experimental study developing and validating a deep learning algorithm (ResNet-50) to detect basal cell carcinoma on frozen sections. It reports specific methods (retrospective selection of 100 cases, data partitioning, preprocessing), results (AUC of 0.753, sensitivity/specificity values), and limitations, rather than summarizing prior literature."
+  },
+  "title": "A deep learning algorithm to detect the presence of basal cell carcinoma on Mohs micrographic surgery frozen sections",
+  "authors": null,
+  "doi": "10.1016/j.jaad.2020.06.068",
+  "journal": "J Am Acad Dermatol",
+  "year": 2020,
+  "article_type": "Research Letter",
+  "brief_summary": "This study developed a deep learning algorithm to detect basal cell carcinoma (BCC) on Mohs micrographic surgery frozen sections. The researchers retrospectively selected 100 cases from a single academic center between 2011 and 2018, partitioning them into training, validation, and test sets. The model utilized a 2-dimensional ResNet-50 architecture pretrained with ImageNet and was evaluated using a holdout test set. The algorithm achieved an area under the receiver operating characteristic curve of 0.753, with a sensitivity of 70.6% at a specificity of 79.1%. The authors conclude that the algorithm can serve as a safety mechanism to help surgeons avoid missing residual tumor, though they note limitations due to the small sample size.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "The study focused on detecting the presence of basal cell carcinoma on Mohs micrographic surgery frozen sections. The dataset consisted of 75 cases with positive findings for BCC and 25 cases with negative findings for tumor (initially biopsy-proven BCC but negative on first stage MMS)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Presence of basal cell carcinoma (BCC) on Mohs micrographic surgery frozen sections",
+        "primary": true,
+        "details": "Binary classification task where each frozen section image was independently assigned as positive or negative for BCC. The model predicted discrete diagnostic categories (BCC present vs. absent) using a 2-dimensional ResNet-50 architecture. Performance was evaluated using the area under the receiver operating characteristic curve (AUC) of 0.753, with reported sensitivity (70.6%) and specificity (79.1%)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Single academic center MMS cohort (2011-2018)",
+      "description": "A retrospective cohort of Mohs micrographic surgery (MMS) frozen section slides collected from a single academic center between 2011 and 2018. The dataset consists of digital images taken at 32x magnification with a 2-megapixel Olympus DP20-5 digital camera.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC) positive",
+        "BCC negative"
+      ],
+      "counts": {
+        "total": 100,
+        "training": 60,
+        "validation": 20,
+        "testing": 20,
+        "per_class": {
+          "BCC positive": 75,
+          "BCC negative": 25
+        }
+      },
+      "use": {
+        "training": "60% of cases (60 images) were used for training the 2-dimensional ResNet-50 model.",
+        "validation": "20% of cases (20 images) were used for validation during hyperparameter search and model development.",
+        "testing": "20% of cases (20 images) were used as a holdout test set to evaluate the final model performance.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area under the receiver operating characteristic curve (AUC)",
+    "Sensitivity",
+    "Specificity"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Area under the receiver operating characteristic curve (AUC)",
+      "purpose": "To evaluate the overall performance of the deep learning algorithm and show the tradeoff between sensitivity and specificity.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Sensitivity and Specificity",
+      "purpose": "To report the diagnostic accuracy of the algorithm at a specific operating point (sensitivity of 70.6% at specificity of 79.1%).",
+      "type": "Performance metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "No hypothesis testing was reported; the study reports performance metrics (AUC, sensitivity, specificity) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Single academic center MMS cohort (2011-2018)": {
+      "split": "Holdout test set (20% of cases, 20 images)",
+      "models": {
+        "2-dimensional ResNet-50 (pretrained with ImageNet, Adam optimizer, learning rate 0.001, dropout 0.2)": {
+          "AUC": "0.753",
+          "Sensitivity": "70.6%",
+          "Specificity": "79.1%"
+        }
+      },
+      "notes": "The most common source of false positives was dense aggregates of inflammatory cells, and the most common source of false negatives was small aggregates of tumor cells in relation to the specimen size. The authors note that a larger, more diverse data set is needed to achieve higher AUC."
+    }
+  },
+  "architecture_used": {
+    "main_model": "2-dimensional ResNet-50",
+    "pretraining": "ImageNet (Stanford Vision Lab, Stanford University, Princeton University)",
+    "input_size": null,
+    "architecture_details": {
+      "model_family": "ResNet",
+      "variant": "ResNet-50",
+      "dimensionality": "2-dimensional"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "dropout": 0.2,
+      "data_augmentation": "standard data augmentation",
+      "class_balance": "class-balanced data set"
+    },
+    "classification_or_output_head": null,
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "2-dimensional ResNet-50"
+  ],
+  "preprocessing_techniques": [
+    "Resizing",
+    "Normalization",
+    "Standard data augmentation"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Standard data augmentation",
+      "details": "Applied during preprocessing; specific geometric or color transform parameters (e.g., rotation, flip, scale ranges) were not reported in the text."
+    },
+    {
+      "technique": "Class balancing",
+      "details": "A class-balanced data set was used, consisting of 75 cases with positive findings for BCC and 25 cases with negative findings for tumor."
+    }
+  ],
+  "conclusions": [
+    "The deep learning algorithm (2-dimensional ResNet-50) achieved an area under the receiver operating characteristic curve of 0.753, with a sensitivity of 70.6% at a specificity of 79.1%, on a holdout test set of Mohs micrographic surgery frozen sections.",
+    "The algorithm serves as a potential safety mechanism to help surgeons avoid missing residual basal cell carcinoma tumor.",
+    "The combination of Mohs surgeon analysis and algorithm analysis differs fundamentally, suggesting that their combined efforts (ensemble learning) provide increased accuracy of BCC detection.",
+    "The model analyzes images through neural network parameters without emotional bias and conducts detailed pixel-level image analysis limited only by microscope and camera noise.",
+    "The most common source of false positives was dense aggregates of inflammatory cells.",
+    "The most common source of false negatives was small aggregates of tumor cells in relation to the specimen size.",
+    "The pilot algorithm is limited by a small sample size, and a larger, more diverse data set is needed to achieve a higher area under the curve."
+  ],
+  "important_remarks": [
+    "The study is limited by a small sample size (100 cases total), which restricts the generalizability of the results and the achievable performance metrics.",
+    "The dataset was derived from a single academic center, introducing potential population and dataset bias; a larger, more diverse data set is needed for external validation.",
+    "The algorithm achieved a moderate performance (AUC 0.753), with false positives primarily caused by dense aggregates of inflammatory cells and false negatives by small aggregates of tumor cells relative to specimen size.",
+    "No statistical significance testing (e.g., p-values or confidence intervals) was reported for the performance metrics.",
+    "The study is a pilot investigation published as a Research Letter, indicating preliminary evidence rather than robust clinical validation."
+  ]
+}

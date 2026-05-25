@@ -1,0 +1,433 @@
+{
+  "file_name": "bj_rkman_2025_enhancing_basal_cell_carcinoma_classification_in_preoperative_biop.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used weakly supervised machine learning, specifically transfer learning with a fine-tuned Vision Transformer (ViT) and Graph Convolutional Networks (GCN), to classify basal cell carcinoma (BCC) in preoperative punch biopsies. Features were extracted using a pretrained SimCLR model, and the system performed multi-class classification tasks on whole slide images (WSIs) from the BCCC and COBRA datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled 'RESEARCH Open Access' and presents original experimental results. It details a study aimed at fine-tuning a weakly supervised machine learning model for classifying basal cell carcinoma, describing specific methods (transfer learning, Vision Transformer, GCN), datasets (BCCC, COBRA), and quantitative results (accuracy, AUC) from internal and external validation."
+  },
+  "title": "Enhancing basal cell carcinoma classification in preoperative biopsies via transfer learning with weakly supervised graph transformers",
+  "authors": [
+    "Johan Björkman",
+    "Sigrid Lagerroth",
+    "Jan Siarov",
+    "Filmon Yacob",
+    "Noora Neittaanmäki"
+  ],
+  "doi": "10.1186/s12880-025-01710-4",
+  "journal": "BMC Medical Imaging",
+  "year": 2025,
+  "article_type": "Research paper",
+  "brief_summary": "This study aimed to enhance the classification of basal cell carcinoma (BCC) in preoperative punch biopsies using transfer learning with a weakly supervised graph transformer model. The researchers utilized the Basal Cell Classification (BCCC) dataset for internal validation and the COBRA dataset for external validation, processing whole slide images by extracting features with a pretrained SimCLR model and organizing them into graphs for a Vision Transformer. The model was evaluated on two-, three-, and five-class classification tasks, comparing fine-tuned performance against non-fine-tuned pretrained models and models trained from scratch. The fine-tuned model achieved accuracies of 91.7%, 82.1%, and 75.3% and AUCs of 0.98, 0.95–0.98, and 0.91–0.97 for the respective classification tasks on the internal test set. External validation on the COBRA dataset yielded accuracies of 84.9% and 70.5% for two- and three-class tasks, respectively. The results demonstrate that transfer learning significantly improves diagnostic accuracy and robustness in computational pathology, particularly when large annotated datasets are limited.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "Basal cell carcinoma",
+        "BCC",
+        "tumor",
+        "Type IB",
+        "Type IA",
+        "Type II",
+        "Type III",
+        "superficial",
+        "nodular",
+        "medium-aggressive",
+        "high-aggressive"
+      ],
+      "role": "Target class",
+      "details": "The primary target of classification. Studied as a binary class (tumor vs no-tumor), grouped by WHO risk (low-risk vs high-risk), and as four specific subtypes according to Sabbatsberg's grading system: superficial (Type IB), nodular (Type IA), medium-aggressive (Type II), and high-aggressive (Type III). Mixed histology BCCs were also present in the dataset."
+    },
+    {
+      "lesion_type": "No tumor / Tumor-free",
+      "paper_terms": [
+        "No tumor",
+        "tumor-free slides",
+        "without BCC"
+      ],
+      "role": "Target class (Comparator)",
+      "details": "Used as the negative class in binary classification tasks. In the BCCC dataset, there were 253 tumor-free slides. In the COBRA dataset, there were 1,794 WSIs without BCC."
+    },
+    {
+      "lesion_type": "Low-risk tumor",
+      "paper_terms": [
+        "Low-risk",
+        "Low risk"
+      ],
+      "role": "Target class (Subgroup)",
+      "details": "A composite class in the 3-class task, grouping superficial and nodular BCCs according to the WHO grading system."
+    },
+    {
+      "lesion_type": "High-risk tumor",
+      "paper_terms": [
+        "High-risk",
+        "High Risk"
+      ],
+      "role": "Target class (Subgroup)",
+      "details": "A composite class in the 3-class task, grouping medium-aggressive and high-aggressive BCC subtypes according to the WHO grading system."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Basal cell carcinoma (BCC) diagnostic categories and subtypes",
+        "primary": true,
+        "details": "The model performs multi-class classification tasks on whole slide images (WSIs) from preoperative punch biopsies. Specifically, it predicts: 1) Binary classification (no-tumor vs. tumor); 2) Three-class classification (no-tumor vs. low-risk vs. high-risk tumors based on WHO grading); and 3) Five-class classification (no-tumor vs. four BCC subtypes: superficial, nodular, medium-aggressive, and high-aggressive based on Sabbatsberg's grading system). Performance was evaluated using accuracy, sensitivity, specificity, and AUC."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Basal Cell Classification (BCCC) dataset",
+      "description": "A dataset of preoperative punch biopsy whole slide images (WSIs) used for internal validation. It was also used to train the SimCLR model for feature extraction (1,435 WSIs from BCC excisions were used to train the SimCLR model, which was then applied to the BCCC punch biopsy data). The BCCC dataset itself consists of punch biopsies.",
+      "classes_used": [
+        "No tumor",
+        "Tumor (Basal cell carcinoma)",
+        "Low-risk tumor (superficial, nodular)",
+        "High-risk tumor (medium-aggressive, high-aggressive)",
+        "Superficial BCC (Type IB)",
+        "Nodular BCC (Type IA)",
+        "Medium-aggressive BCC (Type II)",
+        "High-aggressive BCC (Type III)"
+      ],
+      "counts": {
+        "total": 514,
+        "training": 359,
+        "validation": 77,
+        "testing": 77,
+        "per_class": {
+          "with_BCC": 261,
+          "tumor_free": 253
+        }
+      },
+      "use": {
+        "training": "Used for training the fine-tuned graph transformer model (70% split). Also, 1,435 WSIs from BCC excisions (part of the broader data collection context for SimCLR pre-training) were used to train the SimCLR model.",
+        "validation": "Used for validation (15% split).",
+        "testing": "Used for internal testing (15% split, 78 WSIs mentioned in abstract, 77 in text split calculation).",
+        "other": "Used to train the SimCLR model for feature extraction (1,435 WSIs from BCC excisions)."
+      }
+    },
+    {
+      "name": "COBRA dataset (Classification of Basal cell carcinoma, Risky skin tumors and Abnormalities)",
+      "description": "An open-source external validation dataset from Radboud University Medical Center containing punch biopsy WSIs.",
+      "classes_used": [
+        "No tumor",
+        "Low-risk tumor",
+        "High-risk tumor"
+      ],
+      "counts": {
+        "total": 3588,
+        "training": null,
+        "validation": null,
+        "testing": 3588,
+        "per_class": {
+          "with_BCC": 1794,
+          "without_BCC": 1794
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for external validation/testing.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Balanced accuracy",
+    "Sensitivity",
+    "Specificity",
+    "Area Under the Curve (AUC)",
+    "Confusion matrix"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Fivefold cross-validation",
+      "purpose": "To ensure balanced and proportional class representation across training, validation, and testing sets, reducing the risk of overfitting.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Balanced accuracy",
+      "purpose": "To evaluate classification performance, specifically to address the dominance of the 'no tumor' class in the dataset.",
+      "type": "Metric"
+    },
+    {
+      "method": "Ablation study",
+      "purpose": "To demonstrate the benefits of utilizing a pre-trained SimCLR model by comparing the fine-tuned model against a model trained from scratch.",
+      "type": "Comparative analysis"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons between the fine-tuned model, non-fine-tuned pretrained model, and model trained from scratch were described using terms such as 'significantly outperformed' and 'significant increase' in accuracy, sensitivity, and specificity, but these claims were based on observed metric improvements (e.g., mean accuracy increases) rather than statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "BCCC_dataset": {
+      "description": "Internal validation dataset consisting of 514 WSIs (261 with BCC, 253 tumor-free). Results are aggregated across five folds.",
+      "tasks": {
+        "2_class_classification": {
+          "description": "No-tumor vs. Tumor",
+          "models": {
+            "Pretrained": {
+              "Balanced_Accuracy": "71.1%",
+              "Sensitivity_No_Tumor": "62.6%",
+              "Sensitivity_Tumor": "62.6%",
+              "Specificity_No_Tumor": "79.5%",
+              "Specificity_Tumor": "79.5%",
+              "AUC": "0.98"
+            },
+            "Fine_tuned": {
+              "Balanced_Accuracy": "91.7%",
+              "Sensitivity_No_Tumor": "89.5%",
+              "Sensitivity_Tumor": "95.0%",
+              "Specificity_No_Tumor": "95.0%",
+              "Specificity_Tumor": "95.0%",
+              "AUC": "0.98"
+            },
+            "Trained_from_scratch": {
+              "Balanced_Accuracy": "81.0%",
+              "Sensitivity_No_Tumor": "81.6%",
+              "Sensitivity_Tumor": "81.6%",
+              "Specificity_No_Tumor": "80.5%",
+              "Specificity_Tumor": "80.5%"
+            }
+          }
+        },
+        "3_class_classification": {
+          "description": "No-tumor vs. Low-risk vs. High-risk",
+          "models": {
+            "Pretrained": {
+              "Balanced_Accuracy": "63.1%",
+              "Sensitivity_No_Tumor": "60.5%",
+              "Sensitivity_Low_Risk": "73.9%",
+              "Sensitivity_High_Risk": "85.3%",
+              "Specificity_No_Tumor": "85.0%",
+              "Specificity_Low_Risk": "88.6%",
+              "Specificity_High_Risk": "67.0%",
+              "AUC": "0.95–0.98"
+            },
+            "Fine_tuned": {
+              "Balanced_Accuracy": "82.1%",
+              "Sensitivity_No_Tumor": "89.5%",
+              "Sensitivity_Low_Risk": "88.7%",
+              "Sensitivity_High_Risk": "94.5%",
+              "Specificity_No_Tumor": "88.6%",
+              "Specificity_Low_Risk": "90.0%",
+              "Specificity_High_Risk": "91.7%",
+              "AUC": "0.95–0.98"
+            },
+            "Trained_from_scratch": {
+              "Balanced_Accuracy": "69.0%",
+              "Sensitivity_No_Tumor": "90.0%",
+              "Sensitivity_Low_Risk": "89.3%",
+              "Sensitivity_High_Risk": "91.7%",
+              "Specificity_No_Tumor": "67.0%",
+              "Specificity_Low_Risk": "88.6%",
+              "Specificity_High_Risk": "91.7%"
+            }
+          }
+        },
+        "5_class_classification": {
+          "description": "No-tumor vs. Type IB vs. Type IA vs. Type II vs. Type III",
+          "models": {
+            "Pretrained": {
+              "Balanced_Accuracy": "50.0%",
+              "Sensitivity_No_Tumor": "64.7%",
+              "Sensitivity_Type_IB": "82.1%",
+              "Sensitivity_Type_IA": "91.0%",
+              "Sensitivity_Type_II": "91.4%",
+              "Sensitivity_Type_III": "91.5%",
+              "Specificity_No_Tumor": "84.0%",
+              "Specificity_Type_IB": "95.0%",
+              "Specificity_Type_IA": "96.6%",
+              "Specificity_Type_II": "95.0%",
+              "Specificity_Type_III": "96.8%",
+              "AUC": "0.91–0.97"
+            },
+            "Fine_tuned": {
+              "Balanced_Accuracy": "75.3%",
+              "Sensitivity_No_Tumor": "92.5%",
+              "Sensitivity_Type_IB": "95.0%",
+              "Sensitivity_Type_IA": "96.6%",
+              "Sensitivity_Type_II": "95.0%",
+              "Sensitivity_Type_III": "96.8%",
+              "Specificity_No_Tumor": "90.3%",
+              "Specificity_Type_IB": "94.0%",
+              "Specificity_Type_IA": "95.5%",
+              "Specificity_Type_II": "83.7%",
+              "Specificity_Type_III": "100%",
+              "AUC": "0.91–0.97"
+            },
+            "Trained_from_scratch": {
+              "Balanced_Accuracy": "63.6%",
+              "Sensitivity_No_Tumor": "86.3%",
+              "Sensitivity_Type_IB": "94.0%",
+              "Sensitivity_Type_IA": "95.5%",
+              "Sensitivity_Type_II": "83.7%",
+              "Sensitivity_Type_III": "100%",
+              "Specificity_No_Tumor": "73.0%",
+              "Specificity_Type_IB": "94.0%",
+              "Specificity_Type_IA": "95.5%",
+              "Specificity_Type_II": "83.7%",
+              "Specificity_Type_III": "100%"
+            }
+          }
+        }
+      },
+      "notes": "The fine-tuned model significantly outperformed the non-fine-tuned pretrained model and the model trained from scratch. Mean accuracy improvements for the fine-tuned model over the model trained from scratch were 10.6% (2-class), 11.7% (3-class), and 13.1% (5-class)."
+    },
+    "COBRA_dataset": {
+      "description": "External validation dataset from Radboud University Medical Center consisting of 3,588 WSIs (1,794 with BCC, 1,794 without). Only 2-class and 3-class tasks were performed.",
+      "tasks": {
+        "2_class_classification": {
+          "description": "No-tumor vs. Tumor",
+          "models": {
+            "Pretrained": {
+              "Balanced_Accuracy": "74.4%",
+              "Sensitivity_No_Tumor": "55.1%",
+              "Sensitivity_Tumor": "55.1%",
+              "Specificity_No_Tumor": "93.6%",
+              "Specificity_Tumor": "93.6%",
+              "AUC": "0.92"
+            },
+            "Fine_tuned": {
+              "Balanced_Accuracy": "84.9%",
+              "Sensitivity_No_Tumor": "82.2%",
+              "Sensitivity_Tumor": "82.2%",
+              "Specificity_No_Tumor": "87.5%",
+              "Specificity_Tumor": "87.5%",
+              "AUC": "0.92"
+            },
+            "Trained_from_scratch": {
+              "Balanced_Accuracy": "55.3%",
+              "Sensitivity_No_Tumor": "76.1%",
+              "Sensitivity_Tumor": "76.1%",
+              "Specificity_No_Tumor": "34.7%",
+              "Specificity_Tumor": "34.7%"
+            }
+          }
+        },
+        "3_class_classification": {
+          "description": "No-tumor vs. Low-risk vs. High-risk",
+          "models": {
+            "Pretrained": {
+              "Balanced_Accuracy": "65.2%",
+              "Sensitivity_No_Tumor": "57.1%",
+              "Sensitivity_Low_Risk": "73.4%",
+              "Sensitivity_High_Risk": "77.8%",
+              "Specificity_No_Tumor": "93.7%",
+              "Specificity_Low_Risk": "83.8%",
+              "Specificity_High_Risk": "12.8%",
+              "AUC": "0.89–0.91"
+            },
+            "Fine_tuned": {
+              "Balanced_Accuracy": "70.5%",
+              "Sensitivity_No_Tumor": "85.0%",
+              "Sensitivity_Low_Risk": "89.1%",
+              "Sensitivity_High_Risk": "85.0%",
+              "Specificity_No_Tumor": "83.8%",
+              "Specificity_Low_Risk": "94.8%",
+              "Specificity_High_Risk": "99.2%",
+              "AUC": "0.89–0.91"
+            },
+            "Trained_from_scratch": {
+              "Balanced_Accuracy": "51.3%",
+              "Sensitivity_No_Tumor": "94.8%",
+              "Sensitivity_Low_Risk": "93.4%",
+              "Sensitivity_High_Risk": "99.2%",
+              "Specificity_No_Tumor": "12.8%",
+              "Specificity_Low_Risk": "83.8%",
+              "Specificity_High_Risk": "99.2%"
+            }
+          }
+        }
+      },
+      "notes": "The fine-tuned model showed improved balanced accuracy compared to the pretrained model. However, sensitivity decreased for tumor classes in the external dataset. The model trained from scratch achieved low mean accuracies (55.3% for 2-class, 51.3% for 3-class) and low sensitivity for all tumor classes. Mean accuracy improvements for the fine-tuned model over the model trained from scratch were 29.6% (2-class) and 19.2% (3-class)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Weakly supervised graph transformer (combination of Vision Transformer and Graph Convolutional Network)",
+    "pretraining": "SimCLR model (ResNet18 backbone) pretrained on 1,435 WSIs from BCC excisions for feature extraction; the SimCLR layer was kept frozen during fine-tuning.",
+    "input_size": "Whole Slide Images (WSIs) scanned at 40x mode (0.23 μm/pixel); WSIs split into patches with less than 15% tissue discarded.",
+    "architecture_details": {
+      "feature_extractor": "SimCLR with ResNet18 backbone, producing 512-dimensional normalized feature vectors per patch.",
+      "graph_construction": "Graph Convolutional Network (GCN) used to capture spatial relationships between patches, treating patches as nodes and spatial neighbors as edges.",
+      "transformer_component": "Vision Transformer (ViT) processing graph embeddings. Consisted of six transformer blocks. Each block comprised multi-head self-attention followed by a multi-layer perceptron. Max pooling was used to reduce dimensionality before processing in the vision transformer.",
+      "backbone": "ResNet18 (for SimCLR feature extraction)"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "loss_function": "Not explicitly reported (standard cross-entropy implied by softmax output)",
+      "hyperparameters": {
+        "dataset_split": "Training (70%), Validation (15%), Test (15%)",
+        "validation_strategy": "Early stopping based on validation accuracy",
+        "cross_validation": "Fivefold cross-validation"
+      },
+      "training_schedule": "Fine-tuned GCN and transformer parameters; SimCLR feature extraction layer kept frozen."
+    },
+    "classification_or_output_head": {
+      "type": "Multi-layer perceptron followed by softmax",
+      "output": "Probability distributions for classification (2-class, 3-class, or 5-class tasks)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Weakly supervised graph transformer",
+    "Vision Transformer (ViT)",
+    "Graph Convolutional Network (GCN)",
+    "SimCLR model (with ResNet18 backbone)",
+    "Fine-tuned model",
+    "Non-fine-tuned pretrained model",
+    "Model trained from scratch"
+  ],
+  "preprocessing_techniques": [
+    "WSI patch extraction using an open-source Python library",
+    "Discarding patches containing less than 15% tissue",
+    "SimCLR contrastive self-supervised learning augmentation including random cropping, resizing, color distortion, and random Gaussian blur",
+    "Feature extraction using SimCLR with ResNet18 backbone to produce 512-dimensional normalized feature vectors",
+    "Graph construction treating patches as nodes and spatial neighbors as edges to capture spatial relationships",
+    "Max pooling to reduce dimensionality before processing in the Vision Transformer",
+    "Quality control via rescanning slides with unsatisfactory quality and excluding slides with blurry areas covering most of the biopsy"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "SimCLR Contrastive Self-Supervised Learning Augmentation",
+      "details": "Used during the pre-training of the SimCLR model (ResNet18 backbone) on 1,435 WSIs from BCC excisions. The augmentation pipeline consisted of: 1) Random cropping, 2) Resizing, 3) Color distortion, and 4) Random Gaussian blur. These transformations created positive pairs for contrastive learning."
+    },
+    {
+      "technique": "Fivefold Cross-Validation",
+      "details": "Used to ensure balanced and proportional class representation across training, validation, and testing sets, reducing the risk of overfitting. The dataset was split into training (70%), validation (15%), and test (15%) sets using Scikit-learn’s KFold method."
+    }
+  ],
+  "conclusions": [
+    "Transfer learning significantly enhances model performance on small datasets and supports robust feature extraction in complex histopathology tasks.",
+    "The fine-tuned weakly supervised graph transformer model significantly outperformed both the non-fine-tuned pretrained model and the model trained from scratch.",
+    "On the internal BCCC dataset, the fine-tuned model achieved accuracies of 91.7%, 82.1%, and 75.3% and AUCs of 0.98, 0.95–0.98, and 0.91–0.97 for two-, three-, and five-class classification tasks, respectively.",
+    "On the external COBRA dataset, the fine-tuned model achieved accuracies of 84.9% and 70.5% for two- and three-class classification tasks, respectively, demonstrating generalizability across different institutions.",
+    "The ablation study confirmed that utilizing a pre-trained SimCLR model provides substantial benefits, with mean accuracy improvements over the model trained from scratch of 10.6%, 11.7%, and 13.1% on the BCCC dataset, and 29.6% and 19.2% on the COBRA dataset.",
+    "While the external validation showed improved balanced accuracy, sensitivity decreased for tumor classes compared to the internal test set, likely due to differences in scanning processes, staining protocols, and grading systems.",
+    "The study reinforces the utility of pre-trained models in computational pathology, particularly where access to large, labeled datasets is limited and task-specific challenges require nuanced understanding of visual data.",
+    "Transfer learning and leveraging pre-trained models reduce the required training data significantly, offering potential benefits for smaller hospitals and institutes."
+  ],
+  "important_remarks": [
+    "The study lacks formal statistical hypothesis testing (p-values); claims of 'significant' improvement are based on observed metric differences rather than statistical significance tests.",
+    "External validation on the COBRA dataset showed decreased sensitivity for tumor classes compared to internal validation, likely due to differences in scanning processes, staining protocols, and grading systems between institutions.",
+    "The model was originally trained on excisional BCC biopsies (whole tumor with margins) and fine-tuned on punch biopsies (small central tumor area), highlighting a domain shift challenge that transfer learning helped mitigate.",
+    "The 'no tumor' class in the dataset included various skin abnormalities (e.g., scar fibrosis, inflammatory dermatoses, epidermal dysplasia) that could resemble superficial BCC, posing a diagnostic challenge.",
+    "The dataset was imbalanced, with the 'no tumor' class dominating, yet the model maintained high sensitivity and specificity without specific adjustments like resampling or weighting.",
+    "The model trained from scratch performed poorly on the external COBRA dataset (mean accuracies of 55.3% and 51.3%), underscoring the necessity of transfer learning for small datasets.",
+    "Mixed histology BCCs, which account for over 40% of cases, can cause difficulties in assessment and were present in the dataset, potentially affecting subtype classification accuracy.",
+    "Human oversight remains necessary for validating AI-generated results, as AI solutions in medical diagnostics require careful integration into clinical practice."
+  ]
+}

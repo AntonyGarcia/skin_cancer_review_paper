@@ -1,0 +1,333 @@
+{
+  "file_name": "kahler_2025_automated_classification_of_site_specific_cutaneous_photodamage_usin.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a convolutional neural network (CNN) with a multi-task learning (MTL) strategy to automate the classification and assessment of site-specific cutaneous photodamage from three-dimensional total body photography (3D TBP) images. The AI model was trained on annotated image tiles to predict photodamage severity (mild, moderate, severe) and pigmentation, achieving high accuracy (ROC-AUC 0.96) and generating heatmaps for clinical interpretation."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a convolutional neural network (CNN) for automated classification of cutaneous photodamage. It details specific methods including the creation of a photonumeric scale, annotation of 24,720 image tiles from 107 individuals, training of an MTL-CNN model, and reporting of new results such as ROC-AUC metrics (0.96) and external validation outcomes. The structure includes standard research sections (Background, Objectives, Methods, Results, Conclusions) and reports primary data rather than summarizing prior literature."
+  },
+  "title": "Automated classification of site-specific cutaneous photodamage using a convolutional neural network and three-dimensional total body photography",
+  "authors": [
+    "Sam Kahler",
+    "Siyuan Yan",
+    "Adam Mothershaw",
+    "Francesco Leo",
+    "Chantal Rutjes",
+    "Zhen Yu",
+    "Dilki Jayasinghe",
+    "Victoria Mar",
+    "Monika Janda",
+    "Zongyuan Ge",
+    "H Peter Soyer",
+    "Brigid Betz-Stablein",
+    "Clare A Primiero"
+  ],
+  "doi": "10.1093/bjd/ljaf516",
+  "journal": "British Journal of Dermatology",
+  "year": 2025,
+  "article_type": "Original research article",
+  "brief_summary": "This study developed a convolutional neural network (CNN) to automate the classification of site-specific cutaneous photodamage severity using three-dimensional total body photography (3D TBP). The researchers created a validated photonumeric scale and annotated 24,720 image tiles from 107 individuals for training and validation. A multi-task learning CNN was trained to predict photodamage severity (mild, moderate, severe) while incorporating pigmentation as an auxiliary task to improve performance. The model achieved a ROC-AUC of 0.96 on the internal test set and maintained high accuracy across different body sites. External validation on a separate cohort of 25 individuals yielded a ROC-AUC of 0.93, confirming the model's robustness. The findings demonstrate that automated 3D TBP assessment can provide reproducible photodamage phenotyping to inform melanoma risk prediction.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Cutaneous photodamage (sun damage)",
+      "paper_terms": [
+        "photodamage",
+        "sun damage",
+        "ultraviolet damage",
+        "UV-induced TMB"
+      ],
+      "role": "Target class",
+      "details": "The primary target of the classification task. The study defines three severity levels: mild, moderate, and severe photodamage. The model predicts these categories from 3D total body photography (3D TBP) image tiles."
+    },
+    {
+      "lesion_type": "Skin pigmentation",
+      "paper_terms": [
+        "pigmentation",
+        "pigmentation phenotype"
+      ],
+      "role": "Auxiliary target class",
+      "details": "Used as an auxiliary task in the multi-task learning (MTL) strategy to improve photodamage prediction performance. It is not the primary diagnostic target but is predicted alongside photodamage."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "high risk for melanoma",
+        "population risk for melanoma"
+      ],
+      "role": "Context/Exclusion",
+      "details": "Mentioned as the disease context for risk stratification and the population from which the study cohort was drawn (56 high-risk and 51 population-risk individuals). The study does not classify melanoma lesions themselves but uses melanoma risk status to define the cohort."
+    },
+    {
+      "lesion_type": "Nonmelanoma skin cancer",
+      "paper_terms": [
+        "nonmelanoma skin cancer"
+      ],
+      "role": "Context/Exclusion",
+      "details": "Mentioned as a comorbidity burden in the high-risk cohort (91% had nonmelanoma skin cancer) but not a target class for the AI model."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Photodamage severity (mild, moderate, severe) and skin pigmentation phenotype",
+        "primary": true,
+        "details": "The model performs multiclass classification of cutaneous photodamage into three discrete categories (mild, moderate, severe) using a multi-task learning CNN. It also classifies pigmentation as an auxiliary task. Performance was evaluated using ROC-AUC and class-specific accuracy."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Internal Training/Validation/Test Dataset (Queensland Cohort)",
+      "description": "A dataset of 3D total body photography (3D TBP) image tiles derived from 107 individuals (56 high-risk for melanoma, 51 population-risk) recruited from two dermatological imaging studies in Queensland, Australia (Mind Your Moles and Health Outcomes Program). Image tiles were annotated by lay people (via Isahit) and dermatology students using a validated photonumeric scale.",
+      "classes_used": [
+        "Photodamage severity: Mild, Moderate, Severe",
+        "Pigmentation phenotype (auxiliary task)"
+      ],
+      "counts": {
+        "total": 24720,
+        "training": 25075,
+        "validation": 1019,
+        "testing": 1019,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the multi-task learning convolutional neural network (MTL-CNN) and single-task CNN. The training set consisted of 13,386 tiles annotated by lay people and 11,689 tiles annotated by dermatology students.",
+        "validation": "Used to select the optimal model based on cross-entropy loss and to evaluate performance during training (n=1019 tiles).",
+        "testing": "Used to evaluate the internal performance of the MTL-CNN (n=1019 tiles).",
+        "other": "Used to validate the photonumeric scale (inter-rater reliability) and to generate heatmaps for clinical interpretation."
+      }
+    },
+    {
+      "name": "External Validation Dataset (Monash University Cohort)",
+      "description": "A separate cohort of 3D TBP images from 25 individuals at high risk for melanoma, contributed by an external institution (Monash University, Victoria). These images were prepared as image tiles and annotated by a dermatology clinician for comparison with the CNN.",
+      "classes_used": [
+        "Photodamage severity: Mild, Moderate, Severe"
+      ],
+      "counts": {
+        "total": 4980,
+        "training": null,
+        "validation": null,
+        "testing": 4980,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for external validation of the MTL-CNN model to assess generalizability and robustness across different populations and body sites.",
+        "other": "Used to compare CNN annotations with dermatology clinician annotations."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "ROC-AUC",
+    "Class-specific accuracy",
+    "Cohen's quadratic weighted kappa (κ)",
+    "Cross-entropy loss",
+    "Inter-rater reliability"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Cohen's quadratic weighted kappa (κ)",
+      "purpose": "To evaluate inter-rater agreement for the validation of the photonumeric scale between dermatology students and lay people.",
+      "type": "Inter-rater agreement"
+    },
+    {
+      "method": "Chi-squared (χ²) test",
+      "purpose": "To evaluate for differences in participant characteristics (parametric test).",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Fisher’s exact test",
+      "purpose": "To evaluate for differences in participant characteristics (nonparametric test).",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Descriptive statistics",
+      "purpose": "To summarize participant characteristics.",
+      "type": "Descriptive"
+    },
+    {
+      "method": "Paired t-tests (implied by P-values for model comparison)",
+      "purpose": "To compare the performance of the multi-task learning CNN (MTL-CNN) against the single-task CNN for ROC-AUC and class-specific accuracy.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "95% Confidence Intervals (CI)",
+      "purpose": "To report uncertainty for inter-rater reliability (kappa) and classification accuracy metrics.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Significance threshold",
+      "purpose": "To determine statistical significance for hypothesis tests.",
+      "type": "Significance threshold"
+    },
+    {
+      "method": "Cross-entropy loss",
+      "purpose": "To select the optimal model during training based on validation set performance.",
+      "type": "Optimization metric"
+    },
+    {
+      "method": "Weighted random sampling",
+      "purpose": "To balance class distribution in the training dataset by oversampling under-represented classes.",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "Five random seeds",
+      "purpose": "To train the model and record accuracy using means and standard deviations to account for variability.",
+      "type": "Uncertainty estimation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Chi-squared (χ²) test, Fisher’s exact test, and paired t-tests (implied by P-values for model comparison)",
+    "null_hypothesis": "For participant characteristics: No difference in demographic or clinical characteristics between high-risk and population-risk cohorts. For model performance: No difference in performance (ROC-AUC or class-specific accuracy) between the multi-task learning CNN (MTL-CNN) and the single-task CNN.",
+    "alternative_hypothesis": "For participant characteristics: Significant differences exist in demographic or clinical characteristics between high-risk and population-risk cohorts. For model performance: The MTL-CNN performs significantly better than the single-task CNN in predicting photodamage severity.",
+    "alpha": 0.05,
+    "interpretation": "Statistical significance was determined using a threshold of P < 0.05. Significant differences were found in participant characteristics (e.g., age, ancestry) between high-risk and population-risk groups. The MTL-CNN showed statistically significant improvements in ROC-AUC (P < 0.01) and class-specific accuracies for mild (P = 0.04), moderate (P < 0.01), and severe (P < 0.01) photodamage compared to the single-task CNN."
+  },
+  "results_obtained_in_each_dataset": {
+    "Internal Test Set (Queensland Cohort)": {
+      "description": "Evaluation of CNN models on the internal test set (n=1019 tiles) from 107 individuals.",
+      "models": {
+        "Baseline CNN (Photodamage only)": {
+          "ROC-AUC": "0.91 (95% CI 0.90–0.93)",
+          "Class-specific accuracy (Mild)": "0.96 (95% CI 0.95–0.98)",
+          "Class-specific accuracy (Moderate)": "0.85 (95% CI 0.83–0.88)",
+          "Class-specific accuracy (Severe)": "0.97 (95% CI 0.95–0.98)"
+        },
+        "MTL-CNN (Photodamage + Pigmentation)": {
+          "ROC-AUC": "0.96 (95% CI 0.95–0.98)",
+          "Class-specific accuracy (Mild)": "0.98 (95% CI 0.97–0.99)",
+          "Class-specific accuracy (Moderate)": "0.92 (95% CI 0.91–0.94)",
+          "Class-specific accuracy (Severe)": "0.99 (95% CI 0.98–1.00)",
+          "Performance Improvement vs Baseline": "ROC-AUC increased from 0.91 to 0.96 (P < 0.01); Mild accuracy P = 0.04; Moderate accuracy P < 0.01; Severe accuracy P = 0.02"
+        }
+      },
+      "notes": "The MTL-CNN maintained strong performance across body sites with accuracy ranging from 0.86 to 0.92. Specific site accuracies on the external validation set were: anterior torso (0.92, 95% CI 0.91–0.94), posterior torso (0.91, 95% CI 0.89–0.92), upper limb (0.86, 95% CI 0.83–0.89), and lower limb (0.89, 95% CI 0.88–0.91)."
+    },
+    "External Validation Set (Monash University Cohort)": {
+      "description": "Evaluation of the MTL-CNN on an external test set (n=4980 tiles) from 25 high-risk individuals.",
+      "models": {
+        "MTL-CNN": {
+          "ROC-AUC": "0.93 (95% CI 0.92–0.95)",
+          "Class-specific accuracy (Mild)": "0.97 (95% CI 0.96–0.99)",
+          "Class-specific accuracy (Moderate)": "0.85 (95% CI 0.82–0.87)",
+          "Class-specific accuracy (Severe)": "0.97 (95% CI 0.95–0.98)"
+        }
+      },
+      "notes": "Accuracy was maintained across all body sites. The model's annotations were compared with a dermatology clinician's annotations."
+    },
+    "Photonumeric Scale Validation": {
+      "description": "Inter-rater reliability assessment of the photonumeric scale used for annotation.",
+      "models": {
+        "Dermatology Students (Inter-rater)": {
+          "Photodamage Kappa": "0.81 (95% CI 0.79–0.82)",
+          "Pigmentation Kappa": "0.51 (95% CI 0.49–0.53)"
+        },
+        "Lay People vs Students (Inter-rater)": {
+          "Photodamage Kappa": "0.77–0.83",
+          "Pigmentation Kappa": "0.32 (95% CI 0.15–0.49) and 0.23 (95% CI 0.06–0.40)"
+        },
+        "Lay People (Inter-rater)": {
+          "Photodamage Kappa": "0.83 (95% CI 0.76–0.90)",
+          "Pigmentation Kappa": "0.79 (95% CI 0.69–0.90)"
+        }
+      },
+      "notes": "Lay people achieved substantial-to-almost perfect agreement with dermatology students for photodamage. Pigmentation showed moderate to fair agreement."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Convolutional Neural Network (CNN) with Multi-Task Learning (MTL) strategy",
+    "pretraining": "ResNet50 model pretrained on ImageNet 22",
+    "input_size": "224 × 224 pixels (after resizing from 693 × 693 pixel tiles)",
+    "architecture_details": {
+      "backbone": "ResNet50",
+      "strategy": "Multi-task learning (MTL) with an auxiliary prediction branch for pigmentation phenotype to regularize training and improve photodamage prediction",
+      "data_augmentation": [
+        "Resizing to 256 × 256",
+        "Random cropping to 224 × 224",
+        "Random horizontal flipping",
+        "Random vertical flipping"
+      ]
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": "3e-4",
+      "weight_decay": "1e-4",
+      "batch_size": "100",
+      "epochs": "20",
+      "early_stopping_patience": "5",
+      "loss_function": "Cross-entropy loss",
+      "hardware": "Single GeForce RTX 3090 GPU (NVIDIA)",
+      "class_imbalance_handling": "Weighted random sampling to oversample under-represented mild and severe image tiles",
+      "validation_method": "Optimal model selected based on cross-entropy loss on the validation set",
+      "random_seeds": "5"
+    },
+    "classification_or_output_head": {
+      "primary_task": "Photodamage severity classification (mild, moderate, severe)",
+      "auxiliary_task": "Pigmentation phenotype classification",
+      "output_format": "Heatmaps overlaid on 3D TBP patient avatars"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Multi-task learning convolutional neural network (MTL-CNN)",
+    "Single-task convolutional neural network (CNN)",
+    "Baseline CNN",
+    "ResNet50"
+  ],
+  "preprocessing_techniques": [
+    "Pixel colour analysis to exclude image tiles with < 33% skin surface",
+    "Resizing image tiles to 256 × 256 resolution",
+    "Random cropping to 224 × 224 resolution",
+    "Random horizontal flipping",
+    "Random vertical flipping",
+    "Weighted random sampling to oversample under-represented mild and severe image tiles for class balance"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Resizing",
+      "details": "Image tiles were resized to 256 × 256 resolution."
+    },
+    {
+      "technique": "Random Cropping",
+      "details": "Resized images underwent random cropping to 224 × 224 resolution."
+    },
+    {
+      "technique": "Random Horizontal Flipping",
+      "details": "Geometric transform applied to increase variety and robustness."
+    },
+    {
+      "technique": "Random Vertical Flipping",
+      "details": "Geometric transform applied to increase variety and robustness."
+    },
+    {
+      "technique": "Weighted Random Sampling",
+      "details": "Used to oversample under-represented mild and severe image tiles to balance class distribution, addressing the imbalanced class problem with over-representation of moderate image tiles."
+    }
+  ],
+  "conclusions": [
+    "The developed photonumeric scale for assessing photodamage and pigmentation from 3D total body photography (TBP) achieved substantial-to-almost perfect inter-rater agreement between lay people and dermatology students (κ = 0.77–0.83), enabling reproducible annotation by non-experts.",
+    "A multi-task learning convolutional neural network (MTL-CNN) that incorporated skin pigmentation as an auxiliary task significantly improved photodamage classification performance compared to a single-task CNN, increasing the ROC-AUC from 0.91 to 0.96 (P < 0.01).",
+    "The MTL-CNN demonstrated high class-specific accuracy for mild (0.98), moderate (0.92), and severe (0.99) photodamage on the internal test set, with performance maintained across different body sites (range 0.86–0.92).",
+    "The model's performance generalized to an external validation cohort from a different institution, achieving a ROC-AUC of 0.93 and maintaining high class-specific accuracies (mild: 0.97, moderate: 0.85, severe: 0.97).",
+    "The CNN provides a novel, automated, and reproducible tool for reporting an individual’s site-specific photodamage phenotype from 3D TBP, visualized as heatmaps on patient avatars.",
+    "Incorporating automated photodamage assessment into clinical risk prediction models may facilitate targeted surveillance and personalized recommendations for the earlier detection of melanoma."
+  ],
+  "important_remarks": [
+    "The study population was limited to individuals with Fitzpatrick phototypes I–III; the model cannot be generalized to darker phototypes.",
+    "The study was not powered to definitively test the association between photodamage and melanoma risk, which would require a large prospective cohort with long follow-up.",
+    "Photodamage assessment relied on skin photography, which may be sensitive to pigmentation, illumination, and camera differences despite external validation.",
+    "Genetic analysis was not performed to validate the photodamage assessment directly.",
+    "Prior to clinical implementation, the algorithm requires validation in diverse external populations to calibrate the relative weightings of site-specific photodamage area and severity into a clinical risk score.",
+    "The training dataset included images from high-risk and population-risk cohorts to prevent the CNN model from overfitting to a specific group or phenotype.",
+    "Images including heads or identifying features (e.g., tattoos) were intentionally excluded to facilitate external validation."
+  ]
+}

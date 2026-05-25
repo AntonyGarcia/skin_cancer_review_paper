@@ -1,0 +1,305 @@
+{
+  "file_name": "g_kcan_2024_epidermis_segmentation_in_melanoma_whole_slide_images_a_comparative.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning architectures, specifically UNet, UNet++, UNet3+, Efficient-UNet, Swin-UNet, and Trans-UNet, to perform epidermis segmentation on melanoma whole slide images (WSI) for computer-aided tumor staging."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental results from a comparative analysis of deep learning architectures (UNet, UNet++, UNet3+, Efficient-UNet, Swin-UNet, and Trans-UNet) for epidermis segmentation on 69 melanoma whole slide images. It includes a methodology section detailing dataset sourcing and patch extraction, an experimental setup with hyperparameter optimization, and a results section reporting specific performance metrics (e.g., Dice Coefficient of 92% for Trans-UNet). Although published in a conference proceedings (INISTA), it contains original research findings rather than summarizing prior literature."
+  },
+  "title": "Epidermis Segmentation in Melanoma Whole Slide Images: A Comparative Analysis of Deep Learning Architectures",
+  "authors": [
+    "M. Taha Gökcan",
+    "Yasemin Topuz",
+    "Songül Varlı"
+  ],
+  "doi": "10.1109/INISTA62901.2024.10683839",
+  "journal": "2024 International Conference on INnovations in Intelligent SysTems and Applications (INISTA)",
+  "year": 2024,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the critical need for automating epidermis segmentation in melanoma whole slide images to facilitate accurate Breslow thickness measurement for tumor staging. The authors conducted a comparative analysis of six deep learning architectures, including UNet, UNet++, UNet3+, Efficient-UNet, Swin-UNet, and Trans-UNet, on a dataset of 69 melanoma whole slide images sourced from the University of British Columbia and the University of Michigan. The experimental setup involved extracting 512x512 patches with specific class balancing and training the models for 100 epochs using metrics such as the Dice Coefficient. The results demonstrated that the Trans-UNet architecture achieved the highest performance with a Dice Coefficient of 92.04%, outperforming the Efficient-UNet model which scored 91.27%. The study concludes that advanced network architectures like Trans-UNet provide sufficient capability for epidermis segmentation, supporting the development of computer-aided diagnosis systems for melanoma.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant cells",
+        "tumor"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on epidermis segmentation within whole slide images (WSI) of melanoma. The dataset consists of 69 melanoma WSIs sourced from the University of British Columbia and the University of Michigan. The segmentation task is binary (epidermis vs. non-epidermis) within these melanoma tissue samples to facilitate Breslow thickness measurement."
+    },
+    {
+      "lesion_type": "Epidermis",
+      "paper_terms": [
+        "epidermis",
+        "epidermal tissue",
+        "epidermal areas"
+      ],
+      "role": "Segmentation target",
+      "details": "The primary target of the segmentation task is the epidermis layer within the melanoma tissue. The models perform binary segmentation to discriminate between epidermis and non-epidermis regions."
+    },
+    {
+      "lesion_type": "Tissue (Non-epidermal)",
+      "paper_terms": [
+        "tissue",
+        "non-epidermis",
+        "dermis",
+        "subcutaneous tissue"
+      ],
+      "role": "Background/Comparator class",
+      "details": "The 'tissue' class (including dermis and subcutaneous tissue) serves as the negative class or background in the binary segmentation task against the epidermis."
+    },
+    {
+      "lesion_type": "Background",
+      "paper_terms": [
+        "background"
+      ],
+      "role": "Background/Comparator class",
+      "details": "Background patches are extracted and used during the patch extraction process to balance the dataset, though the final segmentation task distinguishes epidermis from non-epidermis."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Epidermis mask within melanoma whole slide images",
+        "primary": true,
+        "details": "The paper performs binary segmentation to discriminate between epidermis and non-epidermis regions. The models output single-channel probability maps which are transformed into segmentation masks. The task is evaluated using metrics such as Dice Coefficient, IoU, Precision, Recall, and Matthews Correlation Coefficient."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Melanoma Whole Slide Image Dataset (UBC & UMch)",
+      "description": "A composed dataset of 69 hematoxylin and eosin (H&E) stained melanoma whole slide images (WSI) sourced from two public repositories: the University of British Columbia (UBC) and the University of Michigan (UMch). The images were scanned at 40x magnification (0.25 µm/px). Epidermal boundaries were annotated by a dermatology pathologist at Stavanger University Hospital. The dataset was not publicly available and was accessed by contacting the authors of Oskal et al. [5].",
+      "classes_used": [
+        "Epidermis",
+        "Tissue (Non-epidermal/Dermis/Subcutaneous)",
+        "Background"
+      ],
+      "counts": {
+        "total": 69,
+        "training": 36,
+        "validation": null,
+        "testing": 33,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train six deep learning architectures (UNet, UNet++, UNet3+, Efficient-UNet, Swin-UNet, Trans-UNet) for epidermis segmentation. The dataset was processed into 13,383 patches of size 512x512, with 95% reserved for training.",
+        "validation": "Used for hyperparameter optimization and model validation. 5% of the extracted patches were reserved for validation.",
+        "testing": "Used to evaluate model performance. The test set consisted of 33 WSIs, and results were reported on these samples (e.g., Trans-UNet achieved a Dice Coefficient of 92.04% on the test set).",
+        "other": "The dataset allocation (36 training, 33 testing) was identical to that used in the previous study by Oskal et al. [5]."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Matthews Correlation Coefficient (MCC)",
+    "IoU (Intersection over Union)",
+    "Precision",
+    "Recall",
+    "Dice Coefficient (F1 Score)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Matthews Correlation Coefficient (MCC)",
+      "purpose": "To measure success and account for class imbalance between epidermis and non-epidermis regions.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Dice Coefficient (F1 Score)",
+      "purpose": "To evaluate segmentation performance as the harmonic mean of Precision and Recall.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Intersection over Union (IoU)",
+      "purpose": "To measure the overlap between predicted and ground-truth segmentation masks.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Precision",
+      "purpose": "To measure the ratio of predicted ground-truth regions to positively predicted regions.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Recall",
+      "purpose": "To measure the proportion of ground-truth regions that were positively predicted.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Mean and Standard Deviation",
+      "purpose": "To report the average accuracies and variability of performance metrics across all test samples.",
+      "type": "Descriptive Statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons between models were based on descriptive statistics (mean and standard deviation) of metrics such as the Dice Coefficient, Matthews Correlation Coefficient, IoU, Precision, and Recall."
+  },
+  "results_obtained_in_each_dataset": {
+    "Melanoma Whole Slide Image Dataset (UBC & UMch)": {
+      "split": "Test Set (33 WSIs)",
+      "metric": "Dice Coefficient",
+      "models": {
+        "Trans-UNet": {
+          "Dice Coefficient": "92.04% (±7)",
+          "Matthews Correlation Coefficient": "91.84% (±7)",
+          "IoU": "85.96% (±11)",
+          "Precision": "93.66% (±4)",
+          "Recall": "91.53% (±11)"
+        },
+        "Efficient-UNet": {
+          "Dice Coefficient": "91.27% (±8)",
+          "Matthews Correlation Coefficient": "91.09% (±7)",
+          "IoU": "84.75% (±11)",
+          "Precision": "93.43% (±4)",
+          "Recall": "90.41% (±12)"
+        },
+        "UNet3+": {
+          "Dice Coefficient": "89.54% (±10)",
+          "Matthews Correlation Coefficient": "89.55% (±10)",
+          "IoU": "82.47% (±15)",
+          "Precision": "91.45% (±12)",
+          "Recall": "89.98% (±12)"
+        },
+        "UNet": {
+          "Dice Coefficient": "89.45% (±11)",
+          "Matthews Correlation Coefficient": "89.53% (±10)",
+          "IoU": "82.52% (±16)",
+          "Precision": "91.61% (±11)",
+          "Recall": "89.95% (±14)"
+        },
+        "UNet++": {
+          "Dice Coefficient": "85.93% (±15)",
+          "Matthews Correlation Coefficient": "86.31% (±13)",
+          "IoU": "77.69% (±19)",
+          "Precision": "88.21% (±18)",
+          "Recall": "88.21% (±14)"
+        },
+        "Swin-UNet": {
+          "Dice Coefficient": "84.38% (±15)",
+          "Matthews Correlation Coefficient": "84.78% (±13)",
+          "IoU": "75.37% (±19)",
+          "Precision": "89.99% (±11)",
+          "Recall": "83.43% (±19)"
+        }
+      },
+      "notes": "Trans-UNet achieved the highest success ratio among the 33 test WSI samples. The study notes that the UNet++ architecture was not successful for this task despite its complex structure. Efficient-UNet and Trans-UNet stood out positively compared to other models. The decrease in false negatives and positives in Trans-UNet was noted as particularly noteworthy."
+    },
+    "Literature Comparison (Oskal et al. [5] and Scheurer et al. [10])": {
+      "split": "Test Set (Same as current study)",
+      "metric": "Dice Coefficient",
+      "models": {
+        "UNet (Oskal et al. [5])": {
+          "Dice Coefficient": "89.0% (±13)",
+          "Matthews Correlation Coefficient": "89.0 (±11)",
+          "Precision": "89.0 (±16)",
+          "Recall": "92.0 (±10)"
+        },
+        "UNet (Scheurer et al. [10])": {
+          "Dice Coefficient": "83.0% (±18)",
+          "Matthews Correlation Coefficient": "83.0 (±15)",
+          "IoU": "86.0 (±11)",
+          "Precision": "92.0 (±8)",
+          "Recall": "80.0 (±22)"
+        },
+        "Efficient-UNet (Scheurer et al. [10])": {
+          "Dice Coefficient": "88.0% (±16)",
+          "Matthews Correlation Coefficient": "88.0 (±14)",
+          "IoU": "90.0 (±10)",
+          "Precision": "91.0 (±7)",
+          "Recall": "89.0 (±20)"
+        }
+      },
+      "notes": "The authors' optimized UNet model (Dice 89.45%) outperformed Oskal et al.'s UNet (Dice 89.0%). The authors' Efficient-UNet (Dice 91.27%) outperformed Scheurer et al.'s Efficient-UNet (Dice 88.0%). The authors note that their model increased performance by half a Dice point compared to Oskal et al., while the standard deviation improved by over 2%."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Six architectures were compared: UNet, UNet++, UNet3+, Efficient-UNet, Swin-UNet, and Trans-UNet.",
+    "pretraining": "Backbones for Efficient-UNet (EfficientNet-B3) and Trans-UNet (ResNet-50) were pre-trained on ImageNet.",
+    "input_size": "512x512 pixels with 3 RGB channels.",
+    "architecture_details": {
+      "UNet": "Base architecture with halved feature channels compared to original UNet. Explored with Maxpooling or Strided Convolution (3x3, stride 2) for downsampling. Deconvolution used for upsampling.",
+      "UNet++": "Nested dense skip connections structure.",
+      "UNet3+": "Simpler structure than UNet++ with increased parameters and skip connections.",
+      "Efficient-UNet": "Combines EfficientNet-B3 backbone with UNet decoder. EfficientNet performs 5 down-sampling steps, passing 4 skip connections to the decoder.",
+      "Swin-UNet": "UNet-like shape using pure transformer blocks with shifted window mechanism. Uses linear layers for patch merging/expanding. Implementation provided by authors.",
+      "Trans-UNet": "UNet variant with Vision Transformer (ViT) inserted in the neck at the end of the encoder. Uses ResNet-50 encoder (12-layer R50-Vit-B16). ViT consists of 12 or 24 transformer layers (MSA, MLP, Layer Normalization). Applies staged sampling on encoder. Allows three skip connections due to first convolution with stride of two. Implementation provided by authors."
+    },
+    "training_details": {
+      "epochs": 100,
+      "batch_size": 8,
+      "optimizer": "Adam and AdamW (learning rate 0.0001, weight decay 0.0001). AdamW with strided convolution and GELU yielded best results for base UNet.",
+      "loss_function": "Hybrid loss combining Binary Cross-Entropy (BCE) and Dice loss (weights averaged).",
+      "activation_functions": "ReLU and GELU (applied to all layers except sigmoid output layer). GELU performed better.",
+      "dropout": "0.2",
+      "data_augmentation": "Flipping and rotation by multiples of 90 degrees.",
+      "patch_extraction": "Randomized algorithm. Epidermis, tissue, background ratios set to 45%, 45%, 10%. 13,383 patches extracted. 95% training, 5% validation."
+    },
+    "classification_or_output_head": {
+      "type": "Binary Segmentation",
+      "output": "Single-channel probability maps transformed into segmentation masks.",
+      "final_activation": "Sigmoid"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "UNet",
+    "UNet++",
+    "UNet3+",
+    "Efficient-UNet",
+    "Swin-UNet",
+    "Trans-UNet",
+    "EU-Net",
+    "Oskal et al. UNet",
+    "Scheurer et al. UNet",
+    "Scheurer et al. Efficient-UNet"
+  ],
+  "preprocessing_techniques": [
+    "Patch extraction from whole slide images (WSI) using a randomized algorithm to handle large image sizes (up to 50,000 x 50,000 pixels).",
+    "Foreground mask generation using the Canny Edge detection algorithm to detect tissue boundaries.",
+    "Class balancing via over-sampling of the epidermis class during patch extraction, with target patch ratios of 45% epidermis, 45% tissue, and 10% background.",
+    "Patch size standardization to 512x512 pixels.",
+    "Overlap avoidance during patch extraction by discarding patches if the Euclidean distance to the upper left corner of other patches is less than 200 pixels.",
+    "Data augmentation techniques including flipping and rotation by multiples of 90 degrees to prevent overfitting.",
+    "Input normalization to 3 RGB channels for model input."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Flipping",
+      "details": "Used during training to prevent overfitting. Specific direction (horizontal/vertical) not specified."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Applied by multiples of 90 degrees during training to prevent overfitting."
+    }
+  ],
+  "conclusions": [
+    "The Trans-UNet architecture achieved the highest performance for epidermis segmentation in melanoma whole slide images, with a Dice Coefficient of 92.04% (±7), outperforming Efficient-UNet (91.27%), UNet3+ (89.54%), UNet (89.45%), UNet++ (85.93%), and Swin-UNet (84.38%).",
+    "The UNet++ architecture, despite its complex nested dense skip connection structure, performed poorly (Dice 85.93%) and was deemed unsuccessful for this specific segmentation task compared to the base UNet.",
+    "Swin-UNet, which uses pure transformer blocks with a shifted window mechanism, performed inferiorly to the classic UNet architecture (Dice 84.38% vs 89.45%), suggesting that pure transformer approaches may be less effective than CNN-based or hybrid models for this specific task.",
+    "Optimizing hyperparameters significantly improved performance; the best configuration for the base UNet used strided convolution for downsampling, the AdamW optimizer, and the GELU activation function, yielding a Dice score of 89.45%, which was a 2.38% improvement over the initial configuration using maxpooling, Adam, and ReLU.",
+    "The authors' optimized UNet model (Dice 89.45%) outperformed the UNet model from Oskal et al. (Dice 89.0%) and the UNet model from Scheurer et al. (Dice 83.0%), demonstrating the benefit of their specific architectural and hyperparameter choices.",
+    "The authors' Efficient-UNet model (Dice 91.27%) outperformed the Efficient-UNet (EU-Net) model from Scheurer et al. (Dice 88.0%), indicating that the specific implementation and training strategies in this study yielded superior results.",
+    "The decrease in false negatives and false positives observed in the Trans-UNet model was noted as particularly noteworthy, highlighting its robustness in challenging regions.",
+    "The study concludes that advanced network architectures like Trans-UNet provide sufficient capability for epidermis segmentation, supporting the development of computer-aided diagnosis systems for melanoma tumor staging."
+  ],
+  "important_remarks": [
+    "The dataset of 69 whole slide images is not publicly available; it was accessed by contacting the authors of a previous study (Oskal et al.), limiting reproducibility and independent validation.",
+    "The study compares models on an identical test set to prior works (Oskal et al. and Scheurer et al.), but the training data differs significantly in size and augmentation strategy (13,383 patches with training-time augmentation vs. 384,000 patches with 8-fold augmentation), making direct performance comparisons potentially biased.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed to validate the significance of performance differences between architectures; comparisons rely on descriptive statistics (mean and standard deviation).",
+    "The UNet++ architecture performed poorly (Dice 85.93%) despite its complex nested structure, suggesting that increased model complexity does not guarantee better performance for this specific segmentation task.",
+    "Swin-UNet, a pure transformer model, underperformed compared to CNN-based models (Dice 84.38% vs. 89.45% for UNet), indicating that pure transformer approaches may be less effective than hybrid or CNN-based models for this task.",
+    "The authors attribute the superior performance of their Efficient-UNet (EfficientNet-B3) over Scheurer et al.'s EU-Net (EfficientNet-B7) to the latter being 'excessively complex' for the task, highlighting a potential risk of over-parameterization in similar studies.",
+    "The study acknowledges that visible edge lines were observed at patch boundaries due to padding effects, which may impact the accuracy of segmentation near image edges.",
+    "The dataset is composed of images from only two sources (University of British Columbia and University of Michigan), which may introduce population or scanner-specific bias not captured in this limited scope."
+  ]
+}

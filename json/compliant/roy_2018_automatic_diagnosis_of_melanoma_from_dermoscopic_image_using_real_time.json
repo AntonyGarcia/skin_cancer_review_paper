@@ -1,0 +1,219 @@
+{
+  "file_name": "roy_2018_automatic_diagnosis_of_melanoma_from_dermoscopic_image_using_real_time.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used YOLOv2, a deep learning-based real-time object detection model, to automatically detect melanoma in dermoscopic images. The system was trained on the PH2 dataset and evaluated using five-fold cross-validation, achieving an accuracy of 86.00%, sensitivity of 86.35%, and specificity of 85.90%."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work using the YOLOv2 model to automatically detect melanoma in dermoscopic images from the PH2 dataset. It details specific methodology including data extraction, augmentation (rotation, blurring), training (35,000 iterations), and testing via five-fold cross-validation, reporting new results such as 86.00% accuracy, 86.35% sensitivity, and 85.90% specificity. Although published in a conference proceedings (CISS 2018), it contains original research results rather than summarizing prior literature."
+  },
+  "title": "Automatic Diagnosis of Melanoma from Dermoscopic Image Using Real-Time Object Detection",
+  "authors": [
+    "Shudipto Sekhar Roy",
+    "Akkas Uddin Haque",
+    "Jeremiah Neubert"
+  ],
+  "doi": null,
+  "journal": "2018 52nd Annual Conference on Information Sciences and Systems (CISS)",
+  "year": 2018,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a real-time object detection system using YOLOv2 to automatically diagnose melanoma from dermoscopic images. The model was trained on the PH2 dataset, which contains 200 dermoscopic images of melanocytic lesions, and employed data augmentation techniques such as rotation and blurring to enhance robustness. Evaluation was conducted using five-fold cross-validation with an optimal threshold of 0.7. The proposed method achieved an accuracy of 86.00%, sensitivity of 86.35%, and specificity of 85.90%. Additionally, the system demonstrated invariance to the presence of bodily hair and operated in real-time at 40-90 fps on a Titan X GPU.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for detection. The PH2 dataset contained 40 melanoma images. The model was trained to detect melanoma characteristics and diagnose lesions as melanoma or non-melanoma."
+    },
+    {
+      "lesion_type": "Common Nevus",
+      "paper_terms": [
+        "common nevi",
+        "benign moles",
+        "non-melanoma"
+      ],
+      "role": "Comparator class",
+      "details": "Included in the PH2 dataset (80 images). Grouped with atypical nevi as 'non-melanoma' or 'benign' classes for the binary classification task."
+    },
+    {
+      "lesion_type": "Atypical Nevus",
+      "paper_terms": [
+        "atypical nevi",
+        "benign moles",
+        "non-melanoma"
+      ],
+      "role": "Comparator class",
+      "details": "Included in the PH2 dataset (80 images). Grouped with common nevi as 'non-melanoma' or 'benign' classes for the binary classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Detection",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Detection",
+        "target": "Bounding box coordinates and class label (melanoma vs. non-melanoma) for lesions in dermoscopic images.",
+        "primary": true,
+        "details": "The paper uses YOLOv2, a real-time object detection model, to predict bounding boxes and class probabilities for melanoma lesions. The system detects the presence of melanoma characteristics and provides a diagnosis (melanoma or non-melanoma) along with prediction percentages. The task involves localizing the lesion via bounding boxes and classifying it, which is characteristic of object detection."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2 dataset",
+      "description": "A dermoscopic image database acquired from the Dermatology Service of Hospital Pedro Hispano, Matosinhos, Portugal. It contains 200 dermoscopic images of melanocytic lesions (80 common nevi, 80 atypical nevi, and 40 melanomas) captured with 20x magnification at 768x560 pixels resolution, along with binary masks of segmented lesions and clinical classification labels.",
+      "classes_used": [
+        "Melanoma",
+        "Common Nevus",
+        "Atypical Nevus"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 40,
+          "Common Nevus": 80,
+          "Atypical Nevus": 80
+        }
+      },
+      "use": {
+        "training": "Used for training the YOLOv2 model via five-fold cross-validation. The dataset was augmented (rotation and blurring) to create a larger training set.",
+        "validation": "Used for validation within the five-fold cross-validation scheme to test final weights.",
+        "testing": "Used for testing the system using the five final weights obtained from training folds, with an optimal threshold of 0.7.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "True Positive Rate (TPR)",
+    "False Positive Rate (FPR)",
+    "Area Under the Curve (AUC)",
+    "Frames Per Second (FPS)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "To evaluate the diagnostic ability of the binary classifier model and obtain final weights for testing.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) curve analysis",
+      "purpose": "To evaluate the response of the binary classifier as either melanoma or non-melanoma by plotting true positive rate (TPR) against false positive rate (FPR) at different thresholds.",
+      "type": "Performance evaluation"
+    },
+    {
+      "method": "Threshold optimization",
+      "purpose": "To determine the optimal threshold value (0.7) for detection by varying the threshold from 0.0 to 1.0 in 0.05 intervals.",
+      "type": "Parameter selection"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using accuracy, sensitivity, specificity, and ROC curve analysis with an empirically determined optimal threshold of 0.7."
+  },
+  "results_obtained_in_each_dataset": {
+    "PH2 dataset": {
+      "experiment": "Five-fold cross-validation with YOLOv2",
+      "threshold": 0.7,
+      "models": {
+        "YOLOv2": {
+          "Average Accuracy": "86.00%",
+          "Average Sensitivity": "86.35%",
+          "Average Specificity": "85.90%",
+          "Average AUC": "0.91",
+          "Performance (Fold 01)": {
+            "Specificity": "0.8845",
+            "Sensitivity": "0.9444",
+            "Accuracy": "89.65%",
+            "AUC": "0.96"
+          },
+          "Performance (Fold 02)": {
+            "Specificity": "0.9115",
+            "Sensitivity": "0.7014",
+            "Accuracy": "86.94%",
+            "AUC": "0.82"
+          },
+          "Performance (Fold 03)": {
+            "Specificity": "0.9028",
+            "Sensitivity": "0.8663",
+            "Accuracy": "89.55%",
+            "AUC": "0.94"
+          },
+          "Performance (Fold 04)": {
+            "Specificity": "0.7808",
+            "Sensitivity": "0.9375",
+            "Accuracy": "81.22%",
+            "AUC": "0.94"
+          },
+          "Performance (Fold 05)": {
+            "Specificity": "0.8155",
+            "Sensitivity": "0.8680",
+            "Accuracy": "82.60%",
+            "AUC": "0.88"
+          }
+        }
+      },
+      "notes": "The system achieved real-time performance of 40-90 fps on a Titan X GPU. The model was found to be invariant to the presence of bodily hair. Previous works using the same database reported a global method with Sensitivity=96% and Specificity=80%, and a local method with Sensitivity=100% and Specificity=75%."
+    }
+  },
+  "architecture_used": {
+    "extraction_error": "Expecting ',' delimiter: line 20 column 26 (char 1483)",
+    "answer": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "YOLOv2"
+  ],
+  "preprocessing_techniques": [
+    "Data extraction using binary masks to determine lesion bounding boxes (top-left and bottom-right corners) from dermoscopic images.",
+    "Image rotation augmentation (10-degree increments from 0 to 350 degrees) using a 2x3 transformation matrix.",
+    "Bounding box recalculation for rotated images using edge centers instead of corner points to minimize background inclusion.",
+    "Pixel extrapolation to maintain original image size after rotation by patching rotated images onto clones of the original.",
+    "Image blurring augmentation using a 2D Gaussian filter to provide invariance to blurred photos.",
+    "Testing of dilation and erosion morphological operations (rejected due to 11.2% accuracy drop)."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Images were rotated by 10-degree increments from 0 to 350 degrees using a 2x3 transformation matrix with a scale value of 1. This generated 35 additional images per original image. Bounding boxes were recalculated using edge centers of the original bounding box to minimize background inclusion, and pixel extrapolation was used to maintain original image size."
+    },
+    {
+      "technique": "Blurring",
+      "details": "A 2D Gaussian filter was applied to the image set to provide invariance to possible blurred photos. The filter is defined by G(x,y) = (1/(2πσ²)) * e^(-(x²+y²)/(2σ²))."
+    },
+    {
+      "technique": "Dilation and Erosion",
+      "details": "Morphological operations were tested but rejected because they caused an 11.2% drop in system accuracy by reshaping lesion boundaries and altering texture/color combinations."
+    }
+  ],
+  "conclusions": [
+    "The proposed real-time object detection system using YOLOv2 successfully detects melanoma in dermoscopic images with an accuracy of 86.00%, sensitivity of 86.35%, and specificity of 85.90%.",
+    "The system demonstrates invariance to the presence of bodily hair in the images.",
+    "The system achieves real-time performance, operating at 40-90 fps on a Titan X GPU.",
+    "The proposed method shows an improvement in specificity compared to previous works using the same PH2 dataset (which reported specificity of 80% for a global method and 75% for a local method).",
+    "Data augmentation via rotation and blurring was effective for robustness, whereas dilation and erosion were rejected due to an 11.2% drop in accuracy.",
+    "The optimal detection threshold for the system was determined to be 0.7."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the PH2 dataset (200 images), which limits generalizability and raises concerns about dataset bias; no external validation was performed.",
+    "The dataset is small (200 images) and required extensive augmentation (rotation and blurring) to train the model, which may introduce artifacts or overfitting risks.",
+    "Morphological operations (dilation and erosion) were tested but rejected due to an 11.2% drop in accuracy, indicating sensitivity to specific preprocessing choices.",
+    "The model's performance varies significantly across cross-validation folds (e.g., Fold 02 sensitivity was 70.14% vs. Fold 01 at 94.44%), suggesting instability in detection capability.",
+    "The system was evaluated on a high-end GPU (Titan X) achieving 40-90 fps; clinical deployment on standard hardware or mobile devices was not tested, limiting immediate clinical relevance.",
+    "The paper claims invariance to bodily hair but does not provide quantitative metrics or statistical analysis to support this claim, relying only on visual examples.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was reported; results are presented as point estimates from cross-validation.",
+    "The optimal threshold of 0.7 was determined empirically via ROC curve analysis; the impact of threshold selection on clinical utility (e.g., false positive burden) is not deeply analyzed."
+  ]
+}

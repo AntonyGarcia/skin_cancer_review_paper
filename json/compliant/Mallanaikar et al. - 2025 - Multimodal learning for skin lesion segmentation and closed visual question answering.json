@@ -1,0 +1,256 @@
+{
+  "file_name": "Mallanaikar et al. - 2025 - Multimodal learning for skin lesion segmentation and closed visual question answering.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning models for skin lesion segmentation and closed visual question answering. Specifically, it employs a Multi-Scale Feature Fusion Network (MSFNet) with boundary and reverse attention modules for segmentation on 314 dermatology images, and a multimodal architecture combining Vision Transformer (ViT), Local Binary Patterns (LBP), and CLIP for VQA on the DermaVQA-DAS dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and evaluation of a unified deep learning framework for skin lesion segmentation and closed visual question answering. It details specific methodologies (MSFNet, multimodal VQA architecture), datasets used (MEDIQA-MAGIC 2025, DermaVQA-DAS), training strategies, and reports new quantitative results (Dice coefficients, accuracy scores). Although published in the CLEF 2025 Working Notes, it describes a specific technical study with original results rather than summarizing prior literature."
+  },
+  "title": "Multimodal Learning for Skin Lesion Segmentation and Closed Visual Question Answering",
+  "authors": [
+    "Bhagyashree Mallanaikar",
+    "Shradha Kekare",
+    "Padmashree Desai",
+    "Sujata C",
+    "Uma Mudenagudi",
+    "Ramesh Ashok Tabib",
+    "Anjali Savalkar",
+    "Aishwarya S.H"
+  ],
+  "doi": null,
+  "journal": "CLEF 2025 Working Notes",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study presents a unified deep learning framework for skin lesion segmentation and closed-ended visual question answering (VQA) to support dermatological diagnostics. For segmentation, the authors employed a Multi-Scale Feature Fusion Network (MSFNet) with boundary and reverse attention modules, trained on 314 images from the MEDIQA-MAGIC 2025 dataset. The model achieved a mean Dice coefficient of 0.7021 and a mean Jaccard index of 0.5410, demonstrating effective lesion boundary delineation. In parallel, a multimodal VQA system combining Vision Transformer, Local Binary Patterns, and CLIP was evaluated on 56 image-question pairs from the DermaVQA-DAS dataset. This VQA model attained an overall accuracy of 56.98%, with higher performance in specific question categories like CQID012 and CQID035. The results highlight the potential of integrating segmentation and VQA pipelines for clinical decision support and automated medical interpretation.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesion",
+        "dermatology images",
+        "lesion"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on binary segmentation of skin lesions in general using the MEDIQA-MAGIC 2025 DermaVQA-DAS dataset. While the abstract mentions supporting 'early melanoma detection', the experiments do not distinguish specific histological classes (e.g., melanoma vs. nevus) but treat the target as a binary lesion mask."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the abstract as a clinical context for which the segmentation model supports early detection ('supporting its effectiveness in aiding early melanoma detection'), but not explicitly studied as a distinct class in the segmentation or VQA experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary skin lesion mask",
+        "primary": true,
+        "details": "The paper performs binary segmentation of skin lesions using MSFNet on 314 dermatology images. The model outputs a binary probability map via sigmoid activation, evaluated using Dice coefficient and Jaccard index."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Closed-ended visual question answer categories",
+        "primary": false,
+        "details": "The paper performs closed-ended Visual Question Answering (VQA) as a multi-class classification problem. The model classifies inputs into one of 12 answer categories using a softmax classifier, evaluated using macro-averaged accuracy."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "MEDIQA-MAGIC 2025 / DermaVQA-DAS",
+      "description": "A dataset comprising pixel-annotated dermatology images used for the MEDIQA-MAGIC 2025 segmentation task and the DermaVQA-DAS (Dermatology Assessment Schema) dataset for closed-ended visual question answering. It contains patient-generated dermatology images with gold-standard masks and structured questions.",
+      "classes_used": [
+        "Binary skin lesion mask (segmentation)",
+        "12 closed-ended visual question answer categories (VQA)"
+      ],
+      "counts": {
+        "total": 314,
+        "training": null,
+        "validation": null,
+        "testing": 314,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the MSFNet segmentation model with gold-standard masks provided in the dataset.",
+        "validation": "Used for validation loss monitoring to trigger early stopping and learning rate decay during segmentation training.",
+        "testing": "Used for final evaluation of the segmentation model (314 instances) and the VQA model (56 image-question pairs subset).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient",
+    "Jaccard index",
+    "mean Intersection over Union (mIoU)",
+    "macro-averaged accuracy",
+    "instance-level accuracy",
+    "group-level accuracy",
+    "overall accuracy",
+    "Dice (mean of max)",
+    "Dice (mean of mean)",
+    "Jaccard (mean of max)",
+    "Jaccard (mean of mean)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics such as Dice coefficient, Jaccard index, and accuracy."
+  },
+  "results_obtained_in_each_dataset": {
+    "MEDIQA-MAGIC 2025 / DermaVQA-DAS (Segmentation)": {
+      "metric": "Dice coefficient (mean)",
+      "models": {
+        "MSFNet": {
+          "Dice coefficient (mean)": "0.7021"
+        }
+      },
+      "notes": "The model was tested on 314 dermatology images. Additional metrics reported: Jaccard index (mean) 0.5410, Dice (mean of max) 0.7512, Dice (mean of mean) 0.6711, Jaccard (mean of max) 0.6377, Jaccard (mean of mean) 0.5538."
+    },
+    "DermaVQA-DAS (Closed VQA)": {
+      "metric": "Accuracy (%)",
+      "models": {
+        "Multimodal VQA (ViT + LBP + CLIP)": {
+          "Overall Accuracy": "56.98",
+          "CQID010": "51.00",
+          "CQID011": "63.10",
+          "CQID012": "74.80",
+          "CQID015": "57.00",
+          "CQID020": "62.90",
+          "CQID025": "56.00",
+          "CQID034": "39.00",
+          "CQID035": "74.00",
+          "CQID036": "35.00"
+        }
+      },
+      "notes": "Evaluated on 56 image-question pairs as part of the ImageCLEF VQA-Med 2024 task. The model achieved high scores in categories CQID012 and CQID035, and lower performance in CQID034 and CQID036."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two distinct models: 1) Multi-Scale Feature Fusion Network (MSFNet) for segmentation; 2) Multimodal Visual Question Answering (VQA) system combining Vision Transformer (ViT), Local Binary Patterns (LBP), and CLIP.",
+    "pretraining": "Not explicitly reported for MSFNet (described as 'original MSFNet architecture' reused without modification). For VQA, CLIP and Vision Transformer are implied to be pre-trained models used for feature extraction, but specific pretraining datasets or versions are not detailed.",
+    "input_size": "352 x 352 pixels (for segmentation model; images and masks resized to this dimension).",
+    "architecture_details": {
+      "segmentation_model": {
+        "name": "MSFNet",
+        "backbone": "Deep CNN with five convolutional blocks (Conv1–Conv5)",
+        "modules": [
+          "Boundary Attention (BA) modules on intermediate layers (Conv2, Conv3)",
+          "Parallel Partial Decoder (PPD) processing deep features from Conv4 and Conv5",
+          "Reverse Attention (RA) modules for iterative refinement"
+        ],
+        "fusion_method": "Element-wise addition and convolution layers",
+        "output_activation": "Sigmoid (produces binary probability map)"
+      },
+      "vqa_model": {
+        "text_encoder": "BERT-based model for clinical questions",
+        "visual_encoders": [
+          "Vision Transformer (ViT)",
+          "Local Binary Patterns (LBP)"
+        ],
+        "feature_fusion": "Outer product-like matching to capture cross-modal associations",
+        "embedding_dimensions": "512-dimensional text embedding (CLIP) + 512-dimensional visual embedding = 1024-dimensional fused feature vector"
+      }
+    },
+    "training_details": {
+      "segmentation_model": {
+        "optimizer": "Adam",
+        "learning_rate": "1e-4",
+        "lr_decay": "Factor of 0.1 if validation loss did not improve for 10 consecutive epochs",
+        "loss_function": "Hybrid loss: L_total = 1 * L_WBCE + 1 * L_IoU (Weighted Binary Cross-Entropy + Intersection-over-Union Loss)",
+        "batch_size": 8,
+        "epochs": "Maximum 100",
+        "early_stopping": "Enabled based on validation loss",
+        "data_augmentation": "Flipping, rotation, contrast adjustment"
+      },
+      "vqa_model": {
+        "optimizer": "AdamW",
+        "learning_rate": "1e-4",
+        "loss_function": "Categorical cross-entropy",
+        "batch_size": 32,
+        "epochs": 1000,
+        "hardware_optimization": "Mixed precision training on CUDA-enabled GPUs"
+      }
+    },
+    "classification_or_output_head": {
+      "segmentation_model": "Sigmoid activation for binary segmentation mask",
+      "vqa_model": "Softmax classifier over 12 answer categories"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Multi-Scale Feature Fusion Network (MSFNet)",
+    "Multimodal VQA model (combining Vision Transformer (ViT), Local Binary Patterns (LBP), CLIP, and BERT-based text encoder)",
+    "U-Net",
+    "DeepLabV3+",
+    "Attention U-Net",
+    "Vision Transformers",
+    "MedT",
+    "GAN-based methods",
+    "SL-HarDNet",
+    "CNNs and LSTMs",
+    "Bottom-Up and Top-Down Attention",
+    "ViLBERT",
+    "MCAN",
+    "BAN",
+    "ViLT",
+    "LXMERT",
+    "Oscar"
+  ],
+  "preprocessing_techniques": [
+    "Resizing input images and ground truth masks to 352 x 352 pixels for segmentation model",
+    "Upsampling predicted segmentation masks to original image resolution using bilinear interpolation during inference",
+    "Data augmentation: flipping, rotation, and contrast adjustment during training",
+    "Dual-path feature extraction for VQA: Vision Transformer (ViT) and Local Binary Patterns (LBP)",
+    "Text encoding using BERT-based model for clinical questions",
+    "Feature fusion via outer product-like matching for cross-modal associations in VQA",
+    "Concatenation of 512-dimensional text embedding (CLIP) and 512-dimensional visual embedding to form 1024-dimensional fused feature vector"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Flipping",
+      "details": "Applied during training to enhance generalization and prevent overfitting."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Applied during training to enhance generalization and prevent overfitting."
+    },
+    {
+      "technique": "Contrast adjustment",
+      "details": "Applied during training to enhance generalization and prevent overfitting."
+    }
+  ],
+  "conclusions": [
+    "The MSFNet-based segmentation framework demonstrated strong performance on the MEDIQA-MAGIC 2025 dataset, achieving a mean Dice coefficient of 0.7021 and a mean Jaccard index of 0.5410 across 314 skin lesion instances.",
+    "The hybrid loss formulation, combining Weighted Binary Cross-Entropy and IoU losses, was effective in handling class imbalance and enhancing boundary delineation.",
+    "The segmentation model showed robustness and generalization capability in binary lesion segmentation.",
+    "The closed-ended Visual Question Answering (VQA) model attained an overall accuracy of 56.98% on a test set of 56 image-question pairs.",
+    "The VQA model performed notably well in specific question categories, specifically CQID012 (74.80%) and CQID035 (74.00%).",
+    "Lower performance in certain VQA categories (e.g., CQID034 and CQID036) reveals areas for improvement in the model's ability to interpret visual inputs for those specific domains.",
+    "The integration of segmentation and VQA in a single pipeline highlights potential for real-world applications, including clinical decision support, assistive tools, and automated medical interpretation.",
+    "Future work aims to extend the framework to multi-class segmentation, integrate advanced attention modules, explore alternative loss strategies, and optimize the model for real-time clinical or mobile deployment.",
+    "Future VQA improvements will focus on expanding training data diversity, incorporating larger-scale multimodal datasets, and experimenting with transformer-based and attention-driven fusion architectures to boost generalization and accuracy."
+  ],
+  "important_remarks": [
+    "The segmentation model (MSFNet) was reused without structural modification from a prior work [5], limiting the novelty of the architectural contribution.",
+    "The study lacks external validation; the segmentation model was evaluated on only 314 images from a single dataset (MEDIQA-MAGIC 2025/DermaVQA-DAS), raising concerns about generalizability.",
+    "No statistical significance testing (e.g., p-values, confidence intervals) was performed; results are reported solely as descriptive metrics.",
+    "The VQA task was evaluated on a very small test set of only 56 image-question pairs, which may lead to high variance in accuracy estimates.",
+    "The VQA model achieved a relatively low overall accuracy of 56.98%, with significant performance disparity across question categories (ranging from 35.00% to 74.80%), indicating instability in specific clinical contexts.",
+    "The paper claims support for 'early melanoma detection' in the abstract, but the segmentation task is binary (lesion vs. background) and does not classify specific histological types like melanoma.",
+    "The authors disclosed the use of generative AI (ChatGPT) for grammar checking and paraphrasing, though they assert full responsibility for the content.",
+    "The VQA model relies on pre-trained components (CLIP, ViT) without detailing specific versions or pre-training datasets, which may affect reproducibility.",
+    "The segmentation training used a hybrid loss function with empirically set coefficients (alpha=1, beta=1) without ablation studies to justify these hyperparameters."
+  ]
+}

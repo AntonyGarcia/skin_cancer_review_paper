@@ -1,0 +1,348 @@
+{
+  "file_name": "roy_2025_melseg_an_adaptation_of_segment_anything_model_for_skin_lesion_segmenta.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning approach, specifically adapting the Segment Anything Model (SAM) with a Feature Pyramid Network (FPN) for skin lesion segmentation on the HAM10000 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work developing and evaluating a new deep learning model (melSeg) for skin lesion segmentation. It details a specific methodology (adapting SAM with FPN), describes the dataset used (HAM10000), reports quantitative results (IoU 89.29%, Dice 94.19%), and includes a methodology section with experiments and performance evaluation, which characterizes it as a research paper rather than a review."
+  },
+  "title": "melSeg: An Adaptation of Segment Anything Model for Skin Lesion Segmentation",
+  "authors": [
+    "Shudipto Sekhar Roy",
+    "Ramtin Kardan",
+    "Jeremiah Neubert"
+  ],
+  "doi": "10.1109/CCWC62904.2025.10903695",
+  "journal": "2025 IEEE 15th Annual Computing and Communication Workshop and Conference (CCWC)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study presents melSeg, a deep learning model adapted from the Segment Anything Model (SAM) with a Feature Pyramid Network (FPN) for accurate skin lesion segmentation. The model was trained and evaluated on the HAM10000 dataset, which contains 10,015 dermatoscopic images, using a five-fold cross-validation approach. The primary evaluation metrics included Intersection over Union (IoU) and Dice score to assess segmentation performance. The adapted SAM model achieved an IoU of 89.29% and a Dice score of 94.19%, outperforming several contemporary state-of-the-art methods. These results highlight the potential of this approach to improve early skin cancer detection by providing precise lesion delineation.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Target class (part of the dataset context)",
+      "details": "Mentioned in the introduction as a major global health concern and in the dataset description as one of the seven diagnostic categories in HAM10000. The study focuses on segmentation of all lesion types in the dataset, not just melanoma."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "melanocytic nevi"
+      ],
+      "role": "Target class (part of the dataset context)",
+      "details": "Identified as the most frequent category in the HAM10000 dataset with 6,705 images. The paper notes a skew toward this category but states that addressing imbalance was outside the scope."
+    },
+    {
+      "lesion_type": "Skin Lesions (General)",
+      "paper_terms": [
+        "skin lesions",
+        "pigmented skin lesions"
+      ],
+      "role": "Target class (segmentation target)",
+      "details": "The primary target of the melSeg model is the segmentation of 'skin lesion areas' from the HAM10000 dataset, which contains images from seven diagnostic categories. The model does not perform classification but rather segmentation of the lesion region regardless of specific type."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion area masks",
+        "primary": true,
+        "details": "The paper focuses on developing a deep learning model (melSeg) to accurately segment skin lesion areas from dermatoscopic images. The model produces binary segmentation masks delineating the lesion region from the background. Performance was evaluated using Intersection over Union (IoU) and Dice Score metrics, which are standard for segmentation tasks, not classification or regression."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000",
+      "description": "A publicly available dataset containing 10,015 high-quality dermoscopic images of skin lesions, captured in a clinical setting over nearly 20 years. The images are from individuals of different ages and cover various body locations. It includes seven diagnostic categories, with 6,705 images representing melanocytic nevi. Each image is paired with a corresponding skin lesion segmentation mask of the same dimensions (450x600 pixels).",
+      "classes_used": [
+        "Melanocytic Nevus",
+        "Melanoma",
+        "Seborrheic Keratosis",
+        "Basal Cell Carcinoma",
+        "Actinic Keratosis",
+        "Dermatofibroma",
+        "Vascular Lesion"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanocytic Nevus": 6705
+        }
+      },
+      "use": {
+        "training": "The model was trained on the HAM10000 dataset using a five-fold cross-validation technique.",
+        "validation": "The model was evaluated on the HAM10000 dataset using a five-fold cross-validation technique.",
+        "testing": "The model was evaluated on the HAM10000 dataset using a five-fold cross-validation technique.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Intersection over Union (IoU)",
+    "Dice Score",
+    "Precision",
+    "Recall",
+    "Accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "To ensure robust evaluation of the model's segmentation performance and to calculate average metrics on the validation set.",
+      "type": "Cross-validation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive statistics (mean IoU and Dice Score) from five-fold cross-validation and compared qualitatively to state-of-the-art methods."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "split": "Five-fold cross-validation (average of 5 folds)",
+      "experiment_details": {
+        "description": "12 experiments conducted with variations in Loss Function (DiceCELoss, FocalLoss), Optimizer (Adam, SGD), and Learning Rate (1e-4, 1e-5, 1e-6). Batch size fixed at 4.",
+        "best_performing_experiment": {
+          "obs_id": 1,
+          "loss_function": "DiceCELoss",
+          "optimizer": "Adam",
+          "learning_rate": "1e-4"
+        }
+      },
+      "models": {
+        "melSeg (Best Configuration)": {
+          "Accuracy": "96.62%",
+          "Precision": "94.32%",
+          "Recall": "94.30%",
+          "Dice Score": "94.19%",
+          "IoU": "89.29%"
+        },
+        "melSeg (Config 2)": {
+          "Loss Function": "DiceCELoss",
+          "Optimizer": "Adam",
+          "Learning Rate": "1e-5",
+          "Accuracy": "96.62%",
+          "Precision": "94.42%",
+          "Recall": "94.12%",
+          "Dice Score": "94.17%",
+          "IoU": "89.24%"
+        },
+        "melSeg (Config 3)": {
+          "Loss Function": "DiceCELoss",
+          "Optimizer": "Adam",
+          "Learning Rate": "1e-6",
+          "Accuracy": "96.38%",
+          "Precision": "93.88%",
+          "Recall": "93.83%",
+          "Dice Score": "93.74%",
+          "IoU": "88.52%"
+        },
+        "melSeg (Config 4)": {
+          "Loss Function": "FocalLoss",
+          "Optimizer": "Adam",
+          "Learning Rate": "1e-4",
+          "Accuracy": "96.59%",
+          "Precision": "94.23%",
+          "Recall": "94.22%",
+          "Dice Score": "94.11%",
+          "IoU": "89.17%"
+        },
+        "melSeg (Config 5)": {
+          "Loss Function": "FocalLoss",
+          "Optimizer": "Adam",
+          "Learning Rate": "1e-5",
+          "Accuracy": "96.49%",
+          "Precision": "94.30%",
+          "Recall": "93.79%",
+          "Dice Score": "93.93%",
+          "IoU": "88.82%"
+        },
+        "melSeg (Config 6)": {
+          "Loss Function": "FocalLoss",
+          "Optimizer": "Adam",
+          "Learning Rate": "1e-6",
+          "Accuracy": "96.26%",
+          "Precision": "93.31%",
+          "Recall": "93.93%",
+          "Dice Score": "93.50%",
+          "IoU": "88.11%"
+        },
+        "melSeg (Config 7)": {
+          "Loss Function": "DiceCELoss",
+          "Optimizer": "SGD",
+          "Learning Rate": "1e-4",
+          "Accuracy": "96.32%",
+          "Precision": "93.45%",
+          "Recall": "94.06%",
+          "Dice Score": "93.63%",
+          "IoU": "88.28%"
+        },
+        "melSeg (Config 8)": {
+          "Loss Function": "DiceCELoss",
+          "Optimizer": "SGD",
+          "Learning Rate": "1e-5",
+          "Accuracy": "95.90%",
+          "Precision": "92.67%",
+          "Recall": "93.50%",
+          "Dice Score": "92.94%",
+          "IoU": "87.09%"
+        },
+        "melSeg (Config 9)": {
+          "Loss Function": "DiceCELoss",
+          "Optimizer": "SGD",
+          "Learning Rate": "1e-6",
+          "Accuracy": "95.05%",
+          "Precision": "91.12%",
+          "Recall": "92.46%",
+          "Dice Score": "91.59%",
+          "IoU": "84.78%"
+        },
+        "melSeg (Config 10)": {
+          "Loss Function": "FocalLoss",
+          "Optimizer": "SGD",
+          "Learning Rate": "1e-4",
+          "Accuracy": "95.89%",
+          "Precision": "92.72%",
+          "Recall": "93.32%",
+          "Dice Score": "92.88%",
+          "IoU": "86.98%"
+        },
+        "melSeg (Config 11)": {
+          "Loss Function": "FocalLoss",
+          "Optimizer": "SGD",
+          "Learning Rate": "1e-5",
+          "Accuracy": "95.34%",
+          "Precision": "91.82%",
+          "Recall": "92.41%",
+          "Dice Score": "91.95%",
+          "IoU": "85.39%"
+        },
+        "melSeg (Config 12)": {
+          "Loss Function": "FocalLoss",
+          "Optimizer": "SGD",
+          "Learning Rate": "1e-6",
+          "Accuracy": "93.67%",
+          "Precision": "89.39%",
+          "Recall": "89.10%",
+          "Dice Score": "88.96%",
+          "IoU": "80.48%"
+        },
+        "A1+L [17]": {
+          "IoU": "83.51%",
+          "Dice Score": "90.54%"
+        },
+        "MFSNet [18]": {
+          "IoU": "90.20%",
+          "Dice Score": "90.60%"
+        },
+        "Rema-Net [19]": {
+          "IoU": "88.81%",
+          "Dice Score": "93.59%"
+        },
+        "AttentionUnet [21]": {
+          "IoU": null,
+          "Dice Score": "88.42%"
+        },
+        "LEDNet [21]": {
+          "IoU": null,
+          "Dice Score": "84.65%"
+        }
+      },
+      "notes": "The melSeg model achieved the highest Dice Score (94.19%) among all compared methods. While MFSNet reported a slightly higher IoU (90.20% vs 89.29%), melSeg significantly outperformed it in Dice Score. IoU values were not reported for AttentionUnet and LEDNet."
+    }
+  },
+  "architecture_used": {
+    "main_model": "melSeg (Adapted Segment Anything Model)",
+    "pretraining": "Segment Anything Model (SAM) pre-trained on general-purpose segmentation tasks; SAM image encoder leverages Vision Transformer (ViT) architecture",
+    "input_size": "450x600 pixels",
+    "architecture_details": {
+      "backbone": "Vision Transformer (ViT) for image encoding in SAM",
+      "adaptation": "Feature Pyramid Network (FPN) integrated just before SAM's image encoding stage to capture lesion features at multiple scales",
+      "components": [
+        "Image Encoder (ViT-based)",
+        "Prompt Encoder",
+        "Mask Decoder",
+        "Feature Pyramid Network (FPN)"
+      ],
+      "fpn_structure": "Bottom-up section (progressively higher semantic information) and top-down section (upsampled feature maps combined with bottom-up maps)"
+    },
+    "training_details": {
+      "optimizer": [
+        "Adam",
+        "SGD"
+      ],
+      "learning_rates": [
+        "1e-4",
+        "1e-5",
+        "1e-6"
+      ],
+      "loss_functions": [
+        "DiceCELoss (Dice Loss + Cross-Entropy Loss)",
+        "FocalLoss"
+      ],
+      "batch_size": 4,
+      "hardware": "Nvidia GeForce RTX 4090 with 24GB memory",
+      "validation_strategy": "Five-fold cross-validation"
+    },
+    "classification_or_output_head": {
+      "type": "Mask Decoder",
+      "output": "Segmentation masks (binary masks delineating lesion region from background)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "melSeg (Adapted Segment Anything Model with Feature Pyramid Network)",
+    "Segment Anything Model (SAM)",
+    "A1+L",
+    "MFSNet",
+    "Rema-Net",
+    "AttentionUnet",
+    "LEDNet",
+    "YOLOv2",
+    "Inception-v3",
+    "ResNet50",
+    "FrCNN (Fully Resolved CNN)",
+    "MobileNet V2",
+    "VGG16",
+    "U-Net"
+  ],
+  "preprocessing_techniques": [
+    "Input images resized to fixed dimensions of 450x600 pixels",
+    "Use of corresponding ground-truth segmentation masks for training and evaluation",
+    "Five-fold cross-validation for robust evaluation"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed melSeg model, an adaptation of the Segment Anything Model (SAM) integrated with a Feature Pyramid Network (FPN), effectively segments skin lesion areas by capturing features at multiple scales to handle variations in lesion size and structure.",
+    "On the HAM10000 dataset, melSeg achieved an Intersection over Union (IoU) of 89.29% and a Dice Score of 94.19%, outperforming several contemporary state-of-the-art methods in Dice Score.",
+    "While the MFSNet model reported a marginally higher IoU (90.20%) than melSeg, melSeg significantly surpassed it in Dice Score (94.19% vs 90.60%), demonstrating superior ability to accurately delineate lesion boundaries.",
+    "The integration of the FPN was crucial for overcoming the limited contextual information in close-up dermoscopic images, allowing the model to leverage SAM's robustness for precise segmentation.",
+    "The study acknowledges that the dataset contains a skew toward melanocytic nevi (6,705 images) and that addressing class imbalance was outside the scope of this work.",
+    "Future work will involve assessing the model's generalization and performance on additional datasets, specifically PH2 and MED-NODE, to evaluate its ability to handle diverse real-world scenarios, demographic variations, and differing image qualities."
+  ],
+  "important_remarks": [
+    "The study is limited to a single dataset (HAM10000) with no external validation; the authors acknowledge that future work is needed to assess generalization on other datasets like PH2 and MED-NODE.",
+    "The HAM10000 dataset exhibits significant class imbalance, with melanocytic nevi comprising 6,705 of 10,015 images; the authors explicitly state that addressing this imbalance was outside the scope of the work.",
+    "Hardware constraints (Nvidia GeForce RTX 4090) forced a small fixed batch size of 4, which may impact training stability and generalization compared to larger batch sizes.",
+    "No data augmentation techniques were employed in the experiments, relying solely on the original dataset and cross-validation.",
+    "The paper does not report formal statistical significance testing (e.g., p-values) for the comparison with state-of-the-art methods, relying instead on descriptive metric comparisons.",
+    "While melSeg achieved a higher Dice Score (94.19%) than MFSNet (90.60%), MFSNet reported a slightly higher IoU (90.20% vs 89.29%), indicating that melSeg's superiority is metric-dependent.",
+    "IoU values were not reported for AttentionUnet and LEDNet in the comparative analysis, limiting the completeness of the benchmark comparison.",
+    "The model was evaluated only on segmentation performance; no classification or diagnostic accuracy metrics were reported, limiting the assessment of clinical utility for diagnosis."
+  ]
+}

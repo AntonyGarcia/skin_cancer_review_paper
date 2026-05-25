@@ -1,0 +1,399 @@
+{
+  "file_name": "Pintelas et al. - 2024 - MobileNet-HeX Heterogeneous ensemble of MobileNet eXperts for efficient and scalable vision model o.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses MobileNet-HeX, a heterogeneous ensemble of MobileNet experts (convolutional neural networks), to perform skin cancer classification on the ISIC 2024 dataset, which contains histologically confirmed cases of skin cancer from 3D total-body photos."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a new model, MobileNet-HeX, and describes its methodology (Expand-and-Squeeze approach, clustering-based selection, sequential quadratic programming). It presents original experimental results benchmarking this model against state-of-the-art models on the ISIC 2024 and DFDC datasets, reporting specific performance metrics (Accuracy, AUC, GM) and computational efficiency. The structure includes Introduction, Related Work, Methodology, Experimental Results, Discussion, and Conclusion, which is characteristic of an original research study rather than a review."
+  },
+  "title": "MobileNet-HeX: Heterogeneous Ensemble of MobileNet eXperts for Efficient and Scalable Vision Model Optimization",
+  "authors": [
+    "Emmanuel Pintelas",
+    "Ioannis E. Livieris",
+    "Vasilis Tampakas",
+    "Panagiotis Pintelas"
+  ],
+  "doi": "10.3390/bdcc9010002",
+  "journal": "Big Data and Cognitive Computing",
+  "year": 2025,
+  "article_type": "Article",
+  "brief_summary": "This study proposes MobileNet-HeX, a heterogeneous ensemble of MobileNet experts designed to optimize both performance and computational efficiency for vision tasks. The model utilizes an Expand-and-Squeeze mechanism to generate and prune a diverse population of MobileNetV3-Small models, combining them via sequential quadratic programming. The authors evaluated the method on the ISIC 2024 dataset for skin cancer classification and the DFDC dataset for deepfake detection. Key evaluation metrics included accuracy, area under the curve (AUC), and geometric mean (GM). Results demonstrated that MobileNet-HeX achieved superior performance, with an AUC of 0.905 and GM of 0.809 on ISIC 2024, and an accuracy of 0.879 on DFDC, outperforming state-of-the-art models while maintaining lower computational demands.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin cancer (malignant) vs. Benign skin lesions",
+      "paper_terms": [
+        "skin cancer",
+        "malignant cases",
+        "benign instances",
+        "histologically confirmed cases of skin cancer"
+      ],
+      "role": "Target class (binary classification task)",
+      "details": "The study uses the ISIC 2024 dataset for skin cancer detection, which contains around 400 malignant cases and 400,000 benign instances. The specific histological subtypes (e.g., melanoma, BCC) are not explicitly listed in the provided text, only the broad categories of malignant skin cancer and benign lesions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin cancer (malignant vs. benign) and Deepfake detection (real vs. fake)",
+        "primary": true,
+        "details": "The paper evaluates MobileNet-HeX on two image-based classification tasks: skin cancer classification using the ISIC 2024 dataset (identifying histologically confirmed cases of skin cancer from benign instances) and deepfake detection using the DFDC dataset. Performance is measured using Accuracy, AUC, and Geometric Mean (GM), which are standard metrics for classification tasks, particularly in imbalanced settings."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2024",
+      "description": "A dataset from the International Skin Imaging Collaboration (ISIC) 2024 Kaggle competition, containing single-lesion crops taken from 3D total-body photos (TBPs) to identify histologically confirmed cases of skin cancer. It represents a broad array of skin phenotypes and lesion types, resembling quality comparable to smartphone-captured images.",
+      "classes_used": [
+        "Malignant (skin cancer)",
+        "Benign"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "malignant": 400,
+          "benign": 400000
+        }
+      },
+      "use": {
+        "training": "Used for training models (60% of data split).",
+        "validation": "Used for validation (20% of data split) and optimizing ensemble weights via Sequential Quadratic Programming to maximize Geometric Mean.",
+        "testing": "Used for testing (20% of data split) to evaluate final performance metrics (Accuracy, AUC, GM).",
+        "other": null
+      }
+    },
+    {
+      "name": "DeepFake Detection Challenge (DFDC)",
+      "description": "A large public dataset for facial forgery detection created through a collaboration between AWS, Facebook, Microsoft, and the Partnership on AI. The study used a customized version consisting of GAN-generated deepfakes where one image frame per video was extracted, and faces were automatically detected and cropped.",
+      "classes_used": [
+        "Real",
+        "Fake (Deepfake)"
+      ],
+      "counts": {
+        "total": 100000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training models (60% of data split).",
+        "validation": "Used for validation (20% of data split).",
+        "testing": "Used for testing (20% of data split) to evaluate final performance metrics (Accuracy, AUC, GM).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "area under the curve (AUC)",
+    "geometric mean (GM)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Sequential Quadratic Programming (SQP)",
+      "purpose": "To compute optimal weight contributions for the selected MobileNet experts by minimizing the negative weighted ensemble loss (maximizing Geometric Mean) on the validation dataset.",
+      "type": "Optimization method"
+    },
+    {
+      "method": "Powell method",
+      "purpose": "A gradient-free optimization algorithm used within the SQP framework to iteratively refine ensemble weights.",
+      "type": "Optimization algorithm"
+    },
+    {
+      "method": "Clustering (using UMAP and silhouette score)",
+      "purpose": "To assess model heterogeneity and diversity by grouping models based on the similarity of their prediction probabilities (logits) on the validation set, ensuring the selection of diverse experts.",
+      "type": "Unsupervised learning / Diversity assessment"
+    },
+    {
+      "method": "Pairwise correlation analysis",
+      "purpose": "To assess redundancy among selected models and filter out highly correlated experts to retain an uncorrelated subset.",
+      "type": "Correlation analysis"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics (Accuracy, AUC, GM) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2024": {
+      "description": "Skin cancer classification dataset containing around 400 malignant cases and 400,000 benign instances.",
+      "split": "60% training, 20% validation, 20% testing",
+      "metrics": [
+        "Accuracy (Acc)",
+        "Area Under the Curve (AUC)",
+        "Geometric Mean (GM)"
+      ],
+      "models": {
+        "MobileNetV3-Small": {
+          "Acc": "0.902",
+          "AUC": "0.874",
+          "GM": "0.778"
+        },
+        "EfficientNet-B0": {
+          "Acc": "0.937",
+          "AUC": "0.868",
+          "GM": "0.764"
+        },
+        "ViT": {
+          "Acc": "0.867",
+          "AUC": "0.884",
+          "GM": "0.784"
+        },
+        "DeiT3": {
+          "Acc": "0.890",
+          "AUC": "0.878",
+          "GM": "0.794"
+        },
+        "RegNetY-16GF": {
+          "Acc": "0.906",
+          "AUC": "0.886",
+          "GM": "0.780"
+        },
+        "Swin Transformer": {
+          "Acc": "0.861",
+          "AUC": "0.869",
+          "GM": "0.781"
+        },
+        "ConvNeXt": {
+          "Acc": "0.865",
+          "AUC": "0.886",
+          "GM": "0.790"
+        },
+        "CoAtNet": {
+          "Acc": "0.904",
+          "AUC": "0.871",
+          "GM": "0.773"
+        },
+        "MobileNet-HeX": {
+          "Acc": "0.890",
+          "AUC": "0.905",
+          "GM": "0.809"
+        },
+        "Baseline (Ensemble)": {
+          "Acc": "0.826",
+          "AUC": "0.876",
+          "GM": "0.798"
+        },
+        "Greedy Search": {
+          "Acc": "0.860",
+          "AUC": "0.815",
+          "GM": "0.774"
+        },
+        "Forward Selection Pruning": {
+          "Acc": "0.876",
+          "AUC": "0.841",
+          "GM": "0.795"
+        },
+        "Diversity correlation-based": {
+          "Acc": "0.801",
+          "AUC": "0.826",
+          "GM": "0.783"
+        },
+        "Diversity Q-statistic-based": {
+          "Acc": "0.877",
+          "AUC": "0.872",
+          "GM": "0.774"
+        },
+        "Snapshot Ensembles": {
+          "Acc": "0.916",
+          "AUC": "0.904",
+          "GM": "0.800"
+        },
+        "Stochastic Weight Averaging": {
+          "Acc": "0.908",
+          "AUC": "0.860",
+          "GM": "0.796"
+        },
+        "Heterogeneous eXperts": {
+          "Acc": "0.890",
+          "AUC": "0.905",
+          "GM": "0.809"
+        }
+      },
+      "notes": "MobileNet-HeX achieved the highest AUC (0.905) and GM (0.809). EfficientNet-B0 achieved the highest accuracy (0.937) but lower GM (0.764). Snapshot Ensembles achieved the highest accuracy (0.916) among ensemble methods but lower GM (0.800) compared to Heterogeneous eXperts."
+    },
+    "DFDC": {
+      "description": "Deepfake Detection Challenge dataset containing approximately 100,000 facial image samples.",
+      "split": "60% training, 20% validation, 20% testing",
+      "metrics": [
+        "Accuracy (Acc)",
+        "Area Under the Curve (AUC)",
+        "Geometric Mean (GM)"
+      ],
+      "models": {
+        "MobileNetV3-Small": {
+          "Acc": "0.837",
+          "AUC": "0.914",
+          "GM": "0.824"
+        },
+        "EfficientNet-B0": {
+          "Acc": "0.855",
+          "AUC": "0.924",
+          "GM": "0.843"
+        },
+        "ViT": {
+          "Acc": "0.846",
+          "AUC": "0.925",
+          "GM": "0.844"
+        },
+        "DeiT3": {
+          "Acc": "0.845",
+          "AUC": "0.934",
+          "GM": "0.853"
+        },
+        "RegNetY-16GF": {
+          "Acc": "0.857",
+          "AUC": "0.914",
+          "GM": "0.823"
+        },
+        "Swin Transformer": {
+          "Acc": "0.835",
+          "AUC": "0.931",
+          "GM": "0.846"
+        },
+        "ConvNeXt": {
+          "Acc": "0.852",
+          "AUC": "0.928",
+          "GM": "0.849"
+        },
+        "CoAtNet": {
+          "Acc": "0.857",
+          "AUC": "0.920",
+          "GM": "0.833"
+        },
+        "MobileNet-HeX": {
+          "Acc": "0.879",
+          "AUC": "0.954",
+          "GM": "0.879"
+        },
+        "Baseline (Ensemble)": {
+          "Acc": "0.701",
+          "AUC": "0.800",
+          "GM": "0.727"
+        },
+        "Greedy Search": {
+          "Acc": "0.869",
+          "AUC": "0.936",
+          "GM": "0.854"
+        },
+        "Forward Selection Pruning": {
+          "Acc": "0.865",
+          "AUC": "0.938",
+          "GM": "0.861"
+        },
+        "Diversity correlation-based": {
+          "Acc": "0.799",
+          "AUC": "0.919",
+          "GM": "0.830"
+        },
+        "Diversity Q-statistic-based": {
+          "Acc": "0.877",
+          "AUC": "0.882",
+          "GM": "0.797"
+        },
+        "Snapshot Ensembles": {
+          "Acc": "0.857",
+          "AUC": "0.920",
+          "GM": "0.835"
+        },
+        "Stochastic Weight Averaging": {
+          "Acc": "0.851",
+          "AUC": "0.922",
+          "GM": "0.837"
+        },
+        "Heterogeneous eXperts": {
+          "Acc": "0.879",
+          "AUC": "0.954",
+          "GM": "0.879"
+        }
+      },
+      "notes": "MobileNet-HeX consistently outperformed all baseline models across all metrics, achieving the highest accuracy (0.879), AUC (0.954), and GM (0.879). It also outperformed all other ensemble selection approaches."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MobileNet-HeX (Heterogeneous Ensemble of MobileNet eXperts)",
+    "pretraining": "Pre-trained MobileNet backbone (MobileNetV3-Small) initialized with random non-deterministic parameters for the ensemble members.",
+    "input_size": "Not explicitly reported (standard for MobileNetV3-Small, typically 224x224, but not specified in text).",
+    "architecture_details": {
+      "base_architecture": "MobileNetV3-Small",
+      "ensemble_type": "Heterogeneous ensemble of N selected MobileNetV3-Small experts",
+      "construction_method": "Expand-and-Squeeze mechanism",
+      "expansion_phase": "Random Diverse Training: N models generated via randomized hyperparameter configurations (learning rate, weight decay, batch size, scheduler patience/reduction, early stopping patience) and random initialization.",
+      "squeezing_phase": "Pruning based on validation performance threshold and clustering-based heterogeneity assessment (UMAP and silhouette score) to select diverse, top-performing models.",
+      "combination_method": "Sequential Quadratic Programming (SQP) with Powell method to optimize ensemble weights by minimizing negative weighted ensemble loss (maximizing Geometric Mean) on validation set.",
+      "model_size": "Average 36 MB; Range 12-60 MB depending on number of selected experts (n)."
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "initial_learning_rate": "1e-4",
+      "learning_rate_scheduler": "Reduce-on-Plateau (factor 0.7 after 5 epochs no improvement for baseline; patience 1-7 and factor 0.1-0.7 for ensemble members)",
+      "weight_decay": "1e-4",
+      "early_stopping": "Patience 10 epochs for baseline; 2-8 epochs for ensemble members",
+      "max_epochs": "50",
+      "batch_size_range": "8 to 128 (randomly sampled for ensemble members)",
+      "hyperparameter_ranges": {
+        "learning_rate": "1e-5 to 1e-3",
+        "weight_decay": "0 to 1e-1"
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Standard classification head (implied by MobileNetV3-Small usage)",
+      "output": "Prediction probabilities used for clustering and ensemble weighting."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MobileNet-HeX",
+    "MobileNetV3-Small",
+    "EfficientNet-B0",
+    "ViT",
+    "DeiT3",
+    "RegNetY-16GF",
+    "Swin Transformer",
+    "ConvNeXt",
+    "CoAtNet",
+    "Greedy Search",
+    "Forward Selection Pruning",
+    "Diversity correlation-based",
+    "Diversity Q-statistic-based",
+    "Snapshot Ensembles",
+    "Stochastic Weight Averaging"
+  ],
+  "preprocessing_techniques": [
+    "Single-lesion crops extracted from 3D total-body photos (TBPs) for the ISIC 2024 dataset",
+    "One image frame extracted per video for the DFDC dataset",
+    "Automatic face detection and cropping of facial regions from extracted frames for the DFDC dataset"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "MobileNet-HeX, a heterogeneous ensemble of MobileNet eXperts constructed via an Expand-and-Squeeze mechanism and optimized with sequential quadratic programming, achieves superior performance compared to state-of-the-art vision models and other ensemble selection strategies.",
+    "On the ISIC 2024 skin cancer classification dataset, MobileNet-HeX achieved the highest Area Under the Curve (AUC) of 0.905 and Geometric Mean (GM) of 0.809, demonstrating robust handling of class imbalance despite EfficientNet-B0 having a higher accuracy (0.937).",
+    "On the DFDC deepfake detection dataset, MobileNet-HeX consistently outperformed all baseline models across all metrics, achieving an accuracy of 0.879, AUC of 0.954, and GM of 0.879.",
+    "The proposed method effectively balances computational efficiency with high performance, maintaining an average model size of 36 MB (ranging from 12 to 60 MB depending on the number of experts), which is significantly smaller than many Transformer-based competitors like Swin Transformer (235 MB) and CoAtNet (275 MB).",
+    "The clustering-based selection of heterogeneous experts reduces redundancy and validation overfitting compared to traditional methods like Greedy Search or Forward Selection Pruning, while providing more explicit heterogeneity control than Snapshot Ensembles or Stochastic Weight Averaging.",
+    "Small, highly optimized models can outperform even the most powerful vision networks in both accuracy and computational efficiency when leveraging a diverse set of MobileNet eXperts."
+  ],
+  "important_remarks": [
+    "The study relies on the ISIC 2024 dataset which exhibits extreme class imbalance (400 malignant vs. 400,000 benign instances); while the authors use Geometric Mean (GM) to address this, the generalizability to other skin cancer datasets with different prevalence rates or lesion distributions is not validated.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to validate the significance of performance differences between MobileNet-HeX and baseline models; comparisons are based solely on descriptive metrics.",
+    "The Deepfake Detection Challenge (DFDC) dataset was customized by the authors (extracting one frame per video and auto-cropping faces), which deviates from the standard DFDC protocol and may limit direct comparability with other studies using the original dataset.",
+    "The paper does not report external validation on independent datasets beyond ISIC 2024 and DFDC, limiting the assessment of the model's robustness to domain shifts or different data distributions.",
+    "Performance degradation was observed for the HeX-SQP method when the ensemble size (N) exceeded 150, attributed to validation overfitting, indicating a sensitivity to the number of expanded models and potential overfitting risks in the optimization phase.",
+    "The computational efficiency claims are based on a specific hardware configuration (NVIDIA RTX 3090 GPU, 64 GB RAM); inference speed and memory usage may vary significantly on other hardware, particularly mobile or embedded devices where MobileNet is typically deployed.",
+    "The model architecture is an ensemble of MobileNetV3-Small experts; while efficient, the complexity of managing and deploying an ensemble of multiple models (average 36 MB, range 12-60 MB) may pose deployment challenges compared to single lightweight models."
+  ]
+}

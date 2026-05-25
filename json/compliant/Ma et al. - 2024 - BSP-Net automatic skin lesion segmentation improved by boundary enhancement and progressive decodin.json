@@ -1,0 +1,428 @@
+{
+  "file_name": "Ma et al. - 2024 - BSP-Net automatic skin lesion segmentation improved by boundary enhancement and progressive decodin.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes BSP-Net, a deep learning model based on convolutional neural networks (CNNs) with a multi-scale boundary enhancement (MBE) module and a progressive fusion decoder (PD), to perform automatic skin lesion segmentation from dermoscopy images. The method was evaluated on public (ISIC-2016, ISIC-2018, PH2) and private datasets for dermatological image analysis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is labeled as a 'REGULAR PAPER' and presents original experimental work proposing a novel deep learning architecture, BSP-Net, for automatic skin lesion segmentation. It details the model's design (MBE module and PD decoder), describes the methodology, and reports quantitative results from extensive experiments on public (ISIC-2016, ISIC-2018, PH2) and private (XJUSKin) datasets, including Dice coefficients and ASSD scores. It also includes ablation studies and comparisons with state-of-the-art methods, which are characteristic of original research rather than a review."
+  },
+  "title": "BSP‑Net: automatic skin lesion segmentation improved by boundary enhancement and progressive decoding methods",
+  "authors": [
+    "Chengyun Ma",
+    "Qimeng Yang",
+    "Shengwei Tian",
+    "Long Yu",
+    "Shirong Yu"
+  ],
+  "doi": "10.1007/s00530-024-01453-2",
+  "journal": "Multimedia Systems",
+  "year": 2024,
+  "article_type": "Regular paper",
+  "brief_summary": "This study proposes BSP-Net, a deep learning model for automatic skin lesion segmentation from dermoscopy images, designed to address challenges like ambiguous boundaries and size variations. The architecture integrates a multi-scale boundary enhancement (MBE) module to extract boundary key-points and a progressive fusion decoder (PD) to combine geometric and semantic features. The model was evaluated on two public datasets (ISIC-2016 & PH2, ISIC-2018) and one private dataset (XJUSkin) using five-fold cross-validation. BSP-Net achieved Dice coefficients of 92.41%, 90.81%, and 83.88% on the respective datasets, outperforming state-of-the-art methods. Additionally, it demonstrated superior boundary delineation with Average Symmetric Surface Distance (ASSD) scores of 6.88, 7.96, and 10.92. The results highlight the effectiveness of combining boundary enhancement with progressive decoding for precise skin lesion segmentation.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesion",
+        "skin cancers"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on automatic segmentation of skin lesions from dermoscopy and clinical images. While the context mentions 'skin cancers' in the introduction and the ISIC-2016 dataset is associated with melanoma detection (reference 45), the paper itself does not list specific histopathological classes (e.g., melanoma, nevus, BCC) for its experiments. It treats the target as a binary segmentation task (lesion vs. background) across general skin lesion datasets."
+    },
+    {
+      "lesion_type": "10 skin diseases",
+      "paper_terms": [
+        "10 skin diseases"
+      ],
+      "role": "Target class",
+      "details": "The private XJUSkin dataset used in the study covers 10 skin diseases, but the specific types are not enumerated in the provided text."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion segmentation masks (binary lesion vs. background) and boundary key-point maps.",
+        "primary": true,
+        "details": "The paper proposes BSP-Net for 'automatic skin lesion segmentation' from dermoscopy images. The model predicts segmentation masks (evaluated by Dice coefficient, IoU) and boundary key-point maps (evaluated by ASSD). It is a dense prediction task producing pixel-wise labels, not discrete class labels or continuous regression values."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC-2016 & PH2",
+      "description": "A joint dataset strategy combining the ISIC-2016 dataset (1297 annotated dermoscopic images) and the PH2 dataset (200 dermoscopic samples) to assess accuracy and generalization. ISIC-2016 samples are from two centers.",
+      "classes_used": [
+        "Skin lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 1497,
+        "training": 1297,
+        "validation": null,
+        "testing": 200,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training and validation via five-fold cross-validation on ISIC-2016.",
+        "validation": "Used for validation via five-fold cross-validation on ISIC-2016.",
+        "testing": "Used for testing on the unseen PH2 dataset after training on ISIC-2016.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC-2018",
+      "description": "An extensive and diverse dataset containing 3694 annotated dermoscopic images with resolutions ranging from 720 × 540 to 6708 × 4439.",
+      "classes_used": [
+        "Skin lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 3694,
+        "training": 2594,
+        "validation": 100,
+        "testing": 1000,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training.",
+        "validation": "Used for validation.",
+        "testing": "Used for testing.",
+        "other": null
+      }
+    },
+    {
+      "name": "XJUSkin",
+      "description": "A private dataset originating from the Department of Dermatology at Urumqi People’s Hospital in Xinjiang, consisting of ordinary outpatient clinical skin lesion images covering 10 skin diseases.",
+      "classes_used": [
+        "10 skin diseases (binary segmentation mask for each)"
+      ],
+      "counts": {
+        "total": 2758,
+        "training": 2206,
+        "validation": null,
+        "testing": 552,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training via five-fold cross-validation.",
+        "validation": "Used for validation via five-fold cross-validation.",
+        "testing": "Used for testing after preservation of optimal weights from five-fold cross-validation.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient",
+    "IoU score",
+    "Average symmetric surface distance (ASSD)",
+    "Hausdorff distance of boundaries (95th percentile; HD95)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "Used to validate the model's performance on the ISIC-2016 and XJUSkin datasets, preserving optimal weights for testing.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Averaging over five runs",
+      "purpose": "To report the final results for the ISIC-2018 dataset, ensuring stability of the metrics.",
+      "type": "Repetition/Averaging"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive statistics (Dice coefficient, IoU, ASSD, HD95) averaged over five runs or cross-validation folds, without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC-2018": {
+      "split": "Training (2594), Validation (100), Testing (1000)",
+      "evaluation_setting": "Averaged over five runs",
+      "models": {
+        "BSP-Net (Ours)": {
+          "Dice": "90.81%",
+          "IoU": "84.61%",
+          "ASSD": "7.96",
+          "HD95": "21.09"
+        },
+        "UNet": {
+          "Dice": "85.49%",
+          "IoU": "77.22%",
+          "ASSD": "14.10",
+          "HD95": "48.64"
+        },
+        "UNet++": {
+          "Dice": "85.93%",
+          "IoU": "77.62%",
+          "ASSD": "13.33",
+          "HD95": "45.66"
+        },
+        "FATNet": {
+          "Dice": "88.26%",
+          "IoU": "80.63%",
+          "ASSD": "10.49",
+          "HD95": "30.04"
+        },
+        "Xboundformer": {
+          "Dice": "88.11%",
+          "IoU": "80.01%",
+          "ASSD": "9.98",
+          "HD95": "24.35"
+        },
+        "PVTCSCADE": {
+          "Dice": "88.87%",
+          "IoU": "81.50%",
+          "ASSD": "9.82",
+          "HD95": "25.67"
+        },
+        "ISCF": {
+          "Dice": "89.42%",
+          "IoU": "82.36%",
+          "ASSD": "9.17",
+          "HD95": "26.58"
+        },
+        "ConvFormer": {
+          "Dice": "88.20%",
+          "IoU": "80.83%",
+          "ASSD": "10.92",
+          "HD95": "31.7"
+        },
+        "GCSCADE": {
+          "Dice": "89.41%",
+          "IoU": "82.59%",
+          "ASSD": "9.27",
+          "HD95": "25.68"
+        },
+        "Polyper": {
+          "Dice": "88.18%",
+          "IoU": "80.25%",
+          "ASSD": "10.08",
+          "HD95": "24.46"
+        }
+      },
+      "notes": "BSP-Net achieved the best results in both region-based metrics (Dice, IoU) and boundary distance metrics (ASSD, HD95). Compared to the best performing ISCF model, BSP-Net achieved improvements of 1.39% on Dice and 2.25% on IoU."
+    },
+    "ISIC-2016 & PH2": {
+      "split": "ISIC-2016 (1297 images) used for training/validation via 5-fold cross-validation; PH2 (200 images) used for testing",
+      "evaluation_setting": "5-fold cross-validation on ISIC-2016, tested on unseen PH2",
+      "models": {
+        "BSP-Net (Ours)": {
+          "Dice": "92.41%",
+          "IoU": "86.39%",
+          "ASSD": "6.88",
+          "HD95": "17.05"
+        },
+        "UNet": {
+          "Dice": "83.66%",
+          "IoU": "73.91%",
+          "ASSD": "21.50",
+          "HD95": "60.12"
+        },
+        "UNet++": {
+          "Dice": "88.99%",
+          "IoU": "81.26%",
+          "ASSD": "15.97",
+          "HD95": "46.66"
+        },
+        "FATNet": {
+          "Dice": "91.36%",
+          "IoU": "84.77%",
+          "ASSD": "8.04",
+          "HD95": "20.25"
+        },
+        "Xboundformer": {
+          "Dice": "91.95%",
+          "IoU": "85.78%",
+          "ASSD": "7.35",
+          "HD95": "17.57"
+        },
+        "PVTCSCADE": {
+          "Dice": "91.53%",
+          "IoU": "85.07%",
+          "ASSD": "7.88",
+          "HD95": "18.84"
+        },
+        "ISCF": {
+          "Dice": "91.62%",
+          "IoU": "85.24%",
+          "ASSD": "7.71",
+          "HD95": "18.61"
+        },
+        "ConvFormer": {
+          "Dice": "90.44%",
+          "IoU": "83.36%",
+          "ASSD": "9.04",
+          "HD95": "22.53"
+        },
+        "GCSCADE": {
+          "Dice": "91.77%",
+          "IoU": "85.47%",
+          "ASSD": "7.56",
+          "HD95": "18.25"
+        },
+        "Polyper": {
+          "Dice": "91.98%",
+          "IoU": "85.76%",
+          "ASSD": "7.23",
+          "HD95": "17.79"
+        }
+      },
+      "notes": "On the PH2 dataset, BSP-Net achieved 0.43% and 0.63% improvement in Dice and IoU metrics respectively compared to the best performing network, and had the lowest scores in boundary distance measurements."
+    },
+    "XJUSkin": {
+      "split": "Training (2206 images), Testing (552 images) via 5-fold cross-validation",
+      "evaluation_setting": "5-fold cross-validation",
+      "models": {
+        "BSP-Net (Ours)": {
+          "Dice": "83.88%",
+          "IoU": "74.69%",
+          "ASSD": "10.92",
+          "HD95": "38.01"
+        },
+        "UNet": {
+          "Dice": "78.64%",
+          "IoU": "68.23%",
+          "ASSD": "18.19",
+          "HD95": "68.85"
+        },
+        "UNet++": {
+          "Dice": "78.10%",
+          "IoU": "67.52%",
+          "ASSD": "16.07",
+          "HD95": "61.42"
+        },
+        "FATNet": {
+          "Dice": "81.73%",
+          "IoU": "71.97%",
+          "ASSD": "12.37",
+          "HD95": "44.65"
+        },
+        "Xboundformer": {
+          "Dice": "83.14%",
+          "IoU": "73.73%",
+          "ASSD": "10.97",
+          "HD95": "38.72"
+        },
+        "PVTCSCADE": {
+          "Dice": "82.83%",
+          "IoU": "73.43%",
+          "ASSD": "11.60",
+          "HD95": "40.47"
+        },
+        "ISCF": {
+          "Dice": "82.84%",
+          "IoU": "73.35%",
+          "ASSD": "11.58",
+          "HD95": "43.36"
+        },
+        "ConvFormer": {
+          "Dice": "80.17%",
+          "IoU": "70.10%",
+          "ASSD": "13.67",
+          "HD95": "49.26"
+        },
+        "GCSCADE": {
+          "Dice": "82.98%",
+          "IoU": "73.65%",
+          "ASSD": "11.29",
+          "HD95": "39.27"
+        },
+        "Polyper": {
+          "Dice": "83.14%",
+          "IoU": "73.78%",
+          "ASSD": "11.43",
+          "HD95": "40.57"
+        }
+      },
+      "notes": "BSP-Net achieves a 0.74% improvement in the Dice metric over Polyper and a 0.9% improvement over GCSCADE on this private dataset."
+    }
+  },
+  "architecture_used": {
+    "main_model": "BSP-Net",
+    "pretraining": "null",
+    "input_size": "3 × 352 × 352",
+    "architecture_details": {
+      "backbone": "Pvtv2 (PVTv2)",
+      "encoder_structure": "Multi-level feature extraction using Pvtv2 encoder",
+      "modules": [
+        "Multi-Scale Boundary Enhancement (MBE) module: Extracts boundary information in multi-axis frequency and multi-scale spatial domains to generate boundary key-point prediction maps.",
+        "Progressive Fusion Decoder (PD): Asymmetric decoding strategy that fuses boundary-enhanced features (geometric details) with global features (semantic information) across different levels."
+      ],
+      "loss_function": "Combined loss with boundary supervision coefficient λ (optimal λ = 0.3)",
+      "optimizer": "AdamW",
+      "hyperparameters": {
+        "initial_learning_rate": 0.0003,
+        "batch_size": 8,
+        "epochs": 100
+      },
+      "training_schedule": "Trained for 100 epochs; model weights achieving highest Dice Score on validation set were selected for testing."
+    },
+    "training_details": {
+      "optimizer": "AdamW",
+      "learning_rate": 0.0003,
+      "batch_size": 8,
+      "epochs": 100,
+      "validation_strategy": "Five-fold cross-validation for ISIC-2016 and XJUSkin; averaging over five runs for ISIC-2018"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask generation",
+      "details": "Generates segmentation prediction maps Pl (l=1 to 4) and boundary key-point maps via linear classification layers within the MBE and PD modules."
+    },
+    "approximate_parameters": "26.91M"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "BSP-Net",
+    "UNet",
+    "UNet++",
+    "FATNet",
+    "Xboundformer",
+    "PVTCSCADE",
+    "ISCF",
+    "ConvFormer",
+    "GCSCADE",
+    "Polyper"
+  ],
+  "preprocessing_techniques": [
+    "Input image resizing to 352 × 352 pixels",
+    "Normalization (implied by standard deep learning practices for CNN inputs, though specific normalization statistics like mean/std are not explicitly reported in the provided context)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Vertical flipping",
+      "details": "Applied during training to increase data diversity."
+    },
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied during training to increase data diversity."
+    },
+    {
+      "technique": "Random scale variation",
+      "details": "Applied during training with a range limited to 0.9–1.1."
+    }
+  ],
+  "conclusions": [
+    "The proposed BSP-Net, which combines a multi-scale boundary enhancement (MBE) module and a progressive fusion decoder (PD), effectively addresses challenges in automatic skin lesion segmentation such as ambiguous boundaries and significant size variations.",
+    "BSP-Net outperforms state-of-the-art methods on public datasets (ISIC-2016 & PH2, ISIC-2018) and a private dataset (XJUSkin), achieving Dice coefficients of 92.41%, 90.81%, and 83.88%, respectively.",
+    "The model demonstrates superior boundary delineation capabilities, evidenced by lower Average Symmetric Surface Distance (ASSD) scores (6.88, 7.96, and 10.92) compared to competing methods.",
+    "Ablation studies confirm that both the MBE module and the PD decoder contribute significantly to performance; the MBE module effectively extracts boundary information in multi-axis frequency and multi-scale spatial domains while retaining global context, and the PD decoder enhances cross-level feature fusion.",
+    "BSP-Net achieves a competitive balance between computational efficiency and accuracy, utilizing 26.91M parameters and achieving an inference speed of 37.46 FPS.",
+    "The combination of boundary key-point prediction maps with segmentation tasks allows for precise modeling of local boundary information and effective retention of global contextual information."
+  ],
+  "important_remarks": [
+    "The study relies on a private dataset (XJUSkin) from a single hospital in Xinjiang, which may introduce population bias and limit generalizability to other demographics or clinical settings.",
+    "The XJUSkin dataset consists of 'ordinary outpatient clinical skin lesion images' rather than standardized dermoscopy images, potentially introducing variability in image quality and lighting conditions not present in public dermoscopy datasets.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed; performance comparisons are based on descriptive statistics (Dice, IoU, ASSD, HD95) averaged over five runs or cross-validation folds.",
+    "The model's performance on the private XJUSkin dataset (Dice 83.88%) was notably lower than on public dermoscopy datasets (ISIC-2018 Dice 90.81%, ISIC-2016/PH2 Dice 92.41%), suggesting potential sensitivity to non-dermoscopic image characteristics.",
+    "The paper does not report external validation on independent, unseen datasets beyond the provided public benchmarks and the single private dataset.",
+    "Data leakage risks are mitigated by using five-fold cross-validation on training sets and testing on unseen datasets (PH2) or held-out test sets, but the small size of the PH2 test set (200 images) may limit the robustness of generalization claims.",
+    "The authors acknowledge limitations in handling images with very low contrast and complex color changes where boundary information is similar to the background.",
+    "The study does not specify the normalization statistics (mean/std) used for input images, which is a missing detail for reproducibility."
+  ]
+}

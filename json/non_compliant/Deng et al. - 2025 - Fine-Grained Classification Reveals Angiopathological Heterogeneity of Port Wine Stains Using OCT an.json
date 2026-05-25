@@ -1,0 +1,423 @@
+{
+  "file_name": "Deng et al. - 2025 - Fine-Grained Classification Reveals Angiopathological Heterogeneity of Port Wine Stains Using OCT an.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a machine learning-based approach for fine-grained classification of Port Wine Stains (PWS) in dermatology. Specifically, it employed supervised learning with unsupervised losses (contrastive triplet loss and self-supervised loss) to extract feature embeddings from OCT and OCTA images, followed by clustering techniques and a k-nearest neighbors (k-NN) model for data retrieval and subtype classification."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the acquisition of 525 OCT volumes from PWS lesions and contralateral normal skin, the development of a novel fine-grained classification method using machine learning (contrastive triplet loss, self-supervised loss, k-NN), and statistical analysis (ANOVA, post-hoc Tukey tests) of quantitative vascular metrics. It reports new results on angiopathological heterogeneity and includes ethical approval for human subjects, distinguishing it from a review."
+  },
+  "title": "Fine-Grained Classification Reveals Angiopathological Heterogeneity of Port Wine Stains Using OCT and OCTA Features",
+  "authors": [
+    "Xiaofeng Deng",
+    "Defu Chen",
+    "Bowen Liu",
+    "Xiwan Zhang",
+    "Haixia Qiu",
+    "Wu Yuan",
+    "Hongliang Ren"
+  ],
+  "doi": "10.1109/JBHI.2025.3545931",
+  "journal": "IEEE Journal of Biomedical and Health Informatics",
+  "year": 2025,
+  "article_type": "Research paper",
+  "brief_summary": "This study addresses the limitation of appearance-based classification for Port Wine Stains (PWS) by proposing a fine-grained classification method using Optical Coherence Tomography (OCT) and OCT Angiography (OCTA) features. The researchers acquired 525 OCT volumes from PWS lesions and 525 from contralateral normal skin, employing a machine learning pipeline that integrates contrastive triplet loss, self-supervised loss, and MobileNetV2 to extract feature embeddings. Unsupervised clustering (K-means++) was applied to these embeddings to subdivide PWS into five distinct angiopathological subtypes, which were then evaluated using a k-nearest neighbors (k-NN) retrieval model. Six quantitative vascular metrics, including vessel density and caliber, were statistically analyzed via ANOVA to compare the heterogeneity among the newly identified subtypes. The results demonstrated that the fine-grained classification revealed significant angiopathological differences and greater intra-class variation compared to conventional skin appearance-based methods. This approach highlights the utility of OCT/OCTA in uncovering underlying vascular heterogeneity to potentially guide more effective, subtype-specific treatment strategies for PWS.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Port Wine Stain (PWS)",
+      "paper_terms": [
+        "Port Wine Stains",
+        "PWS",
+        "vascular malformations present at birth"
+      ],
+      "role": "Target class",
+      "details": "The primary disease entity studied. The paper proposes a fine-grained classification method to subdivide PWS into five angiopathological subtypes (Type 1-5) based on OCT/OCTA features, contrasting with the conventional appearance-based classification into three types: pink (PI), purplish red (PR), and thickened (TH)."
+    },
+    {
+      "lesion_type": "Normal Skin",
+      "paper_terms": [
+        "normal skin",
+        "contralateral normal skin",
+        "control group",
+        "type 0"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the control group for comparison. 525 OCT volumes from contralateral normal skin were acquired to serve as a reference cluster and baseline for vascular metrics (e.g., vessel density) against PWS lesions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Port Wine Stain (PWS) angiopathological subtypes (Type 1-5) and Normal Skin (Type 0)",
+        "primary": true,
+        "details": "The paper performs fine-grained classification of PWS lesions into five distinct angiopathological subtypes (Type 1-5) and normal skin (Type 0) using OCT and OCTA features. The method involves unsupervised clustering (K-means++) of feature embeddings extracted via a MobileNetV2 encoder with contrastive triplet and self-supervised losses, followed by a k-nearest neighbors (k-NN) model for data retrieval and subtype assignment. The task is explicitly described as 'fine-grained classification' to distinguish between discrete diagnostic categories based on vascular morphology and depth."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PWS and Normal Skin OCT/OCTA Cohort",
+      "description": "A private clinical dataset acquired from patients at the First Medical Centre, Chinese PLA General Hospital, Beijing, China. It consists of 525 OCT volumes from Port Wine Stain (PWS) lesions and 525 OCT volumes from corresponding contralateral normal skin areas. The data includes en-face OCTA images, vascular-depth maps, and cross-sectional OCT images with identified skin surfaces. Demographic information (age and gender) was also collected for the 57 patients involved.",
+      "classes_used": [
+        "Port Wine Stain (PWS) lesions",
+        "Contralateral normal skin",
+        "Pink type (PI)",
+        "Purplish red type (PR)",
+        "Thickened type (TH)",
+        "Type 1 (FGC subtype)",
+        "Type 2 (FGC subtype)",
+        "Type 3 (FGC subtype)",
+        "Type 4 (FGC subtype)",
+        "Type 5 (FGC subtype)"
+      ],
+      "counts": {
+        "total": 1050,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "PWS_lesions": 525,
+          "normal_skin": 525,
+          "PI": 190,
+          "PR": 285,
+          "TH": 50,
+          "Type_1": null,
+          "Type_2": null,
+          "Type_3": null,
+          "Type_4": null,
+          "Type_5": null
+        }
+      },
+      "use": {
+        "training": "The dataset was split randomly into training and test sets at an 8:2 ratio for the fine-grained classification network. The training set was used to learn latent representations using contrastive triplet loss and self-supervised loss.",
+        "validation": "null",
+        "testing": "The test set (20% of the data) was used for data retrieval via the k-nearest neighbors (k-NN) model and for evaluating the classification performance and statistical differences in vascular metrics.",
+        "other": "The coarse clinical labels (PI, PR, TH) provided by dermatology experts were used for comparison with the proposed fine-grained classification (FGC) results. The normal skin cluster served as a reference cluster for ranking the PWS subtypes."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Vessel Density (VD)",
+    "Vessel Caliber (VC)",
+    "Vessel Complexity (VX)",
+    "Mean Vessel Depth (MDV)",
+    "Depth of Vascular Growth (DVG)",
+    "Skin Thickness (ST)",
+    "Dice Similarity Coefficient (DSC)",
+    "p-value",
+    "mean",
+    "standard deviation"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "One-way analysis of variance (ANOVA)",
+      "purpose": "To evaluate statistical differences in quantitative vascular metrics (Vessel Density, Vessel Caliber, Vessel Complexity, Mean Vessel Depth, Depth of Vascular Growth, Skin Thickness) among PWS subtypes classified by skin appearance and fine-grained classification.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Post-hoc Tukey honest significant difference (HSD) tests",
+      "purpose": "To perform multiple comparisons between specific PWS subtypes following the ANOVA analysis.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Dice Similarity Coefficient (DSC)",
+      "purpose": "To quantitatively calculate the similarity of data distribution and overlap between the two classification methods (skin appearance-based vs. fine-grained).",
+      "type": "Similarity metric"
+    },
+    {
+      "method": "Mean and Standard Deviation",
+      "purpose": "To summarize the distribution of each quantitative metric for each subtype.",
+      "type": "Descriptive statistics"
+    },
+    {
+      "method": "p-value threshold",
+      "purpose": "To determine statistical significance, defined as p-value < 0.05.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "One-way analysis of variance (ANOVA) with post-hoc Tukey honest significant difference (HSD) tests",
+    "null_hypothesis": "There is no significant difference in the quantitative vascular metrics (Vessel Density, Vessel Caliber, Vessel Complexity, Mean Vessel Depth, Depth of Vascular Growth, Skin Thickness) among the different Port Wine Stain (PWS) subtypes (either classified by skin appearance or by the proposed fine-grained classification).",
+    "alternative_hypothesis": "There is a significant difference in at least one of the quantitative vascular metrics among the different PWS subtypes.",
+    "alpha": 0.05,
+    "interpretation": "Statistical significance was defined by a p-value < 0.05. The analysis revealed that the fine-grained classification showed apparent variety and significant differences in metrics like Vessel Complexity among subtypes, whereas the skin appearance-based classification showed no significant differences in metrics like Vessel Caliber between certain types (e.g., PR and TH, p-value = 0.783). The results indicated that the fine-grained method better captures angiopathological heterogeneity."
+  },
+  "results_obtained_in_each_dataset": {
+    "PWS and Normal Skin OCT/OCTA Cohort": {
+      "dataset_split": {
+        "training": "80% of total data (525 PWS + 525 normal)",
+        "testing": "20% of total data"
+      },
+      "baseline_classifications": {
+        "Skin Appearance-Based Classification (SAC)": {
+          "classes": [
+            "Pink (PI)",
+            "Purplish Red (PR)",
+            "Thickened (TH)"
+          ],
+          "counts": {
+            "PI": 190,
+            "PR": 285,
+            "TH": 50
+          },
+          "notes": "Coarse clinical labels provided by dermatology experts."
+        },
+        "Fine-Grained Classification (FGC)": {
+          "classes": [
+            "Normal Skin (Type 0)",
+            "PWS Type 1",
+            "PWS Type 2",
+            "PWS Type 3",
+            "PWS Type 4",
+            "PWS Type 5"
+          ],
+          "method": "K-means++ clustering on feature embeddings extracted by MobileNetV2 with contrastive triplet and self-supervised losses, ranked by Euclidean distance from normal skin cluster."
+        }
+      },
+      "quantitative_metrics_results": {
+        "Vessel Density (VD)": {
+          "SAC_Classification": {
+            "PI_vs_Normal": "Approximately 3% higher than normal",
+            "PR_vs_Normal": "Approximately 3% higher than normal",
+            "TH_vs_Normal": "Approximately 3% higher than normal",
+            "notes": "Slight differences observed between PI, PR, and TH."
+          },
+          "FGC_Classification": {
+            "Type_1": {
+              "mean_change_vs_normal": "-6.19%",
+              "std": "1.93%"
+            },
+            "Type_4": {
+              "mean_change_vs_normal": "-4.63%",
+              "std": "1.90%"
+            },
+            "Type_2": {
+              "mean_change_vs_normal": "12.77%",
+              "std": "5.97%"
+            },
+            "Type_3": {
+              "mean_change_vs_normal": "4.87%",
+              "std": "1.31%"
+            },
+            "Type_5": {
+              "mean_change_vs_normal": "7.80%",
+              "std": "2.50%"
+            },
+            "notes": "Type 1 and 4 have lower VD than normal; Type 2, 3, and 5 have higher VD. Apparent variety observed."
+          },
+          "Normal_Skin_Baseline": {
+            "mean_VD": "0.38",
+            "std": "0.06"
+          }
+        },
+        "Vessel Caliber (VC)": {
+          "SAC_Classification": {
+            "PR_vs_TH": {
+              "PR_mean": "28.78%",
+              "PR_std": "12.44%",
+              "TH_mean": "30.13%",
+              "TH_std": "15.27%",
+              "p_value": 0.783,
+              "significance": "No significant difference"
+            }
+          },
+          "FGC_Classification": {
+            "notes": "No significant difference between Type 1 and Type 2. Dilation of vessels shows an increased trend across the five PWS types."
+          }
+        },
+        "Vessel Complexity (VX)": {
+          "SAC_Classification": {
+            "notes": "Hard to distinguish PI, PR, and TH. Minimal and maximal decreases of 6.47% ± 2.39% and 43.79% ± 8.69% relative to normal data observed."
+          },
+          "FGC_Classification": {
+            "notes": "Apparent variety observed. Standard deviation in FGC types is lower than in SAC types."
+          }
+        },
+        "Skin Thickness (ST)": {
+          "SAC_Classification": {
+            "TH_vs_Others": {
+              "TH_mean_increase": "69.41%",
+              "TH_std": "21.70%",
+              "notes": "Significant increase in thickened type compared to PI and PR."
+            }
+          },
+          "FGC_Classification": {
+            "notes": "Increase trend found in all five types. Standard deviation in FGC types is lower than in SAC types."
+          }
+        },
+        "Mean Vessel Depth (MDV)": {
+          "SAC_Classification": {
+            "PI": {
+              "mean_change": "3.09%",
+              "std": "4.08%"
+            },
+            "PR": {
+              "mean_change": "2.52%",
+              "std": "3.02%"
+            },
+            "TH": {
+              "mean_change": "3.22%",
+              "std": "2.06%"
+            },
+            "notes": "No significant difference observed among SAC types."
+          },
+          "FGC_Classification": {
+            "Type_1": {
+              "mean_change": "0.08%",
+              "std": "0.11%",
+              "notes": "Remains unchanged compared to normal."
+            },
+            "Type_4": {
+              "mean_change": "-2.05%",
+              "std": "1.01%",
+              "notes": "Shows a decline."
+            },
+            "Type_3": {
+              "mean_change": "6.65%",
+              "std": "1.52%",
+              "notes": "Maximal increase."
+            }
+          }
+        },
+        "Depth of Vascular Growth (DVG)": {
+          "SAC_Classification": {
+            "notes": "Generally lower than normal control."
+          },
+          "FGC_Classification": {
+            "Type_2": {
+              "mean_change": "-15.49%",
+              "std": "4.53%",
+              "notes": "Lowest DVG compared to other types; flatter vascular network."
+            },
+            "Type_4": {
+              "mean_change": "6.65%",
+              "std": "2.09%",
+              "notes": "Remarkable increase."
+            },
+            "notes": "Apparent differences observed among FGC types."
+          }
+        }
+      },
+      "statistical_analysis": {
+        "method": "One-way ANOVA with post-hoc Tukey HSD tests",
+        "significance_threshold": "p-value < 0.05",
+        "key_findings": {
+          "SAC_vs_FGC_Variability": "Standard deviation of all six metrics in SAC types is higher than in FGC types, indicating greater intra-class variation in skin appearance-based classification.",
+          "SAC_Distinction": "SAC cannot distinguish PR and TH by VC (p=0.783) or effectively by VD/VX. SAC shows no significant difference in MDV among types.",
+          "FGC_Distinction": "FGC reveals significant distinctions across all metrics. Type 1 is closest to normal data; Type 5 is furthest."
+        }
+      },
+      "model_performance_and_hardware": {
+        "hardware": "NVIDIA RTX 4090",
+        "training_duration": "2 hours total (converged in ~40 minutes)",
+        "gpu_memory_usage": "3000 M to 4000 M",
+        "inference_time": "< 0.5 seconds per input",
+        "k_nn_parameter": "k=9",
+        "dice_similarity_coefficient": {
+          "description": "Quantitative calculation of similarity of data distribution and overlap between SAC and FGC methods.",
+          "result": "Two classification methods consistently identify normal and PWS data, but all SAC types exist in almost every FGC type."
+        }
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "MobileNetV2 (for OCT input processing) and ResNet18 (for OCTA input processing)",
+    "pretraining": "Not reported",
+    "input_size": "Not reported",
+    "architecture_details": {
+      "encoder": "Siamese architecture with shared encoder network plus projector",
+      "backbone_for_oct": "MobileNetV2",
+      "backbone_for_octa": "ResNet18",
+      "input_modalities": [
+        "En-face OCTA image",
+        "Vascular-depth map",
+        "OCT image (with identified skin surface)",
+        "Gender (binary variable)",
+        "Age (continuous variable)"
+      ],
+      "feature_fusion": "Cross-attention mechanism to weight OCTA embedding using OCT, gender, and age embeddings",
+      "projector": "Multi-Layer Perceptron (MLP)",
+      "classification_head": "Fully connected layer producing output logit for binary classification"
+    },
+    "training_details": {
+      "loss_functions": [
+        "Contrastive Triplet Loss (L_triplet)",
+        "Self-Supervised Loss (L_sp) based on SimSiam",
+        "Binary Classification Loss (L_bc)"
+      ],
+      "optimizer": "Not reported",
+      "hyperparameters": {
+        "margin_alpha": "Not reported (symbolic in formula)",
+        "dropout_probability_oct_frames": 0.1,
+        "k_nn_neighbors": 9,
+        "training_split": "80% training, 20% testing",
+        "training_duration": "2 hours total (converged in ~40 minutes)",
+        "gpu_memory_usage": "3000 M to 4000 M",
+        "hardware": "NVIDIA RTX 4090"
+      },
+      "training_schedule": "Not reported"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification logit followed by sigmoid function",
+      "subsequent_steps": "K-means++ clustering on feature embeddings to create 6 clusters (1 normal, 5 PWS subtypes), ranked by Euclidean distance from normal cluster reference"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MobileNetV2",
+    "ResNet18",
+    "Multi-Layer Perceptron (MLP)",
+    "Siamese network",
+    "k-nearest neighbors (k-NN)",
+    "K-means++ clustering"
+  ],
+  "preprocessing_techniques": [
+    "Inter-frame registration based on correlation features between three repeated B-frames to mitigate motion artifacts",
+    "Averaging three repeated B-frames to generate a cross-sectional OCT image",
+    "Logarithmic transformation of intensity values",
+    "Normalization of pixel intensity values to a range of 0 to 1",
+    "Graph search method based on Dijkstra’s shortest path algorithm to identify the upper surface of the skin",
+    "Flattening cross-sectional OCT and OCTA images along the identified upper skin surface",
+    "Maximum value projection (MVP) on stacked 3D OCTA images to create en-face OCTA images",
+    "Denoising of raw en-face OCTA images using the BM3D method",
+    "Binary operation using the Phansalkar threshold to create clean binary vascular maps",
+    "Color-coding of binary vascular maps according to depth values from the skin surface",
+    "Random zeroing of OCT video frames with probability p=0.1 (dropout) during training",
+    "Application of glycerin to the glass window of the handheld OCT probe to optimize refractive index and minimize surface reflections"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random frame dropout (zeroing)",
+      "details": "Randomly zeroed frames of the OCT videos with probability p=0.1 during training. Frames were chosen independently for each forward call and sampled from a Bernoulli distribution."
+    },
+    {
+      "technique": "Multiple augmented views for self-supervised learning",
+      "details": "Used multiple different augmented views of the same input instance for the self-supervised loss (based on SimSiam) to emphasize instance discrimination. Specific geometric or color transforms for these views were not detailed beyond the random frame dropout."
+    }
+  ],
+  "conclusions": [
+    "The proposed fine-grained classification method, utilizing OCT and OCTA features via a machine learning pipeline (MobileNetV2/ResNet18 with contrastive triplet and self-supervised losses), successfully subdivides Port Wine Stains (PWS) into five distinct angiopathological subtypes (Type 1-5) plus normal skin (Type 0), revealing significant heterogeneity that conventional skin appearance-based classification (SAC) misses.",
+    "Conventional SAC (Pink, Purplish Red, Thickened) fails to distinguish underlying angiopathological differences, showing no significant difference in Vessel Caliber between Purplish Red and Thickened types (p=0.783) and high intra-class variation in vascular metrics.",
+    "The fine-grained classification reveals significant distinctions across all six quantitative vascular metrics (Vessel Density, Vessel Caliber, Vessel Complexity, Mean Vessel Depth, Depth of Vascular Growth, Skin Thickness) among the five PWS subtypes.",
+    "Type 1 PWS is angiopathologically closest to normal skin, while Type 5 is the furthest, with Type 1 and Type 4 showing lower Vessel Density than normal skin (-6.19% and -4.63% respectively), and Types 2, 3, and 5 showing higher Vessel Density.",
+    "The standard deviation of all six vascular metrics is significantly lower in the fine-grained classification types compared to SAC types, indicating that SAC groups contain greater intra-class heterogeneity and mask underlying vascular differences.",
+    "The integration of multimodal inputs (en-face OCTA, vascular-depth maps, cross-sectional OCT, age, and gender) via a cross-attention mechanism improves feature extraction and classification performance compared to using binary classification loss alone.",
+    "The method demonstrates clinical utility by uncovering angiopathological heterogeneity that correlates with varying responses to Vascular-Targeted Photodynamic Therapy (V-PDT), suggesting that fine-grained classification can guide more effective, subtype-specific treatment strategies.",
+    "The model achieves efficient performance with a training time of 2 hours (converging in ~40 minutes) on an NVIDIA RTX 4090 and an inference time of less than 0.5 seconds per input."
+  ],
+  "important_remarks": [
+    "The study relies on a single-center dataset from the Chinese PLA General Hospital (Beijing, China), limiting external validation and generalizability to other populations or imaging devices.",
+    "The fine-grained classification is unsupervised (K-means++ clustering on feature embeddings) and ranked by Euclidean distance from a normal skin reference, meaning the clinical validity of the five subtypes (Type 1-5) is inferred from vascular metrics rather than ground-truth histopathology.",
+    "The dataset is imbalanced for the conventional skin appearance-based classification (SAC), with only 50 cases for the Thickened (TH) type compared to 190 for Pink (PI) and 285 for Purplish Red (PR), which may affect the robustness of SAC comparisons.",
+    "The paper does not report a separate validation set; the data was split randomly into training (80%) and testing (20%) sets, raising potential concerns about data leakage or overfitting given the small sample size (57 patients, 1050 volumes).",
+    "The proposed method uses a lightweight architecture (MobileNetV2/ResNet18) with a short training time (2 hours) and fast inference (<0.5s), suggesting potential for clinical deployment, but lacks comparison with larger, more complex state-of-the-art models.",
+    "The study highlights that conventional SAC fails to distinguish angiopathological differences (e.g., no significant difference in Vessel Caliber between PR and TH, p=0.783), whereas the fine-grained method reveals significant heterogeneity, supporting its clinical relevance for guiding V-PDT treatment.",
+    "Multimodal fusion (OCT, OCTA, age, gender) via cross-attention improved performance over binary classification loss alone, indicating that demographic and structural data are critical for accurate feature extraction."
+  ]
+}

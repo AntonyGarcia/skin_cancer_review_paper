@@ -1,0 +1,366 @@
+{
+  "file_name": "Melissa et al. - 2025 - A real-world segmentation model for melanocytic and nonmelanocytic dermoscopic images.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used the Deeplabv3+ deep learning network (a semantic segmentation model with a ResNet50 backbone) to segment dermoscopic images of melanocytic and nonmelanocytic skin lesions. The AI model was trained on public datasets and tested on the TELEMO project dataset to extract border and diameter features for distinguishing between skin lesion types such as melanoma, basal cell carcinoma, and benign nevi."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a Deeplabv3+ segmentation model for dermoscopic images. It details specific methods (training on public datasets and testing on the TELEMO project dataset), reports quantitative results (global accuracy of 97.88% and 92.62%), and analyzes extracted features (border and diameter) to distinguish skin lesion types. The publication venue is identified as the proceedings of the 18th International Joint Conference on Biomedical Engineering Systems and Technologies (BIOSTEC 2025)."
+  },
+  "title": "A Real-World Segmentation Model for Melanocytic and Nonmelanocytic Dermoscopic Images",
+  "authors": [
+    "Eleonora Melissa",
+    "Daria Riabitch",
+    "Linda Lazzeri",
+    "Federica La Rosa",
+    "Chiara Benvenuti",
+    "Mario D’Acunto",
+    "Giovanni Bagnoni",
+    "Daniela Massi",
+    "Marco Laurino"
+  ],
+  "doi": "10.5220/0013129400003911",
+  "journal": "Proceedings of the 18th International Joint Conference on Biomedical Engineering Systems and Technologies (BIOSTEC 2025)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study developed a Deeplabv3+ semantic segmentation model with a ResNet50 backbone to segment dermoscopic images of melanocytic and nonmelanocytic skin lesions. The model was trained on public datasets (ISIC 2017/2019/2020, PH2, 7-point criteria, and HIBA) and evaluated on both public splits and a disjoint real-world dataset from the TELEMO project. The model achieved global accuracy scores of 97.88% on the public dataset and 92.62% on the TELEMO dataset, demonstrating strong generalization to clinical images. To assess clinical relevance, ten border and diameter features were extracted from the segmentations. Key findings indicated that 'Diameters Mean' and 'Area to Perimeter Product' features showed significant differences with strong effect sizes between melanoma-nevi and basal cell carcinoma-nevi classes, highlighting the utility of border features for distinguishing skin lesion types.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "One of the six clinically significant skin lesion types covered in the TELEMO dataset (101 cases) and used for feature analysis."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma",
+        "SCC"
+      ],
+      "role": "Target class",
+      "details": "One of the six clinically significant skin lesion types covered in the TELEMO dataset (20 cases) and used for feature analysis."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "One of the six clinically significant skin lesion types covered in the TELEMO dataset (53 cases). Used in comparisons with nevi for border feature analysis."
+    },
+    {
+      "lesion_type": "Benign nevus",
+      "paper_terms": [
+        "benign nevi",
+        "NV"
+      ],
+      "role": "Target class",
+      "details": "One of the six clinically significant skin lesion types covered in the TELEMO dataset (232 cases). Used in comparisons with melanoma and BCC for border feature analysis."
+    },
+    {
+      "lesion_type": "Actinic keratosis",
+      "paper_terms": [
+        "actinic keratosis",
+        "AK"
+      ],
+      "role": "Target class",
+      "details": "One of the six clinically significant skin lesion types covered in the TELEMO dataset (15 cases). Described as a sun-induced precancerous lesion."
+    },
+    {
+      "lesion_type": "Seborrheic keratosis",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "SK"
+      ],
+      "role": "Target class",
+      "details": "One of the six clinically significant skin lesion types covered in the TELEMO dataset (23 cases). Described as a benign lesion that can mimic melanoma and AK."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise binary masks distinguishing lesion from background in dermoscopic images",
+        "primary": true,
+        "details": "The paper employs a Deeplabv3+ semantic segmentation model with a ResNet50 backbone to segment dermoscopic images. The model predicts pixel-wise masks for lesion boundaries, evaluated using metrics such as Global Accuracy, Mean IoU, and Boundary F1 score. While the segmentation aids in distinguishing lesion types (melanoma, BCC, etc.), the primary AI task performed by the model is segmentation, not direct classification or regression."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Public Datasets (Combined)",
+      "description": "A combined collection of public dermoscopic image datasets used for training the segmentation model. Includes ISIC 2017, ISIC 2019, ISIC 2020, PH2, 7-point criteria evaluation database, and HIBA (Hospital Italiano de Buenos Aires).",
+      "classes_used": [
+        "Melanocytic and nonmelanocytic skin lesions (specific classes not enumerated for this combined set, but generally include melanoma, nevi, BCC, etc.)"
+      ],
+      "counts": {
+        "total": 26597,
+        "training": 23937,
+        "validation": null,
+        "testing": 2660,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as the primary training set (23,937 images).",
+        "validation": null,
+        "testing": "A portion of 10% (2,660 images) was used to test the model on public data to enable comparison with literature models.",
+        "other": "Ground-truth segmentations were provided online for ISIC 2017 and 7-point criteria; manual derivation was used for others."
+      }
+    },
+    {
+      "name": "TELEMO Dataset",
+      "description": "A disjoint real-world clinical dataset from the TELEMO project ('An Innovative TELEmedicine System for the Early Screening of Melanoma in the General Population'). Images were acquired using FotoFinder Mediacam 1000 or Heine Delta 30 devices from patients with an average age of 55 years.",
+      "classes_used": [
+        "Melanoma (MEL)",
+        "Benign nevi (NV)",
+        "Squamous cell carcinoma (SCC)",
+        "Basal cell carcinoma (BCC)",
+        "Actinic keratosis (AK)",
+        "Seborrheic keratosis (SK)"
+      ],
+      "counts": {
+        "total": 479,
+        "training": null,
+        "validation": null,
+        "testing": 479,
+        "per_class": {
+          "Melanoma": 53,
+          "Benign nevi": 232,
+          "Squamous cell carcinoma": 20,
+          "Basal cell carcinoma": 101,
+          "Actinic keratosis": 15,
+          "Seborrheic keratosis": 23
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as a completely disjoint test dataset to evaluate the model's generalization to real-world clinical images.",
+        "other": "Used for extracting border and diameter features to assess clinical relevance and distinguish between lesion types."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Mean Accuracy",
+    "Global Accuracy",
+    "Mean IoU",
+    "Weighted IoU",
+    "Mean BF score",
+    "Normalized E-Factor",
+    "Area to Perimeter Ratio",
+    "Smooth index",
+    "Product of Area and Perimeter",
+    "Fractal dimension",
+    "Mean diameter",
+    "Equivalent diameter",
+    "Axis Ratio",
+    "Circularity",
+    "Epsilon squared index"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Levene’s test",
+      "purpose": "To check the condition of homogeneity of variance for each extracted feature.",
+      "type": "Assumption check"
+    },
+    {
+      "method": "Shapiro-Wilk test",
+      "purpose": "To check the condition of normality (Gaussian distribution) for each extracted feature.",
+      "type": "Assumption check"
+    },
+    {
+      "method": "Kruskal-Wallis test",
+      "purpose": "To assess significant differences between multiple pairs of skin lesion classes for the extracted features, given non-Gaussian distribution.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Post-hoc Dunn test",
+      "purpose": "To perform pairwise comparisons following the significant Kruskal-Wallis test results.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Epsilon squared index (ε²)",
+      "purpose": "To calculate effect size for significant differences to determine clinical significance.",
+      "type": "Effect size measure"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Kruskal-Wallis test and post-hoc Dunn test",
+    "null_hypothesis": "There is no significant difference in the extracted features (border and diameter) between the compared skin lesion classes.",
+    "alternative_hypothesis": "There is a significant difference in the extracted features between the compared skin lesion classes.",
+    "alpha": null,
+    "interpretation": "Significance was indicated by asterisks in box plots (Figure 3), with more asterisks denoting stronger significance. The Kruskal-Wallis test was used to assess significant differences between multiple pairs of skin lesion classes due to non-Gaussian distribution, followed by post-hoc Dunn tests for pairwise comparisons. Effect sizes were calculated using the epsilon squared index to determine clinical significance."
+  },
+  "results_obtained_in_each_dataset": {
+    "Public Dataset (Internal Testing)": {
+      "description": "A split portion (10%) of the combined public datasets (ISIC 2017, ISIC 2019, ISIC 2020, PH2, 7-point criteria, HIBA) used for internal testing to enable comparison with literature models.",
+      "models": {
+        "Deeplabv3+ (ResNet50)": {
+          "Mean Accuracy (MA)": "0.9721",
+          "Global Accuracy (GA)": "0.9788",
+          "Mean IoU (MIoU)": "0.9434",
+          "Weighted IoU (WIoU)": "0.9589",
+          "Mean BF score": "0.9254"
+        }
+      },
+      "notes": "The model outperformed all methods listed in Table 2 (including VGG19-Unet, MobileNetv2+Deeplabv3+, TPI, FCN, ASCU-Net) on most metrics. The only metrics lower than the second-best model (MobileNetv2+Deeplabv3+) were Global Accuracy and Weighted IoU."
+    },
+    "TELEMO Dataset (External Testing)": {
+      "description": "A disjoint real-world clinical dataset from the TELEMO project containing 479 dermoscopic images (53 Melanoma, 232 Benign Nevi, 20 SCC, 101 BCC, 15 AK, 23 SK).",
+      "models": {
+        "Deeplabv3+ (ResNet50)": {
+          "Mean Accuracy (MA)": "0.8895",
+          "Global Accuracy (GA)": "0.9262",
+          "Mean IoU (MIoU)": "0.7901",
+          "Weighted IoU (WIoU)": "0.8697",
+          "Mean BF score": "0.7553"
+        }
+      },
+      "notes": "Performance decreased compared to the public dataset due to the discrepancy in image quality between public datasets and real clinical settings. The model still outperformed or remained comparable to most literature models. Misclassifications occurred largely due to class imbalance, with background pixels accounting for an average of 76.20% and lesion pixels 23.80%."
+    },
+    "Feature Extraction Statistical Analysis": {
+      "description": "Statistical analysis of 10 extracted features (Asymmetry, Border, Diameter) across the six skin lesion classes in the TELEMO dataset using Kruskal-Wallis and post-hoc Dunn tests.",
+      "models": {
+        "Asymmetry index": {
+          "p-value": "6.0940 x 10^-5",
+          "epsilon squared (ε²)": "0.0505"
+        },
+        "Area to perimeter ratio": {
+          "p-value": "3.1431 x 10^-7",
+          "epsilon squared (ε²)": "0.0771"
+        },
+        "Area to perimeter product": {
+          "p-value": "1.8324 x 10^-11",
+          "epsilon squared (ε²)": "0.1250"
+        },
+        "Smoothness index": {
+          "p-value": "1.1095 x 10^-6",
+          "epsilon squared (ε²)": "0.0708"
+        },
+        "Fractal dimension": {
+          "p-value": "0.0011",
+          "epsilon squared (ε²)": "0.0351"
+        },
+        "Diameters mean": {
+          "p-value": "9.3245 x 10^-11",
+          "epsilon squared (ε²)": "0.1171"
+        },
+        "Equivalent diameter": {
+          "p-value": "8.9616 x 10^-9",
+          "epsilon squared (ε²)": "0.0948"
+        },
+        "Axis ratio": {
+          "p-value": "0.0626",
+          "epsilon squared (ε²)": "0.0127"
+        },
+        "Circularity": {
+          "p-value": "0.0033",
+          "epsilon squared (ε²)": "0.0294"
+        }
+      },
+      "notes": "The 'Diameters Mean' and 'Area to Perimeter Product' features showed highly significant differences (p < 0.001) with strong effect sizes between melanoma-nevi (MEL-NV) and basal cell carcinoma-nevi (BCC-NV) classes. The Axis ratio was the only feature with a non-significant p-value (p > 0.05)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Deeplabv3+",
+    "pretraining": "null",
+    "input_size": "224x224 pixels",
+    "architecture_details": {
+      "backbone": "ResNet50",
+      "components": [
+        "Atrous Spatial Pyramid Pooling (ASPP)",
+        "Decoder module"
+      ],
+      "description": "A deep network specifically designed for semantic segmentation that uses a ResNet backbone and integrates ASPP to capture multi-scale context, along with a decoder module to refine object boundaries."
+    },
+    "training_details": {
+      "optimizer": "sgdm",
+      "max_epochs": 30,
+      "mini_batch_size": 16,
+      "initial_learning_rate": 0.001,
+      "l2_regularization": 0.0005,
+      "momentum": 0.9,
+      "data_augmentation": [
+        "translation",
+        "rotation",
+        "scaling",
+        "saturation",
+        "hue jittering",
+        "brightness jittering"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Semantic Segmentation",
+      "output": "Pixel-wise binary masks distinguishing lesion from background"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Deeplabv3+",
+    "VGG19-Unet",
+    "MobileNetv2+Deeplabv3+",
+    "TPI (Topological Process Imaging)",
+    "FCN (Fully Convolutional Network)",
+    "ASCU-Net (Attention Gate, Spatial and Channel Attention U-Net)",
+    "U-Net",
+    "ResUNet",
+    "ResUNet++",
+    "Fuzzy U-Net",
+    "Attention U-Net",
+    "Deeplabv3"
+  ],
+  "preprocessing_techniques": [
+    "Resizing of all images to a standard dimension of 224x224 pixels",
+    "Data augmentation techniques including translation, rotation, scaling, saturation, hue jittering, and brightness jittering"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Translation",
+      "details": "Applied during training; specific probabilities or ranges not reported."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Applied during training; specific probabilities or ranges not reported."
+    },
+    {
+      "technique": "Scaling",
+      "details": "Applied during training; specific probabilities or ranges not reported."
+    },
+    {
+      "technique": "Saturation jittering",
+      "details": "Applied during training; specific probabilities or ranges not reported."
+    },
+    {
+      "technique": "Hue jittering",
+      "details": "Applied during training; specific probabilities or ranges not reported."
+    },
+    {
+      "technique": "Brightness jittering",
+      "details": "Applied during training; specific probabilities or ranges not reported."
+    }
+  ],
+  "conclusions": [
+    "The Deeplabv3+ segmentation model achieved high performance on public datasets (Global Accuracy: 97.88%) and demonstrated strong generalization to real-world clinical images from the disjoint TELEMO dataset (Global Accuracy: 92.62%), outperforming several literature models.",
+    "The model's performance on the real-world TELEMO dataset was slightly lower than on public datasets, with misclassifications largely attributed to class imbalance (background pixels averaging 76.20% vs. lesion pixels 23.80%) and differences in image quality between public databases and clinical acquisitions.",
+    "Analysis of ten extracted border and diameter features revealed that 'Diameters Mean' and 'Area to Perimeter Product' showed statistically significant differences with strong effect sizes between melanoma-nevi and basal cell carcinoma-nevi classes.",
+    "Border features are crucial for distinguishing between multiple skin lesion types, highlighting the potential of the proposed segmentation model to aid in dermatological diagnoses and computer-aided diagnosis systems."
+  ],
+  "important_remarks": [
+    "The model was trained on public datasets (ISIC 2017/2019/2020, PH2, 7-point criteria, HIBA) and tested on a disjoint real-world clinical dataset (TELEMO), demonstrating strong generalization to clinical images (Global Accuracy: 92.62%) despite performance drops compared to public data (97.88%).",
+    "Performance degradation on the TELEMO dataset was largely attributed to class imbalance, with background pixels accounting for an average of 76.20% versus lesion pixels at 23.80%, leading to misclassification of background as lesion.",
+    "The TELEMO dataset is small and imbalanced (total N=479), with very few cases of Squamous Cell Carcinoma (20), Actinic Keratosis (15), and Seborrheic Keratosis (23), limiting the statistical power for these specific classes.",
+    "Ground truth segmentations for some public datasets were manually derived or generated via Topological Process Imaging rather than provided directly, introducing potential variability in training labels.",
+    "Statistical analysis of extracted features (border and diameter) revealed significant differences between melanoma-nevi and basal cell carcinoma-nevi classes, but the authors note that outlier values in features like Asymmetry Index may be due to the limited number of lesions analyzed.",
+    "The study highlights the discrepancy in image quality between public datasets and real-world clinical acquisitions as a critical challenge for deep learning models in dermatology.",
+    "The Axis Ratio feature was the only one showing non-significant differences (p=0.0626) between classes, while 'Diameters Mean' and 'Area to Perimeter Product' showed strong effect sizes, suggesting their utility in distinguishing lesion types."
+  ]
+}

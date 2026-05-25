@@ -1,0 +1,343 @@
+{
+  "file_name": "tarumi_2026_b_cvt_a_style_transfer_framework_for_content_preservation_and_fairne.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a proposed deep learning model, the Branched Convolutional Vision Transformer (B-CvT), which employs neural style transfer to generate synthetic skin lesion images for data augmentation. This AI method was applied to the PAD-UFES-20 dermatology dataset to evaluate fairness in skin cancer classification across different skin tones."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new deep learning architecture (B-CvT) for neural style transfer. It details specific methods (Wasserstein distance-based loss, branched encoder), datasets used (PAD-UFES-20, Fitzpatrick 17k), and quantitative results (LPIPS, SSIM, Equalized Odds) from training and evaluation experiments, rather than summarizing prior literature."
+  },
+  "title": "B-CvT: A Style Transfer Framework for Content Preservation and Fairness in Skin Lesion Imaging",
+  "authors": [
+    "Minoru Tarumi",
+    "Jaya Pathak",
+    "Amitesh Singh Rajput",
+    "Jagat Sesh Challa",
+    "Vinay Chamola"
+  ],
+  "doi": "10.1109/ACCESS.2026.3659956",
+  "journal": "IEEE Access",
+  "year": 2026,
+  "article_type": "Research paper",
+  "brief_summary": "This study addresses skin tone bias in dermatological AI by proposing B-CvT, a branched convolutional vision transformer framework that uses neural style transfer to augment data diversity. The model disentangles style (skin tone) from content (lesion morphology) using dedicated encoder branches and a Wasserstein distance-based loss to preserve pathological features. Evaluation on the PAD-UFES-20 dataset supplemented with Fitzpatrick 17k images demonstrated superior synthesis quality, achieving an LPIPS of 0.320 and SSIM of 0.803. When applied as a data augmentation technique for skin cancer classification, the method reduced the Equalized Odds metric by 0.09 across different skin tones without compromising overall accuracy. These results indicate that B-CvT effectively mitigates demographic bias while maintaining diagnostic integrity, offering a tool for more equitable AI models.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin cancer (general)",
+      "paper_terms": [
+        "skin cancer",
+        "cancer",
+        "benign lesion",
+        "pigmented skin lesions"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on skin cancer classification using the PAD-UFES-20 dataset, which contains images of common pigmented skin lesions. The fairness evaluation involves distinguishing between benign lesions and cancer (false positives/negatives). Specific histological subtypes (e.g., melanoma, BCC) are not explicitly listed as separate classes in the provided text, but the dataset PAD-UFES-20 is known to contain multiple classes including melanoma, nevus, BCC, SCC, etc. The paper mentions 'common pigmented skin lesions' and 'skin cancer' broadly."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Generation/Synthesis",
+        "target": "Synthetic skin lesion images with transferred skin tone style while preserving lesion morphology.",
+        "primary": true,
+        "details": "The primary task of the proposed B-CvT model is neural style transfer to generate synthetic images for data augmentation. The model disentangles style (skin tone) from content (lesion morphology) and synthesizes new images. Evaluation metrics include LPIPS (0.320) and SSIM (0.803) to assess image quality."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Skin cancer diagnosis (benign vs. malignant/cancerous) across different skin tones.",
+        "primary": false,
+        "details": "The generated synthetic images were used as data augmentation for downstream skin cancer classification tasks using EfficientNet-B3 and ResNet50 backbones. The task involves predicting discrete diagnostic categories (skin cancer presence) and evaluating fairness metrics like Equalized Odds across Fitzpatrick skin types."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PAD-UFES-20",
+      "description": "A public dataset of skin cancer images with skin color attributes (Fitzpatrick scale). It served as the primary dataset for the study.",
+      "classes_used": [
+        "Benign lesions",
+        "Malignant lesions (skin cancer)",
+        "Fitzpatrick skin types 1-6"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Fitzpatrick Scale 1": null,
+          "Fitzpatrick Scale 2": null,
+          "Fitzpatrick Scale 3": null,
+          "Fitzpatrick Scale 4": null,
+          "Fitzpatrick Scale 5": null,
+          "Fitzpatrick Scale 6": null
+        }
+      },
+      "use": {
+        "training": "Used as the primary source for training classification models (EfficientNet-B3, ResNet50) and as the base for style transfer augmentation.",
+        "validation": "Used in a five-fold cross-validation strategy for evaluating classification performance.",
+        "testing": "Used as the non-augmented test set for evaluating fairness (Equalized Odds) and accuracy.",
+        "other": "Served as the content source for style transfer and the base for assessing skin tone imbalance."
+      }
+    },
+    {
+      "name": "Fitzpatrick 17k",
+      "description": "A public dataset used to supplement PAD-UFES-20. Images for Fitzpatrick scales 4 to 6 were sourced from this dataset, manually cropped to center the lesion, and matched to the composition of PAD-UFES-20 samples.",
+      "classes_used": [
+        "Fitzpatrick skin types 4, 5, 6"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Fitzpatrick Scale 4": null,
+          "Fitzpatrick Scale 5": null,
+          "Fitzpatrick Scale 6": null
+        }
+      },
+      "use": {
+        "training": "Supplemented PAD-UFES-20 to provide more samples for darker skin tones (Scales 4-6) during data augmentation.",
+        "validation": null,
+        "testing": null,
+        "other": "Used to address the under-representation of darker skin tones in the primary dataset."
+      }
+    },
+    {
+      "name": "MS-COCO",
+      "description": "A public dataset used to provide style images for the style transfer process.",
+      "classes_used": [
+        "General images (used as style references)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Provided style images for the neural style transfer framework."
+      }
+    },
+    {
+      "name": "WikiArt",
+      "description": "A public dataset used to provide additional style images for the style transfer process.",
+      "classes_used": [
+        "Artistic images (used as style references)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Provided style images for the neural style transfer framework."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Learned Perceptual Image Patch Similarity (LPIPS)",
+    "Structural Similarity Index Measure (SSIM)",
+    "Fréchet Inception Distance (FID)",
+    "ArtFID",
+    "Equalized Odds",
+    "Overall Accuracy",
+    "True Positive Rate (TPR)",
+    "False Positive Rate (FPR)",
+    "Inference time"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Wilcoxon signed-rank test",
+      "purpose": "To confirm that the improvement in content preservation metrics (SSIM and LPIPS) achieved by the proposed B-CvT method over state-of-the-art models was statistically significant (p < 0.001).",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Wilcoxon signed-rank test",
+      "purpose": "To compare the proposed method against the best baseline for fairness (Equalized Odds) and accuracy, finding no statistically significant difference (p > 0.05), indicating comparable performance.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "To provide robust evaluation of classification performance by ensuring every sample appeared in the testing set once across folds.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Repetition of training and evaluation (10 times)",
+      "purpose": "To account for stochasticity in the model training and evaluation process.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Median and Interquartile Range (IQR) reporting",
+      "purpose": "To summarize the distribution of metrics (accuracy, Equalized Odds, TPR, FPR) across the 10 repeated runs.",
+      "type": "Descriptive statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Wilcoxon signed-rank test",
+    "null_hypothesis": "There is no statistically significant difference between the proposed B-CvT method and the best baseline method in terms of fairness (Equalized Odds) and accuracy metrics.",
+    "alternative_hypothesis": "There is a statistically significant difference between the proposed B-CvT method and the best baseline method.",
+    "alpha": 0.05,
+    "interpretation": "The test found no statistically significant difference (p > 0.05) between the proposed method and the best baseline, indicating comparable performance. Additionally, the paper notes statistical significance (p < 0.001) for the improvement in content preservation metrics (SSIM and LPIPS) over state-of-the-art models, though the specific null hypothesis for that comparison is not explicitly stated, it is inferable as 'no difference in content preservation metrics'."
+  },
+  "results_obtained_in_each_dataset": {
+    "PAD-UFES-20": {
+      "synthesis_quality_evaluation": {
+        "metric": "ArtFID",
+        "models": {
+          "AdaAttN": "29.20",
+          "Proposed Method (B-CvT)": "null"
+        },
+        "notes": "AdaAttN achieved a slightly better ArtFID score. The specific ArtFID value for the proposed method is not explicitly stated."
+      },
+      "classification_fairness_evaluation": {
+        "metric": "Equalized Odds (EO)",
+        "models": {
+          "EfficientNet-B3 + Proposed Method": "0.1922",
+          "EfficientNet-B3 + Baseline": "null",
+          "ResNet50 + Proposed Method": "0.1170",
+          "ResNet50 + StyTR2": "0.1717",
+          "ResNet50 + S2WAT": "0.1671"
+        },
+        "notes": "For EfficientNet-B3, the proposed method achieved the lowest EO (best fairness) of 0.1922. For ResNet50, the proposed method achieved the best fairness (0.1170) by a large margin compared to StyTR2 (0.1717) and S2WAT (0.1671). Results are reported as Median (Q1, Q3) over 10 runs. Wilcoxon signed-rank test found no statistically significant difference between the proposed method and the best baseline for accuracy (p > 0.05)."
+      },
+      "classification_accuracy_evaluation": {
+        "metric": "Overall Accuracy",
+        "models": {
+          "EfficientNet-B3 + Proposed Method": "0.6076",
+          "ResNet50 + Proposed Method": "0.4905",
+          "ResNet50 + StyTR2": "null",
+          "ResNet50 + S2WAT": "null"
+        },
+        "notes": "For EfficientNet-B3, the proposed method achieved the highest median accuracy of 0.6076. For ResNet50, the proposed method achieved a median accuracy of 0.4905; StyTR2 and S2WAT showed marginally higher accuracies but at the cost of fairness."
+      },
+      "classification_fairness_detailed": {
+        "metric": "True Positive Rate (TPR) for Dark Skin Group (Fitzpatrick 5,6)",
+        "models": {
+          "EfficientNet-B3 + Proposed Method": "0.564",
+          "EfficientNet-B3 + Baseline": "0.530"
+        },
+        "notes": "The proposed method improved the median TPR for the Dark skin group from 0.530 to 0.564 when using EfficientNet-B3. For ResNet50, there was a slight numerical decrease in median TPR for the Dark group (0.342 vs 0.334), but the interquartile ranges significantly overlapped, indicating no statistically significant harm."
+      }
+    },
+    "Ablation Study": {
+      "metric": "Content Preservation Quality",
+      "models": {
+        "B-CvT (with Convolutional Transformer Decoder)": "Optimal content preservation",
+        "B-CvT (with Linear Projection Decoder)": "Deteriorated structural integrity"
+      },
+      "notes": "Replacing the convolutional projection in the decoder with a standard linear projection resulted in obvious deterioration in content preservation and degraded structural integrity."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Branched Convolutional Vision Transformer (B-CvT)",
+    "pretraining": "VGG19 (used for feature extraction in loss calculation)",
+    "input_size": "256x256 (randomly cropped from 512x512)",
+    "architecture_details": {
+      "encoder": "Branched Convolutional Vision Transformer Encoder with dedicated branches for style and content features",
+      "decoder": "3-layer Convolutional Transformer Decoder",
+      "components": [
+        "Convolutional token embedding",
+        "Convolutional projection within multi-head self-attention",
+        "Convolutional Transformer Block"
+      ],
+      "loss_functions": [
+        "Wasserstein distance-based similarity loss (using debiased Sinkhorn divergence)",
+        "Content loss (L_content)",
+        "Style loss (L_style)",
+        "Identity loss 1 (L_id1)",
+        "Identity loss 2 (L_id2)"
+      ],
+      "hyperparameters": {
+        "loss_weights": {
+          "lambda_sim": 0.03,
+          "lambda_c": 3,
+          "lambda_s": 5,
+          "lambda_id1": 30,
+          "lambda_id2": 3
+        }
+      }
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.0001,
+      "batch_size": 4,
+      "iterations": 30000,
+      "hardware": "NVIDIA A6000 GPU"
+    },
+    "classification_or_output_head": {
+      "note": "The B-CvT model is a generative style transfer framework; classification heads (EfficientNet-B3, ResNet50) were used downstream for fairness evaluation, not as part of the B-CvT architecture itself."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Branched Convolutional Vision Transformer (B-CvT)",
+    "AdaAttN",
+    "StyTR2",
+    "S2WAT",
+    "CAP-VSTNet",
+    "Reinhard et al. color transfer method",
+    "EfficientNet-B3",
+    "ResNet50",
+    "VGG19",
+    "Tokens-to-Token Vision Transformer (T2T-ViT)",
+    "Swin Transformer",
+    "Convolutional Vision Transformer (CvT)",
+    "AdaIN (Adaptive Instance Normalization)",
+    "Avatar-net",
+    "StyleFormer",
+    "DINO",
+    "SegFormer",
+    "ViT (Vision Transformer)"
+  ],
+  "preprocessing_techniques": [
+    "Random cropping of input images from 512x512 to 256x256",
+    "Total Variation (TV) Denoising applied to style images to suppress high-frequency artifacts (e.g., checkerboard patterns) and lighting inconsistencies"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Neural Style Transfer (B-CvT)",
+      "details": "Used to generate synthetic skin lesion images by transferring skin tone style from style images (sourced from MS-COCO and WikiArt datasets) to content images (from PAD-UFES-20 and Fitzpatrick 17k). The B-CvT framework disentangles style (skin tone) from content (lesion morphology) using a branched encoder and a convolutional transformer decoder with a Wasserstein distance-based similarity loss. This method was applied to augment the training dataset to address skin tone imbalance."
+    },
+    {
+      "technique": "Total Variation (TV) Denoising",
+      "details": "Applied as a preprocessing step to style images to suppress high-frequency artifacts (e.g., checkerboard patterns) and lighting inconsistencies before they were used in the style transfer process."
+    },
+    {
+      "technique": "Dataset Supplementation",
+      "details": "Images for Fitzpatrick skin scales 4 to 6 were sourced from the Fitzpatrick 17k dataset, manually cropped to center the lesion, and matched to the composition of PAD-UFES-20 samples to supplement the primary dataset and address under-representation of darker skin tones."
+    }
+  ],
+  "conclusions": [
+    "The proposed Branched Convolutional Vision Transformer (B-CvT) framework successfully disentangles style (skin tone) from content (lesion morphology) using dedicated encoder branches and a Wasserstein distance-based similarity loss, effectively preserving pathological features that are often distorted by existing style transfer methods.",
+    "B-CvT achieves superior content preservation quality compared to state-of-the-art style transfer models, evidenced by a Learned Perceptual Image Patch Similarity (LPIPS) of 0.320 and a Structural Similarity Index Measure (SSIM) of 0.803.",
+    "When used as a data augmentation technique for skin cancer classification, B-CvT improves model fairness by reducing the Equalized Odds metric by 0.09 across different skin tones without compromising overall diagnostic accuracy.",
+    "For the EfficientNet-B3 backbone, the proposed method achieved the highest median accuracy (0.6076) and the best fairness (lowest Equalized Odds of 0.1922), while for the ResNet50 backbone, it achieved the best fairness (0.1170) with competitive accuracy (0.4905).",
+    "The method explicitly benefits underrepresented demographic groups, improving the median True Positive Rate for the Dark skin group (Fitzpatrick 5, 6) from 0.530 to 0.564 when used with EfficientNet-B3, without causing statistically significant harm to any specific subgroup.",
+    "The Wasserstein distance-based similarity loss is a critical component for enforcing clean feature separation in latent space; its absence leads to unwanted noise artifacts and significant deterioration in content preservation metrics (SSIM, LPIPS, ArtFID).",
+    "The convolutional transformer decoder is essential for maintaining structural integrity; replacing it with a standard linear projection results in obvious deterioration of content preservation.",
+    "A primary limitation of the study is that experimental validation relies on a specific set of datasets (PAD-UFES-20 and Fitzpatrick 17k), and while style-image preprocessing (Total Variation Denoising) mitigates high-frequency artifacts, further generalization across diverse medical imaging contexts requires broader validation."
+  ],
+  "important_remarks": [
+    "Validation is limited to PAD-UFES-20 and Fitzpatrick 17k datasets; external validation on major benchmarks like ISIC 2019 or HAM10000 is not possible because these datasets lack Fitzpatrick skin tone labels required for fairness evaluation.",
+    "The study addresses a field-wide limitation: the absence of skin tone annotations in large-scale dermatological datasets hinders rigorous fairness research.",
+    "Style transfer performance is sensitive to style reference images; extreme lighting conditions or strong lesion colors in style images can overpower content features, indicating a limitation in disentangling texture from illumination.",
+    "High-frequency artifacts (e.g., checkerboard patterns) in style images can degrade output quality, though mitigated by Total Variation (TV) Denoising preprocessing.",
+    "The proposed method improves fairness (reducing Equalized Odds by 0.09) without statistically significant harm to any specific demographic subgroup, as confirmed by overlapping interquartile ranges in TPR/FPR analyses.",
+    "The Wasserstein distance-based similarity loss and convolutional transformer decoder are critical components; ablation studies show their absence leads to significant deterioration in content preservation and structural integrity."
+  ]
+}

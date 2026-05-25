@@ -1,0 +1,604 @@
+{
+  "file_name": "wei_2020_automatic_skin_cancer_detection_in_dermoscopy_images_based_on_ensemble.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a lightweight deep learning network (specifically a lightweight CNN) for feature extraction and a U-Net architecture for semantic segmentation to perform automatic skin cancer detection and lesion area segmentation in dermoscopy images. The model was trained and evaluated on the ISBI 2016 skin lesion analysis dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a 'lightweight skin cancer recognition model' and a 'lightweight semantic segmentation model' using deep learning (Lightweight CNN and U-Net). It details the methodology, including feature extraction, network architecture, and training strategies, and reports new results from experiments conducted on the ISBI 2016 dataset, comparing performance metrics (AC, AUC, AP) against state-of-the-art methods."
+  },
+  "title": "Automatic Skin Cancer Detection in Dermoscopy Images based on Ensemble Lightweight Deep Learning Network",
+  "authors": [
+    "LISHENG WEI",
+    "KUN DING",
+    "HUOSHENG HU"
+  ],
+  "doi": "10.1109/ACCESS.2020.2997710",
+  "journal": "IEEE Access",
+  "year": 2020,
+  "article_type": "Journal article",
+  "brief_summary": "This study addresses the challenges of automatic skin cancer detection in dermoscopy images by proposing a lightweight ensemble deep learning network. The authors developed a recognition model using a lightweight CNN for feature extraction and a feature discrimination network based on fine-grained classification principles. Additionally, a lightweight semantic segmentation model was constructed using a U-Net architecture and transfer learning to segment lesion areas end-to-end. The performance of these models was evaluated on the ISBI 2016 skin lesion analysis towards melanoma detection challenge dataset. Experimental results demonstrated that the proposed method achieved better performance than state-of-the-art deep learning approaches while maintaining a small model size. The study concludes that the lightweight design effectively extracts discriminative features and improves recognition accuracy without complex preprocessing.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "skin cancer"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on automatic detection of melanoma using the ISBI 2016 skin lesion analysis towards melanoma detection challenge dataset. The classification task distinguishes between melanoma and benign lesions."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "non-melanoma"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class in the binary classification task (melanoma vs. benign) on the ISBI 2016 dataset. The paper mentions 'benign' in Figure 1 and the classification framework."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. Benign",
+        "primary": true,
+        "details": "Binary classification of dermoscopy images into melanoma or benign categories using a lightweight ensemble deep learning network. The model uses a feature discrimination network based on fine-grained classification principles and evaluates performance using AC, AUC, and AP scores on the ISBI 2016 dataset."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion area mask",
+        "primary": false,
+        "details": "Semantic segmentation of the lesion area in dermoscopy images using a lightweight U-Net architecture. The model produces a pixel-wise segmentation mask and is evaluated using Dice coefficient and Jaccard index."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISBI 2016 Skin Lesion Analysis Towards Melanoma Detection Challenge Dataset",
+      "description": "A public challenge dataset from the International Symposium on Biomedical Imaging (ISBI) 2016, containing dermoscopy images of skin lesions with corresponding lesion segmentation masks marked by professional doctors. It is part of the Imaging Association (ISIC) archives.",
+      "classes_used": [
+        "melanoma",
+        "benign"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {
+          "benign": {
+            "training": 727,
+            "testing": 304
+          },
+          "melanoma": {
+            "training": 173,
+            "testing": 75
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the lightweight skin cancer recognition model and the lightweight semantic segmentation model.",
+        "validation": "null",
+        "testing": "Used for evaluating the performance of the proposed method (classification and segmentation) and comparing it with state-of-the-art deep learning approaches.",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (AC)",
+    "Area Under the Curve (AUC)",
+    "Average Precision (AP)",
+    "Jaccard Index (JA)",
+    "Dice Coefficient (DC)",
+    "Specificity (SP)",
+    "Sensitivity (SE)",
+    "Parameters (model size)",
+    "BCE Dice Loss",
+    "Focal Loss",
+    "Cross Entropy Loss"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using point estimates of metrics (Accuracy, AUC, AP, Dice, Jaccard) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISBI 2016 Skin Lesion Analysis Towards Melanoma Detection Challenge Dataset": {
+      "classification_task": {
+        "lightweight_cnn_selection": {
+          "note": "Comparison of different lightweight CNNs as feature extractors.",
+          "models": {
+            "SqueezeNet": {
+              "AC": "0.789",
+              "AUC": "0.757",
+              "AP": "0.494",
+              "Parameters": "1,237,498"
+            },
+            "ShuffleNet": {
+              "AC": "0.760",
+              "AUC": "0.717",
+              "AP": "0.436",
+              "Parameters": "3,616,946"
+            },
+            "ResNet18": {
+              "AC": "0.831",
+              "AUC": "0.802",
+              "AP": "0.596",
+              "Parameters": "11,187,915"
+            },
+            "MobileNetV1": {
+              "AC": "0.829",
+              "AUC": "0.830",
+              "AP": "0.645",
+              "Parameters": "3,230,914"
+            },
+            "DenseNet-121": {
+              "AC": "0.837",
+              "AUC": "0.800",
+              "AP": "0.636",
+              "Parameters": "7,039,554"
+            }
+          }
+        },
+        "effect_of_data_augmentation": {
+          "note": "Impact of data augmentation on MobileNetV1 and DenseNet-121.",
+          "models": {
+            "MobileNetV1 (with data-aug)": {
+              "AC": "0.836",
+              "AUC": "0.819",
+              "AP": "0.618"
+            },
+            "DenseNet-121 (with data-aug)": {
+              "AC": "0.836",
+              "AUC": "0.806",
+              "AP": "0.610"
+            }
+          }
+        },
+        "effect_of_discriminant_network": {
+          "note": "Comparison with and without discriminant network.",
+          "models": {
+            "MobileNetV1": {
+              "AC": "0.829",
+              "AP": "0.645",
+              "AUC": "0.830",
+              "Parameters": "3,230,914"
+            },
+            "DenseNet-121": {
+              "AC": "0.837",
+              "AP": "0.636",
+              "AUC": "0.800",
+              "Parameters": "7,039,554"
+            },
+            "DC-MobileNetV1": {
+              "AC": "0.865",
+              "AP": "0.665",
+              "AUC": "0.832",
+              "Parameters": "7,483,782"
+            },
+            "DC-DenseNet121": {
+              "AC": "0.855",
+              "AP": "0.700",
+              "AUC": "0.845",
+              "Parameters": "7,483,782"
+            }
+          }
+        },
+        "effect_of_classification_loss_function": {
+          "note": "Comparison of loss functions for models with discriminant network.",
+          "models": {
+            "DC-MobileNetV1 (Focal Loss)": {
+              "AC": "0.850",
+              "AP": "0.633",
+              "AUC": "0.838"
+            },
+            "DC-DenseNet121 (Focal Loss)": {
+              "AC": "0.854",
+              "AP": "0.639",
+              "AUC": "0.803"
+            },
+            "DC-MobileNetV1 (Cross Entropy)": {
+              "AC": "0.865",
+              "AP": "0.665",
+              "AUC": "0.832"
+            },
+            "DC-DenseNet121 (Cross Entropy)": {
+              "AC": "0.855",
+              "AP": "0.700",
+              "AUC": "0.845"
+            }
+          }
+        },
+        "comparison_with_other_methods": {
+          "note": "Comparison with state-of-the-art methods.",
+          "models": {
+            "BL-CNN [31]": {
+              "AC": "0.850",
+              "AP": "0.625",
+              "AUC": "null"
+            },
+            "CUMED [34]": {
+              "AC": "0.855",
+              "AP": "0.637",
+              "AUC": "0.804"
+            },
+            "M-CNN [36]": {
+              "AC": "0.852",
+              "AP": "null",
+              "AUC": "0.810"
+            },
+            "DCNN-FV [37]": {
+              "AC": "0.868",
+              "AP": "0.685",
+              "AUC": "0.852"
+            },
+            "MC-CNN [38]": {
+              "AC": "0.863",
+              "AP": "0.681",
+              "AUC": "0.822"
+            },
+            "M-CNN-FV [39]": {
+              "AC": "0.868",
+              "AP": "0.687",
+              "AUC": "0.858"
+            },
+            "DC-MobileNetV1": {
+              "AC": "0.865",
+              "AP": "0.665",
+              "AUC": "0.832"
+            },
+            "DC-DenseNet121": {
+              "AC": "0.855",
+              "AP": "0.700",
+              "AUC": "0.845"
+            },
+            "Fusion (our)": {
+              "AC": "0.876",
+              "AP": "0.724",
+              "AUC": "0.854"
+            }
+          }
+        },
+        "segmentation_task": {
+          "note": "Performance of segmentation models using U-Net architecture with different feature extractors.",
+          "models": {
+            "U-Net [49]": {
+              "AC": "0.951",
+              "DC": "0.910",
+              "JA": "0.845",
+              "SE": "0.935",
+              "SP": "0.960",
+              "Size": "120M"
+            },
+            "U-ResNeXt50": {
+              "AC": "0.961",
+              "DC": "0.922",
+              "JA": "0.864",
+              "SE": "0.935",
+              "SP": "0.972",
+              "Size": "125M"
+            },
+            "U-VGG16": {
+              "AC": "0.955",
+              "DC": "0.909",
+              "JA": "0.843",
+              "SE": "0.927",
+              "SP": "0.968",
+              "Size": "73M"
+            },
+            "U-DenseNet121": {
+              "AC": "0.958",
+              "DC": "0.918",
+              "JA": "0.859",
+              "SE": "0.935",
+              "SP": "0.971",
+              "Size": "48M"
+            },
+            "U-MobileNetV1": {
+              "AC": "0.960",
+              "DC": "0.919",
+              "JA": "0.859",
+              "SE": "0.932",
+              "SP": "0.972",
+              "Size": "32M"
+            },
+            "Fusion (our)": {
+              "AC": "0.962",
+              "DC": "0.923",
+              "JA": "0.867",
+              "SE": "0.934",
+              "SP": "0.974",
+              "Size": "80M"
+            }
+          }
+        },
+        "effect_of_segmentation_loss_function": {
+          "note": "Comparison of BCE Dice Loss vs Focal Loss for segmentation.",
+          "models": {
+            "U-MobileNetV1 (Focal Loss)": {
+              "AC": "0.959",
+              "DC": "0.917",
+              "JA": "0.848",
+              "SE": "0.937",
+              "SP": "0.969"
+            },
+            "U-DenseNet121 (Focal Loss)": {
+              "AC": "0.957",
+              "DC": "0.914",
+              "JA": "0.843",
+              "SE": "0.939",
+              "SP": "0.964"
+            },
+            "U-MobileNetV1 (BCE Dice Loss)": {
+              "AC": "0.960",
+              "DC": "0.919",
+              "JA": "0.859",
+              "SE": "0.932",
+              "SP": "0.972"
+            },
+            "U-DenseNet121 (BCE Dice Loss)": {
+              "AC": "0.961",
+              "DC": "0.922",
+              "JA": "0.864",
+              "SE": "0.935",
+              "SP": "0.972"
+            }
+          }
+        },
+        "effect_of_augmentation_on_segmentation": {
+          "note": "Impact of data augmentation on segmentation models.",
+          "models": {
+            "U-MobileNetV1": {
+              "AC": "0.956",
+              "DC": "0.917",
+              "JA": "0.847",
+              "SE": "0.930",
+              "SP": "0.968"
+            },
+            "U-MobileNetV1 (with data-aug)": {
+              "AC": "0.960",
+              "DC": "0.919",
+              "JA": "0.859",
+              "SE": "0.932",
+              "SP": "0.972"
+            },
+            "U-DenseNet121": {
+              "AC": "0.955",
+              "DC": "0.917",
+              "JA": "0.848",
+              "SE": "0.920",
+              "SP": "0.970"
+            },
+            "U-DenseNet121 (with data-aug)": {
+              "AC": "0.958",
+              "DC": "0.918",
+              "JA": "0.859",
+              "SE": "0.935",
+              "SP": "0.971"
+            }
+          }
+        },
+        "comparison_with_other_segmentation_methods": {
+          "note": "Comparison with other segmentation methods.",
+          "models": {
+            "JD-FCN [20]": {
+              "AC": "0.955",
+              "DC": "0.912",
+              "JA": "0.847",
+              "SE": "0.918",
+              "SP": "0.966"
+            },
+            "MS-FCN [21]": {
+              "AC": "0.951",
+              "DC": "0.902",
+              "JA": "0.834",
+              "SE": "0.918",
+              "SP": "0.952"
+            },
+            "EXB [35]": {
+              "AC": "0.953",
+              "DC": "0.910",
+              "JA": "0.843",
+              "SE": "0.910",
+              "SP": "0.965"
+            },
+            "MFCN-PI [40]": {
+              "AC": "0.955",
+              "DC": "0.912",
+              "JA": "0.845",
+              "SE": "0.922",
+              "SP": "0.955"
+            },
+            "GL-FCN [41]": {
+              "AC": "0.953",
+              "DC": "0.907",
+              "JA": "0.841",
+              "SE": "0.938",
+              "SP": "0.952"
+            },
+            "MS-UNet [43]": {
+              "AC": "0.959",
+              "DC": "0.915",
+              "JA": "0.853",
+              "SE": "0.927",
+              "SP": "0.964"
+            },
+            "HR-CNN [44]": {
+              "AC": "0.938",
+              "DC": "0.918",
+              "JA": "0.858",
+              "SE": "0.870",
+              "SP": "0.964"
+            },
+            "TD-CNN [45]": {
+              "AC": "0.961",
+              "DC": "0.921",
+              "JA": "0.852",
+              "SE": "0.974",
+              "SP": "0.949"
+            },
+            "Fusion (our)": {
+              "AC": "0.962",
+              "DC": "0.923",
+              "JA": "0.867",
+              "SE": "0.934",
+              "SP": "0.974"
+            }
+          }
+        }
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Ensemble Lightweight Deep Learning Network (Classification: DC-MobileNetV1/DC-DenseNet121; Segmentation: U-Net with MobileNetV1/DenseNet121 encoder)",
+    "pretraining": "Pre-trained weights from ImageNet loaded into the feature extraction part (lightweight CNN) of the classification branch and the encoder part of the segmentation model.",
+    "input_size": "224x224 pixels",
+    "architecture_details": {
+      "classification_model": {
+        "backbone": "MobileNetV1 or DenseNet-121 (Lightweight CNN)",
+        "structure": "Three-branch network: two classification network branches and one feature discrimination network. Includes global average pooling layers, fully connected layers (size 2 with Softmax), and a non-parametric discriminant layer measuring feature similarity.",
+        "discriminant_layer": "Computes similarity using D(Y1, Y2) = (Y1 - Y2)^2, followed by ReLU activation and a fully connected layer of size 512, then a Softmax layer of size 2.",
+        "fusion": "Model fusion strategy applied to combine outputs from different lightweight recognition networks."
+      },
+      "segmentation_model": {
+        "backbone": "U-Net architecture",
+        "encoder": "Lightweight CNN (MobileNetV1 or DenseNet121) replacing the original U-Net encoder. MobileNetV1 encoder uses Depthwise Separable Blocks. DenseNet121 encoder uses Dense Blocks and Transition Layers.",
+        "decoder": "Up-sampling (stride=2), skip connections (channel concatenation), and 3x3 convolutions.",
+        "skip_connections": "MobileNetV1: Convolution 3x3, Depthwise Separable Block2, 3, and Depthwise Separable Block4(s=1). DenseNet121: Convolution 7x7, Dense Block1, Dense Block2, Dense Block3."
+      }
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "initial_learning_rate": 0.0001,
+      "learning_rate_schedule": "Decays to 1/2 of current value if verification set loss does not reduce in three consecutive iterations.",
+      "epochs": 50,
+      "loss_functions": {
+        "classification": "Cross-Entropy Loss (for classification networks), Focal Loss (comparison experiment)",
+        "discrimination": "Cross-Entropy Loss",
+        "segmentation": "BCE Dice Loss (L_BCE_Dice = L_Dice + L_Cross)",
+        "loss_weights": "A=1, B=1, C=0.5 for classification total loss; alpha=0.25, gamma=0.75 for Focal Loss"
+      },
+      "data_augmentation": "Training set images augmented from 900 to 6900. Positive and negative sample pairs constructed for classification training."
+    },
+    "classification_or_output_head": {
+      "classification": "Two fully connected layers of size 2 with Softmax activation for each classification branch; one fully connected layer of size 512 with ReLU and one of size 2 with Softmax for the discrimination branch.",
+      "segmentation": "Pixel-wise output probability map matching input image dimensions."
+    },
+    "approximate_parameters": {
+      "SqueezeNet": 1237498,
+      "ShuffleNet": 3616946,
+      "ResNet18": 11187915,
+      "MobileNetV1": 3230914,
+      "DenseNet121": 7039554,
+      "DC-MobileNetV1": 7483782,
+      "DC-DenseNet121": 7483782,
+      "U-Net": 120000000,
+      "U-ResNeXt50": 125000000,
+      "U-VGG16": 73000000,
+      "U-DenseNet121": 48000000,
+      "U-MobileNetV1": 32000000,
+      "Fusion (Classification)": "Not explicitly stated as a single number, but derived from MobileNetV1/DenseNet121 + discrimination network",
+      "Fusion (Segmentation)": 80000000
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Lightweight CNN",
+    "SqueezeNet",
+    "ShuffleNet",
+    "ResNet18",
+    "MobileNetV1",
+    "DenseNet-121",
+    "DC-MobileNetV1",
+    "DC-DenseNet121",
+    "Fusion (Classification)",
+    "U-Net",
+    "U-ResNeXt50",
+    "U-VGG16",
+    "U-DenseNet121",
+    "U-MobileNetV1",
+    "Fusion (Segmentation)",
+    "BL-CNN",
+    "CUMED",
+    "M-CNN",
+    "DCNN-FV",
+    "MC-CNN",
+    "M-CNN-FV",
+    "JD-FCN",
+    "MS-FCN",
+    "EXB",
+    "MFCN-PI",
+    "GL-FCN",
+    "MS-UNet",
+    "HR-CNN",
+    "TD-CNN",
+    "InceptionV3",
+    "ResNet",
+    "VGG",
+    "SVM"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation: rotation (90, 180, 270 degrees), mirroring, center cropping, brightness change, and random occlusion operations applied to original images to alleviate overfitting and enhance robustness.",
+    "Dataset splitting: The augmented training set (increased from 900 to 4430 images) was separated into training and validation sets according to a ratio of 0.8:0.2.",
+    "Sample pair construction: Positive and negative sample pairs were constructed from the training data for the melanoma classification network input.",
+    "Input resizing: Images were resized to 224x224 pixels for input into the lightweight CNN feature extraction module.",
+    "Note on preprocessing: The paper explicitly states that the proposed segmentation model achieves high precision 'without complicated image preprocessing operation' and 'without using additional data and preprocessing techniques' for segmentation, contrasting with methods that use hair removal or color correction."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Rotation (90, 180, 270 degrees), mirroring, and center cropping applied to original images."
+    },
+    {
+      "technique": "Color/Intensity Transforms",
+      "details": "Brightness change applied to original images."
+    },
+    {
+      "technique": "Synthetic Data Generation / Occlusion",
+      "details": "Random occlusion operations applied to original images."
+    },
+    {
+      "technique": "Dataset Expansion",
+      "details": "Training set images increased from 900 to 4430 for classification tasks and to 6900 for segmentation tasks via the above augmentation methods."
+    },
+    {
+      "technique": "Class Balancing Augmentation",
+      "details": "Construction of positive and negative sample pairs for classification training. Method 1 constructs input data with more positive sample pairs by traversing labels to find matching/non-matching pairs. Method 2 constructs input data with more negative sample pairs by leveraging randomly shuffled batch data."
+    },
+    {
+      "technique": "Data Splitting",
+      "details": "Augmented datasets separated into training and validation sets according to a ratio of 0.8:0.2."
+    }
+  ],
+  "conclusions": [
+    "The proposed lightweight ensemble deep learning network effectively extracts discriminative lesion features and improves recognition performance while maintaining a small model size, addressing the challenge of significant intra-class differences and inter-class similarity in dermoscopy images.",
+    "The integration of a feature discrimination network based on fine-grained classification principles significantly improves the accuracy of the lightweight recognition model without substantially increasing the number of trainable parameters.",
+    "MobileNetV1 and DenseNet-121 are identified as the most suitable lightweight feature extractors for dermoscopy image lesion detection, outperforming other lightweight CNNs like SqueezeNet and ShuffleNet in overall evaluation metrics.",
+    "Data augmentation strategies help alleviate class imbalance and improve model performance, although the improvement effect is noted to be relatively limited.",
+    "The proposed segmentation model, based on a U-Net architecture with lightweight encoders (MobileNetV1 or DenseNet-121) and transfer learning, achieves high-precision lesion area segmentation end-to-end without complicated image preprocessing operations.",
+    "The fusion of the lightweight recognition and segmentation models yields performance superior to state-of-the-art deep learning approaches on the ISBI 2016 skin lesion analysis dataset.",
+    "The lightweight design of the proposed models allows for efficient deployment to mobile devices or other medical image analysis applications due to their small size and good performance.",
+    "BCE Dice Loss was found to be more effective than Focal Loss for the segmentation task, as Focal Loss suffered from numerical instability during training and did not converge to a better effect despite its category imbalance adjustment capabilities."
+  ],
+  "important_remarks": [
+    "The study is limited to a single dataset (ISBI 2016), which lacks external validation on diverse, multi-center, or real-world clinical populations, potentially limiting generalizability.",
+    "The dataset is heavily imbalanced, with nearly 80% of the data being benign lesions (727 training, 304 testing) compared to melanoma (173 training, 75 testing), which may bias the model towards the majority class despite augmentation strategies.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to validate the significance of performance improvements over state-of-the-art methods.",
+    "The paper acknowledges that while data augmentation alleviates imbalance, its improvement effect is 'relatively limited,' suggesting that expanding the original dataset size is a more direct but unexplored solution in this work.",
+    "The authors note a gap in research regarding how pre-trained models (trained on natural images like ImageNet) effectively generalize to the specific domain differences of medical dermoscopy images.",
+    "The segmentation model was explicitly designed to avoid complicated preprocessing (e.g., hair removal, color correction), which is a strength for clinical deployment but may limit performance on images with significant artifacts compared to methods that use such preprocessing.",
+    "The classification task is binary (melanoma vs. benign), which simplifies the clinical problem but does not address the detection of other skin cancer types or complex multi-class differentiation.",
+    "The paper does not report results on computational efficiency metrics beyond parameter count (model size), such as inference time or FLOPs, which are critical for the claimed 'lightweight' and mobile deployment capabilities.",
+    "There is a risk of data leakage or overfitting if the 'state-of-the-art' methods compared against were also trained on the ISBI 2016 dataset, as the paper does not explicitly detail the strict separation of data used for training those comparative models versus the test set.",
+    "The fusion strategy for the ensemble model is described as 'weighted average' but specific weights or the method for determining them are not detailed in the provided context."
+  ]
+}

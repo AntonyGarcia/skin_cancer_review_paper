@@ -1,0 +1,441 @@
+{
+  "file_name": "strzelecki_2021_skin_lesion_detection_algorithms_in_whole_body_images.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning methods, specifically the YOLOv3 (You Only Look Once) algorithm, for the detection and segmentation of skin lesions in whole-body images. It also employed a fusion approach combining this deep learning model with classic image processing algorithms to obtain detection sensitivity and precision results for dermatological analysis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a prototype full-body system for skin lesion detection. It describes the construction of a hardware device, implements and compares three specific algorithms (histogram analysis, correlation method, and YOLOv3 deep learning), and reports quantitative results (sensitivity, precision, error of area estimation) obtained from testing these methods on patient data."
+  },
+  "title": "Skin Lesion Detection Algorithms in Whole Body Images",
+  "authors": [
+    "Michał H. Strzelecki",
+    "Maria Strąkowska",
+    "Michał Kozłowski",
+    "Tomasz Urbańczyk",
+    "Dorota Wielowieyska-Szybińska",
+    "Marcin Kociołek"
+  ],
+  "doi": "10.3390/s21196639",
+  "journal": "Sensors",
+  "year": 2021,
+  "article_type": "Article",
+  "brief_summary": "This study developed and evaluated a prototype full-body system for the detection and segmentation of skin lesions in whole-body optical images to support melanoma screening. The researchers implemented and compared three algorithms: two classic image processing methods based on local brightness histograms and cross-correlation, and one deep learning method using the YOLOv3 neural network. To enhance performance, the authors fused these algorithms using a majority voting approach, evaluating detection sensitivity and precision against ground truth annotations provided by dermatologists. The fusion method achieved a detection sensitivity of 0.95 and a precision of 0.94, with geometric parameter estimation errors below 10% for lesions larger than 3 mm. The results indicate that combining classic and deep learning paradigms improves detection accuracy, particularly for larger, potentially neoplastic lesions, suggesting potential utility for clinical screening systems.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanocytic nevi / Melanocytic lesions",
+      "paper_terms": [
+        "melanocytic nevi",
+        "melanocytic change",
+        "moles",
+        "skin moles",
+        "nevi"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the detection and segmentation of melanocytic lesions (nevi/moles) in whole-body images. The algorithms were trained and evaluated on these lesions, which serve as the primary target for the screening system intended to detect suspicious neoplastic changes."
+    },
+    {
+      "lesion_type": "Neoplastic lesions / Suspicious lesions",
+      "paper_terms": [
+        "neoplastic skin lesions",
+        "neoplastic lesions",
+        "suspicious lesions",
+        "potential neoplastic changes",
+        "malicious"
+      ],
+      "role": "Target class / Clinical context",
+      "details": "The system is designed to detect lesions suspected of being neoplastic (melanoma). The paper notes that lesions >3 mm are 'most suspected of being neoplastic lesions' and that the detection of large nevi is critical because they are 'potential neoplastic changes'. While the specific histopathological diagnosis of the test set is not explicitly detailed as a separate class list, the clinical entity of interest is neoplastic/suspicious lesions."
+    },
+    {
+      "lesion_type": "Healthy skin",
+      "paper_terms": [
+        "healthy skin",
+        "normal skin"
+      ],
+      "role": "Background / Comparator class",
+      "details": "Healthy skin is used as the background against which lesions are segmented. The histogram analysis relies on identifying the 'tail' in the intensity distribution of melanocytic lesions compared to the Gaussian distribution of healthy skin fragments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Detection",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Detection",
+        "target": "Location and presence of skin lesions (nevi) in whole-body images.",
+        "primary": true,
+        "details": "The paper focuses on detecting and segmenting skin lesions. The YOLOv3 algorithm estimates bounding boxes with confidence probabilities for lesion location. Classic methods use histogram analysis and cross-correlation to identify lesion positions. The primary evaluation metrics are detection sensitivity and precision (TP, FN, FP counts), indicating an object detection task rather than classification of lesion type or regression of continuous values."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-level boundaries of detected skin lesions.",
+        "primary": false,
+        "details": "The study includes segmentation of lesions within detected regions. For the CNN approach, Otsu's method is used for segmentation within bounding boxes. For classic methods, active contours and histogram-based thresholding are used. Geometric parameters like area are calculated from these segmented masks, but the primary task is detection/localization."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "In-house Whole-Body Image Dataset",
+      "description": "A private dataset of whole-body optical images acquired using the prototype full-body system developed by the authors. The images were captured in a clinical setting (Skopia Estetic Clinic) and annotated with ground truth lesion locations by experienced dermatologists.",
+      "classes_used": [
+        "Melanocytic nevi (lesions)",
+        "Healthy skin (background)"
+      ],
+      "counts": {
+        "total": 1379,
+        "training": null,
+        "validation": null,
+        "testing": 1379,
+        "per_class": {
+          "lesions": 1379,
+          "healthy_skin": null
+        }
+      },
+      "use": {
+        "training": "The YOLOv3 (CNN) model was trained on a 'relatively small training dataset' from this collection, but the specific split or count for training is not reported.",
+        "validation": "null",
+        "testing": "The entire dataset (1379 lesions) was used for testing and evaluation of detection sensitivity, precision, and segmentation accuracy for all three algorithms (Histogram, Correlation, CNN) and their fusion.",
+        "other": "The dataset was used to compare geometric parameter estimation errors against dermatologist annotations."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Precision",
+    "True Positives (TP)",
+    "False Negatives (FN)",
+    "False Positives (FP)",
+    "Error of area estimation"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Sensitivity and Precision calculation",
+      "purpose": "To evaluate the reliability of lesion detection by comparing segmentation results with ground truth annotations provided by dermatologists.",
+      "type": "Performance metrics"
+    },
+    {
+      "method": "Majority Voting",
+      "purpose": "To fuse the results of three different detection algorithms (Histogram, Correlation, CNN) to determine final lesion detection, where a lesion is considered detected if indicated by at least two methods.",
+      "type": "Algorithm fusion strategy"
+    },
+    {
+      "method": "Error of area estimation",
+      "purpose": "To assess the accuracy of geometric parameter estimation for segmented lesions compared to dermatologist annotations.",
+      "type": "Accuracy metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics such as sensitivity, precision, and error of area estimation."
+  },
+  "results_obtained_in_each_dataset": {
+    "In-house Whole-Body Image Dataset": {
+      "dataset_description": "Private dataset of whole-body optical images acquired using the prototype full-body system, annotated by dermatologists. Total lesions analyzed: 1379.",
+      "evaluation_splits": {
+        "training": "67% of frames (945 frames with lesions from 32 images) used for YOLOv3 training.",
+        "validation": "33% of frames used for YOLOv3 validation; three-fold cross-validation used for generalization assessment.",
+        "testing": "Entire dataset (1379 lesions) used for final evaluation of all methods."
+      },
+      "experiments": {
+        "Histogram Method": {
+          "description": "Local skin modelling and analysis of histograms of selected color components.",
+          "results_by_size": {
+            "1-2 mm": {
+              "True Positives (TP)": 578,
+              "False Negatives (FN)": 48,
+              "False Positives (FP)": 635,
+              "Sensitivity": 0.92,
+              "Precision": 0.82
+            },
+            "2-5 mm": {
+              "TP": 705,
+              "FN": 20,
+              "FP": 728,
+              "Sensitivity": 0.97,
+              "Precision": 0.97
+            },
+            ">5 mm": {
+              "TP": 24,
+              "FN": 1,
+              "FP": 25,
+              "Sensitivity": 0.96,
+              "Precision": 0.96
+            },
+            "All (1379 lesions)": {
+              "TP": 1307,
+              "FN": 69,
+              "FP": 854,
+              "Sensitivity": 0.95,
+              "Precision": 0.6
+            }
+          },
+          "segmentation_error": {
+            "1-3 mm": {
+              "Area Error (%)": 24.62,
+              "Diameter of Equivalent Circle Error (%)": 12.49,
+              "Ellipse Major Axis Error (%)": 0.54,
+              "Ellipse Minor Axis Error (%)": 14.36,
+              "Ellipse Angle Error (%)": 16.18,
+              "Dice Coefficient": 0.79
+            },
+            ">3 mm": {
+              "Area Error (%)": 14.8,
+              "Diameter of Equivalent Circle Error (%)": 8.19,
+              "Ellipse Major Axis Error (%)": 0.45,
+              "Ellipse Minor Axis Error (%)": 8.74,
+              "Ellipse Angle Error (%)": 10.69,
+              "Dice Coefficient": 0.86
+            }
+          }
+        },
+        "Correlation Method": {
+          "description": "Two-dimensional cross-correlation functions for lesion patterns; segmentation via active contour approach.",
+          "results_by_size": {
+            "1-2 mm": {
+              "TP": 523,
+              "FN": 112,
+              "FP": 619,
+              "Sensitivity": 0.9,
+              "Precision": 0.92
+            },
+            "2-5 mm": {
+              "TP": 704,
+              "FN": 24,
+              "FP": 715,
+              "Sensitivity": 0.98,
+              "Precision": 0.98
+            },
+            ">5 mm": {
+              "TP": 24,
+              "FN": 1,
+              "FP": 25,
+              "Sensitivity": 0.96,
+              "Precision": 0.96
+            },
+            "All (1379 lesions)": {
+              "TP": 1251,
+              "FN": 137,
+              "FP": 292,
+              "Sensitivity": 0.9,
+              "Precision": 0.81
+            }
+          },
+          "segmentation_error": {
+            "1-3 mm": {
+              "Area Error (%)": 20.14,
+              "Diameter of Equivalent Circle Error (%)": 10.89,
+              "Ellipse Major Axis Error (%)": 0.56,
+              "Ellipse Minor Axis Error (%)": 12.91,
+              "Ellipse Angle Error (%)": 14.42,
+              "Dice Coefficient": 0.74
+            },
+            ">3 mm": {
+              "Area Error (%)": 23.79,
+              "Diameter of Equivalent Circle Error (%)": 13.54,
+              "Ellipse Major Axis Error (%)": 0.35,
+              "Ellipse Minor Axis Error (%)": 12.55,
+              "Ellipse Angle Error (%)": 14.12,
+              "Dice Coefficient": 0.81
+            }
+          }
+        },
+        "CNN (YOLOv3) Method": {
+          "description": "YOLOv3 deep learning model for detection; Otsu thresholding for segmentation.",
+          "results_by_size": {
+            "1-2 mm": {
+              "TP": 559,
+              "FN": 60,
+              "FP": 623,
+              "Sensitivity": 0.94,
+              "Precision": 0.94
+            },
+            "2-5 mm": {
+              "TP": 700,
+              "FN": 15,
+              "FP": 725,
+              "Sensitivity": 0.98,
+              "Precision": 0.98
+            },
+            ">5 mm": {
+              "TP": 24,
+              "FN": 1,
+              "FP": 25,
+              "Sensitivity": 0.96,
+              "Precision": 0.96
+            },
+            "All (1379 lesions)": {
+              "TP": 1283,
+              "FN": 76,
+              "FP": 75,
+              "Sensitivity": 0.94,
+              "Precision": 0.94
+            }
+          },
+          "segmentation_error": {
+            "1-3 mm": {
+              "Area Error (%)": 28.53,
+              "Diameter of Equivalent Circle Error (%)": 15.99,
+              "Ellipse Major Axis Error (%)": 0.47,
+              "Ellipse Minor Axis Error (%)": 18.27,
+              "Ellipse Angle Error (%)": 19.65,
+              "Dice Coefficient": 0.77
+            },
+            ">3 mm": {
+              "Area Error (%)": 21.72,
+              "Diameter of Equivalent Circle Error (%)": 12.46,
+              "Ellipse Major Axis Error (%)": 0.51,
+              "Ellipse Minor Axis Error (%)": 13.09,
+              "Ellipse Angle Error (%)": 13.17,
+              "Dice Coefficient": 0.79
+            }
+          }
+        },
+        "Fusion (Majority Voting)": {
+          "description": "Fusion of Histogram, Correlation, and CNN methods; lesion detected if indicated by at least two methods.",
+          "results_by_size": {
+            "1-2 mm": {
+              "TP": 575,
+              "FN": 48,
+              "FP": 623,
+              "Sensitivity": 0.96,
+              "Precision": 0.91
+            },
+            "2-5 mm": {
+              "TP": 712,
+              "FN": 13,
+              "FP": 725,
+              "Sensitivity": 0.98,
+              "Precision": 0.98
+            },
+            ">5 mm": {
+              "TP": 24,
+              "FN": 1,
+              "FP": 25,
+              "Sensitivity": 0.96,
+              "Precision": 0.96
+            },
+            "All (1379 lesions)": {
+              "TP": 1311,
+              "FN": 62,
+              "FP": 157,
+              "Sensitivity": 0.96,
+              "Precision": 0.91
+            }
+          },
+          "segmentation_error": {
+            "1-3 mm": {
+              "Area Error (%)": 24.35,
+              "Diameter of Equivalent Circle Error (%)": 15.41,
+              "Ellipse Major Axis Error (%)": 0.56,
+              "Ellipse Minor Axis Error (%)": 16.76,
+              "Ellipse Angle Error (%)": 24.28,
+              "Dice Coefficient": 0.8
+            },
+            ">3 mm": {
+              "Area Error (%)": 9.84,
+              "Diameter of Equivalent Circle Error (%)": 4.95,
+              "Ellipse Major Axis Error (%)": 0.41,
+              "Ellipse Minor Axis Error (%)": 7.33,
+              "Ellipse Angle Error (%)": 8.37,
+              "Dice Coefficient": 0.86
+            }
+          }
+        }
+      },
+      "comparison_with_literature": {
+        "Bogo et al. [12]": {
+          "1-3 mm": {
+            "Sensitivity": 0.9,
+            "Precision": 0.5
+          },
+          ">5 mm": {
+            "Sensitivity": 0.9,
+            "Precision": 0.8
+          }
+        },
+        "Taeg et al. [17]": {
+          "All": {
+            "Sensitivity": "0.80-0.85",
+            "Precision": "Not reported"
+          }
+        }
+      },
+      "notes": "The fusion method achieved the highest sensitivity (0.96) and high precision (0.91) for all lesions. The error of area estimation was <10% for lesions >3 mm in the fusion method. The CNN method had the highest precision among individual methods (0.94) due to low false positives. The histogram method had high sensitivity but low precision due to false positives from artifacts like jewelry and shadows."
+    }
+  },
+  "architecture_used": {
+    "main_model": "YOLOv3 (You Only Look Once)",
+    "pretraining": "Transfer learning from Darknet-53 model pre-trained on ImageNet (1.5 million natural images, 1000 classes)",
+    "input_size": "416 × 416 pixels (applied to overlapping frames cut from original images)",
+    "architecture_details": {
+      "framework": "Darknet",
+      "type": "Fully Convolutional Network (FCN)",
+      "backbone": "Darknet-53",
+      "layers": "53 convolutional layers with skip connections and upsampling layers",
+      "modifications": "Limited decision classes to one (skin lesions); input image cut into overlapping frames (mean overlap 118 pixels) to preserve small lesion details"
+    },
+    "training_details": {
+      "hardware": "NVIDIA GeForce RTX 2080 Ti GPU (11 GB VRAM, 4352 CUDA cores)",
+      "dataset_split": "945 frames with lesions from 32 images; 67% training, 33% validation",
+      "augmentation": "8 copies per frame (4 flips, 3 rotations, transpose); random saturation and exposure changes up to 20%",
+      "iterations": "20,000",
+      "validation_method": "Three-fold cross-validation",
+      "hyperparameters": "Set according to Darknet specification"
+    },
+    "classification_or_output_head": {
+      "output_type": "Bounding box detection with confidence probability",
+      "post_processing": "Non-Maximum Suppression (NMS) to remove duplicate detections; Otsu thresholding preceded by median filtering (kernel size 5 pixels) for segmentation within bounding boxes"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "YOLOv3",
+    "Darknet-53",
+    "CNN"
+  ],
+  "preprocessing_techniques": [
+    "Skin region segmentation using a modified skin detection algorithm in RGB color space to separate body from background",
+    "Hair removal using the dull razor approach",
+    "Image resizing/cropping to overlapping frames of 416 × 416 pixels for YOLOv3 input to preserve small lesion details",
+    "Histogram smoothing using an averaging filter for local skin model approach",
+    "Median filtering (kernel size 5 pixels) applied before Otsu thresholding for CNN segmentation",
+    "Data augmentation including 8 copies per frame (4 flips, 3 rotations, transpose) and random saturation/exposure changes up to 20%"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Added 8 different copies of the frame: 4 flips, 3 rotations, and 1 transpose."
+    },
+    {
+      "technique": "Color Transforms",
+      "details": "Randomly changed saturation and exposure by up to 20% during the learning process."
+    }
+  ],
+  "conclusions": [
+    "The fusion of three detection algorithms (histogram analysis, correlation method, and YOLOv3 deep learning) using majority voting achieved a detection sensitivity of 0.95 and a precision of 0.94.",
+    "The error of area estimation for segmented lesions was less than 10%, particularly for lesions with dimensions greater than 3 mm, which are considered most suspected of being neoplastic.",
+    "The CNN-based approach (YOLOv3) yielded the highest precision among individual methods (0.94) by minimizing false positives, although it missed some lesions due to untypical shadows.",
+    "The histogram-based method exhibited high sensitivity but low precision (0.60) due to false positives caused by artifacts such as jewelry, hair, and skin folds.",
+    "The correlation-based method resulted in intermediate precision (0.81) and sensitivity (0.90), with errors largely attributed to shadows from uneven lighting and lesions near image edges or underwear.",
+    "All evaluated methods performed well for larger lesions (size > 2 mm), which are potential neoplastic changes.",
+    "The majority voting fusion method provided the highest sensitivity (0.96) but had lower precision (0.91) compared to the CNN method alone, due to the accumulation of false positives from the histogram and correlation methods."
+  ],
+  "important_remarks": [
+    "The study relies on a reduced, in-house dataset limited by the COVID-19 pandemic, which restricts the generalizability of the deep learning model to other imaging conditions or public databases.",
+    "The system was tested exclusively on images acquired by the specific prototype hardware (cameras, lighting, acquisition method), creating potential deployment bias if applied to images from different devices.",
+    "The deep learning model (YOLOv3) was trained on a relatively small subset of frames (945 frames from 32 images), raising concerns about overfitting or insufficient data for robust deep learning performance.",
+    "The histogram-based method exhibited low precision (0.60) due to false positives caused by artifacts such as jewelry, hair, and skin folds, indicating sensitivity to non-lesion visual features.",
+    "The correlation method suffered from errors due to shadows from uneven lighting and lesions located near image edges or underwear, highlighting limitations in handling complex background contexts.",
+    "The fusion method achieved high sensitivity (0.96) but lower precision (0.91) compared to the CNN method alone (0.94), as majority voting accumulated false positives from the less precise classic methods.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals, relying instead on descriptive metrics (sensitivity, precision, error rates).",
+    "The dataset consists of whole-body images from a single clinic (Skopia Estetic Clinic), limiting external validation and potentially introducing population-specific biases.",
+    "The study focuses on melanocytic lesions and neoplastic suspicion but does not provide histopathological confirmation for the test set, relying on dermatologist annotations which may vary in inter-observer reliability."
+  ]
+}

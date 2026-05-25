@@ -1,0 +1,455 @@
+{
+  "file_name": "santos_2025_toward_linear_representations_of_foundation_models_for_histopatholog.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used AI (specifically deep learning foundation models like UNI, UNI2-h, Phikon, Virchow2, DINO, DINOv2, ViT, and ResNet-50) to obtain results in a dermatology context. It evaluated these models on the HAM10000 dataset, which contains dermatoscopic images of skin cancer, to perform image retrieval tasks using a prototype-based transfer learning framework."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, specifically introducing a 'linear-prototype framework' and evaluating it on proprietary and public datasets (glomerular biopsies, dermoscopic skin cancer, ovarian-cancer WSIs). It reports quantitative results (mAP improvements) from testing nine different backbone models using few-shot tuning, which constitutes a technical study producing new results rather than a review of prior literature."
+  },
+  "title": "Toward linear representations of foundation models for histopathology image retrieval",
+  "authors": [
+    "Matheus Santos",
+    "Igor Borja",
+    "David Lima",
+    "Grinaldo Oliveira",
+    "Ângelo Duarte",
+    "Washington Santos",
+    "Luciano Oliveira"
+  ],
+  "doi": "10.1109/SIBGRAPI67909.2025.11223348",
+  "journal": "2025 38th SIBGRAPI Conference on Graphics, Patterns and Images (SIBGRAPI)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the generalization limitations of domain-specific foundation models in histopathology by proposing a lightweight, linear-prototype framework for image retrieval. The authors evaluated nine backbone models, including UNI, UNI2-h, Phikon, Virchow2, DINO, DINOv2, ViT, and ResNet-50, on three datasets: proprietary glomerular biopsies, ovarian cancer WSIs, and the HAM10000 dermoscopic skin cancer dataset. The method involves appending a 128-dimensional projection head to frozen backbones and training it via a modified prototypical loss using few-shot tuning with five samples per class. Evaluation was conducted using mean Average Precision (mAP) at various ranks, with statistical significance assessed via paired permutation tests. The results demonstrated that few-shot tuning consistently improved retrieval performance, raising mAP by up to 15 percentage points across all datasets and backbones. The study concludes that this prototype-based approach effectively reconciles broad foundation model pre-training with task-specific discrimination, enhancing retrieval accuracy for diverse pathologies including skin cancer.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Glomerular lesions and normal glomerulus",
+      "paper_terms": [
+        "glomerular lesion subtypes",
+        "normal class",
+        "glomerulus",
+        "Crescent",
+        "Hypercellularity",
+        "Membranous",
+        "ECDC",
+        "Sclerosis"
+      ],
+      "role": "Target class",
+      "details": "Studied in the private glomerulus dataset, which contains biopsy patches of renal tissue categorized into five glomerular lesion subtypes and one normal class. Specific classes listed in PCA visualization include Crescent, Hypercellularity, Membranous, Normal, ECDC, and Sclerosis."
+    },
+    {
+      "lesion_type": "Ovarian cancer subtypes and non-cancerous tissue",
+      "paper_terms": [
+        "ovarian cancer subtypes",
+        "non-cancerous tissue samples",
+        "Clear Cell",
+        "Endometri",
+        "Mucinous",
+        "Non Cancerous",
+        "Serous"
+      ],
+      "role": "Target class",
+      "details": "Studied in the public ovarian cancer dataset, which includes histopathological images representing four ovarian cancer subtypes along with non-cancerous tissue samples. Specific classes listed in PCA visualization include Clear Cell, Endometri, Mucinous, Non Cancerous, and Serous."
+    },
+    {
+      "lesion_type": "Dermatologic skin lesions (HAM10000 classes)",
+      "paper_terms": [
+        "HAM10000",
+        "dermatoscopic skin cancer",
+        "pigmented skin lesions",
+        "Actinic keratoses",
+        "Basal cell carcinoma",
+        "Benign keratosis",
+        "Dermatofibroma",
+        "Melanoma",
+        "Melanocytic nevi",
+        "Vascular lesions"
+      ],
+      "role": "Target class",
+      "details": "Studied in the HAM10000 dataset comprising dermatoscopic images. The paper notes it covers 'common pigmented skin lesions'. Specific classes listed in PCA visualization include Actinic keratoses, Basal cell carcinoma, Benign keratosis, Dermatofibroma, Melanoma, Melanocytic nevi, and Vascular lesions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Retrieval",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Retrieval",
+        "target": "Visually or semantically similar histopathology images (whole-slide images or patches) based on learned embeddings.",
+        "primary": true,
+        "details": "The paper focuses on Content-Based Medical Image Retrieval (CBMIR). The model predicts a ranked list of similar images (top-k matches) using cosine similarity or Euclidean distance between query embeddings and database embeddings. Performance is evaluated using mean Average Precision (mAP@k). While the training uses a prototypical loss that involves class centroids and log-softmax to pull embeddings toward their class prototype, the primary task is retrieval, not discrete classification or regression."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Glomerulus Dataset",
+      "description": "A private dataset consisting of biopsy patches of renal tissue containing glomerular lesions and normal glomeruli.",
+      "classes_used": [
+        "Crescent",
+        "Hypercellularity",
+        "Membranous",
+        "Normal",
+        "ECDC",
+        "Sclerosis"
+      ],
+      "counts": {
+        "total": 7698,
+        "training": 7582,
+        "validation": null,
+        "testing": 116,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the prototype-based retrieval framework with few-shot tuning (5 samples per class).",
+        "validation": "null",
+        "testing": "Used for testing retrieval performance (mAP).",
+        "other": "Query sets were built from a separate out-of-distribution collection disjoint from training and test galleries."
+      }
+    },
+    {
+      "name": "Ovarian Cancer Dataset",
+      "description": "A public dataset including histopathological images of ovarian cancer subtypes and non-cancerous tissue samples.",
+      "classes_used": [
+        "Clear Cell",
+        "Endometri",
+        "Mucinous",
+        "Non Cancerous",
+        "Serous"
+      ],
+      "counts": {
+        "total": 498,
+        "training": 405,
+        "validation": null,
+        "testing": 93,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the prototype-based retrieval framework with few-shot tuning (5 samples per class).",
+        "validation": "null",
+        "testing": "Used for testing retrieval performance (mAP).",
+        "other": "null"
+      }
+    },
+    {
+      "name": "HAM10000",
+      "description": "A public dataset comprising dermatoscopic images of common pigmented skin lesions from multiple sources.",
+      "classes_used": [
+        "Actinic keratoses",
+        "Basal cell carcinoma",
+        "Benign keratosis",
+        "Dermatofibroma",
+        "Melanoma",
+        "Melanocytic nevi",
+        "Vascular lesions"
+      ],
+      "counts": {
+        "total": 7044,
+        "training": 6906,
+        "validation": null,
+        "testing": 138,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the prototype-based retrieval framework with few-shot tuning (5 samples per class).",
+        "validation": "null",
+        "testing": "Used for testing retrieval performance (mAP).",
+        "other": "Query sets were built by drawing class-balanced images disjoint from the training and test galleries."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "mean Average Precision (mAP)",
+    "mAP@k",
+    "precision",
+    "p-values",
+    "confidence intervals",
+    "95% confidence intervals",
+    "observed difference",
+    "bootstrap distribution of the mean mAP gain"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Paired permutation test",
+      "purpose": "To assess statistical significance between the best pre-trained (PT) and transfer learning (TL) models on mAP@k.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Bootstrap",
+      "purpose": "To estimate confidence intervals and p-values from the empirical null distribution of the mean mAP gain.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "95% Confidence Intervals",
+      "purpose": "To report the uncertainty range for the observed performance differences (mAP gains).",
+      "type": "Confidence interval"
+    },
+    {
+      "method": "Significance threshold (p-value)",
+      "purpose": "To determine statistical significance of the improvements, with a reported p-value of 1.00 × 10^-4.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Two-sided paired permutation test with 10,000 iterations, with p-values and confidence intervals estimated via bootstrapping from the empirical null distribution of the mean mAP gain.",
+    "null_hypothesis": "There is no performance difference across paired queries between the transfer learning (TL) and pre-trained (PT) models.",
+    "alternative_hypothesis": "There is a performance difference across paired queries between the transfer learning (TL) and pre-trained (PT) models.",
+    "alpha": null,
+    "interpretation": "The observed mAP gains (Glomerulus +15.83 pp, skin cancer +18.13 pp, ovarian cancer +3.88 pp) fell outside the 95% confidence intervals of the empirical null distribution, with a reported p-value of 1.00 × 10^-4, confirming that the improvements from transfer learning are statistically significant."
+  },
+  "results_obtained_in_each_dataset": {
+    "Glomerulus Dataset": {
+      "metric": "mAP@k (mean Average Precision at rank k)",
+      "models": {
+        "UNI2-h": {
+          "PT_mAP": "43.98% ± 2.25",
+          "TL_mAP": "56.7% ± 1.2",
+          "gain": "+12.72 to +15.11 percentage points (pp)"
+        },
+        "Phikon-v2": {
+          "PT_mAP": "32.78% ± 2.19",
+          "TL_mAP": "47.68% ± 1.21"
+        },
+        "Phikon": {
+          "PT_mAP": "34.53% ± 3.02",
+          "TL_mAP": "46.96% ± 1.63"
+        },
+        "UNI": {
+          "PT_mAP": "42.35% ± 3.48",
+          "TL_mAP": "59.27% ± 0.48"
+        },
+        "Virchow2": {
+          "PT_mAP": "38.21% ± 2.45",
+          "TL_mAP": "54.44% ± 0.58"
+        },
+        "DINO": {
+          "PT_mAP": "44.16% ± 3.48",
+          "TL_mAP": "46.9% ± 2.39"
+        },
+        "DINOv2": {
+          "PT_mAP": "38.46% ± 4.29",
+          "TL_mAP": "58.71% ± 1.55"
+        },
+        "ResNet50": {
+          "PT_mAP": "36.13% ± 3.33",
+          "TL_mAP": "45.12% ± 2.0"
+        },
+        "ViT": {
+          "PT_mAP": "34.09% ± 2.95",
+          "TL_mAP": "32.74% ± 3.15"
+        }
+      },
+      "notes": "Transfer learning improved retrieval by up to 15.11 pp. The best TL score was achieved by UNI (59.27%). Statistical significance confirmed with p = 1.00 × 10^-4 and observed difference of +15.83 pp for the best TL vs PT comparison."
+    },
+    "Skin Cancer Dataset (HAM10000)": {
+      "metric": "mAP@k (mean Average Precision at rank k)",
+      "models": {
+        "UNI2-h": {
+          "PT_mAP": "51.71% ± 2.02",
+          "TL_mAP": "64.95% ± 1.19",
+          "gain": "+13.24 pp"
+        },
+        "Phikon-v2": {
+          "PT_mAP": "49.66% ± 1.67",
+          "TL_mAP": "68.15% ± 1.4",
+          "gain": "+18.49 pp"
+        },
+        "Phikon": {
+          "PT_mAP": "52.15% ± 2.4",
+          "TL_mAP": "54.97% ± 3.94"
+        },
+        "UNI": {
+          "PT_mAP": "52.72% ± 2.0",
+          "TL_mAP": "61.33% ± 1.45"
+        },
+        "Virchow2": {
+          "PT_mAP": "43.64% ± 3.18",
+          "TL_mAP": "59.21% ± 2.22"
+        },
+        "DINO": {
+          "PT_mAP": "46.9% ± 2.39",
+          "TL_mAP": "59.83% ± 1.35"
+        },
+        "DINOv2": {
+          "PT_mAP": "49.5% ± 2.96",
+          "TL_mAP": "67.17% ± 1.28"
+        },
+        "ResNet50": {
+          "PT_mAP": "45.12% ± 2.0",
+          "TL_mAP": "48.49% ± 2.0"
+        },
+        "ViT": {
+          "PT_mAP": "32.74% ± 3.15",
+          "TL_mAP": "45.81% ± 2.79"
+        }
+      },
+      "notes": "Phikon-v2 achieved the highest TL mAP of 68.15%. Gains were over +13 pp for top models. Statistical significance confirmed with p = 1.00 × 10^-4 and observed difference of +18.13 pp for the best TL vs PT comparison."
+    },
+    "Ovarian Cancer Dataset": {
+      "metric": "mAP@k (mean Average Precision at rank k)",
+      "models": {
+        "UNI2-h": {
+          "PT_mAP": "93.55% ± 1.9",
+          "TL_mAP": "97.43% ± 0.29",
+          "gain": "+3.88 pp"
+        },
+        "Phikon-v2": {
+          "PT_mAP": "84.52% ± 2.88",
+          "TL_mAP": "91.82% ± 0.2"
+        },
+        "Phikon": {
+          "PT_mAP": "85.34% ± 2.8",
+          "TL_mAP": "87.08% ± 0.49"
+        },
+        "UNI": {
+          "PT_mAP": "87.56% ± 2.2",
+          "TL_mAP": "90.04% ± 0.39"
+        },
+        "Virchow2": {
+          "PT_mAP": "89.92% ± 1.81",
+          "TL_mAP": "84.82% ± 2.45"
+        },
+        "DINO": {
+          "PT_mAP": "82.83% ± 2.47",
+          "TL_mAP": "86.85% ± 0.19"
+        },
+        "DINOv2": {
+          "PT_mAP": "80.77% ± 2.82",
+          "TL_mAP": "90.72% ± 0.74"
+        },
+        "ResNet50": {
+          "PT_mAP": "78.64% ± 2.43",
+          "TL_mAP": "86.61% ± 0.29"
+        },
+        "ViT": {
+          "PT_mAP": "63.23% ± 3.45",
+          "TL_mAP": "83.45% ± 0.33"
+        }
+      },
+      "notes": "Pre-trained models performed notably better on this dataset compared to others. UNI2-h achieved the highest TL mAP of 97.43%. Statistical significance confirmed with p = 1.00 × 10^-4 and observed difference of +3.88 pp for the best TL vs PT comparison."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Linear-prototype framework with frozen foundation model backbones and a lightweight trainable projection head",
+    "pretraining": "Backbones were pre-trained on various datasets: UNI (MASS-100K, DINOv2 protocol), UNI2-h (200M tiles, DINOv2+iBOT), Virchow2 (1.5M-3.1M WSIs, Modified DINOv2), Phikon (43M tiles, iBOT), Phikon-v2 (460M tiles, DINOv2), DINO (ImageNet-1K, DINO), DINOv2 (LVD-142M, DINOv2), ViT (ImageNet-21K/1K, Supervised), ResNet-50 A1 (ImageNet-1K, Supervised). The proposed framework's projection head was trained via few-shot transfer learning on specific histopathology datasets.",
+    "input_size": "224 x 224 pixels",
+    "architecture_details": {
+      "backbone_type": "Frozen foundation models (ViT or ResNet variants)",
+      "backbone_models": [
+        "UNI (ViT-L/16)",
+        "UNI2-h (ViT-H/14-reg8)",
+        "Virchow2 (ViT-H/14)",
+        "Phikon (ViT-B/16)",
+        "Phikon-v2 (ViT-L/16)",
+        "DINO (ViT-S/16)",
+        "DINOv2 (ViT-L/14)",
+        "ViT (ViT-B/16)",
+        "ResNet-50 A1"
+      ],
+      "projection_head": {
+        "type": "Lightweight encoder",
+        "layers": "Two linear layers separated by GELU activation",
+        "dimensions": "Input: Backbone embedding dimension (384-2048); Hidden: 512; Output: 128",
+        "activation": "GELU"
+      },
+      "embedding_space": "128-dimensional discriminative embedding space",
+      "similarity_metric": "Cosine similarity for retrieval; Squared Euclidean distance for prototype loss"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": "1e-3",
+      "weight_decay": "1e-4",
+      "epochs": "100",
+      "loss_function": "Modified prototypical loss (Negative Log-Likelihood of true class based on Euclidean distance to class prototypes)",
+      "few_shot_setting": "5 samples per class (K=5)",
+      "hardware": "Single NVIDIA RTX 3060 GPU (12 GB)",
+      "framework": "PyTorch"
+    },
+    "classification_or_output_head": {
+      "type": "Prototype-based retrieval head",
+      "mechanism": "Class prototypes computed as mean of support embeddings; query embeddings compared to prototypes via Euclidean distance and log-softmax for loss; cosine similarity for final retrieval ranking"
+    },
+    "approximate_parameters": {
+      "UNI": "307M",
+      "UNI2-h": "632M",
+      "Virchow2": "632M",
+      "Phikon": "86M",
+      "Phikon-v2": "307M",
+      "DINO": "22M",
+      "DINOv2": "304M",
+      "ViT": "86M",
+      "ResNet-50": "25.6M",
+      "projection_head": "Lightweight (parameters not explicitly summed, but described as lightweight compared to backbones)"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "UNI",
+    "UNI2-h",
+    "Phikon",
+    "Phikon-v2",
+    "Virchow2",
+    "DINO",
+    "DINOv2",
+    "ViT",
+    "ResNet-50 A1"
+  ],
+  "preprocessing_techniques": [
+    "Input images were resized to 224 × 224 pixels",
+    "Images were normalized with ImageNet mean and standard deviation values"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal and vertical flips",
+      "details": "Applied during training of the foundation models (specifically noted for Phikon-v2 and DINOv2 pre-training)."
+    },
+    {
+      "technique": "Color jitter",
+      "details": "Applied during training of the foundation models (specifically noted for Phikon-v2 and DINOv2 pre-training)."
+    },
+    {
+      "technique": "Gaussian blur",
+      "details": "Applied during training of the foundation models (specifically noted for Phikon-v2 and DINOv2 pre-training)."
+    },
+    {
+      "technique": "Random rotations",
+      "details": "Applied during training of the foundation models (specifically noted for Phikon-v2 and DINOv2 pre-training)."
+    },
+    {
+      "technique": "Affine transformations",
+      "details": "Applied during training of the foundation models (specifically noted for Phikon-v2 and DINOv2 pre-training)."
+    },
+    {
+      "technique": "Optical distortion",
+      "details": "Applied during training of the foundation models (specifically noted for Phikon-v2 and DINOv2 pre-training)."
+    },
+    {
+      "technique": "Coarse dropout",
+      "details": "Applied during training of the foundation models (specifically noted for Phikon-v2 and DINOv2 pre-training)."
+    }
+  ],
+  "conclusions": [
+    "A lightweight, linear-prototype framework consisting of a 128-dimensional projection head appended to frozen foundation model backbones consistently improves image retrieval performance across diverse histopathology datasets.",
+    "Few-shot tuning (using 5 samples per class) raises mean Average Precision (mAP) by up to 15 percentage points, effectively reconciling the broad generalization of foundation model pre-training with the need for task-specific discrimination.",
+    "Histopathology-specific foundation models (UNI, UNI2-h, Phikon, Virchow2) did not consistently outperform the generic DINO model, particularly in datasets with high clinical heterogeneity, suggesting that current domain-specific pre-training objectives may not adequately capture real-world clinical image distributions and domain shifts.",
+    "ViT-based foundation models consistently outperformed the convolutional ResNet-50 baseline, attributed to their architectural capacity to capture long-range dependencies and flexibility when paired with extensive pretraining.",
+    "The proposed transfer learning method reorganizes the embedding space into tighter, more discriminative class clusters, enhancing both intra-class compactness and inter-class separability as visualized by PCA.",
+    "Performance gains from transfer learning were statistically significant across all tested datasets (glomerular biopsies, skin cancer, and ovarian cancer) with p-values of 1.00 × 10^-4.",
+    "The effectiveness of domain-specific pre-training varies by target cohort; for instance, models performed notably better on the ovarian cancer dataset, potentially due to distributional alignment with pretraining samples or distinct visual regularities, whereas they struggled more with the complex, subtle cues of glomerular lesions.",
+    "The study highlights the need for deeper examination of robustness and generalization boundaries in histopathology-specific foundation models across diverse clinical settings and staining protocols."
+  ],
+  "important_remarks": [
+    "The study relies on a very small test set for the proprietary glomerulus dataset (only 116 images), which may limit the statistical power and generalizability of the results for this specific domain.",
+    "The glomerulus dataset is private and proprietary, preventing independent replication or external validation on this specific cohort.",
+    "The query sets for the private glomerulus corpus were drawn from a separate out-of-distribution collection, whereas for HAM10000 and ovarian cancer, they were randomly sampled from unused portions of the public datasets; this difference in data splitting strategy could introduce bias or affect comparability across datasets.",
+    "Histopathology-specific foundation models (UNI, UNI2-h, Phikon, Virchow2) did not consistently outperform the generic DINO model, particularly on datasets with high clinical heterogeneity (glomerulus and skin cancer), suggesting current domain-specific pre-training may not adequately capture real-world clinical image distributions.",
+    "The framework was evaluated using few-shot tuning with only 5 samples per class (K=5); while efficient, this extreme data scarcity limits the assessment of the method's performance in more data-rich scenarios.",
+    "All experiments were conducted on a single NVIDIA RTX 3060 GPU (12 GB), which may constrain the scalability of the proposed method for larger datasets or more complex models in resource-constrained environments.",
+    "The HAM10000 dataset contains dermatoscopic images, which differ significantly in modality and resolution from the histopathology whole-slide images (WSIs) used in the other two datasets, potentially affecting the generalizability of the 'linear representation' claims across different imaging domains.",
+    "The paper acknowledges that variability in staining protocols and imaging equipment complicates analysis, and the proposed method's effectiveness may vary depending on the distributional alignment between pretraining data and the target clinical cohort.",
+    "The study does not report results on other common dermatological datasets beyond HAM10000, limiting the breadth of evidence for dermatology-specific robustness."
+  ]
+}

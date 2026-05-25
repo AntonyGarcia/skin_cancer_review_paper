@@ -1,0 +1,246 @@
+{
+  "file_name": "Hermann and Vámossy - 2022 - Image-based lesion classification using deep neural networks.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a deep learning approach, specifically a retrained GoogleNet InceptionV3 convolutional neural network, to classify 2D photographs of skin lesions for melanoma detection using the ISIC database."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the design and implementation of a deep learning system (retrained GoogleNet InceptionV3) for melanoma detection. It details specific methods (pre-processing, transfer learning, data augmentation), datasets (ISIC), and reports new empirical results (86.67% test accuracy, 156 correct diagnoses in 180 cases). Although published in conference proceedings (IMPROVE 2022), it contains original research findings rather than summarizing prior literature."
+  },
+  "title": "Image-based Lesion Classification using Deep Neural Networks",
+  "authors": [
+    "Ákos Hermann",
+    "Zoltán Vámossy"
+  ],
+  "doi": "10.5220/0011126200003209",
+  "journal": "Proceedings of the 2nd International Conference on Image Processing and Vision Engineering (IMPROVE 2022)",
+  "year": 2022,
+  "article_type": "Conference paper",
+  "brief_summary": "This study developed a deep learning system for melanoma detection using 2D photographs of skin lesions from the International Skin Imaging Collaboration (ISIC) database. The researchers employed a retrained GoogleNet InceptionV3 convolutional neural network combined with an automated pre-processing phase to handle image anomalies such as noise and vignetting. To address class imbalance, the dataset was balanced by selecting equal numbers of benign and melanoma samples. The model's performance was evaluated on a test set of 180 cases, comparing results with and without data augmentation. The final system achieved a test accuracy of 86.67%, correctly diagnosing 156 out of 180 cases, demonstrating the viability of AI in dermatological screening.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "melanoma-like abnormality",
+        "cancerous lesions",
+        "confirmed melanoma"
+      ],
+      "role": "Target class (positive class)",
+      "details": "The primary target of the binary classification task. The study used approximately 90 confirmed melanoma cases from the ISIC database for testing. The paper notes that melanoma accounts for nearly three quarters of skin cancer deaths and is an aggressive type of cancer."
+    },
+    {
+      "lesion_type": "Benign Lesions",
+      "paper_terms": [
+        "benign",
+        "benign lesions",
+        "benign prediction",
+        "mole"
+      ],
+      "role": "Comparator class (negative class)",
+      "details": "The negative class in the binary classification task. The study balanced the dataset by selecting an equal number of benign samples (approximately 6,000) to melanoma samples for training, and used approximately 90 benign cases for testing. The paper discusses distinguishing benign moles from melanoma."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (melanoma vs. benign lesion)",
+        "primary": true,
+        "details": "The paper describes a binary classification task to determine whether a mole shows a 'melanoma-like abnormality' or is benign. The model predicts discrete diagnostic categories (melanoma or benign) based on 2D photographs. The primary metric reported is test accuracy (86.67%) on 180 test cases, with specific counts of correct melanoma predictions (70/90) and correct benign predictions (86/90) for the augmented model."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Database (International Skin Imaging Collaboration)",
+      "description": "A publicly available dermatological database from the ISIC melanoma project containing approximately 53,000 photographs of lesions. The images are annotated and biopsy-verified specimens with centrally located lesions of good quality.",
+      "classes_used": [
+        "Confirmed melanoma",
+        "Benign lesions"
+      ],
+      "counts": {
+        "total": 53000,
+        "training": 12000,
+        "validation": null,
+        "testing": 180,
+        "per_class": {
+          "melanoma": 6000,
+          "benign": 6000
+        }
+      },
+      "use": {
+        "training": "A balanced subset of approximately 6,000 melanoma and 6,000 benign samples was selected from the full database for training the neural network. This subset was used both with and without data augmentation.",
+        "validation": "Not explicitly reported as a separate held-out set; validation accuracy was monitored during training via a callback function (Early Stopping) based on validation loss.",
+        "testing": "A test set of 180 cases (90 melanoma and 90 benign) was used to evaluate the final model performance, resulting in 156 correct diagnoses (86.67% accuracy) for the augmented model.",
+        "other": "The full database (with its 1:8 imbalance) was initially analyzed to understand class distribution, but the imbalance was addressed by subsampling for training."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "validation accuracy",
+    "average absolute error",
+    "test accuracy",
+    "correct melanoma prediction",
+    "correct benign prediction",
+    "all correct prediction",
+    "false-negative diagnosis",
+    "false positive predictions"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Test accuracy calculation",
+      "purpose": "To evaluate the performance of the deep learning model on a held-out test set of 180 cases.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Comparison of models with and without data augmentation",
+      "purpose": "To assess the impact of data augmentation on generalization capability and classification accuracy.",
+      "type": "Comparative analysis"
+    },
+    {
+      "method": "Early Stopping",
+      "purpose": "To prevent overfitting by monitoring validation loss and stopping training if it increases persistently over a predefined tolerance (3 epochs).",
+      "type": "Regularization technique"
+    },
+    {
+      "method": "Average Absolute Error (AAE)",
+      "purpose": "To measure the performance of the network during the learning process.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Dataset balancing (subsampling)",
+      "purpose": "To address class imbalance in the ISIC database by selecting equal numbers of benign and melanoma samples for training.",
+      "type": "Data preprocessing"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive statistics such as test accuracy (86.67%), correct diagnosis counts, and average absolute error."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC Database": {
+      "split": "Test Set (180 cases: 90 melanoma, 90 benign)",
+      "experiment": "Comparison of models with and without data augmentation",
+      "models": {
+        "GoogleNet InceptionV3 (No data augmentation)": {
+          "test_accuracy": "82.22%",
+          "correct_melanoma_predictions": "60 / 90",
+          "correct_benign_predictions": "88 / 90",
+          "all_correct_predictions": "148 / 180",
+          "validation_accuracy": "77.22%",
+          "false_negative_count": "30",
+          "notes": "The model was more prone to false-negative diagnosis. Training accuracy was 83.07%."
+        },
+        "GoogleNet InceptionV3 (With data augmentation)": {
+          "test_accuracy": "86.67%",
+          "correct_melanoma_predictions": "70 / 90",
+          "correct_benign_predictions": "86 / 90",
+          "all_correct_predictions": "156 / 180",
+          "validation_accuracy": "72%",
+          "false_negative_count": "20",
+          "notes": "The network made 20 false-negative diagnostic errors, which is 33% fewer than the case without data augmentation. The number of false positive predictions was almost identical to the non-augmented model. The learning process ended with an average absolute error of 27.68%."
+        }
+      },
+      "notes": "The system provided 156 correct diagnoses in 180 test cases, indicating a test accuracy of 86.67%. The model using data augmentation showed superior testing accuracy despite lower validation accuracy, attributed to better generalization. The model tended to prioritize false-negative diagnoses."
+    }
+  },
+  "architecture_used": {
+    "main_model": "GoogleNet InceptionV3 (retrained via transfer learning)",
+    "pretraining": "Pre-trained on the ImageNet database (Russakovsky, 2015); original weight values loaded, top layers not imported.",
+    "input_size": "248x248 pixels, RGB color space (3 channels)",
+    "architecture_details": {
+      "base_model": "InceptionV3 convolutional neural network",
+      "frozen_layers": "All layers of the base model were frozen to prevent weight alteration during training.",
+      "custom_layers": [
+        {
+          "type": "Dense layer",
+          "neurons": 1024,
+          "activation": "ReLU",
+          "description": "Added to the last output ('mixed7') layer of the base model, converted to one-dimensional."
+        },
+        {
+          "type": "Dropout layer",
+          "rate": 0.2,
+          "description": "Placed between the dense layer and the output layer for regularization."
+        },
+        {
+          "type": "Output layer",
+          "neurons": 1,
+          "activation": "Softmax",
+          "description": "Single neuron for binary classification output."
+        }
+      ]
+    },
+    "training_details": {
+      "optimizer": "RMSProp",
+      "learning_rate": "Initialized at 0.0001 (one ten-thousandth); range reported in Table 1 as 0.001-0.0001",
+      "loss_function": "Binary cross-entropy",
+      "epochs": "Up to 500 epochs, or stopped early by Early Stopping callback.",
+      "early_stopping": {
+        "monitor": "Validation loss",
+        "tolerance": "3 epochs"
+      },
+      "data_augmentation": "Yes (applied in one experimental setup)",
+      "regularization": "Dropout (rate=0.2), Early Stopping"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification",
+      "layers": [
+        "Dense(1024, ReLU)",
+        "Dropout(0.2)",
+        "Dense(1, Softmax)"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "GoogleNet InceptionV3",
+    "InceptionV3 convolutional neural network",
+    "SVM",
+    "Logistic Regression"
+  ],
+  "preprocessing_techniques": [
+    "Vignetting removal via circular cropping (clipping corners along a circle of radius r from the center) to black out edges",
+    "Denoising using Gaussian smoothing to thin out hairs",
+    "Contrast enhancement (60% enhancement with a constant beta value of 1.1) to separate lesion edges from background",
+    "Region of Interest (ROI) determination via thresholding on a run-time value calculated from sample parameters",
+    "Lesion localization/masking by finding the largest contour from thresholding and applying a binary mask with a black background",
+    "Orientation correction by rotating upright photographs clockwise by 90 degrees to ensure consistent orientation",
+    "Resizing/Rescaling to 248x248 pixels with a black background, copying content from the top left corner"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Data Augmentation (General)",
+      "details": "Applied to the training dataset to diversify the database and improve generalization capability. The paper reports that using data augmentation resulted in a test accuracy of 86.67% compared to 82.22% without augmentation, and reduced false-negative diagnostic errors by 33% (from 30 to 20 errors). Specific geometric or color transform parameters for the augmentation are not detailed in the provided text, only that it was enabled in one experimental setup."
+    }
+  ],
+  "conclusions": [
+    "The proposed system, utilizing a retrained GoogleNet InceptionV3 convolutional neural network and automated pre-processing, achieved a test accuracy of 86.67% (156 correct diagnoses out of 180 test cases), demonstrating the viability of AI in melanoma diagnostics.",
+    "Data augmentation improved the model's generalization capability, resulting in higher testing accuracy (86.67%) compared to the non-augmented model (82.22%), despite lower validation accuracy.",
+    "The model exhibited a tendency to prioritize false-negative diagnoses, particularly when data augmentation was not used; the augmented model reduced false-negative errors by 33% (from 30 to 20 errors).",
+    "Automated pre-processing (noise filtering and segmentation) contributed to classification performance, yielding approximately 6% higher segmentation accuracy compared to using raw database images.",
+    "The study highlights that melanoma lesions often contain higher noise levels and are less accurately segmented due to asymmetric shapes, which reduces the number of usable training samples and contributes to classification imbalances.",
+    "Future improvements should focus on increasing classification accuracy by expanding the dataset (e.g., adding similar databases), resolving class imbalance in the ISIC gallery (e.g., via oversampling), enhancing pre-processing efficiency, and modifying the network architecture or loss function to penalize false-negative results more heavily."
+  ],
+  "important_remarks": [
+    "The study relies on a very small test set (180 cases: 90 melanoma, 90 benign), which limits the statistical power and generalizability of the reported 86.67% accuracy.",
+    "The model exhibits a significant bias toward false-negative diagnoses (misclassifying melanoma as benign), with 30 false negatives in the non-augmented model and 20 in the augmented model; this poses serious clinical safety risks.",
+    "The paper does not report formal statistical significance testing (e.g., p-values or confidence intervals) for the performance differences between models.",
+    "Data augmentation improved test accuracy (86.67% vs 82.22%) but resulted in lower validation accuracy (72% vs 77.22%), suggesting potential overfitting to the augmented training distribution or that validation metrics did not fully capture generalization gains.",
+    "The dataset was artificially balanced by subsampling the ISIC database (which has a 1:8 melanoma-to-benign ratio) to 6,000 samples per class for training, which may not reflect real-world prevalence and could affect model calibration.",
+    "The study lacks external validation; it uses only the ISIC database, and the authors acknowledge that adding similar databases is necessary for future improvement.",
+    "The pre-processing pipeline (vignetting removal, denoising, segmentation) introduces complexity and potential failure points, particularly for asymmetric melanoma lesions which are harder to segment accurately.",
+    "No comparison is made against dermatologist performance or other state-of-the-art models, limiting the context for the reported accuracy.",
+    "The paper acknowledges that the current architecture (InceptionV3) may be suboptimal and suggests future work should explore architectures like VGG-16 or ensemble methods to reduce false negatives."
+  ]
+}

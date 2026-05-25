@@ -1,0 +1,195 @@
+{
+  "file_name": "sultana_2020_infantile_hemangioma_detection_using_deep_learning.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a linear convolutional neural network (CNN) to classify infantile hemangioma regions in dermatology images. The model was trained on 240 images from 40 patients, achieving 93.84% accuracy on the test set for binary classification (hemangioma vs. non-hemangioma)."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a linear convolutional neural network (CNN) for infantile hemangioma detection. It describes a specific methodology using a proprietary dataset of 240 images from 40 patients, details the training process (including data augmentation and hyperparameters), and reports new quantitative results (93.84% accuracy) on a test set. The structure includes standard research sections such as Introduction, Database, Methodology, Results, and Conclusions, rather than summarizing prior literature."
+  },
+  "title": "Infantile Hemangioma Detection using Deep Learning",
+  "authors": [
+    "Alina SULTANA",
+    "Horváth BALAZS",
+    "Silvia OVREIU",
+    "Șerban OPRIȘESCU",
+    "Cătălina NEGHINĂ"
+  ],
+  "doi": null,
+  "journal": null,
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a deep learning method for the binary classification of infantile hemangioma regions in dermatology images to assist in automated monitoring. The authors developed a linear convolutional neural network (CNN) trained on a proprietary dataset of 240 images from 40 patients. The dataset was processed by generating 3064 centered 64x64 pixel crops, with 2000 used for training and 1064 for testing. The model achieved a test set accuracy of 93.84%, along with a positive predicted value of 96.06% and specificity of 96.24%. The results indicate that the proposed CNN approach is effective for detecting hemangiomas despite the challenges of a small and variable-quality dataset.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Infantile Hemangioma",
+      "paper_terms": [
+        "Infantile Hemangioma",
+        "IH",
+        "hemangioma",
+        "hemangiomas"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for the binary classification task. The study focuses on detecting infantile hemangiomas, which are described as the most common type of benign tumor in children. The dataset consists of images from 40 patients with IH."
+    },
+    {
+      "lesion_type": "Non-Hemangioma",
+      "paper_terms": [
+        "non-hemangioma",
+        "non-hemangiomas"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary classification task. The model distinguishes between hemangioma regions and non-hemangioma regions. The dataset was balanced with equal numbers of samples for both classes."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary class label (hemangioma vs. non-hemangioma) for cropped image patches.",
+        "primary": true,
+        "details": "The paper describes a 'hemangiomas classifier' using a linear convolutional neural network (CNN). The model performs binary classification on 64x64 pixel crops extracted from dermatology images. The output is a probability score for two classes (hemangioma or non-hemangioma), with the final prediction determined by a threshold of 0.5. The task is explicitly defined as separating samples into two classes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Proprietary Internal Database",
+      "description": "A private dataset consisting of 240 dermatology images acquired from 40 different patients with infantile hemangiomas. Images were taken under varying illumination conditions, with different camera devices, and at successive time moments (weeks to months apart). The dataset was processed by generating 3064 centered 64x64 pixel crops.",
+      "classes_used": [
+        "hemangioma",
+        "non-hemangioma"
+      ],
+      "counts": {
+        "total": 3064,
+        "training": 2000,
+        "validation": null,
+        "testing": 1064,
+        "per_class": {
+          "hemangioma": null,
+          "non-hemangioma": null
+        }
+      },
+      "use": {
+        "training": "2000 crops were used for training the linear convolutional neural network (CNN).",
+        "validation": "null",
+        "testing": "1064 crops were used for testing the model performance.",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "positive predicted value",
+    "negative predicted value",
+    "sensitivity",
+    "specificity"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics (accuracy, PPV, NPV, sensitivity, specificity) and confusion matrices without statistical inference."
+  },
+  "results_obtained_in_each_dataset": {
+    "Proprietary Internal Database (240 images from 40 patients, 3064 crops)": {
+      "split": "Test Set (1064 crops)",
+      "models": {
+        "Linear CNN": {
+          "accuracy": "93.84%",
+          "positive_predicted_value": "96.06%",
+          "negative_predicted_value": "91.92%",
+          "sensitivity": "91.54%",
+          "specificity": "96.24%"
+        }
+      },
+      "notes": "The best accuracy was obtained at epoch 20. The model was implemented using PyTorch on Google Colab. Processing time was approximately 13 minutes. The dataset was split into 2000 training crops and 1064 test crops. Classes were balanced."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Linear Convolutional Neural Network (CNN)",
+    "pretraining": null,
+    "input_size": "64x64 RGB image patches",
+    "architecture_details": {
+      "structure": "Standard linear architecture consisting of two convolutional blocks, each followed by a Max Pooling layer. This is followed by a three fully connected cascade layers structure and a final Soft-max layer.",
+      "regularization": [
+        "2D batch normalization layer after each convolutional block",
+        "Drop-out of 50% after the two fully connected layers"
+      ]
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": "Initial exponential learning rate decay of 10^-3",
+      "epochs": 100,
+      "best_epoch": 20,
+      "implementation": "PyTorch on Google Colab",
+      "data_augmentation": [
+        "Rescaling values into range [0, 1]",
+        "Vertical axis flipping",
+        "Rotation with a step of 10 degrees"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Soft-max layer",
+      "output": "Two elements vector representing probability scores for hemangioma and non-hemangioma classes",
+      "threshold": "0.5"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Linear Convolutional Neural Network (CNN)",
+    "Single layer perceptron (mentioned as prior work by Zambanini et al.)",
+    "MAP Markov segmentation (mentioned as prior work by Oprișescu et al.)",
+    "Otsu’s method (mentioned as prior work by Neghină et al.)",
+    "Fuzzy C-Means clustering (FCM) (mentioned as prior work by Neghină et al.)",
+    "Region Growing based on FCM (mentioned as prior work by Neghină et al.)"
+  ],
+  "preprocessing_techniques": [
+    "Resizing samples to a spatial resolution of 64x64 pixels",
+    "Generation of 3064 centered squared crops with a step of 160 pixels",
+    "White balance operation to address uniform illumination",
+    "Brightness thresholding for class distribution (average pixel luminance > 95% for hemangioma class)",
+    "Data augmentation including rescaling pixel values to range [0, 1]",
+    "Vertical axis flipping",
+    "Rotation with a step of 10 degrees"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Image normalization (rescaling)",
+      "details": "Rescaling pixel values into the range [0, 1]."
+    },
+    {
+      "technique": "Vertical axis flipping",
+      "details": "Flipping the data on the vertical axis."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Rotating images with a step of 10 degrees."
+    }
+  ],
+  "conclusions": [
+    "The study concludes that a linear convolutional neural network (CNN) is an effective preliminary tool for the binary classification of infantile hemangioma regions in dermatology images, achieving a test set accuracy of 93.84%.",
+    "The proposed CNN approach demonstrates promising performance despite challenges posed by a small, proprietary dataset of 240 images from 40 patients and variable image quality (varying illumination, camera devices, and patient movement).",
+    "The model achieved high specificity (96.24%) and positive predicted value (96.06%), indicating strong capability in distinguishing hemangiomas from non-hemangiomas.",
+    "Overfitting was observed after 20 epochs due to the small dataset size, necessitating the use of regularization techniques such as 2D batch normalization, 50% drop-out, and exponential learning rate decay to maintain performance.",
+    "The study highlights that while the current crop-based classification is effective, future work should focus on using this method for infantile hemangioma segmentation to accurately evaluate the model against classical approaches.",
+    "The authors acknowledge that the lack of a robust, agreed-upon medical protocol for monitoring hemangioma status makes automated detection tools valuable for assisting physicians in deciding proper treatment."
+  ],
+  "important_remarks": [
+    "The study relies on a very small, proprietary dataset of only 240 images from 40 patients, which limits the generalizability of the results.",
+    "The dataset suffers from variable image quality due to differing illumination conditions, camera devices, and patient movement (infants do not stay unmoved).",
+    "No external validation was performed; the model was evaluated solely on a held-out test set from the same internal database.",
+    "Overfitting was observed after 20 epochs, necessitating the use of regularization techniques (2D batch normalization, 50% dropout, and exponential learning rate decay) to maintain performance.",
+    "The paper does not report formal statistical significance testing (e.g., p-values or confidence intervals) for the reported metrics.",
+    "The classification is based on 64x64 pixel crops generated with a fixed step of 160 pixels, which may introduce bias depending on lesion size and location relative to the grid.",
+    "Class distribution in the crops was determined by a brightness threshold (average pixel luminance > 95% for hemangioma), which may not accurately reflect clinical ground truth for all cases.",
+    "The model was implemented on Google Colab with PyTorch, and processing time was approximately 13 minutes, but computational efficiency is not rigorously benchmarked against clinical standards."
+  ]
+}

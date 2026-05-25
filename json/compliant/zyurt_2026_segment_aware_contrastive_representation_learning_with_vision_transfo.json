@@ -1,0 +1,214 @@
+{
+  "file_name": "zyurt_2026_segment_aware_contrastive_representation_learning_with_vision_transfo.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes TransCon-Skin, a deep learning model using Vision Transformers (ViT) and MoCo-based contrastive learning for the classification of dermoscopic images to detect skin cancer (melanoma vs. normal)."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a new deep learning model named TransCon-Skin for skin cancer classification, detailing its architecture (Vision Transformers, MoCo framework), experimental setup (dataset splits, training parameters), and results (99.79% accuracy, 100% recall). It presents original experimental validation and performance metrics rather than summarizing prior literature."
+  },
+  "title": "Segment-Aware Contrastive Representation Learning With Vision Transformers: TransCon-Skin",
+  "authors": [
+    "FATİH ÖZYURT",
+    "CANAN KOÇ",
+    "ESRA YÜZGEÇ ÖZDEMİR"
+  ],
+  "doi": "10.1109/ACCESS.2025.3645694",
+  "journal": "IEEE Access",
+  "year": 2025,
+  "article_type": "Journal article",
+  "brief_summary": "This study proposes TransCon-Skin, a deep learning model for binary skin cancer classification (melanoma vs. normal) using dermoscopic images. The architecture integrates a two-stage segmentation pipeline (UNet++ and EfficientNet-UNet) with Vision Transformer (ViT) embeddings and MoCo-based contrastive learning to isolate lesion regions and enhance feature discrimination. The model was evaluated on a binary dataset of 2,356 images sourced from the Kaggle Multi-Disease Image Classification repository. Experimental results demonstrated outstanding performance, achieving 99.79% accuracy, 99.89% F1-score, and 100% recall across all ViT configurations. Additionally, the model exhibited high efficiency with classification times ranging from 1.5 to 4.9 milliseconds, suggesting its suitability for real-time clinical decision support systems.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the binary classification task. The dataset contains images of skin lesions from individuals diagnosed with malignant melanoma."
+    },
+    {
+      "lesion_type": "Normal skin",
+      "paper_terms": [
+        "normal",
+        "healthy individuals"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the binary classification task. The dataset consists of dermoscopic skin images of healthy individuals."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (melanoma vs. normal skin)",
+        "primary": true,
+        "details": "The paper performs binary classification of dermoscopic images to detect skin cancer (melanoma) versus normal skin. The model TransCon-Skin uses Vision Transformers and MoCo-based contrastive learning to classify lesions, achieving 99.79% accuracy, 99.89% F1-score, and 100% recall. Downstream classifiers (XGBoost, Gradient Boosting, Random Forest) were used on extracted features to produce discrete class labels."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Multi-Disease Image Classification dataset",
+      "description": "A public dataset published on the Kaggle platform, specifically the skin cancer category from the Multi-Disease Image Classification repository. It contains dermoscopic images in JPG format with varying resolutions, rescaled to 224x224 pixels for the study.",
+      "classes_used": [
+        "normal",
+        "melanoma"
+      ],
+      "counts": {
+        "total": 2356,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for developing and training the deep learning-based classification model (TransCon-Skin). Images were rescaled to 224x224 pixels.",
+        "validation": "Used for validation via 5-fold cross-validation on the strongest configuration.",
+        "testing": "Used for testing and performance evaluation (accuracy, recall, F1-score).",
+        "other": "None"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "precision",
+    "recall",
+    "F1-score",
+    "classification time",
+    "inference time per sample",
+    "contrastive loss"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "3-fold cross-validation",
+      "purpose": "Hyperparameter tuning for the SVM classifier (specifically for C and gamma parameters).",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Stratified train-validation-test split",
+      "purpose": "Data partitioning for model training, validation, and final evaluation to ensure consistent and reproducible results.",
+      "type": "Data splitting"
+    },
+    {
+      "method": "t-SNE analysis",
+      "purpose": "Visual inspection of class separation and representation quality in the post-MoCo embedding space.",
+      "type": "Dimensionality reduction / Visualization"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using accuracy, precision, recall, F1-score, and classification time, with reproducibility ensured via fixed random seeds and stratified splits rather than statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Multi-Disease Image Classification dataset (Kaggle)": {
+      "split": "Stratified 70% training, 10% validation, 20% test",
+      "classes": [
+        "normal",
+        "melanoma"
+      ],
+      "total_samples": 2356,
+      "models": {
+        "TransCon-Skin (Segmentation-assisted ViT + MoCo + XGBoost)": {
+          "accuracy": "99.79%",
+          "precision": "99.79%",
+          "recall": "100%",
+          "F1-score": "99.89%",
+          "classification_time": "2.176 ms (ViT/L-32), 4.924 ms (ViT/L-16)",
+          "notes": "Highest accuracy achieved with ViT/L-32. ViT/L-16 was the slowest configuration."
+        },
+        "TransCon-Skin (Segmentation-assisted ViT + MoCo + Gradient Boosting)": {
+          "accuracy": "99.79% (ViT/L-32), 99.58% (ViT/B-32), 98.73% (ViT/B-16, ViT/L-16)",
+          "recall": "100% (ViT/L-32)",
+          "F1-score": "99.89% (ViT/L-32)",
+          "classification_time": "1.719 ms (ViT/L-32), 1.575 ms (ViT/B-32)",
+          "notes": "ViT/L-32 provided the best time-performance trade-off. ViT/B-32 was the fastest overall."
+        },
+        "TransCon-Skin (Segmentation-assisted ViT + MoCo + Random Forest)": {
+          "accuracy": "99.79%",
+          "precision": "99.79%",
+          "recall": "100%",
+          "F1-score": "99.89%",
+          "classification_time": "1.575 ms (ViT/B-32), 12-13 ms (other configurations)",
+          "notes": "ViT/B-32 was the most efficient structure in terms of time-performance optimization."
+        },
+        "TransCon-Skin (Non-segmented ViT + MoCo + Classifiers)": {
+          "accuracy": "Lower than segmentation-assisted variants",
+          "notes": "Segmentation significantly improved representation quality, cluster separability, and classification accuracy compared to non-segmented baselines."
+        }
+      },
+      "notes": "The model achieved outstanding performance across all ViT configurations (ViT/B-16, ViT/B-32, ViT/L-16, ViT/L-32) with downstream classifiers (XGBoost, Gradient Boosting, Random Forest). Classification times ranged from 1.5 to 4.9 milliseconds. The model demonstrated high reproducibility with no observable run-to-run variation due to deterministic components after training."
+    }
+  },
+  "architecture_used": {
+    "extraction_error": "Expecting ',' delimiter: line 33 column 20 (char 1813)",
+    "answer": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "TransCon-Skin",
+    "Vision Transformer (ViT)",
+    "ViT-Large-Patch32-384",
+    "ViT/B-16",
+    "ViT/B-32",
+    "ViT/L-16",
+    "ViT/L-32",
+    "MoCo (Momentum Contrast)",
+    "UNet++",
+    "EfficientNet-UNet",
+    "EfficientNetB0-UNet",
+    "XGBoost",
+    "Gradient Boosting",
+    "Random Forest",
+    "SVM (Support Vector Machine)",
+    "CNNs (Convolutional Neural Networks)",
+    "ResNet152",
+    "Mask R-CNN",
+    "VGG19",
+    "InceptionV3",
+    "MobileNet",
+    "SkinTrans",
+    "EfficientNetB0",
+    "FGB (Fractional Gooseneck Barnacle) algorithm"
+  ],
+  "preprocessing_techniques": [
+    "Rescaling images to 224x224 pixels for model training",
+    "Resizing dermoscopic images and binary lesion masks to 256x256 pixels for segmentation training",
+    "Intensity normalization to [0, 1] by dividing pixel values by 255",
+    "Thresholding segmentation output at 0.5 to obtain binary lesion masks",
+    "Extracting Region of Interest (ROI) using binary lesion masks to isolate lesion regions and minimize background noise",
+    "Resizing ROI patches to 384x384 pixels for ViT-based feature extraction",
+    "Preserving RGB color channels"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Dual-view augmentation for MoCo contrastive learning",
+      "details": "Two different augmentations were applied to the same image to create a positive sample pair (query x_q and key x_k) for the MoCo framework. The specific geometric or color transform parameters for these augmentations were not reported in the text."
+    }
+  ],
+  "conclusions": [
+    "The proposed TransCon-Skin model, which integrates segmentation-assisted Vision Transformers (ViT) with MoCo-based contrastive learning, achieves outstanding classification performance for skin cancer detection, reaching 99.79% accuracy, 99.89% F1-score, and 100% recall across all ViT configurations.",
+    "Segmentation significantly improves representation quality, cluster separability, and classification accuracy compared to non-segmented baselines, with ViT/L-32 providing the most robust and discriminative representations.",
+    "The model demonstrates high efficiency with classification times ranging from 1.5 to 4.9 milliseconds, making it suitable for integration into real-time clinical decision support systems.",
+    "The TransCon-Skin pipeline components (segmentation, ViT feature extraction, and MoCo projection) are deterministic after training, ensuring high reproducibility with no observable run-to-run variation.",
+    "The model effectively overcomes limitations of prior methods and exceeds the performance ceiling of state-of-the-art models by leveraging segment-aware contrastive representation learning."
+  ],
+  "important_remarks": [
+    "The study is limited to a binary classification task (melanoma vs. normal) and does not address multi-class skin lesion classification, limiting its immediate applicability to broader dermatological diagnostics.",
+    "Cross-dataset generalizability was not evaluated; the model was trained and tested solely on the Kaggle Multi-Disease Image Classification dataset, raising concerns about external validity and potential dataset bias.",
+    "The dataset size is small (2,356 images total), which may contribute to the unusually high performance metrics (99.79% accuracy, 100% recall) and increases the risk of overfitting despite the use of cross-validation.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to validate the significance of the performance gains over baseline models.",
+    "The segmentation pipeline (UNet++ and EfficientNet-UNet) is performed offline during training/preprocessing; while this avoids inference latency, it introduces a dependency on segmentation accuracy and potential data leakage risks if segmentation masks were derived from the same distribution without strict isolation.",
+    "The model relies on classical machine learning classifiers (XGBoost, Gradient Boosting, Random Forest) for the final decision layer rather than end-to-end deep learning, which may limit the ability to jointly optimize the segmentation, feature extraction, and classification stages.",
+    "The paper does not report performance on standard external benchmarks like HAM10000 or ISIC, making direct comparison with state-of-the-art methods difficult.",
+    "The 100% recall claim is notable for clinical relevance (no missed melanomas) but requires rigorous external validation to ensure it is not an artifact of the specific dataset composition or split."
+  ]
+}

@@ -1,0 +1,291 @@
+{
+  "file_name": "Pan et al. - 2024 - Artificial intelligence algorithms and 3D volumetric rendering for basal cell carcinoma detection an.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The study trained artificial intelligence models using the AIVIA software (based on U-Net architecture) to detect basal cell carcinoma (BCC) and measure tumour depth from reflectance confocal microscopy–optical coherence tomography (RCM-OCT) images. The AI models generated 3D renderings and automated depth measurements which were evaluated against histopathology and blinded reader analysis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The article is labeled as a 'Concise Report' and 'pilot study' in the title and abstract. It describes original experimental work involving the training of AI models (AIVIA/U-Net) on a dataset of 35 biopsy-confirmed BCC OCT rasters, followed by validation on a separate test set of 48 lesions. The paper reports original results including sensitivity, specificity, and correlation coefficients (r^2 = 0.59, P = 0.02) comparing AI-generated measurements to histopathology, which characterizes it as an original research study rather than a review."
+  },
+  "title": "Artificial intelligence algorithms and three-dimensional volumetric rendering for basal cell carcinoma detection and tumour depth assessment in reflectance confocal microscopy–optical coherence tomography images: a pilot study",
+  "authors": [
+    "Alexander Pan",
+    "Nathalie de Carvalho",
+    "Luisa Silva",
+    "Ucalene Harris",
+    "Stephen Dusza",
+    "Aditi Sahu",
+    "Kivanc Kose",
+    "Jilliana Monnier",
+    "Chih-Shan Chen",
+    "Manu Jain"
+  ],
+  "doi": "10.1093/ced/llae213",
+  "journal": "Clinical and Experimental Dermatology",
+  "year": 2024,
+  "article_type": "Concise Report",
+  "brief_summary": "This pilot study evaluated the utility of artificial intelligence algorithms for detecting basal cell carcinoma (BCC) and measuring tumour depth in reflectance confocal microscopy–optical coherence tomography (RCM-OCT) images. The researchers trained U-Net-based AI models using the AIVIA software on 35 biopsy-confirmed BCC OCT rasters to generate 3D renderings and automated depth measurements. These models were applied to a separate test set of 48 lesions, including BCC, benign lesions, and healthy skin, which were analyzed by a blinded expert reader. The addition of AI-generated BCC renderings improved the reader's sensitivity from 73.3% to 86.7% and specificity from 45.5% to 48.5%, although these changes were not statistically significant. A moderate positive correlation (r² = 0.59, P = 0.02) was found between AI-measured tumour depths and histopathology, with a mean difference of 115 μm. The study concludes that AI-assisted RCM-OCT may expand the device's utility, particularly for novice readers, by standardizing diagnosis and depth assessment.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC",
+        "nodular BCC",
+        "superficial BCC",
+        "mixed nodular and superficial BCC"
+      ],
+      "role": "Target class",
+      "details": "Primary target for detection and depth measurement. Included 35 biopsy-confirmed cases in training/test sets and specific morphological subtypes in the test set."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign lesions",
+        "clinically confirmed benign skin lesions",
+        "Seborrhoeic keratosis",
+        "Dermatofibroma",
+        "Sebaceous hyperplasia",
+        "Cherry angioma",
+        "Intradermal naevus",
+        "Atypical squamous proliferation",
+        "Desmoplastic trichoepithelioma",
+        "lichenoid actinic keratosis",
+        "vascular ectasia",
+        "sun-damaged skin"
+      ],
+      "role": "Comparator class",
+      "details": "Included in the test set (28 clinically confirmed benign lesions, 8 biopsy-confirmed) to evaluate specificity and diagnostic confidence. Specific counts provided in Table 1."
+    },
+    {
+      "lesion_type": "Healthy skin",
+      "paper_terms": [
+        "healthy skin",
+        "nonlesional skin"
+      ],
+      "role": "Comparator class",
+      "details": "Included in the test set (5 samples) to test AI models against normal tissue."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Detection",
+        "target": "Basal cell carcinoma (BCC) presence in OCT rasters",
+        "primary": true,
+        "details": "Binary detection of BCC using a U-Net-based AI model (AIVIA) trained on user annotations of BCC as positive classes and the rest of the raster as negative classes. The model outputs detection at a 95% confidence threshold and generates 3D renderings of detected BCC."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Basal cell carcinoma (BCC) and stratum corneum (SC) boundaries",
+        "primary": false,
+        "details": "Binary segmentation models were trained to identify BCC and SC within OCT rasters. User-generated annotations of BCC and SC were used as positive classes to train the models, which then created 3D meshes/renderings based on these segmented regions."
+      },
+      {
+        "task_type": "Regression",
+        "target": "Tumour depth measurement",
+        "primary": false,
+        "details": "The AI models measured tumour depth based on the distance between AI-generated BCC and SC renderings in each raster. This continuous numeric outcome was correlated with histopathology measurements (Pearson r² = 0.59, P = 0.02), with a mean difference of 115 μm."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Memorial Sloan Kettering Cancer Center RCM-OCT Retrospective Cohort",
+      "description": "Retrospective data of skin lesions scanned by the RCM-OCT device between January 2018 and June 2023 at Memorial Sloan Kettering Cancer Center. The study utilized 63 lesions total, from which 53 were studied to rule out BCC (43 biopsy-confirmed, 10 clinically benign) and 10 were clinically obvious benign lesions. Only one OCT raster with the best image quality was selected per site. Biopsy-confirmed BCCs were used for training and testing; non-BCC lesions and healthy skin were included only in the test set.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Benign skin lesions",
+        "Healthy skin"
+      ],
+      "counts": {
+        "total": 63,
+        "training": 20,
+        "validation": null,
+        "testing": 48,
+        "per_class": {
+          "training": {
+            "BCC": 20,
+            "Benign": 0,
+            "Healthy skin": 0
+          },
+          "testing": {
+            "BCC": 15,
+            "Benign": 28,
+            "Healthy skin": 5
+          }
+        }
+      },
+      "use": {
+        "training": "20 OCT rasters of biopsy-confirmed BCC were used to train two AI models (BCC-AI and SC-AI) using user-generated annotations as positive classes.",
+        "validation": "null",
+        "testing": "48 OCT rasters from 48 lesions (15 biopsy-confirmed BCC, 28 clinically confirmed benign lesions, 5 healthy skin samples) were used to evaluate the trained AI models and for blinded reader analysis.",
+        "other": "The remaining 10 clinically obvious benign lesions from the initial cohort were not included in the AI training or the primary test set of 48 rasters used for the main analysis."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Positive predictive value (PPV)",
+    "Negative predictive value (NPV)",
+    "Diagnostic confidence",
+    "Pearson correlation coefficient (r²)",
+    "P-value",
+    "Confidence interval (CI)",
+    "ROC area (Area Under the Receiver Operating Characteristic Curve)",
+    "Mean difference"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Pearson correlation test",
+      "purpose": "To correlate AI-measured tumour depths with histopathology-measured depths.",
+      "type": "Correlation analysis"
+    },
+    {
+      "method": "Paired test for proportion",
+      "purpose": "To compare sensitivity, specificity, positive predictive value, and negative predictive value between blinded reader analysis with and without AI assistance.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Chi-squared test (χ²df = 1)",
+      "purpose": "To compare the ROC area between blinded reader analysis with and without AI assistance.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Paired t-test",
+      "purpose": "To compare diagnostic confidence scores between blinded reader analysis with and without AI assistance.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "95% Confidence Intervals",
+      "purpose": "To estimate the uncertainty for sensitivity, specificity, positive predictive value, negative predictive value, ROC area, and diagnostic confidence estimates.",
+      "type": "Uncertainty estimation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Paired test for proportion, Chi-squared test (χ²df = 1), Paired t-test, Pearson correlation test",
+    "null_hypothesis": "There is no difference in sensitivity, specificity, positive predictive value, negative predictive value, ROC area, or diagnostic confidence between blinded reader analysis with and without AI assistance; there is no correlation between AI-measured tumour depths and histopathology-measured depths.",
+    "alternative_hypothesis": "There is a difference in sensitivity, specificity, positive predictive value, negative predictive value, ROC area, or diagnostic confidence between blinded reader analysis with and without AI assistance; there is a correlation between AI-measured tumour depths and histopathology-measured depths.",
+    "alpha": 0.05,
+    "interpretation": "The study reported p-values for various comparisons. For diagnostic metrics (sensitivity, specificity, PPV, NPV, ROC area), the changes with AI assistance were not statistically significant (p > 0.05). For diagnostic confidence, the increase was statistically significant (p = 0.03). For tumour depth correlation, a moderate positive correlation was found to be statistically significant (p = 0.02)."
+  },
+  "results_obtained_in_each_dataset": {
+    "Memorial Sloan Kettering Cancer Center RCM-OCT Retrospective Cohort": {
+      "training_set": {
+        "description": "20 OCT rasters of biopsy-confirmed BCC used to train BCC-AI and SC-AI models",
+        "models": {
+          "BCC-AI": {
+            "architecture": "U-Net based model with four-layer depth and residual channel attention blocks",
+            "software": "AIVIA version 12.1.0"
+          },
+          "SC-AI": {
+            "architecture": "U-Net based model with four-layer depth and residual channel attention blocks",
+            "software": "AIVIA version 12.1.0"
+          }
+        },
+        "notes": "User-generated annotations of BCC and SC were used as positive classes; rest of raster as negative classes."
+      },
+      "test_set": {
+        "description": "48 OCT rasters from 48 lesions (15 biopsy-confirmed BCC, 28 clinically confirmed benign lesions, 5 healthy skin samples)",
+        "metrics": {
+          "BCC_Detection_Expert_Reader_No_AI": {
+            "Sensitivity": "73.3% (95% CI: 44.9–92.2)",
+            "Specificity": "45.5% (95% CI: 28.1–63.6)",
+            "Positive_Predictive_Value": "37.9% (95% CI: 20.7–57.7)",
+            "Negative_Predictive_Value": "78.9% (95% CI: 54.4–93.9)",
+            "ROC_Area": "0.59 (95% CI: 0.45–0.74)",
+            "Diagnostic_Confidence": "4.17 (95% CI: 3.82–4.52)"
+          },
+          "BCC_Detection_Expert_Reader_With_AI": {
+            "Sensitivity": "86.7% (95% CI: 59.5–98.3)",
+            "Specificity": "48.5% (95% CI: 30.8–66.5)",
+            "Positive_Predictive_Value": "43.3% (95% CI: 25.5–62.6)",
+            "Negative_Predictive_Value": "88.9% (95% CI: 65.3–98.6)",
+            "ROC_Area": "0.68 (95% CI: 0.55–0.80)",
+            "Diagnostic_Confidence": "4.46 (95% CI: 4.15–4.76)"
+          },
+          "Statistical_Comparisons": {
+            "Sensitivity_P_value": "0.10",
+            "Specificity_P_value": "0.76",
+            "PPV_P_value": "0.59",
+            "NPV_P_value": "0.18",
+            "ROC_Area_P_value": "0.11",
+            "Diagnostic_Confidence_P_value": "0.03"
+          },
+          "Tumour_Depth_Correlation": {
+            "Pearson_r_squared": "0.59",
+            "P_value": "0.02",
+            "Mean_Difference_AI_vs_Histopathology": "115 μm (AI-calculated depth tended to be larger)"
+          }
+        },
+        "notes": "Addition of AI-generated BCC rendering influenced the blinded reader to change diagnosis in the correct direction (five cases) more times than in the incorrect direction (one case). Changes in sensitivity, specificity, PPV, NPV, and ROC area were not statistically significant. Diagnostic confidence increase was statistically significant (P = 0.03)."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "U-Net based model (implemented in AIVIA software)",
+    "pretraining": null,
+    "input_size": null,
+    "architecture_details": {
+      "framework": "AIVIA version 12.1.0 (Leica Microsystems)",
+      "depth": "four-layer depth",
+      "components": "residual channel attention blocks",
+      "model_types": [
+        "BCC-AI (detects basal cell carcinoma)",
+        "SC-AI (detects stratum corneum)"
+      ]
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": null,
+      "training_schedule": null,
+      "training_data": "20 OCT rasters of biopsy-confirmed BCC",
+      "annotation_method": "User-generated annotations of BCC and SC as positive classes; rest of raster as negative classes"
+    },
+    "classification_or_output_head": {
+      "output_type": "Binary segmentation / Detection",
+      "confidence_threshold": "95% confidence threshold for detection and 3D rendering generation"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "BCC-AI",
+    "SC-AI",
+    "AIVIA"
+  ],
+  "preprocessing_techniques": [
+    "Denoising using a custom algorithm combining frost and statistical filtering in lateral and axial directions to sharpen boundaries and contrast",
+    "Selection of only one OCT raster with the best image quality per site",
+    "Conversion of OCT rasters to three-dimensional (3D) renderings using AIVIA software"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The addition of AI-generated BCC renderings to RCM-OCT images improved the blinded expert reader's sensitivity (from 73.3% to 86.7%) and specificity (from 45.5% to 48.5%), although these changes were not statistically significant.",
+    "The addition of AI significantly increased the blinded reader's diagnostic confidence (from 4.17 to 4.46 on a scale of 1–5, P = 0.03).",
+    "AI-assisted BCC detection influenced the expert reader to change their diagnosis in the correct direction (five cases) more often than in the incorrect direction (one case).",
+    "There was a moderate positive correlation (r² = 0.59, P = 0.02) between AI-measured tumour depths and histopathology-measured depths.",
+    "AI-calculated tumour depths tended to be larger than histopathology measurements, with a mean difference of 115 μm.",
+    "AI-assisted RCM-OCT holds promise for standardizing BCC diagnosis and expanding the device's utility, particularly for novice readers or centres lacking expert readers.",
+    "The study was limited by a small training set sample size, inclusion of non-biopsied cases in the test set, potential selection bias, and the lack of novice reader assessment.",
+    "The opaque reasoning process of AI models may limit trust in their diagnostic capabilities, and further improvement and robust evidence are needed for clinical implementation.",
+    "Future studies are warranted using larger training sets and including novice readers to assess the utility of AI for nonexpert readers."
+  ],
+  "important_remarks": [
+    "The study is a pilot study with a very small training set (n=20), which limits the robustness and generalizability of the AI models.",
+    "The test set included non-biopsied cases (clinically confirmed benign lesions), which may introduce diagnostic uncertainty compared to biopsy-confirmed ground truth.",
+    "The study included only one expert reader, limiting the assessment of the AI's influence on reader diagnosis across different experience levels.",
+    "There was a lack of novice reader assessment, despite the study's hypothesis that AI would be particularly useful for novices.",
+    "The changes in sensitivity and specificity with AI assistance were not statistically significant (P > 0.05), although diagnostic confidence increased significantly (P = 0.03).",
+    "AI-calculated tumour depths tended to be larger than histopathology measurements (mean difference = 115 μm), indicating a systematic bias in depth estimation.",
+    "The opaque reasoning process of the AI models is noted as a limitation that may limit trust in their diagnostic capabilities.",
+    "Potential selection bias exists due to the retrospective nature of the data collection and the inclusion criteria.",
+    "The study was limited by the small sample size and the lack of external validation."
+  ]
+}

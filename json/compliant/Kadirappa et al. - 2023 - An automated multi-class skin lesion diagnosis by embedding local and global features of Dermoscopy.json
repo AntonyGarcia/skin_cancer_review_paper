@@ -1,0 +1,735 @@
+{
+  "file_name": "Kadirappa et al. - 2023 - An automated multi-class skin lesion diagnosis by embedding local and global features of Dermoscopy.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning methods, specifically a novel U-Net segmentation network with Spatial Attention Blocks (SASegNet) for skin lesion segmentation and EfficientNet B1 for multi-class skin lesion classification, to analyze dermoscopy images from ISIC and PH2 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel U-Net segmentation network (SASegNet) and an EfficientNet B1 classification model for multi-class skin lesion diagnosis. It details specific methodologies, datasets (ISIC, PH2), hyperparameters, and reports new quantitative results (e.g., AUC-ROC scores of 0.974, 0.972, etc.), distinguishing it from a review or survey."
+  },
+  "title": "An automated multi-class skin lesion diagnosis by embedding local and global features of Dermoscopy images",
+  "authors": [
+    "Ravindranath Kadirappa",
+    "Deivalakshmi S.",
+    "Pandeeswari R.",
+    "Seok-Bum Ko"
+  ],
+  "doi": "10.1007/s11042-023-14892-2",
+  "journal": "Multimedia Tools and Applications",
+  "year": 2023,
+  "article_type": "Original research article",
+  "brief_summary": "This study proposes an automated multi-class skin lesion diagnosis system that combines a novel U-Net segmentation network with Spatial Attention Blocks (SASegNet) and an EfficientNet B1 classifier. The SASegNet model accurately segments skin lesions to extract local features, which are fused with global features from original images to improve classification performance. The methodology was evaluated on the ISIC-2017, ISIC-2018, ISIC-2019, and ISIC-2020 datasets for classification, and the PH2 dataset for segmentation. The proposed approach achieved high Area Under the Receiver Operating Characteristic Curve (AUC-ROC) scores of 0.974, 0.972, 0.962, and 0.937 on the respective ISIC datasets. Additionally, the segmentation model attained 95% accuracy on the PH2 dataset. The results indicate that fusing local and global features enhances robustness against occlusions and inter-class similarities, aiding dermatologists in accurate diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic Keratosis",
+      "paper_terms": [
+        "Actinic Keratosis",
+        "AKIEC"
+      ],
+      "role": "Target class",
+      "details": "Studied in ISIC-2018 (327 images) and ISIC-2019 (867 images) datasets."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "Basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "Studied in ISIC-2018 (514 images) and ISIC-2019 (3323 images) datasets."
+    },
+    {
+      "lesion_type": "Benign Keratosis",
+      "paper_terms": [
+        "Benign keratosis",
+        "BKL"
+      ],
+      "role": "Target class",
+      "details": "Studied in ISIC-2018 (1099 images) and ISIC-2019 (2624 images) datasets. Also referred to as seborrheic keratosis in related work context."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "Dermatofibroma",
+        "DF"
+      ],
+      "role": "Target class",
+      "details": "Studied in ISIC-2018 (115 images) and ISIC-2019 (239 images) datasets."
+    },
+    {
+      "lesion_type": "Melanocytic Nevi",
+      "paper_terms": [
+        "Melanocytic nevi",
+        "NV",
+        "benign nevi"
+      ],
+      "role": "Target class",
+      "details": "Studied in ISIC-2018 (6705 images) and ISIC-2019 (12875 images) datasets. Also included in PH2 dataset as 'normal nevi' and 'Atypical nevi'."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "Studied in ISIC-2018 (1013 images), ISIC-2019 (4522 images), and PH2 dataset (40 images). Also binary class in ISIC-2017."
+    },
+    {
+      "lesion_type": "Vascular Lesions",
+      "paper_terms": [
+        "Vascular lesions",
+        "VASC"
+      ],
+      "role": "Target class",
+      "details": "Studied in ISIC-2018 (142 images) and ISIC-2019 (253 images) datasets."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma",
+      "paper_terms": [
+        "Squamous cell carcinoma",
+        "SCC"
+      ],
+      "role": "Target class",
+      "details": "Studied in ISIC-2019 dataset (628 images)."
+    },
+    {
+      "lesion_type": "Non-Melanoma",
+      "paper_terms": [
+        "non-melanoma",
+        "non-melanoma-benign nevi",
+        "non-melanoma-seborrheic keratosis"
+      ],
+      "role": "Target class",
+      "details": "Binary classification target in ISIC-2017 dataset alongside Melanoma."
+    },
+    {
+      "lesion_type": "Normal Nevi",
+      "paper_terms": [
+        "normal nevi"
+      ],
+      "role": "Target class",
+      "details": "Studied in PH2 dataset (80 images) for segmentation and classification tasks."
+    },
+    {
+      "lesion_type": "Atypical Nevi",
+      "paper_terms": [
+        "Atypical nevi"
+      ],
+      "role": "Target class",
+      "details": "Studied in PH2 dataset (80 images) for segmentation and classification tasks."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary segmentation masks of skin lesions",
+        "primary": false,
+        "details": "The paper proposes SASegNet, a U-Net based network with Spatial Attention Blocks, to segment skin lesions from dermoscopy images. It reports an accuracy of 95% and IoU/Dice scores on the PH2 dataset."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories (lesion classes)",
+        "primary": true,
+        "details": "The paper performs multi-class skin lesion diagnosis using EfficientNet B1. It classifies images into binary classes (melanoma vs. non-melanoma) on ISIC-2017 and ISIC-2020, seven classes on ISIC-2018, and eight classes on ISIC-2019. It reports AUC-ROC scores of 0.974, 0.972, 0.962, and 0.937 for these datasets respectively."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2",
+      "description": "A dermoscopy image dataset containing ground truth binary segmentation masks, used for segmentation tasks.",
+      "classes_used": [
+        "Normal Nevi",
+        "Atypical Nevi",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Normal Nevi": 80,
+          "Atypical Nevi": 80,
+          "Melanoma": 40
+        }
+      },
+      "use": {
+        "training": "Used for segmentation model training (stopped at 63 epochs).",
+        "validation": "Used for segmentation model validation (loss monitored).",
+        "testing": "Used for segmentation model testing and evaluation (IoU/Dice scores).",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC-2017",
+      "description": "A binary classification dataset from the International Skin Imaging Collaboration, also referred to as the ISBI 2017 challenge dataset.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "Melanoma": {
+            "training": 374,
+            "validation": 30,
+            "testing": 117
+          },
+          "Non-melanoma": {
+            "training": 1626,
+            "validation": 120,
+            "testing": 483
+          }
+        }
+      },
+      "use": {
+        "training": "Used for classification model training.",
+        "validation": "Used for classification model validation.",
+        "testing": "Used for classification model testing.",
+        "other": "Used for segmentation preprocessing."
+      }
+    },
+    {
+      "name": "ISIC-2018 (HAM10000)",
+      "description": "A highly imbalanced multi-class skin cancer dataset, commonly referred to as HAM10000.",
+      "classes_used": [
+        "Actinic Keratosis (AKIEC)",
+        "Basal cell carcinoma (BCC)",
+        "Benign keratosis (BKL)",
+        "Dermatofibroma (DF)",
+        "Melanocytic nevi (NV)",
+        "Melanoma (MEL)",
+        "Vascular lesions (VASC)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 7010,
+        "validation": 2003,
+        "testing": 1002,
+        "per_class": {
+          "AKIEC": {
+            "training": 231,
+            "validation": 64,
+            "testing": 32,
+            "total": 327
+          },
+          "BCC": {
+            "training": 361,
+            "validation": 102,
+            "testing": 51,
+            "total": 514
+          },
+          "BKL": {
+            "training": 769,
+            "validation": 220,
+            "testing": 110,
+            "total": 1099
+          },
+          "DF": {
+            "training": 82,
+            "validation": 22,
+            "testing": 11,
+            "total": 115
+          },
+          "MEL": {
+            "training": 710,
+            "validation": 202,
+            "testing": 101,
+            "total": 1013
+          },
+          "NV": {
+            "training": 4695,
+            "validation": 1340,
+            "testing": 670,
+            "total": 6705
+          },
+          "VASC": {
+            "training": 100,
+            "validation": 28,
+            "testing": 14,
+            "total": 142
+          }
+        }
+      },
+      "use": {
+        "training": "Used for classification model training.",
+        "validation": "Used for classification model validation.",
+        "testing": "Used for classification model testing.",
+        "other": "Used for segmentation preprocessing."
+      }
+    },
+    {
+      "name": "ISIC-2019",
+      "description": "A combination of ISIC2017, HAM10000, and BCN 20000 datasets, containing eight classes of skin lesions.",
+      "classes_used": [
+        "Actinic Keratosis (AKIEC)",
+        "Basal cell carcinoma (BCC)",
+        "Benign keratosis (BKL)",
+        "Dermatofibroma (DF)",
+        "Melanoma (MEL)",
+        "Melanocytic nevi (NV)",
+        "Vascular lesions (VASC)",
+        "Squamous cell carcinoma (SCC)"
+      ],
+      "counts": {
+        "total": 25331,
+        "training": 17731,
+        "validation": 5073,
+        "testing": 2527,
+        "per_class": {
+          "AKIEC": {
+            "training": 606,
+            "validation": 175,
+            "testing": 86,
+            "total": 867
+          },
+          "BCC": {
+            "training": 2326,
+            "validation": 665,
+            "testing": 332,
+            "total": 3323
+          },
+          "BKL": {
+            "training": 1836,
+            "validation": 526,
+            "testing": 262,
+            "total": 2624
+          },
+          "DF": {
+            "training": 167,
+            "validation": 49,
+            "testing": 23,
+            "total": 239
+          },
+          "MEL": {
+            "training": 3165,
+            "validation": 905,
+            "testing": 452,
+            "total": 4522
+          },
+          "NV": {
+            "training": 9012,
+            "validation": 2576,
+            "testing": 1287,
+            "total": 12875
+          },
+          "VASC": {
+            "training": 177,
+            "validation": 51,
+            "testing": 25,
+            "total": 253
+          },
+          "SCC": {
+            "training": 439,
+            "validation": 127,
+            "testing": 62,
+            "total": 628
+          }
+        }
+      },
+      "use": {
+        "training": "Used for classification model training.",
+        "validation": "Used for classification model validation.",
+        "testing": "Used for classification model testing.",
+        "other": "Used for segmentation preprocessing."
+      }
+    },
+    {
+      "name": "ISIC-2020",
+      "description": "A binary classification dataset from the International Skin Imaging Collaboration.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for classification model training.",
+        "validation": "Used for classification model validation.",
+        "testing": "Used for classification model testing.",
+        "other": "Used for segmentation preprocessing."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "AUC-ROC",
+    "Accuracy",
+    "Specificity",
+    "Sensitivity",
+    "Precision",
+    "F1-Score",
+    "IoU",
+    "Dice Coefficient"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "AUC-ROC (Area Under the Receiver Operating Characteristic Curve)",
+      "purpose": "To evaluate and compare the classification performance of the proposed model on ISIC-2017, ISIC-2018, ISIC-2019, and ISIC-2020 datasets.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Confusion Matrix analysis",
+      "purpose": "To derive classification metrics including Accuracy, Precision, Recall (Sensitivity), Specificity, and F1-Score.",
+      "type": "Evaluation Method"
+    },
+    {
+      "method": "Dice Coefficient and Intersection over Union (IoU)",
+      "purpose": "To evaluate the segmentation performance of the SASegNet model on the PH2 dataset.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Ablation Study",
+      "purpose": "To assess the contribution of specific components (e.g., Spatial Attention Blocks) by comparing model performance with and without them.",
+      "type": "Experimental Method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics such as AUC-ROC, Accuracy, Specificity, Sensitivity, Precision, F1-Score, IoU, and Dice Coefficient, without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "PH2": {
+      "task": "Segmentation",
+      "models": {
+        "SASegNet (Proposed)": {
+          "IoU": "0.949",
+          "Dice Coefficient": "0.906",
+          "Precision": "0.9216",
+          "Accuracy": "0.962",
+          "Sensitivity": "0.964",
+          "Specificity": "0.958"
+        },
+        "U-Net (Baseline)": {
+          "IoU": "0.92",
+          "Dice Coefficient": "0.89"
+        },
+        "U-Net + Spatial Attention (Baseline)": {
+          "IoU": "0.94",
+          "Dice Coefficient": "0.9"
+        },
+        "Ramella et al. [43]": {
+          "IoU": "0.90",
+          "Dice Coefficient": "0.921",
+          "Accuracy": "0.954",
+          "Sensitivity": "0.952",
+          "Specificity": "0.955"
+        },
+        "Rehman et al. [46]": {
+          "Accuracy": "0.958"
+        },
+        "Saba et al. [47]": {
+          "IoU": "0.954"
+        },
+        "IMO [25]": {
+          "Accuracy": "0.987"
+        }
+      },
+      "notes": "Training stopped at 63 epochs due to no further improvement in validation loss. The proposed SASegNet achieved 95% accuracy as stated in the abstract, but detailed metrics in Table 6 show 96.2% accuracy."
+    },
+    "ISIC-2017": {
+      "task": "Classification (Binary: Melanoma vs Non-melanoma)",
+      "models": {
+        "EfficientNet B0 (Global Features Only)": {
+          "AUC-ROC": "0.947",
+          "Accuracy": "92.1",
+          "Specificity": "94.4",
+          "Sensitivity": "93.4",
+          "Precision": "93.3",
+          "F1-Score": "93.35"
+        },
+        "EfficientNet B1 (Global Features Only)": {
+          "AUC-ROC": "0.952",
+          "Accuracy": "93.7",
+          "Specificity": "95.0",
+          "Sensitivity": "94.6",
+          "Precision": "94.3",
+          "F1-Score": "94.45"
+        },
+        "EfficientNet B0 (Multiscale Feature Fusion)": {
+          "AUC-ROC": "0.952",
+          "Accuracy": "92.4",
+          "Specificity": "97.8",
+          "Sensitivity": "94.5",
+          "Precision": "94.7",
+          "F1-Score": "94.60"
+        },
+        "EfficientNet B1 (Multiscale Feature Fusion - Proposed)": {
+          "AUC-ROC": "0.974",
+          "Accuracy": "95.6",
+          "Specificity": "97.3",
+          "Sensitivity": "95.6",
+          "Precision": "95.4",
+          "F1-Score": "95.50"
+        }
+      },
+      "notes": "The proposed methodology (EfficientNet B1 with multiscale fusion) achieved the highest AUC-ROC of 0.974."
+    },
+    "ISIC-2018 (HAM10000)": {
+      "task": "Classification (Multi-class: 7 classes)",
+      "models": {
+        "EfficientNet B0 (Global Features Only)": {
+          "AUC-ROC": "0.925",
+          "Accuracy": "89.7",
+          "Specificity": "92.2",
+          "Sensitivity": "90.7",
+          "Precision": "90.6",
+          "F1-Score": "90.65"
+        },
+        "EfficientNet B1 (Global Features Only)": {
+          "AUC-ROC": "0.927",
+          "Accuracy": "90.2",
+          "Specificity": "92.7",
+          "Sensitivity": "90.4",
+          "Precision": "90.7",
+          "F1-Score": "90.55"
+        },
+        "EfficientNet B0 (Multiscale Feature Fusion)": {
+          "AUC-ROC": "0.961",
+          "Accuracy": "91.4",
+          "Specificity": "93.4",
+          "Sensitivity": "91.6",
+          "Precision": "91.2",
+          "F1-Score": "91.40"
+        },
+        "EfficientNet B1 (Multiscale Feature Fusion - Proposed)": {
+          "AUC-ROC": "0.972",
+          "Accuracy": "92.7",
+          "Specificity": "95.4",
+          "Sensitivity": "92.5",
+          "Precision": "92.1",
+          "F1-Score": "92.30"
+        }
+      },
+      "notes": "For melanoma vs non-melanoma prediction specifically, the positive prediction rate improved from 0.91 vs 0.97 (without fusion) to 0.907 vs 0.975 (with fusion) for B0 and B1 respectively."
+    },
+    "ISIC-2019": {
+      "task": "Classification (Multi-class: 8 classes)",
+      "models": {
+        "EfficientNet B0 (Global Features Only)": {
+          "AUC-ROC": "0.939",
+          "Accuracy": "89.6",
+          "Specificity": "91.8",
+          "Sensitivity": "89.5",
+          "Precision": "89.2",
+          "F1-Score": "89.35"
+        },
+        "EfficientNet B1 (Global Features Only)": {
+          "AUC-ROC": "0.944",
+          "Accuracy": "90.7",
+          "Specificity": "92.7",
+          "Sensitivity": "90.2",
+          "Precision": "90.1",
+          "F1-Score": "90.15"
+        },
+        "EfficientNet B0 (Multiscale Feature Fusion)": {
+          "AUC-ROC": "0.958",
+          "Accuracy": "90.8",
+          "Specificity": "94.5",
+          "Sensitivity": "91.6",
+          "Precision": "91.3",
+          "F1-Score": "91.45"
+        },
+        "EfficientNet B1 (Multiscale Feature Fusion - Proposed)": {
+          "AUC-ROC": "0.962",
+          "Accuracy": "91.7",
+          "Specificity": "93.7",
+          "Sensitivity": "91.2",
+          "Precision": "91.7",
+          "F1-Score": "91.45"
+        }
+      },
+      "notes": "For melanoma vs non-melanoma prediction specifically, the true positive precision rate improved from 0.896 vs 0.948 (without fusion) to 0.937 vs 0.973 (with fusion) for B0 and B1 respectively."
+    },
+    "ISIC-2020": {
+      "task": "Classification (Binary: Melanoma vs Non-melanoma)",
+      "models": {
+        "EfficientNet B0 (Global Features Only)": {
+          "AUC-ROC": "0.912",
+          "Accuracy": "90.2",
+          "Specificity": "93.2",
+          "Sensitivity": "90.1",
+          "Precision": "90.2",
+          "F1-Score": "90.15"
+        },
+        "EfficientNet B1 (Global Features Only)": {
+          "AUC-ROC": "0.927",
+          "Accuracy": "91.9",
+          "Specificity": "93.4",
+          "Sensitivity": "91.6",
+          "Precision": "91.7",
+          "F1-Score": "91.65"
+        },
+        "EfficientNet B0 (Multiscale Feature Fusion)": {
+          "AUC-ROC": "0.926",
+          "Accuracy": "92.4",
+          "Specificity": "95.8",
+          "Sensitivity": "92.4",
+          "Precision": "93.4",
+          "F1-Score": "92.90"
+        },
+        "EfficientNet B1 (Multiscale Feature Fusion - Proposed)": {
+          "AUC-ROC": "0.937",
+          "Accuracy": "93.2",
+          "Specificity": "95.4",
+          "Sensitivity": "90.6",
+          "Precision": "92.7",
+          "F1-Score": "91.64"
+        }
+      },
+      "notes": "No specific per-class breakdown provided for ISIC-2020 beyond aggregate metrics."
+    }
+  },
+  "architecture_used": {
+    "main_model": "SASegNet (Segmentation) and EfficientNet B1 (Classification)",
+    "pretraining": "EfficientNet B1 was pre-trained on ImageNet (1000 class classification) and used for transfer learning; base model weights were frozen.",
+    "input_size": "256 × 256 × 3",
+    "architecture_details": {
+      "segmentation_model": {
+        "name": "SASegNet",
+        "backbone": "U-Net",
+        "components": "Spatial Attention Blocks (SPAB)",
+        "description": "Novel U-Net segmentation network with Spatial Attention Blocks to emphasize specific regions."
+      },
+      "classification_model": {
+        "name": "EfficientNet B1",
+        "family": "EfficientNet",
+        "scaling": "Compound scaling technique (depth, width, resolution)",
+        "structure": "Built using five modules and three subblocks; modules 1 & 2 use depthwise convolution, modules 3, 4 & 5 use conventional convolution; Batch Normalization used in all modules except module 3; skip connections form sub-blocks.",
+        "feature_extraction": "Local features from SASegNet segmentation results and global features from original pre-processed images are concatenated."
+      }
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.003,
+      "batch_size": 32,
+      "loss_function": {
+        "multi_class": "Categorical Cross-Entropy",
+        "binary": "Binary Cross-Entropy"
+      },
+      "regularization": "L2 Regularizer",
+      "activation": "Leaky ReLU",
+      "data_augmentation": [
+        "Flip",
+        "Translate",
+        "Rotate"
+      ],
+      "hyperparameter_tuning": "Keras tuner function"
+    },
+    "classification_or_output_head": {
+      "global_average_pooling": "Used to learn features independently",
+      "dense_layers": [
+        {
+          "neurons": 512,
+          "activation": "ReLU",
+          "dropout": 0.5
+        },
+        {
+          "neurons": "Variable based on dataset classes (2 for ISIC-2017/2020, 7 for ISIC-2018, 8 for ISIC-2019)",
+          "activation": "SoftMax"
+        }
+      ],
+      "dropout_after_dense": 0.5
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "SASegNet",
+    "U-Net",
+    "U-Net + Spatial Attention",
+    "EfficientNet B0",
+    "EfficientNet B1",
+    "MobileNet",
+    "Inception v3",
+    "ResNeXt101",
+    "NASNet large",
+    "InceptionResNetV2",
+    "Xception",
+    "RCNN",
+    "TransUNet",
+    "Multi compound transformer",
+    "J48",
+    "Random Forest",
+    "Multi-layer perceptron",
+    "KNN",
+    "SVM",
+    "ANN",
+    "ResNet50",
+    "InceptionV3",
+    "VGG16",
+    "VGG19",
+    "MobileNet",
+    "IMO",
+    "CSLNet",
+    "Lina Liu et al. [30]",
+    "Amirreza Mahbod et al. [34]",
+    "Balzas Harangi [19]",
+    "Rebouças Filhoa et al. [45]",
+    "Saket S. Chaturvedi et al. [9]",
+    "Nils Gessert et al. [17]",
+    "Saket S. Chaturvedi et al. [8]",
+    "Dilated VGG16",
+    "Dilated VGG19",
+    "Dilated MobileNet",
+    "Dilated InceptionV3",
+    "Z. Rahman et al. [42]",
+    "Ramella et al. [43]",
+    "Rehman et al. [46]",
+    "Saba et al. [47]"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 256 × 256 pixels to handle non-uniform resolution and maintain input uniformity",
+    "Segmentation using SASegNet to extract lesion regions and remove background artifacts (hairs, rulers, markers)",
+    "Batch normalization applied to feature maps in the segmentation network",
+    "Spatial Dropout used in contracting and expanding stages of the segmentation network to regularize activations",
+    "Data augmentation including Flip, Translate, and Rotate during training"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Flip",
+      "details": "Applied during training."
+    },
+    {
+      "technique": "Translate",
+      "details": "Applied during training."
+    },
+    {
+      "technique": "Rotate",
+      "details": "Applied during training."
+    }
+  ],
+  "conclusions": [
+    "The proposed SASegNet segmentation network with Spatial Attention Blocks achieved 95% accuracy on the PH2 dataset, outperforming baseline U-Net models.",
+    "Fusing local features from segmentation results with global features from original images using EfficientNet B1 significantly improved classification performance compared to using global features alone.",
+    "The proposed methodology achieved benchmark AUC-ROC scores of 0.974, 0.972, 0.962, and 0.937 on the ISIC-2017, ISIC-2018, ISIC-2019, and ISIC-2020 datasets, respectively.",
+    "The model demonstrated robustness against inter-class similarities (e.g., between Melanocytic Nevi and Dermatofibroma) and occlusions such as hairs, rulers, and gel bubbles.",
+    "The automated diagnosis system is capable of aiding practicing dermatologists in achieving robust and accurate multi-class skin lesion diagnosis."
+  ],
+  "important_remarks": [
+    "The study relies on retrospective public datasets (ISIC-2017/2018/2019/2020 and PH2) without external clinical validation or prospective testing, limiting generalizability to real-world clinical settings.",
+    "The ISIC-2018 and ISIC-2019 datasets exhibit severe class imbalance, with Melanocytic Nevi (NV) comprising 50.82% of ISIC-2019, while Dermatofibroma (DF) and Vascular lesions (VASC) are severely underrepresented (1.85% and 1.96% respectively), potentially biasing model performance.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to validate the significance of performance improvements over baseline models.",
+    "The paper claims 'benchmark results' without providing rigorous statistical comparisons or confidence intervals for the reported AUC-ROC scores.",
+    "The segmentation model training was stopped at 63 epochs due to lack of validation loss improvement, which may indicate early stopping rather than full convergence, though this is a standard regularization technique.",
+    "The methodology uses minimal preprocessing (resizing and segmentation) to remove artifacts, but the robustness of the segmentation step (SASegNet) is critical; errors in segmentation could propagate to the classification stage, though this risk is not explicitly quantified.",
+    "The PH2 dataset used for segmentation validation is small (200 images) and contains only three classes (Normal Nevi, Atypical Nevi, Melanoma), limiting the assessment of segmentation performance across the full spectrum of skin lesions."
+  ]
+}

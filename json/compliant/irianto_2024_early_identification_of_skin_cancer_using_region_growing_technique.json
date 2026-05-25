@@ -1,0 +1,328 @@
+{
+  "file_name": "irianto_2024_early_identification_of_skin_cancer_using_region_growing_technique.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a Deep Learning LSTM algorithm combined with Region Growing segmentation to detect and classify skin cancer (melanoma, benign, and normal) using the PH2 dermoscopy dataset. The study achieved 96.62% accuracy with the proposed model."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and evaluation of a 'Region Growing + LSTM' algorithm for skin cancer detection. It details specific methods (PH2 dataset, Harris corner detection, LSTM architecture), reports new quantitative results (96.62% accuracy, training/prediction times), and compares its proposed model against a baseline LSTM model, which characterizes it as an original technical study rather than a review."
+  },
+  "title": "Early Identification of Skin Cancer Using Region Growing Technique and a Deep Learning Algorithm",
+  "authors": [
+    "Suhendro Y. Irianto",
+    "Rian Yunandar",
+    "M. S. Hasibuan",
+    "Deshinta Arrova Dewi",
+    "Nualyai Pitsachart"
+  ],
+  "doi": "10.28991/HIJ-2024-05-03-07",
+  "journal": "HighTech and Innovation Journal",
+  "year": 2024,
+  "article_type": "Research paper",
+  "brief_summary": "This study aimed to improve early skin cancer detection by integrating Region Growing segmentation with a Deep Learning LSTM algorithm. Using the PH2 dermoscopy dataset, which contains 200 images of normal, benign, and malignant skin lesions, the researchers evaluated the proposed model against a baseline LSTM. The evaluation focused on accuracy, precision, recall, and processing time during training and prediction phases. The Region Growing + LSTM model achieved a classification accuracy of 96.62%, significantly outperforming the standalone LSTM model's 84% accuracy. However, the combined method required substantially longer training (17 minutes) and prediction times (3 minutes 49 seconds) compared to the LSTM alone. The results indicate that while segmentation enhances detection precision, it introduces a trade-off between accuracy and computational efficiency.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Normal skin",
+      "paper_terms": [
+        "Normal",
+        "normal skin"
+      ],
+      "role": "Target class",
+      "details": "One of the three classes in the PH2 dataset used for experiments; 80 images."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the three classes in the PH2 dataset used for experiments; 40 images. The paper also discusses malignant melanoma in the introduction as a specific type of skin cancer."
+    },
+    {
+      "lesion_type": "Benign skin lesion",
+      "paper_terms": [
+        "Benign",
+        "benign cases",
+        "benign skin cancer"
+      ],
+      "role": "Target class",
+      "details": "One of the three classes in the PH2 dataset used for experiments; 80 images. The paper groups benign lesions (e.g., moles) as non-malignant."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin cancer diagnostic categories (Normal, Benign, Malignant/Melanoma)",
+        "primary": true,
+        "details": "The paper describes a binary classification task for the final prediction step ('classify lesions as malignant or benign') and a multiclass classification task using the PH2 dataset with three classes: Normal, Malignant, and Benign. The model outputs probability scores which are thresholded to determine the class label. The primary evaluation metric is classification accuracy (96.62% for the proposed model)."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion regions within dermoscopy images",
+        "primary": false,
+        "details": "The study employs Region Growing technique for image segmentation to isolate the lesion from the background. This is a preprocessing step to extract features for the classification model, not the primary predictive output of the deep learning algorithm itself."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2 Dataset",
+      "description": "A publicly available dermoscopy image dataset obtained from https://www.fc.up.pt/addi/ph2%20database.html. It consists of 200 dermoscopy images in .bmp format along with 200 corresponding Ground Truth data files.",
+      "classes_used": [
+        "Normal",
+        "Malignant (Melanoma)",
+        "Benign"
+      ],
+      "counts": {
+        "total": 200,
+        "training": 144,
+        "validation": 48,
+        "testing": 48,
+        "per_class": {
+          "original": {
+            "Normal": 80,
+            "Malignant": 40,
+            "Benign": 80
+          },
+          "after_oversampling": {
+            "Normal": 48,
+            "Malignant": 48,
+            "Benign": 48
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the LSTM and Region Growing + LSTM models. The dataset was balanced via oversampling of the minority class (melanoma) and image augmentation (flipping, rotation, zooming) before splitting.",
+        "validation": "Used for validation during the training phase (48 images total, 16 per class).",
+        "testing": "Used for testing the final model performance (48 images total, 16 per class).",
+        "other": "The original unbalanced PH2 dataset (80 normal, 40 melanoma, 80 benign) was used as the source. The study notes that the PH2 dataset size (200 images) is smaller than HAM10000 (10,000 data) and ISIC 2019 (20,771 data), which were mentioned for comparison but not used in the experiments."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "Training time",
+    "Prediction time",
+    "Execution time",
+    "Loss"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. It compared the performance of the proposed Region Growing + LSTM model against a baseline LSTM model using descriptive metrics such as accuracy, precision, recall, and execution time, but did not perform statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "PH2 Dataset": {
+      "Region Growing Segmentation Experiment": {
+        "metric": "Segmentation Accuracy, Precision, Recall, Execution Time",
+        "models": {
+          "Region Growing (256x256, 4x4 neighbors)": {
+            "accuracy": "64.43%",
+            "precision": "73.31%",
+            "recall": "69.87%",
+            "execution_time": "25.72 seconds"
+          },
+          "Region Growing (200x200, 4x4 neighbors)": {
+            "accuracy": "63.62%",
+            "precision": "72.47%",
+            "recall": "71.78%",
+            "execution_time": "11.63 seconds"
+          },
+          "Region Growing (128x128, 4x4 neighbors)": {
+            "accuracy": "63.31%",
+            "precision": "63.31%",
+            "recall": "72.61%",
+            "execution_time": "3.05 seconds"
+          },
+          "Region Growing (256x256, 8x8 neighbors)": {
+            "accuracy": "65.59%",
+            "precision": "72.67%",
+            "recall": "75.64%",
+            "execution_time": "41.73 seconds"
+          },
+          "Region Growing (200x200, 8x8 neighbors)": {
+            "accuracy": "65.49%",
+            "precision": "71.98%",
+            "recall": "75.79%",
+            "execution_time": "16.84 seconds"
+          },
+          "Region Growing (128x128, 8x8 neighbors)": {
+            "accuracy": "65.28%",
+            "precision": "65.28%",
+            "recall": "78.55%",
+            "execution_time": "3.75 seconds"
+          },
+          "Region Growing (No pre-processing)": {
+            "accuracy": "61.94%",
+            "precision": "80.64%",
+            "recall": "67.64%"
+          },
+          "Region Growing (Dark Corner Removal)": {
+            "accuracy": "65.98%",
+            "precision": "63.94%",
+            "recall": "84.45%"
+          },
+          "Region Growing (Dark Corner Removal + Median Filtered)": {
+            "accuracy": "65.42%",
+            "precision": "64.59%",
+            "recall": "84.05%"
+          },
+          "Region Growing (Dark Corner Removal + CLAHE)": {
+            "accuracy": "60.65%",
+            "precision": "62.24%",
+            "recall": "77.17%"
+          },
+          "Region Growing (Dark Corner Removal + Median Filtered + CLAHE)": {
+            "accuracy": "70.20%",
+            "precision": "68.04%",
+            "recall": "83.68%"
+          }
+        },
+        "notes": "The study selected an image size of 128x128 with 8x8 neighbors and pre-processing (Dark Corner Removal, Median Filtered, CLAHE) for subsequent experiments. The best segmentation performance was achieved with the combination of Dark Corner Removal, Median Filtered, and CLAHE."
+      },
+      "LSTM Classification Experiment": {
+        "metric": "Training Accuracy, Validation Accuracy, Loss, Execution Time",
+        "models": {
+          "LSTM (256x256, 20 epochs, batch 32)": {
+            "training_accuracy": "0.9721",
+            "training_loss": "0.6528",
+            "validation_accuracy": "0.9520",
+            "validation_loss": "0.9333",
+            "execution_time": "26.4 seconds"
+          },
+          "LSTM (200x200, 20 epochs, batch 32)": {
+            "training_accuracy": "0.9756",
+            "training_loss": "0.6042",
+            "validation_accuracy": "0.9437",
+            "validation_loss": "0.8840",
+            "execution_time": "19.1 seconds"
+          },
+          "LSTM (128x128, 20 epochs, batch 32)": {
+            "training_accuracy": "0.9701",
+            "training_loss": "0.7372",
+            "validation_accuracy": "0.9541",
+            "validation_loss": "0.8515",
+            "execution_time": "15.9 seconds"
+          }
+        },
+        "notes": "Image size of 128x128 was selected for final experiments. The model structure consisted of 2 LSTM layers with 64 nodes in layer 1 and 112 nodes in layer 2. The optimal number of epochs was determined to be 25 to prevent overfitting."
+      },
+      "Final Model Comparison": {
+        "metric": "Accuracy, Precision, Recall, Training Time, Prediction Time",
+        "models": {
+          "Baseline LSTM": {
+            "accuracy": "84%",
+            "training_time": "39.3 seconds",
+            "prediction_time": "3.2 seconds"
+          },
+          "Region Growing + LSTM": {
+            "accuracy": "96.62%",
+            "training_time": "17 minutes and 2 seconds",
+            "prediction_time": "3 minutes and 49 seconds"
+          }
+        },
+        "notes": "The LSTM baseline reported in the abstract (84% accuracy) differs from the detailed results in section 4.2 (54.1% accuracy, 57.8% precision, 54.1% recall). The abstract values are used here as they represent the final comparative summary provided by the authors. The Region Growing + LSTM model significantly outperformed the baseline in accuracy but required substantially longer training and prediction times."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Long Short-Term Memory (LSTM) network",
+    "pretraining": "null",
+    "input_size": "128x128 pixels (selected as optimal from experiments with 256x256, 200x200, and 128x128)",
+    "architecture_details": {
+      "model_type": "Recurrent Neural Network (RNN) variant",
+      "layers": "2 LSTM layers",
+      "nodes_per_layer": "64 nodes in layer 1, 112 nodes in layer 2",
+      "feature_extraction": "Features extracted from segmented regions using Region Growing technique, including color features (mean, standard deviation), texture features (Haralick features), and shape features (area, perimeter)",
+      "hyperparameter_tuning": "Used Keras Tuner with random search; tuned node values (32-128 and 128-256) and learning rates (0.01, 0.001, 0.0001)"
+    },
+    "training_details": {
+      "optimizer": "null",
+      "loss_function": "Categorical Crossentropy (implied by multi-class classification context, though not explicitly named, 'loss' metric is reported)",
+      "learning_rate": "0.0001 (selected via hyperparameter tuning)",
+      "epochs": "25 (determined to prevent overfitting; validation loss increased after epoch 25)",
+      "batch_size": "32",
+      "early_stopping": "Used with patience of 10 epochs (halted if validation loss did not decrease for 10 epochs)",
+      "data_preprocessing": "RGB to grayscale conversion, resizing, normalization (0-255 to 0-1), oversampling of minority class (melanoma) to balance dataset"
+    },
+    "classification_or_output_head": {
+      "type": "Softmax/Probability output",
+      "classes": "3 classes: Normal, Benign, Malignant (Melanoma)",
+      "thresholding": "Probability scores thresholded to classify lesions as malignant or benign"
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Region Growing + LSTM",
+    "LSTM",
+    "CNN",
+    "Optimization Algorithm-Based Exception Neural Network",
+    "SVM",
+    "Dingo Optimizer (DOX)",
+    "VGG-16",
+    "MobileNetV2",
+    "customized CNN"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to standardized sizes (256x256, 200x200, 128x256) for training and segmentation experiments.",
+    "Conversion of RGB color images to grayscale.",
+    "Normalization of pixel values (scaling to 0-1 range).",
+    "Dark corner removal via cropping (cutting 20 pixels from each side: top, bottom, left, right) to eliminate black background artifacts.",
+    "Median filtering (using OpenCV2 median Blur) to reduce salt-and-pepper noise.",
+    "Contrast Limited Adaptive Histogram Equalization (CLAHE) for contrast enhancement (tile size 8, clip limit 1%).",
+    "Combination of Dark Corner Removal, Median Filtering, and CLAHE.",
+    "Oversampling of the minority class (melanoma) to balance the dataset.",
+    "Image augmentation techniques including flipping, rotation, and zooming."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Image Flipping",
+      "details": "Random horizontal or vertical flipping applied to duplicated minority class data during oversampling."
+    },
+    {
+      "technique": "Image Rotation",
+      "details": "Random rotation applied to duplicated minority class data with angles between -15° and 15°."
+    },
+    {
+      "technique": "Image Zooming/Enlargement",
+      "details": "Random enlargement applied to duplicated minority class data with zoom factors between 10% and 25% (zoom_factor random value between 0.10 and 0.25)."
+    },
+    {
+      "technique": "Oversampling",
+      "details": "Minority class (melanoma) data was duplicated and augmented to balance the dataset, achieving equal quantities across all classes (48 images per class)."
+    }
+  ],
+  "conclusions": [
+    "The proposed Region Growing + LSTM model achieved a classification accuracy of 96.62%, significantly outperforming the baseline LSTM model's accuracy of 84%.",
+    "The integration of Region Growing segmentation with Deep Learning LSTM enhances detection precision by allowing the model to identify segmented areas before classification.",
+    "The Region Growing + LSTM model requires substantially longer computational time compared to the standalone LSTM model, with training taking 17 minutes and 2 seconds versus 39.3 seconds, and prediction taking 3 minutes and 49 seconds versus 3.2 seconds.",
+    "There is a trade-off between accuracy and efficiency in skin cancer image detection, where the higher accuracy of the combined method comes at the cost of increased processing time.",
+    "For the Region Growing segmentation component, using an image size of 128x128 pixels with 8x8 neighbors and pre-processing techniques (Dark Corner Removal, Median Filtered, and CLAHE) provided a balance of competitive accuracy (65.28%) and faster execution time (3.75 seconds) compared to larger image sizes.",
+    "The study demonstrates the potential of combining image processing techniques with deep learning algorithms to assist dermatologists in early skin cancer diagnosis and expedite the treatment process."
+  ],
+  "important_remarks": [
+    "The study relies on the small PH2 dataset (200 images), which limits generalizability compared to larger datasets like HAM10000 or ISIC 2019.",
+    "The proposed Region Growing + LSTM model exhibits a significant trade-off between accuracy and efficiency, requiring substantially longer training (17 minutes) and prediction times (3 minutes 49 seconds) compared to the baseline LSTM.",
+    "There is a discrepancy in reported baseline LSTM accuracy: the abstract states 84%, while Section 4.2 details a much lower accuracy of 54.1% for the LSTM-only model.",
+    "The LSTM architecture details contain inconsistencies: Section 4.2 specifies 64 nodes in layer 1 and 112 in layer 2, while Section 4.4 mentions 64 and 122 nodes.",
+    "The Harris Corner Detection seed selection for Region Growing is prone to error due to interfering objects like hair or residual dark corners, leading to inaccurate segmentation in some cases.",
+    "The study acknowledges that image size limitations (128x128) prevented the use of post-processing techniques like filling and dilation, which were used in other studies (e.g., Leiter et al.) to improve segmentation.",
+    "Segmentation accuracy for Region Growing was relatively low (max 70.20%), suggesting that the segmentation component may not be robust enough for all lesion types, particularly those with vague boundaries.",
+    "The paper does not report statistical significance testing (p-values) to validate the performance difference between the proposed model and the baseline.",
+    "The model was evaluated only on the PH2 dataset, lacking external validation on diverse, multi-center datasets to confirm clinical applicability.",
+    "The keywords include 'Corn Leaf Disease', which appears to be an error or irrelevant tag for a dermatology-focused paper."
+  ]
+}

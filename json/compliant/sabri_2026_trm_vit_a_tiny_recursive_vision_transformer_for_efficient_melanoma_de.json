@@ -1,0 +1,244 @@
+{
+  "file_name": "sabri_2026_trm_vit_a_tiny_recursive_vision_transformer_for_efficient_melanoma_de.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a Tiny Recursive Vision Transformer (TRM-ViT), a deep learning model based on recursive weight sharing, for binary melanoma classification using dermoscopic images from the HAM10000 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel architecture (TRM-ViT), conducts original experiments on the HAM10000 dataset, performs an ablation study on recursion depth, and reports new quantitative results (e.g., ROC-AUC of 0.7952) comparing the proposed model against a baseline. It is not a review or survey."
+  },
+  "title": "TRM-ViT: A Tiny Recursive Vision Transformer for Efficient Melanoma Detection",
+  "authors": [
+    "My Abdelouahed Sabri",
+    "Ali Belkhiri",
+    "Abla Rahmouni",
+    "Abdellah Aarab"
+  ],
+  "doi": "10.3390/asi9020045",
+  "journal": "Applied Sciences",
+  "year": 2026,
+  "article_type": "Article",
+  "brief_summary": "This study proposes TRM-ViT, a parameter-efficient recursive Vision Transformer designed for binary melanoma detection from dermoscopic images. The model utilizes recursive weight sharing of a single transformer encoder block to achieve effective depth while drastically reducing the number of trainable parameters compared to standard architectures. Experiments were conducted on the HAM10000 dataset, where TRM-ViT achieved a ROC-AUC of 0.7952, performing comparably to a standard Vision Transformer (0.7951) but with approximately seven times fewer parameters (2.15 M vs. 14.57 M). The evaluation also highlighted the model's high melanoma sensitivity, which is crucial for clinical screening applications. An ablation study on recursion depth further analyzed the trade-off between representation capacity and over-smoothing effects. The results suggest that recursive weight sharing offers an effective balance between diagnostic performance and model compactness for resource-constrained environments.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Positive class (y=1) in the binary classification task on the HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Non-melanoma skin lesions",
+      "paper_terms": [
+        "non-melanoma",
+        "non-melanoma lesions"
+      ],
+      "role": "Comparator class",
+      "details": "Negative class (y=0) in the binary classification task on the HAM10000 dataset. The paper does not list specific subtypes (e.g., nevus, BCC) but groups them as non-melanoma."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary class label (melanoma vs. non-melanoma)",
+        "primary": true,
+        "details": "The paper explicitly formulates the task as binary melanoma classification using the HAM10000 dataset. The model predicts a probability score y_hat in [0, 1] for the likelihood of the image belonging to the melanoma class (y=1) versus non-melanoma (y=0). Evaluation metrics include ROC-AUC, recall, specificity, and balanced accuracy, which are standard for classification tasks."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000",
+      "description": "A large publicly available collection of dermoscopic images acquired from multiple sources and imaging devices, widely used for skin lesion analysis and melanoma detection. Accessed via the Harvard Dataverse repository.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the TRM-ViT and baseline ViT models with a stratified split preserving class distribution.",
+        "validation": "Used for validation with a stratified split preserving class distribution.",
+        "testing": "Used for testing model performance (ROC-AUC, recall, etc.).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Recall (Sensitivity)",
+    "Specificity",
+    "Balanced Accuracy",
+    "Macro-averaged F1-score",
+    "Area Under the ROC Curve (AUC)",
+    "Accuracy",
+    "Precision"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Receiver Operating Characteristic (ROC) analysis",
+      "purpose": "To evaluate discriminative performance independently of classification threshold and compare TRM-ViT with the standard Vision Transformer baseline.",
+      "type": "Threshold-independent evaluation"
+    },
+    {
+      "method": "Ablation study",
+      "purpose": "To investigate the impact of recursion depth (K) on model performance and analyze the trade-off between representation capacity and over-smoothing effects.",
+      "type": "Ablation analysis"
+    },
+    {
+      "method": "Stratified data splitting",
+      "purpose": "To ensure the minority class (melanoma) is adequately represented in training and validation sets, preserving the original class distribution.",
+      "type": "Data partitioning strategy"
+    },
+    {
+      "method": "Weighted cross-entropy loss",
+      "purpose": "To address class imbalance by assigning higher penalties to misclassification of the minority class (melanoma) during training.",
+      "type": "Training objective"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons between TRM-ViT and the standard Vision Transformer were based on direct metric values (e.g., ROC-AUC, accuracy, recall) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "split": "Test set (15% of data, stratified split)",
+      "experiment": "Ablation Study on Recursion Depth (K)",
+      "models": {
+        "TRM-ViT (K=4)": {
+          "Parameters (M)": 2.15,
+          "Accuracy": 0.4378,
+          "Macro-F1": 0.3523,
+          "Balanced Accuracy": 0.393,
+          "Recall (Melanoma)": 0.3353,
+          "Precision (Melanoma)": 0.0709,
+          "AUC": 0.3669
+        },
+        "TRM-ViT (K=8)": {
+          "Parameters (M)": 2.15,
+          "Accuracy": 0.6188,
+          "Macro-F1": 0.5343,
+          "Balanced Accuracy": 0.7279,
+          "Recall (Melanoma)": 0.952,
+          "Precision (Melanoma)": 0.2083,
+          "AUC": 0.7952
+        },
+        "TRM-ViT (K=12)": {
+          "Parameters (M)": 2.15,
+          "Accuracy": 0.4112,
+          "Macro-F1": 0.3821,
+          "Balanced Accuracy": 0.6138,
+          "Recall (Melanoma)": 0.8743,
+          "Precision (Melanoma)": 0.1446,
+          "AUC": 0.7095
+        }
+      },
+      "notes": "K=8 provided the best overall balance between melanoma recall, balanced accuracy, and macro-F1 score. K=4 led to poor performance (underfitting), while K=12 increased false positives and reduced specificity (over-smoothing)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "TRM-ViT (Tiny Recursive Vision Transformer)",
+    "pretraining": "Not reported (trained end-to-end from scratch)",
+    "input_size": "224x224",
+    "architecture_details": {
+      "backbone": "Recursive Vision Transformer",
+      "mechanism": "Single transformer encoder block with shared weights applied recursively K times",
+      "block_components": [
+        "Multi-head self-attention (MHSA)",
+        "Feed-forward network (FFN) with MLP expansion ratio of 4",
+        "Residual connections",
+        "Layer normalization"
+      ],
+      "patch_size": "16x16",
+      "embedding_dim": "192",
+      "heads": "3",
+      "recursion_depth_K": "Variable (ablated at 4, 8, 12; best performance at K=8)",
+      "positional_encoding": "Learnable positional embeddings added to patch sequence",
+      "class_token": "Learnable [CLS] token prepended to patch sequence"
+    },
+    "training_details": {
+      "optimizer": "Not explicitly named (described as 'standard optimization techniques')",
+      "loss_function": "Weighted cross-entropy loss (to address class imbalance)",
+      "data_split": "Stratified split (training and validation sets preserve class distribution; 15% test set)",
+      "comparison_baseline": "Standard Vision Transformer (ViT) with 12 independent encoder blocks, 3 heads, 192 embedding dim, 16x16 patches"
+    },
+    "classification_or_output_head": {
+      "type": "Multi-Layer Perceptron (MLP)",
+      "input": "Representation of the [CLS] token after final recursive iteration",
+      "output": "Binary prediction (melanoma vs. non-melanoma)"
+    },
+    "approximate_parameters": {
+      "TRM_ViT": "2.15 M",
+      "Baseline_ViT": "14.57 M"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "TRM-ViT (Tiny Recursive Vision Transformer)",
+    "Vision Transformer (ViT)",
+    "Swin Transformer",
+    "ConvNeXt",
+    "ResNet",
+    "EfficientNet",
+    "Skin-DeepNet",
+    "DVFNet",
+    "CNN (Convolutional Neural Network)"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 224 × 224 pixels",
+    "Normalization using standard mean and standard deviation values",
+    "Random horizontal and vertical flipping (data augmentation)",
+    "Random rotation (data augmentation)",
+    "Random scaling and cropping (data augmentation)",
+    "Stratified data splitting to preserve class distribution across training, validation, and test sets"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random horizontal flipping",
+      "details": "Applied during training to improve generalization and reduce overfitting; not applied to validation or test sets."
+    },
+    {
+      "technique": "Random vertical flipping",
+      "details": "Applied during training to improve generalization and reduce overfitting; not applied to validation or test sets."
+    },
+    {
+      "technique": "Random rotation",
+      "details": "Applied during training to improve generalization and reduce overfitting; not applied to validation or test sets."
+    },
+    {
+      "technique": "Random scaling and cropping",
+      "details": "Applied during training to improve generalization and reduce overfitting; not applied to validation or test sets."
+    }
+  ],
+  "conclusions": [
+    "The proposed TRM-ViT architecture, which uses recursive weight sharing of a single transformer encoder block, achieves discriminative performance comparable to a standard Vision Transformer (ViT) for binary melanoma detection on the HAM10000 dataset.",
+    "TRM-ViT achieves a ROC-AUC of 0.7952, matching the standard ViT's performance of 0.7951, while using approximately seven times fewer trainable parameters (2.15 M vs. 14.57 M).",
+    "TRM-ViT maintains a high melanoma recall (sensitivity) of 0.9520, which is critical for clinical screening applications where minimizing false negatives is a primary objective.",
+    "An ablation study on recursion depth (K) demonstrates that model performance is highly dependent on this hyperparameter: shallow recursion (K=4) leads to underfitting, while excessive recursion (K=12) causes over-smoothing and increased false positives; an intermediate depth (K=8) provides the optimal trade-off.",
+    "Recursive weight sharing effectively emulates deep transformer representations without the computational cost of stacking multiple independent encoder blocks, offering a viable solution for resource-constrained environments.",
+    "High sensitivity in TRM-ViT results in lower precision and higher false positives, a limitation inherent to high-sensitivity screening systems that can be addressed through downstream clinical assessment or multi-stage diagnostic pipelines.",
+    "Future work includes comparing the model with a broader range of state-of-the-art methods, investigating robustness across larger and multi-center datasets, and exploring deployment on embedded and edge-computing platforms."
+  ],
+  "important_remarks": [
+    "The study is limited to a single dataset (HAM10000) with no external validation on multi-center or diverse populations, limiting generalizability.",
+    "The model was trained from scratch without pre-trained weights, which may impact performance compared to models leveraging large-scale pre-training.",
+    "No statistical significance testing (e.g., p-values) was performed to validate the comparability of TRM-ViT against the baseline ViT.",
+    "High melanoma sensitivity (0.952) results in low precision (0.2083) and high false positives, a known trade-off in screening systems that requires clinical follow-up.",
+    "The paper does not report results for other state-of-the-art models beyond the standard ViT baseline, limiting the scope of comparative performance analysis.",
+    "Data leakage risks were mitigated by ensuring images from the same lesion were not shared across training, validation, and test sets.",
+    "The study acknowledges that future work is needed to test robustness on larger datasets and explore deployment on embedded/edge platforms."
+  ]
+}

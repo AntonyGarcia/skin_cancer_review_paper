@@ -1,0 +1,294 @@
+{
+  "file_name": "shao_2023_msf_net_a_lightweight_multi_scale_feature_fusion_network_for_skin_lesi.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes MSF-Net, a lightweight multi-scale feature fusion network based on a comprehensive attention convolutional neural network (CA-Net), to perform binary segmentation of skin lesions from dermoscopic images. The method utilizes spatial attention mechanisms, multi-scale dilated convolutions, and multi-scale feature fusion modules. Experiments were conducted on the ISIC2018 dataset to evaluate segmentation performance using metrics such as Dice, IoU, and Precision."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel architecture, MSF-Net, for skin lesion segmentation. It details the design of specific modules (S-conv, MDC, MFF), describes experimental validation on the ISIC2018 dataset, and presents quantitative results including Dice, IoU, and Precision metrics in tables, indicating original experimental research rather than a literature review."
+  },
+  "title": "MSF-Net: A Lightweight Multi-Scale Feature Fusion Network for Skin Lesion Segmentation",
+  "authors": [
+    "Dangguo Shao",
+    "Lifan Ren",
+    "Lei Ma"
+  ],
+  "doi": "10.3390/biomedicines11061733",
+  "journal": "Biomedicines",
+  "year": 2023,
+  "article_type": "Article",
+  "brief_summary": "This study proposes MSF-Net, a lightweight multi-scale feature fusion network based on CA-Net, to address the challenges of binary skin lesion segmentation in dermoscopic images. The architecture incorporates spatial attention mechanisms, Multi-scale Dilated Convolution Modules (MDC), and Multi-scale Feature Fusion Modules (MFF) to handle diverse target scales and blurred boundaries. Experiments were conducted on the ISIC2018 dataset, which was split into training, validation, and test sets, using metrics such as Dice, IoU, Precision, and ASSD. Ablation studies confirmed the effectiveness of each module, with MSF-Net achieving Dice, IoU, and Precision scores 0.87%, 1.45%, and 3.89% higher than the baseline, respectively. Comparative experiments against eleven state-of-the-art models demonstrated that MSF-Net achieves superior segmentation performance with fewer parameters.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (binary segmentation target)",
+      "paper_terms": [
+        "skin lesion",
+        "lesioned region",
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The study performs binary segmentation of skin lesions from dermoscopic images, annotating the lesioned region as one and the non-lesioned region as zero. The paper mentions melanoma in the context of early diagnosis and clinical application significance, but the experimental task is general skin lesion segmentation using the ISIC2018 dataset, which contains various lesion types without specific class labels in the segmentation task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary segmentation mask of skin lesions in dermoscopic images",
+        "primary": true,
+        "details": "The paper performs binary segmentation of skin lesions, where the model predicts a pixel-wise mask distinguishing the lesioned region (annotated as one) from the non-lesioned region (annotated as zero). The task is evaluated using metrics such as Dice, IoU, Precision, and ASSD on the ISIC2018 dataset."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2018 (Lesion Boundary Segmentation)",
+      "description": "A public challenge dataset for skin lesion boundary segmentation, derived from the ISIC-2017 and HAM10000 datasets. It contains dermoscopic images with ground truth segmentation masks for training and images without masks for validation and testing.",
+      "classes_used": [
+        "Skin lesion (binary segmentation target: lesioned region vs. non-lesioned region)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 1816,
+        "validation": 260,
+        "testing": 518,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the MSF-Net model (1816 images with ground truth masks).",
+        "validation": "Used for validation (260 images with ground truth masks).",
+        "testing": "Used for testing (518 images with ground truth masks).",
+        "other": "The dataset also provided 100 validation and 1000 test images without ground truth masks, but these were not used in this study as it is a fully annotated task."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice score",
+    "Average symmetric surface distance (ASSD)",
+    "IoU",
+    "Precision"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Mean and Standard Deviation",
+      "purpose": "To report the performance metrics (Dice, IoU, Precision, ASSD) for the baseline and ablation experiments, indicating the variability of results across runs or folds.",
+      "type": "Descriptive Statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing; performance comparisons were based on descriptive statistics (mean and standard deviation) of metrics such as Dice, IoU, Precision, and ASSD."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2018": {
+      "experiment": "Comparison with State-of-the-Art Models",
+      "metric": "Parameters (M), Dice (%), IoU (%), Precision (%), ASSD (pix)",
+      "models": {
+        "CA-Net [5]": {
+          "Parameters": "2.79",
+          "Dice": "93.02 ± 0.50",
+          "IoU": "87.30 ± 0.88",
+          "Precision": "88.28 ± 0.32",
+          "ASSD": "0.4645 ± 0.0163"
+        },
+        "U-Net [12]": {
+          "Parameters": "34.53",
+          "Dice": "93.12 ± 0.30",
+          "IoU": "87.45 ± 0.52",
+          "Precision": "88.79 ± 0.14",
+          "ASSD": "0.4439 ± 0.0261"
+        },
+        "AttU-Net [13]": {
+          "Parameters": "34.88",
+          "Dice": "93.05 ± 0.11",
+          "IoU": "87.34 ± 0.17",
+          "Precision": "88.75 ± 0.70",
+          "ASSD": "0.4203 ± 0.0199"
+        },
+        "Unet++ [14]": {
+          "Parameters": "36.63",
+          "Dice": "93.08 ± 0.50",
+          "IoU": "87.43 ± 0.79",
+          "Precision": "89.60 ± 1.11",
+          "ASSD": "0.5100 ± 0.0783"
+        },
+        "R2UNet [16]": {
+          "Parameters": "39.09",
+          "Dice": "88.81 ± 1.23",
+          "IoU": "80.61 ± 1.90",
+          "Precision": "80.02 ± 1.74",
+          "ASSD": "0.8013 ± 0.0833"
+        },
+        "Deeplabv3+ [24]": {
+          "Parameters": "39.76",
+          "Dice": "93.60 ± 0.37",
+          "IoU": "88.29 ± 0.60",
+          "Precision": "90.09 ± 0.26",
+          "ASSD": "0.3905 ± 0.0185"
+        },
+        "denseASPP [29]": {
+          "Parameters": "35.37",
+          "Dice": "93.76 ± 0.39",
+          "IoU": "88.53 ± 0.63",
+          "Precision": "89.84 ± 1.16",
+          "ASSD": "0.3778 ± 0.0232"
+        },
+        "BCDU-Net [30]": {
+          "Parameters": "28.80",
+          "Dice": "92.96 ± 0.38",
+          "IoU": "87.19 ± 0.60",
+          "Precision": "90.19 ± 0.16",
+          "ASSD": "0.4566 ± 0.0133"
+        },
+        "CE-Net [31]": {
+          "Parameters": "28.98",
+          "Dice": "93.93 ± 0.68",
+          "IoU": "88.84 ± 1.13",
+          "Precision": "90.11 ± 0.89",
+          "ASSD": "0.3850 ± 0.0428"
+        },
+        "CPF-Net [32]": {
+          "Parameters": "43.25",
+          "Dice": "93.95 ± 0.44",
+          "IoU": "88.86 ± 0.72",
+          "Precision": "90.30 ± 0.56",
+          "ASSD": "0.3720 ± 0.0227"
+        },
+        "Ms RED [28]": {
+          "Parameters": "4.02",
+          "Dice": "93.59 ± 0.28",
+          "IoU": "88.27 ± 0.44",
+          "Precision": "90.66 ± 0.68",
+          "ASSD": "0.4093 ± 0.0002"
+        },
+        "MSF-Net (Ours)": {
+          "Parameters": "3.46",
+          "Dice": "93.89 ± 0.47",
+          "IoU": "88.75 ± 0.77",
+          "Precision": "92.17 ± 0.07",
+          "ASSD": "0.3488 ± 0.0172"
+        }
+      },
+      "notes": "MSF-Net showed the best results for Precision and ASSD among all compared networks. It has fewer parameters than most competitors (e.g., 1/10 and 1/8 of denseASPP and CE-Net parameters). CPF-Net was the best performer in Dice and IoU indices among comparison models, but MSF-Net had higher Precision and lower ASSD."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MSF-Net (Multi-Scale Feature Fusion Network)",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "base_architecture": "Comprehensive Attention Convolutional Neural Network (CA-Net)",
+      "core_modules": [
+        "S-conv (Spatial Attention Convolution Block)",
+        "MDC (Multi-scale Dilated Convolution Module)",
+        "MFF (Multi-scale Feature Fusion Module)"
+      ],
+      "s_conv_details": {
+        "description": "Convolution module with spatial attention mechanism via residual connection",
+        "components": [
+          "1x1 convolution",
+          "3x3 convolution",
+          "Batch Normalization (Bn)",
+          "ReLU layer"
+        ],
+        "branches": [
+          "Branch 1: Two consecutive 3x3 convolution blocks to extract features",
+          "Branch 2: 1x1 convolution to reduce channels to 1, followed by sigmoid function to generate attention coefficient map"
+        ],
+        "operation": "Attention coefficient map multiplied by output feature graph of convolution layer to calibrate input and locate critical information"
+      },
+      "mdc_details": {
+        "description": "Multi-scale Dilated Convolution Module",
+        "dilation_rates": [
+          1,
+          2,
+          4,
+          10
+        ]
+      },
+      "mff_details": "Multi-scale Feature Fusion Module"
+    },
+    "training_details": {
+      "dataset": "ISIC2018",
+      "data_split": {
+        "training": 1816,
+        "validation": 260,
+        "testing": 518
+      },
+      "optimizer": "null",
+      "loss_function": "null",
+      "hyperparameters": "null",
+      "training_schedule": "null"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation Mask",
+      "description": "Binary segmentation mask distinguishing lesioned region (1) from non-lesioned region (0)"
+    },
+    "approximate_parameters": "3.46 M"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MSF-Net",
+    "CA-Net",
+    "U-Net",
+    "AttU-Net",
+    "Unet++",
+    "R2UNet",
+    "Deeplabv3+",
+    "denseASPP",
+    "BCDU-Net",
+    "CE-Net",
+    "CPF-Net",
+    "Ms RED",
+    "Baseline+S-conv",
+    "Baseline+MFF",
+    "Baseline+MDC",
+    "Baseline+S-conv+MFF",
+    "Baseline+S-conv+MDC",
+    "Baseline+MFF+MDC",
+    "Baseline+S-conv+MFF+MDC"
+  ],
+  "preprocessing_techniques": [
+    "Resizing: All images were adjusted to 256 × 342 pixels to handle varying input sizes (ranging from 771 × 750 to 9748 × 4499).",
+    "Cropping: Input image sizes were randomly cropped to 224 × 300 pixels.",
+    "Rotation: Cropped images were randomly rotated in the horizontal or vertical direction at an angle of (−30°, 30°)."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random Cropping",
+      "details": "Input images were randomly cropped to 224 × 300 pixels."
+    },
+    {
+      "technique": "Random Rotation",
+      "details": "Cropped images were randomly rotated in the horizontal or vertical direction at an angle of (−30°, 30°)."
+    },
+    {
+      "technique": "Dropout",
+      "details": "Dropout was applied on the last two layers of the network to prevent overfitting and improve generalization."
+    }
+  ],
+  "conclusions": [
+    "MSF-Net, a lightweight multi-scale feature fusion network based on CA-Net, effectively addresses challenges in skin lesion segmentation such as diverse target scales, irregular shapes, low contrast, and blurred boundaries.",
+    "The integration of three specific modules—S-conv (spatial attention), MDC (multi-scale dilated convolution), and MFF (multi-scale feature fusion)—significantly improves segmentation accuracy compared to the baseline CA-Net.",
+    "Ablation studies confirmed the effectiveness of each module, with MSF-Net achieving Dice, IoU, and Precision scores 0.87%, 1.45%, and 3.89% higher than the baseline, respectively, and a lower ASSD.",
+    "MSF-Net achieves superior segmentation performance with fewer parameters (3.46 M) compared to state-of-the-art models like denseASPP (35.37 M) and CE-Net (28.98 M), demonstrating high efficiency.",
+    "MSF-Net achieved the best Precision (92.17%) and lowest ASSD (0.3488) among the compared networks on the ISIC2018 dataset, although CPF-Net had slightly higher Dice and IoU scores.",
+    "The use of dilation rates (1, 2, 4, 10) in the MDC module was identified as optimal for balancing Dice/IoU performance and ASSD minimization.",
+    "The proposed method shows potential for practical clinical application in melanoma segmentation due to its ability to handle complex samples and reduce computational load."
+  ],
+  "important_remarks": [
+    "The study is limited to a single public dataset (ISIC2018) with no external validation on independent cohorts, limiting generalizability assessment.",
+    "The dataset split (7:1:2 ratio) was performed via random division of images with ground truth masks; the paper does not specify if this split was stratified by lesion type or patient, raising potential data leakage or bias concerns if multiple images from the same patient were split across sets.",
+    "The paper claims clinical relevance for melanoma segmentation but performs binary segmentation on a mixed skin lesion dataset (ISIC2018) without specific class labels or performance metrics for melanoma specifically.",
+    "Performance improvements over the baseline (CA-Net) are modest (e.g., Dice increase of 0.87%), and while MSF-Net has fewer parameters than some competitors, it does not significantly outperform all state-of-the-art models in all metrics (e.g., CPF-Net had higher Dice/IoU).",
+    "The study relies on descriptive statistics (mean and standard deviation) without formal statistical hypothesis testing to validate the significance of performance differences between models.",
+    "The model was trained on a single GPU (NVIDIA GeForce GTX 3090) for only 300 epochs, which may limit the robustness of the results compared to larger-scale training regimes."
+  ]
+}

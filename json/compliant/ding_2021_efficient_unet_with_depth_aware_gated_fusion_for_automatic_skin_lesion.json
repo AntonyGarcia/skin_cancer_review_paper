@@ -1,0 +1,406 @@
+{
+  "file_name": "ding_2021_efficient_unet_with_depth_aware_gated_fusion_for_automatic_skin_lesion.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning model named EUnet-DGF (Efficient Unet with Depth-aware Gated Fusion) for automatic skin lesion segmentation. The method employs a lightweight encoder using MBconv, a depth-aware gated fusion block, and multiple-supervision enhanced decoding. It was evaluated on the ISIC 2017 and PH2 datasets for dermatological image analysis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new deep learning model named EUnet-DGF for automatic skin lesion segmentation. It details the model's architecture (MBconv encoder, depth-aware gated fusion block, multiple-supervision enhanced decoding), describes the methodology including data augmentation and loss functions, and reports experimental results on the ISIC 2017 and PH2 datasets with specific performance metrics (Accuracy, Dice coefficient, Jaccard index) and comparisons to state-of-the-art methods."
+  },
+  "title": "Efficient Unet with depth-aware gated fusion for automatic skin lesion segmentation",
+  "authors": [
+    "Xiangwen Ding",
+    "Shengsheng Wang"
+  ],
+  "doi": "10.3233/JIFS-202566",
+  "journal": "Journal of Intelligent & Fuzzy Systems",
+  "year": 2021,
+  "article_type": "Journal article",
+  "brief_summary": "This study proposes EUnet-DGF, a lightweight deep learning model for automatic skin lesion segmentation to address the challenges of large size variations, irregular shapes, and blurred borders in dermoscopic images. The architecture utilizes an MBconv-based encoder for efficiency, a depth-aware gated fusion block to effectively fuse multi-depth feature maps, and a multiple-supervision enhanced decoding method to improve segmentation accuracy. The model was evaluated on the ISIC 2017 and PH2 datasets using Accuracy, Dice coefficient, and Jaccard index as evaluation metrics. Experimental results demonstrated that EUnet-DGF achieved state-of-the-art performance while significantly reducing computational costs, requiring only 19% of the parameters and 6.8% of the FLOPs compared to the original U-Net. The findings indicate that the proposed method offers superior segmentation performance with high efficiency, making it suitable for practical computer-aided diagnosis systems.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Studied as a specific class within the binary segmentation task on the ISIC 2017 dataset (374 melanoma in train, 30 in validation, 117 in test) and PH2 dataset (40 melanoma). The paper focuses on segmenting melanoma lesions to aid in diagnosis."
+    },
+    {
+      "lesion_type": "Non-melanoma skin lesions",
+      "paper_terms": [
+        "non-melanoma"
+      ],
+      "role": "Target class (background/other lesions)",
+      "details": "Studied as the counterpart to melanoma in the binary segmentation task. Included in ISIC 2017 dataset (1626 in train, 120 in validation, 483 in test) and PH2 dataset (160). The model segments these as the 'non-lesion' or background class relative to the melanoma target, or as the other class in the binary classification of lesion presence."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion pixels (binary mask)",
+        "primary": true,
+        "details": "The paper proposes EUnet-DGF for automatic skin lesion segmentation. The model predicts pixel-wise masks to distinguish lesion regions from background. Evaluation metrics include Dice coefficient, Jaccard index, and Accuracy based on True Positives, False Positives, False Negatives, and True Negatives of pixels. The task is explicitly defined as semantic segmentation of skin lesions in dermoscopic images."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public dataset of dermoscopic images used for skin lesion segmentation. The images are RGB with resolutions ranging from 566 × 679 to 4499 × 6748. Segmentation masks are marked by experts.",
+      "classes_used": [
+        "melanoma",
+        "non-melanoma"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "training": {
+            "melanoma": 374,
+            "non-melanoma": 1626
+          },
+          "validation": {
+            "melanoma": 30,
+            "non-melanoma": 120
+          },
+          "testing": {
+            "melanoma": 117,
+            "non-melanoma": 483
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the EUnet-DGF model (2000 images). In ablation experiments, the validation set was also used for training (denoted by † in Table 4).",
+        "validation": "Used for validation (150 images).",
+        "testing": "Used for testing and performance comparison (600 images).",
+        "other": "Used for ablation experiments to verify the effectiveness of proposed components."
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A public dataset of dermoscopic images. It contains 200 RGB images with sizes varying from 553 × 763 to 577 × 769.",
+      "classes_used": [
+        "melanoma",
+        "non-melanoma"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {
+          "melanoma": 40,
+          "non-melanoma": 160
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for testing and generalization evaluation of the EUnet-DGF model.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (AC)",
+    "Dice coefficient (DI)",
+    "Jaccard index (JA)",
+    "Number of parameters",
+    "FLOPs"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using point estimates of metrics (Accuracy, Dice coefficient, Jaccard index) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "description": "Test set performance on the ISIC 2017 dataset. The final model (EUnet-DGF) was trained using both the training set and the validation set (denoted by † in Table 4).",
+      "models": {
+        "EUnet-DGF (Ours)": {
+          "Accuracy (AC)": "0.9477",
+          "Dice coefficient (DI)": "0.8789",
+          "Jaccard index (JA)": "0.8037",
+          "Parameters (M)": "5.89",
+          "FLOPs (G)": "2.83"
+        },
+        "EUnet (Baseline)": {
+          "Accuracy (AC)": "0.9273",
+          "Dice coefficient (DI)": "0.8317",
+          "Jaccard index (JA)": "0.7384",
+          "Parameters (M)": "5.84",
+          "FLOPs (G)": "2.29"
+        },
+        "Unet": {
+          "Accuracy (AC)": "0.9193",
+          "Dice coefficient (DI)": "0.8045",
+          "Jaccard index (JA)": "0.7072",
+          "Parameters (M)": "31.04",
+          "FLOPs (G)": "41.89"
+        },
+        "FCN8s": {
+          "Accuracy (AC)": "0.9264",
+          "Dice coefficient (DI)": "0.8341",
+          "Jaccard index (JA)": "0.7196",
+          "Parameters (M)": "134.27",
+          "FLOPs (G)": "62.82"
+        },
+        "Team-NLP LOGIX": {
+          "Accuracy (AC)": "0.9320",
+          "Dice coefficient (DI)": "0.8470",
+          "Jaccard index (JA)": "0.7620"
+        },
+        "Team-Mt.Sinai": {
+          "Accuracy (AC)": "0.9340",
+          "Dice coefficient (DI)": "0.8490",
+          "Jaccard index (JA)": "0.7650"
+        },
+        "DAGAN": {
+          "Accuracy (AC)": "0.9350",
+          "Dice coefficient (DI)": "0.8590",
+          "Jaccard index (JA)": "0.7710"
+        },
+        "SLSDeep": {
+          "Accuracy (AC)": "0.9360",
+          "Dice coefficient (DI)": "0.8780",
+          "Jaccard index (JA)": "0.7820"
+        },
+        "StarShapePrior": {
+          "Accuracy (AC)": "0.9380",
+          "Dice coefficient (DI)": "0.8570",
+          "Jaccard index (JA)": "0.7730"
+        },
+        "FrCN": {
+          "Accuracy (AC)": "0.9403",
+          "Dice coefficient (DI)": "0.8708",
+          "Jaccard index (JA)": "0.7711"
+        },
+        "DCL-PSI": {
+          "Accuracy (AC)": "0.9408",
+          "Dice coefficient (DI)": "0.8566",
+          "Jaccard index (JA)": "0.7773"
+        }
+      },
+      "notes": "EUnet-DGF achieved state-of-the-art performance on AC, DI, and JA. It exceeded SLSDeep by 2.17% on JA. The model uses 19% of the parameters and 6.8% of the FLOPs of the original Unet."
+    },
+    "PH2": {
+      "description": "Test set performance on the PH2 dataset for generalization evaluation.",
+      "models": {
+        "EUnet-DGF (Ours)": {
+          "Accuracy (AC)": "0.8921",
+          "Dice coefficient (DI)": "0.9422",
+          "Jaccard index (JA)": "0.9617"
+        },
+        "mFCN-PI": {
+          "Accuracy (AC)": "0.8399",
+          "Dice coefficient (DI)": "0.9066",
+          "Jaccard index (JA)": "0.9424"
+        },
+        "FrCN": {
+          "Accuracy (AC)": "0.8479",
+          "Dice coefficient (DI)": "0.9177",
+          "Jaccard index (JA)": "0.9508"
+        },
+        "Peng et al.": {
+          "Accuracy (AC)": "0.8500",
+          "Dice coefficient (DI)": "0.9000",
+          "Jaccard index (JA)": "0.9300"
+        },
+        "DCL-PSI": {
+          "Accuracy (AC)": "0.8590",
+          "Dice coefficient (DI)": "0.9210",
+          "Jaccard index (JA)": "0.9530"
+        }
+      },
+      "notes": "EUnet-DGF outperformed the previous best method on JA, DI, and AC by 3.31%, 2.12%, and 0.87%, respectively, indicating greater generalization capacity."
+    },
+    "Ablation_Experiments_ISIC_2017": {
+      "description": "Ablation study results on the ISIC 2017 dataset to verify the effectiveness of each component. The model was trained on the ISIC 2017 training set and evaluated on the test set.",
+      "models": {
+        "EUnet": {
+          "Accuracy (AC)": "0.9273",
+          "Dice coefficient (DI)": "0.8317",
+          "Jaccard index (JA)": "0.7384"
+        },
+        "EUnet+DGF": {
+          "Accuracy (AC)": "0.9338",
+          "Dice coefficient (DI)": "0.8489",
+          "Jaccard index (JA)": "0.7572"
+        },
+        "EUnet+MSED(S)": {
+          "Accuracy (AC)": "0.9341",
+          "Dice coefficient (DI)": "0.8404",
+          "Jaccard index (JA)": "0.7493"
+        },
+        "EUnet+MSED(D)": {
+          "Accuracy (AC)": "0.9360",
+          "Dice coefficient (DI)": "0.8446",
+          "Jaccard index (JA)": "0.7547"
+        },
+        "EUnet+DGF+MSED(D)": {
+          "Accuracy (AC)": "0.9412",
+          "Dice coefficient (DI)": "0.8609",
+          "Jaccard index (JA)": "0.7764"
+        },
+        "EUnet+DGF+MSED(D)+CL": {
+          "Accuracy (AC)": "0.9443",
+          "Dice coefficient (DI)": "0.8744",
+          "Jaccard index (JA)": "0.7995"
+        },
+        "EUnet+DGF+MSED(D)+CL†": {
+          "Accuracy (AC)": "0.9477",
+          "Dice coefficient (DI)": "0.8789",
+          "Jaccard index (JA)": "0.8037"
+        }
+      },
+      "notes": "† indicates the validation set was also used for training. The addition of DGF improved AC, DI, and JA by 0.65%, 1.72%, and 1.92% over baseline. MSED(D) further improved performance. The combined loss function (CL) with λ=0.5 provided the best results."
+    },
+    "Hyperparameter_Sensitivity": {
+      "description": "Results showing the influence of image scaling and the loss function weight λ on the model performance.",
+      "models": {
+        "Image Scaling Influence": {
+          "128x192": {
+            "Accuracy (AC)": "0.9358",
+            "Dice coefficient (DI)": "0.8591",
+            "Jaccard index (JA)": "0.7839"
+          },
+          "160x224": {
+            "Accuracy (AC)": "0.9443",
+            "Dice coefficient (DI)": "0.8744",
+            "Jaccard index (JA)": "0.7995"
+          },
+          "192x256": {
+            "Accuracy (AC)": "0.9396",
+            "Dice coefficient (DI)": "0.8687",
+            "Jaccard index (JA)": "0.7927"
+          }
+        },
+        "Loss Function Weight (λ) Influence": {
+          "λ=0": {
+            "Accuracy (AC)": "0.9417",
+            "Dice coefficient (DI)": "0.8661",
+            "Jaccard index (JA)": "0.7830"
+          },
+          "λ=0.5": {
+            "Accuracy (AC)": "0.9443",
+            "Dice coefficient (DI)": "0.8744",
+            "Jaccard index (JA)": "0.7995"
+          },
+          "λ=1": {
+            "Accuracy (AC)": "0.9426",
+            "Dice coefficient (DI)": "0.8689",
+            "Jaccard index (JA)": "0.7868"
+          }
+        }
+      },
+      "notes": "Resolution of 160x224 was chosen as it preserves aspect ratio (3:4) and provides optimal performance. λ=0.5 was selected for the combined loss function to handle class imbalance effectively."
+    }
+  },
+  "architecture_used": {
+    "main_model": "EUnet-DGF (Efficient Unet with Depth-aware Gated Fusion)",
+    "pretraining": "Weights pre-trained on ImageNet used as initial weights for the encoder.",
+    "input_size": "160 × 224 pixels (resized from original images with resolutions ranging from 566 × 679 to 4499 × 6748 for ISIC 2017 and 553 × 763 to 577 × 769 for PH2). For fair comparison with FCN8s and Unet, input size was set to 224 × 224.",
+    "architecture_details": {
+      "encoder": "Lightweight encoder implemented using MBconv (Mobile Inverted Bottleneck Convolution) blocks to reduce parameters while maintaining strong encoding ability. Generates five feature maps [Ei] from i=1 to 5.",
+      "decoder": "Four decoding stages. The lowest stage receives feature maps from the last encoding stage. Other stages receive output from the previous decoding stage and feature maps enhanced by supervision.",
+      "fusion_blocks": "Four Depth-aware Gated Fusion (DGF) blocks replace original skip connections. They fuse feature maps of different depths in a gate manner to control information propagation and enhance prediction of small patterns.",
+      "supervision_method": "Multiple-Supervision Enhanced Decoding (MSED) in 'D mode', where enhanced feature maps are transmitted to all subsequent decoding stages.",
+      "output_head": "1 × 1 convolution followed by a sigmoid function to output segmentation results."
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate_schedule": "Cosine annealing strategy: lr = α(1 + cos(π * Tcur / Tmax)), where α is the initial learning rate (1e-4), Tcur is current epoch, and Tmax is maximum epochs (90).",
+      "batch_size": 8,
+      "epochs": 90,
+      "loss_function": "Combined loss function (CL) with weight λ=0.5 to handle class imbalance, replacing original cross-entropy loss.",
+      "data_augmentation": [
+        "Random vertical flipping",
+        "Random horizontal flipping",
+        "Random rotation (0 to 10 degrees)",
+        "Random color jittering ([-10, 10])"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "details": "Binary segmentation output via 1x1 convolution and sigmoid activation."
+    },
+    "approximate_parameters": {
+      "EUnet-DGF": "5.89 M",
+      "EUnet": "5.84 M",
+      "Unet": "31.04 M",
+      "FCN8s": "134.27 M"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EUnet-DGF",
+    "EUnet",
+    "Unet",
+    "FCN8s",
+    "Team-NLP LOGIX",
+    "Team-Mt.Sinai",
+    "DAGAN",
+    "SLSDeep",
+    "StarShapePrior",
+    "FrCN",
+    "DCL-PSI",
+    "mFCN-PI",
+    "Peng et al."
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to 160 × 224 pixels to fit memory and preserve aspect ratio (3:4)",
+    "Data augmentation: random vertical flipping",
+    "Data augmentation: random horizontal flipping",
+    "Data augmentation: random rotation (0 to 10 degrees)",
+    "Data augmentation: random color jittering ([-10, 10])",
+    "Use of ImageNet pre-trained weights for initial encoder weights to mitigate overfitting"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random vertical flipping",
+      "details": "Applied during training to strengthen model robustness."
+    },
+    {
+      "technique": "Random horizontal flipping",
+      "details": "Applied during training to strengthen model robustness."
+    },
+    {
+      "technique": "Random rotation",
+      "details": "Applied with a range of 0 to 10 degrees."
+    },
+    {
+      "technique": "Random color jittering",
+      "details": "Applied within the range of [-10, 10]."
+    }
+  ],
+  "conclusions": [
+    "The proposed EUnet-DGF model achieves state-of-the-art performance in automatic skin lesion segmentation on the ISIC 2017 and PH2 datasets, outperforming existing methods in Accuracy, Dice coefficient, and Jaccard index.",
+    "EUnet-DGF is significantly more efficient than the original U-Net, requiring only 19% of the parameters and 6.8% of the FLOPs, making it suitable for practical computer-aided diagnosis systems with limited computational resources.",
+    "The Depth-aware Gated Fusion (DGF) block effectively fuses feature maps of different depths, improving the model's ability to predict detailed information and small lesion patterns.",
+    "The Multiple-Supervision Enhanced Decoding (MSED) method enhances decoding capabilities by providing richer supervisory information, particularly when using the 'D' mode which transmits decoded feature maps to subsequent stages.",
+    "The combined loss function (weighted binary cross-entropy and Dice loss) effectively addresses class imbalance issues in skin lesion segmentation, leading to improved performance.",
+    "The model demonstrates strong generalization capacity, as evidenced by superior performance on the PH2 dataset compared to previous best methods.",
+    "A limitation of the study is the insufficient number of skin lesion images available for training; the authors suggest that larger datasets and high-quality annotations could further improve model performance.",
+    "The model may struggle with special cases involving errors in image annotations or extremely similar backgrounds, indicating areas for future improvement."
+  ],
+  "important_remarks": [
+    "The study acknowledges a limitation regarding the insufficient number of skin lesion images available for training, suggesting that larger datasets could further improve performance.",
+    "The model's performance may be negatively affected by errors in the ground truth annotations of the training data, as fixing these errors could improve results.",
+    "The model struggles with images where the background is extremely similar to the lesion, making it difficult to distinguish between pathological tissue and surrounding skin.",
+    "The model faces challenges with skin lesions that have low border contrast, indicating a need for dynamic thresholding or other techniques to handle such cases.",
+    "The final model results on the ISIC 2017 dataset were obtained by training on both the training set and the validation set (denoted by †), which may inflate performance estimates compared to strict train/test splits.",
+    "No statistical significance testing (e.g., p-values) was reported; performance comparisons rely on point estimates of metrics like Accuracy, Dice coefficient, and Jaccard index.",
+    "The study is limited to two public datasets (ISIC 2017 and PH2), which may limit the generalizability of the findings to other populations or imaging devices not represented in these datasets."
+  ]
+}

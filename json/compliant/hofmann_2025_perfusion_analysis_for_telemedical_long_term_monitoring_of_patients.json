@@ -1,0 +1,322 @@
+{
+  "file_name": "hofmann_2025_perfusion_analysis_for_telemedical_long_term_monitoring_of_patients.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a Fully Convolutional Network (FCN) with ResNet50 backbone, fine-tuned on a self-recorded dataset, for pixel-wise semantic segmentation of psoriatic and healthy skin regions in videos. This AI model was essential for extracting perfusion signals via remote photoplethysmography (rPPG) to monitor disease progression in psoriasis patients."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a novel method for perfusion analysis in psoriasis patients. It details specific methods (FCN ResNet50 segmentation, rPPG), a self-recorded dataset of 461 images and 20 videos from six patients, and reports quantitative results (segmentation metrics like F1 Score 0.72, perfusion amplitude observations). Although published in a conference proceedings (EEITE), it contains original research results rather than summarizing prior literature."
+  },
+  "title": "Perfusion Analysis for Telemedical Long-Term Monitoring of Patients with Chronic Skin Diseases",
+  "authors": [
+    "Julia Hofmann",
+    "Lara Schweickart",
+    "Christoph Zimmermann",
+    "Mingze Li",
+    "Jonas Below",
+    "Astrid Schmieder",
+    "Jan Leipe",
+    "Victor Olsavszky",
+    "Iana Bychkova",
+    "Wilhelm Stork"
+  ],
+  "doi": "10.1109/EEITE65381.2025.11166425",
+  "journal": "2025 6th International Conference in Electronic Engineering & Information Technology (EEITE)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a non-contact telemedical method for monitoring psoriasis progression by analyzing skin perfusion changes over time. The researchers developed a pipeline using a Fully Convolutional Network (FCN) with a ResNet50 backbone, fine-tuned on a self-recorded dataset of 461 images and 20 videos from six patients, to segment psoriatic and healthy skin regions. Perfusion signals were extracted from these segmented areas using remote photoplethysmography (rPPG) via mobile phone cameras. The segmentation model achieved an F1 Score of 0.72 and a Jaccard Index of 0.57 on the test set. Long-term monitoring of patients revealed that perfusion amplitudes in psoriatic areas decreased over several days, correlating with clinical improvement of the plaques. The results suggest that this AI-based, smartphone-based approach offers a cost-effective and non-invasive tool for the long-term monitoring of chronic skin diseases.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Psoriasis",
+      "paper_terms": [
+        "psoriasis",
+        "psoriatic skin",
+        "psoriatic plaques",
+        "psoriasis areas",
+        "psoriasis mask"
+      ],
+      "role": "Target class",
+      "details": "The primary disease studied. The paper focuses on segmenting psoriatic lesions and analyzing their perfusion signals for long-term monitoring. The dataset consists of images and videos from six patients with psoriasis."
+    },
+    {
+      "lesion_type": "Healthy Skin",
+      "paper_terms": [
+        "healthy skin",
+        "healthy skin areas",
+        "skin mask"
+      ],
+      "role": "Comparator class",
+      "details": "Used as a control/comparator to psoriatic areas for perfusion signal analysis. The segmentation model distinguishes between healthy skin (class 1) and psoriasis (class 2)."
+    },
+    {
+      "lesion_type": "Background",
+      "paper_terms": [
+        "background",
+        "background mask"
+      ],
+      "role": "Exclusion/Background class",
+      "details": "Classified as class 0 in the segmentation task to isolate the skin regions of interest."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise semantic segmentation masks for background, healthy skin, and psoriatic skin regions.",
+        "primary": true,
+        "details": "The paper uses a Fully Convolutional Network (FCN) with ResNet50 backbone for pixel-wise semantic segmentation. The model predicts discrete class labels for each pixel (class 0: background, class 1: healthy skin, class 2: psoriasis). Performance was evaluated using segmentation metrics such as F1 Score (0.72 for psoriasis) and Jaccard Index (0.57 for psoriasis)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Self-recorded dataset (DDS project)",
+      "description": "A dataset collected as part of the DDS project, enrolling patients in Mannheim and Würzburg since July 22. It consists of images taken by patients with mobile phones via a monitoring app and videos recorded by medical staff over several days. The data was used to fine-tune the FCN ResNet50 segmentation model and to extract perfusion signals.",
+      "classes_used": [
+        "Background (class 0)",
+        "Healthy skin (class 1)",
+        "Psoriasis (class 2)"
+      ],
+      "counts": {
+        "total": 481,
+        "training": null,
+        "validation": null,
+        "testing": 93,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the FCN ResNet50 model. The dataset size was doubled via data augmentation (random flip/rotation). Split into training and testing sets with a 0.8 ratio.",
+        "validation": "null",
+        "testing": "Used for evaluating the segmentation model performance (93 images with ground truth masks).",
+        "other": "Videos from six hospitalized patients (part of the HybridVITA project in Würzburg and Mannheim) were used for long-term perfusion analysis and disease progression observation."
+      }
+    },
+    {
+      "name": "Skin diseases Segmentation Computer Vision Project",
+      "description": "A high-quality public external dataset used for additional evaluation of the model's generalization ability. It contains 39 images.",
+      "classes_used": [
+        "Background",
+        "Skin",
+        "Psoriasis"
+      ],
+      "counts": {
+        "total": 39,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used for additional evaluation of prediction performance and generalization ability.",
+        "other": "null"
+      }
+    },
+    {
+      "name": "COCO dataset",
+      "description": "A subset of the COCO dataset containing 20 categories from the Pascal VOC dataset. Used to provide pre-trained weights for the FCN ResNet50 model.",
+      "classes_used": [
+        "20 categories from Pascal VOC"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for pre-training weights initialization.",
+        "validation": "null",
+        "testing": "null",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Recall",
+    "Precision",
+    "F1 Score",
+    "Jaccard Index"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Cross Entropy Loss",
+      "purpose": "Used as the loss function for training the FCN ResNet50 segmentation model.",
+      "type": "Loss function"
+    },
+    {
+      "method": "Adam optimizer",
+      "purpose": "Used for optimizing the weights of the FCN ResNet50 model during training.",
+      "type": "Optimizer"
+    },
+    {
+      "method": "Plane-Orthogonal-to-Skin (POS) method",
+      "purpose": "Used to calculate raw remote photoplethysmography (rPPG) signals from pre-processed RGB values extracted from segmented target areas.",
+      "type": "Signal processing method"
+    },
+    {
+      "method": "Butterworth bandpass filter",
+      "purpose": "Applied to rPPG signals to constrain the frequency range associated with perfusion-related dynamic components (0.005 Hz to 2 Hz) and remove noise.",
+      "type": "Signal processing method"
+    },
+    {
+      "method": "DC component removal",
+      "purpose": "Used to remove noise caused by constant background light intensity or baseline values from raw rPPG signals by subtracting the mean value.",
+      "type": "Signal processing method"
+    },
+    {
+      "method": "Moving average smoothing",
+      "purpose": "Applied to psoriasis and healthy skin masks to reduce the 'unsure' region and ensure a larger, higher-quality foreground area.",
+      "type": "Post-processing method"
+    },
+    {
+      "method": "Otsu thresholding",
+      "purpose": "Applied to the foreground mask as a post-processing step before smoothing.",
+      "type": "Post-processing method"
+    },
+    {
+      "method": "White balancing",
+      "purpose": "Used to adjust color balance based on the gray world theory to reduce negative effects caused by different light conditions.",
+      "type": "Pre-processing method"
+    },
+    {
+      "method": "Data augmentation (random flip/rotation)",
+      "purpose": "Used to double the size of the training dataset and improve model generalization due to small dataset size.",
+      "type": "Data augmentation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It describes perfusion analysis as a method to monitor disease progression and observes trends (e.g., amplitude changes) in specific patients, but does not perform statistical hypothesis testing on the group data."
+  },
+  "results_obtained_in_each_dataset": {
+    "Self-recorded dataset (Testing Set)": {
+      "description": "93 images with ground truth masks from the self-recorded dataset used for final evaluation of the FCN ResNet50 segmentation model.",
+      "models": {
+        "FCN ResNet50": {
+          "Background Mask": {
+            "Accuracy": 0.97,
+            "Recall": 0.98,
+            "Precision": 0.95,
+            "F1 Score": 0.96,
+            "Jaccard Index": 0.93
+          },
+          "Skin Mask": {
+            "Accuracy": 0.88,
+            "Recall": 0.79,
+            "Precision": 0.98,
+            "F1 Score": 0.87,
+            "Jaccard Index": 0.78
+          },
+          "Psoriasis Mask": {
+            "Accuracy": 0.94,
+            "Recall": 0.65,
+            "Precision": 0.81,
+            "F1 Score": 0.72,
+            "Jaccard Index": 0.57
+          }
+        }
+      },
+      "notes": "The model achieved high performance on background and skin segmentation. For psoriasis segmentation, the recall was lower (0.65) compared to precision (0.81), indicating some misclassification of psoriasis pixels as background or healthy skin."
+    },
+    "Skin diseases Segmentation Computer Vision Project (External Dataset)": {
+      "description": "39 images from a high-quality public external dataset used for additional evaluation of prediction performance and generalization ability.",
+      "models": {
+        "FCN ResNet50": {
+          "Generalization": "Good generalization ability observed."
+        }
+      },
+      "notes": "Qualitative results showed the model performed well on most instances. However, in some cases, the model misclassified skin pixels (e.g., confusing background and skin) likely because foreground areas (psoriasis and skin) were visually similar to background areas. No quantitative metrics were reported for this specific external dataset split."
+    },
+    "HybridVITA Project (Long-term Monitoring)": {
+      "description": "20 videos (30 fps, 2 min duration) from six hospitalized patients monitored over several days. Specifically analyzed for Patient 3 and Patient 4 over a period of six days.",
+      "models": {
+        "rPPG (Plane-Orthogonal-to-Skin method)": {
+          "Patient 3 (Day 3-4)": "Increase in total perfusion amplitude attributed to medication during customized therapy. Subsequent decrease in blood flow observed, but perfusion amplitude in psoriasis area did not converge to healthy skin amplitude, suggesting healing was not completed.",
+          "Patient 4 (Day 1-6)": "Decrease in perfusion amplitude of the psoriasis area during the observation period. Perfusion amplitude was higher than healthy skin at onset but became comparable by Day 5 and Day 6, suggesting improvement in plaques over time."
+        }
+      },
+      "notes": "Perfusion amplitude in psoriatic areas was significantly higher than in healthy skin areas due to higher blood flow. Box plots of perfusion amplitudes were generated for analysis. The study serves as a proof of concept for observing disease course via telemedical monitoring."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Fully Convolutional Network (FCN) with ResNet50 backbone",
+    "pretraining": "Pre-trained weights based on a subset of the COCO dataset (containing 20 categories from the Pascal VOC dataset)",
+    "input_size": "null",
+    "architecture_details": {
+      "backbone": "ResNet50",
+      "type": "Fully Convolutional Network (FCN)",
+      "task": "Pixel-wise semantic segmentation",
+      "classes": [
+        "Background (class 0)",
+        "Healthy skin (class 1)",
+        "Psoriasis (class 2)"
+      ]
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.0001,
+      "loss_function": "Cross Entropy Loss",
+      "data_augmentation": "Random flip and rotation (doubled training dataset size)",
+      "dataset_split": "0.8 ratio for training and testing"
+    },
+    "classification_or_output_head": {
+      "type": "Pixel-wise semantic segmentation masks",
+      "post_processing": [
+        "Moving average smoothing for psoriasis and healthy skin masks",
+        "Otsu thresholding for foreground mask"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Fully Convolutional Network (FCN) with ResNet50 backbone"
+  ],
+  "preprocessing_techniques": [
+    "White balancing based on gray world theory to adjust color balance and reduce effects of different light conditions",
+    "Data augmentation via random flip and rotation to double the training dataset size",
+    "Transformation of 2D segmentation masks into 3D masks to match RGB channels",
+    "Masked arrays to isolate target areas (healthy skin and psoriasis) and assign NaN values to non-target areas",
+    "Averaging pixel values across RGB channels to obtain aggregated signals",
+    "Plane-Orthogonal-to-Skin (POS) method to calculate raw remote photoplethysmography (rPPG) signals from pre-processed RGB values",
+    "DC component removal by subtracting the mean value to eliminate noise from constant background light intensity",
+    "Butterworth bandpass filtering (0.005 Hz to 2 Hz) to constrain frequency range and remove noise",
+    "Otsu thresholding applied to the foreground mask",
+    "Moving average smoothing applied to psoriasis and healthy skin masks"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random flip and rotation",
+      "details": "Each input image with corresponding annotations was randomly flipped or rotated to double the size of the training dataset, employed due to the small dataset size to enrich data and improve model generalization."
+    }
+  ],
+  "conclusions": [
+    "The proposed non-contact, telemedical method using remote photoplethysmography (rPPG) and a fine-tuned Fully Convolutional Network (FCN) with ResNet50 backbone enables effective long-term monitoring of psoriasis progression by tracking perfusion changes in psoriatic and healthy skin regions.",
+    "The segmentation model achieved an F1 Score of 0.72 and a Jaccard Index of 0.57 for psoriasis regions on the self-recorded test set, demonstrating high performance in background and skin segmentation as well as good generalization ability on an external public dataset.",
+    "Perfusion amplitude in psoriatic areas is significantly higher than in healthy skin areas due to increased blood flow, and this metric can detect histological changes and disease dynamics over time.",
+    "Long-term monitoring of specific patients revealed that perfusion amplitudes in psoriatic areas can decrease over several days, correlating with clinical improvement of plaques, although healing may not be complete within short observation periods.",
+    "The method offers a cost-effective, non-invasive, and accessible alternative to specialized medical devices like Laser Doppler Perfusion Imagers (LDPI) for the early detection of disease flare-ups and personalized treatment strategies.",
+    "The study acknowledges limitations including the small dataset size, which was mitigated by data augmentation, and the potential for misclassification when foreground areas (psoriasis/skin) are visually similar to background areas, suggesting a need for more diverse data collection."
+  ],
+  "important_remarks": [
+    "The study relies on a very small self-recorded dataset (461 images, 20 videos from 6 patients), which limits statistical power and generalizability.",
+    "The segmentation model achieved a relatively low recall of 0.65 for psoriasis masks, indicating a significant rate of false negatives (missing psoriatic pixels).",
+    "The model showed potential misclassification issues when foreground areas (psoriasis/skin) were visually similar to background areas, highlighting a need for more diverse training data.",
+    "Long-term monitoring results are based on only two detailed case studies (Patient 3 and Patient 4), making it a proof-of-concept rather than a robust clinical validation.",
+    "The approach is susceptible to video quality variations from patient-recorded mobile phone footage, which can negatively impact segmentation and perfusion measurement accuracy.",
+    "No formal statistical hypothesis testing or significance levels were reported for the perfusion amplitude changes observed in the longitudinal patient data.",
+    "The perfusion analysis frequency range (0.005 Hz to 2 Hz) captures cardiac, respiratory, myogenic, and neurogenic components but explicitly excludes endothelial components, limiting the physiological scope.",
+    "Data augmentation (random flip/rotation) was used to double the dataset size, which may not fully compensate for the lack of diversity in the original small sample."
+  ]
+}

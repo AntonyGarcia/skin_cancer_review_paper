@@ -1,0 +1,309 @@
+{
+  "file_name": "albabele_2025_deep_learning_for_melanoma_and_skin_cancer_detection_resnet_effici.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning, specifically Convolutional Neural Networks (CNNs) including ResNet and EfficientNet architectures, to automate melanoma detection from dermoscopic images. It evaluated these models on ISIC datasets and introduced an ensemble strategy and a 'Decider' framework for adaptive model selection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the systematic testing of ResNet and EfficientNet variants on ISIC datasets, the development of an ensemble strategy, and the introduction of a novel 'Decider' framework for adaptive model selection. It reports specific empirical results (accuracy, recall, precision, F1-score, AUC-ROC) and methodology details, distinguishing it from a review paper."
+  },
+  "title": "Deep Learning for Melanoma and Skin Cancer Detection: ResNet–EfficientNet Comparison with Ensemble and Decider Framework",
+  "authors": [
+    "Omar AlBabele",
+    "Haroon Malik",
+    "Nafaa Jabeur",
+    "Raja Waseem Anwar",
+    "David Dampier"
+  ],
+  "doi": "10.1016/j.procs.2025.10.209",
+  "journal": "Procedia Computer Science",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study automates melanoma detection from dermoscopic images by systematically comparing ResNet and EfficientNet Convolutional Neural Network architectures. The models were trained and evaluated on ISIC datasets (2017–2020) containing approximately 65,000 images, with performance assessed using accuracy, recall, precision, and F1-score. ResNet-50 achieved the highest internal accuracy, while EfficientNet-B2 and B3 demonstrated superior recall and generalization on Kaggle benchmarks, respectively. To address the limitations of single models, the authors implemented a weighted ensemble of ResNet-50 and EfficientNet-B3, which yielded more stable and reliable results. Additionally, a novel 'Decider' framework was introduced for adaptive model selection, though its initial performance was limited by training data size. The findings suggest that combining comparative evaluation with ensemble strategies enhances the robustness and clinical utility of AI tools for skin cancer detection.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for binary classification (melanoma vs. non-melanoma). The paper notes that melanoma accounts for 1% of skin cancer cases but is responsible for the majority of deaths. In the ISIC datasets, melanoma cases made up only 2% of the data, requiring class weighting."
+    },
+    {
+      "lesion_type": "Non-melanoma",
+      "paper_terms": [
+        "non-melanoma",
+        "benign cases"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary classification task. The models were trained to distinguish melanoma from non-melanoma lesions, with performance metrics including the reliability in classifying benign cases."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of melanoma vs. non-melanoma",
+        "primary": true,
+        "details": "The models predict discrete diagnostic categories (melanoma vs. non-melanoma) using a single neuron with a sigmoid activation function and binary cross-entropy loss. Performance was evaluated using accuracy, recall, precision, and F1-score."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Adaptive model selection (Decider framework)",
+        "primary": false,
+        "details": "A secondary 'Decider' framework was introduced as a CNN trained to classify which base model (ResNet, EfficientNet, or both) provided the correct prediction for a given input, using labels such as 'Model 1', 'Model 2', or 'Both'."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017, 2018, 2019, and 2020 Datasets",
+      "description": "Benchmark datasets from the International Skin Imaging Collaboration (ISIC) containing dermoscopic images with expert labels. These datasets were combined to provide approximately 65,000 images for the study.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 65000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training ResNet and EfficientNet variants via transfer learning with ImageNet pre-trained weights.",
+        "validation": "Used for validation during training (automatic at end of each epoch) and for evaluating split strategies (60-20-20 and 70-20-10).",
+        "testing": "Used for final testing after training completion and for internal performance evaluation.",
+        "other": "Used for external comparison via the Kaggle SIIM-ISIC framework on an external test set with hidden labels."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "recall",
+    "precision",
+    "F1-score",
+    "AUC-ROC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Class weighting",
+      "purpose": "To address class imbalance in the ISIC datasets by penalizing misclassification of melanoma samples more heavily during training.",
+      "type": "Data handling technique"
+    },
+    {
+      "method": "Early stopping",
+      "purpose": "To prevent overfitting and reduce unnecessary computation by terminating training if validation loss did not improve for 10 consecutive epochs.",
+      "type": "Regularization technique"
+    },
+    {
+      "method": "Internal and external validation splits",
+      "purpose": "To evaluate model performance and generalizability using 60-20-20 and 70-20-10 training/validation/testing splits, and an external test set with hidden labels via the Kaggle SIIM-ISIC framework.",
+      "type": "Validation strategy"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were based on empirical metrics such as accuracy, recall, precision, F1-score, and AUC-ROC."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017-2020 (Internal Test Split)": {
+      "metric": "Recall, Precision, F1-score, Overall Accuracy",
+      "models": {
+        "ResNet-50": {
+          "Recall": "89.3%",
+          "Precision": "88.8%",
+          "F1-score": "89%",
+          "Overall Accuracy": "98%"
+        },
+        "ResNet-101": {
+          "Recall": "84.9%",
+          "Precision": "25.7%",
+          "F1-score": "39.5%",
+          "Overall Accuracy": "77%"
+        },
+        "EfficientNet B0": {
+          "Recall": "85.2%",
+          "Precision": "56.8%",
+          "F1-score": "68%",
+          "Overall Accuracy": "93%"
+        },
+        "EfficientNet B2": {
+          "Recall": "92.8%",
+          "Precision": "65.9%",
+          "F1-score": "77%",
+          "Overall Accuracy": "95%"
+        },
+        "EfficientNet B3": {
+          "Recall": "89.2%",
+          "Precision": "71.8%",
+          "F1-score": "80%",
+          "Overall Accuracy": "96%"
+        }
+      },
+      "notes": "ResNet-50 achieved the highest internal accuracy (98%). EfficientNet-B2 achieved the highest recall (92.8%). No single model outperformed others in every category."
+    },
+    "Kaggle SIIM-ISIC (External Test Set with Hidden Labels)": {
+      "metric": "Accuracy",
+      "models": {
+        "ResNet-50": {
+          "Accuracy": "84%"
+        },
+        "ResNet-101": {
+          "Accuracy": "83.5%"
+        },
+        "EfficientNet B0": {
+          "Accuracy": "86.6%"
+        },
+        "EfficientNet B2": {
+          "Accuracy": "86.1%"
+        },
+        "EfficientNet B3": {
+          "Accuracy": "89.2%"
+        },
+        "Ensemble (EfficientNet-B3 70% + ResNet-50 30%)": {
+          "Accuracy": "89.7%"
+        },
+        "Decider Framework": {
+          "Accuracy": "68%"
+        }
+      },
+      "notes": "EfficientNet-B3 showed the best generalization with the highest Kaggle accuracy (89.2%). The weighted ensemble of EfficientNet-B3 and ResNet-50 yielded the highest Kaggle accuracy (89.7%). The Decider framework's performance was limited by the small size of its training data."
+    },
+    "Preliminary Experiment (Class Weighting)": {
+      "metric": "AUC-ROC",
+      "models": {
+        "ResNet (Unspecified Variant)": {
+          "AUC-ROC": "90.1%",
+          "Epochs": "25"
+        }
+      },
+      "notes": "Applying class weighting allowed the model to reach 90.1% AUC-ROC after 25 training epochs."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet and EfficientNet variants",
+    "pretraining": "ImageNet pre-trained weights",
+    "input_size": "224 × 224 × 3 for ResNet variants; 260 × 260 × 3 for EfficientNet variants",
+    "architecture_details": {
+      "models_evaluated": [
+        "ResNet-50",
+        "ResNet-101",
+        "EfficientNet-B0",
+        "EfficientNet-B2",
+        "EfficientNet-B3"
+      ],
+      "resnet_specifics": "Included an average pooling layer in configurations",
+      "decider_framework": "CNN based on EfficientNet architecture, trained to classify which base model (ResNet, EfficientNet, or both) provided the correct prediction"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "loss_function": "Binary cross-entropy",
+      "learning_rates_tested": [
+        0.01,
+        1e-05,
+        3e-06
+      ],
+      "regularization": "Class weighting (to address class imbalance), Early stopping (patience of 10 epochs)",
+      "data_augmentation": [
+        "Random zoom",
+        "Rotation",
+        "Flipping",
+        "Brightness adjustments",
+        "Shear transformations",
+        "Hue modifications"
+      ],
+      "dataset_splits_tested": [
+        "60%–20%–20%",
+        "70%–20%–10%"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification",
+      "structure": "Single neuron with sigmoid activation function",
+      "classes": [
+        "Melanoma",
+        "Non-melanoma"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet-50",
+    "ResNet-101",
+    "EfficientNet-B0",
+    "EfficientNet-B2",
+    "EfficientNet-B3",
+    "Ensemble (EfficientNet-B3 and ResNet-50)",
+    "Decider Framework"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 512 × 512 pixels for dataset consistency",
+    "Resizing images to 224 × 224 pixels for ResNet variants",
+    "Resizing images to 260 × 260 pixels for EfficientNet variants",
+    "Conversion to TensorFlow records",
+    "Normalization of pixel intensity values",
+    "Data augmentation: random zoom",
+    "Data augmentation: rotation",
+    "Data augmentation: flipping",
+    "Data augmentation: brightness adjustments",
+    "Data augmentation: shear transformations",
+    "Data augmentation: hue modifications",
+    "Class weighting to address class imbalance"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random zoom",
+      "details": "Applied as part of an array of data augmentation techniques to increase training data diversity and mirror natural variability in real-world dermoscopic images."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Applied as part of an array of data augmentation techniques to increase training data diversity and mirror natural variability in real-world dermoscopic images."
+    },
+    {
+      "technique": "Flipping",
+      "details": "Applied as part of an array of data augmentation techniques to increase training data diversity and mirror natural variability in real-world dermoscopic images."
+    },
+    {
+      "technique": "Brightness adjustments",
+      "details": "Applied as part of an array of data augmentation techniques to increase training data diversity and mirror natural variability in real-world dermoscopic images."
+    },
+    {
+      "technique": "Shear transformations",
+      "details": "Applied as part of an array of data augmentation techniques to increase training data diversity and mirror natural variability in real-world dermoscopic images."
+    },
+    {
+      "technique": "Hue modifications",
+      "details": "Applied as part of an array of data augmentation techniques to increase training data diversity and mirror natural variability in real-world dermoscopic images."
+    },
+    {
+      "technique": "Class weighting",
+      "details": "Used to address class imbalance by penalizing misclassification of melanoma samples more heavily; weights were calculated based on the distribution of positive (melanoma) and negative (non-melanoma) cases."
+    }
+  ],
+  "conclusions": [
+    "ResNet-50 achieved the highest internal accuracy (98%) on the ISIC datasets, while EfficientNet-B2 demonstrated superior recall (92.8%) and EfficientNet-B3 showed the best generalization on Kaggle benchmarks (89.2% accuracy).",
+    "No single model outperformed others across all performance categories, highlighting the complementary strengths of ResNet and EfficientNet architectures.",
+    "A weighted ensemble strategy combining EfficientNet-B3 (70%) and ResNet-50 (30%) yielded the highest external test accuracy (89.7%), providing more stable and reliable results than individual models.",
+    "The novel 'Decider' framework, which adaptively selects the most dependable model for each input, was introduced as a promising approach for adaptive model selection.",
+    "The performance of the Decider framework was limited by the small size of its training data, indicating a need for larger datasets to fully realize its potential.",
+    "Combining comparative evaluation with ensemble strategies enhances the robustness and clinical utility of AI tools for melanoma detection, moving beyond the limitations of single-model approaches."
+  ],
+  "important_remarks": [
+    "The Decider framework, intended for adaptive model selection, achieved only 68% accuracy on the external Kaggle test set, significantly underperforming individual models and ensembles, likely due to a small training dataset size.",
+    "ResNet-101 exhibited poor precision (25.7%) and F1-score (39.5%) despite deeper architecture, indicating that increased depth alone does not guarantee performance gains in the presence of class imbalance.",
+    "Melanoma cases constituted only 2% of the ISIC datasets, creating severe class imbalance that required specific handling via class weighting to prevent the model from ignoring the positive class.",
+    "No single model outperformed others across all metrics; ResNet-50 had the highest internal accuracy (98%), while EfficientNet-B2 had the highest recall (92.8%), highlighting the need for ensemble strategies for robustness.",
+    "The study relies on internal test splits and a Kaggle external test set with hidden labels; while this addresses some generalizability concerns, it lacks validation on independent, multi-center clinical datasets outside of the ISIC/Kaggle ecosystem.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals for the performance differences between models, relying instead on empirical metric comparisons.",
+    "The 'Decider' framework is limited by its dependence on a single EfficientNet variant as its core architecture, suggesting that its design may be less robust than the complementary ensemble approach."
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "file_name": "yang_2018_classification_for_dermoscopy_images_using_convolutional_neural_networ.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Convolutional Neural Networks (CNNs) with a novel Region Average Pooling (RAPooling) method and an AUC-based classifier (RankOpt) to perform automated melanoma classification on dermoscopy images from the ISBI 2017 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel melanoma classification method using Convolutional Neural Networks (CNNs) with a new Region Average Pooling (RAPooling) method and an AUC-based classifier (RankOpt). It details the methodology, including the network architecture and training steps, and presents experimental results on the ISBI 2017 dataset to validate the effectiveness of the proposed approach compared to state-of-the-art methods."
+  },
+  "title": "Classification for Dermoscopy Images using Convolutional Neural Networks based on Region Average Pooling",
+  "authors": [
+    "Jiawen Yang",
+    "Fengying Xie",
+    "Haidi Fan",
+    "ZhiGuo Jiang",
+    "Jie Liu"
+  ],
+  "doi": "10.1109/ACCESS.2018.2877587",
+  "journal": "IEEE Access",
+  "year": 2018,
+  "article_type": "Journal article",
+  "brief_summary": "This study proposes a novel melanoma classification method for dermoscopy images using Convolutional Neural Networks (CNNs) integrated with segmentation information. The authors introduce a Region Average Pooling (RAPooling) technique to focus feature extraction on the lesion region and employ an AUC-based linear classifier named RankOpt to address class imbalance. The proposed framework consists of a two-branch CNN that shares weights between segmentation and classification tasks. Experiments were conducted on the ISBI 2017 Skin Lesion Analysis Towards Melanoma Detection Challenge dataset. The method achieved a sensitivity of 0.607, specificity of 0.884, and an AUC of 0.842 on the test data. Results demonstrate that the approach outperforms several state-of-the-art methods, particularly those that did not use additional data, by effectively leveraging segmentation guidance and AUC optimization.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for classification in the proposed framework, distinguishing melanomas from non-melanomas on the ISBI 2017 dataset."
+    },
+    {
+      "lesion_type": "Non-melanoma",
+      "paper_terms": [
+        "non-melanoma",
+        "benign lesions",
+        "benign nevi"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary classification task, including benign nevi and other non-melanoma skin lesions present in the ISBI 2017 dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. Non-melanoma (binary diagnostic category)",
+        "primary": true,
+        "details": "The paper proposes a CNN-based framework for automated melanoma classification on dermoscopy images. The model predicts discrete diagnostic categories (melanoma or non-melanoma) using a linear classifier (RankOpt) optimized via AUC. The task is explicitly defined as binary classification of skin lesions."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion region mask",
+        "primary": false,
+        "details": "The framework includes a segmentation branch to obtain location information of skin lesions, which is used to guide the classification task via Region Average Pooling. However, segmentation is a sub-task to support the primary classification goal."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISBI 2017 Skin Lesion Analysis Towards Melanoma Detection Challenge dataset",
+      "description": "A public dermoscopy image dataset provided by the International Skin Imaging Collaboration (ISIC) for the 2017 challenge. It contains dermoscopy images with segmentation ground truth manually delineated by clinical experts.",
+      "classes_used": [
+        "melanoma",
+        "non-melanoma"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "training_melanoma": 374,
+          "training_non_melanoma": 1626,
+          "validation_melanoma": 30,
+          "validation_non_melanoma": 120,
+          "testing_melanoma": 117,
+          "testing_non_melanoma": 483
+        }
+      },
+      "use": {
+        "training": "Used for training the CNN model (weights initialized from ResNet50 pre-trained on ImageNet). Images were resized to 256x256 and randomly cropped to 224x224. Data augmentation included rotation, flipping, and cropping.",
+        "validation": "Used for hyperparameter tuning (specifically determining the optimal lambda value for the joint loss function) and evaluating segmentation/classification performance during development.",
+        "testing": "Used for final evaluation of the proposed method's performance (sensitivity, specificity, accuracy, AUC) and comparison with state-of-the-art methods.",
+        "other": "Segmentation ground truth from this dataset was used to guide the classification branch via Region Average Pooling (RAPooling)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "sensitivity",
+    "specificity",
+    "accuracy",
+    "AUC",
+    "Jaccard index"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "RankOpt (AUC-based linear classifier)",
+      "purpose": "To optimize the classification weights by directly optimizing the Area Under the ROC Curve (AUC) statistic, addressing class imbalance in the dermoscopy image dataset.",
+      "type": "Classifier optimization / Objective function"
+    },
+    {
+      "method": "Grid search",
+      "purpose": "To determine the optimal hyperparameter lambda (λ) for balancing the joint loss function (classification and segmentation losses) by evaluating Jaccard index and AUC metrics on the validation data.",
+      "type": "Hyperparameter tuning"
+    },
+    {
+      "method": "Sigmoid function approximation",
+      "purpose": "To replace the undifferentiable step function in the AUC statistic definition, allowing for gradient descent optimization of the RankOpt classifier.",
+      "type": "Mathematical approximation for optimization"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using sensitivity, specificity, accuracy, AUC, and Jaccard index, with comparisons made based on metric values rather than statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISBI 2017 Skin Lesion Analysis Towards Melanoma Detection Challenge": {
+      "test_data": {
+        "ResNet50+RAPooling": {
+          "sensitivity": 0.444,
+          "specificity": 0.884,
+          "accuracy": null,
+          "AUC": null,
+          "notes": "ResNet50 with region average pooling obtained the highest AUC among networks tested with RAPooling (VGG, GoogLeNet, ResNet50), but specific AUC value not explicitly stated in text. Sensitivity was low due to class imbalance."
+        },
+        "ResNet50+RAPooling+RankOpt": {
+          "sensitivity": 0.607,
+          "specificity": 0.884,
+          "accuracy": null,
+          "AUC": 0.842,
+          "notes": "Final proposed framework. Sensitivity improved by 16.3% compared to ResNet50+RAPooling. Outperformed state-of-the-art methods that did not use additional data."
+        }
+      },
+      "validation_data": {
+        "hyperparameter_tuning": {
+          "metric": "Jaccard index and AUC",
+          "optimal_lambda": 7.5,
+          "notes": "Grid search over lambda values {0.01, 0.1, 1, 5, 7.5, 10, 12.5, 15, 20}. AUC was highest at lambda=7.5. Segmentation performance stabilized when lambda >= 5."
+        }
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet50",
+    "pretraining": "Pre-trained on ImageNet",
+    "input_size": "256x256 (resized), 224x224 (cropped)",
+    "architecture_details": {
+      "backbone": "ResNet50 with residual structures, ReLU, and Batch Normalization",
+      "branches": "Two-branch architecture: segmentation branch and classification branch sharing weights",
+      "pooling": "Region Average Pooling (RAPooling) used in the classification branch to focus on the lesion region guided by segmentation output",
+      "layers": "Residual blocks (res 1-3, res 4-7, res 8-13, res 14-16), 7x7 Conv, 3x3 Conv, 1x1 Conv, Maxpooling",
+      "activation": "Rectified Linear Unit (ReLU)",
+      "normalization": "Batch Normalization (BN)"
+    },
+    "training_details": {
+      "optimizer": "Stochastic Gradient Descent (SGD)",
+      "momentum": 0.9,
+      "weight_decay": 0.0005,
+      "batch_size": 10,
+      "learning_rate": "Initial 0.001, reduced by a factor of 10 every 2000 iterations",
+      "loss_function": "Joint loss L_joint = L_class + λL_seg, where L_class and L_seg are cross-entropy losses for classification and segmentation respectively; λ optimized via grid search (optimal λ=7.5)",
+      "training_steps": [
+        "Step 1: Fine-tuning ResNet50 with binary output classes",
+        "Step 2: Training classification task with global average pooling",
+        "Step 3: Training segmentation task (freezing other weights)",
+        "Step 4: Joint training with RAPooling"
+      ],
+      "data_augmentation": "Rotation, flipping, and cropping"
+    },
+    "classification_or_output_head": {
+      "type": "Linear classifier named RankOpt",
+      "description": "AUC-based linear classifier optimized directly using gradient descent to address class imbalance",
+      "objective": "Maximize AUC statistic",
+      "constraint": "Weight vector β constrained to hypersphere ||β|| = B"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet50",
+    "VGG",
+    "GoogLeNet",
+    "ResNet50+RAPooling",
+    "ResNet50+RAPooling+RankOpt",
+    "VGG+RAPooling",
+    "GoogLeNet+RAPooling",
+    "Harangi’s method",
+    "Sultana’s method",
+    "Wiselin’s method",
+    "Xie’s method",
+    "SVM",
+    "neural network ensemble"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 256x256",
+    "Random cropping to 224x224",
+    "Data augmentation including rotation, flipping, and cropping",
+    "Segmentation of lesion regions to guide classification via Region Average Pooling (RAPooling)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Applied to dermoscopy images and corresponding segmentation ground truth masks to artificially increase the size and diversity of the training data."
+    },
+    {
+      "technique": "Flipping",
+      "details": "Applied to dermoscopy images and corresponding segmentation ground truth masks to artificially increase the size and diversity of the training data."
+    },
+    {
+      "technique": "Cropping",
+      "details": "Input images were resized to 256x256 and then randomly cropped to 224x224. Segmentation ground truth masks were also resized and cropped accordingly."
+    }
+  ],
+  "conclusions": [
+    "The proposed method, which integrates segmentation information into a CNN-based classification framework via Region Average Pooling (RAPooling), effectively focuses feature extraction on the lesion region of interest.",
+    "The use of the AUC-based linear classifier RankOpt improves classification performance and robustness against class imbalance in dermoscopy image datasets compared to standard softmax classifiers.",
+    "The proposed ResNet50+RAPooling+RankOpt framework achieved a sensitivity of 0.607, specificity of 0.884, and an AUC of 0.842 on the ISBI 2017 test dataset.",
+    "The proposed method outperformed several state-of-the-art methods, particularly those that did not utilize additional data, demonstrating the effectiveness of combining segmentation guidance with AUC optimization.",
+    "Segmentation accuracy positively correlates with classification accuracy (AUC); however, excessive weighting of segmentation loss (high lambda) can neglect classification importance and reduce AUC, with an optimal balance found at lambda=7.5."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISBI 2017 dataset, which limits the assessment of generalizability to other populations or imaging devices.",
+    "The model exhibits low sensitivity (0.607) despite high specificity (0.884), indicating a significant risk of false negatives in clinical screening contexts.",
+    "The paper does not report formal statistical significance testing (e.g., p-values) for comparisons with state-of-the-art methods, relying solely on metric values.",
+    "The method utilizes segmentation ground truth provided by the challenge to guide classification via Region Average Pooling; this dependency may not reflect real-world scenarios where expert segmentation is unavailable.",
+    "The dataset contains class imbalance (374 melanomas vs. 1626 non-melanomas in training), which the authors address using the AUC-based RankOpt classifier rather than standard cross-entropy loss.",
+    "The paper acknowledges that standard CNNs may learn spurious correlations (e.g., color discs in non-melanoma images) as demonstrated by the failure case in Figure 2(d), highlighting a potential data leakage or bias risk in training data.",
+    "The work was supported by the National Natural Science Foundation of China, but no conflict of interest or commercial funding disclosures are explicitly detailed in the provided text.",
+    "The model was trained on images resized to 256x256 and cropped to 224x224, which may result in loss of fine-grained dermoscopic details present in original high-resolution images."
+  ]
+}

@@ -1,0 +1,583 @@
+{
+  "file_name": "nazi_2018_automatic_skin_lesion_segmentation_and_melanoma_detection_transfer_lea.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning for automatic skin lesion segmentation and melanoma detection. Specifically, it employs a U-Net architecture with spatial dropout and data augmentation for semantic segmentation of skin lesions. For melanoma classification, it uses Deep Convolutional Neural Networks (DCNNs) such as DenseNet, VGG-16, VGG-19, InceptionResNetV2, ResNet50, Xception, and InceptionV3 as feature extractors combined with classifiers like Support Vector Machine (SVM), Random Forest, Decision Tree, AdaBoost, and Gradient Boosting. The models were trained and evaluated on the ISIC 2018 and PH2 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing an automatic deep learning-based scheme for skin lesion segmentation and melanoma detection. It details a specific methodology using U-Net with spatial dropout and data augmentation for segmentation, and DCNNs (e.g., DenseNet, VGG) combined with SVM for classification. The authors report original results, including performance metrics (Dice coefficient, Jaccard index, accuracy) on the ISIC 2018 and PH2 datasets, and compare their proposed model against other architectures. Although published in conference proceedings, it contains original technical contributions and empirical validation rather than summarizing prior literature."
+  },
+  "title": "Automatic Skin Lesion Segmentation and Melanoma Detection: Transfer Learning Approach with U-Net and DCNN-SVM",
+  "authors": [
+    "Zabir Al Nazi",
+    "Tasnim Azad Abir"
+  ],
+  "doi": "10.1007/978-981-13-7564-4_32",
+  "journal": "Proceedings of International Joint Conference on Computational Intelligence, Algorithms for Intelligent Systems",
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes an automatic deep learning-based scheme for skin lesion segmentation and melanoma detection using transfer learning. For segmentation, a U-Net architecture with spatial dropout and data augmentation was trained on the ISIC 2018 and PH2 datasets, achieving Dice coefficients of 0.87 and 0.93, respectively. For melanoma classification, pretrained Deep Convolutional Neural Networks (DCNNs) served as feature extractors combined with classifiers like SVM, Random Forest, and Gradient Boosting. The models were evaluated on the PH2 dataset using tenfold cross-validation to handle class imbalance. The DenseNet-SVM combination achieved the highest mean accuracy of 92.00% for melanoma detection. The results demonstrate that transfer learning and data augmentation effectively address data scarcity in dermatological image analysis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant skin cancer"
+      ],
+      "role": "Target class",
+      "details": "The primary target for the classification/detection task. The paper focuses on 'melanoma detection' using the PH2 dataset (200 dermoscopy images) and mentions that melanoma is wrongly classified as seborrheic keratosis."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "benign class"
+      ],
+      "role": "Comparator class / Mentioned only",
+      "details": "Mentioned in the introduction as a benign class that melanoma is often wrongly classified as. Not explicitly listed as a target class in the experimental results tables, but implied as the negative class in the binary melanoma detection task on the PH2 dataset."
+    },
+    {
+      "lesion_type": "Skin Lesion (General)",
+      "paper_terms": [
+        "skin lesion",
+        "dermoscopy images"
+      ],
+      "role": "Segmentation target",
+      "details": "The U-Net model performs semantic segmentation of 'skin lesions' (the lesion region/mask) on the ISIC 2018 and PH2 datasets. The specific histological types of these lesions are not differentiated in the segmentation task, which treats them as a binary foreground/background problem."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion mask (binary foreground/background)",
+        "primary": false,
+        "details": "Semantic segmentation of skin lesions using a U-Net architecture with spatial dropout and data augmentation. The model predicts a binary mask for the lesion region. Evaluated on ISIC 2018 and PH2 datasets using Dice coefficient and Jaccard index metrics."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. Benign (Seborrheic Keratosis)",
+        "primary": true,
+        "details": "Binary classification of melanoma detection using pretrained Deep Convolutional Neural Networks (DenseNet, VGG-16, VGG-19, InceptionResNetV2, ResNet50, Xception, InceptionV3) as feature extractors combined with classifiers (SVM, Random Forest, Decision Tree, AdaBoost, Gradient Boosting). Evaluated on the PH2 dataset using tenfold cross-validation. The primary metric reported is accuracy, with DenseNet-SVM achieving 92.00% mean accuracy."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A public dermoscopy image dataset from the International Skin Imaging Collaboration (ISIC) 2018 challenge, used for skin lesion segmentation.",
+      "classes_used": [
+        "Skin lesion (foreground)",
+        "Background"
+      ],
+      "counts": {
+        "total": 5094,
+        "training": 3815,
+        "validation": 889,
+        "testing": 390,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the U-Net segmentation model (3815 images). The original dataset had 2594 images, from which 390 were kept for testing, and 2500 additional images were generated via data augmentation to create the training set.",
+        "validation": "Used for validation of the U-Net segmentation model (889 images).",
+        "testing": "Used for testing the U-Net segmentation model (390 images).",
+        "other": "None"
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A public dermoscopic image database for research and benchmarking, consisting of 200 dermoscopy images.",
+      "classes_used": [
+        "Melanoma",
+        "Benign (Seborrheic Keratosis)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for re-training the U-Net segmentation model (transfer learning). Used for melanoma classification task via tenfold cross-validation.",
+        "validation": "Used for melanoma classification task via tenfold cross-validation.",
+        "testing": "Used for melanoma classification task via tenfold cross-validation.",
+        "other": "Used for segmentation evaluation (Dice coefficient 0.93, Jaccard index 0.87)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient",
+    "Jaccard index",
+    "Accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Tenfold cross-validation",
+      "purpose": "To evaluate the performance of the melanoma classification models and fine-tune the classifiers on the PH2 dataset.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Mean ± 2 × standard deviation",
+      "purpose": "To report the segmentation performance metrics (Dice coefficient and Jaccard index) and classification accuracy, providing an estimate of the variability or uncertainty of the results.",
+      "type": "Descriptive statistics / Uncertainty estimation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance was evaluated using descriptive statistics (mean ± 2 × standard deviation) and comparative analysis of accuracy metrics across different models and datasets."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018": {
+      "task": "Skin Lesion Segmentation",
+      "model": "U-Net with spatial dropout and data augmentation",
+      "metrics": {
+        "Dice coefficient": "0.87 ± 0.31",
+        "Jaccard index": "0.80 ± 0.36"
+      },
+      "notes": "Results reported as mean ± 2 × standard deviation. The model was trained on 3815 images (original 2594 + 2500 augmented) and tested on 390 images."
+    },
+    "PH2": {
+      "task": "Melanoma Detection (Classification)",
+      "evaluation_setting": "Tenfold cross-validation",
+      "models": {
+        "VGG-16 + SVM": {
+          "Accuracy": "0.89 ± 0.11"
+        },
+        "VGG-16 + Random Forest": {
+          "Accuracy": "0.86 ± 0.10"
+        },
+        "VGG-16 + Decision Tree": {
+          "Accuracy": "0.82 ± 0.12"
+        },
+        "VGG-16 + AdaBoost": {
+          "Accuracy": "0.89 ± 0.13"
+        },
+        "VGG-16 + Gradient Boosting": {
+          "Accuracy": "0.91 ± 0.13"
+        },
+        "VGG-19 + SVM": {
+          "Accuracy": "0.90 ± 0.12"
+        },
+        "VGG-19 + Random Forest": {
+          "Accuracy": "0.86 ± 0.10"
+        },
+        "VGG-19 + Decision Tree": {
+          "Accuracy": "0.76 ± 0.21"
+        },
+        "VGG-19 + AdaBoost": {
+          "Accuracy": "0.91 ± 0.13"
+        },
+        "VGG-19 + Gradient Boosting": {
+          "Accuracy": "0.86 ± 0.11"
+        },
+        "InceptionResNetV2 + SVM": {
+          "Accuracy": "0.90 ± 0.11"
+        },
+        "InceptionResNetV2 + Random Forest": {
+          "Accuracy": "0.82 ± 0.10"
+        },
+        "InceptionResNetV2 + Decision Tree": {
+          "Accuracy": "0.82 ± 0.17"
+        },
+        "InceptionResNetV2 + AdaBoost": {
+          "Accuracy": "0.88 ± 0.10"
+        },
+        "InceptionResNetV2 + Gradient Boosting": {
+          "Accuracy": "0.88 ± 0.09"
+        },
+        "ResNet50 + SVM": {
+          "Accuracy": "0.91 ± 0.11"
+        },
+        "ResNet50 + Random Forest": {
+          "Accuracy": "0.85 ± 0.11"
+        },
+        "ResNet50 + Decision Tree": {
+          "Accuracy": "0.85 ± 0.15"
+        },
+        "ResNet50 + AdaBoost": {
+          "Accuracy": "0.90 ± 0.15"
+        },
+        "ResNet50 + Gradient Boosting": {
+          "Accuracy": "0.88 ± 0.17"
+        },
+        "Xception + SVM": {
+          "Accuracy": "0.89 ± 0.10"
+        },
+        "Xception + Random Forest": {
+          "Accuracy": "0.86 ± 0.12"
+        },
+        "Xception + Decision Tree": {
+          "Accuracy": "0.79 ± 0.12"
+        },
+        "Xception + AdaBoost": {
+          "Accuracy": "0.86 ± 0.12"
+        },
+        "Xception + Gradient Boosting": {
+          "Accuracy": "0.82 ± 0.17"
+        },
+        "InceptionV3 + SVM": {
+          "Accuracy": "0.89 ± 0.12"
+        },
+        "InceptionV3 + Random Forest": {
+          "Accuracy": "0.81 ± 0.10"
+        },
+        "InceptionV3 + Decision Tree": {
+          "Accuracy": "0.78 ± 0.18"
+        },
+        "InceptionV3 + AdaBoost": {
+          "Accuracy": "0.86 ± 0.15"
+        },
+        "InceptionV3 + Gradient Boosting": {
+          "Accuracy": "0.83 ± 0.12"
+        },
+        "DenseNet201 + SVM": {
+          "Accuracy": "0.92 ± 0.14"
+        },
+        "DenseNet201 + Random Forest": {
+          "Accuracy": "0.84 ± 0.10"
+        },
+        "DenseNet201 + Decision Tree": {
+          "Accuracy": "0.83 ± 0.13"
+        },
+        "DenseNet201 + AdaBoost": {
+          "Accuracy": "0.91 ± 0.13"
+        },
+        "DenseNet201 + Gradient Boosting": {
+          "Accuracy": "0.84 ± 0.17"
+        }
+      },
+      "notes": "Class weight was imposed to train the support vector machine as the data distribution is imbalanced. DenseNet-SVM achieved the maximum mean accuracy of 92.00% (0.92 ± 0.14). Results reported as mean ± 2 × standard deviation."
+    }
+  },
+  "architecture_used": {
+    "main_model": "U-Net (for segmentation); DenseNet201, VGG-16, VGG-19, InceptionResNetV2, ResNet50, Xception, InceptionV3 (for feature extraction in classification)",
+    "pretraining": "DCNNs were pretrained on the ImageNet dataset. U-Net was trained from scratch on ISIC 2018 and then re-trained on PH2 using transfer learning.",
+    "input_size": "224 × 224 pixels",
+    "architecture_details": {
+      "segmentation_model": {
+        "name": "U-Net",
+        "type": "Fully convolutional network",
+        "encoder_layers": [
+          {
+            "layer": "conv_block 1",
+            "size": "224 × 224",
+            "filters": 32,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          },
+          {
+            "layer": "pooling 1",
+            "size": "112 × 112",
+            "filters": 32,
+            "operations": "2x2 max pooling"
+          },
+          {
+            "layer": "conv_block 2",
+            "size": "112 × 112",
+            "filters": 64,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          },
+          {
+            "layer": "pooling 2",
+            "size": "56 × 56",
+            "filters": 64,
+            "operations": "2x2 max pooling"
+          },
+          {
+            "layer": "conv_block 3",
+            "size": "56 × 56",
+            "filters": 128,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          },
+          {
+            "layer": "pooling 3",
+            "size": "28 × 28",
+            "filters": 128,
+            "operations": "2x2 max pooling"
+          },
+          {
+            "layer": "conv_block 4",
+            "size": "28 × 28",
+            "filters": 256,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          },
+          {
+            "layer": "pooling 4",
+            "size": "14 × 14",
+            "filters": 256,
+            "operations": "2x2 max pooling"
+          },
+          {
+            "layer": "conv_block 5",
+            "size": "14 × 14",
+            "filters": 512,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          },
+          {
+            "layer": "pooling 5",
+            "size": "7 × 7",
+            "filters": 512,
+            "operations": "2x2 max pooling"
+          },
+          {
+            "layer": "conv_block 6",
+            "size": "7 × 7",
+            "filters": 1024,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          }
+        ],
+        "decoder_layers": [
+          {
+            "layer": "upsampling 1",
+            "size": "14 × 14",
+            "filters": 1024,
+            "operations": "2x2 up-convolution"
+          },
+          {
+            "layer": "concatenate 1",
+            "size": "14 × 14",
+            "filters": 1536,
+            "operations": "Feature concatenation"
+          },
+          {
+            "layer": "conv_block 7",
+            "size": "14 × 14",
+            "filters": 512,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          },
+          {
+            "layer": "upsampling 2",
+            "size": "28 × 28",
+            "filters": 512,
+            "operations": "2x2 up-convolution"
+          },
+          {
+            "layer": "concatenate 2",
+            "size": "28 × 28",
+            "filters": 768,
+            "operations": "Feature concatenation"
+          },
+          {
+            "layer": "conv_block 8",
+            "size": "28 × 28",
+            "filters": 256,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          },
+          {
+            "layer": "upsampling 3",
+            "size": "56 × 56",
+            "filters": 256,
+            "operations": "2x2 up-convolution"
+          },
+          {
+            "layer": "concatenate 3",
+            "size": "56 × 56",
+            "filters": 384,
+            "operations": "Feature concatenation"
+          },
+          {
+            "layer": "conv_block 9",
+            "size": "56 × 56",
+            "filters": 128,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          },
+          {
+            "layer": "upsampling 4",
+            "size": "112 × 112",
+            "filters": 128,
+            "operations": "2x2 up-convolution"
+          },
+          {
+            "layer": "concatenate 4",
+            "size": "112 × 112",
+            "filters": 192,
+            "operations": "Feature concatenation"
+          },
+          {
+            "layer": "conv_block 10",
+            "size": "112 × 112",
+            "filters": 64,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          },
+          {
+            "layer": "upsampling 5",
+            "size": "224 × 224",
+            "filters": 64,
+            "operations": "2x2 up-convolution"
+          },
+          {
+            "layer": "concatenate 5",
+            "size": "224 × 224",
+            "filters": 96,
+            "operations": "Feature concatenation"
+          },
+          {
+            "layer": "conv_block 11",
+            "size": "224 × 224",
+            "filters": 32,
+            "operations": "Conv (3x3) + BN + ReLU + Conv (3x3) + BN + ReLU + Spatial Dropout"
+          }
+        ],
+        "output_layer": {
+          "layer": "conv 1x1",
+          "size": "224 × 224",
+          "filters": 1,
+          "activation": "Sigmoid"
+        },
+        "regularization": [
+          "Spatial Dropout",
+          "Batch Normalization"
+        ],
+        "activation_function": "ReLU (hidden layers), Sigmoid (output)"
+      },
+      "classification_feature_extractors": [
+        {
+          "name": "DenseNet201",
+          "features": 94080
+        },
+        {
+          "name": "VGG-16",
+          "features": 25088
+        },
+        {
+          "name": "VGG-19",
+          "features": 25088
+        },
+        {
+          "name": "InceptionResNetV2",
+          "features": 38400
+        },
+        {
+          "name": "ResNet50",
+          "features": 2048
+        },
+        {
+          "name": "Xception",
+          "features": 100352
+        },
+        {
+          "name": "InceptionV3",
+          "features": 51200
+        }
+      ]
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "epochs": 100,
+      "loss_function": "Dice coefficient loss (2-class variant)",
+      "data_augmentation": [
+        "Random rotation",
+        "Random flip",
+        "Random zoom",
+        "Gaussian distortion",
+        "Random brightness",
+        "Random color",
+        "Random contrast",
+        "Random elastic distortion",
+        "Histogram equalization"
+      ],
+      "class_imbalance_handling": "Class weight imposed for SVM classifier in classification task"
+    },
+    "classification_or_output_head": {
+      "segmentation_head": "1x1 Convolution with Sigmoid activation",
+      "classification_heads": [
+        "Support Vector Machine (SVM)",
+        "Random Forest",
+        "Decision Tree",
+        "AdaBoost",
+        "Gradient Boosting"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net",
+    "Dropout U-Net",
+    "VGG-16",
+    "VGG-19",
+    "InceptionResNetV2",
+    "ResNet50",
+    "Xception",
+    "InceptionV3",
+    "DenseNet201",
+    "Support Vector Machine (SVM)",
+    "Random Forest",
+    "Decision Tree",
+    "AdaBoost",
+    "Gradient Boosting"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation: random rotation, random flip, random zoom, Gaussian distortion, random brightness, random color, random contrast, random elastic distortion, and histogram equalization",
+    "Lesion region cropping: images and generated binary masks were fused to crop the lesion region from the image for feature extraction",
+    "Input resizing: images resized to 224 × 224 pixels"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random rotation",
+      "details": "Applied to training images to increase dataset size and introduce variation without altering semantic meaning."
+    },
+    {
+      "technique": "Random flip",
+      "details": "Applied to training images to increase dataset size and introduce variation without altering semantic meaning."
+    },
+    {
+      "technique": "Random zoom",
+      "details": "Applied to training images to increase dataset size and introduce variation without altering semantic meaning."
+    },
+    {
+      "technique": "Gaussian distortion",
+      "details": "Applied to training images to increase dataset size and introduce variation without altering semantic meaning."
+    },
+    {
+      "technique": "Random brightness",
+      "details": "Applied to training images to increase dataset size and introduce variation without altering semantic meaning."
+    },
+    {
+      "technique": "Random color",
+      "details": "Applied to training images to increase dataset size and introduce variation without altering semantic meaning."
+    },
+    {
+      "technique": "Random contrast",
+      "details": "Applied to training images to increase dataset size and introduce variation without altering semantic meaning."
+    },
+    {
+      "technique": "Random elastic distortion",
+      "details": "Applied to training images to increase dataset size and introduce variation without altering semantic meaning."
+    },
+    {
+      "technique": "Histogram equalization",
+      "details": "Applied to training images to increase dataset size and introduce variation without altering semantic meaning."
+    },
+    {
+      "technique": "Synthetic data generation via augmentation",
+      "details": "2500 additional images were generated from the original 2594 ISIC 2018 training images using the above augmentation techniques to create a training set of 3815 images."
+    }
+  ],
+  "conclusions": [
+    "The proposed U-Net architecture with spatial dropout and data augmentation effectively performs automatic skin lesion segmentation, achieving a Dice coefficient of 0.87 on the ISIC 2018 dataset and 0.93 on the PH2 dataset.",
+    "Data augmentation and spatial dropout serve as effective regularization methods, reducing model variance and generalization error, thereby preventing overfitting in the segmentation task.",
+    "Transfer learning using pretrained Deep Convolutional Neural Networks (DCNNs) as feature extractors is an effective strategy for melanoma detection when labeled dermoscopy data is scarce.",
+    "The combination of DenseNet201 as a feature extractor and Support Vector Machine (SVM) as a classifier achieved the highest mean accuracy of 92.00% (±0.14) for melanoma detection on the PH2 dataset.",
+    "The proposed method demonstrates promising generalization capabilities for automatic segmentation and classification even with small data samples.",
+    "The authors acknowledge that future work should explore additional augmentation methods to further improve performance and test the model on dermoscopy images with diverse skin tones from different ethnicities."
+  ],
+  "important_remarks": [
+    "The study relies on the small PH2 dataset (200 images) for melanoma classification, which limits the statistical power and generalizability of the results.",
+    "The classification task addresses a binary problem (melanoma vs. seborrheic keratosis) rather than multi-class skin lesion classification, limiting its clinical scope for differential diagnosis.",
+    "The authors acknowledge that the model has not been tested on dermoscopy images with diverse skin tones from different ethnicities, raising concerns about potential demographic bias.",
+    "Data augmentation was used to artificially expand the ISIC 2018 training set from 2594 to 3815 images; the paper notes that excessive augmentation can distort the actual distribution of training data by introducing outliers.",
+    "The paper does not report formal hypothesis testing (e.g., p-values) to support statistical significance between model performances, relying instead on descriptive statistics (mean ± 2 × standard deviation).",
+    "Class imbalance in the PH2 dataset was handled by imposing class weights for the SVM classifier, but the specific class distribution within the PH2 dataset is not explicitly detailed in the results.",
+    "The segmentation model was trained on ISIC 2018 and then re-trained on PH2 using transfer learning; the performance gain on PH2 may be partly due to the domain shift or smaller dataset size rather than just the transfer learning technique."
+  ]
+}

@@ -1,0 +1,373 @@
+{
+  "file_name": "n_2020_detection_of_melanoma_using_deep_learning_techniques.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning techniques for melanoma detection in dermatology. Specifically, it implements a two-stage model: a segmentation stage using U-NET and FCRN architectures to segment skin lesions from dermoscopic images, and a classification stage using a Deep Residual Network (DRN) to classify the lesions as melanoma or non-melanoma. The study was conducted on the ISIC dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the implementation of a two-stage deep learning model (U-NET/FCRN for segmentation and DRN for classification) on the ISIC dataset. It details specific methodology, hyperparameters, and reports new quantitative results (e.g., accuracy, recall, IOU) rather than summarizing prior literature."
+  },
+  "title": "Detection of Melanoma using Deep Learning Techniques",
+  "authors": [
+    "Vinay B N",
+    "Pritesh J Shah",
+    "V Shekar",
+    "Vanamala H R",
+    "Vijaya krishna A"
+  ],
+  "doi": null,
+  "journal": "2020 International Conference on Computation, Automation and Knowledge Management (ICCAKM)",
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a two-stage deep learning framework for melanoma detection using dermoscopic images to improve diagnostic efficiency and reliability. The first stage employs U-NET and FCRN architectures for skin lesion segmentation, achieving an Intersection Over Union (IOU) of 84.2% on the ISBI 2017 dataset. The second stage utilizes a Deep Residual Network (DRN) for binary classification of melanoma versus non-melanoma lesions. The model was trained on a curated subset of 7,353 images from the ISIC dataset, utilizing data augmentation and step-decay learning rate techniques. While the standard binary cross-entropy loss yielded 92% accuracy, it resulted in high false negatives; consequently, weighted binary cross-entropy was implemented to prioritize recall. The final model achieved an accuracy of 88.7% with a significantly improved recall rate, demonstrating the importance of minimizing false negatives in medical diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "melanomic"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for the binary classification task. The study focuses on detecting melanoma from dermoscopic images using the ISIC dataset. The dataset was noted to be highly biased towards non-melanoma cases."
+    },
+    {
+      "lesion_type": "Non-melanoma",
+      "paper_terms": [
+        "non-melanoma",
+        "Non - Melanoma"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary classification task. The model distinguishes melanoma from non-melanoma lesions. The confusion matrix reports True Negatives (TN) and False Positives (FP) for this class."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks from dermoscopic images",
+        "primary": false,
+        "details": "The first stage of the two-stage model uses U-NET and FCRN architectures to segment skin lesions from dermoscopic images. Performance was evaluated using Intersection Over Union (IOU) and Dice loss."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic label (Melanoma vs. Non-melanoma)",
+        "primary": true,
+        "details": "The second stage uses a Deep Residual Network (DRN) to classify segmented skin lesions as melanoma or non-melanoma. The task is a binary classification problem evaluated using accuracy, recall, and confusion matrices (TN, FP, FN, TP) with binary cross-entropy and weighted binary cross-entropy loss functions."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Dataset (International Skin Imaging Collaboration)",
+      "description": "A public dataset of dermoscopic images downloaded from an open-source git repository (ISIC-Archive-Downloader). The original dataset contained 13,000 images, but after removing corrupt and duplicate images, a curated subset of 7,353 images was used for the study.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 7353,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the two-stage deep learning model (U-NET/FCRN for segmentation and DRN for classification) with data augmentation applied to melanoma images.",
+        "validation": "Not explicitly reported as a separate split; however, segmentation results report validation accuracy for different input sizes (e.g., 65.39% for 256x320, 74.25% for 192x240, 74.67% for 128x160).",
+        "testing": "Used for testing the classification model. Confusion matrix values (TN, FP, FN, TP) are reported for the testing phase, implying a test set was used, though the specific count of images in the test set is not explicitly stated (sum of TN+FP+FN+TP in binary cross-entropy results is 1929).",
+        "other": "Used for segmentation evaluation on ISBI 2017 dataset (IOU 84.2%) and ISBI-2016 dataset (IOU 82.9%) as mentioned in the introduction regarding related work, but the primary experimental dataset for this study's model training and testing is the ISIC dataset."
+      }
+    },
+    {
+      "name": "ISBI 2017 Dataset",
+      "description": "A public dataset used for evaluating the segmentation stage performance in the context of related work or preliminary evaluation mentioned in the abstract/introduction.",
+      "classes_used": [
+        "Skin lesion masks"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to evaluate the U-NET segmentation architecture, achieving an IOU of 84.2%.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISBI-2016 Dataset",
+      "description": "A public dataset used for evaluating segmentation performance in the context of related work or preliminary evaluation.",
+      "classes_used": [
+        "Skin lesion masks"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to evaluate the FCRN segmentation architecture, achieving an IOU of 82.9%.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Intersection Over Union (IOU)",
+    "Jaccard Index",
+    "Dice Loss (DL)",
+    "Dice Coefficient (DI)",
+    "Accuracy",
+    "Recall",
+    "Confusion Matrix (True Negatives, False Positives, False Negatives, True Positives)",
+    "Validation Accuracy",
+    "Training Accuracy",
+    "Loss Function (Binary Cross-Entropy, Weighted Binary Cross-Entropy)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Confusion Matrix analysis",
+      "purpose": "To evaluate classification performance by reporting True Negatives (TN), False Positives (FP), False Negatives (FN), and True Positives (TP) for both binary cross-entropy and weighted binary cross-entropy loss functions.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Accuracy calculation",
+      "purpose": "To measure the overall correctness of the segmentation and classification models.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Recall calculation",
+      "purpose": "To assess the model's ability to correctly identify positive cases (melanoma), specifically noting the improvement when using weighted cross-entropy to reduce false negatives.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Intersection Over Union (IOU) / Jaccard Index",
+      "purpose": "To evaluate the performance of the segmentation stage (U-NET and FCRN) against ground truth masks.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Dice Loss / Dice Coefficient",
+      "purpose": "To evaluate the segmentation model loss and performance.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Step-decay learning rate technique",
+      "purpose": "To modify learning rates during training to enhance model convergence and results.",
+      "type": "Training optimization"
+    },
+    {
+      "method": "Data Augmentation",
+      "purpose": "To increase the diversity of the training dataset, specifically applied to melanoma images.",
+      "type": "Data preprocessing"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "No hypothesis testing was reported in the paper."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISBI 2017 Dataset": {
+      "metric": "Intersection Over Union (IOU)",
+      "models": {
+        "U-NET": {
+          "IOU": "84.2%"
+        }
+      },
+      "notes": "IOU achieved on ISBI 2017 dataset using U-NET architecture."
+    },
+    "ISBI-2016 Dataset": {
+      "metric": "Intersection Over Union (IOU)",
+      "models": {
+        "FCRN": {
+          "IOU": "82.9%"
+        }
+      },
+      "notes": "IOU achieved on ISBI-2016 dataset using FCRN architecture."
+    },
+    "ISIC Dataset (Segmentation Stage)": {
+      "metric": [
+        "Validation Accuracy",
+        "Training Accuracy"
+      ],
+      "models": {
+        "U-NET (Input 256x320)": {
+          "Validation Accuracy": "65.39%",
+          "Training Accuracy": "75.91%"
+        },
+        "U-NET (Input 192x240)": {
+          "Validation Accuracy": "74.25%",
+          "Training Accuracy": "78.52%"
+        },
+        "U-NET (Input 128x160)": {
+          "Validation Accuracy": "74.67%",
+          "Training Accuracy": "82.90%"
+        }
+      },
+      "notes": "Segmentation results for U-NET on ISIC dataset with varying input image sizes. Smaller input sizes yielded higher training and validation accuracy."
+    },
+    "ISIC Dataset (Classification Stage - Binary Cross Entropy)": {
+      "metric": [
+        "Accuracy",
+        "Recall",
+        "Confusion Matrix"
+      ],
+      "models": {
+        "DRN (Binary Cross Entropy)": {
+          "Accuracy": "92%",
+          "Recall": "0.22",
+          "TN": 1283,
+          "FP": 30,
+          "FN": 130,
+          "TP": 686
+        }
+      },
+      "notes": "Initial classification results using standard binary cross-entropy loss. High false negatives were observed. Recall for Melanoma set was less than Non-Melanoma set."
+    },
+    "ISIC Dataset (Classification Stage - Weighted Binary Cross Entropy)": {
+      "metric": [
+        "Accuracy",
+        "Recall"
+      ],
+      "models": {
+        "DRN (Weighted Binary Cross Entropy, n=1)": {
+          "Accuracy": "93%",
+          "Recall": "84%"
+        },
+        "DRN (Weighted Binary Cross Entropy, n=2)": {
+          "Accuracy": "88.7%",
+          "Recall": "91%"
+        },
+        "DRN (Weighted Binary Cross Entropy, n=3)": {
+          "Accuracy": "88.2%",
+          "Recall": "90%"
+        },
+        "DRN (Weighted Binary Cross Entropy, n=5)": {
+          "Accuracy": "81.4%",
+          "Recall": "89%"
+        },
+        "DRN (Weighted Binary Cross Entropy, n=10)": {
+          "Accuracy": "76%",
+          "Recall": "89%"
+        }
+      },
+      "notes": "Results using weighted binary cross-entropy to reduce false negatives. The confusion matrix for the best performing weighted model (n=2, Accuracy 88.7%) was: TN=1138, FP=175, FN=77, TP=739. Using weighted cross entropy improved the recall factor by 7% compared to binary cross entropy."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two-stage model: U-NET and FCRN for segmentation; Deep Residual Network (DRN) for classification.",
+    "pretraining": "Not explicitly reported.",
+    "input_size": "Segmentation: 256x320, 192x240, 128x160 (tested variants). Classification: Not explicitly reported (segmented images from previous stage).",
+    "architecture_details": {
+      "segmentation_model": {
+        "u_net": {
+          "components": [
+            "Contracting/Down sampling path (4 blocks, each with 3x3 Convolutional Layer)",
+            "Bottleneck (2 Convolutional layers with batch normalization and dropout)",
+            "Expanding/Up sampling path (4 blocks, each with Deconvolution layer)"
+          ],
+          "mechanisms": [
+            "Skip connections between down-sampling and up-sampling paths",
+            "2x2 Max Pooling",
+            "Stride 2 Concatenation with cropped feature maps from contracting path",
+            "Activation function with batch normalization"
+          ],
+          "note": "No dense layers; supports variable input sizes."
+        },
+        "fcrn": {
+          "description": "Multiscale contextual information integration scheme combining deep residual network for two-stage segmentation."
+        }
+      },
+      "classification_model": {
+        "drn": {
+          "components": [
+            "7x7 convolution layers",
+            "3x3 max-pooling layers",
+            "Residual blocks of various sizes",
+            "Average-pooling layer (classifier)"
+          ],
+          "mechanisms": [
+            "Skip connections to form residual network (to address vanishing gradient problem)"
+          ]
+        }
+      }
+    },
+    "training_details": {
+      "optimizer": "SGD (Stochastic Gradient Descent)",
+      "hyperparameters": {
+        "learning_rate": "0.001",
+        "momentum": [
+          "0.0",
+          "0.95"
+        ]
+      },
+      "learning_rate_schedule": "Step-decay technique (Learning Rate = Initial Learning Rate * drop^((1+epoch)/(epoch Drop)))",
+      "loss_functions": [
+        "Dice Loss (DL = 1 - DI) for segmentation evaluation",
+        "Binary Cross-Entropy (y*log(p) + (1-y)*log(1-p)) for classification",
+        "Weighted Binary Cross-Entropy (y*n*log(p) + (1-y)*log(1-p)) for classification"
+      ],
+      "data_augmentation": "Applied to melanoma images",
+      "platform": "Google Colab (K80 GPU), Keras, Python 3.6"
+    },
+    "classification_or_output_head": {
+      "segmentation": "Pixel-wise mask output (evaluated via IOU/Dice)",
+      "classification": "Binary classification (Melanoma vs. Non-melanoma) via average-pooling layer"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-NET",
+    "FCRN",
+    "DRN",
+    "Deep Residual Network",
+    "Fully Convolutional Network",
+    "Alexnet",
+    "VGGnet",
+    "SVM classifier"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation applied to melanoma images",
+    "Removal of corrupt and duplicate images from the ISIC dataset",
+    "Scaling down image sizes (tested input sizes: 256x320, 192x240, 128x160) due to limited hardware resources",
+    "Otsu’s clustering based image thresholding method used for segmentation (mentioned in context of related work/abstract)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Data Augmentation",
+      "details": "Applied to melanoma images from the ISIC dataset. Specific geometric or color transform parameters (e.g., rotation angles, flip probabilities, scaling ranges) were not reported in the text; only the application of augmentation to the melanoma class is mentioned."
+    }
+  ],
+  "conclusions": [
+    "A two-stage deep learning model combining U-NET/FCRN for segmentation and a Deep Residual Network (DRN) for classification was developed for melanoma detection.",
+    "The segmentation stage using U-NET achieved an Intersection Over Union (IOU) of 84.2% on the ISBI 2017 dataset.",
+    "The classification stage using standard binary cross-entropy loss achieved 92% accuracy but suffered from high false negatives (recall of 0.22).",
+    "Implementing weighted binary cross-entropy as the loss function significantly improved recall (up to 91% with n=2) while maintaining high accuracy (88.7%), addressing the critical need to minimize false negatives in medical diagnosis.",
+    "Reducing input image sizes (e.g., from 256x320 to 128x160) improved segmentation training and validation accuracy due to hardware constraints.",
+    "The study acknowledges that the ISIC dataset is highly biased towards non-melanoma cases, which impacts model performance.",
+    "Future work suggests that using actual image sizes without scaling, larger batch sizes, and integrating patient metadata (clinical history, age, region) could improve prediction accuracy."
+  ],
+  "important_remarks": [
+    "The study acknowledges a significant dataset bias, noting that the ISIC dataset is highly biased towards non-melanoma cases, which impacts model performance.",
+    "The initial standard binary cross-entropy model achieved high accuracy (92%) but suffered from critically high false negatives (recall of 0.22), highlighting the risk of prioritizing accuracy over recall in medical diagnosis.",
+    "Hardware limitations forced the use of scaled-down input image sizes (e.g., 128x160) and limited batch sizes, which may compromise the model's ability to learn region-specific features compared to using actual image sizes.",
+    "The paper does not report external validation; segmentation results on ISBI 2017 and ISBI-2016 datasets are cited from related work or preliminary evaluations rather than as part of the primary experimental validation of the proposed two-stage model.",
+    "Specific data augmentation techniques (e.g., rotation, flipping) are mentioned as being applied to melanoma images, but the specific parameters or methods are not detailed.",
+    "The classification results rely on a confusion matrix summing to 1,929 samples (TN+FP+FN+TP), but the total size of the test set relative to the original 7,353 curated images is not explicitly defined, raising potential concerns about data leakage or split transparency.",
+    "The study is a conference paper with limited scope, suggesting future work to integrate patient metadata (clinical history, age) to improve prediction accuracy, indicating current clinical relevance is limited to image-based analysis only."
+  ]
+}

@@ -1,0 +1,254 @@
+{
+  "file_name": "horv_th_2020_automatic_detection_of_infantile_hemangioma_using_convolutional_neu.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a Convolutional Neural Network (CNN) for the automatic detection and pixel-based segmentation of infantile hemangioma lesions. The CNN was trained on 35,000 sample patches from 25 images and achieved a global score of 91.02% on the validation set, outperforming classical methods like Otsu and Fuzzy C-Means."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a Convolutional Neural Network (CNN) for automatic detection of infantile hemangioma. It describes a specific methodology using a dataset of 80 images, compares the proposed CNN approach against classical segmentation methods (Otsu and FCM), and reports quantitative results (91.02% global score). Although published in conference proceedings (EHB 2020), it contains original research results rather than summarizing prior literature."
+  },
+  "title": "Automatic Detection of Infantile Hemangioma using Convolutional Neural Network Approach",
+  "authors": [
+    "Balazs Horvath",
+    "Cătălina Neghină",
+    "Andreea Griparis",
+    "Alina Sultana"
+  ],
+  "doi": null,
+  "journal": "The 8th IEEE International Conference on E-Health and Bioengineering - EHB 2020",
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes an automatic detection method for infantile hemangioma lesions using a patch-based Convolutional Neural Network (CNN) to segment pixels into hemangioma and background classes. The model was trained on 35,000 sample patches derived from 25 images and evaluated on a test set of 55 images from the same dataset. The CNN's performance was compared against two classical segmentation methods: Fuzzy C-Means (FCM) clustering and Otsu thresholding, both applied to the normalized a* layer of the CIE L*a*b* color space. The CNN achieved a global score of 91.02% on the validation set, significantly outperforming the Otsu (85%) and FCM (86%) methods. Although the CNN exhibited lower specificity due to higher false positives, its superior sensitivity (92% vs. ~73%) resulted in the highest overall global score. The authors conclude that the CNN approach is a promising tool for accurate hemangioma detection and monitoring.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Infantile Hemangioma",
+      "paper_terms": [
+        "infantile hemangioma",
+        "IH",
+        "hemangiomas",
+        "hemangioma lesion",
+        "hemangioma pixels",
+        "superficial IH",
+        "cavernous",
+        "mixed",
+        "segmental",
+        "multifocal",
+        "focal"
+      ],
+      "role": "Target class",
+      "details": "The study focuses exclusively on the automatic detection and segmentation of infantile hemangioma lesions. The CNN was trained to classify pixels into 'hemangioma' and 'non-hemangioma' (background) classes. The dataset included various clinical types (superficial, cavernous, mixed) and morphologies (focal, multifocal, segmental) of IH."
+    },
+    {
+      "lesion_type": "Background/Skin",
+      "paper_terms": [
+        "non-hemangioma",
+        "background",
+        "skin tissue",
+        "skin patches",
+        "neighborhood"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class for segmentation and classification tasks. The CNN classified pixels as either hemangioma or background (skin). The study notes that in some cases, a third class (hair, clothes, etc.) appears but was not the primary target of the binary segmentation."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise classification of hemangioma vs. background to produce a lesion mask.",
+        "primary": true,
+        "details": "The paper describes a 'pixel-based segmentation' task where a CNN classifies 28x28 patches to determine if the central pixel belongs to the hemangioma or background class. The output is a segmentation mask obtained via a sliding window approach. The study also compares this against classical segmentation methods (Otsu thresholding and Fuzzy C-Means clustering)."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of image patches into hemangioma or background classes.",
+        "primary": false,
+        "details": "The underlying CNN model performs binary classification on input patches (hemangioma vs. non-hemangioma/background) using a Softmax activation function to return probabilities. However, this classification is utilized as the mechanism for the primary segmentation task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HEMACAD Dataset",
+      "description": "An internal dataset acquired under the scientific project 'Methods of Prediction of Infantile Hemangioma Evolution Aimed at Preventing Desfigurating Complications by Multiple Intervention Procedures Contract - HEMACAD'. It consists of 80 images acquired from 25 different subjects, with annotated masks containing clinician lesion markings.",
+      "classes_used": [
+        "hemangioma",
+        "non-hemangioma (background)"
+      ],
+      "counts": {
+        "total": 80,
+        "training": 25,
+        "validation": null,
+        "testing": 55,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to generate 35,000 sample patches for training the Convolutional Neural Network (CNN).",
+        "validation": "Used to evaluate the CNN model, achieving a global score of 91.02%.",
+        "testing": "Used as the test set (55 images) for evaluating the CNN and comparing it against classical segmentation methods (Otsu and FCM).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Global Score",
+    "Sensitivity",
+    "Specificity",
+    "Positive Predicted Value",
+    "Negative Predicted Value",
+    "False Positive Rate",
+    "False Negative Rate",
+    "Standard Deviation"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Arithmetic mean",
+      "purpose": "To calculate the Global Score metric, defined as the arithmetic mean of Sensitivity and Specificity values, for comparing the performance of CNN, Otsu, and FCM methods.",
+      "type": "Descriptive statistic"
+    },
+    {
+      "method": "Standard Deviation",
+      "purpose": "To measure the consistency and variance of the Global Score across the 55-image test dataset for the CNN model.",
+      "type": "Descriptive statistic"
+    },
+    {
+      "method": "Calinski-Harabasz criterion",
+      "purpose": "To determine the optimal number of clusters (classes) for segmentation in images containing third classes (e.g., hair, clothes) when applying Otsu and FCM methods.",
+      "type": "Cluster validation index"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons between the CNN, Otsu, and FCM methods were based on descriptive statistics (Global Score, Sensitivity, Specificity) and standard deviation."
+  },
+  "results_obtained_in_each_dataset": {
+    "HEMACAD Dataset (Test Set - 55 images)": {
+      "metric": "Global Score (Arithmetic Mean of Sensitivity and Specificity)",
+      "models": {
+        "CNN (Proposed)": {
+          "Global Score": "91.02%",
+          "Sensitivity": "92%",
+          "Specificity": "Approximately 90% (derived from Global Score 91.02% and Sensitivity 92%; text notes 'slightly lower Specificity against of Otsu and FCM methods')",
+          "Positive Predicted Value (PPV)": "Approximately 85% (average value)",
+          "Negative Predicted Value (NPV)": "Approximately 98% (average value)",
+          "Standard Deviation": "Narrow (indicates model consistency)"
+        },
+        "Otsu Method": {
+          "Global Score": "85%",
+          "Sensitivity": "72%",
+          "Specificity": "Higher than CNN (exact value not reported, but implied to be higher than ~90%)"
+        },
+        "Fuzzy C-Means (FCM) Clustering": {
+          "Global Score": "86%",
+          "Sensitivity": "73%",
+          "Specificity": "Higher than CNN (exact value not reported, but implied to be higher than ~90%)"
+        }
+      },
+      "notes": "The CNN model achieved the highest global score (91.02%) compared to Otsu (85%) and FCM (86%). The CNN had significantly higher sensitivity (92%) but lower specificity due to a higher false positive rate. The Global Score is defined as the arithmetic mean of Sensitivity and Specificity. The CNN's performance was evaluated on the 55-image test set."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Standard Convolutional Neural Network (CNN)",
+    "pretraining": "Input normalization parameters (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]) similar to pre-trained models from Torchvision package, but the model itself was trained from scratch on the HEMACAD dataset.",
+    "input_size": "28x28 pixel patches",
+    "architecture_details": {
+      "type": "End-to-end architecture",
+      "feature_extraction": "Two blocks of Convolution - Max Pooling",
+      "layers": [
+        {
+          "name": "Conv1",
+          "filters": 16,
+          "padding": "Valid"
+        },
+        {
+          "name": "Max Pooling 1",
+          "stride": 2
+        },
+        {
+          "name": "Conv2",
+          "filters": 32,
+          "padding": "Valid"
+        },
+        {
+          "name": "Max Pooling 2",
+          "stride": 2
+        }
+      ],
+      "intermediate_output": "5x5x32 (flattened)",
+      "augmentation": [
+        "Horizontal flipping",
+        "Rotation"
+      ]
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": null,
+      "training_schedule": null,
+      "dataset_size": "35,000 sample patches from 25 images"
+    },
+    "classification_or_output_head": {
+      "type": "Fully Connected layers followed by Softmax",
+      "components": [
+        "Three Fully Connected layers",
+        "Softmax activation function"
+      ],
+      "output_classes": "2 (hemangioma and non-hemangioma/background)",
+      "output_type": "Probabilities"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Convolutional Neural Network (CNN)",
+    "Fuzzy C-Means (FCM) clustering",
+    "Otsu method"
+  ],
+  "preprocessing_techniques": [
+    "Color space transformation from RGB to CIE L*a*b*",
+    "Preservation of the a* layer (chrominance)",
+    "Linear normalization of the a* layer between 0 and 1",
+    "White balance algorithm applied on a* and b* chrominance layers",
+    "Conversion back to RGB colorspace",
+    "Input normalization with mean=[0.485, 0.456, 0.406] and std=[0.229, 0.224, 0.225]",
+    "Patch extraction (28x28 pixel patches)",
+    "Data augmentation: horizontal flipping",
+    "Data augmentation: rotation"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied to patch samples during training to handle the limited number of different clinical cases."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Applied to patch samples during training to handle the limited number of different clinical cases."
+    }
+  ],
+  "conclusions": [
+    "The proposed Convolutional Neural Network (CNN) approach achieved a global score of 91.02% on the validation set, outperforming classical segmentation methods Otsu (85%) and Fuzzy C-Means (86%).",
+    "The CNN model demonstrated significantly higher sensitivity (92%) compared to Otsu (72%) and FCM (73%), indicating superior detection of hemangioma pixels.",
+    "The CNN approach exhibited slightly lower specificity than Otsu and FCM methods due to a higher false positive rate, particularly at the borders between skin and lesion areas.",
+    "The authors consider sensitivity more important than specificity for this task, as the primary goal is to correctly detect the hemangioma region.",
+    "The CNN method is considered a promising and appropriate tool for integration into a Computer Aided Diagnosis system for hemangioma detection and monitoring.",
+    "The study acknowledges limitations related to the relatively small dataset size and the high variance in clinical appearance of infantile hemangiomas."
+  ],
+  "important_remarks": [
+    "The study relies on a very small, internal dataset (HEMACAD) consisting of only 80 images from 25 subjects, which limits generalizability and increases the risk of overfitting.",
+    "There is no external validation; the model was trained on 25 images and tested on the remaining 55 images from the same internal cohort, raising concerns about data leakage or lack of independent test set validity.",
+    "The paper does not report formal statistical significance testing (e.g., p-values) for the comparison between the CNN and classical methods (Otsu, FCM); differences are described qualitatively.",
+    "The CNN model exhibits a trade-off with significantly higher sensitivity (92%) but lower specificity compared to Otsu (85%) and FCM (86%), leading to a higher false positive rate, particularly at lesion borders.",
+    "The Global Score metric is defined as the arithmetic mean of Sensitivity and Specificity, which may mask performance disparities between the two components.",
+    "The preprocessing pipeline involves color space transformation (RGB to CIE L*a*b*) and white balancing, which may introduce bias if the clinical lighting conditions differ from the training data.",
+    "The study acknowledges high variance in the clinical appearance of infantile hemangiomas as a limitation, suggesting potential robustness issues in diverse clinical settings.",
+    "No hyperparameter optimization details (e.g., learning rate, batch size, optimizer) are provided for the CNN training, limiting reproducibility.",
+    "The dataset includes various IH types (superficial, cavernous, mixed) and morphologies (focal, multifocal, segmental), but the performance breakdown by subtype is not reported."
+  ]
+}

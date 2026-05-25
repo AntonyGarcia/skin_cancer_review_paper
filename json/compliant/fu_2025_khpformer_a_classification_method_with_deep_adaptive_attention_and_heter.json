@@ -1,0 +1,576 @@
+{
+  "file_name": "fu_2025_khpformer_a_classification_method_with_deep_adaptive_attention_and_heter.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes KHPFormer, a deep learning classification model using deep adaptive attention and heterogeneous feature fusion (specifically MultFKAN modules and Heterogeneous Feature Pane Self-Attention) to classify skin lesions (benign vs. malignant) from dermoscopic images on public ISIC datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents KHPFormer, a novel deep learning classification model for skin lesions, detailing its architecture (MultFKAN module, Heterogeneous Feature Pane Self-Attention), training methodology, and experimental results on public ISIC datasets (Skin Cancer: Malignant vs. Benign, PH2, Skin-Cancer9-Classesisic). It reports original performance metrics (Precision, F1, Accuracy, ROC-AUC) comparing the proposed model against state-of-the-art baselines, which characterizes it as an original experimental study rather than a review."
+  },
+  "title": "KHPFormer : A Classification Method with Deep Adaptive Attention and Heterogeneous Feature Fusion for Skin Lesions",
+  "authors": [
+    "Ying Fu",
+    "Qian Yin",
+    "Xin Zheng"
+  ],
+  "doi": "10.1109/BIBM66473.2025.11356450",
+  "journal": "2025 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes KHPFormer, a deep learning model for classifying skin lesions into benign and malignant categories using dermoscopic images. The architecture integrates a MultFKAN module for enhanced nonlinear feature representation and a heterogeneous feature pane self-attention mechanism to mitigate feature redundancy and smoothing issues. The model was evaluated on three public ISIC datasets: Skin Cancer: Malignant vs. Benign, PH2, and Skin-Cancer9-Classesisic. Experimental results demonstrate that KHPFormer outperforms state-of-the-art baseline models, achieving an accuracy of 89.4% and an ROC-AUC of 96.4% on the Skin Cancer: Malignant vs. Benign dataset. The findings indicate that KHPFormer effectively captures fine-grained features and provides a more accurate solution for dermoscopic image diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Malignant skin lesions",
+      "paper_terms": [
+        "malignant",
+        "basal cell carcinoma",
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Included in the 'Skin Cancer: Malignant vs. Benign' dataset (3,297 images) and the PH2 dataset (40 cases diagnosed as melanoma). Basal cell carcinoma and melanoma are explicitly mentioned as examples of malignant skin lesions in the abstract and introduction."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "Included in the 'Skin Cancer: Malignant vs. Benign' dataset (3,297 images). The PH2 dataset includes 160 cases diagnosed as nevi (a type of benign lesion)."
+    },
+    {
+      "lesion_type": "Nevi",
+      "paper_terms": [
+        "nevi"
+      ],
+      "role": "Target class",
+      "details": "Specifically identified in the PH2 dataset, which comprises 160 cases diagnosed as nevi and 40 cases diagnosed as melanoma."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Specifically identified in the PH2 dataset (40 cases) and mentioned as a deadly skin malignancy in the introduction. Classified as malignant in the 'Skin Cancer: Malignant vs. Benign' dataset."
+    },
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma"
+      ],
+      "role": "Target class",
+      "details": "Mentioned in the abstract as an example of malignant skin lesions. Included in the 'Skin Cancer: Malignant vs. Benign' dataset as part of the malignant class."
+    },
+    {
+      "lesion_type": "Nine types of skin cancer lesions",
+      "paper_terms": [
+        "nine types of skin cancer lesions",
+        "Skin-Cancer9-Classesisic"
+      ],
+      "role": "Target class",
+      "details": "Studied in the Skin-Cancer9-Classesisic dataset (2,357 images). The paper notes class imbalance in this multi-classification scenario but does not list the specific 9 individual classes."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin lesion categories (benign vs. malignant, nevi vs. melanoma, and nine types of skin cancer lesions)",
+        "primary": true,
+        "details": "The paper proposes KHPFormer for skin lesion classification. It performs binary classification on the 'Skin Cancer: Malignant vs. Benign' dataset and the PH2 dataset (nevi vs. melanoma), and multi-class classification on the 'Skin-Cancer9-Classesisic' dataset (nine types of skin cancer lesions). The model outputs discrete diagnostic categories using a linear layer for classification decision-making, evaluated with metrics like Accuracy, Precision, Recall, F1-score, and ROC-AUC."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Skin Cancer: Malignant vs. Benign",
+      "description": "A public ISIC dataset containing dermoscopic images divided into two categories: benign and malignant skin lesions.",
+      "classes_used": [
+        "benign",
+        "malignant"
+      ],
+      "counts": {
+        "total": 3297,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the KHPFormer model for 100 epochs.",
+        "validation": "Not explicitly reported.",
+        "testing": "Used for evaluating model performance (Accuracy, Precision, Recall, F1, ROC-AUC).",
+        "other": "Used for ablation studies and comparison with state-of-the-art baseline models."
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A public dermoscopic image database containing 200 images, comprising 160 cases diagnosed as nevi and 40 cases diagnosed as melanoma.",
+      "classes_used": [
+        "nevi",
+        "melanoma"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "nevi": 160,
+          "melanoma": 40
+        }
+      },
+      "use": {
+        "training": "Used for training the KHPFormer model.",
+        "validation": "Not explicitly reported.",
+        "testing": "Used for evaluating model generalization and robustness.",
+        "other": "Used for comparison with state-of-the-art baseline models."
+      }
+    },
+    {
+      "name": "Skin-Cancer9-Classesisic",
+      "description": "A public dataset including images of nine types of skin cancer lesions, containing a total of 2,357 dermoscopic images. The paper notes class imbalance in this multi-classification scenario.",
+      "classes_used": [
+        "nine types of skin cancer lesions"
+      ],
+      "counts": {
+        "total": 2357,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the KHPFormer model for multi-class classification.",
+        "validation": "Not explicitly reported.",
+        "testing": "Used for evaluating model performance in multi-class scenarios.",
+        "other": "Used for comparison with state-of-the-art baseline models."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Precision",
+    "Recall",
+    "F1-score",
+    "Accuracy",
+    "ROC-AUC",
+    "Area Under the Curve (AUC)",
+    "Receiver Operating Characteristic (ROC) curve"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons between KHPFormer and baseline models were made using point estimates of metrics (Accuracy, Precision, Recall, F1-score, ROC-AUC) without statistical significance analysis."
+  },
+  "results_obtained_in_each_dataset": {
+    "Skin Cancer: Malignant vs. Benign": {
+      "metric": [
+        "Precision (%)",
+        "F1-score (%)",
+        "Recall (%)",
+        "Accuracy (%)",
+        "ROC-AUC (%)"
+      ],
+      "models": {
+        "ResNext50": {
+          "Precision": 86.7,
+          "F1-score": 86.8,
+          "Recall": 86.8,
+          "Accuracy": 86.5,
+          "ROC-AUC": 94.5
+        },
+        "ShuffleNetV2-x0.5": {
+          "Precision": 86.4,
+          "F1-score": 86.4,
+          "Recall": 86.4,
+          "Accuracy": 86.5,
+          "ROC-AUC": 93.9
+        },
+        "MobileNetV3-S": {
+          "Precision": 87.0,
+          "F1-score": 86.9,
+          "Recall": 86.8,
+          "Accuracy": 86.8,
+          "ROC-AUC": 95.6
+        },
+        "ViT-B/16": {
+          "Precision": 86.0,
+          "F1-score": 86.2,
+          "Recall": 86.3,
+          "Accuracy": 86.1,
+          "ROC-AUC": 92.3
+        },
+        "Swin-T": {
+          "Precision": 87.3,
+          "F1-score": 87.2,
+          "Recall": 87.0,
+          "Accuracy": 87.2,
+          "ROC-AUC": 94.8
+        },
+        "ConvNext-T": {
+          "Precision": 86.9,
+          "F1-score": 86.8,
+          "Recall": 86.7,
+          "Accuracy": 87.0,
+          "ROC-AUC": 93.9
+        },
+        "SMT-T": {
+          "Precision": 87.0,
+          "F1-score": 87.1,
+          "Recall": 87.2,
+          "Accuracy": 87.1,
+          "ROC-AUC": 95.8
+        },
+        "MogaNet-T": {
+          "Precision": 87.3,
+          "F1-score": 87.2,
+          "Recall": 87.1,
+          "Accuracy": 86.6,
+          "ROC-AUC": 95.5
+        },
+        "RDNet-T": {
+          "Precision": 87.6,
+          "F1-score": 87.4,
+          "Recall": 87.2,
+          "Accuracy": 87.4,
+          "ROC-AUC": 94.1
+        },
+        "SkinDistilViT-T": {
+          "Precision": 85.6,
+          "F1-score": 85.1,
+          "Recall": 84.6,
+          "Accuracy": 85.2,
+          "ROC-AUC": 92.1
+        },
+        "EfficientViT-CAGA": {
+          "Precision": 86.6,
+          "F1-score": 86.4,
+          "Recall": 86.1,
+          "Accuracy": 85.9,
+          "ROC-AUC": 93.8
+        },
+        "FedNPR": {
+          "Precision": 82.2,
+          "F1-score": 82.0,
+          "Recall": 81.8,
+          "Accuracy": 82.4,
+          "ROC-AUC": 91.6
+        },
+        "BiasPruner": {
+          "Precision": 85.8,
+          "F1-score": 85.7,
+          "Recall": 85.6,
+          "Accuracy": 86.2,
+          "ROC-AUC": 94.6
+        },
+        "KHPFormer-S (ours)": {
+          "Precision": 89.3,
+          "F1-score": 89.2,
+          "Recall": 88.9,
+          "Accuracy": 89.4,
+          "ROC-AUC": 96.4
+        },
+        "KHPFormer-T": {
+          "F1-score": 87.7,
+          "Accuracy": 87.7,
+          "ROC-AUC": 95.1
+        },
+        "KHPFormer-B": {
+          "F1-score": 88.2,
+          "Accuracy": 87.9,
+          "ROC-AUC": 95.3
+        }
+      },
+      "notes": "KHPFormer-S outperformed state-of-the-art baselines. Compared to RDNet-T, it achieved an improvement of 1.8 percentage points in F1-score and 2.0 percentage points in accuracy. Compared to SkinDistilViT-T, it achieved an improvement of 4.1 percentage points in F1-score and 4.2 percentage points in accuracy. Ablation studies showed that the full KHPFormer-S model achieved 89.4% Accuracy, 88.9% Recall, 89.2% F1-score, and 96.4% ROC-AUC. Removing HFP Self-Attention reduced Accuracy to 78.9%. Removing MultFKAN reduced Accuracy to 87.4%. Removing CWSIM reduced Accuracy to 76.4%."
+    },
+    "PH2": {
+      "metric": [
+        "Precision (%)",
+        "F1-score (%)",
+        "Recall (%)",
+        "Accuracy (%)"
+      ],
+      "models": {
+        "ResNext50": {
+          "Precision": 73.8,
+          "F1-score": 76.6,
+          "Recall": 79.7,
+          "Accuracy": 82.5
+        },
+        "ShuffleNetV2-x0.5": {
+          "Precision": 87.3,
+          "F1-score": 88.9,
+          "Recall": 90.6,
+          "Accuracy": 92.5
+        },
+        "MobileNetV3-S": {
+          "Precision": 40.0,
+          "F1-score": 44.4,
+          "Recall": 50.0,
+          "Accuracy": 80.0
+        },
+        "ViT-B/16": {
+          "Precision": 84.4,
+          "F1-score": 84.4,
+          "Recall": 84.4,
+          "Accuracy": 90.0
+        },
+        "Swin-T": {
+          "Precision": 87.3,
+          "F1-score": 88.9,
+          "Recall": 90.6,
+          "Accuracy": 92.5
+        },
+        "ConvNext-T": {
+          "Precision": 87.3,
+          "F1-score": 83.4,
+          "Recall": 79.7,
+          "Accuracy": 90.0
+        },
+        "SMT-T": {
+          "Precision": 89.8,
+          "F1-score": 87.8,
+          "Recall": 85.9,
+          "Accuracy": 92.5
+        },
+        "MogaNet-T": {
+          "Precision": 92.0,
+          "F1-score": 91.8,
+          "Recall": 91.6,
+          "Accuracy": 95.0
+        },
+        "RDNet-T": {
+          "Precision": 92.1,
+          "F1-score": 91.7,
+          "Recall": 91.3,
+          "Accuracy": 95.0
+        },
+        "SkinDistilViT-T": {
+          "Precision": 82.2,
+          "F1-score": 82.1,
+          "Recall": 81.9,
+          "Accuracy": 82.5
+        },
+        "EfficientViT-CAGA": {
+          "Precision": 91.8,
+          "F1-score": 91.8,
+          "Recall": 91.8,
+          "Accuracy": 92.0
+        },
+        "FedNPR": {
+          "Precision": 86.7,
+          "F1-score": 86.7,
+          "Recall": 86.6,
+          "Accuracy": 86.5
+        },
+        "BiasPruner": {
+          "Precision": 85.4,
+          "F1-score": 85.3,
+          "Recall": 85.2,
+          "Accuracy": 89.0
+        },
+        "KHPFormer-S (ours)": {
+          "Precision": 94.4,
+          "F1-score": 96.4,
+          "Recall": 98.4,
+          "Accuracy": 97.5
+        }
+      },
+      "notes": "KHPFormer outperformed other models in all metrics on the PH2 dataset."
+    },
+    "Skin-Cancer9-Classesisic": {
+      "metric": [
+        "Precision (%)",
+        "F1-score (%)",
+        "Recall (%)",
+        "Accuracy (%)"
+      ],
+      "models": {
+        "ResNext50": {
+          "Precision": 53.1,
+          "F1-score": 52.4,
+          "Recall": 51.8,
+          "Accuracy": 52.9
+        },
+        "ShuffleNetV2-x0.5": {
+          "Precision": 47.0,
+          "F1-score": 46.7,
+          "Recall": 46.4,
+          "Accuracy": 55.6
+        },
+        "MobileNetV3-S": {
+          "Precision": 52.7,
+          "F1-score": 52.2,
+          "Recall": 51.7,
+          "Accuracy": 58.0
+        },
+        "ViT-B/16": {
+          "Precision": 48.9,
+          "F1-score": 48.3,
+          "Recall": 47.8,
+          "Accuracy": 54.8
+        },
+        "Swin-T": {
+          "Precision": 52.7,
+          "F1-score": 52.5,
+          "Recall": 52.3,
+          "Accuracy": 60.1
+        },
+        "ConvNext-T": {
+          "Precision": 46.9,
+          "F1-score": 46.6,
+          "Recall": 46.2,
+          "Accuracy": 57.3
+        },
+        "SMT-T": {
+          "Precision": 55.5,
+          "F1-score": 53.4,
+          "Recall": 51.4,
+          "Accuracy": 58.8
+        },
+        "MogaNet-T": {
+          "Precision": 53.9,
+          "F1-score": 53.0,
+          "Recall": 52.2,
+          "Accuracy": 60.7
+        },
+        "RDNet-T": {
+          "Precision": 48.0,
+          "F1-score": 46.9,
+          "Recall": 45.8,
+          "Accuracy": 52.9
+        },
+        "SkinDistilViT-T": {
+          "Precision": 46.2,
+          "F1-score": 46.0,
+          "Recall": 45.8,
+          "Accuracy": 51.9
+        },
+        "EfficientViT-CAGA": {
+          "Precision": 54.6,
+          "F1-score": 53.2,
+          "Recall": 51.8,
+          "Accuracy": 54.2
+        },
+        "FedNPR": {
+          "Precision": 44.6,
+          "F1-score": 44.5,
+          "Recall": 44.4,
+          "Accuracy": 50.8
+        },
+        "BiasPruner": {
+          "Precision": 48.2,
+          "F1-score": 48.0,
+          "Recall": 47.8,
+          "Accuracy": 53.9
+        },
+        "KHPFormer-S (ours)": {
+          "Precision": 57.2,
+          "F1-score": 54.1,
+          "Recall": 51.4,
+          "Accuracy": 62.4
+        }
+      },
+      "notes": "KHPFormer achieved higher precision than other models, indicating superior ability to distinguish early features of subtle differences among multiple categories. Its F1-score and accuracy were also higher than other models. The paper notes class imbalance in this dataset."
+    }
+  },
+  "architecture_used": {
+    "main_model": "KHPFormer",
+    "pretraining": "null",
+    "input_size": "224x224",
+    "architecture_details": {
+      "backbone": "Multi-basis Function KAN (MultFKAN) based architecture",
+      "modules": [
+        "Heterogeneous Feature Pane Self-Attention (HFP Self-Attention)",
+        "KCWSIM Encoder",
+        "MultFKAN module",
+        "Cross-Window Semantic Interaction Method (CWSIM)"
+      ],
+      "variants": {
+        "KHPFormer-T": {
+          "layers": 10,
+          "parameters_M": 15.3
+        },
+        "KHPFormer-S": {
+          "layers": 12,
+          "parameters_M": 23
+        },
+        "KHPFormer-B": {
+          "layers": 18,
+          "parameters_M": 61
+        }
+      },
+      "activation": "Learnable activation functions on edges (weights) using B-spline curves",
+      "normalization": "Layer Normalization (LN)",
+      "regularization": "L1 regularization"
+    },
+    "training_details": {
+      "epochs": 100,
+      "loss_function": "Cross-entropy loss",
+      "optimizer": "null"
+    },
+    "classification_or_output_head": {
+      "type": "Simple linear layer",
+      "details": "Outputs category to which the image belongs"
+    },
+    "approximate_parameters": {
+      "KHPFormer-T": 15300000,
+      "KHPFormer-S": 23000000,
+      "KHPFormer-B": 61000000
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "KHPFormer",
+    "KHPFormer-T",
+    "KHPFormer-S",
+    "KHPFormer-B",
+    "ResNext50",
+    "ShuffleNetV2-x0.5",
+    "MobileNetV3-S",
+    "ViT-B/16",
+    "Swin-T",
+    "ConvNext-T",
+    "SMT-T",
+    "MogaNet-T",
+    "RDNet-T",
+    "SkinDistilViT-T",
+    "EfficientViT-CAGA",
+    "FedNPR",
+    "BiasPruner",
+    "KAN",
+    "Multi-Layer Perceptrons (MLPs)",
+    "MLP"
+  ],
+  "preprocessing_techniques": [
+    "Input resizing to 224x224 pixels",
+    "Layer Normalization (LN) applied within the MultFKAN and KCWSIM modules"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed KHPFormer model, which integrates a MultFKAN module and a heterogeneous feature pane self-attention mechanism, outperforms state-of-the-art baseline models on public ISIC skin lesion datasets.",
+    "KHPFormer effectively addresses challenges in dermoscopic image classification, specifically feature redundancy, deep attention smoothing, and insufficient feature representation, by distinguishing key information from background noise.",
+    "On the Skin Cancer: Malignant vs. Benign dataset, KHPFormer-S achieved an accuracy of 89.4% and an ROC-AUC of 96.4%, demonstrating superior performance compared to models like RDNet-T and SkinDistilViT-T.",
+    "KHPFormer-S achieved an accuracy of 97.5% on the PH2 dataset, outperforming other models in all evaluated metrics.",
+    "On the multi-class Skin-Cancer9-Classesisic dataset, KHPFormer-S achieved the highest precision (57.2%), indicating a superior ability to distinguish subtle feature differences among multiple lesion categories.",
+    "Ablation studies confirm that the full KHPFormer architecture is necessary for optimal performance; removing components such as HFP Self-Attention, MultFKAN, or CWSIM significantly reduces accuracy.",
+    "Shallower network variants of KHPFormer (e.g., KHPFormer-T) achieved better performance than deeper variants (e.g., KHPFormer-B) on the target task, attributed to stronger generalization capabilities, fewer parameters, and lower optimization difficulty.",
+    "The MultFKAN module, utilizing learnable activation functions on edges via B-spline curves, enhances the model's nonlinear feature representation and prevents the degradation of feature expression caused by excessive smoothing.",
+    "The Cross-Window Semantic Interaction Method (CWSIM) mitigates deep attention smoothing by dynamically adjusting fusion weights based on semantic similarity, thereby preserving diagnostically valuable features."
+  ],
+  "important_remarks": [
+    "The study lacks external validation, relying exclusively on public ISIC datasets (Skin Cancer: Malignant vs. Benign, PH2, Skin-Cancer9-Classesisic) without testing on independent clinical cohorts.",
+    "No statistical significance testing (e.g., p-values) was performed to validate the superiority of KHPFormer over baseline models; comparisons are based solely on point estimates of metrics.",
+    "The Skin-Cancer9-Classesisic dataset exhibits notable class imbalance, which the authors acknowledge as a limitation affecting multi-class accuracy and plan to address via data augmentation in future work.",
+    "The paper does not report data leakage risks or detailed cross-validation protocols (e.g., k-fold), only stating that models were trained for 100 epochs.",
+    "Clinical relevance is limited by the absence of deployment concerns, interpretability analysis beyond Grad-CAM heatmaps, or comparison with physician diagnostic performance.",
+    "Shallower network variants (KHPFormer-T) outperformed deeper variants (KHPFormer-B), suggesting that increased depth may introduce optimization difficulties or overfitting rather than improved performance for this specific task."
+  ]
+}

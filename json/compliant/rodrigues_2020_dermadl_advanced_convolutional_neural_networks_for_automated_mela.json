@@ -1,0 +1,347 @@
+{
+  "file_name": "rodrigues_2020_dermadl_advanced_convolutional_neural_networks_for_automated_mela.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper introduces DermaDL, a novel Convolutional Neural Network (CNN) architecture designed for automated melanoma detection. The authors trained this deep learning model from scratch using skin lesion images from the ISIC, PH2, and 7-POINT datasets to classify melanoma, demonstrating that specialized CNNs can achieve competitive performance compared to transfer learning approaches."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work introducing 'DermaDL', a novel Convolutional Neural Network architecture designed and trained from scratch for automated melanoma detection. It details the architectural design, training methodology using specific datasets (ISIC, PH2, 7-POINT), and reports new performance metrics (AUC, Accuracy, Sensitivity, Specificity) comparing the proposed model against state-of-the-art transfer learning approaches. Although published in a conference proceedings (IEEE CBMS), it contains original results and technical contributions rather than summarizing prior literature."
+  },
+  "title": "DermaDL: advanced Convolutional Neural Networks for automated melanoma detection",
+  "authors": [
+    "Jose F Rodrigues-Jr",
+    "Bruno Brandoli",
+    "Sihem Amer-Yahia"
+  ],
+  "doi": "10.1109/CBMS49503.2020.00101",
+  "journal": "2020 IEEE 33rd International Symposium on Computer-Based Medical Systems (CBMS)",
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study introduces DermaDL, a novel Convolutional Neural Network architecture designed from scratch for automated melanoma detection, rather than relying on transfer learning from general-purpose models. The architecture combines Aggregated Transformations and Squeeze-and-Excite mechanisms within residual blocks to reduce computational cost and parameter count. The model was trained and evaluated using the complete ISIC archive, along with the PH2 and 7-POINT datasets, to assess performance and generalization across different image acquisition protocols. Evaluation metrics included the Area Under the Curve (AUC), accuracy, sensitivity, and specificity, with a weighted loss function to address class imbalance. Results demonstrated that DermaDL achieved competitive AUC performance comparable to state-of-the-art transfer learning methods while prioritizing true positive detection. The study concludes that specialized architectures trained on skin lesion data can offer efficient, low-cost solutions for clinical decision support without the flexibility constraints of transfer learning.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class (positive case for malignancy)",
+      "details": "The primary target class for the binary classification task. In the ISIC dataset, melanoma cases were the positive class. In the PH2 dataset, 20% of the 200 images referred to melanoma cases."
+    },
+    {
+      "lesion_type": "Seborrheic keratosis",
+      "paper_terms": [
+        "Seborrheic keratosis"
+      ],
+      "role": "Comparator class (negative case)",
+      "details": "Included in the ISIC dataset as part of the negative class (non-melanoma) for the binary classification task."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "Nevus"
+      ],
+      "role": "Comparator class (negative case)",
+      "details": "Included in the ISIC dataset as part of the negative class (non-melanoma) for the binary classification task."
+    },
+    {
+      "lesion_type": "Non-melanoma skin lesions",
+      "paper_terms": [
+        "everything else",
+        "negative case"
+      ],
+      "role": "Comparator class (negative case)",
+      "details": "In the ISIC dataset, all images that were not melanoma (including Seborrheic keratosis and Nevus) were grouped as the negative case for the binary classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into melanoma (positive) or non-melanoma (negative) categories.",
+        "primary": true,
+        "details": "The paper explicitly states it deals with a 'binary classification problem' to detect melanoma. The model outputs a single binary logit value and computes probabilities using softmax normalization. Performance is evaluated using metrics standard for classification: Area Under the Curve (AUC), Accuracy, Sensitivity, and Specificity, along with a confusion matrix."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC (International Skin Imaging Collaboration)",
+      "description": "The complete archive of the ISIC dataset, an international coordinated effort for diagnosing skin lesions. Used as the primary dataset for training and internal validation.",
+      "classes_used": [
+        "Melanoma (positive class)",
+        "Non-melanoma (negative class, including Seborrheic keratosis and Nevus)"
+      ],
+      "counts": {
+        "total": 23906,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the DermaDL model (80% of the data after augmentation). In a separate experiment, 90% was used for training and 10% for validation.",
+        "validation": "Used for validation (10% of the data after augmentation). In a separate experiment, 10% was used for validation.",
+        "testing": "Used for internal testing (10% of the data after augmentation).",
+        "other": "Used for internal comparison and ablation studies."
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A dermoscopic image database acquired at the Dermatology Service of Hospital Pedro Hispano, Matosinhos, Portugal, built for research and benchmarking segmentation and classification algorithms.",
+      "classes_used": [
+        "Melanoma (20% of images)",
+        "Non-melanoma (80% of images)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as an external, disjoint dataset for testing generalization of the model trained on ISIC.",
+        "other": "Used to evaluate the impact of different image acquisition protocols (e.g., black background)."
+      }
+    },
+    {
+      "name": "7-POINT",
+      "description": "A database for evaluating computerized image-based prediction of skin lesion malignancy, including clinical and dermoscopy color images with structured metadata.",
+      "classes_used": [
+        "Malignant",
+        "Benign"
+      ],
+      "counts": {
+        "total": 2045,
+        "training": null,
+        "validation": null,
+        "testing": 2045,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as an external, disjoint dataset for testing generalization of the model trained on ISIC.",
+        "other": "Used to evaluate the impact of different image acquisition protocols (e.g., hair, referential markers)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area Under the Curve Receiver Operating Characteristic (AUC)",
+    "Accuracy (AC)",
+    "Sensitivity (SE)",
+    "Specificity (SP)",
+    "Confusion Matrix",
+    "Type I error",
+    "Type II error"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Weighted loss function",
+      "purpose": "To address class imbalance by penalizing errors related to the positive class (melanoma) more intensely (60% against 40%) to reduce the False Negative rate.",
+      "type": "Loss function"
+    },
+    {
+      "method": "L2 normalization",
+      "purpose": "Used for regularization during neural network convergence.",
+      "type": "Regularization"
+    },
+    {
+      "method": "Confusion Matrix",
+      "purpose": "To evaluate classification performance by counting True/False Positives and Negatives, enabling the calculation of Sensitivity, Specificity, Type I error, and Type II error.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Area Under the Curve Receiver Operating Characteristic (AUC)",
+      "purpose": "Used as the main metric to evaluate binary classification performance, varying the threshold probability score to compute Sensitivity against 1 - Specificity.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Sensitivity (SE) and Specificity (SP)",
+      "purpose": "To measure the ratio of true positives and true negatives, respectively, providing insight into the model's ability to detect melanoma and avoid false alarms.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Type I error (False Positive Rate) and Type II error (False Negative Rate)",
+      "purpose": "To quantify the rates of misclassifying negative cases as positive and positive cases as negative, respectively.",
+      "type": "Evaluation metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics such as AUC, Accuracy, Sensitivity, Specificity, and confusion matrices, comparing DermaDL against other architectures without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC": {
+      "experiment": "Training and testing on complete ISIC archive (80% train, 10% validation, 10% test) with augmentation",
+      "models": {
+        "DermaDL": {
+          "AUC": 0.865,
+          "Accuracy": 0.83,
+          "Sensitivity": 0.905,
+          "Specificity": 0.738
+        },
+        "AlexNet": {
+          "AUC": 0.859,
+          "Accuracy": 0.823,
+          "Sensitivity": 0.343,
+          "Specificity": 0.969
+        },
+        "VGG-16": {
+          "AUC": 0.892,
+          "Accuracy": 0.847,
+          "Sensitivity": 0.586,
+          "Specificity": 0.865
+        },
+        "Inception-v3": {
+          "AUC": 0.8,
+          "Accuracy": 0.8,
+          "Sensitivity": 0.355,
+          "Specificity": 0.933
+        },
+        "ResNet-50": {
+          "AUC": 0.873,
+          "Accuracy": 0.723,
+          "Sensitivity": 0.845,
+          "Specificity": 0.694
+        },
+        "ResNet-101": {
+          "AUC": 0.869,
+          "Accuracy": 0.84,
+          "Sensitivity": 0.336,
+          "Specificity": 0.986
+        }
+      },
+      "notes": "DermaDL prioritized true positive detection (high sensitivity) compared to transfer learning models which showed higher specificity but lower sensitivity. DermaDL had significantly fewer weights (1.7 million) compared to transfer learning models (16-250 million)."
+    },
+    "PH2": {
+      "experiment": "Testing on disjoint dataset PH2 (model trained on ISIC)",
+      "models": {
+        "DermaDL": {
+          "AUC": 0.88,
+          "Accuracy": 0.874,
+          "Sensitivity": 0.45,
+          "Specificity": 0.981
+        }
+      },
+      "notes": "PH2 images were surrounded by a black background from illumination apparatus. Performance was lower than on ISIC due to domain shift."
+    },
+    "7-POINT": {
+      "experiment": "Testing on disjoint dataset 7-POINT (model trained on ISIC)",
+      "models": {
+        "DermaDL": {
+          "AUC": 0.62,
+          "Accuracy": 0.635,
+          "Sensitivity": 0.408,
+          "Specificity": 0.71
+        }
+      },
+      "notes": "7-POINT images contained hair over lesions and referential markers (grids). Training and testing over unrelated datasets revealed unsuccessful generalization compared to internal ISIC testing."
+    },
+    "ISIC (Alternative Split)": {
+      "experiment": "Training on 90% of ISIC, Validation on 10% of ISIC, Testing on PH2 and 7-POINT",
+      "models": {
+        "DermaDL": {
+          "Note": "Results not numerically reported in table, but noted as 'unsuccessful' generalization compared to internal ISIC testing."
+        }
+      },
+      "notes": "The paper states that training and testing over unrelated datasets (PH2 and 7-POINT) revealed unsuccessful generalization compared to training and testing over the ISIC dataset itself. The protocol differences (black background in PH2, hair/markers in 7-POINT) influenced learning negatively."
+    }
+  },
+  "architecture_used": {
+    "main_model": "DermaDL",
+    "pretraining": "Trained from scratch on skin lesion images (ISIC, PH2, 7-POINT datasets); no transfer learning from general-purpose architectures like ImageNet.",
+    "input_size": "96x96 pixels (after cropping 15% of periphery and resizing)",
+    "architecture_details": {
+      "backbone": "Custom Convolutional Neural Network (CNN)",
+      "key_mechanisms": [
+        "Aggregated Transformations (AG)",
+        "Squeeze-and-Excite (SE)",
+        "Residual blocks"
+      ],
+      "block_structure": "Sequence of three residual blocks combining AG and SE mechanisms",
+      "hyperparameters": {
+        "dout": "Sequence of {8, 16, 32} channels for the convolution tensor after the residual block",
+        "initial_channels": "8 channels produced by initial convolution"
+      },
+      "regularization": [
+        "Batch normalization",
+        "L2 normalization (ratio 0.0005)"
+      ]
+    },
+    "training_details": {
+      "optimizer": "Momentum optimization (parameter 0.9)",
+      "loss_function": "Weighted loss function (60% penalty for positive class/melanoma errors vs 40% for negative class) to address class imbalance",
+      "epochs": "100 epochs (for disjoint dataset testing experiment)",
+      "framework": "TensorFlow 1.15",
+      "hardware": "Nvidia GeForce GTX 1080 Ti GPU",
+      "data_augmentation": "Used due to high class imbalance; specific augmentation techniques not detailed beyond resizing/cropping/CLASHE"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification",
+      "output": "Single binary logit value with softmax normalization for probabilities",
+      "classes": "Melanoma (positive) vs Non-melanoma (negative)"
+    },
+    "approximate_parameters": "1.7 million weights"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "DermaDL",
+    "AlexNet",
+    "VGG-16",
+    "Inception-v3",
+    "ResNet-50",
+    "ResNet-101",
+    "ResNet-152"
+  ],
+  "preprocessing_techniques": [
+    "Cropping: 15% of the image periphery was cropped off before resizing, as lesions are mostly central.",
+    "Resizing: Images were resized to squared resolutions; 96x96 pixels was selected as sufficient for balancing processing and performance (other tested sizes: 384x384, 192x192, 48x48).",
+    "Color Preprocessing/Contrast Enhancement: Contrast Limited Adaptive Histogram Equalization (CLAHE) was applied to improve contrast and reduce noise effects. Parameters included 8x8 sections for lightness distribution and a contrast limiting threshold of 2 to prevent noise amplification.",
+    "Data Augmentation: Applied to cope with class imbalance (malignant samples were only 20% of the dataset). Techniques included random flipping, brightness adjustment, and saturation adjustment. The number of malignant images was augmented 5 times."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random flipping",
+      "details": "Applied to malignant samples to cope with class imbalance."
+    },
+    {
+      "technique": "Brightness adjustment",
+      "details": "Applied to malignant samples to cope with class imbalance."
+    },
+    {
+      "technique": "Saturation adjustment",
+      "details": "Applied to malignant samples to cope with class imbalance."
+    },
+    {
+      "technique": "Class balancing augmentation (oversampling)",
+      "details": "The number of malignant images was augmented 5 times to achieve a more even dataset, as malignant samples constituted only 20% of the ISIC dataset."
+    }
+  ],
+  "conclusions": [
+    "The proposed DermaDL architecture, trained from scratch on skin lesion data, achieved competitive performance compared to state-of-the-art transfer learning models (such as VGG-16, ResNet-50, and Inception-v3) on the complete ISIC archive.",
+    "DermaDL prioritized true positive detection (Sensitivity of 0.905) over specificity, which is clinically critical for melanoma screening, whereas transfer learning models exhibited higher specificity but significantly lower sensitivity.",
+    "DermaDL is significantly more computationally efficient, requiring only 1.7 million weights compared to 16-250 million weights in transfer learning architectures, making it suitable for low-processing-cost, real-world in situ applications.",
+    "Training and testing on disjoint datasets (PH2 and 7-POINT) revealed unsuccessful generalization compared to internal ISIC testing, demonstrating that image acquisition protocols (e.g., black backgrounds in PH2, hair and referential markers in 7-POINT) significantly influence model performance.",
+    "The study concludes that specialized neural architectures engineered specifically for melanoma detection offer design freedom and control that transfer learning from general-purpose image recognition tasks restricts.",
+    "A well-defined and consistent image acquisition protocol is essential for automated melanoma detection, as visual artifacts introduced by different acquisition devices can negatively impact learning if not standardized across training and testing sets."
+  ],
+  "important_remarks": [
+    "The model demonstrated poor generalization to external datasets (PH2 and 7-POINT), with AUC dropping from 0.865 on ISIC to 0.88 on PH2 and 0.62 on 7-POINT, indicating significant sensitivity to image acquisition protocols (e.g., black backgrounds, hair, referential markers).",
+    "The study prioritizes sensitivity (0.905) over specificity (0.738) to minimize false negatives, which is clinically critical for melanoma detection but may lead to higher false positive rates in practice.",
+    "The paper does not report formal statistical significance testing (p-values) for the comparison between DermaDL and transfer learning models; performance differences are described qualitatively.",
+    "The model was trained on the complete ISIC archive (23,906 images) with class imbalance addressed via a weighted loss function (60% penalty for positive class) and oversampling of malignant images (5x), rather than standard cross-validation splits.",
+    "DermaDL uses a significantly smaller parameter count (1.7 million weights) compared to transfer learning models (16-250 million), offering potential for lower computational cost and real-time in situ applications.",
+    "The architecture was designed and trained from scratch on skin lesion data, avoiding the flexibility constraints and data distribution restrictions associated with transfer learning from general-purpose ImageNet architectures.",
+    "The study highlights that visual artifacts introduced by different acquisition devices (e.g., illumination apparatus in PH2, hair/markers in 7-POINT) negatively impact learning if not standardized across training and testing sets."
+  ]
+}

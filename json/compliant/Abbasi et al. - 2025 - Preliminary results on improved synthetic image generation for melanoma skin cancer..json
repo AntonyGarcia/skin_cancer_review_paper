@@ -1,0 +1,166 @@
+{
+  "file_name": "Abbasi et al. - 2025 - Preliminary results on improved synthetic image generation for melanoma skin cancer..json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a stable diffusion-based generative model with Low-Rank Adaptation (LoRA) to synthesize 3D melanoma skin cancer images. The model was trained on 100 images from the HAM10000 dataset to generate synthetic medical images for data augmentation and privacy preservation."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the training of a stable diffusion-based model with LoRA on the HAM10000 dataset to generate synthetic 3D melanoma images. It includes a methodology, results comparing the generated images to existing SNGAN studies, and a conclusion, which characterizes it as an original technical study rather than a review."
+  },
+  "title": "Preliminary Results on Improved Synthetic Image Generation for Melanoma Skin Cancer",
+  "authors": [
+    "Saadullah Farooq ABBASI",
+    "Muhammad BILAL",
+    "Teesta MUKHERJEE",
+    "Saif ul ISLAM",
+    "Omid POURNIK",
+    "Theodoros N. ARVANITIS"
+  ],
+  "doi": "10.3233/SHTI250081",
+  "journal": "Studies in Health Technology and Informatics",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a stable diffusion-based algorithm utilizing Low-Rank Adaptation (LoRA) to generate high-quality 3D synthetic images of melanoma skin cancer. The model was trained on a limited dataset of 100 images resized to 512x512x3 from the HAM10000 dataset provided by the International Skin Imaging Collaboration. The primary goal was to address privacy concerns and data scarcity by creating realistic synthetic data for medical applications. The generated images were evaluated through visual comparison with real ISIC images and previous SNGAN-based synthetic images. The results indicate that the proposed diffusion-based model produces superior image quality compared to the GAN-based approach. The authors conclude that this cost-effective method is effective for data augmentation and privacy-preserved decision support systems despite limitations in differential privacy and class diversity.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "melanoma skin cancer",
+        "melanoma cancer"
+      ],
+      "role": "Target class",
+      "details": "The study specifically targets melanoma skin cancer for synthetic image generation. Although the HAM10000 dataset contains six types of skin lesions, the model was trained and evaluated exclusively on melanoma images (subset of 100 images). The authors note that the current model is limited to generating melanoma images and cannot yet generate additional classes of skin cancers."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Generation/Synthesis",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Generation/Synthesis",
+        "target": "3D synthetic images of melanoma skin cancer (size 512*512*3)",
+        "primary": true,
+        "details": "The paper proposes a stable diffusion-based algorithm with Low-Rank Adaptation (LoRA) to generate high-quality 3D synthetic images of melanoma skin cancer. The model was trained on 100 images from the HAM10000 dataset. The task is image generation/synthesis, not classification or regression, although the generated images are intended for data augmentation and privacy-preserved decision support systems."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000 (ISIC-2018)",
+      "description": "A large collection of multi-source dermatoscopic images of common pigmented skin lesions provided by the International Skin Imaging Collaboration (ISIC). The full dataset contains 10,015 images of six types of skin cancer. For this study, a subset of 100 images was used.",
+      "classes_used": [
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 100,
+        "training": 100,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 100
+        }
+      },
+      "use": {
+        "training": "Used to train the stable diffusion model with LoRA for generating synthetic 3D melanoma images. Images were resized to 512x512x3 and intensity values standardized.",
+        "validation": null,
+        "testing": null,
+        "other": "Real images from the HAM10000 dataset were used for visual comparison against the generated synthetic images and previous SNGAN-based synthetic images."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Visual comparison",
+    "Image quality assessment"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Evaluation was based on visual comparison and qualitative assessment of image quality."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000 (ISIC-2018)": {
+      "metric": "Visual comparison / Qualitative assessment",
+      "models": {
+        "Stable Diffusion with LoRA": {
+          "metric_name": "Qualitative Image Quality",
+          "value": "Generated high-quality, realistic 3D synthetic melanoma images (512*512*3) with deep details. Visually superior to SNGAN-based synthetic images."
+        },
+        "SNGAN (Abbasi et al. [5])": {
+          "metric_name": "Qualitative Image Quality",
+          "value": "Generated synthetic melanoma images. Visually inferior to the proposed diffusion-based model."
+        },
+        "Real ISIC Images": {
+          "metric_name": "Ground Truth",
+          "value": "Used for visual comparison against synthetic images."
+        }
+      },
+      "notes": "The study is preliminary and lacks quantitative metrics (e.g., FID, SSIM) or statistical analysis. Evaluation was based on visual comparison. The model was trained on 100 melanoma images. Limitations noted include lack of differential privacy, limited class diversity (melanoma only), and absence of thorough statistical comparison."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Stable Diffusion (version 1.5) with Low-Rank Adaptation (LoRA)",
+    "pretraining": "Pre-trained stable diffusion model version 1.5",
+    "input_size": "512*512*3",
+    "architecture_details": {
+      "base_architecture": "Diffusion model",
+      "adaptation_technique": "Lightweight Low-Rank Adaptation (LoRA)",
+      "lora_mechanism": "Freezes pre-trained weight matrix W0 and represents update ΔW using low-rank decomposition B*A, where B ∈ ℝ^(d*r) and A ∈ ℝ^(r*k), with r << min(d, k)",
+      "forward_pass": "h = W0*x + ΔW*x = W0*x + B(A*x)",
+      "diffusion_process": "Forward process q(x_t | x_{t-1}) = N(x_t; sqrt(1 - β_t)x_{t-1}, β_t I); Reverse process parameterized by neural network θ to predict x_{t-1} from x_t"
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": {
+        "rank_r": "Not specified (r << min(d, k))",
+        "image_preprocessing": "Resized to 512*512*3; intensity values standardized between [-1, 1] by dividing pixel values by 511"
+      },
+      "training_schedule": null,
+      "hardware": "12th Gen Intel(R) Core(TM) i9-12900H 2.50 GHz"
+    },
+    "classification_or_output_head": null,
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Stable Diffusion (version 1.5) with Low-Rank Adaptation (LoRA)",
+    "SNGAN (Spectrally Normalized GAN)",
+    "CNN (Convolutional Neural Network)",
+    "GAN (Generative Adversarial Network)",
+    "Conditional GAN"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 512*512*3",
+    "Intensity standardization: setting intensity values between [-1, 1] by dividing each pixel value by 511"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Synthetic Image Generation via Stable Diffusion with LoRA",
+      "details": "Used to augment the limited training dataset of 100 melanoma images from HAM10000. The model was trained on images resized to 512x512x3 with intensity values standardized between [-1, 1] (pixel values divided by 511). The generated synthetic images are intended for data augmentation and privacy-preserved decision support systems."
+    }
+  ],
+  "conclusions": [
+    "Diffusion-based algorithms, particularly stable diffusion, can effectively generate high-quality 512*512*3 synthetic images of melanoma skin cancer.",
+    "The proposed diffusion-based model produces superior image quality compared to previous GAN-based approaches (specifically SNGAN).",
+    "The use of Low-Rank Adaptation (LoRA) reduces computational complexity by training small matrices instead of the overall pre-trained weight matrix.",
+    "Diffusion models can achieve superior results even with a limited training dataset; the proposed model was trained using only 100 images.",
+    "The generated synthetic images have valuable clinical applications, including privacy-preserved decision support systems and data augmentation.",
+    "The proposed method is a cost-effective approach for generating high-quality melanoma skin cancer images from a limited dataset.",
+    "Limitations include the lack of differential privacy (vulnerability to reverse engineering), the need for more thorough statistical analysis in future comparisons, and the current limitation to generating only melanoma images rather than additional classes of skin cancers."
+  ],
+  "important_remarks": [
+    "The study is preliminary and relies exclusively on qualitative visual comparison rather than quantitative metrics (e.g., FID, SSIM) or statistical analysis.",
+    "The model was trained on a very limited dataset of only 100 melanoma images from the HAM10000 dataset, which may limit generalizability.",
+    "The current model is restricted to generating only melanoma images and cannot generate other classes of skin cancers present in the HAM10000 dataset.",
+    "The study lacks differential privacy mechanisms; the authors note that eavesdroppers could potentially access original images via reverse engineering.",
+    "Evaluation was performed on a single hardware configuration (12th Gen Intel Core i9-12900H), with no mention of GPU acceleration or reproducibility across different hardware.",
+    "No external validation was performed; the synthetic images were compared only against real ISIC images and previous SNGAN results from the same authors.",
+    "The paper does not report training hyperparameters such as optimizer, loss function, learning rate, or number of training epochs."
+  ]
+}

@@ -1,0 +1,316 @@
+{
+  "file_name": "korobkova_2024_automated_diagnosing_of_melanoma_based_on_the_stolz_algorithm.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used computer vision for lesion segmentation and a Multilayer Perceptron (MLP) neural network classifier to automate melanoma diagnosis based on the Stolz algorithm and ABCD parameters. The model was trained and evaluated on the HAM10000 and a local dataset, achieving an average accuracy of 86%."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of an automated melanoma diagnosis algorithm using computer vision and a Multilayer Perceptron (MLP). It details specific methods (ABCD rule, Stolz algorithm), datasets used (HAM10000 and a local SamaraOnco dataset), and reports original results including accuracy (86%), sensitivity, specificity, and F-measure."
+  },
+  "title": "Автоматизированная диагностика меланомы на основе алгоритма Штольца",
+  "authors": [
+    "Т. А. Коробкова"
+  ],
+  "doi": "10.22213/2410-9304-2024-3-10-16",
+  "journal": "Интеллектуальные системы в производстве",
+  "year": 2024,
+  "article_type": "Research paper",
+  "brief_summary": "This study developed an automated melanoma diagnosis algorithm based on the Stolz ABCD rule using computer vision and a Multilayer Perceptron (MLP) classifier. The method involved segmenting skin lesions from dermoscopic images and calculating clinical parameters to generate a Total Dermoscopy Score (TDS). The model was trained and evaluated on two datasets: the HAM10000 dataset and a local SamaraOnco dataset containing 127 images. The algorithm achieved an average accuracy of 86%, with a balanced accuracy of 87.76% on HAM10000 and 85.76% on the local dataset. High sensitivity and F-measure values indicated the model's effectiveness in detecting melanomas while minimizing missed cases. The results suggest that precise calculation of ABCD parameters is critical for accurate classification, with potential improvements from refining parameter D.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "меланома",
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Primary target for diagnosis and classification. In the HAM10000 dataset, there were 1113 images of melanoma. In the local SamaraOnco dataset, there were 62 images of melanoma. The model aimed to detect melanomas (true positives)."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "доброкачественные новообразования",
+        "benign neoplasms",
+        "other diseases"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class for binary classification. In the HAM10000 dataset, this category included 8902 images labeled as 'other diseases'. In the local SamaraOnco dataset, there were 65 images of benign neoplasms. Specific benign subtypes mentioned in the context of false positives or differential diagnosis include Reeds nevi, Spitz nevi, Clark nevi, and congenital melanocytic nevi."
+    },
+    {
+      "lesion_type": "Reed nevus",
+      "paper_terms": [
+        "невусах Рида",
+        "Reeds nevi"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in Table 2 as a condition that can cause false positive scores (>5.45) due to the presence of globules, but not explicitly used as a distinct class in the final MLP classification experiment."
+    },
+    {
+      "lesion_type": "Spitz nevus",
+      "paper_terms": [
+        "невусах Шпитца",
+        "Spitz nevi"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in Table 2 as a condition that can cause false positive scores (>5.45) due to the presence of globules, but not explicitly used as a distinct class in the final MLP classification experiment."
+    },
+    {
+      "lesion_type": "Clark nevus",
+      "paper_terms": [
+        "невусах Кларка",
+        "Clark nevi"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in Table 2 as a condition that can cause false positive scores (>5.45) due to the presence of globules, but not explicitly used as a distinct class in the final MLP classification experiment."
+    },
+    {
+      "lesion_type": "Congenital melanocytic nevus",
+      "paper_terms": [
+        "врожденных меланоцитарных невусах",
+        "congenital melanocytic nevi"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in Table 2 as a condition that can cause false positive scores (>5.45) due to the presence of globules, but not explicitly used as a distinct class in the final MLP classification experiment."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnosis of melanoma (melanoma vs. benign neoplasms/other diseases) based on calculated ABCD parameters and Total Dermoscopy Score (TDS).",
+        "primary": true,
+        "details": "The paper explicitly states the goal is 'effective classification of melanoma' using a Multilayer Perceptron (MLP) classifier. The model predicts discrete diagnostic categories (melanoma or benign) based on the Stolz algorithm parameters. Metrics reported include accuracy, sensitivity, specificity, and F-measure for binary classification tasks on the HAM10000 and SamaraOnco datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000 (The Human Against Machine with 10000 training images)",
+      "description": "A public dermoscopic image dataset used for training and evaluation. The paper notes it contains 10015 images total, with a class imbalance ratio of 1:9 (melanoma to other diseases).",
+      "classes_used": [
+        "Melanoma",
+        "Other diseases (benign neoplasms)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 1113,
+          "Other diseases": 8902
+        }
+      },
+      "use": {
+        "training": "Used to generate a balanced training set for the MLP classifier by applying optimized Stolz algorithm parameters and generating numerical ABCD parameter sets.",
+        "validation": "Used for model evaluation; reported balanced accuracy of 87.76%.",
+        "testing": "Used for model evaluation; reported accuracy of 86% (average with local dataset), sensitivity 88.54%, specificity 86.98%, and F-measure 75.95%.",
+        "other": "Used to demonstrate the impact of class imbalance on model accuracy."
+      }
+    },
+    {
+      "name": "SamaraOnco (Local dataset from Samara Regional Oncology Dispensary)",
+      "description": "A private/local dataset consisting of dermoscopic images taken at the State Budgetary Healthcare Institution 'Samara Regional Oncology Dispensary' (SamaraOnco).",
+      "classes_used": [
+        "Melanoma",
+        "Benign neoplasms"
+      ],
+      "counts": {
+        "total": 127,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 62,
+          "Benign neoplasms": 65
+        }
+      },
+      "use": {
+        "training": "Used to optimize the boundaries and coefficients of the Stolz algorithm (specifically determining optimal weights ka, kb, kc, kd and thresholds q1, q2) and to generate a balanced training set for the MLP classifier.",
+        "validation": "Used for model evaluation; reported balanced accuracy of 85.76%.",
+        "testing": "Used for model evaluation; reported accuracy of 86% (average with HAM10000), sensitivity 95%, specificity 76.52%, and F-measure 86.35%.",
+        "other": "Used for algorithm optimization and validation on real-world clinical data."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (Точность / Доля правильных ответов)",
+    "Balanced Accuracy (Сбалансированная точность)",
+    "Sensitivity (Чувствительность / Чувствительность (Se))",
+    "Specificity (Специфичность / Специфичность (Sp))",
+    "F-measure (F-мера)",
+    "Precision (Точность / Pre)",
+    "Recall (Полнота / Recall)",
+    "Confusion Matrix metrics (TP, TN, FP, FN)",
+    "Weighted harmonic mean of precision and recall"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Confusion Matrix Analysis",
+      "purpose": "To calculate and report True Positives (TP), False Positives (FP), True Negatives (TN), and False Negatives (FN) for model evaluation on HAM10000 and SamaraOnco datasets.",
+      "type": "Evaluation metric derivation"
+    },
+    {
+      "method": "Accuracy (Доля правильных ответов)",
+      "purpose": "To measure the overall proportion of correct diagnoses (average 86% across datasets).",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Balanced Accuracy (Сбалансированная точность)",
+      "purpose": "To evaluate model performance accounting for class imbalance, specifically noting 87.76% on HAM10000 and 85.76% on the local dataset.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Sensitivity (Чувствительность / Se)",
+      "purpose": "To assess the model's ability to correctly identify melanoma cases (88.54% on HAM10000, 95% on SamaraOnco).",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Specificity (Специфичность / Sp)",
+      "purpose": "To assess the model's ability to correctly identify benign cases (86.98% on HAM10000, 76.52% on SamaraOnco).",
+      "type": "Performance metric"
+    },
+    {
+      "method": "F-measure (F-мера)",
+      "purpose": "To provide a weighted harmonic mean of precision and recall, indicating the balance between sensitivity and specificity (75.95% on HAM10000, 86.35% on SamaraOnco).",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Precision (Точность / Pre)",
+      "purpose": "To measure the proportion of positive diagnoses that were actually correct (45.99% on HAM10000, 79.16% on SamaraOnco).",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Recall (Полнота / Recall)",
+      "purpose": "To measure the proportion of actual positives correctly identified (88.54% on HAM10000, 95% on SamaraOnco).",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Optimization via Grid Search/Combinatorial Analysis",
+      "purpose": "To determine optimal coefficients (ka, kb, kc, kd) and thresholds (q1, q2) for the Stolz algorithm by evaluating 531,441 combinations to maximize accuracy and sensitivity.",
+      "type": "Parameter optimization"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Model performance was evaluated using descriptive metrics such as accuracy, sensitivity, specificity, F-measure, and confusion matrix counts."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "metric": "Performance Metrics",
+      "models": {
+        "MLP (Multilayer Perceptron)": {
+          "Precision (Pre)": "45.99%",
+          "Recall (Recall)": "88.54%",
+          "Sensitivity (Se)": "88.54%",
+          "Specificity (Sp)": "86.98%",
+          "Accuracy (Доля правильных ответов)": "87.16%",
+          "F-measure": "75.95%",
+          "Balanced Accuracy": "87.76%"
+        }
+      },
+      "notes": "Lower accuracy attributed to class imbalance. High sensitivity indicates minimized missed cases."
+    },
+    "SamaraOnco": {
+      "metric": "Performance Metrics",
+      "models": {
+        "MLP (Multilayer Perceptron)": {
+          "Precision (Pre)": "79.16%",
+          "Recall (Recall)": "95%",
+          "Sensitivity (Se)": "95%",
+          "Specificity (Sp)": "76.52%",
+          "Accuracy (Доля правильных ответов)": "85.48%",
+          "F-measure": "86.35%",
+          "Balanced Accuracy": "85.76%"
+        }
+      },
+      "notes": "High sensitivity and F-measure indicate good balance between sensitivity and specificity."
+    },
+    "Average (HAM10000 + SamaraOnco)": {
+      "metric": "Performance Metrics",
+      "models": {
+        "MLP (Multilayer Perceptron)": {
+          "Average Accuracy": "86%"
+        }
+      },
+      "notes": "Average accuracy across two independent datasets."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multilayer Perceptron (MLP)",
+    "pretraining": null,
+    "input_size": "4 (corresponding to the 4 ABCD parameters)",
+    "architecture_details": {
+      "layers": 3,
+      "layer_structure": "Input layer: 4 neurons; Hidden layer: 16 neurons; Output layer: 1 neuron",
+      "implementation_library": "OpenCV (used for image processing features, not the NN library explicitly named, but standard MLP implementation implied)"
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": {
+        "hidden_layers_count": 1,
+        "note": "Increasing the number of hidden layers did not increase model accuracy."
+      },
+      "training_schedule": null,
+      "training_data_generation": "Balanced dataset generated by optimizing Stolz algorithm coefficients (ka=1.339, kb=0.101, kc=0.52, kd=0.52) and thresholds (q1=q2=4.785) on the SamaraOnco dataset."
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification",
+      "output_neurons": 1,
+      "output_description": "Diagnosis of melanoma vs. benign neoplasms based on calculated ABCD parameters and Total Dermoscopy Score (TDS)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Multilayer Perceptron (MLP)"
+  ],
+  "preprocessing_techniques": [
+    "Lesion segmentation/contour extraction using 12 different methods evaluated on HAM10000 and SamaraOnco datasets",
+    "Thresholding for contour extraction",
+    "Canny edge detection (with minVal=80, maxVal=200)",
+    "Morphological operations (dilation and erosion)",
+    "Color segmentation with morphological closing operations",
+    "Color segmentation based on MIN-MAX shade range assumptions",
+    "Bilateral filtering",
+    "Image sharpening",
+    "Quality control: exclusion of images where lesions were too small (<5% area), too large (touching borders), off-center, or had low contrast",
+    "Exclusion of <3% of images due to quality constraints"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Class Balancing via Dataset Generation",
+      "details": "A balanced training set was generated for the Multilayer Perceptron (MLP) classifier by optimizing Stolz algorithm coefficients (ka=1.339, kb=0.101, kc=0.52, kd=0.52) and thresholds (q1=q2=4.785) on the SamaraOnco dataset. This process created a dataset with an equal number of benign neoplasms and melanoma images (numerical ABCD parameter sets) to address class imbalance."
+    },
+    {
+      "technique": "Image Quality Filtering",
+      "details": "Less than 3% of images were excluded from the dataset during construction/preprocessing due to quality constraints: lesions were too small (<5% area), too large (touching borders), off-center, or had low contrast."
+    }
+  ],
+  "conclusions": [
+    "The proposed automated melanoma diagnosis algorithm based on the Stolz ABCD rule and a Multilayer Perceptron (MLP) classifier demonstrated good results on real-world image datasets, achieving an average accuracy of 86% across the HAM10000 and local SamaraOnco datasets.",
+    "The lower accuracy observed on the HAM10000 dataset was attributed to class imbalance (a ratio of 1:9 between melanoma and other diseases).",
+    "The model exhibited high sensitivity (88.54% on HAM10000 and 95% on SamaraOnco), indicating a minimized rate of missed melanoma cases (false negatives), which is critical for diagnostic tasks.",
+    "High F-measure values indicated a good balance between sensitivity and specificity, with the model showing a tendency to correctly identify true positive melanoma cases.",
+    "Precise calculation of ABCD parameters is critical for accurate disease classification.",
+    "Future improvements may be achieved by refining and dividing parameter D (dermoscopic structures) into several components to provide the model with additional classification features."
+  ],
+  "important_remarks": [
+    "The study relies on a very small local dataset (SamaraOnco, n=127) for algorithm optimization and validation, which limits the statistical power and generalizability of the results compared to the larger public HAM10000 dataset.",
+    "The model's accuracy on the HAM10000 dataset (87.16%) was significantly lower than on the local dataset due to severe class imbalance (1:9 ratio of melanoma to benign lesions), highlighting a potential bias in performance metrics if not accounted for via balanced accuracy.",
+    "The paper does not report formal statistical significance testing (p-values) for the performance differences between datasets or against baseline methods.",
+    "The algorithm's performance is heavily dependent on the precision of the computer vision segmentation; the authors note that inaccurate calculation of ABCD parameters directly reduces classification accuracy.",
+    "The study acknowledges that specific benign lesions (Reed nevi, Spitz nevi, Clark nevi, congenital melanocytic nevi) can cause false positives due to globule presence, indicating a limitation in differential diagnosis for these specific subtypes.",
+    "The MLP architecture was kept simple (3 layers: 4-16-1) with no deep learning feature extraction; the model depends entirely on hand-crafted features derived from the Stolz algorithm, which may limit its ability to capture complex dermoscopic patterns compared to CNN-based approaches.",
+    "The optimization of Stolz algorithm coefficients (ka, kb, kc, kd) and thresholds (q1, q2) was performed on the local SamaraOnco dataset, raising concerns about overfitting to this specific local population's imaging characteristics.",
+    "The paper does not discuss external validation on independent datasets from different clinical centers or demographics, limiting the assessment of real-world clinical deployment robustness."
+  ]
+}

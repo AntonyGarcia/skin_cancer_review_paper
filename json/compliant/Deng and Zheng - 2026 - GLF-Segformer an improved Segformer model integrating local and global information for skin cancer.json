@@ -1,0 +1,451 @@
+{
+  "file_name": "Deng and Zheng - 2026 - GLF-Segformer an improved Segformer model integrating local and global information for skin cancer.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses an improved deep learning model, GLF-Segformer (based on the Segformer transformer architecture), to perform semantic segmentation of skin cancer lesions in dermoscopy images. The method integrates local and global information using polarized self-attention (PSA) and R-convolution and attention fusion (R-CAFM) modules, and was evaluated on the ISIC2017 and ISIC2018 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing an improved deep learning model, GLF-Segformer, for skin cancer image segmentation. It details specific methodological contributions (PSA module, R-CAFM, two-stage hybrid up-sampling, hybrid loss function), describes the experimental setup using ISIC2017 and ISIC2018 datasets, and reports quantitative results (e.g., 90.73% mIoU on ISIC2017) comparing the proposed model against baselines and state-of-the-art methods."
+  },
+  "title": "GLF-Segformer: an improved Segformer model integrating local and global information for skin cancer image segmentation",
+  "authors": [
+    "Xiangyu DENG",
+    "Yapeng ZHENG"
+  ],
+  "doi": "10.1007/s11801-026-4282-2",
+  "journal": "Optoelectronics Letters",
+  "year": 2026,
+  "article_type": "Article",
+  "brief_summary": "This study proposes GLF-Segformer, an improved Segformer model designed to enhance the semantic segmentation of skin cancer lesions in dermoscopy images by integrating local and global information. The architecture incorporates a polarized self-attention (PSA) module and an R-convolution and attention fusion (R-CAFM) module in the encoder, a two-stage hybrid up-sampling technique in the decoder, and a novel hybrid loss function. The model was evaluated on the ISIC2017 and ISIC2018 datasets using metrics including mean intersection over union (mIoU), Dice, and mean pixel accuracy (mPA). Experimental results demonstrated that GLF-Segformer achieved an mIoU of 90.73% on ISIC2017 and 89.85% on ISIC2018, outperforming baseline Segformer and other state-of-the-art methods. The authors conclude that the proposed synergistic improvements significantly elevate segmentation performance, particularly for complex boundaries, although challenges remain for images with extremely irregular edges.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin cancer lesions",
+      "paper_terms": [
+        "skin cancer",
+        "skin cancer lesions",
+        "lesion region"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on the semantic segmentation of skin cancer lesions in dermoscopy images. The task is treated as a binary pixel-level classification problem distinguishing between the 'lesion region' (true/positive class) and the 'background region' (false/negative class). While the introduction mentions basal cell carcinoma, squamous cell carcinoma, and melanoma as main types of skin cancer, the experiments on ISIC2017 and ISIC2018 datasets do not distinguish between these specific histological subtypes but rather segment the general skin cancer lesion mask."
+    },
+    {
+      "lesion_type": "Background",
+      "paper_terms": [
+        "background",
+        "background region"
+      ],
+      "role": "Comparator class",
+      "details": "The background is the negative class in the binary segmentation task, representing the non-lesion area of the dermoscopy images."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin cancer lesion masks in dermoscopy images",
+        "primary": true,
+        "details": "The paper performs semantic segmentation of skin cancer lesions, treating it as a pixel-level binary classification problem distinguishing between the 'lesion region' (true class) and the 'background region' (false class). The model outputs segmentation masks evaluated using metrics such as mean intersection over union (mIoU), Dice coefficient, and mean pixel accuracy (mPA) on the ISIC2017 and ISIC2018 datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2017",
+      "description": "A public dataset consisting of 2750 dermoscopy images of skin lesions in JPG format with corresponding segmentation masks in PNG format. It was used for training, validation, and testing the GLF-Segformer model.",
+      "classes_used": [
+        "lesion region",
+        "background region"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 1925,
+        "validation": 275,
+        "testing": 550,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the GLF-Segformer model (70% of the dataset).",
+        "validation": "Used for validation during training (10% of the dataset).",
+        "testing": "Used for testing and evaluating model performance (20% of the dataset).",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC2018",
+      "description": "A public dataset consisting of 3694 dermoscopy images of skin lesions with corresponding segmentation masks. It was used for training, validation, and testing the GLF-Segformer model.",
+      "classes_used": [
+        "lesion region",
+        "background region"
+      ],
+      "counts": {
+        "total": 3694,
+        "training": 2585.8,
+        "validation": 369.4,
+        "testing": 738.8,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the GLF-Segformer model (70% of the dataset).",
+        "validation": "Used for validation during training (10% of the dataset).",
+        "testing": "Used for testing and evaluating model performance (20% of the dataset).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy (Acc)",
+    "intersection over union (IoU)",
+    "mean intersection over union (mIoU)",
+    "Dice",
+    "mean pixel accuracy (mPA)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive statistics (mean intersection over union, Dice, mean pixel accuracy) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2017": {
+      "ablation_study": {
+        "description": "Ablation experiments on the ISIC2017 dataset comparing Segformer baseline with incremental additions of PSA, R-CAFM, TSMUS, and Mix-Loss.",
+        "models": {
+          "Segformer (Baseline)": {
+            "mPA (%)": 93.68,
+            "Dice (%)": 93.19,
+            "mIoU (%)": 87.45
+          },
+          "Segformer + PSA": {
+            "mPA (%)": 93.87,
+            "Dice (%)": 94.07,
+            "mIoU (%)": 88.97
+          },
+          "Segformer + R-CAFM": {
+            "mPA (%)": 93.17,
+            "Dice (%)": 90.07,
+            "mIoU (%)": 88.96
+          },
+          "Segformer + TSMUS": {
+            "mPA (%)": 94.07,
+            "Dice (%)": 94.02,
+            "mIoU (%)": 88.88
+          },
+          "Segformer + Mix-Loss": {
+            "mPA (%)": 93.97,
+            "Dice (%)": 94.12,
+            "mIoU (%)": 88.87
+          },
+          "Segformer + PSA + R-CAFM": {
+            "mPA (%)": 93.71,
+            "Dice (%)": 93.69,
+            "mIoU (%)": 88.33
+          },
+          "Segformer + PSA + TSMUS": {
+            "mPA (%)": 93.57,
+            "Dice (%)": 94.21,
+            "mIoU (%)": 88.57
+          },
+          "Segformer + PSA + Mix-Loss": {
+            "mPA (%)": 93.95,
+            "Dice (%)": 94.28,
+            "mIoU (%)": 88.69
+          },
+          "Segformer + R-CAFM + TSMUS": {
+            "mPA (%)": 94.05,
+            "Dice (%)": 94.43,
+            "mIoU (%)": 88.97
+          },
+          "Segformer + R-CAFM + Mix-Loss": {
+            "mPA (%)": 94.12,
+            "Dice (%)": 94.37,
+            "mIoU (%)": 89.56
+          },
+          "Segformer + TSMUS + Mix-Loss": {
+            "mPA (%)": 94.21,
+            "Dice (%)": 94.56,
+            "mIoU (%)": 89.47
+          },
+          "Segformer + PSA + R-CAFM + TSMUS": {
+            "mPA (%)": 94.16,
+            "Dice (%)": 94.53,
+            "mIoU (%)": 89.61
+          },
+          "Segformer + PSA + R-CAFM + Mix-Loss": {
+            "mPA (%)": 94.18,
+            "Dice (%)": 94.48,
+            "mIoU (%)": 89.71
+          },
+          "GLF-Segformer (Full)": {
+            "mPA (%)": 95.26,
+            "Dice (%)": 95.08,
+            "mIoU (%)": 90.73
+          }
+        },
+        "notes": "GLF-Segformer improved mPA, Dice, and mIoU by 1.58%, 1.89%, and 3.28% respectively compared to the baseline Segformer."
+      },
+      "comparison_with_baselines": {
+        "description": "Comparison of GLF-Segformer against UNet, Segformer, DeeplabV3, PSPNet, and HRNet on the ISIC2017 test set.",
+        "models": {
+          "Segformer": {
+            "IoU_Background (%)": 93.66,
+            "IoU_Skin (%)": 81.24,
+            "Acc (%)": 95.02,
+            "mPA (%)": 93.68,
+            "Dice (%)": 93.19,
+            "mIoU (%)": 87.45
+          },
+          "DeeplabV3": {
+            "IoU_Background (%)": 93.86,
+            "IoU_Skin (%)": 81.25,
+            "Acc (%)": 95.15,
+            "mPA (%)": 92.97,
+            "Dice (%)": 93.25,
+            "mIoU (%)": 87.56
+          },
+          "PSPNet": {
+            "IoU_Background (%)": 92.08,
+            "IoU_Skin (%)": 76.21,
+            "Acc (%)": 93.68,
+            "mPA (%)": 90.89,
+            "Dice (%)": 91.2,
+            "mIoU (%)": 84.15
+          },
+          "HRNet": {
+            "IoU_Background (%)": 94.46,
+            "IoU_Skin (%)": 82.81,
+            "Acc (%)": 95.63,
+            "mPA (%)": 93.36,
+            "Dice (%)": 93.89,
+            "mIoU (%)": 88.64
+          },
+          "UNet": {
+            "IoU_Background (%)": 93.9,
+            "IoU_Skin (%)": 80.64,
+            "Acc (%)": 95.13,
+            "mPA (%)": 91.87,
+            "Dice (%)": 93.13,
+            "mIoU (%)": 87.27
+          },
+          "GLF-Segformer (Ours)": {
+            "IoU_Background (%)": 95.42,
+            "IoU_Skin (%)": 86.02,
+            "Acc (%)": 96.43,
+            "mPA (%)": 95.26,
+            "Dice (%)": 95.08,
+            "mIoU (%)": 90.73
+          }
+        },
+        "notes": "GLF-Segformer achieved the optimal level in Acc, mPA, Dice, and mIoU. Compared to unimproved Segformer, it improved these metrics by 1.41%, 1.58%, 1.89%, and 3.28% respectively. IoU for background and skin lesion regions reached 95.42% and 86.02%."
+      },
+      "comparison_with_state_of_the_art": {
+        "description": "Comparison of GLF-Segformer with recent methods (SapFormer, FAT-Net, DEU-Net, MDSC-Net, SMRU-Net) on the ISIC2017 dataset.",
+        "models": {
+          "SapFormer": {
+            "Acc (%)": 94.3,
+            "mIoU (%)": 86.4,
+            "Dice (%)": 92.6
+          },
+          "FAT-Net": {
+            "Acc (%)": 93.26,
+            "mIoU (%)": 76.56,
+            "Dice (%)": 85.0
+          },
+          "DEU-Net": {
+            "Acc (%)": 94.45,
+            "mIoU (%)": 79.51,
+            "Dice (%)": 87.16
+          },
+          "MDSC-Net": {
+            "Acc (%)": 93.06,
+            "mIoU (%)": 82.11,
+            "Dice (%)": 89.82
+          },
+          "SMRU-Net": {
+            "Acc (%)": 93.57,
+            "mIoU (%)": 77.52,
+            "Dice (%)": 85.73
+          },
+          "GLF-Segformer (Ours)": {
+            "Acc (%)": 96.43,
+            "mIoU (%)": 90.73,
+            "Dice (%)": 95.08
+          }
+        },
+        "notes": "GLF-Segformer obtained the optimal values in the main metrics."
+      }
+    },
+    "ISIC2018": {
+      "comparison_with_baselines": {
+        "description": "Comparison of GLF-Segformer against UNet, Segformer, DeeplabV3, PSPNet, and HRNet on the ISIC2018 test set.",
+        "models": {
+          "Segformer": {
+            "IoU_Background (%)": 92.92,
+            "IoU_Skin (%)": 82.05,
+            "Acc (%)": 94.65,
+            "mPA (%)": 93.75,
+            "Dice (%)": 93.24,
+            "mIoU (%)": 87.48
+          },
+          "DeeplabV3": {
+            "IoU_Background (%)": 93.61,
+            "IoU_Skin (%)": 83.22,
+            "Acc (%)": 95.12,
+            "mPA (%)": 93.6,
+            "Dice (%)": 93.77,
+            "mIoU (%)": 88.42
+          },
+          "PSPNet": {
+            "IoU_Background (%)": 91.98,
+            "IoU_Skin (%)": 79.94,
+            "Acc (%)": 93.9,
+            "mPA (%)": 92.69,
+            "Dice (%)": 92.28,
+            "mIoU (%)": 85.86
+          },
+          "HRNet": {
+            "IoU_Background (%)": 93.89,
+            "IoU_Skin (%)": 83.37,
+            "Acc (%)": 95.23,
+            "mPA (%)": 93.0,
+            "Dice (%)": 93.94,
+            "mIoU (%)": 88.63
+          },
+          "UNet": {
+            "IoU_Background (%)": 93.36,
+            "IoU_Skin (%)": 82.46,
+            "Acc (%)": 94.94,
+            "mPA (%)": 93.14,
+            "Dice (%)": 93.48,
+            "mIoU (%)": 87.91
+          },
+          "GLF-Segformer (Ours)": {
+            "IoU_Background (%)": 95.3,
+            "IoU_Skin (%)": 84.4,
+            "Acc (%)": 96.25,
+            "mPA (%)": 94.63,
+            "Dice (%)": 95.05,
+            "mIoU (%)": 89.85
+          }
+        },
+        "notes": "Compared with Segformer, the accuracy of GLF-Segformer, mPA, Dice and mIoU are improved by 0.88%, 1.81% and 2.37% respectively."
+      },
+      "comparison_with_state_of_the_art": {
+        "description": "Comparison of GLF-Segformer with recent methods (SapFormer, FAT-Net, DEU-Net, MDSC-Net, SMRU-Net) on the ISIC2018 dataset.",
+        "models": {
+          "SapFormer": {
+            "Acc (%)": 95.7,
+            "mIoU (%)": 89.4,
+            "Dice (%)": 94.3
+          },
+          "FAT-Net": {
+            "Acc (%)": 95.78,
+            "mIoU (%)": 82.02,
+            "Dice (%)": 89.03
+          },
+          "DEU-Net": {
+            "Acc (%)": 96.57,
+            "mIoU (%)": 84.4,
+            "Dice (%)": 90.8
+          },
+          "MDSC-Net": {
+            "Acc (%)": 95.7,
+            "mIoU (%)": 88.48,
+            "Dice (%)": 93.62
+          },
+          "SMRU-Net": {
+            "Acc (%)": 95.64,
+            "mIoU (%)": 82.76,
+            "Dice (%)": 89.7
+          },
+          "GLF-Segformer (Ours)": {
+            "Acc (%)": 96.25,
+            "mIoU (%)": 89.85,
+            "Dice (%)": 95.05
+          }
+        },
+        "notes": "GLF-Segformer obtained the optimal values in the main metrics."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "GLF-Segformer",
+    "pretraining": "null",
+    "input_size": "512x512",
+    "architecture_details": {
+      "base_model": "Segformer",
+      "encoder_modifications": [
+        "Polarized Self-Attention (PSA) module integrated into the outputs of the four transformer blocks to enhance local information capture.",
+        "R-convolution and attention fusion (R-CAFM) module used to fuse local and global information from feature maps with different resolutions (1/4, 1/8, 1/16, 1/32)."
+      ],
+      "decoder_modifications": [
+        "Two-stage hybrid up-sampling (TSMUS) used to replace original up-sampling to reduce information loss."
+      ],
+      "loss_function": "Hybrid loss function combining Focal Loss and Dice Loss (Mix-Loss), with a mixing coefficient of 0.5.",
+      "optimizer": "Adam",
+      "optimizer_hyperparameters": {
+        "momentum": 0.9,
+        "weight_decay": 0.01
+      },
+      "learning_rate": {
+        "initial": 0.0001,
+        "schedule": "Cosine annealing decay"
+      },
+      "training_schedule": {
+        "epochs": 100,
+        "batch_size": 8
+      }
+    },
+    "training_details": {
+      "hardware": "Intel Core i9-12900 processor, 32G RAM, NVIDIA GeForce RTX 3050 (8GB VRAM)",
+      "software": "Python 3.9, PyTorch 2.0.0, CUDA 11.8"
+    },
+    "classification_or_output_head": {
+      "type": "Semantic segmentation mask",
+      "classes": [
+        "lesion region",
+        "background region"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "GLF-Segformer",
+    "Segformer",
+    "UNet",
+    "DeeplabV3",
+    "PSPNet",
+    "HRNet",
+    "SapFormer",
+    "FAT-Net",
+    "DEU-Net",
+    "MDSC-Net",
+    "SMRU-Net"
+  ],
+  "preprocessing_techniques": [
+    "Resizing: All images were uniformly resized to 512x512 pixels prior to training due to large differences in original image sizes (ranging from 540x722 to 4499x6748)."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed GLF-Segformer model, which integrates polarized self-attention (PSA) and R-convolution and attention fusion (R-CAFM) modules into the Segformer encoder and employs a two-stage hybrid up-sampling technique in the decoder, significantly improves the semantic segmentation of skin cancer lesions in dermoscopy images.",
+    "The synergistic combination of local and global information capture mechanisms enhances the model's expressiveness and robustness, particularly in handling interfering noise such as hairs, air bubbles, and ruler markers common in dermoscopy images.",
+    "GLF-Segformer achieved a mean intersection over union (mIoU) of 90.73% on the ISIC2017 dataset and 89.85% on the ISIC2018 dataset, outperforming baseline Segformer and other state-of-the-art methods including UNet, DeeplabV3, PSPNet, HRNet, SapFormer, FAT-Net, DEU-Net, MDSC-Net, and SMRU-Net.",
+    "Compared to the unimproved Segformer baseline, GLF-Segformer improved accuracy, mean pixel accuracy (mPA), Dice coefficient, and mIoU by 1.41%, 1.58%, 1.89%, and 3.28% respectively on the ISIC2017 dataset.",
+    "The model demonstrates superior segmentation performance for large targets and maintains good segmentation ability for medium and small targets, although it still faces challenges with extremely irregular edges where all algorithms perform poorly.",
+    "The introduction of a hybrid loss function (combining Focal Loss and Dice Loss) further improves segmentation accuracy, particularly at complex boundaries."
+  ],
+  "important_remarks": [
+    "The study lacks external validation; performance was evaluated exclusively on two public datasets (ISIC2017 and ISIC2018) without testing on independent, multi-center clinical data.",
+    "No statistical significance testing (e.g., p-values) was reported for the performance comparisons against baseline or state-of-the-art models.",
+    "The model exhibits reduced segmentation accuracy for skin cancer lesions with extremely irregular edges, a limitation acknowledged by the authors as an area for future improvement.",
+    "The paper does not distinguish between specific histological subtypes of skin cancer (e.g., melanoma vs. basal cell carcinoma) in its segmentation task, treating all lesions as a single class.",
+    "Data leakage risks are not explicitly addressed; while standard train/validation/test splits (7:1:2) were used, the paper does not detail cross-patient splitting strategies to ensure no patient overlap between sets.",
+    "The hardware configuration used for training (NVIDIA GeForce RTX 3050) is relatively low-end for deep learning, which may limit the generalizability of the computational efficiency claims to higher-performance clinical settings."
+  ]
+}

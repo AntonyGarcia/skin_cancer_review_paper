@@ -1,0 +1,577 @@
+{
+  "file_name": "farman_2025_efficient_skin_lesion_segmentation_using_u_net_and_mobilenet_with_at.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning architecture combining U-Net with a MobileNet encoder and attention mechanisms (Squeeze-and-Excitation blocks and spatial attention) for the task of skin lesion segmentation. The model was trained and evaluated on dermatology datasets (ISIC 2016, ISIC 2017, ISIC 2018, and PH2) to segment skin lesions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new deep learning architecture (U-Net with MobileNet encoder and attention mechanisms) for skin lesion segmentation. It details specific methods, datasets (ISIC 2016, 2017, 2018, PH2), training parameters, and quantitative results (Dice coefficient, IoU) comparing the proposed model against existing methods. Although published in a conference proceedings (ICBATS 2025), it contains original research results rather than summarizing prior literature."
+  },
+  "title": "Efficient Skin Lesion Segmentation Using U-Net And Mobilenet with Attention Mechanisms",
+  "authors": [
+    "Dhamyaa Abd alkareem Farman",
+    "Ban N. Dhannoon"
+  ],
+  "doi": "10.1109/ICBATS66542.2025.11258341",
+  "journal": "2025 3rd International Conference on Business Analytics for Technology and Security (ICBATS)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes an efficient deep learning architecture for skin lesion segmentation that combines a U-Net decoder with a pre-trained MobileNet encoder and attention mechanisms, specifically Squeeze-and-Excitation blocks and spatial attention. The model was evaluated on four publicly available dermatology datasets: ISIC 2016, ISIC 2017, ISIC 2018, and PH2. Training utilized the Adam optimizer with a learning rate of 0.005 for 100 epochs, employing Intersection over Union Loss to handle class imbalance. Performance was quantified using Dice coefficient (DS) and Intersection over Union (IoU) metrics across cross-data validation and test sets. The proposed model achieved state-of-the-art results, such as a DS of 0.9484 and IoU of 0.9023 on ISIC 2018, while maintaining a moderate parameter count of 16.31 million. The authors conclude that the architecture offers a superior balance of high segmentation accuracy and computational efficiency for computer-aided diagnostic systems.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "skin images",
+        "dermoscopic images"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the segmentation of skin lesions in general across four datasets (ISIC 2016, ISIC 2017, ISIC 2018, and PH2). The paper does not report specific histopathological diagnosis classes (e.g., melanoma, BCC) as distinct experimental labels for the segmentation task, but rather treats the lesion region as a binary segmentation target (lesion vs. background) within these datasets."
+    },
+    {
+      "lesion_type": "Malignant and Benign Nevi",
+      "paper_terms": [
+        "malignant",
+        "benign nevi"
+      ],
+      "role": "Dataset label (ISIC 2016)",
+      "details": "Mentioned as the two classes present in the ISIC 2016 dataset description, though the segmentation task itself is binary (lesion mask vs. background)."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Mentioned only (Dataset context)",
+      "details": "The term appears in the titles of the references for the ISIC challenges (e.g., 'Skin lesion analysis toward melanoma detection'), indicating the clinical context of the datasets, but the paper does not report melanoma-specific segmentation results or classes distinct from the general 'skin lesion' segmentation task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary segmentation mask of skin lesions (lesion vs. background)",
+        "primary": true,
+        "details": "The paper performs semantic segmentation of skin lesions in dermoscopic images. The model predicts a binary mask for each image, distinguishing the lesion region from the background. Performance is evaluated using Dice coefficient (DS) and Intersection over Union (IoU) metrics on datasets including ISIC 2016, ISIC 2017, ISIC 2018, and PH2. The task is explicitly defined as 'semantic segmentation' and 'skin lesion segmentation' throughout the text."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2016",
+      "description": "A publicly accessible dataset from the International Skin Imaging Collaboration (ISIC) challenge, containing dermoscopic skin lesion images. It includes two classes: malignant and benign nevi.",
+      "classes_used": [
+        "malignant nevi",
+        "benign nevi"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Not used for training; the paper states 'we only used the testing set (379) images to evaluate the proposed models' and 'used ISIC 2016 for testing without previous experience during the training phase'.",
+        "validation": "Used for cross-data validation: 'We apply cross-data validation on the ISIC 2016,2017 and 2018 datasets.'",
+        "testing": "Used for testing/evaluation of the proposed model.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2017",
+      "description": "A publicly accessible dataset from the ISIC challenge containing dermoscopic skin lesion images with three categories of images.",
+      "classes_used": [
+        "three categories of images"
+      ],
+      "counts": {
+        "total": 2600,
+        "training": 2000,
+        "validation": null,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training: 'We train the suggested models on the ISIC 2017 dataset'.",
+        "validation": "Used for cross-data validation: 'We apply cross-data validation on the ISIC 2016,2017 and 2018 datasets.'",
+        "testing": "Used for testing/evaluation: 'test them on the ISIC 2016, 2017, and 2018 datasets.'",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A publicly accessible dataset from the ISIC challenge containing dermoscopic skin lesion images divided into eight classifications.",
+      "classes_used": [
+        "eight classifications"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": null,
+        "validation": null,
+        "testing": 520,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Not used for training; 'Noteworthy ISIC2018 was also used for testing only without prior exposure during the training phase.'",
+        "validation": "Used for cross-data validation: 'We apply cross-data validation on the ISIC 2016,2017 and 2018 datasets.'",
+        "testing": "Used for testing/evaluation of the proposed model.",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A public database for the analysis of dermoscopic images contributed by The Dermatology Department at Pedro Hispano Hospital in Matosinhos, Portugal. It comprises 200 images of skin lesions.",
+      "classes_used": [
+        "skin lesions"
+      ],
+      "counts": {
+        "total": 200,
+        "training": 160,
+        "validation": null,
+        "testing": 40,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training: 'arbitrarily divided into 80% training and 20% testing.'",
+        "validation": null,
+        "testing": "Used for testing/evaluation of the proposed model.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient (DS)",
+    "Intersection over Union (IoU)",
+    "True Positive (TP)",
+    "True Negative (TN)",
+    "False Positive (FP)",
+    "False Negative (FN)",
+    "Number of parameters"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were based on quantitative metrics (Dice coefficient, IoU) and parameter counts without statistical significance analysis."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2016": {
+      "metric": "Dice coefficient (DS), Intersection over Union (IoU), Number of parameters",
+      "models": {
+        "Proposed Model (MobileNet Pre-trained)": {
+          "DS": "0.9522",
+          "IoU": "0.9090",
+          "Parameters": "16.31M"
+        },
+        "Proposed Model (MobileNet Scratch)": {
+          "DS": "0.9383",
+          "IoU": "0.8856"
+        },
+        "Proposed Model (ResNet18 Pre-trained)": {
+          "DS": "0.94442",
+          "IoU": "0.8943"
+        },
+        "Proposed Model (ResNet18 Scratch)": {
+          "DS": "0.9403",
+          "IoU": "0.8882"
+        },
+        "U-Net": {
+          "DS": "0.8890",
+          "IoU": "0.8120",
+          "Parameters": "34.52M"
+        },
+        "SU-SWA": {
+          "DS": "0.9300",
+          "IoU": "0.8920",
+          "Parameters": "19.4M"
+        },
+        "DAGAN": {
+          "DS": "0.9310",
+          "IoU": "0.8710"
+        },
+        "ASCU-Net": {
+          "DS": "0.9080",
+          "IoU": "0.9080"
+        },
+        "Ms RED": {
+          "DS": "0.9200",
+          "IoU": "0.8300"
+        },
+        "MSRD-Unet": {
+          "DS": "0.9110",
+          "IoU": "0.8490",
+          "Parameters": "13.522M"
+        },
+        "AlexUNet": {
+          "DS": "0.9190",
+          "IoU": "0.8580",
+          "Parameters": "8.759M"
+        },
+        "AlexUNet+": {
+          "DS": "0.9400",
+          "IoU": "0.8920",
+          "Parameters": "26.111M"
+        },
+        "DBCGN": {
+          "DS": "0.9287",
+          "IoU": "0.8754",
+          "Parameters": "26.487M"
+        },
+        "DEU-Net": {
+          "DS": "0.9290",
+          "IoU": "0.8748",
+          "Parameters": "21.6M"
+        },
+        "Rema-Net": {
+          "DS": "0.9303",
+          "IoU": "0.8745",
+          "Parameters": "19.100M"
+        },
+        "EIU-Net": {
+          "DS": "0.9190",
+          "IoU": "0.8550"
+        },
+        "MobileUNETR": {
+          "DS": "0.9280",
+          "IoU": "0.8747",
+          "Parameters": "3M"
+        }
+      },
+      "notes": "The proposed model (MobileNet pre-trained) achieved the highest performance on ISIC 2016. The paper notes that ISIC 2016 was used for testing without previous experience during the training phase. The proposed model improved IoU by 1.22% and DS by 1.7% compared to the second-best result (AlexUNet+), while having 10M fewer parameters."
+    },
+    "ISIC 2017": {
+      "metric": "Dice coefficient (DS), Intersection over Union (IoU), Number of parameters",
+      "models": {
+        "Proposed Model (MobileNet Pre-trained)": {
+          "DS": "0.9164",
+          "IoU": "0.8427",
+          "Parameters": "16.31M"
+        },
+        "Proposed Model (MobileNet Scratch)": {
+          "DS": "0.9093",
+          "IoU": "0.8308"
+        },
+        "Proposed Model (ResNet18 Pre-trained)": {
+          "DS": "0.9047",
+          "IoU": "0.8235"
+        },
+        "Proposed Model (ResNet18 Scratch)": {
+          "DS": "0.9025",
+          "IoU": "0.8204"
+        },
+        "U-Net": {
+          "DS": "0.900",
+          "IoU": "0.860",
+          "Parameters": "34.52M"
+        },
+        "SU-SWA": {
+          "DS": "0.869",
+          "IoU": "0.792",
+          "Parameters": "19.4M"
+        },
+        "DSNet": {
+          "IoU": "0.770",
+          "Parameters": "10M"
+        },
+        "DAGAN": {
+          "DS": "0.859",
+          "IoU": "0.771"
+        },
+        "ASCU-Net": {
+          "DS": "0.830",
+          "IoU": "0.742"
+        },
+        "CU-Net": {
+          "DS": "0.8563",
+          "IoU": "0.7488"
+        },
+        "Ms RED": {
+          "DS": "0.860",
+          "IoU": "0.780"
+        },
+        "TransNorm": {
+          "DS": "0.8933"
+        },
+        "AlexUNet": {
+          "DS": "0.866",
+          "IoU": "0.78",
+          "Parameters": "8.759M"
+        },
+        "AlexUNet+": {
+          "DS": "0.890",
+          "IoU": "0.809",
+          "Parameters": "26.111M"
+        },
+        "DBCGN": {
+          "DS": "0.8649",
+          "IoU": "0.7872",
+          "Parameters": "26.487M"
+        },
+        "Rema-Net": {
+          "DS": "0.9148",
+          "IoU": "0.8536",
+          "Parameters": "19.100M"
+        },
+        "EIU-Net": {
+          "DS": "0.855",
+          "IoU": "0.771"
+        },
+        "DEU-Net": {
+          "DS": "0.8716",
+          "IoU": "0.7951",
+          "Parameters": "21.6M"
+        },
+        "MobileUNETR": {
+          "DS": "0.8684",
+          "IoU": "0.7900",
+          "Parameters": "3M"
+        },
+        "U-NET V2": {
+          "DS": "0.9021",
+          "IoU": "0.8217",
+          "Parameters": "25.02M"
+        }
+      },
+      "notes": "The proposed model achieved the highest DS (0.9164) and the second-highest IoU after Rema-Net. The model parameters are fewer than Rema-Net parameters by 3M. Training was performed on ISIC 2017, and it was also used for cross-data validation."
+    },
+    "ISIC 2018": {
+      "metric": "Dice coefficient (DS), Intersection over Union (IoU), Number of parameters",
+      "models": {
+        "Proposed Model (MobileNet Pre-trained)": {
+          "DS": "0.9484",
+          "IoU": "0.9023",
+          "Parameters": "16.31M"
+        },
+        "Proposed Model (MobileNet Scratch)": {
+          "DS": "0.9395",
+          "IoU": "0.8800"
+        },
+        "Proposed Model (ResNet18 Pre-trained)": {
+          "DS": "0.9396",
+          "IoU": "0.8866"
+        },
+        "Proposed Model (ResNet18 Scratch)": {
+          "DS": "0.9363",
+          "IoU": "0.8820"
+        },
+        "U-Net": {
+          "DS": "0.900",
+          "IoU": "0.860",
+          "Parameters": "34.52M"
+        },
+        "DAGAN": {
+          "DS": "0.885",
+          "IoU": "0.824"
+        },
+        "ASCU-Net": {
+          "DS": "0.830",
+          "IoU": "0.825"
+        },
+        "Ms RED": {
+          "DS": "0.890",
+          "IoU": "0.830"
+        },
+        "TransNorm": {
+          "DS": "0.8951"
+        },
+        "DermoSegDiff": {
+          "DS": "0.9005"
+        },
+        "MBSNet": {
+          "DS": "0.8776",
+          "IoU": "0.8017",
+          "Parameters": "3.98M"
+        },
+        "Rema-Net": {
+          "DS": "0.9440",
+          "IoU": "0.8959",
+          "Parameters": "19.100M"
+        },
+        "EIU-Net": {
+          "DS": "0.902",
+          "IoU": "0.836"
+        },
+        "DEU-Net": {
+          "DS": "0.9081",
+          "IoU": "0.8444",
+          "Parameters": "21.6M"
+        },
+        "MoileUNETR": {
+          "DS": "0.9074",
+          "IoU": "0.8456",
+          "Parameters": "3M"
+        },
+        "U-NET V2": {
+          "DS": "0.9152",
+          "IoU": "0.8415",
+          "Parameters": "25.02M"
+        }
+      },
+      "notes": "The proposed model outperforms all other models in both DS and IoU on the ISIC 2018 test set. It achieves the best mixture of high segmentation accuracy and reasonable parameter count. ISIC 2018 was used for testing only without prior exposure during the training phase."
+    },
+    "PH2": {
+      "metric": "Dice coefficient (DS), Intersection over Union (IoU), Number of parameters",
+      "models": {
+        "Proposed Model (MobileNet Pre-trained)": {
+          "DS": "0.9609",
+          "IoU": "0.9248",
+          "Parameters": "16.31M"
+        },
+        "U-Net": {
+          "DS": "0.900",
+          "IoU": "0.860",
+          "Parameters": "34.52M"
+        },
+        "DAGAN": {
+          "DS": "0.885",
+          "IoU": "0.824"
+        },
+        "DSNet": {
+          "DS": "0.870",
+          "Parameters": "10M"
+        },
+        "ASCU-Net": {
+          "DS": "0.909",
+          "IoU": "0.842"
+        },
+        "Ms RED": {
+          "DS": "0.9465",
+          "IoU": "0.9014"
+        },
+        "TransNorm": {
+          "DS": "0.9437"
+        },
+        "DermoSegDiff": {
+          "DS": "0.9467"
+        },
+        "EIU-Net": {
+          "DS": "0.916",
+          "IoU": "0.847"
+        },
+        "DBCGN": {
+          "DS": "0.9541",
+          "IoU": "0.9143"
+        },
+        "DEU-Net": {
+          "DS": "0.9565",
+          "IoU": "0.9181",
+          "Parameters": "21.6M"
+        },
+        "Rema-Net": {
+          "DS": "0.9520",
+          "IoU": "0.9097",
+          "Parameters": "19.100M"
+        }
+      },
+      "notes": "The proposed model performs exceptionally on the PH2 test set, achieving the highest DS (0.9609) and IoU (0.9248). It balances computational efficiency with top-tier accuracy, outperforming strong competitors like DEU-Net, Rema-Net, and DBCGN."
+    }
+  },
+  "architecture_used": {
+    "main_model": "U-Net with MobileNet encoder and attention mechanisms",
+    "pretraining": "MobileNet encoder pre-trained on ImageNet; ResNet18 encoder pre-trained on ImageNet (compared as variant)",
+    "input_size": "224x224 pixels for ISIC 2016, 2017, and 2018 datasets; 256x256 pixels mentioned in preprocessing section; PH2 images resized to 224x224",
+    "architecture_details": {
+      "encoder": "MobileNet (primary) or ResNet18 (variant) used for feature extraction. MobileNet uses depthwise separable convolutions (depthwise Conv 3x3, pointwise Conv 1x1) with BatchNormalization and ReLU. ResNet18 consists of 18 layers with residual blocks using 3x3 convolutions, BN, and ReLU.",
+      "bottleneck": "Depthwise separable convolution followed by Squeeze-and-Excitation (SE) block and spatial attention block.",
+      "decoder": "Four decoding modules. Each starts with transposed convolution for upsampling, fuses skip connections, followed by depthwise separable block. Includes SE blocks and spatial attention blocks to enhance feature representation.",
+      "attention_mechanisms": [
+        "Squeeze-and-Excitation (SE) blocks",
+        "Spatial attention blocks"
+      ],
+      "skip_connections": "Standard U-Net skip connections between contracting and expanding paths"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.005,
+      "epochs": 100,
+      "batch_size": 8,
+      "loss_function": "Intersection over Union (IoU) Loss",
+      "learning_rate_schedule": "ReduceLROnPlateau (patience=4, decay factor=0.5)",
+      "early_stopping": "Patience=10 epochs",
+      "data_augmentation": [
+        "Vertical flip",
+        "Horizontal flip",
+        "Random rotation"
+      ],
+      "normalization": "Pixel values divided by 256 (range 0-1)"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask generation",
+      "details": "Binary segmentation mask (lesion vs. background) generated via decoder upsampling and skip connection fusion"
+    },
+    "approximate_parameters": "16.31 million (for MobileNet-based model)"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Proposed Model (U-Net with MobileNet encoder and attention mechanisms)",
+    "Proposed Model (U-Net with MobileNet encoder trained from scratch)",
+    "Proposed Model (U-Net with ResNet18 encoder pre-trained)",
+    "Proposed Model (U-Net with ResNet18 encoder trained from scratch)",
+    "U-Net",
+    "SU-SWA (Separable-Unet with stochastic weight averaging)",
+    "DAGAN (Generative Adversarial Network with dual discriminators)",
+    "DSNet",
+    "ASCU-Net",
+    "CU-Net (Multi-Input Color U-Net Model)",
+    "Ms RED",
+    "TransNorm",
+    "AlexUNet",
+    "AlexUNet+",
+    "DBCGN",
+    "DEU-Net",
+    "Rema-Net",
+    "EIU-Net",
+    "MobileUNETR",
+    "U-NET V2",
+    "MBSNet",
+    "DermoSegDiff",
+    "MSRD-Unet",
+    "UNet++",
+    "UNet 3+"
+  ],
+  "preprocessing_techniques": [
+    "Resizing: ISIC 2016, ISIC 2017, and ISIC 2018 images resized to 224x224 pixels; PH2 images resized to 224x224 pixels.",
+    "Normalization: Pixel values divided by 256 to normalize range to 0-1.",
+    "Data Augmentation: Vertical flip, horizontal flip, and random rotation applied during training.",
+    "Artifact Handling: Intentional avoidance of preprocessing steps to remove artifacts (e.g., hair, air bubbles, ruler outlines) to maintain model simplicity and clinical applicability."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Vertical flip",
+      "details": "Applied during training to increase the training set size."
+    },
+    {
+      "technique": "Horizontal flip",
+      "details": "Applied during training to increase the training set size."
+    },
+    {
+      "technique": "Random rotation",
+      "details": "Applied during training to increase the training set size."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep learning architecture, combining a U-Net decoder with a pre-trained MobileNet encoder and attention mechanisms (Squeeze-and-Excitation and spatial attention), achieves state-of-the-art performance in skin lesion segmentation across multiple datasets.",
+    "The model demonstrates superior generalization ability, validated through cross-data validation on ISIC 2016, ISIC 2017, and ISIC 2018 datasets, showing significant improvement in feature extraction and focus on valuable information.",
+    "On the ISIC 2018 test set, the proposed model achieved the highest Dice coefficient (0.9484) and Intersection over Union (0.9023), outperforming all compared contemporary models while maintaining a moderate parameter count of 16.31 million.",
+    "On the PH2 dataset, the model achieved the highest Dice coefficient (0.9609) and IoU (0.9248), balancing computational efficiency with top-tier accuracy and outperforming strong competitors like DEU-Net and Rema-Net.",
+    "Pre-training the MobileNet encoder on ImageNet significantly improves segmentation performance compared to training from scratch, as evidenced by higher Dice and IoU scores across all tested datasets.",
+    "The MobileNet-based encoder is more effective than the ResNet18-based encoder for skin lesion segmentation tasks, yielding better performance metrics in all comparative experiments.",
+    "The model effectively handles inherent dataset challenges such as varying lesion sizes, brightness fluctuations, texture discrepancies, and extraneous artifacts (e.g., hair, air bubbles) without requiring complex preprocessing steps to remove these artifacts.",
+    "The architecture offers a favorable trade-off between high segmentation accuracy and computational efficiency, making it suitable for integration into clinical computer-aided diagnostic systems where excessive computational resources may be a constraint."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on publicly available datasets (ISIC 2016, 2017, 2018, and PH2) and does not report results on any independent, external clinical dataset, limiting the assessment of real-world generalizability.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed; performance comparisons are based solely on point estimates of Dice coefficient and IoU.",
+    "The model was trained on ISIC 2017 and tested on ISIC 2016, 2017, and 2018 using cross-data validation; however, the specific train/validation/test splits within ISIC 2017 for the proposed model are not fully detailed beyond the 80/20 split mentioned for PH2.",
+    "The paper intentionally avoided preprocessing steps to remove artifacts (e.g., hair, air bubbles, ruler outlines) to maintain simplicity, which may limit the model's robustness in clinical settings where such artifacts are common and often require handling.",
+    "The dataset is explicitly described as unbalanced, and while IoU Loss was used to address this, the specific class distribution statistics within the training sets are not provided.",
+    "The proposed model (16.31M parameters) is compared against a wide range of contemporary models, but some comparisons rely on reported values from other papers rather than re-running baselines under identical conditions, potentially introducing comparison bias.",
+    "The study focuses on binary segmentation (lesion vs. background) and does not address multi-class classification or specific histopathological diagnosis (e.g., melanoma vs. benign), limiting its direct clinical utility for diagnosis without additional modules."
+  ]
+}

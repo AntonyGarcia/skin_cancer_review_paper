@@ -1,0 +1,333 @@
+{
+  "file_name": "santilli_2020_perioperative_margin_detection_in_basal_cell_carcinoma_using_a_dee.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a deep learning framework, specifically a symmetric autoencoder, to classify basal cell carcinoma (BCC) from normal tissue using mass spectrometry data (REIMS) collected during surgical margin detection. The model achieved 96.62% accuracy in distinguishing BCC signatures from tissue burns."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as an 'ORIGINAL ARTICLE' and a 'feasibility study'. It presents original experimental work involving data collection from 190 surgical specimen scans using iKnife mass spectrometry, the development of a symmetric autoencoder deep learning framework, data augmentation, and the reporting of specific performance metrics (e.g., 96.62% accuracy). This structure aligns with the definition of a research paper producing new results."
+  },
+  "title": "Perioperative margin detection in basal cell carcinoma using a deep learning framework: a feasibility study",
+  "authors": [
+    "Alice M. L. Santilli",
+    "Amoon Jamzad",
+    "Natasja N. Y. Janssen",
+    "Martin Kaufmann",
+    "Laura Connolly",
+    "Kaitlin Vanderbeck",
+    "Ami Wang",
+    "Doug McKay",
+    "John F. Rudan",
+    "Gabor Fichtinger",
+    "Parvin Mousavi"
+  ],
+  "doi": "10.1007/s11548-020-02152-9",
+  "journal": "International Journal of Computer Assisted Radiology and Surgery",
+  "year": 2020,
+  "article_type": "Original research article",
+  "brief_summary": "This feasibility study proposes using a deep learning framework with perioperative mass spectrometry (iKnife) to detect basal cell carcinoma (BCC) margins during surgery. The researchers collected 190 REIMS scans from 35 patients, comprising 127 normal and 63 BCC tissue burns, guided by pathologist labeling. A symmetric autoencoder was developed and trained on data augmented via noise addition to address class imbalance and improve robustness. The model achieved an accuracy of 96.62% in distinguishing BCC from normal tissue, significantly outperforming baseline PCA/LDA methods. The study demonstrates that deep learning applied to REIMS data can accurately separate BCC signatures from tissue burns, offering potential for reduced revision surgeries.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "Basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "The primary disease entity studied. The paper focuses on detecting BCC margins during surgical resection. Data included 63 BCC tissue burns collected from 35 patients."
+    },
+    {
+      "lesion_type": "Normal tissue",
+      "paper_terms": [
+        "Normal",
+        "normal tissue",
+        "benign skin tissue"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class for binary classification (BCC vs. normal). The paper notes that 'normal' data points were related to different tissue subtypes including benign skin tissue and adipose. Data included 127 normal scans."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of tissue type (Basal Cell Carcinoma vs. Normal tissue) using mass spectrometry data.",
+        "primary": true,
+        "details": "The paper explicitly states the goal is 'classification of the collected burns' and 'binary cancer/no cancer classification'. The model predicts discrete diagnostic categories (BCC or Normal) based on mass spectrometry spectra. Performance was evaluated using accuracy (96.62%), sensitivity (100.00%), and specificity (95.00%). Predictions were made using a threshold of 0.5 on the classifier node output."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "iKnife REIMS Surgical Specimen Dataset",
+      "description": "A private dataset of Rapid Evaporative Ionization Mass Spectrometry (REIMS) data collected from resected surgical specimens of Basal Cell Carcinoma (BCC) patients. Data was collected perioperatively using an iKnife device on tissue burns guided by pathologist labeling. The dataset consists of 190 scans from 35 patients collected over 4 days.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Normal"
+      ],
+      "counts": {
+        "total": 190,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "BCC": 63,
+          "Normal": 127
+        }
+      },
+      "use": {
+        "training": "Used for training symmetric autoencoder models via fourfold cross-validation. Each fold contained approximately 20% of the original data (5-8 patients). After data augmentation (noise addition), each cross-validation fold included 500 BCC and 500 normal scans for training.",
+        "validation": "Used for monitoring model performance at the end of each epoch to avoid overfitting. Each fold contained approximately 20% of the original data (5-8 patients) with a 1:2 ratio of cancer to normal spectra before augmentation.",
+        "testing": "Used for final evaluation of the four trained models. The test set contained 12 BCC and 25 normal scans (37 total scans) from patients not included in the training/validation folds.",
+        "other": "Used for ablation studies investigating the contribution of specific m/z sub-bands (e.g., m/z 300-400, 700-800, 500-900) to classification accuracy using the trained models without retraining."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "True positive rate",
+    "True negative rate",
+    "Standard deviation",
+    "Reconstruction error",
+    "Classification accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Fourfold cross-validation",
+      "purpose": "To train and evaluate the symmetric autoencoder models, ensuring robust performance estimation by partitioning data into training, validation, and testing sets across four iterations.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Welch's t-test",
+      "purpose": "To determine the statistical significance of the improvement in average performance of the state-of-the-art baseline model when using augmented data compared to non-augmented data.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "t-SNE (t-Distributed Stochastic Neighbor Embedding)",
+      "purpose": "To visualize the latent space of the autoencoder and demonstrate the separability between BCC and normal data classes.",
+      "type": "Dimensionality reduction / Visualization"
+    },
+    {
+      "method": "Standard Deviation",
+      "purpose": "To report the variability and robustness of the classification metrics (accuracy, sensitivity, specificity) across the four cross-validation folds.",
+      "type": "Descriptive statistics"
+    },
+    {
+      "method": "Data Augmentation via Gaussian Noise",
+      "purpose": "To address class imbalance and improve model robustness by adding noise to the Fourier domain (intensity) and time domain (peak position) of the spectra.",
+      "type": "Data preprocessing / Augmentation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Welch's t-test",
+    "null_hypothesis": "There is no significant difference in the average performance (classification accuracy) of the baseline state-of-the-art model (PCA/LDA) when using augmented data compared to non-augmented data.",
+    "alternative_hypothesis": "The use of augmented data results in a statistically significant improvement in the average performance of the baseline state-of-the-art model compared to non-augmented data.",
+    "alpha": 0.0072,
+    "interpretation": "The p-value was less than 0.0072 (p < 0.0072), indicating that the improvement in average performance of the state-of-the-art baseline model when using augmented data was statistically significant."
+  },
+  "results_obtained_in_each_dataset": {
+    "iKnife REIMS Surgical Specimen Dataset (BCC vs Normal Classification)": {
+      "experiment": "Symmetric Autoencoder (Deep Learning Framework)",
+      "split": "Fourfold Cross-Validation (Test Set)",
+      "models": {
+        "Symmetric Autoencoder": {
+          "accuracy": "96.62% (SD 1.35%)",
+          "sensitivity": "100.00% (SD 0.00%)",
+          "specificity": "95.00% (SD 2.00%)"
+        },
+        "Symmetric Autoencoder (Ensemble)": {
+          "accuracy": "97.30%",
+          "specificity": "96.00%"
+        }
+      },
+      "notes": "The autoencoder achieved an accuracy of 96.62% (SD 1.35%) in classifying BCC and normal scans. An ensemble method averaging cancer likelihood predictions of all four models improved accuracy to 97.30% and specificity to 96.00%. Scan 3 was always misclassified, and Scan 9 was misclassified 1 out of 4 times."
+    },
+    "iKnife REIMS Surgical Specimen Dataset (Baseline Comparison)": {
+      "experiment": "PCA/LDA (Baseline State-of-the-Art)",
+      "split": "Fourfold Cross-Validation (Test Set)",
+      "models": {
+        "PCA/LDA (Original Data)": {
+          "accuracy": "85.12% (SD 4.68%)",
+          "sensitivity": "72.92% (SD 4.17%)",
+          "specificity": "91.00% (SD 7.57%)"
+        },
+        "PCA/LDA (Augmented Data)": {
+          "accuracy": "95.27% (SD 2.59%)",
+          "sensitivity": "97.92% (SD 4.17%)",
+          "specificity": "94.00% (SD 4.00%)"
+        }
+      },
+      "notes": "Data augmentation resulted in a statistically significant improvement for the baseline model (p < 0.0072 using Welch’s t-test). The deep learning method (autoencoder) outperformed both baseline configurations."
+    },
+    "iKnife REIMS Surgical Specimen Dataset (Ablation Study - m/z Sub-bands)": {
+      "experiment": "Symmetric Autoencoder with m/z Sub-band Inputs",
+      "split": "Test Set (Models trained on full spectrum, inputs masked for evaluation)",
+      "models": {
+        "m/z 100-200": {
+          "accuracy": "67.57%",
+          "sensitivity": "0%",
+          "specificity": "100%"
+        },
+        "m/z 200-300": {
+          "accuracy": "67.57%",
+          "sensitivity": "0%",
+          "specificity": "100%"
+        },
+        "m/z 300-400": {
+          "accuracy": "72.97%",
+          "sensitivity": "100%",
+          "specificity": "60%"
+        },
+        "m/z 400-500": {
+          "accuracy": "67.57%",
+          "sensitivity": "0%",
+          "specificity": "100%"
+        },
+        "m/z 500-600": {
+          "accuracy": "67.57%",
+          "sensitivity": "0%",
+          "specificity": "100%"
+        },
+        "m/z 600-700": {
+          "accuracy": "45.95%",
+          "sensitivity": "100%",
+          "specificity": "20%"
+        },
+        "m/z 700-800": {
+          "accuracy": "72.97%",
+          "sensitivity": "16.67%",
+          "specificity": "100%"
+        },
+        "m/z 800-900": {
+          "accuracy": "67.57%",
+          "sensitivity": "0%",
+          "specificity": "100%"
+        },
+        "m/z 100-300": {
+          "accuracy": "67.57%",
+          "sensitivity": "0%",
+          "specificity": "100%"
+        },
+        "m/z 300-500": {
+          "accuracy": "59.46%",
+          "sensitivity": "100%",
+          "specificity": "40%"
+        },
+        "m/z 500-700": {
+          "accuracy": "51.35%",
+          "sensitivity": "100%",
+          "specificity": "28%"
+        },
+        "m/z 700-900": {
+          "accuracy": "67.57%",
+          "sensitivity": "0%",
+          "specificity": "100%"
+        },
+        "m/z 100-500": {
+          "accuracy": "78.38%",
+          "sensitivity": "33.33%",
+          "specificity": "100%"
+        },
+        "m/z 500-900": {
+          "accuracy": "94.59%",
+          "sensitivity": "100%",
+          "specificity": "92%"
+        }
+      },
+      "notes": "The m/z 300-400 and 700-800 ranges resulted in the best classification accuracies among 100-unit sub-bands. The m/z 500-900 range yielded the best overall accuracy among larger sub-bands. None of the sub-bands individually performed as well as the entire spectrum."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Symmetric Autoencoder",
+    "pretraining": "None reported; trained simultaneously for reconstruction and classification.",
+    "input_size": "800 values (downsampled from 8000 m/z values between 100 and 900 using max pooling with window size 10 and stride 10)",
+    "architecture_details": {
+      "structure": "Symmetrical autoencoder with 5 layers including input layer",
+      "input_layer": "800 values",
+      "intermediate_layers": "Intermediate layer of 400 neurons",
+      "latent_space": "100 neurons (dense layer)",
+      "output_layers": [
+        "Reconstruction layer (decoder) outputting 800 values",
+        "Classifier layer: 10-dimensional dense layer followed by a single-neuron sigmoid output"
+      ],
+      "activation_functions": "ReLU for each layer",
+      "regularization": "L2 regularization"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "loss_functions": {
+        "reconstruction": "Mean Squared Error (MSE)",
+        "classification": "Binary Cross Entropy"
+      },
+      "training_method": "Simultaneous optimization of spectral reconstruction error and classification accuracy",
+      "validation": "Monitored at the end of each epoch to avoid overfitting",
+      "cross_validation": "Fourfold cross-validation"
+    },
+    "classification_or_output_head": {
+      "type": "Single-neuron sigmoid",
+      "threshold": "0.5"
+    },
+    "approximate_parameters": "Over 8 million parameters if using full 8000-value input; reduced significantly via max pooling to 800-value input"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Symmetric Autoencoder",
+    "PCA/LDA (Principal Component Analysis / Linear Discriminant Analysis)",
+    "Convolutional Neural Networks (CNN)",
+    "Artificial Neural Networks",
+    "Independent Component Analysis"
+  ],
+  "preprocessing_techniques": [
+    "Background subtraction",
+    "Normalization",
+    "Lock mass correction",
+    "Max binning with a bin size of 0.1",
+    "Signal range selection (focusing on m/z 100 to 900)",
+    "Downsampling via max pooling (window size 10, stride 10) to reduce input from 8000 to 800 values",
+    "Data augmentation via Gaussian noise addition in the Fourier domain (intensity) and time domain (peak position offset)",
+    "Class balancing (augmenting minority class to match majority class count)",
+    "Masking m/z sub-bands (setting intensity of peaks outside the sub-band of interest to zero) for ablation studies"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Gaussian Noise Addition in Fourier Domain",
+      "details": "Gaussian noise was added to low virtual frequency bands of the signal intensity in the Fourier domain to mimic intrinsic background noise in REIMS data."
+    },
+    {
+      "technique": "Gaussian Noise Addition in Time Domain",
+      "details": "After transforming the signal back to the original domain, Gaussian noise was used to randomly offset the peaks' positions in the range of (-3, 3) m/z ratios."
+    },
+    {
+      "technique": "Class Balancing via Augmentation",
+      "details": "Data augmentation was used to address class imbalance (127 normal vs 63 BCC). The normal and BCC scans were augmented to balance the dataset, resulting in a final training/validation set of 4000 scans (2000 BCC and 2000 normal). Each cross-validation fold included 500 BCC and 500 normal scans after augmentation."
+    }
+  ],
+  "conclusions": [
+    "The study demonstrates the utility of applying a deep learning framework (symmetric autoencoder) to perioperative mass spectrometry (iKnife/REIMS) data for surgical margin detection in basal cell carcinoma (BCC).",
+    "The proposed symmetric autoencoder model accurately separates BCC signatures from normal tissue burns, achieving an accuracy of 96.62% (SD 1.35%), sensitivity of 100.00% (SD 0.00%), and specificity of 95.00% (SD 2.00%).",
+    "The deep learning approach significantly outperformed the baseline state-of-the-art method (PCA/LDA), which achieved 85.12% accuracy on original data and 95.27% on augmented data.",
+    "Data augmentation via Gaussian noise addition in the time and frequency domains resulted in statistically significant improvements in classification accuracy for the baseline model (p < 0.0072).",
+    "t-SNE visualization of the latent space distinctly showed the separability between BCC and normal data, which was not visible in the original high-dimensional data.",
+    "An ensemble method averaging cancer likelihood predictions from four cross-validated models improved accuracy to 97.30% and specificity to 96.00%.",
+    "Ablation studies indicated that while specific m/z sub-bands (e.g., 300-400 and 700-800) contributed to classification, the model achieved the best results by utilizing the entire input spectrum, suggesting that identifying patterns for classification relies on nonlinear combinations across the full spectral range rather than isolated peaks.",
+    "The study highlights the potential for reducing positive margin rates and revision surgeries in BCC removal, offering a tool with light surgical overhead for a high-incidence cancer."
+  ],
+  "important_remarks": [
+    "The study is a feasibility study with a small sample size (190 scans from 35 patients) collected over only 4 days, limiting generalizability.",
+    "The 'normal' class is heterogeneous, comprising various benign skin tissues and adipose, which introduces intra-class variance that the model must learn to classify as a single negative class.",
+    "Data was collected ex vivo on resected specimens guided by pathologist labeling, which may not fully replicate the variability and conditions of real-time intraoperative use.",
+    "The dataset is imbalanced (127 normal vs. 63 BCC), necessitating data augmentation (Gaussian noise in time and frequency domains) to balance classes and improve robustness.",
+    "Specific scans were consistently misclassified (e.g., Scan 3 due to triglyceride peaks from adipose, Scan 9 due to low signal intensity from poor cautery contact), indicating potential failure modes related to tissue type and signal quality.",
+    "The study was conducted in a controlled environment; real-world performance may vary due to factors like grounding pad contact and cautery efficiency affecting smoke production.",
+    "No external validation was performed; the model was evaluated using fourfold cross-validation on the same dataset from which it was derived.",
+    "The 'normal' tissue spectra showed significant variation, suggesting that variations in burn depth or tissue origin contribute to spectral differences, which could be a source of misclassification.",
+    "The study did not define or compare against a standard spectral atlas for skin anatomy, relying instead on binary classification without detailed tissue layer annotations.",
+    "Ablation studies on m/z sub-bands were performed using pre-trained models without retraining, which may not reflect the optimal performance if models were retrained on specific sub-bands."
+  ]
+}

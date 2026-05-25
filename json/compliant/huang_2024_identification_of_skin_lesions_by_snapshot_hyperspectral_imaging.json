@@ -1,0 +1,392 @@
+{
+  "file_name": "huang_2024_identification_of_skin_lesions_by_snapshot_hyperspectral_imaging.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used AI, specifically a novel multi-frame algorithm combining U-Net Attention models for lesion segmentation and XGBoost algorithms for classification, to identify and differentiate skin lesions (Mycosis fungoides, psoriasis, and atopic dermatitis) using hyperspectral imaging data."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a novel multi-frame AI algorithm using hyperspectral imaging to identify skin lesions. It reports specific results from a dataset of 1659 images, including performance metrics such as sensitivity (90.72%), specificity (96.76%), and ROC-AUC (0.9351) obtained via k-fold cross-validation, which characterizes it as an original research study rather than a review."
+  },
+  "title": "Identification of Skin Lesions by Snapshot Hyperspectral Imaging",
+  "authors": [
+    "Hung-Yi Huang",
+    "Hong-Thai Nguyen",
+    "Teng-Li Lin",
+    "Penchun Saenprasarn",
+    "Ping-Hung Liu",
+    "Hsiang-Chen Wang"
+  ],
+  "doi": "10.3390/cancers16010217",
+  "journal": "Cancers",
+  "year": 2024,
+  "article_type": "Article",
+  "brief_summary": "This study developed a novel multi-frame AI algorithm combining U-Net Attention models for segmentation and XGBoost for classification to identify skin lesions, specifically Mycosis fungoides (MF), psoriasis (PsO), and atopic dermatitis (AD), using snapshot hyperspectral imaging. The model was trained and validated on a dataset of 1659 skin images collected from 34 participants, with expert annotation based on histopathology and optical coherence tomography. Evaluation via k-fold cross-validation demonstrated robust performance, achieving a sensitivity of 90.72%, specificity of 96.76%, and an ROC-AUC of 0.9351. The approach transforms images from the color space to the spectral domain to enhance diagnostic accuracy for early-stage skin malignancies. The findings suggest that this non-invasive method offers a significant advancement in the early and precise identification of skin cancers and inflammatory conditions.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Mycosis fungoides",
+      "paper_terms": [
+        "Mycosis fungoides",
+        "MF",
+        "Cutaneous T-cell lymphomas (CTCLs)",
+        "T-cell skin cancer"
+      ],
+      "role": "Target class",
+      "details": "Primary target of the study; early-stage invasive lesion in T-cell skin cancer. Dataset included 333 images. Identified as a malignancy."
+    },
+    {
+      "lesion_type": "Psoriasis",
+      "paper_terms": [
+        "psoriasis",
+        "PsO"
+      ],
+      "role": "Comparator class",
+      "details": "Inflammatory condition differentiated from MF. Dataset included 421 images. Frequently misdiagnosed as MF."
+    },
+    {
+      "lesion_type": "Atopic dermatitis",
+      "paper_terms": [
+        "atopic dermatitis",
+        "AD"
+      ],
+      "role": "Comparator class",
+      "details": "Inflammatory condition differentiated from MF. Dataset included 351 images. Frequently misdiagnosed as MF."
+    },
+    {
+      "lesion_type": "Normal skin",
+      "paper_terms": [
+        "normal skin",
+        "healthy skin",
+        "class 0"
+      ],
+      "role": "Comparator class",
+      "details": "Control group for classification. Dataset included 554 images. Used to distinguish affected skin from normal skin."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Diagnostic categories of skin lesions (Mycosis fungoides, psoriasis, atopic dermatitis, and normal skin)",
+        "primary": true,
+        "details": "Multiclass classification using XGBoost algorithm to differentiate between four distinct dermatological conditions (MF, PsO, AD, and normal skin) based on hyperspectral imaging data. Performance evaluated via sensitivity, specificity, F1-score, and ROC-AUC."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion masks isolating affected skin from normal skin and noise",
+        "primary": false,
+        "details": "Coarse segmentation of skin lesions using U-Net Attention models to segregate affected skin from normal skin, moles, and other pigments. Evaluated using cross-entropy, dice coefficient, and IoU."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Study Cohort (Hitspectra/Chiayi Christian Hospital/Dalin Tzu Chi General Hospital)",
+      "description": "A private dataset of snapshot hyperspectral images collected from 34 participants (patients and healthy controls) at Ditmanson Medical Foundation Chiayi Christian Hospital and Dalin Tzu Chi General Hospital in Taiwan. Images were captured using an Olympus E-M10 Mark III digital camera with specific lighting and positioning protocols to ensure illumination stability. Expert annotation was performed based on histopathology (pathology slices) and optical coherence tomography (OCT) images.",
+      "classes_used": [
+        "Mycosis fungoides (MF)",
+        "Psoriasis (PsO)",
+        "Atopic dermatitis (AD)",
+        "Normal skin"
+      ],
+      "counts": {
+        "total": 1659,
+        "training": 1659,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Mycosis fungoides": 333,
+          "Psoriasis": 421,
+          "Atopic dermatitis": 351,
+          "Normal skin": 554
+        }
+      },
+      "use": {
+        "training": "Used for training the U-Net Attention segmentation model and the XGBoost classification model. The dataset was split into four distinct groups based on dermatologists' tissue analyses.",
+        "validation": "Used for validation via k-fold cross-validation (optimal k=7) to evaluate model performance.",
+        "testing": "Used for testing via k-fold cross-validation (optimal k=7) to evaluate model performance.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "sensitivity",
+    "specificity",
+    "F1-score",
+    "ROC-AUC",
+    "accuracy",
+    "cross-entropy",
+    "dice coefficient",
+    "intersection over union (IoU)",
+    "root-mean-square error (RMSE)",
+    "CIEDE 2000 color difference metric",
+    "prediction time",
+    "model size",
+    "number of non-trainable parameters"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "k-fold cross-validation",
+      "purpose": "To evaluate the performance of the classification model (XGBoost) and determine the optimal number of folds (k=7) for robustness.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Root-mean-square error (RMSE)",
+      "purpose": "To quantify the discrepancy between the simulated spectrum and the measured reflection spectrum of the 24-color card.",
+      "type": "Error metric"
+    },
+    {
+      "method": "CIEDE 2000 color difference metric",
+      "purpose": "To compare the simulated and measured colors in the L*a*b* color space for chromatic aberration analysis.",
+      "type": "Difference metric"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) analysis",
+      "purpose": "To assess the diagnostic ability of the binary classifiers for each class across different k-fold settings.",
+      "type": "Performance evaluation"
+    },
+    {
+      "method": "Confusion matrix analysis",
+      "purpose": "To visualize and compare the classification performance across different k-fold settings (k=3, 5, 7).",
+      "type": "Performance evaluation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Model performance was evaluated using descriptive metrics such as sensitivity, specificity, F1-score, ROC-AUC, and RMSE via k-fold cross-validation."
+  },
+  "results_obtained_in_each_dataset": {
+    "Study Cohort (1659 images: 333 MF, 421 PsO, 351 AD, 554 Normal)": {
+      "HSI Model Evaluation (Spectrum Simulation vs Measurement)": {
+        "metric": "Root-mean-square error (RMSE)",
+        "models": {
+          "HSI Simulation Algorithm": {
+            "RMSE": "0.0525"
+          }
+        },
+        "notes": "Comparison between simulated spectrum and reflection spectrum of a 24-color card."
+      },
+      "HSI Model Evaluation (Color Difference)": {
+        "metric": "CIEDE 2000 color difference",
+        "models": {
+          "HSI Simulation Algorithm": {
+            "Average Color Difference": "0.28"
+          }
+        },
+        "notes": "Comparison in L*a*b* color space for chromatic aberration analysis."
+      },
+      "Segmentation Model (U-Net Attention)": {
+        "metric": [
+          "Cross-entropy",
+          "Dice coefficient",
+          "Intersection over Union (IoU)"
+        ],
+        "models": {
+          "U-Net Attention": {
+            "Cross-entropy": "0.3220",
+            "Dice coefficient": "0.8447",
+            "IoU": "0.8521"
+          }
+        },
+        "notes": "Trained for 200 epochs with Adam optimizer (lr=0.001, weight decay=0.0005, batch size=32). Evaluated on test images."
+      },
+      "Classification Model (XGBoost) - k=3": {
+        "metric": [
+          "Sensitivity",
+          "Specificity",
+          "F1-score",
+          "ROC-AUC"
+        ],
+        "models": {
+          "XGBoost (k=3)": {
+            "Sensitivity": "85.61%",
+            "Specificity": "95.25%",
+            "F1-score": "86.26%",
+            "ROC-AUC": "0.9051"
+          }
+        },
+        "notes": "Confusion matrix showed balanced performance; notable precision in classifying PsO (37/43) and normal (49/54). AUC values for classes ranged from 0.94 to 0.97, with class 2 (PsO) at 0.97."
+      },
+      "Classification Model (XGBoost) - k=5": {
+        "metric": [
+          "Sensitivity",
+          "Specificity",
+          "F1-score",
+          "ROC-AUC"
+        ],
+        "models": {
+          "XGBoost (k=5)": {
+            "Sensitivity": "89.20%",
+            "Specificity": "96.35%",
+            "F1-score": "89.19%",
+            "ROC-AUC": "0.9270"
+          }
+        },
+        "notes": "Improved accuracy, especially in correctly identifying all PsO cases (35/39). AUC values for class 2 (PsO) and class 3 (AD) were 0.97 and 0.95 respectively."
+      },
+      "Classification Model (XGBoost) - k=7 (Optimal)": {
+        "metric": [
+          "Sensitivity",
+          "Specificity",
+          "F1-score",
+          "ROC-AUC"
+        ],
+        "models": {
+          "XGBoost (k=7)": {
+            "Sensitivity": "90.72%",
+            "Specificity": "96.76%",
+            "F1-score": "90.08%",
+            "ROC-AUC": "0.9351"
+          }
+        },
+        "notes": "Peak performance. Precise identification of AD cases (33/33). AUC values for class 0 (normal) and class 1 (MF) remained at 0.96, while class 2 (PsO) reached 0.98. Class 3 (AD) AUC decreased to 0.94."
+      },
+      "Comparison with Existing Models": {
+        "metric": [
+          "Number of Params (M)",
+          "Size (MB)",
+          "IoU",
+          "AUC-ROC",
+          "Prediction Time per Image (second)"
+        ],
+        "models": {
+          "U-Net": {
+            "Params": "31M",
+            "Size": "124 MB",
+            "IoU": "0.8003",
+            "AUC-ROC": "0.8490",
+            "Prediction Time": "0.0741"
+          },
+          "U-Net++": {
+            "Params": "55M",
+            "Size": "220 MB",
+            "IoU": "0.8977",
+            "AUC-ROC": "0.9334",
+            "Prediction Time": "0.1182"
+          },
+          "U-Net Attention": {
+            "Params": "35M",
+            "Size": "140 MB",
+            "IoU": "0.8521",
+            "AUC-ROC": "0.9097",
+            "Prediction Time": "0.0792"
+          },
+          "DeepLabv3": {
+            "Params": "41M",
+            "Size": "164 MB",
+            "IoU": "0.8730",
+            "AUC-ROC": "0.9597",
+            "Prediction Time": "0.0836"
+          },
+          "Ours (3-folds)": {
+            "Params": "35M",
+            "Size": "148 MB",
+            "IoU": "0.8521",
+            "AUC-ROC": "0.9051",
+            "Prediction Time": "0.0810"
+          },
+          "Ours (5-folds)": {
+            "Params": "35M",
+            "Size": "148 MB",
+            "IoU": "0.8521",
+            "AUC-ROC": "0.9270",
+            "Prediction Time": "0.0810"
+          },
+          "Ours (7-folds)": {
+            "Params": "35M",
+            "Size": "148 MB",
+            "IoU": "0.8521",
+            "AUC-ROC": "0.9351",
+            "Prediction Time": "0.0810"
+          }
+        },
+        "notes": "The proposed ensemble model (U-Net Attention + HSI + XGBoost) was compared against existing segmentation/classification models. The 7-fold model achieved the highest AUC-ROC (0.9351) among the proposed variants."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multi-frame AI algorithm combining U-Net Attention (segmentation) and XGBoost (classification)",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "segmentation_model": "U-Net Attention",
+      "segmentation_framework": "PyTorch",
+      "segmentation_architecture_type": "Multi-stage cascaded convolutional neural networks with attention mechanism",
+      "segmentation_loss": "Binary Cross-Entropy (BCE) Loss with Logits",
+      "segmentation_optimizer": "Adam",
+      "segmentation_hyperparameters": {
+        "epochs": 200,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0005,
+        "batch_size": 32
+      },
+      "classification_model": "XGBoost",
+      "classification_feature_extraction": "Hyperspectral Imaging (HSI) model with dimensional reduction",
+      "hsi_calibration": "Transformation matrix derived from 24-color card (X-Rite Classic) using Olympus E-M10 Mark III camera and Ocean Optics QE65000 spectrometer"
+    },
+    "training_details": {
+      "validation_method": "k-fold cross-validation",
+      "optimal_k": 7,
+      "k_values_tested": [
+        3,
+        5,
+        7
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "XGBoost classifier",
+      "classes": [
+        "Mycosis fungoides (MF)",
+        "Psoriasis (PsO)",
+        "Atopic dermatitis (AD)",
+        "Normal skin"
+      ]
+    },
+    "approximate_parameters": {
+      "U-Net Attention": "35M",
+      "Ours (Ensemble)": "35M"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net Attention",
+    "XGBoost",
+    "U-Net",
+    "U-Net++",
+    "DeepLabv3",
+    "Support Vector Machine (SVM)",
+    "k-Nearest Neighbors (k-NN)",
+    "Artificial Neural Networks (ANNs)"
+  ],
+  "preprocessing_techniques": [
+    "Coarse segmentation of input images using U-Net Attention mechanism to segregate affected skin from normal skin, moles, and other skin pigments (noise removal).",
+    "Transformation of images from color space (sRGB) to spectral domain using Hyperspectral Imaging (HSI) algorithms.",
+    "Dimensional reduction of the output from the HSI model.",
+    "Calibration using a standard 24-color card (X-Rite Classic) to derive a transformation matrix correlating digital camera images with spectrometer spectral information.",
+    "Ensuring uniform illumination stability by maintaining constant patient position, camera, and light source arrangement to prevent aberration and chromatic aberration."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The study successfully developed a novel multi-frame AI algorithm combining U-Net Attention for segmentation and XGBoost for classification to identify skin lesions, specifically differentiating Mycosis fungoides (MF) from psoriasis (PsO), atopic dermatitis (AD), and normal skin.",
+    "The proposed model achieved optimal performance with a k-fold cross-validation value of 7, yielding a sensitivity of 90.72%, specificity of 96.76%, F1-score of 90.08%, and ROC-AUC of 0.9351.",
+    "Transforming images from the color space to the spectral domain using hyperspectral imaging (HSI) enhanced diagnostic accuracy, allowing for the precise identification of early-stage invasive lesions in MF.",
+    "The U-Net Attention segmentation model demonstrated robust performance in isolating damaged skin from normal skin, melanin spots, and other injuries, with a dice coefficient of 0.8447 and IoU of 0.8521.",
+    "The hybrid model prioritizes diagnostic accuracy over inference speed, acknowledging a trade-off where higher accuracy may lead to increased deployment times, which is critical for medical systems.",
+    "The approach offers a non-invasive, efficient, and accurate alternative to traditional dermatological diagnostic methods for skin malignancies and inflammatory conditions."
+  ],
+  "important_remarks": [
+    "The study is limited to a small, single-center cohort of only 34 participants, which restricts the generalizability of the results and prevents the model from replacing direct physician diagnosis.",
+    "The dataset is biased towards specific skin phototypes (Fitzpatrick III and IV) common in the Taiwanese population; performance on darker skin tones (phototypes > IV) may suffer from chromatic aberration due to uneven lighting impacts on spectral results.",
+    "The model's scope is narrow, focusing only on Mycosis fungoides (MF), psoriasis (PsO), and atopic dermatitis (AD); it is susceptible to interference from noise when other skin diseases with dissimilar characteristics are present.",
+    "The segmentation task (U-Net Attention) was designed for coarse segregation rather than high precision, prioritizing the isolation of affected skin from normal skin and noise (e.g., moles) over exact boundary delineation.",
+    "The study relies on retrospective, anonymized data with waived informed consent, and data availability is restricted to request from the corresponding author, limiting independent verification.",
+    "There is a potential conflict of interest as one author is a Director of Technology Development at Hitspectra Intelligent Technology Co., Ltd., which may have influenced the development or validation of the hyperspectral imaging technology.",
+    "The diagnostic system is positioned as an adjunct tool to augment physician diagnosis rather than a standalone diagnostic solution, acknowledging current limitations in clinical application."
+  ]
+}

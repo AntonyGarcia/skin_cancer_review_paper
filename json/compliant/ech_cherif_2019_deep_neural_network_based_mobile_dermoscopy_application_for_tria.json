@@ -1,0 +1,223 @@
+{
+  "file_name": "ech_cherif_2019_deep_neural_network_based_mobile_dermoscopy_application_for_tria.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a Deep Convolutional Neural Network (CNN), specifically the MobileNetV2 model trained via transfer learning, to perform binary classification of skin lesions (benign vs. malignant) for skin cancer detection. The model was trained on a dataset of 48,373 dermoscopic images and achieved an accuracy of 91.33%."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the training and validation of a Deep Convolutional Neural Network (MobileNetV2) on a dataset of 48,373 dermoscopic images to achieve binary classification of skin lesions. It reports specific performance metrics (91.33% accuracy), describes the methodology (transfer learning, batch size of 32), and details the development and testing of a prototype iOS mobile application, which constitutes a technical study producing new results rather than a literature review."
+  },
+  "title": "Deep Neural Network based Mobile Dermoscopy Application for Triaging Skin Cancer Detection",
+  "authors": [
+    "Ahmed Ech-Cherif",
+    "Mohammed Misbhauddin",
+    "Mohammed Ech-Cherif"
+  ],
+  "doi": null,
+  "journal": null,
+  "year": 2019,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the task of binary classification of skin lesions into benign or malignant categories to support early skin cancer detection via mobile teledermoscopy. The authors utilized a dataset of 48,373 dermoscopic images sourced from the DermNet, ISIC Archive, and Dermofit Image Library, which were labeled by expert dermatologists. They trained a resource-constrained Deep Convolutional Neural Network, specifically MobileNetV2, using transfer learning with a batch size of 32. The model achieved an overall accuracy of 91.33% on the training data. Subsequently, the trained model was integrated into a prototype iOS mobile application using the Core ML library to serve as a proof-of-concept for triaging skin cancer. The application was tested on an unseen library of images to evaluate its performance in a real-world mobile context.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "benign or malignant classes",
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "One of the two binary classification targets. The dataset contained 45,820 benign images (95% of the total 48,373 images) sourced from DermNet, ISIC Archive, and Dermofit Image Library."
+    },
+    {
+      "lesion_type": "Malignant skin lesions",
+      "paper_terms": [
+        "malignant",
+        "cancerous",
+        "malignant classes",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the two binary classification targets. The dataset contained 2,553 malignant images (5% of the total). The paper focuses on classifying lesions as cancerous or not, rather than identifying specific types of skin cancers."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into benign or malignant classes",
+        "primary": true,
+        "details": "The paper explicitly states the task is 'binary classification of skin lesions into benign or malignant classes'. The model predicts discrete diagnostic categories (benign vs. malignant/cancerous) using a MobileNetV2 CNN. Output predictions are probabilities ranging from 0 to 1, with the highest prediction taken as the class label. The paper notes it focuses on a 'two-class problem' rather than identifying specific types of skin cancers."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Combined DermNet, ISIC Archive, and Dermofit Image Library",
+      "description": "A combined dataset of 48,373 dermoscopic and photographic skin lesion images sourced from three archives: DermNet (photos mostly taken with smartphones, varying quality), ISIC Archive (high resolution, clean images from professional practitioners), and Dermofit Image Library (high quality images collected under standardized conditions). The images were labeled and validated by expert dermatologists.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 48373,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign": 45820,
+          "Malignant": 2553
+        }
+      },
+      "use": {
+        "training": "Used to train the MobileNetV2 CNN model using transfer learning with a batch size of 32. Data augmentation (rotation, cropping, mirroring, color shifting) was applied to handle variability.",
+        "validation": null,
+        "testing": "The trained model was tested on a new, unseen library of images to assess performance in a real-world mobile context.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Loss error",
+    "Confusion matrix"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using accuracy (91.33%) and a confusion matrix."
+  },
+  "results_obtained_in_each_dataset": {
+    "Combined DermNet, ISIC Archive, and Dermofit Image Library": {
+      "metric": "Accuracy",
+      "models": {
+        "MobileNetV2": {
+          "batch_size_64": "88%",
+          "batch_size_128": "85%",
+          "batch_size_256": "79%",
+          "batch_size_32": "91.33%"
+        }
+      },
+      "notes": "The model was trained using transfer learning with the Adam optimizer and a starting learning rate of 0.4. The configuration with a batch size of 32 yielded the best accuracy of 91.33%. The paper also reports a confusion matrix on a test set of 1000 images, where the model misclassified 84 malignant lesions as benign and 9 benign lesions as malignant."
+    },
+    "PH2 dermoscopic image library": {
+      "metric": "Accuracy",
+      "models": {
+        "MobileNetV2 (integrated in iOS prototype app)": "100% (classified all lesions correctly)"
+      },
+      "notes": "The trained model was converted to Core ML format and integrated into a prototype iOS mobile application. The application was tested on sample dermoscope images from the PH2 library, and it classified all lesions correctly."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MobileNetV2",
+    "pretraining": "Pre-trained on ImageNet dataset; weights loaded from ImageNet",
+    "input_size": "224x224 pixels",
+    "architecture_details": {
+      "framework": "Keras (built on TensorFlow)",
+      "hardware": "4 NVIDIA Tesla V100 GPUs and 4 CPUs with 30GB total memory",
+      "parallelism": "Data parallelism using keras.utils.multi_gpu_model",
+      "layer_modifications": "Original classification layer excluded and replaced with a dense layer having 2 classes (benign and malignant); initial layers frozen (scenario 1 for small dataset with low similarity)",
+      "regularization": "Dropout and L2 Regularization mentioned as general CNN techniques; data augmentation used (rotation, random cropping, mirroring, color shifting)"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.4,
+      "batch_size": 32,
+      "data_augmentation": {
+        "rotation_range": 359,
+        "height_shift_range": 0.2,
+        "width_shift_range": 0.2,
+        "shear_range": 0.2,
+        "zoom_range": 0.2,
+        "channel_shift_range": 10,
+        "horizontal_flip": true,
+        "fill_mode": "nearest"
+      },
+      "loss_function": "Not explicitly named, but loss error was monitored",
+      "epochs": "Not explicitly reported, but loss error variation through epochs is shown in Fig. 3"
+    },
+    "classification_or_output_head": {
+      "type": "Dense layer",
+      "units": 2,
+      "classes": [
+        "Benign",
+        "Malignant"
+      ],
+      "output_format": "Probabilities ranging from 0 to 1; highest prediction taken as class label"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MobileNetV2",
+    "Deep Convolutional Neural Network (CNN)",
+    "Deep Neural Network (DNN)",
+    "Doctor Hazel",
+    "SkinVision"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation: rotation (range 359 degrees), random cropping, mirroring (horizontal flip), and color shifting (channel shift range 10) using Principle Component Analysis.",
+    "Image resizing: Resampling lesion images to fit the MobileNetV2 default input size of 224x224 pixels using various interpolation algorithms.",
+    "Image normalization: Centering the data by calculating the variance of the training set and dividing every pixel by the variance to make the variance of each feature equal to one.",
+    "Preprocessing input: Using the preprocess_input module for images fed to the model."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Rotation range of 359 degrees (rotating from -359 to 359)."
+    },
+    {
+      "technique": "Height Shift",
+      "details": "Randomly shifts the image size in the horizontal direction by 0.2."
+    },
+    {
+      "technique": "Width Shift",
+      "details": "Randomly shifts the image size in the vertical direction by 0.2."
+    },
+    {
+      "technique": "Shear",
+      "details": "Stretches the image by a factor of 0.2."
+    },
+    {
+      "technique": "Zoom",
+      "details": "Zooms 0.2 from the center."
+    },
+    {
+      "technique": "Color Shift",
+      "details": "Random channel shifts with a range of 10 to vary colors, using Principle Component Analysis."
+    },
+    {
+      "technique": "Horizontal Flip",
+      "details": "Flips the image horizontally (True)."
+    },
+    {
+      "technique": "Fill Mode",
+      "details": "Uses 'nearest' interpolation algorithm for fill mode."
+    }
+  ],
+  "conclusions": [
+    "Deep convolutional neural networks, specifically the resource-constrained MobileNetV2 architecture, are effective for skin cancer detection and can be successfully deployed on mobile devices for real-time inference without cloud computing.",
+    "The trained MobileNetV2 model achieved an overall accuracy of 91.33% on a dataset of 48,373 dermoscopic images when using a batch size of 32, which was identified as the optimal hyper-parameter configuration due to the network's stability and reduced susceptibility to saddle points.",
+    "The developed prototype iOS mobile application, utilizing the Core ML framework, correctly classified all lesions in a test run using sample images from the PH2 dermoscopic image library, demonstrating the feasibility of mobile-based triaging.",
+    "The study focused on a binary classification problem (benign vs. malignant) rather than identifying specific types of skin cancers, primarily due to the limited variability in the available research datasets.",
+    "The authors acknowledge limitations regarding the need for rigorous clinical trials, feedback from skin specialists during development, and transparency in image analysis, which are major issues with current mobile diagnostic apps.",
+    "Future work aims to develop a complete mobile application that not only classifies lesions but also utilizes a confidence spectrum to guide users, potentially connecting them with dermatologists when confidence levels are low."
+  ],
+  "important_remarks": [
+    "The dataset is severely imbalanced, with malignant lesions comprising only 5% (2,553 images) of the total 48,373 images, while benign lesions comprise 95% (45,820 images).",
+    "The primary performance metric reported is accuracy (91.33%), which may be misleading due to the class imbalance; the paper does not report sensitivity, specificity, or AUC.",
+    "The model was tested on a small, specific test set of 1,000 images for the confusion matrix, where it misclassified 84 malignant lesions as benign (false negatives) and 9 benign lesions as malignant.",
+    "The prototype application was validated on the PH2 dermoscopic image library, where it achieved 100% accuracy, but this represents a very small sample size and lacks rigorous clinical trial validation.",
+    "The study focuses solely on binary classification (benign vs. malignant) rather than identifying specific types of skin cancer, limiting its clinical granularity.",
+    "The authors acknowledge major limitations regarding the need for rigorous clinical trials, feedback from skin specialists during development, and transparency in image analysis, which are critical issues for mobile diagnostic apps.",
+    "The training data combines heterogeneous sources (DermNet, ISIC, Dermofit) with varying image qualities (smartphone photos vs. high-resolution dermoscopy), introducing potential domain shift and variability issues.",
+    "No formal statistical hypothesis testing, p-values, or confidence intervals were reported to support the statistical significance of the results."
+  ]
+}

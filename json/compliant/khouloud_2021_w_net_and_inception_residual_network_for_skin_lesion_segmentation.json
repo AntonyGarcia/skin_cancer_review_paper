@@ -1,0 +1,628 @@
+{
+  "file_name": "khouloud_2021_w_net_and_inception_residual_network_for_skin_lesion_segmentation.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning models, specifically a novel W-net architecture for skin lesion segmentation and an Inception-ResNet architecture for melanoma classification, to analyze dermoscopic images from the PH2 and ISIC datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a new deep learning system for melanoma detection involving two novel architectures (W-net and Inception-Resnet), details specific experimental methods (pre-processing, segmentation, classification), and reports original quantitative results (accuracy, sensitivity, specificity, dice coefficient) on the PH2 and ISIC datasets, comparing them with existing work."
+  },
+  "title": "W-net and inception residual network for skin lesion segmentation and classiﬁcation",
+  "authors": [
+    "Sahib Khouloud",
+    "Melouah Ahlem",
+    "Touré Fadel",
+    "Slim Amel"
+  ],
+  "doi": "10.1007/s10489-021-02652-4",
+  "journal": "Applied Intelligence",
+  "year": 2021,
+  "article_type": "Journal article",
+  "brief_summary": "This study proposes a deep learning system for melanoma detection comprising a novel W-net architecture for skin lesion segmentation and an Inception-ResNet architecture for classification. The W-net combines ResNet and ConvNet encoder-decoders with a Feature Pyramid network to improve segmentation accuracy, while the Inception-ResNet utilizes Inception-ResNet blocks for robust classification. The proposed system was evaluated on the PH2 dataset and the ISIC 2016, 2017, and 2018 datasets. Performance was assessed using accuracy, sensitivity, specificity, dice coefficient, and precision metrics. The results demonstrated that the W-net achieved superior segmentation performance compared to existing methods, with accuracy values ranging from 97.23% to 97.94% across the datasets. The study concludes that the proposed approach offers significant advantages for automated skin lesion analysis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary focus of the study is melanoma detection and classification. The abstract states the system is for 'melanoma detection'. The introduction identifies melanoma as the deadliest form of skin cancer. The classification task aims to determine the type of skin lesion, specifically distinguishing melanoma from benign lesions."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "benign keratosis",
+        "nevus"
+      ],
+      "role": "Comparator class",
+      "details": "The study classifies lesions as malignant (melanoma) or benign. The ISIC 2017 dataset used in the experiments contains 'keratosis and benign' classes. The ISIC 2018 dataset contains 'NV' (nevus) and other benign types like BKL, AKIEC, DF, VASC, though the paper primarily frames the binary classification task as melanoma vs. benign."
+    },
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesion",
+        "diseased area"
+      ],
+      "role": "Segmentation target",
+      "details": "The W-net architecture is designed for 'skin lesion segmentation', separating the 'diseased area from the healthy one'. This applies to all lesion types present in the datasets (PH2, ISIC 2016, 2017, 2018) regardless of their specific diagnostic class."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks (separating diseased area from healthy skin)",
+        "primary": true,
+        "details": "The paper proposes a W-net architecture for skin lesion segmentation. The task involves producing pixel-wise segmentation maps (masks) for skin lesions. Performance is evaluated using Dice coefficient, sensitivity, specificity, and accuracy on the PH2, ISIC 2016, ISIC 2017, and ISIC 2018 datasets."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. Benign (binary) or specific lesion classes (multiclass)",
+        "primary": true,
+        "details": "The paper proposes an Inception-ResNet architecture for skin lesion classification. The task involves predicting discrete diagnostic categories. On ISIC 2016, it performs binary classification (malignant vs. benign). On ISIC 2017, it performs 3-class classification (melanoma, keratosis, benign). On ISIC 2018, it handles multiple classes (MEL, NV, BCC, AKIEC, BKL, DF, VASC). Performance is evaluated using accuracy, sensitivity, and specificity."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2 dataset",
+      "description": "A public dermoscopic image dataset used for skin lesion segmentation and classification. Images have resolutions ranging from 553x763 to 577x769 pixels.",
+      "classes_used": [
+        "Skin lesions (general segmentation target)",
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 753,
+        "training": 200,
+        "validation": null,
+        "testing": 553,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the W-net segmentation model and Inception-ResNet classification model.",
+        "validation": "Not explicitly reported as a separate split; hyperparameter tuning was performed.",
+        "testing": "Used for testing segmentation performance (accuracy 97.23%, dice 93.82%) and classification.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2016 dataset",
+      "description": "A public dataset from the International Skin Imaging Collaboration used for binary classification (malignant vs. benign) and segmentation. Images have resolutions ranging from 540x722 to 4499x6748 pixels.",
+      "classes_used": [
+        "Malignant",
+        "Benign"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the W-net segmentation model and Inception-ResNet classification model.",
+        "validation": "Not explicitly reported as a separate split.",
+        "testing": "Used for testing segmentation performance (accuracy 97.49%, dice 93.61%) and classification.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2017 dataset",
+      "description": "A public dataset from the International Skin Imaging Collaboration used for multi-class classification (melanoma, keratosis, benign) and segmentation. Images have resolutions ranging from 540x722 to 4499x6748 pixels.",
+      "classes_used": [
+        "Melanoma",
+        "Keratosis",
+        "Benign"
+      ],
+      "counts": {
+        "total": 2600,
+        "training": 2000,
+        "validation": null,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the W-net segmentation model and Inception-ResNet classification model.",
+        "validation": "Not explicitly reported as a separate split.",
+        "testing": "Used for testing segmentation performance (accuracy 97.94%, dice 93.22%) and classification.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2018 dataset",
+      "description": "A public dataset from the International Skin Imaging Collaboration used for multi-class classification and segmentation. Images have resolutions ranging from 540x722 to 4499x6748 pixels.",
+      "classes_used": [
+        "MEL",
+        "NV",
+        "BCC",
+        "AKIEC",
+        "BKL",
+        "DF",
+        "VASC"
+      ],
+      "counts": {
+        "total": 3594,
+        "training": 2594,
+        "validation": null,
+        "testing": 1000,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the W-net segmentation model and Inception-ResNet classification model.",
+        "validation": "Not explicitly reported as a separate split.",
+        "testing": "Used for testing segmentation performance (accuracy 97.39%, dice 93%) and classification.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "sensitivity",
+    "specificity",
+    "dice coefficient",
+    "precision",
+    "F1 Score",
+    "dice similarity",
+    "jaccard index",
+    "correlation"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Correlation analysis",
+      "purpose": "To confirm the visual observation of similarity between ground truth images and W-net segmented images.",
+      "type": "Correlation"
+    },
+    {
+      "method": "Performance metric comparison",
+      "purpose": "To compare the proposed W-net and Inception-ResNet models against existing state-of-the-art methods using sensitivity, specificity, accuracy, dice coefficient, and precision.",
+      "type": "Descriptive Statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing; performance comparisons were made using descriptive statistics (accuracy, sensitivity, specificity, dice coefficient) without p-values or significance tests."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2016": {
+      "segmentation": {
+        "metric": "Sensitivity, Specificity, Accuracy, Dice Similarity",
+        "models": {
+          "W-net": {
+            "Sensitivity": "95.95%",
+            "Specificity": "98.37%",
+            "Accuracy": "97.49%",
+            "Dice Similarity": "93.61%"
+          },
+          "Xie et al. [18]": {
+            "Sensitivity": "87%",
+            "Specificity": "96.4%",
+            "Accuracy": "93.8%",
+            "Dice Similarity": "91.8%"
+          },
+          "Lei Bi et al. [21]": {
+            "Sensitivity": "92.2%",
+            "Specificity": "96.5%",
+            "Accuracy": "95.5%",
+            "Dice Similarity": "91.18%"
+          },
+          "Huang et al. [26]": {
+            "Sensitivity": "92.5%",
+            "Specificity": "96.4%",
+            "Accuracy": "95.8%",
+            "Dice Similarity": "null"
+          },
+          "Tong et al. [33]": {
+            "Sensitivity": "92.7%",
+            "Specificity": "96.1%",
+            "Accuracy": "95.4%",
+            "Dice Similarity": "null"
+          }
+        },
+        "notes": "W-net outperformed existing methods in all reported metrics."
+      },
+      "classification": {
+        "metric": "Sensitivity, Specificity, Accuracy, Precision",
+        "models": {
+          "Inception-ResNet": {
+            "Sensitivity": "98.1%",
+            "Specificity": "98.1%",
+            "Accuracy": "98.1%",
+            "Precision": "98.1%"
+          },
+          "Y. Ge et al. [45]": {
+            "Sensitivity": "94%",
+            "Specificity": "93%",
+            "Accuracy": "92%",
+            "Precision": "null"
+          },
+          "A Khan et al. [46]": {
+            "Sensitivity": "94.2%",
+            "Specificity": "null",
+            "Accuracy": "94.2%",
+            "Precision": "94.4%"
+          },
+          "M.A Khan et al. [47]": {
+            "Sensitivity": "92.0%",
+            "Specificity": "90.0%",
+            "Accuracy": "92.1%",
+            "Precision": "92.5%"
+          },
+          "Jayapriya et al. [48]": {
+            "Sensitivity": "69.33%",
+            "Specificity": "93.75%",
+            "Accuracy": "88.92%",
+            "Precision": "null"
+          }
+        },
+        "notes": "Inception-ResNet far outperformed the compared methods."
+      }
+    },
+    "ISIC 2017": {
+      "segmentation": {
+        "metric": "Sensitivity, Specificity, Accuracy, Dice Similarity",
+        "models": {
+          "W-net": {
+            "Sensitivity": "94.86%",
+            "Specificity": "98.89%",
+            "Accuracy": "97.94%",
+            "Dice Similarity": "93.22%"
+          },
+          "Xie et al. [18]": {
+            "Sensitivity": "86.2%",
+            "Specificity": "96.4%",
+            "Accuracy": "93.8%",
+            "Dice Similarity": "91.8%"
+          },
+          "Al-Masni et al. [22]": {
+            "Sensitivity": "85.40%",
+            "Specificity": "96.69%",
+            "Accuracy": "94.03%",
+            "Dice Similarity": "87.08%"
+          },
+          "Ozturk and Ozkaya [23]": {
+            "Sensitivity": "85.44%",
+            "Specificity": "98.08%",
+            "Accuracy": "95.30%",
+            "Dice Similarity": "88.64%"
+          },
+          "Shan et al. [24]": {
+            "Sensitivity": "84.56%",
+            "Specificity": "98.89%",
+            "Accuracy": "95.14%",
+            "Dice Similarity": "88.13%"
+          },
+          "Kaymak et al. [25]": {
+            "Sensitivity": "null",
+            "Specificity": "null",
+            "Accuracy": "94.58%",
+            "Dice Similarity": "82.48%"
+          },
+          "Tong et al. [33]": {
+            "Sensitivity": "82.5%",
+            "Specificity": "96.5%",
+            "Accuracy": "92.6%",
+            "Dice Similarity": "null"
+          }
+        },
+        "notes": "W-net performed best among the compared segmentation methods."
+      },
+      "classification": {
+        "metric": "Sensitivity, Specificity, Accuracy, Precision",
+        "models": {
+          "Inception-ResNet": {
+            "Sensitivity": "95.15%",
+            "Specificity": "97.87%",
+            "Accuracy": "96.97%",
+            "Precision": "95.71%"
+          },
+          "A Khan et al. [46]": {
+            "Sensitivity": "93%",
+            "Specificity": "null",
+            "Accuracy": "93.4%",
+            "Precision": "93.2%"
+          },
+          "M.A Khan et al. [47]": {
+            "Sensitivity": "96.5%",
+            "Specificity": "97.0%",
+            "Accuracy": "96.5%",
+            "Precision": "96.5%"
+          },
+          "Jayapriya et al. [48]": {
+            "Sensitivity": "81.28%",
+            "Specificity": "86.22%",
+            "Accuracy": "85.3%",
+            "Precision": "null"
+          },
+          "Akram et al. [53]": {
+            "Sensitivity": "null",
+            "Specificity": "null",
+            "Accuracy": "95.9%",
+            "Precision": "null"
+          }
+        },
+        "notes": "Inception-ResNet performance compared against existing classification methods."
+      }
+    },
+    "ISIC 2018": {
+      "segmentation": {
+        "metric": "Sensitivity, Specificity, Accuracy, Dice Similarity",
+        "models": {
+          "W-net": {
+            "Sensitivity": "95.54%",
+            "Specificity": "98.40%",
+            "Accuracy": "97.39%",
+            "Dice Similarity": "93%"
+          },
+          "Al Nazi et al. [29]": {
+            "Sensitivity": "null",
+            "Specificity": "null",
+            "Accuracy": "null",
+            "Dice Similarity": "87%"
+          },
+          "Nguyen et al. [30]": {
+            "Sensitivity": "null",
+            "Specificity": "null",
+            "Accuracy": "null",
+            "Dice Similarity": "86.1%"
+          },
+          "Qamar et al. [34]": {
+            "Sensitivity": "96.50%",
+            "Specificity": "97%",
+            "Accuracy": "96.95%",
+            "Dice Similarity": "90%"
+          },
+          "Azad et al. [39]": {
+            "Sensitivity": "87.5%",
+            "Specificity": "98.8%",
+            "Accuracy": "96.4%",
+            "Dice Similarity": "91.2%"
+          },
+          "Navid et al. [67]": {
+            "Sensitivity": "92.09%",
+            "Specificity": "97.32%",
+            "Accuracy": "96.8%",
+            "Dice Similarity": "91%"
+          }
+        },
+        "notes": "W-net achieved the highest accuracy and dice coefficient. Specificity was slightly lower than Azad et al., and sensitivity was lower than Qamar et al."
+      }
+    },
+    "PH2": {
+      "segmentation": {
+        "metric": "Sensitivity, Specificity, Accuracy, Dice Similarity",
+        "models": {
+          "W-net": {
+            "Sensitivity": "96.43%",
+            "Specificity": "97.71%",
+            "Accuracy": "97.23%",
+            "Dice Similarity": "93.82%"
+          },
+          "Xie et al. [18]": {
+            "Sensitivity": "96.3%",
+            "Specificity": "94.2%",
+            "Accuracy": "94.9%",
+            "Dice Similarity": "91.9%"
+          },
+          "Lei Bi et al. [21]": {
+            "Sensitivity": "94.89%",
+            "Specificity": "93.98%",
+            "Accuracy": "94.24%",
+            "Dice Similarity": "90.66%"
+          },
+          "Al-Masni et al. [22]": {
+            "Sensitivity": "93.72%",
+            "Specificity": "95.65%",
+            "Accuracy": "95.08%",
+            "Dice Similarity": "91.77%"
+          },
+          "Ozturk and Ozkaya [23]": {
+            "Sensitivity": "96.88%",
+            "Specificity": "95.31%",
+            "Accuracy": "96.92%",
+            "Dice Similarity": "93.02%"
+          },
+          "Shan et al. [24]": {
+            "Sensitivity": "94.77%",
+            "Specificity": "96.28%",
+            "Accuracy": "93.63%",
+            "Dice Similarity": "90.26%"
+          },
+          "Al Nazi et al. [29]": {
+            "Sensitivity": "null",
+            "Specificity": "null",
+            "Accuracy": "null",
+            "Dice Similarity": "93%"
+          },
+          "Tong et al. [33]": {
+            "Sensitivity": "96%",
+            "Specificity": "93.7%",
+            "Accuracy": "94.3%",
+            "Dice Similarity": "null"
+          }
+        },
+        "notes": "W-net performed best in accuracy and dice similarity. Sensitivity was slightly lower than Ozturk and Ozkaya."
+      },
+      "classification": {
+        "metric": "Not explicitly reported in tables for PH2 classification in the provided context snippets, though mentioned as evaluated.",
+        "models": {},
+        "notes": "The paper states Inception-ResNet was evaluated on PH2 for classification, but specific metric values for PH2 classification are not present in the provided text chunks (Tables 10 and 11 cover ISIC 2016 and 2017 respectively)."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "W-net (for segmentation) and Inception-ResNet (for classification)",
+    "pretraining": "Not reported",
+    "input_size": "Variable (PH2: 553x763 to 577x769; ISIC: 540x722 to 4499x6748); Segmentation output fed to classifier is 118x118",
+    "architecture_details": {
+      "W-net": {
+        "type": "Encoder-Decoder with Feature Pyramid",
+        "components": [
+          "ResNet Encoder-Decoder",
+          "ConvNet Encoder-Decoder",
+          "Feature Pyramid (FP) network"
+        ],
+        "ResNet_Encoder": {
+          "structure": "Residual units with two convolution blocks and identity mapping",
+          "conv_block_layers": "BN, ReLU, Conv (3x3)",
+          "identity_mapping": "Conv (1x1)",
+          "down_sampling": "Max pooling (2x2), stride=2",
+          "kernel_counts": [
+            16,
+            32,
+            64,
+            128
+          ],
+          "bridge_kernels": 256
+        },
+        "ResNet_Decoder": {
+          "structure": "Symmetric to encoder",
+          "kernel_counts": [
+            128,
+            64,
+            32,
+            16
+          ]
+        },
+        "ConvNet_Encoder": {
+          "structure": "Four down-sampling blocks",
+          "block_components": [
+            "Two convolutional layers (3x3)",
+            "Concatenate layer",
+            "Down-sampling layer"
+          ],
+          "kernel_counts": [
+            16,
+            32,
+            64,
+            128
+          ]
+        },
+        "ConvNet_Decoder": {
+          "structure": "Four up-sampling blocks",
+          "block_components": [
+            "Deconvolution layer (2x2)",
+            "Two convolutional layers (3x3)"
+          ],
+          "kernel_counts": [
+            128,
+            64,
+            32,
+            16
+          ]
+        },
+        "Feature_Pyramid": {
+          "function": "Compress ConvNet decoder output using Conv (1x1), BN, ReLU; up-sample to original scale; add via Conv (1x1) with Sigmoid activation"
+        },
+        "attention_mechanism": "Added to ResNet structure to suppress irrelevant features"
+      },
+      "Inception_ResNet": {
+        "type": "Convolutional Neural Network with Inception-ResNet blocks",
+        "feature_extraction_layers": [
+          "Three convolutional layers",
+          "Five pooling layers (four max pooling 3x3, one average pooling 7x7)",
+          "Four Inception-ResNet blocks"
+        ],
+        "conv_layers_detail": [
+          "Layer 1: 64 kernels, size 7x7, stride 2",
+          "Layer 2: 64 kernels",
+          "Layer 3: unspecified kernels/size"
+        ],
+        "Inception_ResNet_Block": {
+          "components": [
+            "Conv (1x1)",
+            "Two residual blocks (parallel paths)",
+            "Max pooling",
+            "Conv (1x1)"
+          ],
+          "residual_block_1": "Conv (1x1), Conv (3x3)",
+          "residual_block_2": "Conv (1x1), Conv (5x5)",
+          "regularization": "BN, ReLU, Identity mapping via Conv (1x1)"
+        }
+      }
+    },
+    "training_details": {
+      "W-net": {
+        "optimizer": "Adam (Adaptive Moment Optimization)",
+        "epochs": 60,
+        "batch_size": 8,
+        "regularization": "Not explicitly stated for W-net, but loss convergence monitored"
+      },
+      "Inception_ResNet": {
+        "optimizer": "Not explicitly stated (implied Adam or similar via Keras/Tensorflow context, but not specified)",
+        "epochs": "Not explicitly stated (performance curves shown)",
+        "batch_size": "Not explicitly stated",
+        "regularization": "Dropout"
+      },
+      "framework": "Keras interface on Tensorflow",
+      "hardware": "Nvidia GeForce 840 M CUDA 5"
+    },
+    "classification_or_output_head": {
+      "W-net_output": "Segmentation map (skin lesion mask)",
+      "Inception_ResNet_output": "Binary classification (Melanoma vs. Benign) or Multi-class (depending on dataset: ISIC 2016 binary, ISIC 2017 3-class, ISIC 2018 multi-class)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "W-net",
+    "Inception-ResNet",
+    "CNN (Xie et al.)",
+    "CDCNN (Yuan and Lo)",
+    "FCN (Lei Bi et al.)",
+    "FrCN (Al-Masni et al.)",
+    "iFCN (Ozturk and Ozkaya)",
+    "FC-DPN (Shan et al.)",
+    "FCN-AlexNet (Kaymak et al.)",
+    "FCN-8s (Kaymak et al.)",
+    "FCN-16s (Kaymak et al.)",
+    "FCN-32s (Kaymak et al.)",
+    "OSO-FCNs (Huang et al.)",
+    "U-Net",
+    "Res-Unet (Zafer et al.)",
+    "ASCU-Net (Tong et al.)",
+    "Dense (Qamar et al.)",
+    "SegNet (Ninh et al.)",
+    "Deeplabv3+ (Azad et al.)",
+    "skinNet (Vesal et al.)",
+    "U-Net (Al Nazi et al.)",
+    "U-Net (Nguyen et al.)",
+    "Attention-ResUnet",
+    "ResNet",
+    "ConvNet"
+  ],
+  "preprocessing_techniques": [
+    "Gaussian filter applied to minimize artifacts such as fogs, hairs, marks, and stains",
+    "Binary image computation using thresholding technique",
+    "Canny algorithm applied to decrease data amount and filter out unnecessary information while preserving structural features",
+    "Bounding rectangle computation based on points obtained by the Canny algorithm",
+    "Image cropping onto the bounding rectangle",
+    "Resizing of the lesion region"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed W-net architecture, which combines ResNet and ConvNet encoder-decoders with a Feature Pyramid network, significantly improves skin lesion segmentation performance compared to single encoder-decoder architectures.",
+    "The W-net achieved superior segmentation accuracy ranging from 97.23% to 97.94% across the PH2, ISIC 2016, ISIC 2017, and ISIC 2018 datasets, outperforming existing state-of-the-art methods in most metrics.",
+    "The Inception-ResNet architecture provides robust classification capabilities for melanoma detection, achieving high accuracy (e.g., 98.1% on ISIC 2016) and outperforming compared classification methods.",
+    "The dual encoder-decoder structure of W-net allows for better extraction of region borders and more accurate segmentation of lesion boundaries compared to ground truth and other models like Attention-ResUnet.",
+    "The integration of the Feature Pyramid network in W-net helps overcome memory saturation risks and enhances the aggregation of features for segmentation.",
+    "The proposed deep learning system offers significant advantages for automated skin lesion analysis, demonstrating the effectiveness of combining novel segmentation and classification architectures."
+  ],
+  "important_remarks": [
+    "The study lacks formal statistical hypothesis testing (e.g., p-values, confidence intervals) to validate the significance of performance improvements over state-of-the-art methods, relying solely on descriptive statistics.",
+    "The paper does not report a separate validation set for hyperparameter tuning; it states that the epoch number was adjusted to match training steps, which raises concerns about potential data leakage or overfitting to the test set.",
+    "The hardware used for training (Nvidia GeForce 840 M) is significantly less powerful than standard modern GPUs, which may limit the complexity of models or reproducibility of training dynamics compared to contemporary studies.",
+    "The Inception-ResNet classification model details are sparse regarding hyperparameters; while dropout is mentioned, specific learning rates, batch sizes, and optimizer settings for classification are not explicitly reported in the text.",
+    "The PH2 dataset is small (200 training images), which may lead to high variance in performance metrics and limits the generalizability of the segmentation results for this specific dataset.",
+    "The study evaluates segmentation and classification on multiple ISIC datasets (2016, 2017, 2018) with different class definitions and sizes, but does not address potential domain shifts or distributional biases between these datasets.",
+    "Preprocessing steps include Gaussian filtering and Canny edge detection, which are conventional methods that may remove subtle diagnostic features or introduce artifacts, yet their specific impact on model performance is not ablated."
+  ]
+}

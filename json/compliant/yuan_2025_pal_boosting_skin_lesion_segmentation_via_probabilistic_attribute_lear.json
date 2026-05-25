@@ -1,0 +1,430 @@
+{
+  "file_name": "yuan_2025_pal_boosting_skin_lesion_segmentation_via_probabilistic_attribute_lear.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes Probabilistic Attribute Learning (PAL), a deep learning method using a pyramid vision transformer (ViT) as a pixel encoder and linear layers as a decoder, to perform skin lesion segmentation on dermoscopy images. It evaluates the model on public skin lesion datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper introduces a novel deep learning method called Probabilistic Attribute Learning (PAL) for skin lesion segmentation. It presents original experimental results, including quantitative comparisons with state-of-the-art methods on public datasets (ISIC2017, ISIC2018, Polyp-seg) and comprehensive ablation studies to verify the efficacy of proposed modules. The structure includes standard research sections such as Abstract, Introduction, Methods, Experiments, and Conclusion, indicating it is an original technical study rather than a review."
+  },
+  "title": "PAL: Boosting Skin Lesion Segmentation via Probabilistic Attribute Learning",
+  "authors": [
+    "Yuchen Yuan",
+    "Xi Wang",
+    "Jinpeng Li",
+    "Guangyong Chen",
+    "Pheng-Ann Heng"
+  ],
+  "doi": "10.1109/TMI.2025.3588167",
+  "journal": "IEEE Transactions on Medical Imaging",
+  "year": 2025,
+  "article_type": "Journal article",
+  "brief_summary": "This study introduces Probabilistic Attribute Learning (PAL), a deep learning framework for skin lesion segmentation that leverages knowledge of lesion patterns to enhance performance on challenging cases. The method models lesion attributes as distinct Gaussian distributions and uses Monte Carlo sampling to generate diverse representations for robust pixel-class proximity matching. The authors evaluated PAL on two public skin lesion datasets, ISIC2017 and ISIC2018, as well as the Polyp-seg dataset to assess generalization. Quantitative results demonstrate that PAL significantly outperforms state-of-the-art CNN and Vision Transformer-based methods, particularly in handling ambiguous boundaries and noise. The approach effectively captures intrinsic lesion patterns, leading to superior segmentation accuracy and robustness across diverse clinical scenarios.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on skin lesion segmentation for early detection and diagnosis of melanoma, which is described as the most lethal form of skin cancer. The segmentation task targets the lesion region generally, which includes melanoma cases within the ISIC datasets."
+    },
+    {
+      "lesion_type": "Skin Lesion (General)",
+      "paper_terms": [
+        "skin lesion",
+        "dermoscopy skin lesion"
+      ],
+      "role": "Target class",
+      "details": "The primary target of the segmentation task is 'skin lesion' as a general category. The datasets ISIC2017 and ISIC2018 contain various types of skin lesions (benign and malignant) without distinguishing specific histological classes in the segmentation ground truth masks."
+    },
+    {
+      "lesion_type": "Polyp Lesion",
+      "paper_terms": [
+        "polyp lesion",
+        "polyp"
+      ],
+      "role": "Target class (Generalization evaluation)",
+      "details": "Evaluated on the Polyp-seg dataset (including Kvasir-SEG, ClinicDB, ColonDB, Endoscene, and ETIS) to assess the model's generalization ability beyond skin lesions. The paper notes polyp lesions are generally more consistent in appearance compared to skin lesions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise lesion masks for skin lesions and polyp lesions",
+        "primary": true,
+        "details": "The paper focuses on skin lesion segmentation and polyp lesion segmentation. The model predicts binary masks (lesion vs. non-lesion/background) for dermoscopy images (ISIC2017, ISIC2018) and endoscopic images (Polyp-seg). The output is a segmentation mask obtained by fusing outputs from a linear head and a probabilistic head, evaluated using IoU and Dice coefficients."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2017",
+      "description": "A large skin lesion segmentation dataset released as part of the 2017 International Skin Imaging Collaboration (ISIC) Challenge, containing dermoscopy skin lesion images with ground truth lesion masks.",
+      "classes_used": [
+        "skin lesion"
+      ],
+      "counts": {
+        "total": 2150,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Randomly split with ISIC2018 at a ratio of 7:3 for training and testing; specific count not reported.",
+        "validation": "null",
+        "testing": "Randomly split with ISIC2018 at a ratio of 7:3 for training and testing; specific count not reported.",
+        "other": "null"
+      }
+    },
+    {
+      "name": "ISIC2018",
+      "description": "A dataset collected by ISIC in 2018 containing dermoscopy images and labels.",
+      "classes_used": [
+        "skin lesion"
+      ],
+      "counts": {
+        "total": 2694,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Randomly split with ISIC2017 at a ratio of 7:3 for training and testing; specific count not reported.",
+        "validation": "null",
+        "testing": "Randomly split with ISIC2017 at a ratio of 7:3 for training and testing; specific count not reported.",
+        "other": "null"
+      }
+    },
+    {
+      "name": "Polyp-seg",
+      "description": "A unified polyp lesion dataset containing five challenging public datasets: Kvasir-SEG, ClinicDB, ColonDB, Endoscene, and ETIS.",
+      "classes_used": [
+        "polyp lesion"
+      ],
+      "counts": {
+        "total": null,
+        "training": 1450,
+        "validation": null,
+        "testing": 162,
+        "per_class": {
+          "Kvasir-SEG": {
+            "training": 900,
+            "testing": 100
+          },
+          "ClinicDB": {
+            "training": 550,
+            "testing": 62
+          },
+          "ColonDB": {
+            "testing": 380
+          },
+          "Endoscene": {
+            "testing": 60
+          },
+          "ETIS": {
+            "testing": 196
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the model (900 images from Kvasir-SEG and 550 from ClinicDB).",
+        "validation": "null",
+        "testing": "Used for internal testing (100 images from Kvasir-SEG and 62 from ClinicDB) and external generalization testing (196 from ETIS, 380 from ColonDB, and 60 from Endoscene).",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient",
+    "IoU score",
+    "Average symmetric surface distance (ASSD)",
+    "95th Hausdorff distance of boundaries (HD95)",
+    "weighted F-measure (Fβw)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Wilcoxon signed-rank test",
+      "purpose": "To assess the statistical significance of the proposed PAL method's improvement over the second-best results on the ISIC2017 and ISIC2018 datasets.",
+      "type": "Hypothesis test"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Wilcoxon signed-rank test",
+    "null_hypothesis": "There is no significant difference in performance between the proposed PAL method and the second-best method.",
+    "alternative_hypothesis": "The proposed PAL method significantly outperforms the second-best method.",
+    "alpha": 0.05,
+    "interpretation": "The method significantly outperformed the second-best results in 9 out of 10 metrics (except for HD95 on ISIC2017) on the ISIC2017 and ISIC2018 datasets."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2017": {
+      "description": "Skin lesion segmentation dataset. Split: 7:3 training/testing ratio with ISIC2018.",
+      "metrics": [
+        "Dice coefficient",
+        "IoU score",
+        "ASSD",
+        "HD95"
+      ],
+      "models": {
+        "PAL (PVTv2 backbone)": {
+          "note": "Best results in bold in Table I. Significantly outperformed second-best in 9 out of 10 metrics (Wilcoxon signed-rank test, p < 0.05). HD95 was the only metric where significance was not reported as significant compared to second-best."
+        },
+        "PAL (ResNet50 backbone)": {
+          "note": "Results reported in Table I, but specific values not extracted in text context."
+        },
+        "XBound-Former": {
+          "note": "Second-best results (underlined in Table I). Referenced as the baseline for statistical comparison."
+        },
+        "nnUNet": {
+          "note": "Results reported in Table I."
+        },
+        "TransUNet": {
+          "note": "Results reported in Table I."
+        },
+        "TransFuse": {
+          "note": "Results reported in Table I."
+        },
+        "U-Net": {
+          "note": "Results reported in Table I."
+        },
+        "U-Net++": {
+          "note": "Results reported in Table I."
+        },
+        "Attention U-Net": {
+          "note": "Results reported in Table I."
+        },
+        "DeepLab V3+": {
+          "note": "Results reported in Table I."
+        },
+        "CE-Net": {
+          "note": "Results reported in Table I."
+        },
+        "CA-Net": {
+          "note": "Results reported in Table I."
+        },
+        "EGE-UNet": {
+          "note": "Results reported in Table I."
+        }
+      },
+      "notes": "PAL significantly outperformed the second-best method in 9 out of 10 metrics. Specific numerical values for Dice, IoU, ASSD, and HD95 are present in Table I but not explicitly listed in the provided text chunks."
+    },
+    "ISIC2018": {
+      "description": "Skin lesion segmentation dataset. Split: 7:3 training/testing ratio with ISIC2017.",
+      "metrics": [
+        "Dice coefficient",
+        "IoU score",
+        "ASSD",
+        "HD95"
+      ],
+      "models": {
+        "PAL (PVTv2 backbone)": {
+          "note": "Best results in bold in Table I. Significantly outperformed second-best in 9 out of 10 metrics (Wilcoxon signed-rank test, p < 0.05)."
+        },
+        "PAL (ResNet50 backbone)": {
+          "note": "Results reported in Table I."
+        },
+        "XBound-Former": {
+          "note": "Second-best results (underlined in Table I)."
+        },
+        "nnUNet": {
+          "note": "Results reported in Table I."
+        },
+        "TransUNet": {
+          "note": "Results reported in Table I."
+        },
+        "TransFuse": {
+          "note": "Results reported in Table I."
+        },
+        "U-Net": {
+          "note": "Results reported in Table I."
+        },
+        "U-Net++": {
+          "note": "Results reported in Table I."
+        },
+        "Attention U-Net": {
+          "note": "Results reported in Table I."
+        },
+        "DeepLab V3+": {
+          "note": "Results reported in Table I."
+        },
+        "CE-Net": {
+          "note": "Results reported in Table I."
+        },
+        "CA-Net": {
+          "note": "Results reported in Table I."
+        },
+        "EGE-UNet": {
+          "note": "Results reported in Table I."
+        }
+      },
+      "notes": "PAL significantly outperformed the second-best method in 9 out of 10 metrics. Specific numerical values for Dice, IoU, ASSD, and HD95 are present in Table I but not explicitly listed in the provided text chunks."
+    },
+    "Polyp-seg": {
+      "description": "Unified polyp lesion dataset comprising Kvasir-SEG, ClinicDB, ColonDB, Endoscene, and ETIS.",
+      "metrics": [
+        "IoU score",
+        "weighted F-measure (Fβw)"
+      ],
+      "models": {
+        "PAL (PVTv2 backbone)": {
+          "IoU_overall": "Best result (bold in Table II)",
+          "Fbw_overall": "Best result (bold in Table II)",
+          "IoU_Kvasir-SEG": "Comparable to best",
+          "IoU_ClinicDB": "Comparable to best",
+          "IoU_ColonDB": "Best result",
+          "IoU_ETIS": "Best result",
+          "IoU_Endoscene": "Best result",
+          "Fbw_ColonDB": "Best result",
+          "Fbw_ETIS": "Best result",
+          "Fbw_Endoscene": "Best result",
+          "Improvement_vs_XBound-Former_ETIS": "IoU +2.3%, Fbw +2.61%",
+          "Improvement_vs_Polyp-PVT_ETIS": "IoU +6.8%, Fbw +9.61%"
+        },
+        "XBound-Former": {
+          "note": "Second-best results (underlined in Table II). Baseline for comparison."
+        },
+        "Polyp-PVT": {
+          "note": "Results reused from [62]. Second-best results (underlined in Table II)."
+        },
+        "nnUNet": {
+          "IoU_ColonDB": "Highest (Best)",
+          "IoU_Endoscene": "Highest (Best)",
+          "note": "Underperformed PAL on Fbw metric. Lagged behind PAL on ETIS dataset for both IoU and Fbw."
+        },
+        "ACSNet": {
+          "note": "Results reported in Table II."
+        },
+        "PraNet": {
+          "note": "Results reported in Table II."
+        },
+        "TGANet": {
+          "note": "Results reported in Table II."
+        },
+        "MSEG": {
+          "note": "Results reported in Table II."
+        },
+        "DCRNet": {
+          "note": "Results reported in Table II."
+        },
+        "EU-Net": {
+          "note": "Results reported in Table II."
+        },
+        "SANet": {
+          "note": "Results reported in Table II."
+        }
+      },
+      "notes": "PAL achieved the best results on the overall test set and on external generalization sets (ColonDB, ETIS, Endoscene). On internal test sets (Kvasir-SEG, ClinicDB), performance was comparable to the best. nnUNet achieved highest IoU on ColonDB and Endoscene but was outperformed by PAL on Fbw. Specific numerical values for all models are present in Table II but not explicitly listed in the provided text chunks."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Probabilistic Attribute Learning (PAL)",
+    "pretraining": "Not explicitly reported; backbones PVTv2 and ResNet50 are used, but their specific pretraining sources (e.g., ImageNet) are not detailed in the provided text.",
+    "input_size": "Not explicitly reported.",
+    "architecture_details": {
+      "encoder": "Pixel encoder using either PVTv2 (Pyramid Vision Transformer v2) or ResNet50 (CNN-based).",
+      "decoder": "Linear layers as a decoder.",
+      "probabilistic_head": "Includes a pattern mining module (PMM) and probabilistic class-attribute representation learning.",
+      "pattern_mining_module": "Inherits architecture of Mask2Former. Consists of L successive transformer decoder sub-layers. Each sub-layer includes a soft masked attention layer, a residual addition layer, and a feedforward layer. Uses multi-scale strategy feeding feature pyramid from pixel decoder. Soft masked attention uses linear head output (y_linear) to derive a soft mask.",
+      "meta_class_attribute_representations": "M consists of C classes of attribute representations (C=2 for lesion/non-lesion). Each class contains A learnable vectors of D dimension. Randomly initialized following a standard normal distribution.",
+      "attribute_modeling": "Each attribute modeled as a multivariate Gaussian distribution with mean (u_ac) and variance (sigma_ca) estimated via two transformation functions (phi_u and phi_sigma), each comprising three linear layers and two LeakyReLU activation functions.",
+      "sampling": "Monte Carlo Sampling used to draw multiple samples from distributions to capture diverse patterns.",
+      "routing": "Mixture of Experts (MoE) inspired routing network R selects top k class-attributes.",
+      "loss_functions": [
+        "Decorrelation loss (L_decorr) to enforce independence of attribute representations.",
+        "Balance loss (L_bal) to encourage equal selection of attributes.",
+        "Standard segmentation loss (weights lambda1, lambda2, lambda3, alpha, beta)."
+      ],
+      "hyperparameters": {
+        "attributes_A": "10 for skin lesion, 8 for polyp lesion.",
+        "selected_attributes_k": "3 for both tasks.",
+        "loss_weights": "lambda1=1, lambda2=2, lambda3=2, alpha=1, beta=1.",
+        "sampling_rounds_N": "15.",
+        "negative_scalar_kappa": "-2.",
+        "PMM_depth_L": "3."
+      }
+    },
+    "training_details": {
+      "optimizer": "Not explicitly reported.",
+      "learning_rate": "1e-4.",
+      "scheduler": "Cosine annealing.",
+      "epochs": "100.",
+      "batch_size": "16."
+    },
+    "classification_or_output_head": {
+      "type": "Fused output from linear head and probabilistic head.",
+      "linear_head": "Produces binary prediction y_linear used for soft mask derivation in PMM.",
+      "probabilistic_head": "Produces diverse class-wise representations via Monte Carlo sampling for pixel-class proximity matching."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "PAL (Probabilistic Attribute Learning)",
+    "PAL (PVTv2 backbone)",
+    "PAL (ResNet50 backbone)",
+    "XBound-Former",
+    "nnUNet",
+    "TransUNet",
+    "TransFuse",
+    "U-Net",
+    "U-Net++",
+    "Attention U-Net",
+    "DeepLab V3+",
+    "CE-Net",
+    "CA-Net",
+    "EGE-UNet",
+    "Polyp-PVT",
+    "ACSNet",
+    "PraNet",
+    "TGANet",
+    "MSEG",
+    "DCRNet",
+    "EU-Net",
+    "SANet"
+  ],
+  "preprocessing_techniques": [
+    "Random split of ISIC2017 and ISIC2018 datasets at a ratio of 7:3 for training and testing",
+    "Use of ground truth lesion masks for supervision",
+    "Utilization of pre-produced keypoint maps for explicit boundary supervision in baseline methods (e.g., XBound-Former)",
+    "Application of erosion to ground truth masks to define boundaries (difference between original and eroded masks) for specific baseline evaluations"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied during training as part of various data augmentation techniques."
+    },
+    {
+      "technique": "Vertical flipping",
+      "details": "Applied during training as part of various data augmentation techniques."
+    },
+    {
+      "technique": "Random rotation",
+      "details": "Applied during training as part of various data augmentation techniques."
+    }
+  ],
+  "conclusions": [
+    "The proposed Probabilistic Attribute Learning (PAL) method significantly outperforms state-of-the-art CNN and Vision Transformer-based methods in skin lesion segmentation on the ISIC2017 and ISIC2018 datasets, achieving the best results in 9 out of 10 metrics (Dice, IoU, ASSD, HD95) with statistical significance (Wilcoxon signed-rank test, p < 0.05).",
+    "PAL demonstrates strong generalization ability on polyp lesion segmentation, achieving the best overall results on the Polyp-seg dataset and superior performance on external generalization sets (ColonDB, ETIS, Endoscene) compared to competitors like XBound-Former and nnUNet.",
+    "Explicitly modeling lesion patterns as distinct Gaussian distributions and using Monte Carlo sampling to capture diverse attribute representations enhances the model's robustness against challenging cases such as noise interference, ambiguous boundaries, and hair occlusion.",
+    "The probabilistic head in PAL effectively captures intrinsic lesion patterns, leading to superior segmentation accuracy, particularly for lesions with complex boundaries and varying appearances, compared to methods relying solely on linear heads or pre-produced boundary priors.",
+    "The fused output of the linear and probabilistic heads yields smoother boundaries and is less sensitive to color changes than the probabilistic head alone, contributing to improved performance.",
+    "The proposed auxiliary losses, decorrelation loss (L_decorr) and balance loss (L_bal), are critical for ensuring independent and balanced attribute representations, which enhances class feature descriptions and prevents convergence to local minima.",
+    "The top-k attribute routing mechanism effectively selects the most discriminative attributes for specific images, allowing the model to adaptively depict varying lesion patterns.",
+    "PAL shows superior robustness on the challenging ETIS dataset for polyp segmentation, improving IoU by 2.3% and Fβw by 2.61% over XBound-Former, and IoU by 6.8% and Fβw by 9.61% over Polyp-PVT."
+  ],
+  "important_remarks": [
+    "The study relies on public datasets (ISIC2017, ISIC2018, Polyp-seg) with a random 7:3 train-test split, which may not reflect real-world clinical distribution bias or external validation challenges.",
+    "Statistical significance was established using the Wilcoxon signed-rank test, but the method did not achieve significance over the second-best baseline for the HD95 metric on the ISIC2017 dataset.",
+    "The model's generalization was evaluated on polyp lesions (Polyp-seg) rather than diverse skin lesion types or external skin lesion datasets, limiting the evidence for cross-domain robustness within dermatology.",
+    "The paper does not report specific numerical values for Dice, IoU, ASSD, or HD95 in the text, referring instead to tables, which hinders immediate quantitative assessment of the magnitude of improvement.",
+    "The method requires Monte Carlo sampling (15 rounds) and a Pattern Mining Module, potentially increasing inference complexity and computational cost compared to standard single-pass segmentation models.",
+    "The study focuses on segmentation accuracy and does not report clinical relevance metrics such as diagnostic accuracy, sensitivity/specificity for melanoma detection, or inter-observer agreement with human experts."
+  ]
+}

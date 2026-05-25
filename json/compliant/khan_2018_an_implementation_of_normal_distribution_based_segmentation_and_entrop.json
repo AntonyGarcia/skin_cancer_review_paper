@@ -1,0 +1,692 @@
+{
+  "file_name": "khan_2018_an_implementation_of_normal_distribution_based_segmentation_and_entrop.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a multi-class Support Vector Machine (SVM) as a classifier for skin lesion detection and classification in a dermatology context. The method involves probabilistic distribution-based segmentation (using normal and uniform distributions) and entropy-controlled feature selection (using Bhattacharyya distance and variance) on dermoscopic images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'RESEARCH ARTICLE' in the header. The abstract and body describe the proposal of a novel method for skin lesion detection involving probabilistic distribution-based segmentation and entropy-controlled feature selection. It details specific methods (normal/uniform distribution, SVM classifier), validation on three public datasets (PH2, ISIC, Combined), and reports original experimental results including accuracy metrics (97.5%, 97.75%, 93.2%) and confusion matrices, which are characteristic of original research rather than a review."
+  },
+  "title": "An implementation of normal distribution based segmentation and entropy controlled features selection for skin lesion detection and classification",
+  "authors": [
+    "M. Attique Khan",
+    "Tallha Akram",
+    "Muhammad Sharif",
+    "Aamir Shahzad",
+    "Khursheed Aurangzeb",
+    "Musaed Alhussein",
+    "Syed Irtaza Haider",
+    "Abdualziz Altamrah"
+  ],
+  "doi": "10.1186/s12885-018-4465-8",
+  "journal": "BMC Cancer",
+  "year": 2018,
+  "article_type": "Research article",
+  "brief_summary": "This study proposes a novel method for skin lesion detection and classification using probabilistic distribution-based segmentation and entropy-controlled feature selection. The approach utilizes normal and uniform distributions for segmenting lesions in dermoscopic images, followed by multi-level feature extraction and fusion. A new entropy-based method combining Bhattacharyya distance and variance is employed to select the most discriminant features, which are then classified using a multi-class Support Vector Machine (SVM). The proposed framework was validated on three publicly available datasets: PH2, ISIC (ISIC MSK-2 and ISIC UDA), and a Combined dataset (ISBI 2016 and ISBI 2017). The method achieved classification accuracies of 97.5%, 97.75%, and 93.2% on the PH2, ISIC, and Combined datasets, respectively. The results demonstrate that the proposed feature fusion and selection method significantly improves sensitivity, specificity, and accuracy compared to existing techniques.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "Primary malignant class studied; identified in PH2, ISIC MSK-2, ISIC UDA, and Combined datasets. Confusion matrices report counts for Melanoma (e.g., 130 in ISIC-MSK, 93 in ISIC-UDA)."
+    },
+    {
+      "lesion_type": "Benign lesion",
+      "paper_terms": [
+        "Benign",
+        "benign cancer"
+      ],
+      "role": "Target class",
+      "details": "Primary benign class studied; grouped with Melanoma for binary classification in PH2, ISIC MSK-2, and ISIC UDA datasets. Confusion matrices report counts for Benign (e.g., 160 in ISIC-MSK, 140 in ISIC-UDA)."
+    },
+    {
+      "lesion_type": "Atypical nevus",
+      "paper_terms": [
+        "atypical nevi"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the context of ISIC dataset classification tasks ('lesion classification (i.e. melanoma, benign, atypical nevi)'), but the experimental results and confusion matrices provided in the paper focus on the binary distinction between Melanoma and Benign."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories (Melanoma vs. Benign)",
+        "primary": true,
+        "details": "The paper performs binary classification of skin lesions into 'Melanoma' and 'Benign' classes using a multi-class Support Vector Machine (SVM) classifier. The task involves identifying lesion boundaries (segmentation) as a preprocessing step, but the primary AI prediction task is classifying the lesion type based on extracted features. Results are reported as accuracy, sensitivity, specificity, and confusion matrices for these discrete classes."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion boundary/mask in dermoscopic images",
+        "primary": false,
+        "details": "The paper implements a probabilistic distribution-based segmentation method using normal and uniform distributions to identify the region of interest (lesion) in dermoscopic images. This is described as a preliminary step ('lesion identification') before feature extraction and classification. The conclusion states the method achieved 'satisfactory segmentation results'."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2 Dataset",
+      "description": "A public dataset consisting of 200 RGB dermoscopic images with a resolution of 768 × 560. It contains three classes: melanoma, benign, and common nevi.",
+      "classes_used": [
+        "Melanoma",
+        "Benign",
+        "Common nevi"
+      ],
+      "counts": {
+        "total": 200,
+        "training": 100,
+        "validation": null,
+        "testing": 100,
+        "per_class": {
+          "Melanoma": 40,
+          "Benign": 80,
+          "Common nevi": 80
+        }
+      },
+      "use": {
+        "training": "Used for training via a 50:50 split strategy (100 images).",
+        "validation": null,
+        "testing": "Used for testing via a 50:50 split strategy (100 images).",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC MSK-2 Dataset",
+      "description": "A subset of the ISIC institutional database containing high-quality RGB dermoscopic images with a resolution of 1022 × 1022. The study selected 290 images from this dataset.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 290,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 130,
+          "Benign": 160
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for classification evaluation.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC UDA Dataset",
+      "description": "A subset of the ISIC institutional database containing high-quality RGB dermoscopic images with a resolution of 1022 × 1022. The study selected 233 images from this dataset.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 233,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 93,
+          "Benign": 140
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for classification evaluation.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISBI 2016 Dataset",
+      "description": "A public dataset from the ISIC archive containing RGB dermoscopic images. It includes separate training and testing samples.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 350,
+        "per_class": {
+          "Melanoma": 273,
+          "Benign": 1006
+        }
+      },
+      "use": {
+        "training": "Used for training (900 images).",
+        "validation": null,
+        "testing": "Used for testing (350 images).",
+        "other": null
+      }
+    },
+    {
+      "name": "ISBI 2017 Dataset",
+      "description": "A public dataset from the ISIC archive containing RGB dermoscopic images. It includes separate training and testing samples.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": null,
+        "testing": 750,
+        "per_class": {
+          "Melanoma": 517,
+          "Benign": 2233
+        }
+      },
+      "use": {
+        "training": "Used for training (2000 images).",
+        "validation": null,
+        "testing": "Used for testing (750 images).",
+        "other": null
+      }
+    },
+    {
+      "name": "Combined Dataset (ISBI 2016 & 2017)",
+      "description": "A combined dataset formed by merging the ISBI 2016 and ISBI 2017 datasets for experimental comparison.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for 10-fold cross-validation.",
+        "validation": "Used for 10-fold cross-validation.",
+        "testing": "Used for 10-fold cross-validation.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "Precision",
+    "False Negative Rate (FNR)",
+    "False Positive Rate (FPR)",
+    "Area Under the Curve (AUC)",
+    "Execution time"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10-fold cross-validation",
+      "purpose": "Used for validation and testing on the Combined dataset (ISBI 2016 and ISBI 2017) to evaluate classification performance.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "50:50 split strategy",
+      "purpose": "Used to divide the PH2 dataset into training (100 images) and testing (100 images) sets.",
+      "type": "Data splitting"
+    },
+    {
+      "method": "Confusion Matrix Analysis",
+      "purpose": "Used to calculate sensitivity, specificity, precision, false negative rate (FNR), false positive rate (FPR), and accuracy for classification results on PH2, ISIC MSK-2, ISIC UDA, and ISBI 2016 datasets.",
+      "type": "Evaluation metric calculation"
+    },
+    {
+      "method": "Similarity Index / Segmentation Accuracy",
+      "purpose": "Used to evaluate lesion detection accuracy by comparing proposed segmented images against ground truth values for specific images from the PH2 dataset.",
+      "type": "Segmentation evaluation"
+    },
+    {
+      "method": "Area Under the Curve (AUC)",
+      "purpose": "Calculated to evaluate the performance of classifiers on the ISBI 2016 dataset.",
+      "type": "Performance metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It compares performance metrics (accuracy, sensitivity, specificity) of the proposed method against other classifiers using confusion matrices and tables, noting 'significant' results in bold, but does not provide statistical significance testing (e.g., t-tests, ANOVA) with alpha thresholds."
+  },
+  "results_obtained_in_each_dataset": {
+    "PH2 Dataset": {
+      "split": "50:50 split (100 training, 100 testing)",
+      "metric": "Accuracy",
+      "models": {
+        "Multi-class SVM (Proposed features fusion and selection)": {
+          "Accuracy": "97.5%",
+          "Sensitivity": "96.67%",
+          "Specificity": "98.74%",
+          "Precision": "97.06%",
+          "FNR": "2.5%",
+          "FPR": "0.01",
+          "Execution time": "1 sec"
+        },
+        "Multi-class SVM (Harlick features)": {
+          "Accuracy": "72.0%",
+          "Sensitivity": "69.6%",
+          "Specificity": "75.65%",
+          "Precision": "72.23%",
+          "FNR": "28.0%",
+          "FPR": "0.14"
+        },
+        "Multi-class SVM (HOG features)": {
+          "Accuracy": "89.5%",
+          "Sensitivity": "86.27%",
+          "Specificity": "94.4%",
+          "Precision": "87.37%",
+          "FNR": "10.5%",
+          "FPR": "0.02"
+        },
+        "Multi-class SVM (Color features)": {
+          "Accuracy": "94.5%",
+          "Sensitivity": "94.6%",
+          "Specificity": "94.4%",
+          "Precision": "93.97%",
+          "FNR": "5.5%",
+          "FPR": "0.02"
+        },
+        "Decision Tree (Proposed)": {
+          "Accuracy": "90.0%"
+        },
+        "QDA (Proposed)": {
+          "Accuracy": "91.0%"
+        },
+        "Q-SVM (Proposed)": {
+          "Accuracy": "97.0%"
+        },
+        "Logistic Regression (Proposed)": {
+          "Accuracy": "94.0%"
+        },
+        "Naive Bayes (Proposed)": {
+          "Accuracy": "92.5%"
+        },
+        "Weighted KNN (Proposed)": {
+          "Accuracy": "93.5%"
+        },
+        "Ensemble Boosted Tree (Proposed)": {
+          "Accuracy": "96.5%"
+        },
+        "Ensemble Subspace Discriminant (Proposed)": {
+          "Accuracy": "95.5%"
+        },
+        "Cubic KNN (Proposed)": {
+          "Accuracy": "93.0%"
+        }
+      },
+      "notes": "The proposed method achieved maximum accuracy of 97.5%. Confusion matrix for proposed method: Melanoma (20 tested, 92.5% correct, 7.5% false), Benign (40 tested, 97.5% correct, 2.5% false)."
+    },
+    "ISIC MSK-2 Dataset": {
+      "split": "Not specified (290 images total: 130 Melanoma, 160 Benign)",
+      "metric": "Accuracy",
+      "models": {
+        "Multi-class SVM (Proposed features fusion and selection)": {
+          "Accuracy": "97.2%",
+          "Sensitivity": "96.60%",
+          "Specificity": "98.30%",
+          "Precision": "95.85%",
+          "FNR": "4.1%",
+          "FPR": "0.03"
+        },
+        "Multi-class SVM (Harlick features)": {
+          "Accuracy": "83.4%",
+          "Sensitivity": "82.55%",
+          "Specificity": "91.3%",
+          "Precision": "84.7%",
+          "FNR": "16.6%",
+          "FPR": "0.13"
+        },
+        "Multi-class SVM (HOG features)": {
+          "Accuracy": "96.2%",
+          "Sensitivity": "97.1%",
+          "Specificity": "96.3%",
+          "Precision": "96.75%",
+          "FNR": "3.8%",
+          "FPR": "0.02"
+        },
+        "Multi-class SVM (Color features)": {
+          "Accuracy": "95.9%",
+          "Sensitivity": "95.85%",
+          "Specificity": "96.3%",
+          "Precision": "95.85%",
+          "FNR": "4.1%",
+          "FPR": "0.03"
+        },
+        "Decision Tree (Proposed)": {
+          "Accuracy": "89.7%"
+        },
+        "QDA (Proposed)": {
+          "Accuracy": "93.8%"
+        },
+        "Q-SVM (Proposed)": {
+          "Accuracy": "95.9%"
+        },
+        "Logistic Regression (Proposed)": {
+          "Accuracy": "92.4%"
+        },
+        "Naive Bayes (Proposed)": {
+          "Accuracy": "91.4%"
+        },
+        "Weighted KNN (Proposed)": {
+          "Accuracy": "91.4%"
+        },
+        "Ensemble Boosted Tree (Proposed)": {
+          "Accuracy": "91.7%"
+        },
+        "Ensemble Subspace Discriminant (Proposed)": {
+          "Accuracy": "87.6%"
+        },
+        "Cubic KNN (Proposed)": {
+          "Accuracy": "93.4%"
+        }
+      },
+      "notes": "Confusion matrix for proposed method: Melanoma (130 tested, 99.2% correct, 1% false), Benign (160 tested, 95.6% correct, 4.4% false)."
+    },
+    "ISIC UDA Dataset": {
+      "split": "Not specified (233 images total: 93 Melanoma, 140 Benign)",
+      "metric": "Accuracy",
+      "models": {
+        "Multi-class SVM (Proposed features fusion and selection)": {
+          "Accuracy": "98.3%",
+          "Specificity": "100%",
+          "Sensitivity": "95.7%",
+          "Precision": "95.7%",
+          "FNR": "4.3%",
+          "FPR": "0%"
+        },
+        "Multi-class SVM (Harlick features)": {
+          "Accuracy": "91.4%",
+          "Sensitivity": "55.9%",
+          "Specificity": "91.4%",
+          "Precision": "55.9%",
+          "FNR": "44.1%",
+          "FPR": "8.6%"
+        },
+        "Multi-class SVM (HOG features)": {
+          "Accuracy": "96.4%",
+          "Sensitivity": "68.8%",
+          "Specificity": "96.4%",
+          "Precision": "68.8%",
+          "FNR": "31.2%",
+          "FPR": "3.6%"
+        },
+        "Multi-class SVM (Color features)": {
+          "Accuracy": "97.9%",
+          "Sensitivity": "92.5%",
+          "Specificity": "97.9%",
+          "Precision": "92.5%",
+          "FNR": "7.5%",
+          "FPR": "2.1%"
+        },
+        "Decision Tree (Proposed)": {
+          "Accuracy": "77.3%"
+        },
+        "QDA (Proposed)": {
+          "Accuracy": "85.4%"
+        },
+        "Q-SVM (Proposed)": {
+          "Accuracy": "95.7%"
+        },
+        "Logistic Regression (Proposed)": {
+          "Accuracy": "85.4%"
+        },
+        "Naive Bayes (Proposed)": {
+          "Accuracy": "85.8%"
+        },
+        "Weighted KNN (Proposed)": {
+          "Accuracy": "83.7%"
+        },
+        "Ensemble Boosted Tree (Proposed)": {
+          "Accuracy": "88.0%"
+        },
+        "Ensemble Subspace Discriminant (Proposed)": {
+          "Accuracy": "85.8%"
+        },
+        "Cubic KNN (Proposed)": {
+          "Accuracy": "88.0%"
+        }
+      },
+      "notes": "Confusion matrix for proposed method: Melanoma (93 tested, 95.7% correct, 4.3% false), Benign (140 tested, 100% correct, 0% false)."
+    },
+    "ISBI 2016 Dataset": {
+      "split": "900 training, 350 testing",
+      "metric": "Accuracy",
+      "models": {
+        "Multi-class SVM (Proposed)": {
+          "Accuracy": "83.2%",
+          "Sensitivity": "75.5%",
+          "Specificity": "93.0%",
+          "Precision": "78.0%",
+          "FNR": "16.8%",
+          "FPR": "0.270",
+          "AUC": "0.85"
+        },
+        "Decision Tree (Proposed)": {
+          "Accuracy": "71.5%",
+          "AUC": "0.63"
+        },
+        "QDA (Proposed)": {
+          "Accuracy": "73.6%",
+          "AUC": "0.74"
+        },
+        "Q-SVM (Proposed)": {
+          "Accuracy": "82.3%",
+          "AUC": "0.81"
+        },
+        "Logistic Regression (Proposed)": {
+          "Accuracy": "72.9%",
+          "AUC": "0.69"
+        },
+        "Naive Bayes (Proposed)": {
+          "Accuracy": "82.9%",
+          "AUC": "0.84"
+        },
+        "Weighted KNN (Proposed)": {
+          "Accuracy": "81.3%",
+          "AUC": "0.83"
+        },
+        "Ensemble Boosted Tree (Proposed)": {
+          "Accuracy": "81.7%",
+          "AUC": "0.79"
+        },
+        "Ensemble Subspace Discriminant (Proposed)": {
+          "Accuracy": "81.5%",
+          "AUC": "0.83"
+        }
+      },
+      "notes": "The proposed method achieved 83.2% accuracy on ISBI 2016."
+    },
+    "ISBI 2017 Dataset": {
+      "split": "2000 training, 750 testing",
+      "metric": "Accuracy",
+      "models": {
+        "Multi-class SVM (Proposed)": {
+          "Accuracy": "88.2%",
+          "Sensitivity": "88.5%",
+          "Specificity": "91.0%",
+          "Precision": "88.0%",
+          "FNR": "11.8%",
+          "FPR": "0.120",
+          "AUC": "0.93"
+        },
+        "Decision Tree (Proposed)": {
+          "Accuracy": "74.8%",
+          "AUC": "0.77"
+        },
+        "QDA (Proposed)": {
+          "Accuracy": "77.6%",
+          "AUC": "0.78"
+        },
+        "Q-SVM (Proposed)": {
+          "Accuracy": "86.2%",
+          "AUC": "0.92"
+        },
+        "Logistic Regression (Proposed)": {
+          "Accuracy": "84.6%",
+          "AUC": "0.92"
+        },
+        "Naive Bayes (Proposed)": {
+          "Accuracy": "79.5%",
+          "AUC": "0.80"
+        },
+        "Weighted KNN (Proposed)": {
+          "Accuracy": "87.8%",
+          "AUC": "0.92"
+        },
+        "Ensemble Boosted Tree (Proposed)": {
+          "Accuracy": "85.8%",
+          "AUC": "0.91"
+        },
+        "Ensemble Subspace Discriminant (Proposed)": {
+          "Accuracy": "83.5%",
+          "AUC": "0.90"
+        }
+      },
+      "notes": "The proposed method achieved 88.2% accuracy on ISBI 2017."
+    },
+    "Combined Dataset (ISBI 2016 & 2017)": {
+      "split": "10-fold cross-validation",
+      "metric": "Accuracy",
+      "models": {
+        "Multi-class SVM (Proposed)": {
+          "Accuracy": "93.2%",
+          "Sensitivity": "93.0%",
+          "Specificity": "97.0%",
+          "Precision": "93.5%",
+          "FNR": "6.8%",
+          "FPR": "0.07",
+          "AUC": "0.96"
+        },
+        "Decision Tree (Proposed)": {
+          "Accuracy": "87.6%",
+          "AUC": "0.86"
+        },
+        "QDA (Proposed)": {
+          "Accuracy": "80.0%",
+          "AUC": "0.86"
+        },
+        "Q-SVM (Proposed)": {
+          "Accuracy": "92.6%",
+          "AUC": "0.95"
+        },
+        "Logistic Regression (Proposed)": {
+          "Accuracy": "91.8%",
+          "AUC": "0.95"
+        },
+        "Naive Bayes (Proposed)": {
+          "Accuracy": "91.8%",
+          "AUC": "0.93"
+        },
+        "Weighted KNN (Proposed)": {
+          "Accuracy": "88.4%",
+          "AUC": "0.88"
+        },
+        "Ensemble Boosted Tree (Proposed)": {
+          "Accuracy": "91.7%",
+          "AUC": "0.95"
+        },
+        "Ensemble Subspace Discriminant (Proposed)": {
+          "Accuracy": "89.6%",
+          "AUC": "0.94"
+        }
+      },
+      "notes": "The proposed method achieved maximum classification accuracy of 93.2% on the combined dataset using 10-fold cross-validation. This is compared against a baseline method [54] which achieved 85.5% accuracy."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multi-class Support Vector Machine (SVM)",
+    "pretraining": null,
+    "input_size": "RGB dermoscopic images (PH2: 768 × 560; ISIC subsets: 1022 × 1022; ISBI 2016/2017: variable resolution)",
+    "architecture_details": {
+      "pipeline_steps": [
+        "Preprocessing (hair removal, contrast enhancement)",
+        "Segmentation (probabilistic distribution-based using Normal and Uniform distributions)",
+        "Feature Extraction (multi-level: Texture via GLCM, HOG, and Color features)",
+        "Feature Fusion (parallel strategy combining extracted feature vectors)",
+        "Feature Selection (entropy-controlled method combining Bhattacharyya distance and variance)",
+        "Classification (Multi-class SVM)"
+      ],
+      "feature_extraction_methods": [
+        "Gray Level Co-occurrence Matrices (GLCM) for texture",
+        "Histogram Oriented Gradients (HOG)",
+        "Color features"
+      ],
+      "feature_selection_method": "Bhattacharyya distance and variance",
+      "feature_fusion_strategy": "Parallel fusion of texture, HOG, and color feature vectors"
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": null,
+      "training_schedule": null,
+      "validation_strategy": [
+        "50:50 split for PH2 dataset",
+        "10-fold cross-validation for Combined dataset (ISBI 2016 & 2017)"
+      ],
+      "implementation_environment": "MATLAB 2017a on Core i7 with 16GB RAM"
+    },
+    "classification_or_output_head": {
+      "type": "Multi-class SVM",
+      "classes": [
+        "Melanoma",
+        "Benign"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Multi-class Support Vector Machine (SVM)",
+    "Decision Tree (DT)",
+    "Quadratic Discriminant Analysis (QDA)",
+    "Quadratic SVM (Q-SVM)",
+    "Logistic Regression (LR)",
+    "Naive Bayes (NB)",
+    "Weighted K-Nearest Neighbor (W-KNN)",
+    "Ensemble Boosted Tree (EBT)",
+    "Ensemble Subspace Discriminant (ESD)",
+    "Cubic KNN (C-KNN)"
+  ],
+  "preprocessing_techniques": [
+    "Contrast stretching using novel technique with global minima/maxima calculation and low/high threshold values",
+    "Channel-wise processing of Red, Green, and Blue channels",
+    "Sobel edge filtering (3x3 kernel) for gradient computation",
+    "Image block division (12 blocks, 8.3% aspect ratio) for weighted processing",
+    "Laplacian of Gaussian (LOG) edge detection (sigma=2)",
+    "Weight assignment based on edge points and gradient magnitude",
+    "Cumulative weighted gray value calculation",
+    "Intensity adjustment and log operation for final enhancement",
+    "Probabilistic distribution-based segmentation (Uniform and Normal distributions) for lesion extraction",
+    "Fusion of segmented images using additive law of probability",
+    "Normalization of RGB images"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed method, which combines probabilistic distribution-based segmentation (using normal and uniform distributions) with entropy-controlled feature selection (using Bhattacharyya distance and variance), significantly improves classification performance compared to other methods.",
+    "The multi-class Support Vector Machine (SVM) classifier performed significantly better on the proposed features fusion and selection method in terms of sensitivity, specificity, and accuracy compared to other classifiers and feature sets.",
+    "The presented method achieved satisfactory segmentation results on the selected datasets (PH2, ISIC, and Combined).",
+    "The proposed framework achieved high classification accuracies of 97.5% on the PH2 dataset, 97.75% on the ISIC dataset (ISIC MSK-2 and ISIC UDA), and 93.2% on the Combined dataset (ISBI 2016 and ISBI 2017)."
+  ],
+  "important_remarks": [
+    "The study relies on traditional machine learning (SVM) with hand-crafted features rather than deep learning, which may limit its ability to capture complex, high-level semantic patterns compared to modern CNN-based approaches.",
+    "The ISIC MSK-2 and ISIC UDA datasets are subsets of the larger ISIC archive; the specific selection criteria for these subsets are not detailed, potentially introducing selection bias.",
+    "The PH2 dataset uses a 50:50 split for training and testing, which is a smaller and less robust validation strategy compared to the 10-fold cross-validation used for the Combined dataset, making direct performance comparisons across datasets difficult.",
+    "The Combined dataset (ISBI 2016 and 2017) merges two distinct datasets with different image resolutions and potentially different acquisition protocols, which may introduce heterogeneity not accounted for in the analysis.",
+    "The paper does not report formal statistical significance tests (e.g., p-values) for the comparisons between the proposed method and baselines, relying instead on bolded 'significant' values in tables without explicit statistical justification.",
+    "The method was implemented in MATLAB 2017a on a specific hardware configuration (Core i7, 16GB RAM), and execution times are reported per image, but generalizability to other hardware or software environments is not discussed.",
+    "The segmentation step uses probabilistic distributions (Normal and Uniform) which may be sensitive to image artifacts like hairs and illumination effects, although the paper claims 'satisfactory' results; no quantitative segmentation metrics (e.g., Dice coefficient) are provided for the full datasets, only similarity indices for specific images.",
+    "The study focuses only on binary classification (Melanoma vs. Benign) despite mentioning 'atypical nevi' in the context of the ISIC dataset, limiting the clinical applicability for multi-class differential diagnosis."
+  ]
+}

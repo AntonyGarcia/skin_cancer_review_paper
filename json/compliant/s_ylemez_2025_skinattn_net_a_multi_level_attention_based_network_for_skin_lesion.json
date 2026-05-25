@@ -1,0 +1,508 @@
+{
+  "file_name": "s_ylemez_2025_skinattn_net_a_multi_level_attention_based_network_for_skin_lesion.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes SkinAttn-Net, a deep learning-based multi-level attention network for skin lesion segmentation. It utilizes a vision transformer module at the encoder bottleneck, Convolutional Block Attention Modules (CBAM), and Squeeze-and-Excitation blocks. The model was evaluated on dermoscopic datasets (ISIC 2017, ISIC 2018, HAM10000) to achieve segmentation results."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel deep learning architecture, SkinAttn-Net, for skin lesion segmentation. It presents original experimental results, including quantitative evaluations (Dice scores, Jaccard index, etc.) on specific datasets (ISIC 2017, ISIC 2018, HAM10000), ablation studies, cross-dataset evaluations, and comparisons with state-of-the-art methods. The structure includes standard research sections such as Introduction, Methods, Results, and Discussion, indicating it is an original technical study rather than a review."
+  },
+  "title": "SkinAttn-Net: a multi-level attention-based network for skin lesion segmentation",
+  "authors": [
+    "Ömer Faruk Söylemez"
+  ],
+  "doi": "10.1038/s41598-025-33767-0",
+  "journal": "Scientific Reports",
+  "year": 2025,
+  "article_type": "Research article",
+  "brief_summary": "This study proposes SkinAttn-Net, a multi-level attention-based deep learning framework for automated skin lesion segmentation in dermoscopic images. The architecture integrates a vision transformer at the encoder bottleneck for global context, Convolutional Block Attention Modules for feature refinement, and Squeeze-and-Excitation blocks to preserve high-resolution details. The model was evaluated on three public datasets: ISIC 2017, ISIC 2018, and HAM10000, using a unified 80-10-10 data split protocol. Quantitative results demonstrated high segmentation performance with Dice scores of 0.926, 0.910, and 0.951 on the respective datasets. Cross-dataset evaluations confirmed the model's robust generalization capabilities across different imaging conditions and lesion types. The findings indicate that SkinAttn-Net effectively balances local detail preservation with global contextual modeling, outperforming several state-of-the-art methods.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "dermoscopic images",
+        "lesion masks"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the segmentation of skin lesions in general, without distinguishing specific histopathological subtypes (e.g., melanoma vs. nevus) as separate classes. The task is binary segmentation (lesion vs. background) using datasets ISIC 2017, ISIC 2018, and HAM10000."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary lesion masks (lesion vs. background) in dermoscopic images",
+        "primary": true,
+        "details": "The paper proposes SkinAttn-Net for automated skin lesion segmentation. The model predicts pixel-wise binary masks (ground truth labels yi ∈ {0,1}) using binary cross-entropy with logits loss. Performance is evaluated using overlap metrics such as Dice similarity coefficient, Jaccard index, accuracy, precision, recall, and specificity on datasets ISIC 2017, ISIC 2018, and HAM10000."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A publicly available dermoscopic dataset containing skin lesion images and corresponding ground truth masks.",
+      "classes_used": [
+        "Lesion (foreground)",
+        "Background (foreground)"
+      ],
+      "counts": {
+        "total": 2000,
+        "training": 1600,
+        "validation": 200,
+        "testing": 200,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the SkinAttn-Net model (80% split).",
+        "validation": "Used for validation during training (10% split) and model selection based on Jaccard index.",
+        "testing": "Used for intra-dataset testing (10% split) and cross-dataset evaluation (as source and target).",
+        "other": "Used for cross-dataset evaluation where the model trained on ISIC 2018 or HAM10000 was tested on the entire ISIC 2017 dataset."
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A publicly available dermoscopic dataset containing skin lesion images and corresponding ground truth masks.",
+      "classes_used": [
+        "Lesion (foreground)",
+        "Background (foreground)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 2075,
+        "validation": 259,
+        "testing": 260,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the SkinAttn-Net model (80% split).",
+        "validation": "Used for validation during training (10% split) and model selection based on Jaccard index.",
+        "testing": "Used for intra-dataset testing (10% split) and cross-dataset evaluation (as source and target).",
+        "other": "Used for cross-dataset evaluation where the model trained on ISIC 2017 or HAM10000 was tested on the entire ISIC 2018 dataset."
+      }
+    },
+    {
+      "name": "HAM10000",
+      "description": "A publicly available dermoscopic dataset containing skin lesion images and corresponding ground truth masks.",
+      "classes_used": [
+        "Lesion (foreground)",
+        "Background (foreground)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 8012,
+        "validation": 1001,
+        "testing": 1002,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the SkinAttn-Net model (80% split).",
+        "validation": "Used for validation during training (10% split) and model selection based on Jaccard index.",
+        "testing": "Used for intra-dataset testing (10% split) and cross-dataset evaluation (as source and target).",
+        "other": "Used for cross-dataset evaluation where the model trained on ISIC 2017 or ISIC 2018 was tested on the entire HAM10000 dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice similarity coefficient",
+    "Jaccard index",
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "Specificity",
+    "Binary cross-entropy with logits loss"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Paired t-test",
+      "purpose": "To assess the statistical significance of the performance difference between the proposed SkinAttn-Net model and baseline/architectural variants (U-Net, CBAM, SE, ViT) based on Dice scores.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Wilcoxon signed-rank test",
+      "purpose": "To assess the statistical significance of the performance difference between the proposed SkinAttn-Net model and baseline/architectural variants (U-Net, CBAM, SE, ViT) based on Dice scores.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Significance threshold (p < 0.05)",
+      "purpose": "To determine statistical significance for the comparisons against U-Net and CBAM-based models.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Paired t-test and Wilcoxon signed-rank test",
+    "null_hypothesis": "There is no significant difference in the mean Dice scores between the proposed SkinAttn-Net model and the baseline/architectural variants (U-Net, CBAM, SE, ViT).",
+    "alternative_hypothesis": "There is a significant difference in the mean Dice scores between the proposed SkinAttn-Net model and the baseline/architectural variants.",
+    "alpha": 0.05,
+    "interpretation": "The differences in performance between SkinAttn-Net and U-Net/CBAM models were statistically significant (p < 0.05), while differences with SE and ViT models were not statistically significant (p > 0.05)."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "metric": "Dice, Jaccard, Accuracy, Precision, Recall, Specificity",
+      "models": {
+        "SkinAttn-Net": {
+          "Dice": "0.926",
+          "Jaccard": "0.863",
+          "Accuracy": "0.973",
+          "Precision": "0.929",
+          "Recall": "0.923",
+          "Specificity": "0.984"
+        }
+      },
+      "notes": "Intra-dataset evaluation using 80-10-10 split. Cross-dataset results: Trained on ISIC 2018, tested on ISIC 2017 (Dice: 0.933, Jaccard: 0.877, Accuracy: 0.978, Precision: 0.925, Recall: 0.943, Specificity: 0.983). Trained on HAM10000, tested on ISIC 2017 (Dice: 0.860, Jaccard: 0.766, Accuracy: 0.958, Precision: 0.814, Recall: 0.929, Specificity: 0.964)."
+    },
+    "ISIC 2018": {
+      "metric": "Dice, Jaccard, Accuracy, Precision, Recall, Specificity",
+      "models": {
+        "SkinAttn-Net": {
+          "Dice": "0.910",
+          "Jaccard": "0.836",
+          "Accuracy": "0.962",
+          "Precision": "0.917",
+          "Recall": "0.905",
+          "Specificity": "0.978"
+        },
+        "U-Net": {
+          "Dice": "0.892",
+          "Jaccard": "0.807",
+          "Accuracy": "0.955",
+          "Precision": "0.906",
+          "Recall": "0.880",
+          "Specificity": "0.975"
+        },
+        "U-Net+CBAM": {
+          "Dice": "0.896",
+          "Jaccard": "0.813",
+          "Accuracy": "0.957",
+          "Precision": "0.919",
+          "Recall": "0.876",
+          "Specificity": "0.979"
+        },
+        "U-Net+SE": {
+          "Dice": "0.908",
+          "Jaccard": "0.832",
+          "Accuracy": "0.962",
+          "Precision": "0.927",
+          "Recall": "0.891",
+          "Specificity": "0.981"
+        },
+        "U-Net+ViT": {
+          "Dice": "0.907",
+          "Jaccard": "0.831",
+          "Accuracy": "0.961",
+          "Precision": "0.910",
+          "Recall": "0.906",
+          "Specificity": "0.976"
+        }
+      },
+      "notes": "Intra-dataset evaluation using 80-10-10 split. Ablation studies conducted on this dataset. Cross-dataset results: Trained on ISIC 2017, tested on ISIC 2018 (Dice: 0.909, Jaccard: 0.837, Accuracy: 0.969, Precision: 0.939, Recall: 0.884, Specificity: 0.987). Trained on HAM10000, tested on ISIC 2018 (Dice: 0.855, Jaccard: 0.760, Accuracy: 0.953, Precision: 0.823, Recall: 0.907, Specificity: 0.964). Statistical comparisons: vs U-Net (p<0.05 for both paired t-test and Wilcoxon), vs CBAM (p<0.05 for both), vs SE (paired t-test p=0.343, Wilcoxon p=0.211), vs ViT (paired t-test p=0.050, Wilcoxon p=0.073)."
+    },
+    "HAM10000": {
+      "metric": "Dice, Jaccard, Accuracy, Precision, Recall, Specificity",
+      "models": {
+        "SkinAttn-Net": {
+          "Dice": "0.951",
+          "Jaccard": "0.907",
+          "Accuracy": "0.974",
+          "Precision": "0.960",
+          "Recall": "0.943",
+          "Specificity": "0.985"
+        }
+      },
+      "notes": "Intra-dataset evaluation using 80-10-10 split. Cross-dataset results: Trained on ISIC 2017, tested on HAM10000 (Dice: 0.916, Jaccard: 0.845, Accuracy: 0.956, Precision: 0.930, Recall: 0.904, Specificity: 0.975). Trained on ISIC 2018, tested on HAM10000 (Dice: 0.920, Jaccard: 0.853, Accuracy: 0.957, Precision: 0.910, Recall: 0.931, Specificity: 0.966)."
+    },
+    "Ablation Study (ISIC 2018)": {
+      "metric": "Dice, Jaccard, Accuracy, Precision, Recall, Specificity",
+      "models": {
+        "U-Net": {
+          "Dice": "0.892",
+          "Jaccard": "0.807",
+          "Accuracy": "0.955",
+          "Precision": "0.906",
+          "Recall": "0.880",
+          "Specificity": "0.975"
+        },
+        "U-Net+CBAM": {
+          "Dice": "0.896",
+          "Jaccard": "0.813",
+          "Accuracy": "0.957",
+          "Precision": "0.919",
+          "Recall": "0.876",
+          "Specificity": "0.979"
+        },
+        "U-Net+SE": {
+          "Dice": "0.908",
+          "Jaccard": "0.832",
+          "Accuracy": "0.962",
+          "Precision": "0.927",
+          "Recall": "0.891",
+          "Specificity": "0.981"
+        },
+        "U-Net+ViT": {
+          "Dice": "0.907",
+          "Jaccard": "0.831",
+          "Accuracy": "0.961",
+          "Precision": "0.910",
+          "Recall": "0.906",
+          "Specificity": "0.976"
+        },
+        "SkinAttn-Net (Proposed)": {
+          "Dice": "0.910",
+          "Jaccard": "0.836",
+          "Accuracy": "0.962",
+          "Precision": "0.917",
+          "Recall": "0.905",
+          "Specificity": "0.978"
+        }
+      },
+      "notes": "Ablation study conducted on ISIC 2018 dataset. Proposed model combines CBAM, SE, and ViT modules."
+    },
+    "Dropout Sensitivity Analysis (ISIC 2018)": {
+      "metric": "Dice, Jaccard, Accuracy, Precision, Recall, Specificity",
+      "models": {
+        "CBAM Block (dropout 0.0)": {
+          "Dice": "0.902",
+          "Jaccard": "0.823",
+          "Accuracy": "0.959",
+          "Precision": "0.913",
+          "Recall": "0.894",
+          "Specificity": "0.977"
+        },
+        "CBAM Block (dropout 0.1)": {
+          "Dice": "0.906",
+          "Jaccard": "0.829",
+          "Accuracy": "0.961",
+          "Precision": "0.924",
+          "Recall": "0.890",
+          "Specificity": "0.981"
+        },
+        "CBAM Block (dropout 0.4)": {
+          "Dice": "0.907",
+          "Jaccard": "0.831",
+          "Accuracy": "0.961",
+          "Precision": "0.922",
+          "Recall": "0.894",
+          "Specificity": "0.980"
+        },
+        "SE Block (dropout 0.0)": {
+          "Dice": "0.896",
+          "Jaccard": "0.812",
+          "Accuracy": "0.957",
+          "Precision": "0.913",
+          "Recall": "0.881",
+          "Specificity": "0.977"
+        },
+        "SE Block (dropout 0.1)": {
+          "Dice": "0.907",
+          "Jaccard": "0.830",
+          "Accuracy": "0.961",
+          "Precision": "0.912",
+          "Recall": "0.903",
+          "Specificity": "0.977"
+        },
+        "SE Block (dropout 0.4)": {
+          "Dice": "0.905",
+          "Jaccard": "0.827",
+          "Accuracy": "0.960",
+          "Precision": "0.914",
+          "Recall": "0.898",
+          "Specificity": "0.978"
+        },
+        "ViT Attention (dropout 0.0)": {
+          "Dice": "0.903",
+          "Jaccard": "0.825",
+          "Accuracy": "0.960",
+          "Precision": "0.917",
+          "Recall": "0.892",
+          "Specificity": "0.978"
+        },
+        "ViT Attention (dropout 0.1)": {
+          "Dice": "0.906",
+          "Jaccard": "0.829",
+          "Accuracy": "0.961",
+          "Precision": "0.922",
+          "Recall": "0.892",
+          "Specificity": "0.980"
+        },
+        "ViT Attention (dropout 0.4)": {
+          "Dice": "0.904",
+          "Jaccard": "0.825",
+          "Accuracy": "0.960",
+          "Precision": "0.920",
+          "Recall": "0.890",
+          "Specificity": "0.979"
+        },
+        "ViT MLP/Proj/Pos (dropout 0.0)": {
+          "Dice": "0.904",
+          "Jaccard": "0.826",
+          "Accuracy": "0.960",
+          "Precision": "0.925",
+          "Recall": "0.886",
+          "Specificity": "0.981"
+        },
+        "ViT MLP/Proj/Pos (dropout 0.2)": {
+          "Dice": "0.907",
+          "Jaccard": "0.830",
+          "Accuracy": "0.961",
+          "Precision": "0.906",
+          "Recall": "0.910",
+          "Specificity": "0.975"
+        },
+        "ViT MLP/Proj/Pos (dropout 0.4)": {
+          "Dice": "0.907",
+          "Jaccard": "0.830",
+          "Accuracy": "0.961",
+          "Precision": "0.927",
+          "Recall": "0.888",
+          "Specificity": "0.981"
+        }
+      },
+      "notes": "Module-wise dropout sensitivity analysis conducted on ISIC 2018 dataset. Training limited to 50 epochs for this analysis. Baseline configuration used CBAM dropout 0.1, SE dropout 0.1, ViT MLP/projection/positional dropout 0.4, and ViT attention dropout 0.1."
+    }
+  },
+  "architecture_used": {
+    "main_model": "SkinAttn-Net",
+    "pretraining": "null",
+    "input_size": "256x256 pixels",
+    "architecture_details": {
+      "backbone": "ResNet-50",
+      "encoder_structure": "ResNet-50 with Convolutional Block Attention Modules (CBAM) placed after major encoder transitions (following initial convolutional block and after ResNet layers 1–4)",
+      "bottleneck": "Vision Transformer (ViT) module operating on the bottleneck feature map with patch size of 1 (each spatial location becomes a patch), projected to 768-dimensional embedding via 1x1 convolution",
+      "bottleneck_vit_config": {
+        "num_transformer_blocks": 12,
+        "num_attention_heads": 12,
+        "embedding_dimension": 768,
+        "ffn_hidden_dimension": 3072,
+        "ffn_expansion_factor": 4,
+        "positional_encoding": "Learnable positional embeddings added; implementation adapts length by slicing or repeating final position token",
+        "class_token": "Learnable class token prepended"
+      },
+      "decoder_structure": "Decoder with skip connections augmented by Squeeze-and-Excitation (SE) blocks before concatenation; CBAM modules placed after the two convolutional layers and nonlinearities in each decoder block",
+      "attention_mechanisms": {
+        "CBAM": {
+          "placement": "After major encoder transitions and at the end of each decoder block",
+          "channel_attention": "Global average- and max-pooled descriptors processed by shared MLP with two 1x1 convolutions; dropout inserted between the two 1x1 convolutions",
+          "spatial_attention": "Concatenation of channel-wise average and max projections followed by 7x7 convolution; dropout applied after spatial convolution"
+        },
+        "SE": {
+          "placement": "All four skip connections",
+          "structure": "Global average pooling to obtain channel descriptor, followed by two-layer fully connected bottleneck (reduction ratio 16, i.e., C to C/16), ReLU activation, dropout, second layer restoring dimensionality, sigmoid activation for gating coefficients"
+        },
+        "ViT": {
+          "structure": "Multi-head self-attention (MHSA) and feedforward network (FFN) with residual connections and layer normalization (pre-norm layout: LayerNorm -> Attention -> residual, then LayerNorm -> MLP -> residual)",
+          "dropout": "Applied to attention weights, projection layers, MLP blocks, and position embeddings"
+        }
+      }
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.0001,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "loss_function": "Binary cross-entropy with logits loss",
+      "epochs": 100,
+      "batch_size": 8,
+      "hardware": "CUDA-enabled RTX 4090 GPU",
+      "data_augmentation": {
+        "horizontal_flip": "p=0.5",
+        "vertical_flip": "p=0.5",
+        "brightness_contrast_adjustment": "p=0.2",
+        "geometric_transformations": {
+          "random_shifts": "up to 5% of image dimensions, p=0.5",
+          "scaling": "±5% variation, p=0.5",
+          "rotations": "within ±15°, p=0.5"
+        }
+      },
+      "normalization": {
+        "mean": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "std": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "model_selection_metric": "Validation Jaccard index"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask output",
+      "activation": "Sigmoid (implicit in binary cross-entropy with logits loss)",
+      "post_processing": "None"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "SkinAttn-Net",
+    "U-Net",
+    "U-Net+CBAM",
+    "U-Net+SE",
+    "U-Net+ViT",
+    "k-means clustering",
+    "GrabCut",
+    "Active contour models",
+    "Gradient vector flow snakes",
+    "Fuzzy c-means",
+    "Histogram-based thresholding",
+    "Conditional adversarial segmentation"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images and masks to 256x256 pixels",
+    "Normalization with mean (0.5, 0.5, 0.5) and standard deviation (0.5, 0.5, 0.5)",
+    "Data augmentation during training: horizontal flip (p=0.5), vertical flip (p=0.5), random brightness and contrast adjustment (p=0.2), random shifts (up to 5% of image dimensions, p=0.5), scaling (±5% variation, p=0.5), and rotations (within ±15°, p=0.5)",
+    "Validation preprocessing: resizing and normalization only"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal Flip",
+      "details": "Applied with probability p=0.5 during training."
+    },
+    {
+      "technique": "Vertical Flip",
+      "details": "Applied with probability p=0.5 during training."
+    },
+    {
+      "technique": "Random Brightness and Contrast Adjustment",
+      "details": "Applied with probability p=0.2 during training."
+    },
+    {
+      "technique": "Random Shifts",
+      "details": "Geometric transformation applied with probability p=0.5, shifting up to 5% of image dimensions."
+    },
+    {
+      "technique": "Scaling",
+      "details": "Geometric transformation applied with probability p=0.5, with ±5% variation."
+    },
+    {
+      "technique": "Rotations",
+      "details": "Geometric transformation applied with probability p=0.5, within ±15°."
+    }
+  ],
+  "conclusions": [
+    "SkinAttn-Net effectively balances local detail preservation with global contextual modeling by integrating a vision transformer at the encoder bottleneck, Convolutional Block Attention Modules (CBAM) for feature refinement, and Squeeze-and-Excitation (SE) blocks for skip connection recalibration.",
+    "The proposed model achieves high segmentation performance with Dice scores of 0.926, 0.910, and 0.951 on the ISIC 2017, ISIC 2018, and HAM10000 datasets, respectively, outperforming state-of-the-art methods and baseline architectures.",
+    "Cross-dataset evaluations demonstrate robust generalization capabilities, with reciprocal generalization observed between ISIC 2017 and ISIC 2018, although performance degradation was noted when models trained on the more diverse HAM10000 dataset were applied to ISIC datasets.",
+    "Ablation studies confirm the complementary contributions of CBAM, SE, and ViT modules, with the combined architecture yielding superior results compared to individual component additions.",
+    "Dropout sensitivity analyses indicate that moderate regularization enhances the stability and generalization of the model's attention modules.",
+    "Grad-CAM visualizations confirm the progressive refinement of lesion boundaries across decoder layers, supporting the model's ability to capture fine-grained details."
+  ],
+  "important_remarks": [
+    "The manuscript is an unedited 'Article in Press' version; the authors explicitly warn that errors may be present and content may change before final publication.",
+    "The study focuses exclusively on binary segmentation (lesion vs. background) and does not perform classification or histopathological subtype differentiation (e.g., melanoma vs. nevus), limiting direct clinical diagnostic utility.",
+    "Cross-dataset evaluation reveals significant performance degradation when models trained on the diverse HAM10000 dataset are applied to ISIC datasets (Dice drops to ~0.85-0.86), indicating potential domain shift issues and limited generalizability from larger to smaller datasets.",
+    "The main model was trained only once due to computational constraints, whereas ablation studies used 30 runs; this limits the statistical robustness of the primary results regarding random initialization variance.",
+    "No post-processing (e.g., morphological operations) was applied to segmentation masks, as preliminary inspections showed no improvement, which may mask potential boundary refinement needs in other contexts.",
+    "The paper does not report the total number of trainable parameters for SkinAttn-Net, hindering assessment of model complexity and deployment feasibility.",
+    "Statistical significance testing (paired t-test and Wilcoxon signed-rank test) was performed only against baseline architectures (U-Net, CBAM, SE, ViT) and not against all state-of-the-art comparative methods listed in Tables 7-9.",
+    "The dataset split protocol (80-10-10) was applied uniformly across all datasets without stratification details, potentially introducing bias if class distributions (though binary here) or lesion characteristics vary significantly within splits."
+  ]
+}

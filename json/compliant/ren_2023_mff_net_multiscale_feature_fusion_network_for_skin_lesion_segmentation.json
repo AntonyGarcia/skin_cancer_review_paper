@@ -1,0 +1,464 @@
+{
+  "file_name": "ren_2023_mff_net_multiscale_feature_fusion_network_for_skin_lesion_segmentation.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes MFF-Net, a deep learning-based multiscale feature fusion network for skin lesion segmentation. It utilizes a hybrid encoder with self-attention and depth-separable convolutions, a multi-branch feature fusion module, and a global feature fusion module to segment skin lesions in dermoscopic images from the ISIC2018, PH2, and HAM10000 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents MFF-Net, a novel multiscale feature fusion network for skin lesion segmentation. It details a proposed method (hybrid encoder, multi-branch feature fusion, global feature fusion, edge enhancement module), describes experimental setups on three public datasets (ISIC2018, PH2, HAM10000), reports quantitative results (Dice, IoU, etc.), and includes ablation studies. Although published in a conference proceedings (IEEE BIBM), it contains original experimental results and algorithmic contributions, fitting the definition of a research paper."
+  },
+  "title": "MFF-Net: Multiscale Feature Fusion Network for Skin Lesion Segmentation",
+  "authors": [
+    "Shujun Ren",
+    "Yanjun Peng"
+  ],
+  "doi": "10.1109/BIBM58861.2023.10385742",
+  "journal": "2023 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes MFF-Net, a multiscale feature fusion network designed to address challenges in skin lesion segmentation such as blurred boundaries and low contrast. The architecture incorporates a hybrid encoder with self-attention and depth-separable convolutions, a multi-branch feature fusion module, a global feature fusion module, and an edge enhancement module. The model was evaluated on three public dermoscopic image datasets: ISIC2018, PH2, and HAM10000. Experimental results demonstrated that MFF-Net achieved a Dice score of 93.17% on ISIC2018 and an IoU of 93.88% on PH2, outperforming state-of-the-art methods. Ablation studies confirmed the effectiveness of the proposed modules in improving segmentation accuracy.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesion",
+        "skin pigmentation lesions",
+        "pigmented skin lesions"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on the segmentation of skin lesions in general, using datasets (ISIC2018, PH2, HAM10000) that contain various types of dermoscopic images. While melanoma is mentioned as a motivation for early detection, the experiments treat the lesion region as a binary segmentation target (lesion vs. background) rather than classifying specific histological types."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Motivation/Context",
+      "details": "Mentioned in the abstract and introduction as an aggressive cancer where early detection is critical, motivating the need for accurate segmentation. However, the paper does not report specific performance metrics or results for melanoma as a distinct class separate from other skin lesions in the segmentation task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion regions in dermoscopic images",
+        "primary": true,
+        "details": "The paper proposes MFF-Net for skin lesion segmentation. The model predicts a binary mask (lesion vs. background) for each input image. Evaluation metrics include Dice coefficient, Intersection over Union (IoU), Accuracy, Recall, and Precision, which are standard for segmentation tasks. The loss function combines Binary Cross-Entropy (BCE) and Dice loss."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2",
+      "description": "A dermoscopic image database for research and benchmarking, containing images in JPEG format.",
+      "classes_used": [
+        "Skin lesion (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Data augmentation was performed on this dataset (rotation, horizontal flipping, and cropping within -20 to 20 degrees) to train the model.",
+        "validation": "Not explicitly split; used for evaluation.",
+        "testing": "Used for testing/evaluation; reported IoU of 93.88%.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A dataset from the Skin Lesion Analysis Toward Melanoma Detection 2018 challenge hosted by the International Skin Imaging Collaboration (ISIC), containing RGB color images resampled to 224x320 pixels.",
+      "classes_used": [
+        "Skin lesion (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 1816,
+        "validation": 259,
+        "testing": 519,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training (70% split).",
+        "validation": "Used for validation (10% split) to select the model with the highest Dice index.",
+        "testing": "Used for testing (20% split); reported Dice score of 93.17%.",
+        "other": "Used for ablation studies to demonstrate the effectiveness of proposed modules."
+      }
+    },
+    {
+      "name": "HAM10000",
+      "description": "A large collection of multi-source dermoscopic images of common skin pigmentation lesions, consisting of color RGB images resampled to 224x320 pixels.",
+      "classes_used": [
+        "Skin lesion (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 7015,
+        "validation": 1000,
+        "testing": 2000,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training (70% split). No data augmentation was required due to the large size.",
+        "validation": "Used for validation (10% split).",
+        "testing": "Used for testing (20% split).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient",
+    "Intersection over Union (IoU)",
+    "Accuracy (ACC)",
+    "Recall",
+    "Precision"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using point estimates of metrics (Dice, IoU, etc.) without statistical significance analysis."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018": {
+      "metric": "Dice, IoU, ACC, Recall, Precision",
+      "models": {
+        "MFF-Net (Ours)": {
+          "Dice": "0.9317",
+          "IoU": "0.8337",
+          "ACC": "0.9660",
+          "Recall": "0.8818",
+          "Precision": "0.9408"
+        },
+        "U-Net": {
+          "Dice": "0.8680",
+          "IoU": "0.7952",
+          "ACC": "0.9575",
+          "Recall": "0.8951",
+          "Precision": "0.9030"
+        },
+        "AttU-Net": {
+          "Dice": "0.8846",
+          "IoU": "0.8161",
+          "ACC": "0.9586",
+          "Recall": "0.9032",
+          "Precision": "0.9055"
+        },
+        "DeepLabv3+": {
+          "Dice": "0.8926",
+          "IoU": "0.8232",
+          "ACC": "0.9590",
+          "Recall": "0.9023",
+          "Precision": "0.9166"
+        },
+        "CE-Net": {
+          "Dice": "0.9307",
+          "IoU": "0.8324",
+          "ACC": "0.9618",
+          "Recall": "0.9222",
+          "Precision": "0.9044"
+        },
+        "UNeXt": {
+          "Dice": "0.8970",
+          "IoU": "0.8170",
+          "ACC": "null",
+          "Recall": "null",
+          "Precision": "null"
+        },
+        "CPF-Net": {
+          "Dice": "0.9274",
+          "IoU": "0.8269",
+          "ACC": "0.9584",
+          "Recall": "0.9116",
+          "Precision": "0.9092"
+        },
+        "ConTrans": {
+          "Dice": "0.9117",
+          "IoU": "null",
+          "ACC": "null",
+          "Recall": "null",
+          "Precision": "null"
+        },
+        "BA-Transformer": {
+          "Dice": "0.9059",
+          "IoU": "0.8325",
+          "ACC": "null",
+          "Recall": "null",
+          "Precision": "null"
+        },
+        "MFS-Net": {
+          "Dice": "0.8952",
+          "IoU": "0.8231",
+          "ACC": "null",
+          "Recall": "null",
+          "Precision": "null"
+        },
+        "FAT Net": {
+          "Dice": "0.9229",
+          "IoU": "0.8226",
+          "ACC": "0.9614",
+          "Recall": "0.9126",
+          "Precision": "0.9123"
+        }
+      },
+      "notes": "Ablation study results on ISIC2018: Base model (MFSB) Dice 0.9216, IoU 0.8219, ACC 0.9513; +GCAM Dice 0.9275, IoU 0.8287, ACC 0.9585; +DEM Dice 0.9317, IoU 0.8337, ACC 0.9660. Adding GFF improved Dice by 0.44%, IoU by 0.68%, and ACC by 0.89%."
+    },
+    "PH2": {
+      "metric": "Dice, IoU, ACC, Recall, Precision",
+      "models": {
+        "MFF-Net (Ours)": {
+          "Dice": "0.9281",
+          "IoU": "0.9388",
+          "ACC": "0.9777",
+          "Recall": "0.9478",
+          "Precision": "0.9786"
+        },
+        "U-Net": {
+          "Dice": "0.9230",
+          "IoU": "0.9329",
+          "ACC": "0.9733",
+          "Recall": "0.9388",
+          "Precision": "0.9801"
+        },
+        "AttU-Net": {
+          "Dice": "0.9275",
+          "IoU": "0.9385",
+          "ACC": "0.9764",
+          "Recall": "0.9430",
+          "Precision": "0.9820"
+        },
+        "CE-Net": {
+          "Dice": "0.9246",
+          "IoU": "0.9288",
+          "ACC": "0.9692",
+          "Recall": "0.9181",
+          "Precision": "0.9851"
+        },
+        "BCDU-Net": {
+          "Dice": "0.9204",
+          "IoU": "0.9213",
+          "ACC": "0.9730",
+          "Recall": "0.9410",
+          "Precision": "0.9741"
+        },
+        "CPF-Net": {
+          "Dice": "0.9243",
+          "IoU": "0.9353",
+          "ACC": "0.9761",
+          "Recall": "0.9497",
+          "Precision": "0.9774"
+        },
+        "CA-Net": {
+          "Dice": "0.9156",
+          "IoU": "0.9182",
+          "ACC": "0.9673",
+          "Recall": "0.9268",
+          "Precision": "0.9741"
+        },
+        "BA-Transformer": {
+          "Dice": "0.9276",
+          "IoU": "0.8903",
+          "ACC": "null",
+          "Recall": "null",
+          "Precision": "null"
+        },
+        "MFS-Net": {
+          "Dice": "0.9071",
+          "IoU": "0.8783",
+          "ACC": "null",
+          "Recall": "null",
+          "Precision": "null"
+        }
+      },
+      "notes": "The paper abstract mentions an IoU of 93.88% on the PH2 dataset, which corresponds to the IoU value for MFF-Net in Table II."
+    },
+    "HAM10000": {
+      "metric": "Dice, IoU, ACC, Recall, Precision",
+      "models": {
+        "MFF-Net (Ours)": {
+          "Dice": "0.9195",
+          "IoU": "0.8666",
+          "ACC": "0.9320",
+          "Recall": "0.8996",
+          "Precision": "0.9266"
+        },
+        "U-Net": {
+          "Dice": "0.9019",
+          "IoU": "0.8493",
+          "ACC": "0.9280",
+          "Recall": "0.9007",
+          "Precision": "0.9111"
+        },
+        "AttU-Net": {
+          "Dice": "0.9083",
+          "IoU": "0.8449",
+          "ACC": "0.9270",
+          "Recall": "0.9075",
+          "Precision": "0.9045"
+        },
+        "DeepLabv3+": {
+          "Dice": "0.9140",
+          "IoU": "0.8564",
+          "ACC": "0.9294",
+          "Recall": "0.9001",
+          "Precision": "0.9195"
+        },
+        "CE-Net": {
+          "Dice": "0.9153",
+          "IoU": "0.8598",
+          "ACC": "0.9307",
+          "Recall": "0.9019",
+          "Precision": "0.9216"
+        },
+        "BCDU-Net": {
+          "Dice": "0.9117",
+          "IoU": "0.8524",
+          "ACC": "0.9281",
+          "Recall": "0.9000",
+          "Precision": "0.9139"
+        },
+        "CPF-Net": {
+          "Dice": "0.9137",
+          "IoU": "0.8576",
+          "ACC": "0.9301",
+          "Recall": "0.9085",
+          "Precision": "0.9149"
+        },
+        "CA-Net": {
+          "Dice": "0.9103",
+          "IoU": "0.8481",
+          "ACC": "0.9263",
+          "Recall": "0.8946",
+          "Precision": "0.9147"
+        },
+        "MFS-Net": {
+          "Dice": "0.9032",
+          "IoU": "0.8587",
+          "ACC": "null",
+          "Recall": "null",
+          "Precision": "null"
+        },
+        "FAT Net": {
+          "Dice": "0.9114",
+          "IoU": "0.8538",
+          "ACC": "0.9299",
+          "Recall": "0.9086",
+          "Precision": "0.9141"
+        }
+      },
+      "notes": "No specific textual summary of results for HAM10000 other than the table values."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MFF-Net (Multiscale Feature Fusion Network)",
+    "pretraining": "null",
+    "input_size": "224x320 pixels",
+    "architecture_details": {
+      "encoder": "Hybrid encoder with four stages. First two stages use MBConv blocks (combining depth-separable convolution and self-attention) to capture spatial interactions. Latter two stages use self-attention modules for global contextual information.",
+      "decoder_modules": [
+        "Multi-branch feature fusion module (MBF): Splits feature maps into subgroups; one connected directly, others processed via 3x3 void convolution and 1x1 convolution to reconstruct features.",
+        "Global feature fusion module (GFF): Fuses features from different decoder levels using bilinear interpolation, 3x3 convolution, soft pooling with MLP for channel attention, and 3x3/1x1 convolutions for spatial attention.",
+        "Edge enhancement module (EEM): Parallel spatial and channel attention modules. Spatial attention uses 1x3 and 3x1 convolutions for vertical/horizontal edge extraction. Channel attention exploits channel interdependence."
+      ],
+      "backbone_components": [
+        "MBConv blocks",
+        "Depth-separable convolutions",
+        "Self-attention modules",
+        "Void convolutions",
+        "1x1 convolutions"
+      ]
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "initial_learning_rate": 0.001,
+      "weight_decay": 5e-05,
+      "learning_rate_schedule": "CosineAnnealingWarmRestarts",
+      "epochs": 200,
+      "hardware": "Single NVIDIA GeForce RTX 2080Ti GPU",
+      "framework": "PyTorch",
+      "data_augmentation": {
+        "PH2": "Rotation, horizontal flipping, cropping within -20 to 20 degrees",
+        "ISIC2018": "None (large dataset)",
+        "HAM10000": "None (large dataset)"
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Binary segmentation mask",
+      "loss_function": "Combined Binary Cross-Entropy (BCE) and Dice loss",
+      "loss_formula": "L_loss = L_BCE + L_Dice"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MFF-Net",
+    "U-Net",
+    "AttU-Net",
+    "DeepLabv3+",
+    "CE-Net",
+    "UNeXt",
+    "CPF-Net",
+    "ConTrans",
+    "BA-Transformer",
+    "MFS-Net",
+    "FAT Net",
+    "BCDU-Net",
+    "CA-Net",
+    "MFSB",
+    "GCAM",
+    "DEM"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing/resampling to 224x320 pixels for ISIC2018, PH2, and HAM10000 datasets",
+    "Data augmentation on PH2 dataset: rotation, horizontal flipping, and cropping within -20 to 20 degrees",
+    "No data augmentation applied to ISIC2018 and HAM10000 datasets due to their large size"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Applied to the PH2 dataset; range of -20 to 20 degrees."
+    },
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied to the PH2 dataset."
+    },
+    {
+      "technique": "Cropping",
+      "details": "Applied to the PH2 dataset; range of -20 to 20 degrees."
+    },
+    {
+      "technique": "No augmentation",
+      "details": "Not applied to ISIC2018 and HAM10000 datasets due to their large size."
+    }
+  ],
+  "conclusions": [
+    "The proposed MFF-Net, a multiscale feature fusion network, effectively addresses challenges in skin lesion segmentation such as blurred boundaries, low contrast, and irregular shapes.",
+    "MFF-Net outperforms state-of-the-art segmentation methods on three public datasets: ISIC2018, PH2, and HAM10000.",
+    "On the ISIC2018 dataset, MFF-Net achieved a Dice score of 93.17% and an IoU of 83.37%.",
+    "On the PH2 dataset, MFF-Net achieved an IoU of 93.88%.",
+    "On the HAM10000 dataset, MFF-Net achieved a Dice score of 91.95% and an IoU of 86.66%.",
+    "Ablation studies on the ISIC2018 dataset confirmed the effectiveness of the proposed modules: adding the Global Feature Fusion (GFF) module improved Dice by 0.44%, IoU by 0.68%, and Accuracy by 0.89% compared to the base model; adding the Edge Enhancement Module (EEM) further improved segmentation of fuzzy boundaries.",
+    "The hybrid encoder, which combines self-attention and depth-separable convolutions, helps preserve global contextual information and extract multi-scale remote-dependent features.",
+    "The Multi-branch Feature Fusion (MBF) module enhances the network's feature extraction capability by generating multi-scale feature representations.",
+    "The Edge Enhancement Module (EEM) improves inter-class discrimination and intra-class response, leading to better boundary learning."
+  ],
+  "important_remarks": [
+    "The study lacks external validation; performance is reported only on three public datasets (ISIC2018, PH2, HAM10000) without testing on independent, unseen clinical cohorts.",
+    "No statistical significance testing (e.g., p-values, confidence intervals) was performed to validate the superiority of MFF-Net over state-of-the-art methods; comparisons rely solely on point estimates of metrics.",
+    "Data augmentation was applied inconsistently: only the PH2 dataset underwent augmentation (rotation, flipping, cropping), while ISIC2018 and HAM10000 were used without augmentation due to their size, potentially introducing bias or affecting generalizability.",
+    "The paper does not report the number of model parameters or computational complexity (FLOPs), limiting the assessment of the model's efficiency and feasibility for clinical deployment.",
+    "The model was trained on a single NVIDIA GeForce RTX 2080Ti GPU, which may limit reproducibility for researchers with different hardware constraints.",
+    "While the paper addresses melanoma detection motivation, the segmentation task is binary (lesion vs. background) and does not differentiate between specific histological types (e.g., melanoma vs. benign nevi), limiting direct clinical utility for specific diagnosis.",
+    "The code is publicly available on GitHub, which supports reproducibility, but the paper does not specify the random seeds or fixed experimental conditions beyond the optimizer and learning rate schedule."
+  ]
+}

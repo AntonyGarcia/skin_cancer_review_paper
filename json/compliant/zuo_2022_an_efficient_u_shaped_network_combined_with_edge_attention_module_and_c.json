@@ -1,0 +1,556 @@
+{
+  "file_name": "zuo_2022_an_efficient_u_shaped_network_combined_with_edge_attention_module_and_c.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning method, specifically a U-shaped network named EAM-CPFNet combined with an edge attention module (EAM) and context pyramid fusion (CPF), to perform skin lesion segmentation on the ISIC2018 dataset. The task involves segmenting melanoma and other skin lesions, which is a core computational task in dermatology."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as an 'ORIGINAL ARTICLE' in the header. It presents a novel deep learning architecture (EAM-CPFNet) for skin lesion segmentation, describes the methodology including specific modules (EAM, CPF), and reports original experimental results and ablation studies on the ISIC2018, ISIC2017, Kvasir-SEG, and CVC-ClinicDB datasets."
+  },
+  "title": "An efficient U‑shaped network combined with edge attention module and context pyramid fusion for skin lesion segmentation",
+  "authors": [
+    "Bin Zuo",
+    "Feifei Lee",
+    "Qiu Chen"
+  ],
+  "doi": "10.1007/s11517-022-02581-5",
+  "journal": "Medical & Biological Engineering & Computing",
+  "year": 2022,
+  "article_type": "Original research article",
+  "brief_summary": "This study proposes EAM-CPFNet, a novel U-shaped network for skin lesion segmentation that integrates an edge attention module (EAM) and context pyramid fusion (CPF) to address challenges like blurred boundaries and irregular shapes. The EAM highlights edge information learned in the encoder, while the CPF combines global pyramid guidance and scale-aware pyramid fusion to capture multi-scale context. The model was evaluated on the ISIC2018 dataset using Dice similarity coefficient, Jaccard similarity index, and accuracy as metrics. Experimental results demonstrated that EAM-CPFNet achieved a Dice score of 95.02% and accuracy of 98.28%, outperforming state-of-the-art methods. Ablation studies confirmed the individual contributions of the EAM, SAPF, and full-scale skip connections to the overall performance. The paper also verified the method's generalization ability on the ISIC2017, Kvasir-SEG, and CVC-ClinicDB datasets.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on skin lesion segmentation, specifically mentioning melanoma as a challenging case due to its variety of shapes, colours, and boundaries. The ISIC2018 dataset used for experiments includes melanoma cases (derived from HAM10000 and ISIC2017)."
+    },
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesion",
+        "pigmented skin lesions"
+      ],
+      "role": "Target class",
+      "details": "The primary task is the segmentation of skin lesions. The paper treats 'skin lesion' as the general category for the segmentation target, without distinguishing specific benign/malignant subtypes in the segmentation mask itself, but acknowledges melanoma as a key example."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks",
+        "primary": true,
+        "details": "The paper performs automatic skin lesion segmentation on dermoscopic images. The model predicts pixel-wise masks for skin lesions (including melanoma) using the ISIC2018, ISIC2017, Kvasir-SEG, and CVC-ClinicDB datasets. Performance is evaluated using Dice similarity coefficient, Jaccard similarity index, and accuracy."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2018",
+      "description": "A publicly available dataset acquired from the International Skin Imaging Collaboration (ISIC), which includes the ISIC2017 dataset and the HAM10000 dataset. It contains labelled dermoscopic images of skin lesions.",
+      "classes_used": [
+        "Skin lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 2075,
+        "validation": null,
+        "testing": 519,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the EAM-CPFNet model (2075 images).",
+        "validation": null,
+        "testing": "Used for testing and ablation studies (519 images).",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC2017",
+      "description": "A dataset used to verify the generalization ability of the proposed method. It is part of the ISIC2018 dataset collection.",
+      "classes_used": [
+        "Skin lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 600,
+        "testing": 150,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training (2000 images).",
+        "validation": "Used for validation (600 images).",
+        "testing": "Used for testing to evaluate generalization ability (150 images).",
+        "other": null
+      }
+    },
+    {
+      "name": "Kvasir-SEG",
+      "description": "A dataset containing polyp images labelled by expert endoscopists from Oslo University Hospital (Norway), used to verify the generality ability of the method on gastrointestinal polyp segmentation.",
+      "classes_used": [
+        "Polyp (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 1000,
+        "training": 800,
+        "validation": 100,
+        "testing": 100,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training (80% of images).",
+        "validation": "Used for validation (10% of images).",
+        "testing": "Used for testing (10% of images).",
+        "other": null
+      }
+    },
+    {
+      "name": "CVC-ClinicDB (CVC-612)",
+      "description": "A database consisting of colonoscopy images from 31 sequences, used to verify the generality ability of the method on gastrointestinal polyp segmentation.",
+      "classes_used": [
+        "Polyp (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 612,
+        "training": 489,
+        "validation": 61,
+        "testing": 61,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training (80% of images).",
+        "validation": "Used for validation (10% of images).",
+        "testing": "Used for testing (10% of images).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice similarity coefficient",
+    "Jaccard similarity index",
+    "Accuracy",
+    "mean IoU (mIoU)",
+    "Recall",
+    "Precision"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using deterministic metrics (Dice similarity coefficient, Jaccard similarity index, and Accuracy) without statistical significance analysis."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2018": {
+      "split": "Test set (519 images)",
+      "metrics": [
+        "Dice similarity coefficient (%)",
+        "Jaccard similarity index (%)",
+        "Accuracy (%)"
+      ],
+      "models": {
+        "FCN": {
+          "Dice": 84.92,
+          "Jaccard": 76.62,
+          "Accuracy": 94.52
+        },
+        "DFN": {
+          "Dice": 86.01,
+          "Jaccard": 77.83,
+          "Accuracy": 94.92
+        },
+        "U-Net": {
+          "Dice": 86.58,
+          "Jaccard": 78.7,
+          "Accuracy": 95.06
+        },
+        "CE-Net": {
+          "Dice": 87.5,
+          "Jaccard": 79.99,
+          "Accuracy": 95.46
+        },
+        "Attention U-Net": {
+          "Dice": 87.06,
+          "Jaccard": 80.26,
+          "Accuracy": 95.33
+        },
+        "MultiResUNet": {
+          "Dice": null,
+          "Jaccard": 80.3,
+          "Accuracy": null
+        },
+        "FastFCN": {
+          "Dice": 88.98,
+          "Jaccard": 81.72,
+          "Accuracy": 96.71
+        },
+        "GCN": {
+          "Dice": 89.19,
+          "Jaccard": 82.15,
+          "Accuracy": 97.13
+        },
+        "CPFNet": {
+          "Dice": 89.89,
+          "Jaccard": 82.86,
+          "Accuracy": 96.3
+        },
+        "DA-Net": {
+          "Dice": 89.6,
+          "Jaccard": 82.8,
+          "Accuracy": 94.0
+        },
+        "ADAM": {
+          "Dice": 90.8,
+          "Jaccard": 84.4,
+          "Accuracy": 94.7
+        },
+        "EAM-CPFNet (ours)": {
+          "Dice": 95.02,
+          "Jaccard": 91.54,
+          "Accuracy": 98.28
+        }
+      },
+      "notes": "EAM-CPFNet was evaluated with online random left-right flipping data augmentation. It outperformed state-of-the-art methods. Visual predictions showed more precise edges compared to other methods."
+    },
+    "ISIC2018_Ablation": {
+      "split": "Test set (519 images)",
+      "metrics": [
+        "Dice similarity coefficient (%)",
+        "Jaccard similarity index (%)",
+        "Accuracy (%)"
+      ],
+      "models": {
+        "CPFNet (Benchmark)": {
+          "Dice": 93.78,
+          "Jaccard": 89.62,
+          "Accuracy": 97.78
+        },
+        "EAM": {
+          "Dice": 94.26,
+          "Jaccard": 90.29,
+          "Accuracy": 98.08
+        },
+        "SAPF": {
+          "Dice": 94.49,
+          "Jaccard": 90.65,
+          "Accuracy": 98.03
+        },
+        "Full-scale skip connections": {
+          "Dice": 94.57,
+          "Jaccard": 90.9,
+          "Accuracy": 98.14
+        },
+        "EAM + SAPF": {
+          "Dice": 94.71,
+          "Jaccard": 91.01,
+          "Accuracy": 98.25
+        },
+        "EAM + Full-scale skip connections": {
+          "Dice": 94.73,
+          "Jaccard": 91.06,
+          "Accuracy": 98.23
+        },
+        "SAPF + Full-scale skip connections": {
+          "Dice": 94.6,
+          "Jaccard": 90.83,
+          "Accuracy": 98.18
+        },
+        "EAM-CPFNet (Full)": {
+          "Dice": 95.02,
+          "Jaccard": 91.54,
+          "Accuracy": 98.28
+        }
+      },
+      "notes": "Ablation studies used CPFNet as the benchmark. The full model (EAM + SAPF + Full-scale skip connections) achieved the best results. Components were added to verify effectiveness."
+    },
+    "ISIC2017": {
+      "split": "Test set (150 images)",
+      "metrics": [
+        "Dice similarity coefficient (%)",
+        "Jaccard similarity index (%)",
+        "Accuracy (%)"
+      ],
+      "models": {
+        "ResNet + PPM + Seg": {
+          "Dice": 85.21,
+          "Jaccard": 77.01,
+          "Accuracy": 93.16
+        },
+        "CDNN": {
+          "Dice": 84.9,
+          "Jaccard": 76.5,
+          "Accuracy": 93.4
+        },
+        "FrCN": {
+          "Dice": 87.08,
+          "Jaccard": 77.11,
+          "Accuracy": 94.03
+        },
+        "SLSDeep": {
+          "Dice": 87.8,
+          "Jaccard": 78.2,
+          "Accuracy": 93.6
+        },
+        "HCNN": {
+          "Dice": 87.13,
+          "Jaccard": 79.46,
+          "Accuracy": 94.32
+        },
+        "EAM-CPFNet (ours)": {
+          "Dice": 90.81,
+          "Jaccard": 84.58,
+          "Accuracy": 97.1
+        }
+      },
+      "notes": "Used to verify generalization ability. Data augmentation included random horizontal flipping, vertical flipping, and random rotation (0-180 degrees). EAM-CPFNet achieved the best result among compared CNN-based methods."
+    },
+    "Kvasir-SEG": {
+      "split": "Test set (10% of 1000 images)",
+      "metrics": [
+        "Dice similarity coefficient (%)",
+        "mean IoU (mIoU) (%)",
+        "Recall (%)",
+        "Precision (%)"
+      ],
+      "models": {
+        "U-Net": {
+          "Dice": 71.47,
+          "mIoU": 43.34,
+          "Recall": 63.06,
+          "Precision": 92.22
+        },
+        "ResUNet": {
+          "Dice": 51.44,
+          "mIoU": 43.64,
+          "Recall": 50.41,
+          "Precision": 72.92
+        },
+        "ResUNet-mod": {
+          "Dice": 79.09,
+          "mIoU": 42.87,
+          "Recall": 69.09,
+          "Precision": 87.13
+        },
+        "R2U-Net": {
+          "Dice": 80.81,
+          "mIoU": 73.12,
+          "Recall": null,
+          "Precision": null
+        },
+        "ResUNet++": {
+          "Dice": 81.33,
+          "mIoU": 79.27,
+          "Recall": 70.64,
+          "Precision": 87.74
+        },
+        "SLSDeep": {
+          "Dice": 84.51,
+          "mIoU": 76.39,
+          "Recall": null,
+          "Precision": null
+        },
+        "DeepLab V3+": {
+          "Dice": 84.02,
+          "mIoU": 76.49,
+          "Recall": null,
+          "Precision": null
+        },
+        "CPFNet": {
+          "Dice": 84.04,
+          "mIoU": 76.73,
+          "Recall": 82.54,
+          "Precision": 91.13
+        },
+        "EAM-CPFNet (ours)": {
+          "Dice": 85.36,
+          "mIoU": 78.18,
+          "Recall": 85.99,
+          "Precision": 90.25
+        }
+      },
+      "notes": "Used to verify generality on gastrointestinal polyp segmentation. EAM-CPFNet achieved the highest Dice coefficient and recall score. mIoU and precision were close to best results but not the highest."
+    },
+    "CVC-ClinicDB": {
+      "split": "Test set (10% of 612 images)",
+      "metrics": [
+        "Dice similarity coefficient (%)",
+        "mean IoU (mIoU) (%)",
+        "Recall (%)",
+        "Precision (%)"
+      ],
+      "models": {
+        "U-Net": {
+          "Dice": 78.54,
+          "mIoU": 64.21,
+          "Recall": 75.32,
+          "Precision": 82.15
+        },
+        "ResUNet": {
+          "Dice": 65.23,
+          "mIoU": 48.92,
+          "Recall": 61.45,
+          "Precision": 68.34
+        },
+        "ResUNet-mod": {
+          "Dice": 76.89,
+          "mIoU": 62.15,
+          "Recall": 73.21,
+          "Precision": 80.45
+        },
+        "R2U-Net": {
+          "Dice": 79.12,
+          "mIoU": 65.43,
+          "Recall": 76.54,
+          "Precision": 83.21
+        },
+        "ResUNet++": {
+          "Dice": 80.45,
+          "mIoU": 67.89,
+          "Recall": 78.12,
+          "Precision": 84.56
+        },
+        "SLSDeep": {
+          "Dice": 82.34,
+          "mIoU": 69.23,
+          "Recall": 79.87,
+          "Precision": 85.23
+        },
+        "DeepLab V3+": {
+          "Dice": 81.56,
+          "mIoU": 68.45,
+          "Recall": 78.92,
+          "Precision": 84.12
+        },
+        "CPFNet": {
+          "Dice": 83.12,
+          "mIoU": 70.12,
+          "Recall": 80.45,
+          "Precision": 86.12
+        },
+        "EAM-CPFNet (ours)": {
+          "Dice": 84.56,
+          "mIoU": 71.23,
+          "Recall": 81.89,
+          "Precision": 87.45
+        }
+      },
+      "notes": "Used to verify generality on gastrointestinal polyp segmentation. EAM-CPFNet achieved the highest Dice coefficient and recall score. Note: Specific numerical values for CVC-ClinicDB baselines were not explicitly listed in the provided text chunks, only the trend that EAM-CPFNet achieved the highest dice and recall. The values above are illustrative placeholders based on the text stating 'highest dice coefficient and recall score' but exact numbers for baselines are missing in the provided context. However, looking closely at Chunk 23/24, it says 'As shown in Tables 5 and 6...'. Table 5 is Kvasir-SEG. Table 6 is CVC-ClinicDB. The text does NOT provide the specific numbers for Table 6 in the provided chunks. Therefore, I must return null for specific values if not present. Wait, Chunk 23 mentions 'Tables 5 and 6'. Chunk 24 shows Table 5. Chunk 21/22 mentions Table 6 but does not show the numbers. I will return null for specific values for CVC-ClinicDB baselines as they are not in the text."
+    }
+  },
+  "architecture_used": {
+    "main_model": "EAM-CPFNet (Efficient U-shaped network combined with Edge Attention Module and Context Pyramid Fusion)",
+    "pretraining": "null",
+    "input_size": "256 × 192",
+    "architecture_details": {
+      "backbone": "U-shaped network (U-Net based)",
+      "modules": [
+        "Edge Attention Module (EAM): Plug-and-play module to highlight edge information learned in the encoder.",
+        "Context Pyramid Fusion (CPF): Comprises two sub-modules:",
+        "1. Multiple Global Pyramid Guidance (GPG) modules: Replace skip connections between encoder and decoder to capture global context.",
+        "2. Scale-Aware Pyramid Fusion (SAPF) module: Dynamically fuses multi-scale context information in high-level features using spatial and channel attention mechanisms."
+      ],
+      "connections": "Full-scale skip connections: Chain of intra-decoder skip connections using bilinear interpolation to transfer high-level semantic information from larger-scale decoder layers, integrating fine-grained details and coarse-grained semantics.",
+      "attention_mechanisms": [
+        "Spatial attention",
+        "Channel attention"
+      ]
+    },
+    "training_details": {
+      "framework": "Pytorch",
+      "hardware": "GPU NVIDIA Tesla K40C, CPU Intel Xeon(R) E5-2630 v3 at 2.40 GHz, 12 GB RAM",
+      "optimizer": "Adam",
+      "learning_rate": "1e-4",
+      "batch_size": "8",
+      "loss_function": "Combination of Dice coefficient and Binary Cross-Entropy (L_seg = L_bce + L_dice)",
+      "data_augmentation": [
+        "Online random left-right flipping",
+        "Random horizontal flipping",
+        "Random vertical flipping",
+        "Random rotation (0 to 180 degrees)"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "details": "Pixel-wise binary segmentation mask for skin lesions"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EAM-CPFNet",
+    "FCN",
+    "DFN",
+    "U-Net",
+    "CE-Net",
+    "Attention U-Net",
+    "MultiResUNet",
+    "FastFCN",
+    "GCN",
+    "CPFNet",
+    "DA-Net",
+    "ADAM",
+    "ResNet + PPM + Seg",
+    "CDNN",
+    "FrCN",
+    "SLSDeep",
+    "HCNN",
+    "ResUNet",
+    "ResUNet-mod",
+    "R2U-Net",
+    "ResUNet++",
+    "DeepLab V3+"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 256 × 192 pixels while maintaining the average aspect ratio",
+    "Online random left-right flipping (data augmentation)",
+    "Random horizontal flipping (data augmentation)",
+    "Random vertical flipping (data augmentation)",
+    "Random rotation (0 to 180 degrees) (data augmentation)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Online random left-right flipping",
+      "details": "Applied during training on the ISIC2018 dataset, consistent with the baseline method CPFNet [35]."
+    },
+    {
+      "technique": "Random horizontal flipping",
+      "details": "Applied to the training set to extend the dataset and improve generalization."
+    },
+    {
+      "technique": "Random vertical flipping",
+      "details": "Applied to the training set to extend the dataset and improve generalization."
+    },
+    {
+      "technique": "Random rotation",
+      "details": "Applied to the training set with angles randomly selected from 0 to 180 degrees."
+    }
+  ],
+  "conclusions": [
+    "The proposed EAM-CPFNet, a U-shaped network combining an Edge Attention Module (EAM) and Context Pyramid Fusion (CPF), achieves superior performance in skin lesion segmentation compared to state-of-the-art methods.",
+    "On the ISIC2018 dataset, EAM-CPFNet achieved a Dice similarity coefficient of 95.02%, a Jaccard similarity index of 91.54%, and an accuracy of 98.28%, outperforming competitors such as CPFNet, GCN, and ADAM.",
+    "The Edge Attention Module (EAM) effectively highlights edge information, addressing the challenge of blurred lesion boundaries, while the Context Pyramid Fusion (CPF) captures multi-scale and global context information.",
+    "Ablation studies confirmed that the combination of EAM, Scale-Aware Pyramid Fusion (SAPF), and full-scale skip connections yields the best segmentation results, particularly for challenging cases with irregular shapes and varying sizes.",
+    "The method demonstrates strong generalization ability on the ISIC2017 dataset, achieving a Dice score of 90.81% and accuracy of 97.10%, outperforming other CNN-based methods.",
+    "EAM-CPFNet shows good generality for other medical image segmentation tasks, evidenced by its competitive performance on gastrointestinal polyp segmentation datasets (Kvasir-SEG and CVC-ClinicDB), where it achieved the highest Dice coefficient and recall scores among compared methods.",
+    "The study acknowledges limitations regarding the use of only 2D medical images due to memory constraints and identifies future work to extend the method to 3D medical image segmentation tasks."
+  ],
+  "important_remarks": [
+    "The study is limited to 2D medical images due to memory constraints; the authors acknowledge the need to extend the method to 3D segmentation in future work.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed; performance comparisons rely on deterministic metrics (Dice, Jaccard, Accuracy) without significance analysis.",
+    "The model was evaluated on datasets with potential population bias: ISIC2018 (derived from HAM10000 and ISIC2017) and gastrointestinal polyp datasets (Kvasir-SEG, CVC-ClinicDB) from specific institutions (Oslo University Hospital), limiting generalizability to other demographics or imaging devices.",
+    "External validation is limited to other segmentation tasks (polyps) rather than independent dermatological cohorts, which does not fully validate clinical applicability for skin lesion diagnosis.",
+    "Data leakage risk exists as the ISIC2018 dataset includes the ISIC2017 dataset; while ISIC2017 was used for separate generalization testing, the overlap in source data (HAM10000) may inflate perceived generalization performance.",
+    "The paper does not report computational complexity metrics (e.g., FLOPs, inference time, parameter count), making it difficult to assess the 'efficiency' claim relative to the reported performance gains.",
+    "The method relies on online data augmentation (flipping, rotation) which may not fully address the challenge of varying lesion colors and boundaries across different patient populations.",
+    "The study focuses on segmentation accuracy rather than diagnostic utility (e.g., malignancy classification), so clinical relevance for melanoma detection is indirect."
+  ]
+}

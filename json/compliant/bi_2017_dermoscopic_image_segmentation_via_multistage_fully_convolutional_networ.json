@@ -1,0 +1,564 @@
+{
+  "file_name": "bi_2017_dermoscopic_image_segmentation_via_multistage_fully_convolutional_networ.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Multi-Stage Fully Convolutional Networks (FCNs), a deep learning architecture, to automatically segment skin lesions in dermoscopic images for melanoma computer-aided diagnosis. The method was evaluated on the ISBI 2016 Skin Lesion Challenge and PH2 datasets, achieving Dice coefficients of 91.18% and 90.66% respectively."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a Multi-Stage Fully Convolutional Network for dermoscopic image segmentation. It details a specific methodology, conducts experiments on the ISBI 2016 and PH2 datasets, and reports quantitative results (Dice coefficients) comparing the proposed method against state-of-the-art baselines, rather than summarizing prior literature."
+  },
+  "title": "Dermoscopic Image Segmentation via Multi-Stage Fully Convolutional Networks",
+  "authors": [
+    "Lei Bi",
+    "Jinman Kim",
+    "Euijoon Ahn",
+    "Ashnil Kumar",
+    "Michael Fulham",
+    "Dagan Feng"
+  ],
+  "doi": "10.1109/TBME.2017.2712771",
+  "journal": "IEEE Transactions on Biomedical Engineering",
+  "year": 2017,
+  "article_type": "Journal article",
+  "brief_summary": "This study addresses the challenge of segmenting skin lesions in dermoscopic images for automated melanoma computer-aided diagnosis. The authors propose a Multi-Stage Fully Convolutional Network (FCN) that uses a parallel integration method to combine complementary visual characteristics learned across multiple stages. The method was evaluated on the ISBI 2016 Skin Lesion Challenge dataset and the PH2 dataset, with ground truth provided by clinical experts. The proposed approach achieved an average Dice coefficient of 91.18% on the ISBI 2016 dataset and 90.66% on the PH2 dataset. These results demonstrate that the multi-stage FCN outperforms state-of-the-art semi-automatic, unsupervised, and supervised baseline methods. The study concludes that the method effectively handles challenging lesions with fuzzy boundaries and low contrast.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "Studied as a specific diagnostic category for segmentation performance analysis on the ISBI 2016 and PH2 datasets. The paper notes that melanoma studies are more difficult to segment due to severe inhomogeneity and/or non-uniform boundary patterns."
+    },
+    {
+      "lesion_type": "Non-melanoma skin lesions",
+      "paper_terms": [
+        "non-melanoma",
+        "non-melanoma studies"
+      ],
+      "role": "Target class",
+      "details": "Studied as a collective category of benign or other malignant skin lesions (excluding melanoma) for segmentation performance analysis on the ISBI 2016 and PH2 datasets. The paper mentions an imbalance between melanoma and non-melanoma studies in the datasets."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary segmentation mask of skin lesions in dermoscopic images",
+        "primary": true,
+        "details": "The paper proposes a Multi-Stage Fully Convolutional Network (FCN) to automatically segment skin lesions. The model outputs a binary segmentation result (lesion vs. background) derived from a final integrated probabilistic map converted via thresholding. Performance is evaluated using Dice coefficient, Jaccard index, Sensitivity, Specificity, and Accuracy on the ISBI 2016 and PH2 datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISBI 2016 Skin Lesion Challenge dataset",
+      "description": "A subset of the large International Skin Imaging Collaboration (ISIC) archive, containing images acquired on a variety of different devices at numerous leading international clinical centers. Ground truth provided by clinical experts.",
+      "classes_used": [
+        "non-melanoma",
+        "melanoma"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {
+          "training_non_melanoma": 727,
+          "training_melanoma": 173,
+          "testing_non_melanoma": 304,
+          "testing_melanoma": 75
+        }
+      },
+      "use": {
+        "training": "Used for training the proposed Multi-Stage Fully Convolutional Network and supervised baselines.",
+        "validation": null,
+        "testing": "Used for testing the proposed method and comparing against state-of-the-art baselines and top challenge results.",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2 dataset",
+      "description": "A public dataset collaboratively collected by the Universidade do Porto, Técnico Lisboa, and the Dermatology service of Hospital Pedro Hispano in Matosinhos, Portugal. Images were obtained under the same conditions through the Tuebinger Mole Analyzer system using 20-fold magnification. Ground truth provided by clinical experts.",
+      "classes_used": [
+        "non-melanoma",
+        "melanoma"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {
+          "non_melanoma": 160,
+          "melanoma": 40
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for testing the proposed method and comparing against dataset-specific baselines.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice similarity coefficient (Dic.)",
+    "Jaccard index (Jac.)",
+    "Sensitivity (Sen.)",
+    "Specificity (Spe.)",
+    "Accuracy (Acc.)",
+    "Receiver operating characteristic (ROC) curve",
+    "Precision-recall (PR) curve"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive statistics (Dice coefficient, Jaccard index, Sensitivity, Specificity, Accuracy) and visual inspection of ROC/PR curves."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISBI 2016 Skin Lesion Challenge Dataset": {
+      "Overall Studies": {
+        "metric": "Dice (Dic.), Jaccard (Jac.), Sensitivity (Sen.), Specificity (Spe.), Accuracy (Acc.)",
+        "models": {
+          "Our Method (Multi-Stage FCN)": {
+            "Dice": "91.18",
+            "Jaccard": "84.64",
+            "Sensitivity": "92.17",
+            "Specificity": "96.54",
+            "Accuracy": "95.51"
+          },
+          "Team - ExB": {
+            "Dice": "91.00",
+            "Jaccard": "84.30",
+            "Sensitivity": "91.00",
+            "Specificity": "96.50",
+            "Accuracy": "95.30"
+          },
+          "Team - CUMED": {
+            "Dice": "89.70",
+            "Jaccard": "82.90",
+            "Sensitivity": "91.10",
+            "Specificity": "95.70",
+            "Accuracy": "94.90"
+          },
+          "Team - Rahman": {
+            "Dice": "89.50",
+            "Jaccard": "82.22",
+            "Sensitivity": "88.00",
+            "Specificity": "96.90",
+            "Accuracy": "95.20"
+          },
+          "Team - SFU": {
+            "Dice": "88.50",
+            "Jaccard": "81.11",
+            "Sensitivity": "91.50",
+            "Specificity": "95.50",
+            "Accuracy": "94.40"
+          },
+          "Team - TMU": {
+            "Dice": "88.80",
+            "Jaccard": "81.10",
+            "Sensitivity": "83.20",
+            "Specificity": "98.70",
+            "Accuracy": "94.60"
+          },
+          "MSCA": {
+            "Dice": "75.88",
+            "Jaccard": "66.19",
+            "Sensitivity": "78.30",
+            "Specificity": "91.31",
+            "Accuracy": "85.68"
+          },
+          "SSLS": {
+            "Dice": "69.97",
+            "Jaccard": "57.20",
+            "Sensitivity": "70.04",
+            "Specificity": "97.31",
+            "Accuracy": "84.67"
+          },
+          "FCN": {
+            "Dice": "88.64",
+            "Jaccard": "81.37",
+            "Sensitivity": "91.70",
+            "Specificity": "94.90",
+            "Accuracy": "94.13"
+          }
+        },
+        "notes": "Our method achieved the best overall performance. ExB was 0.34% lower in Dice measure compared to Our Method."
+      },
+      "Non-Melanoma Studies": {
+        "metric": "Dice (Dic.), Jaccard (Jac.), Sensitivity (Sen.), Specificity (Spe.), Accuracy (Acc.)",
+        "models": {
+          "Our Method (Multi-Stage FCN)": {
+            "Dice": "90.97",
+            "Jaccard": "84.34",
+            "Sensitivity": "91.63",
+            "Specificity": "97.20",
+            "Accuracy": "95.71"
+          },
+          "Team - ExB": {
+            "Dice": "91.18",
+            "Jaccard": "84.64",
+            "Sensitivity": "91.12",
+            "Specificity": "97.22",
+            "Accuracy": "95.78"
+          },
+          "Team - CUMED": {
+            "Dice": "89.68",
+            "Jaccard": "82.95",
+            "Sensitivity": "90.82",
+            "Specificity": "96.55",
+            "Accuracy": "95.30"
+          },
+          "Team - Rahman": {
+            "Dice": "89.44",
+            "Jaccard": "82.04",
+            "Sensitivity": "87.84",
+            "Specificity": "97.51",
+            "Accuracy": "95.70"
+          },
+          "Team - SFU": {
+            "Dice": "88.32",
+            "Jaccard": "80.88",
+            "Sensitivity": "91.55",
+            "Specificity": "95.82",
+            "Accuracy": "94.93"
+          },
+          "Team - TMU": {
+            "Dice": "88.58",
+            "Jaccard": "80.73",
+            "Sensitivity": "82.89",
+            "Specificity": "99.04",
+            "Accuracy": "94.87"
+          },
+          "MSCA": {
+            "Dice": "75.11",
+            "Jaccard": "65.57",
+            "Sensitivity": "78.59",
+            "Specificity": "91.14",
+            "Accuracy": "85.84"
+          },
+          "SSLS": {
+            "Dice": "70.81",
+            "Jaccard": "58.34",
+            "Sensitivity": "72.87",
+            "Specificity": "97.15",
+            "Accuracy": "86.15"
+          },
+          "FCN": {
+            "Dice": "88.66",
+            "Jaccard": "81.38",
+            "Sensitivity": "91.17",
+            "Specificity": "95.87",
+            "Accuracy": "94.55"
+          }
+        },
+        "notes": "ExB was 0.21% higher in Jaccard measure compared to Our Method. CUMED was 1.39% lower in Jaccard measure compared to Our Method."
+      },
+      "Melanoma Studies": {
+        "metric": "Dice (Dic.), Jaccard (Jac.), Sensitivity (Sen.), Specificity (Spe.), Accuracy (Acc.)",
+        "models": {
+          "Our Method (Multi-Stage FCN)": {
+            "Dice": "92.03",
+            "Jaccard": "85.84",
+            "Sensitivity": "94.34",
+            "Specificity": "93.89",
+            "Accuracy": "94.70"
+          },
+          "Team - ExB": {
+            "Dice": "90.11",
+            "Jaccard": "82.94",
+            "Sensitivity": "90.57",
+            "Specificity": "93.84",
+            "Accuracy": "93.23"
+          },
+          "Team - CUMED": {
+            "Dice": "89.98",
+            "Jaccard": "82.90",
+            "Sensitivity": "92.47",
+            "Specificity": "92.34",
+            "Accuracy": "93.21"
+          },
+          "Team - Rahman": {
+            "Dice": "89.93",
+            "Jaccard": "82.65",
+            "Sensitivity": "88.72",
+            "Specificity": "94.44",
+            "Accuracy": "93.22"
+          },
+          "Team - SFU": {
+            "Dice": "89.44",
+            "Jaccard": "81.88",
+            "Sensitivity": "91.16",
+            "Specificity": "94.13",
+            "Accuracy": "92.19"
+          },
+          "Team - TMU": {
+            "Dice": "89.68",
+            "Jaccard": "82.31",
+            "Sensitivity": "84.62",
+            "Specificity": "97.48",
+            "Accuracy": "93.43"
+          },
+          "MSCA": {
+            "Dice": "79.00",
+            "Jaccard": "68.68",
+            "Sensitivity": "77.12",
+            "Specificity": "92.01",
+            "Accuracy": "85.02"
+          },
+          "SSLS": {
+            "Dice": "66.55",
+            "Jaccard": "52.59",
+            "Sensitivity": "58.58",
+            "Specificity": "97.94",
+            "Accuracy": "78.67"
+          },
+          "FCN": {
+            "Dice": "88.56",
+            "Jaccard": "81.33",
+            "Sensitivity": "93.83",
+            "Specificity": "90.98",
+            "Accuracy": "92.39"
+          }
+        },
+        "notes": "Our method performed better with a large margin for melanoma studies (~3% increase in Jaccard measure) when compared with the best challenge results."
+      }
+    },
+    "PH2 Dataset": {
+      "Overall Studies": {
+        "metric": "Dice (Dic.), Jaccard (Jac.), Sensitivity (Sen.), Specificity (Spe.), Accuracy (Acc.)",
+        "models": {
+          "Our Method (Multi-Stage FCN)": {
+            "Dice": "90.66",
+            "Jaccard": "83.99",
+            "Sensitivity": "94.89",
+            "Specificity": "93.98",
+            "Accuracy": "94.24"
+          },
+          "SCDRR": {
+            "Dice": "86.00",
+            "Jaccard": "76.00",
+            "Sensitivity": "null",
+            "Specificity": "null",
+            "Accuracy": "null"
+          },
+          "DT": {
+            "Dice": "null",
+            "Jaccard": "null",
+            "Sensitivity": "80.24",
+            "Specificity": "97.22",
+            "Accuracy": "89.66"
+          },
+          "JCLMM": {
+            "Dice": "82.85",
+            "Jaccard": "null",
+            "Sensitivity": "null",
+            "Specificity": "null",
+            "Accuracy": "null"
+          },
+          "MSCA": {
+            "Dice": "81.57",
+            "Jaccard": "72.33",
+            "Sensitivity": "79.87",
+            "Specificity": "95.57",
+            "Accuracy": "88.75"
+          },
+          "SSLS": {
+            "Dice": "78.38",
+            "Jaccard": "68.16",
+            "Sensitivity": "75.32",
+            "Specificity": "98.18",
+            "Accuracy": "84.85"
+          },
+          "FCN": {
+            "Dice": "89.38",
+            "Jaccard": "82.15",
+            "Sensitivity": "93.14",
+            "Specificity": "93.00",
+            "Accuracy": "93.48"
+          }
+        },
+        "notes": "Our method showed an increase of ~8% in Jaccard measure compared with SCDRR, ~4.5% in Accuracy compared with DT, and ~7.8% in Dice measure compared with JCLMM."
+      },
+      "Non-Melanoma Studies": {
+        "metric": "Dice (Dic.), Jaccard (Jac.), Sensitivity (Sen.), Specificity (Spe.), Accuracy (Acc.)",
+        "models": {
+          "Our Method (Multi-Stage FCN)": {
+            "Dice": "90.77",
+            "Jaccard": "84.15",
+            "Sensitivity": "95.64",
+            "Specificity": "95.12",
+            "Accuracy": "95.61"
+          },
+          "DT": {
+            "Dice": "null",
+            "Jaccard": "null",
+            "Sensitivity": "86.79",
+            "Specificity": "97.47",
+            "Accuracy": "93.74"
+          },
+          "MSCA": {
+            "Dice": "85.52",
+            "Jaccard": "76.88",
+            "Sensitivity": "85.78",
+            "Specificity": "96.33",
+            "Accuracy": "93.86"
+          },
+          "SSLS": {
+            "Dice": "84.72",
+            "Jaccard": "75.52",
+            "Sensitivity": "83.96",
+            "Specificity": "98.05",
+            "Accuracy": "91.77"
+          },
+          "FCN": {
+            "Dice": "89.27",
+            "Jaccard": "82.01",
+            "Sensitivity": "94.83",
+            "Specificity": "94.22",
+            "Accuracy": "94.79"
+          }
+        },
+        "notes": "null"
+      },
+      "Melanoma Studies": {
+        "metric": "Dice (Dic.), Jaccard (Jac.), Sensitivity (Sen.), Specificity (Spe.), Accuracy (Acc.)",
+        "models": {
+          "Our Method (Multi-Stage FCN)": {
+            "Dice": "90.25",
+            "Jaccard": "83.35",
+            "Sensitivity": "91.88",
+            "Specificity": "89.42",
+            "Accuracy": "88.78"
+          },
+          "DT": {
+            "Dice": "null",
+            "Jaccard": "null",
+            "Sensitivity": "54.04",
+            "Specificity": "95.97",
+            "Accuracy": "66.15"
+          },
+          "MSCA": {
+            "Dice": "65.77",
+            "Jaccard": "54.13",
+            "Sensitivity": "56.25",
+            "Specificity": "92.49",
+            "Accuracy": "68.31"
+          },
+          "SSLS": {
+            "Dice": "53.00",
+            "Jaccard": "38.73",
+            "Sensitivity": "40.74",
+            "Specificity": "98.67",
+            "Accuracy": "57.16"
+          },
+          "FCN": {
+            "Dice": "89.81",
+            "Jaccard": "82.72",
+            "Sensitivity": "91.39",
+            "Specificity": "88.16",
+            "Accuracy": "88.25"
+          }
+        },
+        "notes": "null"
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multi-Stage Fully Convolutional Network with Parallel Integration (mFCN-PI)",
+    "pretraining": "Pre-trained weights from ImageNet were used to initialize the first stage; subsequent stages were fine-tuned using estimated results from previous stages.",
+    "input_size": "Original dermoscopic image size (e.g., 768x560 for PH2); multi-scale inputs used during testing (scaled down versions and flipped images).",
+    "architecture_details": {
+      "type": "Fully Convolutional Network (FCN)",
+      "structure": "Multi-stage architecture where each stage consists of stacked convolutional layers and deconvolutional (upsampling) layers.",
+      "integration_method": "Parallel Integration (PI) method to combine complementary segmentation results from individual stages.",
+      "refinement": "Cellular Automata (CA) used to refine boundaries and ensure spatial consistency of lesion appearance.",
+      "multi_scale": "Multi-scale segmentation approach applied at each stage by scaling down input images and averaging results.",
+      "channel_handling": "One RGB channel replaced with the probability map from the previous FCN stage for training subsequent stages to avoid scratch training with 4-channel input."
+    },
+    "training_details": {
+      "optimizer": "Stochastic Gradient Descent (SGD)",
+      "loss_function": "Per-pixel multinomial logistic loss",
+      "epochs": "200 epochs (converged at approx. 150th epoch)",
+      "batch_size": "20",
+      "hardware": "12GB Titan X GPU",
+      "training_time_per_stage": "Approx. 12 hours",
+      "hyperparameters": {
+        "CA_iterations": "5",
+        "CA_weight_foreground": "0.15",
+        "CA_threshold": "Otsu threshold"
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Binary segmentation mask",
+      "output_process": "Final integrated probabilistic map converted to binary segmentation via thresholding at 50% of the maximum value, followed by morphological erosion and hole filling."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Multi-Stage Fully Convolutional Network (mFCN-PI)",
+    "FCN-8s",
+    "MSCA",
+    "SSLS",
+    "SCDRR",
+    "DT",
+    "JCLMM",
+    "Team - ExB",
+    "Team - CUMED",
+    "Team - Rahman",
+    "Team - SFU",
+    "Team - TMU"
+  ],
+  "preprocessing_techniques": [
+    "Multi-scale segmentation approach applied during testing by scaling down input images and averaging results",
+    "Image flipping applied during testing (multi-scale inputs included flipped images)",
+    "Thresholding at 50% of the maximum value to convert probabilistic map to binary segmentation",
+    "Morphological erosion applied after thresholding",
+    "Hole filling applied after thresholding",
+    "Cellular Automata (CA) used to refine boundaries and ensure spatial consistency (5 iterations, foreground weight 0.15, Otsu threshold)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random crops",
+      "details": "Used during training to improve robustness, as cited from references [33, 50]."
+    },
+    {
+      "technique": "Flips",
+      "details": "Used during training to improve robustness, as cited from references [33, 50]."
+    },
+    {
+      "technique": "RGB channel replacement",
+      "details": "During training of subsequent stages (stages 2 to 4), one of the RGB channels was replaced with the probability map from the previous stage to facilitate fine-tuning. The order of RGB channel replacement was rotated over stages to cover all variations."
+    }
+  ],
+  "conclusions": [
+    "The proposed Multi-Stage Fully Convolutional Network (FCN) with parallel integration effectively segments skin lesions in dermoscopic images, achieving an average Dice coefficient of 91.18% on the ISBI 2016 Skin Lesion Challenge dataset and 90.66% on the PH2 dataset.",
+    "The method outperforms state-of-the-art semi-automatic, unsupervised, and supervised baseline methods, as well as top results from the ISBI 2016 challenge, particularly showing a significant margin of improvement (~3% increase in Jaccard measure) for melanoma studies.",
+    "The multi-stage approach allows the network to iteratively learn challenging skin lesion boundaries, with early stages focusing on coarse localization and late stages capturing subtle boundary characteristics.",
+    "The parallel integration method successfully combines complementary segmentation results from individual stages, enhancing detection ability and reducing segmentation errors compared to single-stage FCNs.",
+    "The method demonstrates robustness in handling challenging lesions with fuzzy boundaries, low contrast, inhomogeneous textures, and artifacts (such as hair and color bands), which often cause traditional methods or single-stage FCNs to over-segment or under-segment.",
+    "Unlike existing methods that rely heavily on manual parameter tuning and specific pre-processing techniques (e.g., illumination correction, hair removal), the proposed deep learning approach is less dependent on such manual interventions, making it more suitable for wide clinical adoption.",
+    "The performance of the method is limited by the size of the training dataset, which restricts the ability to learn more subtle variations, although the multi-stage approach still contributed to precise boundary definition even with limited data."
+  ],
+  "important_remarks": [
+    "The study is limited by the size of the training dataset (900 images), which restricts the ability to learn more subtle variations, although the multi-stage approach still contributed to precise boundary definition.",
+    "The method was evaluated on two public datasets (ISBI 2016 and PH2) with ground truth provided by clinical experts; however, no external validation on independent datasets from different clinical centers or devices was reported.",
+    "The paper did not report any formal hypothesis testing, p-values, or significance tests; performance comparisons were made using descriptive statistics (Dice coefficient, Jaccard index, etc.) and visual inspection.",
+    "The proposed method significantly outperformed baselines on melanoma studies (~3% increase in Jaccard measure) compared to the best challenge results, indicating strong evidence for handling challenging lesions with fuzzy boundaries and low contrast.",
+    "The method relies on multi-scale inputs and image flipping during testing, which increases computational cost and inference time compared to single-scale methods.",
+    "The training process required approximately 12 hours per stage on a 12GB Titan X GPU, indicating high computational resource requirements for training.",
+    "The paper notes that existing semi-automatic and unsupervised methods are unreliable for wide clinical adoption due to subjective, time-consuming, and non-reproducible manual initializations or heavy reliance on parameter tuning.",
+    "The proposed method is less dependent on manual pre-processing techniques (e.g., illumination correction, hair removal) compared to traditional methods, potentially aiding clinical deployment."
+  ]
+}

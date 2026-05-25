@@ -1,0 +1,371 @@
+{
+  "file_name": "alahmadi_2022_semi_supervised_skin_lesion_segmentation_with_coupling_cnn_and_tra.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a semi-supervised deep learning method coupling Convolutional Neural Networks (CNN) and Transformer features to perform automatic skin lesion segmentation on dermoscopic images from the ISIC 2017, ISIC 2018, and PH2 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel semi-supervised deep learning method coupling CNN and Transformer features for skin lesion segmentation. It presents original experimental results, including a proposed network architecture, training strategies, and performance evaluations (Dice scores) on three datasets (ISIC 2017, ISIC 2018, PH2), rather than summarizing prior literature."
+  },
+  "title": "Semi-Supervised Skin Lesion Segmentation With Coupling CNN and Transformer Features",
+  "authors": [
+    "MOHAMMAD D. ALAHMADI",
+    "WAJDI ALGHAMDI"
+  ],
+  "doi": "10.1109/ACCESS.2022.3224005",
+  "journal": "IEEE Access",
+  "year": 2022,
+  "article_type": "Research article",
+  "brief_summary": "This study proposes a semi-supervised deep learning method coupling Convolutional Neural Networks (CNN) and Transformer features to address the challenge of limited annotated data in automatic skin lesion segmentation. The approach utilizes a surrogate task to incorporate unlabelled samples during training, thereby enriching the encoder module and alleviating the need for large-scale annotated datasets. The effectiveness of the proposed method was evaluated on three public dermoscopic datasets: ISIC 2017, ISIC 2018, and PH2. The model achieved Dice scores of 0.898, 0.905, and 0.940 on the respective datasets, demonstrating state-of-the-art performance compared to existing supervised methods. The results indicate that including unsupervised samples can increase the Dice score by approximately 2% and improve segmentation accuracy on challenging samples with irregular shapes and low contrast.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesion (general)",
+      "paper_terms": [
+        "skin lesion",
+        "lesion"
+      ],
+      "role": "Segmentation target",
+      "details": "The paper focuses on the segmentation of skin lesions in dermoscopic images. The task is binary segmentation (lesion vs. background) rather than multi-class classification. The datasets used (ISIC 2017, ISIC 2018, PH2) contain various types of skin lesions, including melanoma and benign lesions, but the study treats them collectively as 'skin lesions' for the segmentation task."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "Melanoma-positive cases"
+      ],
+      "role": "Mentioned only / Dataset composition detail",
+      "details": "Melanoma is mentioned as a specific type of skin cancer and its prevalence is reported in the dataset statistics (e.g., 'Melanoma-positive cases form 18.7%... of each set portion' in ISIC 2017), but it is not a distinct class label for the segmentation model. The model segments all lesions regardless of pathology."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion segmentation mask (binary pixel-wise classification of lesion vs. background)",
+        "primary": true,
+        "details": "The paper performs automatic skin lesion segmentation on dermoscopic images. The model predicts a segmentation map (mask) separating the lesion from the background. The task is described as 'semantic segmentation' and 'binarization'. Performance is evaluated using Dice scores on the ISIC 2017, ISIC 2018, and PH2 datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public dermoscopic image dataset from the International Skin Imaging Collaboration (ISIC) containing RGB images of skin lesions. The original dataset contains 2,750 images. In this study, the authors used the provided splits: 2,000 for training, 150 for validation, and 600 for testing. Melanoma-positive cases constituted 18.7%, 20%, and 19.5% of the training, validation, and test sets respectively. Image resolutions varied from 540 × 722 to 4,499 × 6,748 pixels.",
+      "classes_used": [
+        "Skin lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for supervised training of the segmentation network and for the semi-supervised surrogate task with unlabelled samples.",
+        "validation": "Used for model validation during training.",
+        "testing": "Used for final performance evaluation (Dice score 0.898).",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A public dermoscopic image dataset from the International Skin Imaging Collaboration (ISIC). The original dataset contained 3,694 images. The authors noted that the official testing set was unlabelled, so they randomly split the training portion into 1,815 images for training, 259 for validation, and 520 for testing. Melanoma-positive cases formed 20% of the training set. Image resolutions varied from 540 × 576 to 4,499 × 6,748 pixels.",
+      "classes_used": [
+        "Skin lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 3694,
+        "training": 1815,
+        "validation": 259,
+        "testing": 520,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for supervised training and semi-supervised surrogate task.",
+        "validation": "Used for model validation during training.",
+        "testing": "Used for final performance evaluation (Dice score 0.905).",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A public dermoscopic image dataset published by the dermatology service of Pedro Hispano Hospital, Matosinhos, Portugal. It contains 200 RGB images. The authors randomly split the dataset into 140 samples for training, 20 for validation, and 40 for testing. Melanoma-positive cases formed 20% of the dataset. Image resolutions varied from 553×763 to 577×769 pixels.",
+      "classes_used": [
+        "Skin lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": 140,
+        "validation": 20,
+        "testing": 40,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for supervised training and semi-supervised surrogate task.",
+        "validation": "Used for model validation during training.",
+        "testing": "Used for final performance evaluation (Dice score 0.940).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity (SE)",
+    "Specificity (SP)",
+    "Accuracy (ACC)",
+    "Dice coefficient (Dice)",
+    "Dice score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Dice coefficient (Dice)",
+      "purpose": "To evaluate segmentation performance and compare the proposed method against state-of-the-art approaches on ISIC 2017, ISIC 2018, and PH2 datasets.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Sensitivity (SE)",
+      "purpose": "To evaluate segmentation performance and compare the proposed method against state-of-the-art approaches.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Specificity (SP)",
+      "purpose": "To evaluate segmentation performance and compare the proposed method against state-of-the-art approaches.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Accuracy (ACC)",
+      "purpose": "To evaluate segmentation performance and compare the proposed method against state-of-the-art approaches.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Ablation study",
+      "purpose": "To analyze the contributions of the semi-supervised technique and the Transformer module coupled with the CNN encoder.",
+      "type": "Experimental analysis"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using Dice scores, Sensitivity, Specificity, and Accuracy metrics without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "metric": "Dice coefficient (Dice)",
+      "models": {
+        "Proposed Method (Semi-Supervised CNN + Transformer)": {
+          "Dice": "0.898"
+        },
+        "U-Net": {
+          "Dice": "null"
+        },
+        "Att U-Net": {
+          "Dice": "null"
+        },
+        "DAGAN": {
+          "Dice": "null"
+        },
+        "TransUNet": {
+          "Dice": "null"
+        },
+        "MCGU-Net": {
+          "Dice": "null"
+        },
+        "MedT": {
+          "Dice": "null"
+        },
+        "FAT-Net": {
+          "Dice": "null"
+        },
+        "MSA-UNet": {
+          "Dice": "null"
+        }
+      },
+      "notes": "The proposed method improved the Dice score and accuracy metrics of the seminal U-Net model by 8.99% and 4.27%, respectively. The method outperformed CNN-based approaches and MSA-UNet. Table 1 contains detailed comparisons for all metrics (SE, SP, ACC, Dice) against SOTA approaches, but specific values for baselines are not explicitly listed in the text chunks provided."
+    },
+    "ISIC 2018": {
+      "metric": "Dice coefficient (Dice)",
+      "models": {
+        "Proposed Method (Semi-Supervised CNN + Transformer)": {
+          "Dice": "0.905"
+        },
+        "U-Net": {
+          "Dice": "null"
+        },
+        "Att U-Net": {
+          "Dice": "null"
+        },
+        "DAGAN": {
+          "Dice": "null"
+        },
+        "TransUNet": {
+          "Dice": "null"
+        },
+        "MCGU-Net": {
+          "Dice": "null"
+        },
+        "MedT": {
+          "Dice": "null"
+        },
+        "FAT-Net": {
+          "Dice": "null"
+        },
+        "MSA-UNet": {
+          "Dice": "null"
+        }
+      },
+      "notes": "The proposed method achieved the highest score for most metrics and outperformed all supervised learning strategies. MCGU-Net produced better performance than other CNN-based approaches. MSA-UNet outperformed both CNN and Transformer based approaches but did not achieve noticeable results regarding the proposed work. Table 2 contains detailed comparisons."
+    },
+    "PH2": {
+      "metric": "Dice coefficient (Dice)",
+      "models": {
+        "Proposed Method (Semi-Supervised CNN + Transformer)": {
+          "Dice": "0.940"
+        },
+        "U-Net": {
+          "Dice": "null"
+        },
+        "Att U-Net": {
+          "Dice": "null"
+        },
+        "DAGAN": {
+          "Dice": "null"
+        },
+        "TransUNet": {
+          "Dice": "null"
+        },
+        "MCGU-Net": {
+          "Dice": "null"
+        },
+        "MedT": {
+          "Dice": "null"
+        },
+        "FAT-Net": {
+          "Dice": "null"
+        },
+        "MSA-UNet": {
+          "Dice": "null"
+        }
+      },
+      "notes": "The proposed method outperformed other SOTA approaches. Att U-Net achieved better performance than U-Net. MSA-UNet resulted in better performance compared to other SOTA approaches. Table 3 contains detailed comparisons."
+    },
+    "Ablation Study (ISIC 2017)": {
+      "metric": "Dice coefficient (Dice)",
+      "models": {
+        "Baseline + Transformer": {
+          "Dice": "null"
+        },
+        "Baseline + Atrous Conv": {
+          "Dice": "null"
+        },
+        "Proposed Method (Full)": {
+          "Dice": "null"
+        }
+      },
+      "notes": "Table 4 reports performance comparison of different settings on the ISIC 2017 dataset. The text states that using the Transformer module along with hierarchical features significantly increases performance, and incorporating the auxiliary task further enhances generalization. Specific numerical values for ablation settings are not explicitly extracted in the text chunks, only the final Dice score of 0.898 is reported for the full method."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Semi-supervised network coupling CNN and Transformer features (based on U-Net architecture)",
+    "pretraining": "Not explicitly reported for the proposed model; baseline comparisons mention pretrained VGG backbone for MCGU-Net.",
+    "input_size": "Variable (H x W x C); original image resolutions varied (e.g., ISIC 2017: 540x722 to 4499x6748; ISIC 2018: 540x576 to 4499x6748; PH2: 553x763 to 577x769). Patch size for Transformer: p x p.",
+    "architecture_details": {
+      "encoder": {
+        "type": "Coupled CNN and Transformer",
+        "cnn_branch": "Seminal U-Net encoder structure with four blocks; each block has two convolutional layers, ReLU activation, and max pooling.",
+        "transformer_branch": "Vision Transformer (ViT) based; input divided into N non-overlapping patches of size p x p; patch encoder projects to K embedding space; 1-D learnable positional embedding added; multiple Transformer blocks stacked with Multi-head Self Attention (MSA) and Multi Layer Perceptron (MLP); 3 self-attention heads used.",
+        "fusion": "Transformer representation reshaped to match CNN feature spatial dimensions and concatenated."
+      },
+      "decoder": {
+        "type": "U-Net style decoder",
+        "details": "Four-block CNN decoder with upsampling (replacing pooling) to progressively increase spatial dimension and reduce feature maps."
+      },
+      "auxiliary_module": {
+        "type": "Auxiliary decoder module",
+        "purpose": "Semi-supervised surrogate task to learn consistency over augmentation maps using unlabelled samples."
+      }
+    },
+    "training_details": {
+      "strategy": "Semi-supervised",
+      "stages": [
+        "Stage 1: Supervised training to learn semantic segmentation map.",
+        "Stage 2: Unsupervised technique to enrich encoder module via surrogate task."
+      ],
+      "loss_function": "Dice loss for supervised segmentation; consistency loss for auxiliary task (implied by 'learn consistency').",
+      "optimizer": "Not reported.",
+      "hyperparameters": {
+        "transformer_heads": 3,
+        "encoder_blocks": 4,
+        "decoder_blocks": 4
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "details": "Binary pixel-wise classification of lesion vs. background."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Proposed Method (Semi-Supervised CNN + Transformer)",
+    "U-Net",
+    "Att U-Net",
+    "DAGAN",
+    "TransUNet",
+    "MCGU-Net",
+    "MedT",
+    "FAT-Net",
+    "MSA-UNet",
+    "U-Net++",
+    "U-Net3+",
+    "ResU-Net",
+    "DenseU-Net",
+    "3D U-Net",
+    "V-Net",
+    "S3D U-Net",
+    "FCN",
+    "FC-DenseNet",
+    "Fully Convolutional DenseNets",
+    "Salient skin lesion segmentation via dilated scale-wise feature fusion network"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to variable input sizes (H x W x C) for the network",
+    "Patch extraction for Transformer module (dividing input into non-overlapping patches of size p x p)",
+    "Data augmentation (implied by 'learn consistency over augmentation maps' in the semi-supervised surrogate task)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random Augmentation (Surrogate Task)",
+      "details": "Applied twice to each unlabelled image (x1 and x2) to create two augmented versions for the semi-supervised surrogate task. The specific geometric or color transforms are not explicitly named, but the goal is to learn feature representations robust to slight variations. The loss function used to enforce consistency between these augmented versions is Mean Squared Error (MSE)."
+    },
+    {
+      "technique": "Image Resizing",
+      "details": "All samples from the datasets (ISIC 2017, ISIC 2018, PH2) were resized to a fixed resolution of 224 × 224 pixels before being fed into the network."
+    }
+  ],
+  "conclusions": [
+    "The proposed semi-supervised method coupling CNN and Transformer features achieves state-of-the-art performance on skin lesion segmentation, with Dice scores of 0.898 on ISIC 2017, 0.905 on ISIC 2018, and 0.940 on PH2.",
+    "Incorporating unlabelled samples via a semi-supervised surrogate task increases the Dice score by approximately 2% compared to supervised baselines, alleviating the need for large-scale annotated datasets.",
+    "The proposed method outperformed seminal U-Net by improving the Dice coefficient by 8.99% and accuracy by 4.27% on the ISIC 2017 dataset.",
+    "The semi-supervised training strategy outperformed all supervised learning strategies and other state-of-the-art methods (including MSA-UNet) on the ISIC 2018 dataset.",
+    "The model demonstrates strong generalization capabilities, effectively handling complex brightness and contrast distributions on the PH2 dataset.",
+    "The method produces smooth and precise segmentation results on object boundaries, effectively separating lesions with irregular shapes and scales from overlapping backgrounds.",
+    "The approach is robust to noisy annotations, which are common in dermoscopic datasets like ISIC 2018.",
+    "The combination of CNN and Transformer modules allows the model to capture both local and global representations, addressing the limited receptive field of conventional CNNs."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on three public datasets (ISIC 2017, ISIC 2018, PH2) with no external validation on independent clinical cohorts, limiting generalizability assessment.",
+    "The ISIC 2018 testing set was unlabelled; the authors randomly split the training portion for testing, which may introduce data leakage or selection bias compared to using the official held-out test set.",
+    "The PH2 dataset is small (200 images total), which may lead to overfitting or inflated performance metrics (Dice 0.940) that do not reflect performance on larger, more diverse populations.",
+    "The paper acknowledges that the model fails to segment lesions correctly when ground truth annotations are noisy (Figure 6), indicating a dependency on high-quality manual annotations for training.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to validate the significance of performance improvements over state-of-the-art methods.",
+    "The semi-supervised surrogate task uses random augmentation consistency; however, the specific augmentation techniques are not detailed, and the method's robustness to diverse augmentation strategies is not explored.",
+    "The model's performance on challenging samples with low contrast or irregular shapes is claimed to be strong, but visual evidence is limited to selected examples in figures, lacking comprehensive error analysis.",
+    "The paper does not report computational complexity, inference time, or hardware requirements, which are critical for assessing clinical deployment feasibility."
+  ]
+}

@@ -1,0 +1,376 @@
+{
+  "file_name": "wang_2025_yolov10_based_detection_of_melanocytic_nevi_reverse_exclusion_optimiza.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning-based object detection model, specifically YOLOv10 with a PP-LCNet backbone, Multiscale Contextual Attention (MCA) neck, and Shape-IoU loss, to perform melanocytic nevus detection and melanoma screening using dermoscopic images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled 'TYPE Original Research' and presents a novel study introducing a 'reversed-exclusion strategy' using an enhanced YOLOv10 model. It details original experimental methods, including dataset construction (2,040 benign nevi and 365 melanomas), model architecture modifications (PP-LCNet, MCA, Shape-IoU), ablation studies, and comparative results against dermatologists, rather than summarizing prior literature."
+  },
+  "title": "YOLOv10-based detection of melanocytic nevi: reverse exclusion optimization for melanoma screening",
+  "authors": [
+    "ShengJie Wang",
+    "Jian Wang",
+    "Rui Yin"
+  ],
+  "doi": "10.3389/frai.2025.1637842",
+  "journal": "Frontiers in Artificial Intelligence",
+  "year": 2025,
+  "article_type": "Original Research",
+  "brief_summary": "This study addresses the challenge of early melanoma screening by proposing a 'benign-first, reverse-exclusion' strategy using an enhanced YOLOv10 object detection model. The model incorporates a PP-LCNet backbone, Multiscale Contextual Attention (MCA) neck, and Shape-IoU loss to improve detection of melanocytic nevi and exclude malignancy. It was trained on a multi-centre dermoscopic dataset of 2,040 benign nevi from three tertiary hospitals in mainland China and tested on an independent cohort of 365 biopsy-proven melanomas. The model achieved a detection mAP@0.5 of 97.69% for benign lesions and a false-negative rate of only 0.27% for melanomas. Comparative analysis showed the model's false-negative rate was significantly lower than that of dermatologists using ABCDE or 7-point checklist criteria. The results suggest this approach offers a high-precision, low-risk pathway for early melanoma screening in Chinese East-Asian clinical settings.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanocytic nevus",
+      "paper_terms": [
+        "melanocytic nevus",
+        "benign nevus",
+        "benign nevi",
+        "nevus"
+      ],
+      "role": "Target class",
+      "details": "Primary target for detection in the 'benign-first' strategy. The model was trained on 2,040 benign nevi from a multi-centre dataset and achieved a detection mAP@0.5 of 97.69% for these lesions."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma",
+        "malignancy",
+        "malignant lesion",
+        "in-situ melanoma"
+      ],
+      "role": "Comparator class / Exclusion target",
+      "details": "Used as the high-risk category in the reverse-exclusion strategy. Tested on an independent external test set of 365 biopsy-proven melanomas to evaluate the false-negative rate (FNR) of 0.27%."
+    },
+    {
+      "lesion_type": "Seborrheic keratosis",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "seborrhoeic keratosis"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction and references as a non-melanocytic lesion with distinguishable features and low clinical confusion rate with melanoma, but not included in the experimental dataset or model training."
+    },
+    {
+      "lesion_type": "Haemangioma",
+      "paper_terms": [
+        "haemangioma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as a non-melanocytic lesion with readily distinguishable features, but not included in the experimental dataset or model training."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Detection",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Detection",
+        "target": "Bounding boxes for melanocytic nevi",
+        "primary": true,
+        "details": "The model uses YOLOv10 to detect and localize melanocytic nevi via bounding boxes. The presence of a bounding box indicates a 'melanocytic nevus' classification, while absence indicates 'non-melanocytic nevus' (high-risk). The primary metric is mean Average Precision (mAP@0.5) for detection."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (Benign Nevus vs. High-Risk/Melanoma)",
+        "primary": false,
+        "details": "The detection output is used in a 'reverse-exclusion' strategy to classify lesions as low-risk (benign) or high-risk (requiring biopsy). The false-negative rate (FNR) for melanoma detection is reported as 0.27%."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Multi-centre Benign Melanocytic Nevus Dataset",
+      "description": "A primary training dataset of 2,040 dermoscopic images of benign melanocytic nevi collected from three tertiary Grade-A hospitals (First Affiliated Hospital of Anhui Medical University: Changjiang Road Campus, High-Tech Zone Campus, and Northern Campus) in mainland China between 2018 and 2024. Images were acquired using DermLite DL4 + HD camera with 10–20x polarized dermoscopy. Gold standard was established via clinical double-blind assessment with expert adjudication.",
+      "classes_used": [
+        "Benign melanocytic nevus"
+      ],
+      "counts": {
+        "total": 2040,
+        "training": 2040,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign melanocytic nevus": 2040
+        }
+      },
+      "use": {
+        "training": "Used for training the YOLOv10-based detection model.",
+        "validation": "null",
+        "testing": "null",
+        "other": "null"
+      }
+    },
+    {
+      "name": "Independent External Test Set (Biopsy-Proven Melanomas)",
+      "description": "An independent test set of 365 dermoscopic images of early-stage melanomas. These images were collected from the same medical institution as the training data but from a demographically distinct patient cohort. All cases were biopsy-proven (pathology gold standard) and anonymized. Used to evaluate the false-negative rate of the model.",
+      "classes_used": [
+        "Malignant melanoma"
+      ],
+      "counts": {
+        "total": 365,
+        "training": null,
+        "validation": null,
+        "testing": 365,
+        "per_class": {
+          "Malignant melanoma": 365
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used exclusively as an independent test set to evaluate the false-negative rate (FNR) for melanoma detection.",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "mAP@0.5",
+    "mAP@0.95",
+    "Precision",
+    "Recall",
+    "F1",
+    "False-Negative Rate (FNR)",
+    "Model Size (Wsz, MB)",
+    "Inference Latency (ms)",
+    "Box Loss",
+    "Classification Loss (cls_loss)",
+    "DFL Loss (dfl_loss)",
+    "Confidence Threshold",
+    "IoU (Intersection over Union)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Patient-level stratified 10-fold cross-validation",
+      "purpose": "To calculate confidence intervals for detection metrics (mAP@0.5, mAP@0.95) across validation folds.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "t-distribution (df = 9)",
+      "purpose": "To compute the 95% confidence intervals (mean ± t₉,0.975 · SD/√10) for the metrics derived from the 10 validation folds.",
+      "type": "Confidence Interval Estimation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests) for the comparison between the model and dermatologists. While the text states the model's false-negative rate was 'significantly lower' than that of dermatologists, it does not provide the statistical test, p-value, or alpha threshold used to establish this significance. The only reported statistical method is the calculation of 95% confidence intervals using a t-distribution for the model's detection metrics."
+  },
+  "results_obtained_in_each_dataset": {
+    "Multi-centre Benign Melanocytic Nevus Dataset (Training/Validation)": {
+      "description": "Results from the primary dataset of 2,040 benign nevi, evaluated via patient-level stratified 10-fold cross-validation. Metrics include mAP@0.5, mAP@0.95, Precision (P), Recall (R), Model Size (Wsz), and Latency.",
+      "models": {
+        "YOLOv10 (baseline)": {
+          "mAP@0.5": "95.61% (95% CI: 95.30–95.93)",
+          "mAP@0.95": "74.77% (95% CI: 74.09–75.47)",
+          "Precision": "92.17%",
+          "Recall": "92.18%",
+          "Model Size": "5.51 MB",
+          "Latency": "35.71 ms"
+        },
+        "YOLOv10 + PP-LCNet": {
+          "mAP@0.5": "97.17% (95% CI: 96.93–97.41)",
+          "mAP@0.95": "79.12% (95% CI: 78.55–79.69)",
+          "Precision": "97.28%",
+          "Recall": "93.38%",
+          "Model Size": "5.37 MB",
+          "Latency": "32.47 ms"
+        },
+        "YOLOv10 + MCA": {
+          "mAP@0.5": "96.43% (95% CI: 96.17–96.68)",
+          "mAP@0.95": "78.02% (95% CI: 77.45–78.59)",
+          "Precision": "94.21%",
+          "Recall": "91.95%",
+          "Model Size": "5.50 MB",
+          "Latency": "33.60 ms"
+        },
+        "YOLOv10 + Shape-IoU": {
+          "mAP@0.5": "96.58% (95% CI: 96.32–96.83)",
+          "mAP@0.95": "78.59% (95% CI: 78.02–79.17)",
+          "Precision": "96.04%",
+          "Recall": "89.57%",
+          "Model Size": "5.50 MB",
+          "Latency": "33.67 ms"
+        },
+        "Full Model (YOLOv10 + PP-LCNet + MCA + Shape-IoU)": {
+          "mAP@0.5": "97.69% (95% CI: 97.46–97.91)",
+          "mAP@0.95": "79.39% (95% CI: 78.83–79.95)",
+          "Precision": "94.41%",
+          "Recall": "95.65%",
+          "Model Size": "5.37 MB",
+          "Latency": "32.02 ms"
+        }
+      },
+      "notes": "The full model achieved the highest detection performance. The 95% confidence intervals were calculated using a t-distribution (df=9) on the 10 validation folds."
+    },
+    "Comparative Baselines (on Benign Nevus Dataset)": {
+      "description": "Performance of other object detection models evaluated on the same benign nevus dataset.",
+      "models": {
+        "YOLOv11": {
+          "mAP@0.5": "94.88% (95% CI: 94.53–95.22)",
+          "mAP@0.95": "65.13% (95% CI: 64.21–66.01)",
+          "Precision": "92.62%",
+          "Recall": "89.57%",
+          "Model Size": "5.30 MB",
+          "Latency": "35.66 ms"
+        },
+        "YOLOv5": {
+          "mAP@0.5": "91.26% (95% CI: 90.88–91.63)",
+          "mAP@0.95": "57.69% (95% CI: 56.79–58.60)",
+          "Precision": "88.53%",
+          "Recall": "83.89%",
+          "Model Size": "7.25 MB",
+          "Latency": "41.2 ms"
+        },
+        "YOLOv8": {
+          "mAP@0.5": "95.39% (95% CI: 95.05–95.72)",
+          "mAP@0.95": "62.38% (95% CI: 61.44–63.32)",
+          "Precision": "89.79%",
+          "Recall": "90.00%",
+          "Model Size": "5.49 MB",
+          "Latency": "37.8 ms"
+        },
+        "YOLOv9-t": {
+          "mAP@0.5": "95.35% (95% CI: 95.01–95.68)",
+          "mAP@0.95": "71.27% (95% CI: 70.35–72.16)",
+          "Precision": "97.66%",
+          "Recall": "86.52%",
+          "Model Size": "5.98 MB",
+          "Latency": "39.5 ms"
+        },
+        "SSD": {
+          "mAP@0.5": "93.33% (95% CI: 93.00–93.64)",
+          "mAP@0.95": "69.20% (95% CI: 68.29–70.09)",
+          "Precision": "90.75%",
+          "Recall": "93.64%",
+          "Model Size": "14.30 MB",
+          "Latency": "54.7 ms"
+        }
+      },
+      "notes": "The Full Model outperformed all listed baselines in mAP@0.5 and mAP@0.95."
+    },
+    "Independent External Test Set (Biopsy-Proven Melanomas)": {
+      "description": "Evaluation of the False-Negative Rate (FNR) on an independent set of 365 biopsy-proven melanomas to assess the 'reverse-exclusion' safety strategy.",
+      "models": {
+        "Enhanced YOLOv10 (Full Model)": {
+          "False Negatives (FN)": "1",
+          "False-Negative Rate (FNR)": "0.27%"
+        },
+        "Dermatologists (ABCDE Rule)": {
+          "False Negatives (FN)": "41",
+          "False-Negative Rate (FNR)": "11.23%"
+        },
+        "Dermatologists (7-point Checklist)": {
+          "False Negatives (FN)": "46",
+          "False-Negative Rate (FNR)": "12.60%"
+        }
+      },
+      "notes": "The model's FNR was significantly lower than that of dermatologists using either scoring system (McNemar p < 0.001). The model missed only one melanoma among 365 cases."
+    }
+  },
+  "architecture_used": {
+    "main_model": "YOLOv10",
+    "pretraining": "ImageNet-1k (for PP-LCNet backbone)",
+    "input_size": "640 × 640 px (RGB)",
+    "architecture_details": {
+      "backbone": "PP-LCNet (replacing CSPDarknet-Tiny; includes Stem Conv, multi-stage depthwise-separable convolutions, 5x5 large-kernel convolutions at the tail, H-Swish activation, Squeeze-and-Excitation (SE) modules, and 1x1 convolution with 1,280 channels after global average pooling)",
+      "neck": "Multiscale Contextual Attention (MCA) modified PANet (replacing standard PANet; uses parallel average, standard-deviation, and max pooling for squeeze phase, and 1xk grouped convolutions for excitation phase to generate multiscale feature maps P3, P4, P5)",
+      "head": "Decoupled v10Detect Head (three-branch structure: classification, regression, and objectness)",
+      "loss_function": "Shape-IoU (replacing CIoU for boundary regression; optimizes aspect ratio, centroid position, and border curvature)",
+      "assigner": "SimOTA and Task-Aligned Assigner"
+    },
+    "training_details": {
+      "optimizer": "SGD (Momentum 0.9, Weight Decay 5e-4)",
+      "learning_rate_schedule": "Cosine Decay: 0.01 → 1e-5",
+      "batch_size": "64",
+      "epochs": "100 (with early stopping if validation mAP@0.5 shows no improvement for 15 epochs)",
+      "data_augmentation": [
+        "Horizontal flip (p=0.5)",
+        "Vertical flip (p=0.3)",
+        "Random scaling (0.5–1.2x)",
+        "HSV jitter (H ± 20%, S ± 30%, V ± 30%)",
+        "Gaussian noise (σ = 0.1)",
+        "Random rectangular occlusion (Area ≤ 20%, AR 0.5–2)"
+      ],
+      "data_preprocessing": "Normalization to [0, 1], channel-wise standardization using ImageNet mean (0.485, 0.456, 0.406) and standard deviation (0.229, 0.224, 0.225)"
+    },
+    "classification_or_output_head": {
+      "type": "Decoupled v10Detect Head",
+      "confidence_threshold": "0.5",
+      "nms": "Disabled for YOLO variants to maintain end-to-end properties"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "YOLOv10",
+    "YOLOv10 + PP-LCNet",
+    "YOLOv10 + MCA",
+    "YOLOv10 + Shape-IoU",
+    "Full model (YOLOv10 + PP-LCNet + MCA + Shape-IoU)",
+    "YOLOv11",
+    "YOLOv5",
+    "YOLOv8",
+    "YOLOv9-t",
+    "SSD"
+  ],
+  "preprocessing_techniques": [
+    "Normalization of pixel values to [0, 1]",
+    "Channel-wise standardization using ImageNet mean (0.485, 0.456, 0.406) and standard deviation (0.229, 0.224, 0.225)",
+    "Input resizing to 640 × 640 px (RGB)",
+    "Quality control using Unsharp Masking Index (UQI > 0.95) and Natural Image Quality Evaluator (NIQE < 5.0)",
+    "Hair occlusion screening using the DullRazor algorithm followed by manual review",
+    "Rigorous scrubbing of patient-identifiable data",
+    "Data augmentation: Horizontal flip (p=0.5), Vertical flip (p=0.3), Random scaling (0.5–1.2x), HSV jitter (H ± 20%, S ± 30%, V ± 30%), Gaussian noise (σ = 0.1), Random rectangular occlusion (Area ≤ 20%, AR 0.5–2)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal flip",
+      "details": "Probability p = 0.5; used to eliminate left-right orientation bias."
+    },
+    {
+      "technique": "Vertical flip",
+      "details": "Probability p = 0.3; used to adapt to varying capture angles."
+    },
+    "Random scaling",
+    {
+      "technique": "Random scaling",
+      "details": "Range 0.5–1.2x; used to expand size distribution."
+    },
+    {
+      "technique": "HSV jitter",
+      "details": "H ± 20%, S ± 30%, V ± 30%; used to resist lighting and color temperature variations."
+    },
+    {
+      "technique": "Gaussian noise",
+      "details": "Standard deviation σ = 0.1; used to simulate sensor noise."
+    },
+    {
+      "technique": "Random rectangular occlusion",
+      "details": "Area ≤ 20%, Aspect Ratio 0.5–2; used to replicate hair and glare artifacts."
+    }
+  ],
+  "conclusions": [
+    "The proposed 'benign-first, reverse-exclusion' strategy using an enhanced YOLOv10 model achieves a high detection mAP@0.5 of 97.69% for benign melanocytic nevi and a very low false-negative rate (FNR) of 0.27% for melanomas.",
+    "The model's melanoma false-negative rate (0.27%) is significantly lower than that of dermatologists using the ABCDE rule (11.23%) and the 7-point checklist (12.60%), with statistical significance (McNemar p < 0.001).",
+    "The enhanced model maintains a compact size (5.37 MB) and low inference latency (32.02 ms), making it suitable for real-time, on-device screening and potential deployment on smartphones for primary care settings.",
+    "The 'benign-first' approach offers a high-precision, low-risk pathway for early melanoma screening in Chinese East-Asian clinical settings by markedly reducing unnecessary biopsies while keeping the miss rate below the clinical safety ceiling of 0.5%.",
+    "Ablation studies confirm that the combination of the PP-LCNet backbone, Multiscale Contextual Attention (MCA) neck, and Shape-IoU loss function provides complementary benefits, with each module substantially boosting detection performance individually.",
+    "The model demonstrates robustness with rapid loss convergence and stable precision-recall plateaus, indicating no significant overfitting or underfitting during training.",
+    "The study is limited to Chinese East-Asian patients and a specific multi-centre dataset from three tertiary hospitals in mainland China, suggesting that generalization to other ethnicities or broader clinical environments requires further validation."
+  ],
+  "important_remarks": [
+    "The study population is exclusively East-Asian patients with Fitzpatrick skin types II–III; generalization to other ethnicities or skin tones requires external validation.",
+    "The dataset is limited to images collected from three tertiary hospitals in mainland China between 2018 and 2024, potentially introducing geographic and institutional bias.",
+    "The external test set consists of only 365 biopsy-proven melanomas, which limits the statistical power for estimating the false-negative rate.",
+    "The study lacks long-term follow-up data (≥5 years) to assess melanoma recurrence or validate the long-term safety of the reverse-exclusion strategy.",
+    "The comparison with dermatologists used a double-blind, two-round protocol with a four-week washout period, but the specific dermatologists' experience levels beyond '≥10 years' are not detailed.",
+    "The model's performance on non-melanocytic lesions (e.g., seborrheic keratosis, haemangioma) was not experimentally evaluated, despite their mention in the introduction.",
+    "Regulatory hurdles such as CE marking, FDA clearance, and explainability requirements are noted as necessary for clinical deployment but not addressed in the current study.",
+    "The 'benign-first' strategy relies on strict morphological criteria (symmetry, uniform pigmentation, sharp borders), which may not capture all early melanomas that deviate from these features."
+  ]
+}

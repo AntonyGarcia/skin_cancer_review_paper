@@ -1,0 +1,483 @@
+{
+  "file_name": "cheng_2022_cnn_supported_framework_for_automatic_extraction_and_evaluation_of_de.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a Convolutional Neural Network (CNN) supported framework for automatic extraction and evaluation of dermoscopy images. Specifically, it employs VGG-UNet for segmentation of suspicious skin regions and VGG16 combined with a Random Forest classifier for binary classification of benign versus malignant skin cancer. The study achieved segmentation accuracy > 98% and classification accuracy > 98% using the ISIC benchmark dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel CNN-supported framework for automatic extraction and evaluation of dermoscopy images. It details original experimental methodology including image collection from the ISIC dataset, implementation of VGG-UNet for segmentation and VGG16 with Random Forest for classification, and reports original experimental results such as segmentation accuracy > 98% and classification accuracy > 98%. The structure includes Introduction, Methodology, Results, and Conclusion, indicating it is an original technical study rather than a review."
+  },
+  "title": "CNN supported framework for automatic extraction and evaluation of dermoscopy images",
+  "authors": [
+    "Xiaochun Cheng",
+    "Seifedine Kadry",
+    "Maytham N. Meqdad",
+    "Rubén González Crespo"
+  ],
+  "doi": "10.1007/s11227-022-04561-w",
+  "journal": "The Journal of Supercomputing",
+  "year": 2022,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes a Convolutional Neural Network (CNN) supported framework for the automatic extraction and evaluation of dermoscopy images to assist in skin cancer screening. The methodology utilizes the International Skin Imaging Collaboration (ISIC) benchmark dataset, employing VGG-UNet for the segmentation of suspicious skin regions and VGG16 combined with a Random Forest classifier for binary classification of benign versus malignant lesions. The approach integrates deep features extracted by the CNN with handcrafted features mined from the segmented regions to enhance classification performance. Experimental results demonstrate that the proposed framework achieves a segmentation accuracy of greater than 98% and a classification accuracy of approximately 99%. These findings indicate that the integration of CNN-based segmentation and classification effectively reduces diagnostic burden and improves skin melanoma detection accuracy.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin Cancer (Benign)",
+      "paper_terms": [
+        "Benign",
+        "Benign class SC",
+        "Benign"
+      ],
+      "role": "Target class",
+      "details": "Used in binary classification task; 500 benign images from ISIC2016/2017 datasets."
+    },
+    {
+      "lesion_type": "Skin Cancer (Malignant)",
+      "paper_terms": [
+        "Malignant",
+        "Malignant class SC",
+        "Melanoma",
+        "Skin melanoma"
+      ],
+      "role": "Target class",
+      "details": "Used in binary classification task; 500 malignant images from ISIC2016/2017 datasets. The paper explicitly links malignant classification to 'skin melanoma detection' in the conclusion."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Suspicious skin region/lesion mask",
+        "primary": false,
+        "details": "Binary segmentation of suspicious skin sections from dermoscopy images using VGG-UNet, UNet, SegNet, and VGG-SegNet architectures. The task involves extracting the skin-lesion from the background to apply the ABCD rule. Performance measured by Dice coefficient and segmentation accuracy (>98%)."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Benign vs. Malignant skin cancer class",
+        "primary": true,
+        "details": "Binary classification of dermoscopy images into benign or malignant classes. The model uses VGG16 for deep feature extraction combined with handcrafted features (GLCM, DWT) and a Random Forest classifier. The primary target is distinguishing between benign and malignant skin cancer (specifically skin melanoma). Performance measured by classification accuracy (>98%)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2016",
+      "description": "Dermoscopy images collected from real patients, part of the International Skin Imaging Collaboration benchmark dataset, including Ground-Truth (GT) masks for segmentation evaluation.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for CNN segmentation scheme performance testing (900 images).",
+        "validation": "null",
+        "testing": "Used for CNN segmentation scheme performance testing (379 images).",
+        "other": "null"
+      }
+    },
+    {
+      "name": "ISIC 2017",
+      "description": "Dermoscopy images collected from real patients, part of the International Skin Imaging Collaboration benchmark dataset.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 1142,
+        "training": 807,
+        "validation": null,
+        "testing": 335,
+        "per_class": {}
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "null",
+        "other": "Used in combination with ISIC2016 to examine CNN classification performance."
+      }
+    },
+    {
+      "name": "ISIC Combined Subset",
+      "description": "A subset of dermoscopy images from ISIC2016 and ISIC2017 datasets used specifically for the binary classification task.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 1000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign": 500,
+          "Malignant": 500
+        }
+      },
+      "use": {
+        "training": "Used for classification task with 5-fold cross-validation.",
+        "validation": "Used for classification task with 5-fold cross-validation.",
+        "testing": "Used for classification task with 5-fold cross-validation.",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Dice",
+    "Jaccard",
+    "Precision",
+    "Sensitivity",
+    "Specificity",
+    "F1S",
+    "Loss function"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "Used to confirm the merit of the proposed classification scheme and evaluate performance metrics for binary classification tasks.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Mean ± Standard Deviation",
+      "purpose": "Used to report overall performance metrics (Jaccard, Dice, Accuracy, Precision, Sensitivity, Specificity) for CNN segmentation schemes across test images to confirm the merit of pooling methods.",
+      "type": "Descriptive Statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance was evaluated using descriptive statistics (mean ± standard deviation) and cross-validation accuracy metrics."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2016_Segmentation": {
+      "description": "Segmentation performance on ISIC2016 test set (379 images) using various CNN architectures with Max and Average pooling.",
+      "models": {
+        "UNet": {
+          "Jaccard": "95.4833 (Max Pooling)",
+          "Dice": "97.6895 (Max Pooling)",
+          "Accuracy": "98.8341 (Max Pooling)",
+          "Precision": "98.6834 (Max Pooling)",
+          "Sensitivity": "96.7154 (Max Pooling)",
+          "Specificity": "99.5587 (Max Pooling)",
+          "Jaccard_Mean_Std": "93.18 ± 1.05 (Average Pooling)",
+          "Dice_Mean_Std": "95.02 ± 1.42 (Average Pooling)",
+          "Accuracy_Mean_Std": "98.17 ± 0.63 (Average Pooling)",
+          "Precision_Mean_Std": "96.27 ± 0.58 (Average Pooling)",
+          "Sensitivity_Mean_Std": "95.18 ± 2.17 (Average Pooling)",
+          "Specificity_Mean_Std": "97.62 ± 1.62 (Average Pooling)"
+        },
+        "SegNet": {
+          "Jaccard": "93.9380 (Max Pooling)",
+          "Dice": "96.8743 (Max Pooling)",
+          "Accuracy": "98.4176 (Max Pooling)",
+          "Precision": "98.1807 (Max Pooling)",
+          "Sensitivity": "95.6022 (Max Pooling)",
+          "Specificity": "99.3888 (Max Pooling)",
+          "Jaccard_Mean_Std": "90.93 ± 2.52 (Average Pooling)",
+          "Dice_Mean_Std": "92.62 ± 1.77 (Average Pooling)",
+          "Accuracy_Mean_Std": "94.14 ± 1.44 (Average Pooling)",
+          "Precision_Mean_Std": "93.05 ± 0.72 (Average Pooling)",
+          "Sensitivity_Mean_Std": "92.89 ± 2.16 (Average Pooling)",
+          "Specificity_Mean_Std": "93.38 ± 1.85 (Average Pooling)"
+        },
+        "VGG-UNet": {
+          "Jaccard": "94.4953 (Max Pooling)",
+          "Dice": "97.1698 (Max Pooling)",
+          "Accuracy": "98.5750 (Max Pooling)",
+          "Precision": "97.9413 (Max Pooling)",
+          "Sensitivity": "96.4103 (Max Pooling)",
+          "Specificity": "99.3110 (Max Pooling)",
+          "Jaccard_Mean_Std": "92.28 ± 1.27 (Average Pooling)",
+          "Dice_Mean_Std": "94.16 ± 1.11 (Average Pooling)",
+          "Accuracy_Mean_Std": "95.33 ± 1.72 (Average Pooling)",
+          "Precision_Mean_Std": "94.52 ± 2.16 (Average Pooling)",
+          "Sensitivity_Mean_Std": "94.30 ± 1.07 (Average Pooling)",
+          "Specificity_Mean_Std": "96.03 ± 1.42 (Average Pooling)"
+        },
+        "VGG-SegNet": {
+          "Jaccard": "93.1908 (Max Pooling)",
+          "Dice": "96.4754 (Max Pooling)",
+          "Accuracy": "98.2223 (Max Pooling)",
+          "Precision": "97.4146 (Max Pooling)",
+          "Sensitivity": "95.5542 (Max Pooling)",
+          "Specificity": "99.1337 (Max Pooling)",
+          "Jaccard_Mean_Std": "91.77 ± 1.48 (Average Pooling)",
+          "Dice_Mean_Std": "93.18 ± 0.25 (Average Pooling)",
+          "Accuracy_Mean_Std": "93.37 ± 2.10 (Average Pooling)",
+          "Precision_Mean_Std": "94.74 ± 1.88 (Average Pooling)",
+          "Sensitivity_Mean_Std": "93.57 ± 1.06 (Average Pooling)",
+          "Specificity_Mean_Std": "94.93 ± 2.91 (Average Pooling)"
+        }
+      },
+      "notes": "UNet with Average pooling achieved the highest mean accuracy (98.17%). The paper states segmentation accuracy > 98% with UNet."
+    },
+    "ISIC_Classification_Deep_Features": {
+      "description": "Binary classification (Benign vs Malignant) using deep features (1x1x1000) extracted by pre-trained CNNs with SoftMax classifier. Results from a specific test split (TP, FN, TN, FP counts provided).",
+      "models": {
+        "AlexNet": {
+          "Accuracy": 0.92,
+          "Precision": 0.8868,
+          "Sensitivity": 0.9592,
+          "Specificity": 0.8824,
+          "F1S": 0.9216
+        },
+        "VGG16": {
+          "Accuracy": 0.95,
+          "Precision": 0.9159,
+          "Sensitivity": 0.9899,
+          "Specificity": 0.9109,
+          "F1S": 0.9515
+        },
+        "VGG19": {
+          "Accuracy": 0.915,
+          "Precision": 0.9286,
+          "Sensitivity": 0.901,
+          "Specificity": 0.9293,
+          "F1S": 0.9146
+        },
+        "ResNet18": {
+          "Accuracy": 0.885,
+          "Precision": 0.8627,
+          "Sensitivity": 0.9072,
+          "Specificity": 0.8641,
+          "F1S": 0.8844
+        },
+        "ResNet50": {
+          "Accuracy": 0.905,
+          "Precision": 0.9286,
+          "Sensitivity": 0.8835,
+          "Specificity": 0.9278,
+          "F1S": 0.9055
+        },
+        "ResNet101": {
+          "Accuracy": 0.925,
+          "Precision": 0.9038,
+          "Sensitivity": 0.9495,
+          "Specificity": 0.901,
+          "F1S": 0.9261
+        }
+      },
+      "notes": "VGG16 showed superior performance among deep feature models. Five-fold cross-validation was used for the final classification scheme evaluation."
+    },
+    "ISIC_Classification_Deep_Only_Classifiers": {
+      "description": "Classification using VGG16 deep features (1x1x1000) with various classifiers. Results from a specific test split.",
+      "models": {
+        "SoftMax": {
+          "Accuracy": 0.95,
+          "Precision": 0.9159,
+          "Sensitivity": 0.9899,
+          "Specificity": 0.9109,
+          "F1S": 0.9515
+        },
+        "Decision Tree (DT)": {
+          "Accuracy": 0.93,
+          "Precision": 0.9048,
+          "Sensitivity": 0.9596,
+          "Specificity": 0.901,
+          "F1S": 0.9314
+        },
+        "Random Forest (RF)": {
+          "Accuracy": 0.945,
+          "Precision": 0.94,
+          "Sensitivity": 0.9495,
+          "Specificity": 0.9406,
+          "F1S": 0.9447
+        },
+        "KNN": {
+          "Accuracy": 0.955,
+          "Precision": 0.9327,
+          "Sensitivity": 0.9798,
+          "Specificity": 0.9307,
+          "F1S": 0.9557
+        },
+        "SVM": {
+          "Accuracy": 0.94,
+          "Precision": 0.9388,
+          "Sensitivity": 0.9388,
+          "Specificity": 0.9412,
+          "F1S": 0.9388
+        }
+      },
+      "notes": "KNN achieved the best accuracy (0.9550) among classifiers using only deep features."
+    },
+    "ISIC_Classification_Deep_Plus_HF": {
+      "description": "Classification using VGG16 deep features (reduced to 50%) integrated with Handcrafted Features (GLCM, DWT) and various classifiers. Results from a specific test split.",
+      "models": {
+        "SoftMax": {
+          "Accuracy": 0.965,
+          "Precision": 0.9703,
+          "Sensitivity": 0.9608,
+          "Specificity": 0.9694,
+          "F1S": 0.9655
+        },
+        "Decision Tree (DT)": {
+          "Accuracy": 0.975,
+          "Precision": 0.9798,
+          "Sensitivity": 0.97,
+          "Specificity": 0.98,
+          "F1S": 0.9749
+        },
+        "Random Forest (RF)": {
+          "Accuracy": 0.985,
+          "Precision": 0.98,
+          "Sensitivity": 0.9899,
+          "Specificity": 0.9802,
+          "F1S": 0.9849
+        },
+        "KNN": {
+          "Accuracy": 0.975,
+          "Precision": 0.98,
+          "Sensitivity": 0.9703,
+          "Specificity": 0.9798,
+          "F1S": 0.9751
+        },
+        "SVM": {
+          "Accuracy": 0.965,
+          "Precision": 0.96,
+          "Sensitivity": 0.9697,
+          "Specificity": 0.9604,
+          "F1S": 0.9648
+        }
+      },
+      "notes": "VGG16 with RF and Deep+HF features achieved the highest accuracy (0.9850). The paper reports classification accuracy > 98% with VGG16 combined with Random Forest. ROC curve AUC was 0.95 with p < 0.001."
+    }
+  },
+  "architecture_used": {
+    "main_model": "CNN supported framework comprising VGG-UNet for segmentation and VGG16 for feature extraction combined with Random Forest for classification.",
+    "pretraining": "VGG-UNet and VGG-SegNet used ImageNet initial weights. VGG16, AlexNet, VGG19, ResNet18, ResNet50, and ResNet101 were pre-trained CNN schemes.",
+    "input_size": "Segmentation: 512 × 512 × 3 pixels. Classification: 227 × 227 × 3 or 224 × 224 × 3 pixels.",
+    "architecture_details": {
+      "segmentation_models": [
+        "UNet",
+        "SegNet",
+        "VGG-UNet",
+        "VGG-SegNet"
+      ],
+      "segmentation_parameters": {
+        "epochs": 50,
+        "optimizer": "Adam",
+        "pooling": "Max/Average",
+        "hidden_layer_activation": "Relu",
+        "classifier_activation": "Sigmoid",
+        "monitoring_metric": "Dice and Accuracy"
+      },
+      "classification_feature_extractor": "VGG16",
+      "classification_feature_dimensions": {
+        "deep_features_initial": "1 × 1 × 1000",
+        "deep_features_reduced": "1 × 1 × 500 (via 50% dropout)",
+        "handcrafted_features": "GLCM (1 × 1 × 22) and DWT (1 × 1 × 52)",
+        "total_feature_vector": "1 × 1 × 574"
+      },
+      "classification_classifiers": [
+        "SoftMax",
+        "Decision Tree (DT)",
+        "Random Forest (RF)",
+        "K-Nearest Neighbour (KNN)",
+        "Support-Vector-Machine (SVM) with linear kernel"
+      ]
+    },
+    "training_details": {
+      "epochs_classification": 100,
+      "data_augmentation": {
+        "methods": [
+          "horizontal/vertical flip",
+          "rotation ±30°",
+          "zoom 0.3",
+          "width alter 0.3",
+          "altitude height 0.3",
+          "shear range 0.2"
+        ]
+      },
+      "validation_method": "Five-fold cross-validation",
+      "hardware": "Intel i7 processor with 24 GB RAM and 4 GB VRAM"
+    },
+    "classification_or_output_head": {
+      "segmentation_head": "Sigmoid activation",
+      "classification_heads_evaluated": [
+        "SoftMax",
+        "Decision Tree",
+        "Random Forest",
+        "KNN",
+        "SVM"
+      ],
+      "best_performing_head": "Random Forest with Deep + Handcrafted features"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "VGG-UNet",
+    "UNet",
+    "SegNet",
+    "VGG-SegNet",
+    "AlexNet",
+    "VGG16",
+    "VGG19",
+    "ResNet18",
+    "ResNet50",
+    "ResNet101",
+    "SoftMax",
+    "Decision Tree (DT)",
+    "Random Forest (RF)",
+    "K-Nearest Neighbour (KNN)",
+    "Support-Vector-Machine (SVM)"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to 512 × 512 × 3 pixels for CNN segmentation",
+    "Image resizing to 227 × 227 × 3 or 224 × 224 × 3 pixels for CNN classification",
+    "Data augmentation including horizontal/vertical flip, rotation ±30°, zoom 0.3, width alter 0.3, altitude height 0.3, and shear range 0.2"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal/Vertical Flip",
+      "details": "Applied during classification task training."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Applied with a range of ±30°."
+    },
+    {
+      "technique": "Zoom",
+      "details": "Applied with a factor of 0.3."
+    },
+    {
+      "technique": "Width Alteration",
+      "details": "Applied with a factor of 0.3."
+    },
+    {
+      "technique": "Altitude Height Alteration",
+      "details": "Applied with a factor of 0.3."
+    },
+    {
+      "technique": "Shear",
+      "details": "Applied with a range of 0.2."
+    }
+  ],
+  "conclusions": [
+    "The proposed CNN-supported framework effectively automates the extraction and evaluation of dermoscopy images, serving as an assistive tool to reduce the diagnostic burden on dermatologists.",
+    "The UNet architecture achieved the highest segmentation accuracy (> 98%) among the tested CNN schemes (UNet, SegNet, VGG-UNet, VGG-SegNet) for extracting suspicious skin regions.",
+    "The integration of deep features extracted by VGG16 with handcrafted features (GLCM and DWT) significantly improved classification performance compared to using deep features alone.",
+    "The combination of VGG16 for feature extraction and a Random Forest classifier achieved the highest classification accuracy (approximately 99% or > 98%) for distinguishing between benign and malignant skin cancer.",
+    "The study confirms that CNN-based segmentation and classification can provide high accuracy (> 98%) for skin cancer screening tasks using the ISIC benchmark dataset.",
+    "The framework supports the clinical ABCD rule by enabling precise segmentation of the skin-lesion from the background, which is necessary for evaluating parameters like asymmetry, border, color, and diameter."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC benchmark dataset (ISIC 2016 and 2017), which may introduce population bias as the text notes a higher occurrence of skin cancer in Caucasian races, potentially limiting generalizability to Skin of Colour (SOC) populations.",
+    "The classification task utilized a balanced subset of 1,000 images (500 benign, 500 malignant) from ISIC 2016/2017, which does not reflect the natural class imbalance typically found in clinical dermoscopy datasets.",
+    "The paper does not report formal statistical hypothesis testing (e.g., p-values for performance differences between models), relying instead on descriptive statistics (mean ± standard deviation) and cross-validation accuracy.",
+    "External validation on independent, clinically collected datasets is not performed; the authors acknowledge this limitation and suggest future work to evaluate the framework on clinically collected DDI.",
+    "The framework's clinical relevance is currently theoretical, as it is proposed as an assistive tool to reduce diagnostic burden rather than a validated clinical decision support system.",
+    "Data leakage risks are mitigated by the use of five-fold cross-validation for the classification task and separate training/testing splits for segmentation, but the specific protocol for preventing data leakage between the segmentation and classification phases (e.g., ensuring no patient overlap) is not explicitly detailed beyond dataset source."
+  ]
+}

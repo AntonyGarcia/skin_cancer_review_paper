@@ -1,0 +1,206 @@
+{
+  "file_name": "Stoicu-Tivadar - 2023 - A custom image recognition model in the cloud for skin diseases identification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used Azure Custom Vision services to train a convolutional neural network (CNN) model for classifying skin diseases (solar lentigo and actinic keratosis) using images from the ISIC database. The model achieved a performance of 94% on pre-trained images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work where the authors propose and implement a custom image recognition model using Azure Custom Vision services to classify skin diseases (solar lentigo and actinic keratosis). It includes specific methods (labeling, training, testing), results (94% performance on pre-trained images, precision/recall metrics), and a discussion of limitations and future work, rather than summarizing prior literature."
+  },
+  "title": "A Custom Image Recognition Model in the Cloud for Skin Diseases Identification",
+  "authors": [
+    "Mircea-Aurelian DAN",
+    "Stelian NICOLA",
+    "Lacramioara STOICU-TIVADAR"
+  ],
+  "doi": "10.3233/SHTI230744",
+  "journal": "Telehealth Ecosystems in Practice",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a custom image recognition model using Azure Custom Vision services to classify solar lentigo and actinic keratosis. The authors utilized a dataset of 600 images from the ISIC database, with 300 images per class, to train a convolutional neural network. The model was evaluated using precision, recall, and mean average precision metrics on the Azure platform. Initial training results showed a precision of 60.2%, recall of 41.7%, and mAP of 59.7%. However, the model achieved a 94% prediction probability when tested on images included in the training set. The authors conclude that while the cloud-based approach is effective, future work will involve longer training times and more diverse datasets.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Solar lentigo",
+      "paper_terms": [
+        "solar lentigo"
+      ],
+      "role": "Target class",
+      "details": "One of the two primary classes used in the binary classification task. The dataset included 300 images for this class from the ISIC database."
+    },
+    {
+      "lesion_type": "Actinic keratosis",
+      "paper_terms": [
+        "actinic keratosis"
+      ],
+      "role": "Target class",
+      "details": "One of the two primary classes used in the binary classification task. The dataset included 300 images for this class from the ISIC database. Described in the paper as a pre-cancerous skin lesion."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification between solar lentigo and actinic keratosis",
+        "primary": true,
+        "details": "The paper uses Azure Custom Vision's classification component to label images into two defined classes: 'solar lentigo' and 'actinic keratosis'. The model predicts the class of the input image and provides a prediction probability (e.g., 94% on training images). Metrics reported include precision, recall, and mean average precision (mAP)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC (International Skin Imaging Collaboration) database",
+      "description": "An open access platform/database containing images of various skin conditions. The authors selected a subset of 600 images from this database for their study.",
+      "classes_used": [
+        "solar lentigo",
+        "actinic keratosis"
+      ],
+      "counts": {
+        "total": 600,
+        "training": 480,
+        "validation": null,
+        "testing": 120,
+        "per_class": {
+          "solar lentigo": 300,
+          "actinic keratosis": 300
+        }
+      },
+      "use": {
+        "training": "Used to train the convolutional neural network model via Azure Custom Vision. The platform automatically split the dataset, using 80% (480 images) for training and 20% (120 images) for testing.",
+        "validation": null,
+        "testing": "The 20% split (120 images) was used by the Azure Custom Vision platform for testing during the training process. Additionally, images from this set were used for 'quick testing' to evaluate prediction probability on known training images.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Precision",
+    "Recall",
+    "mAP (mean average precision)",
+    "Prediction probability"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics such as precision, recall, and mean average precision (mAP), and prediction probability on a subset of training images."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC_database_subset": {
+      "dataset_details": {
+        "total_images": 600,
+        "classes": [
+          "solar lentigo",
+          "actinic keratosis"
+        ],
+        "images_per_class": 300,
+        "split": {
+          "training": 240,
+          "testing": 60
+        }
+      },
+      "experiments": {
+        "iteration_1": {
+          "model": "Azure Custom Vision (ACV) CNN",
+          "training_method": "Standard training (duration not specified)",
+          "metrics": {
+            "precision": "60.2%",
+            "recall": "41.7%",
+            "mAP": "59.7%"
+          },
+          "notes": "Performance was described as lacking for quick testing cases."
+        },
+        "iteration_2": {
+          "model": "Azure Custom Vision (ACV) CNN",
+          "training_method": "Quick training facility with 12 hours training time",
+          "metrics": {
+            "prediction_probability_on_training_images": "94%"
+          },
+          "notes": "Performance slightly differed from iteration 1. When an image included in the training set was uploaded for quick testing, a prediction probability of 94% was obtained. The authors noted the results were 'not the best' and future work involves maximum training time and more diverse datasets."
+        }
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Convolutional Neural Network (CNN) generated by Azure Custom Vision (ACV)",
+    "pretraining": "Not explicitly reported; Azure Custom Vision provides automated learning algorithms on specialized hardware, but specific pre-trained weights or transfer learning sources are not detailed in the text.",
+    "input_size": "416x416x3 (height x width x channels)",
+    "architecture_details": {
+      "layer_pattern": "Repeating pattern of Conv2D, BiasAdd, LeakyReLU, and MaxPool layers",
+      "first_layer_kernel": "3x3x3x16",
+      "first_layer_bias": "16",
+      "activation_function": "LeakyReLU",
+      "pooling": "MaxPool (extracts maximum values of each kernel)",
+      "repetition": "The layer pattern repeats 4 times until the layer before output",
+      "final_layers": "Last Conv2D and BiasAdd layers followed by another LeakyReLU to generate output",
+      "note": "MaxPool layer is missing in the final steps before output. Full topology available in GitHub repository [12]."
+    },
+    "training_details": {
+      "platform": "Azure Custom Vision (ACV)",
+      "training_modes": [
+        "Quick training",
+        "Advanced training (max 96 hours)"
+      ],
+      "specific_iterations": [
+        {
+          "mode": "Standard/Advanced",
+          "training_images": 240,
+          "testing_images": 60,
+          "metrics": {
+            "precision": "60.2%",
+            "recall": "41.7%",
+            "mAP": "59.7%"
+          }
+        },
+        {
+          "mode": "Quick training",
+          "training_time": "12 hours",
+          "metrics": {
+            "prediction_probability_on_training_images": "94%"
+          }
+        }
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification",
+      "classes": [
+        "solar lentigo",
+        "actinic keratosis"
+      ],
+      "output": "Predicted class and prediction accuracy/probability"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Convolutional Neural Network (CNN) generated by Azure Custom Vision (ACV)",
+    "Azure Custom Vision (ACV) service"
+  ],
+  "preprocessing_techniques": [
+    "Manual image labeling by the authors",
+    "Automatic resizing to 416x416x3 input size by Azure Custom Vision platform",
+    "Automatic padding applied in subsequent Conv2D layers by Azure Custom Vision platform"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The study demonstrates that Azure Custom Vision services can be effectively used to classify solar lentigo and actinic keratosis, leveraging cloud computational power to generate a convolutional neural network model without requiring a large dataset.",
+    "The initial model iteration achieved a precision of 60.2%, a recall of 41.7%, and a mean average precision (mAP) of 59.7%.",
+    "A second iteration using quick training for 12 hours resulted in a prediction probability of 94% when tested on images included in the training set.",
+    "The authors acknowledge that the current results are not optimal and identify manual image labeling as a limitation of the approach.",
+    "Future work will focus on maximizing training time within Azure Custom Vision and utilizing more diverse datasets from various open-access databases to improve performance."
+  ],
+  "important_remarks": [
+    "The reported 94% performance metric was obtained by testing the model on images included in the training set (data leakage), not on a held-out test set.",
+    "The model was trained on a very small dataset of only 600 images (300 per class), which limits generalizability.",
+    "The initial model iteration showed poor performance on the test set (Precision: 60.2%, Recall: 41.7%, mAP: 59.7%), indicating the model did not generalize well to unseen data.",
+    "The study relies on manual image labeling, which is identified as a limitation and potential source of bias.",
+    "The dataset is derived from the ISIC database, but the specific demographic or geographic diversity of the 600 selected images is not reported.",
+    "No external validation was performed; the study only demonstrates proof-of-concept using Azure Custom Vision services.",
+    "The authors acknowledge that the results are 'not the best' and suggest future work requires more diverse datasets and maximum training time."
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "file_name": "Combalia et al. - 2021 - Deep learning automated pathology in ex vivo microscopy.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning algorithms for automated pathology in dermatology (specifically basal cell carcinoma detection). It employed a CycleGAN for style transfer to render XVM images resembling H&E histopathology and a U-Net deep neural network for supervised binary image segmentation of tumor positivity. The AI achieved a diagnostic sensitivity of 88% and specificity of 91%."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'Research Article' in the header. It presents original experimental work involving the development of an AI-driven XVM pathology pipeline using CycleGAN and U-Net models on a dataset of 26 surgical excision specimens. The paper includes specific methods, results (sensitivity 88%, specificity 91%), and a discussion of new findings, rather than summarizing prior literature."
+  },
+  "title": "Deep learning automated pathology in ex vivo microscopy",
+  "authors": [
+    "Marc Combalia",
+    "Sergio Garcia",
+    "Josep Malvehy",
+    "Susana Puig",
+    "Alba Guembe Mülberger",
+    "James Browning",
+    "Sandra Garcet",
+    "James G. Krueger",
+    "Samantha R. Lish",
+    "Rivka Lax",
+    "Jeannie Ren",
+    "Mary Stevenson",
+    "Nicole Doudican",
+    "John A. Carucci",
+    "Manu Jain",
+    "Kevin White",
+    "Jaroslav Rakos",
+    "Daniel S. Garau"
+  ],
+  "doi": "10.1364/BOE.422168",
+  "journal": "Biomedical Optics Express",
+  "year": 2021,
+  "article_type": "Research Article",
+  "brief_summary": "This study developed an AI-driven pipeline for automated pathology in ex vivo confocal microscopy (XVM) to aid margin status determination in Mohs micrographic surgery for basal cell carcinoma. The researchers utilized a dataset of 26 surgical excision specimens, applying a CycleGAN for style transfer to render XVM images resembling standard H&E histopathology and a U-Net deep neural network for supervised binary image segmentation of tumor positivity. The diagnostic performance was evaluated using 5-fold cross-validation on 5359 image patches derived from the specimens. The model achieved a diagnostic sensitivity of 88% and a specificity of 91% for basal cell carcinoma detection. These results demonstrate that video-assisted micrographic XVM pathology can feasibly aid in the rapid and accurate assessment of surgical margins for skin cancer.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC",
+        "tumor",
+        "malignant regions"
+      ],
+      "role": "Target class",
+      "details": "The primary target for automated detection and segmentation in this proof-of-principle study. The dataset consisted of 26 surgical excision specimens of BCC, with 243 patches containing BCC out of 5359 total patches. The AI model achieved 88% sensitivity and 91% specificity for BCC detection."
+    },
+    {
+      "lesion_type": "Normal skin",
+      "paper_terms": [
+        "normal skin",
+        "normal tissue",
+        "background"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class for binary segmentation of tumor positivity. Patches not containing BCC were labeled as normal/background. The study notes that the dataset was imbalanced, with normal tissue comprising the majority of the pixels."
+    },
+    {
+      "lesion_type": "Inflammation",
+      "paper_terms": [
+        "inflammation"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in Figure 5 caption as a feature visible in an AI-enhanced XVM image alongside BCC and hair follicles, but not explicitly studied as a diagnostic class or target for segmentation in the reported experiments."
+    },
+    {
+      "lesion_type": "Other skin cancers",
+      "paper_terms": [
+        "other skin cancers"
+      ],
+      "role": "Future work/mentioned only",
+      "details": "Mentioned in the discussion as a potential target for future multi-class segmentation, but not included in the current study's dataset or experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary tumor positivity maps (pixel-wise classification of tumor vs. normal/background)",
+        "primary": true,
+        "details": "The paper explicitly states the use of a U-Net deep neural network for 'supervised binary image segmentation of tumor positivity' and 'segment BCC regions'. The model predicts a 'computer-generated, tumor-identifying binary mask' on a pixel-by-pixel basis. Performance was evaluated using pixel-level sensitivity (88%) and specificity (91%)."
+      },
+      {
+        "task_type": "Generation/Synthesis",
+        "target": "Style-transferred XVM images resembling H&E histopathology",
+        "primary": false,
+        "details": "A CycleGAN was used for 'style transfer' to render XVM images identical to standard histopathology (H&E appearance) for visual interpretation. This is a generative task, not the primary diagnostic prediction task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "BCC XVM Dataset (Primary Study Dataset)",
+      "description": "A dataset of ex vivo confocal microscopy (XVM) images acquired from surgical specimens discarded after Mohs micrographic surgery for basal cell carcinoma (BCC). The specimens were stained with acridine orange and imaged using an RSG4 Confocal Microscope. The dataset includes 26 whole slide images which were divided into 5359 patches of size 1128 x 1128 pixels. Ground truth masks were manually created by pathologists to delineate malignant BCC regions. The dataset is imbalanced, with only 243 patches containing BCC. The image and label data are provided as supplementary material (Dataset 1).",
+      "classes_used": [
+        "Basal cell carcinoma (BCC) / Tumor",
+        "Normal skin / Background"
+      ],
+      "counts": {
+        "total": 5359,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "BCC": 243,
+          "Normal/Background": 5116
+        }
+      },
+      "use": {
+        "training": "Used for training the U-Net segmentation model via 5-fold cross-validation (80% of patches used for training in each fold). Also used to train the CycleGAN style-transfer model (759 patches from several slides).",
+        "validation": "Used for validation during U-Net training (early stopping based on validation loss).",
+        "testing": "Used for testing the U-Net segmentation model via 5-fold cross-validation (20% of patches used for testing in each fold).",
+        "other": "Used for developing the XVM data pipeline (flattening, colorizing, enhancement). Used to demonstrate the visual transformation of XVM images to resemble H&E histopathology."
+      }
+    },
+    {
+      "name": "H&E Histology Dataset (CycleGAN Training)",
+      "description": "A small collection of histology patches extracted from a single slide with a good proportion of hematoxylin and eosin stains, used as the target domain for style transfer.",
+      "classes_used": [
+        "H&E stained tissue"
+      ],
+      "counts": {
+        "total": 282,
+        "training": 282,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as the target domain (Domain B) for training the CycleGAN to map XVM images to H&E appearance.",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    },
+    {
+      "name": "ImageNet",
+      "description": "A large-scale image dataset used for pre-training the EfficientNet-B0 encoder in the U-Net architecture.",
+      "classes_used": [
+        "Various (ImageNet classes)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for pre-training the EfficientNet-B0 encoder weights before fine-tuning on the BCC XVM dataset.",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "diagnostic sensitivity",
+    "specificity"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "To evaluate the diagnostic performance (sensitivity and specificity) of the U-Net segmentation model on the BCC XVM dataset.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Diagnostic sensitivity and specificity",
+      "purpose": "To quantify the accuracy of the AI pipeline for basal cell carcinoma detection.",
+      "type": "Performance metrics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Diagnostic performance was evaluated using sensitivity (88%) and specificity (91%) via 5-fold cross-validation, but no statistical significance testing was performed or reported."
+  },
+  "results_obtained_in_each_dataset": {
+    "BCC XVM Dataset (26 surgical excision specimens, 5359 patches)": {
+      "experiment": "U-Net segmentation for Basal Cell Carcinoma detection via 5-fold cross-validation",
+      "models": {
+        "U-Net (with EfficientNet-B0 encoder)": {
+          "Sensitivity": "0.878 +/- 0.11",
+          "Specificity": "0.914 +/- 0.05",
+          "Balanced Accuracy": "0.887 +/- 0.05"
+        }
+      },
+      "notes": "The dataset consisted of 5359 patches of size 1128 x 1128 pixels from 26 whole slide images. The dataset was imbalanced with only 243 patches containing BCC (4.5% of total pixels). The model was trained on 80% of patches and tested on 20% in each fold. The abstract reports rounded values of 88% sensitivity and 91% specificity."
+    },
+    "CycleGAN Style Transfer (XVM to H&E)": {
+      "experiment": "Visual transformation of XVM images to resemble H&E histopathology",
+      "models": {
+        "CycleGAN (ResNet generators, PatchNet discriminators)": {
+          "Qualitative Result": "Style-transformed XVM images were described as 'strikingly similar to conventional pathology'."
+        }
+      },
+      "notes": "No quantitative segmentation metrics were reported for the style transfer component itself, as it was used for visual interpretation. Training data included 759 XVM patches and 282 histology patches."
+    }
+  },
+  "architecture_used": {
+    "main_model": "U-Net (for segmentation) and CycleGAN (for style transfer)",
+    "pretraining": "EfficientNet-B0 encoder pre-trained on ImageNet",
+    "input_size": "1128 x 1128 pixels (for U-Net patches); XVM patches (759) and histology patches (282) for CycleGAN",
+    "architecture_details": {
+      "segmentation_model": {
+        "name": "U-Net",
+        "encoder": "EfficientNet-B0",
+        "decoder": "Standard U-Net decoder path (implied by architecture name)"
+      },
+      "style_transfer_model": {
+        "name": "CycleGAN",
+        "generators": "ResNet architecture",
+        "discriminators": "PatchNet architecture"
+      }
+    },
+    "training_details": {
+      "segmentation_model": {
+        "optimizer": "Adam",
+        "learning_rate": "1e-4",
+        "learning_rate_schedule": "Reduce by factor of 0.1 when validation loss stopped improving for more than 5 epochs",
+        "early_stopping": "Yes, when model converged",
+        "data_augmentation": "Rotation, width and height shift, shear, zoom, horizontal flip, and color augmentations",
+        "validation_strategy": "5-fold cross-validation (80% training, 20% testing)"
+      },
+      "style_transfer_model": {
+        "optimizer": "Adam",
+        "learning_rate": "2e-4",
+        "training_data": "759 XVM patches and 282 histology patches"
+      }
+    },
+    "classification_or_output_head": {
+      "segmentation_model": "Binary image segmentation (tumor positivity maps)",
+      "style_transfer_model": "Image-to-image translation (XVM to H&E appearance)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "CycleGAN",
+    "U-Net",
+    "EfficientNet-B0"
+  ],
+  "preprocessing_techniques": [
+    "Stack collapsing: Confocal Z-stack images were collapsed to 2D images by selecting the Z-position with the best nuclear fluorescence contrast within lateral windows (w1=3 pixels, w2=40 pixels) to optimize fluorescence contrast over lateral dimensions.",
+    "Reflectance artifact removal: A mask was generated by thresholding the fluorescence part of the composite image at a very low threshold to remove reflectance artifacts from the glass/water interface surrounding the sample.",
+    "Colorization (Dark-field to Bright-field transformation): Fluorescent signal from acridine orange was transformed into a purple color gradient (mimicking hematoxylin), and reflectance signal was colored pink (resembling eosin) to create a fusion image.",
+    "Patch extraction: Whole slide images were divided into patches of size 1128 x 1128 pixels for model input.",
+    "Data augmentation: Applied during U-Net training to reduce overfitting, including rotation, width and height shift, shear, zoom, horizontal flip, and color augmentations."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Rotation, width and height shift, shear, zoom, and horizontal flip were applied during U-Net training to reduce overfitting and improve generalization."
+    },
+    {
+      "technique": "Color Transforms",
+      "details": "Color augmentations were applied during U-Net training alongside geometric transforms."
+    }
+  ],
+  "conclusions": [
+    "The study developed an AI-driven pipeline for automated pathology in ex vivo confocal microscopy (XVM) to aid margin status determination in Mohs micrographic surgery for basal cell carcinoma.",
+    "The pipeline successfully rendered XVM images resembling standard H&E histopathology using a CycleGAN for style transfer, addressing the need for pathologists to retrain to interpret XVM images.",
+    "A U-Net deep neural network was used for supervised binary image segmentation of tumor positivity, achieving a diagnostic sensitivity of 88% and specificity of 91% via 5-fold cross-validation on 5359 image patches.",
+    "The results demonstrate that video-assisted micrographic XVM pathology is feasible for the rapid and accurate assessment of surgical margins for skin cancer.",
+    "The AI approach offers potential advantages over standard histopathology, including faster processing, lower cost, 3D/digital capabilities, and avoidance of artifacts introduced by frozen section preparation (e.g., ice artifacts, tissue shrinkage, and sectioning errors).",
+    "The study acknowledges limitations regarding the small dataset size (26 surgical excision specimens) and the imbalanced nature of the data (only 243 patches containing BCC out of 5359 total patches), noting that this was a proof-of-principle study.",
+    "The authors suggest that future work should include multi-class segmentation for other skin cancers and validation on larger, more diverse datasets to ensure generalizability."
+  ],
+  "important_remarks": [
+    "The study is a proof-of-principle with a small, imbalanced dataset (26 surgical excision specimens, 5359 patches, only 243 containing BCC), limiting generalizability.",
+    "No external validation was performed; the model was evaluated using 5-fold cross-validation on the single internal dataset.",
+    "The dataset is heavily imbalanced, with normal tissue comprising the vast majority of pixels (4.5% tumor pixels), which may bias performance metrics.",
+    "Ground truth labels were manually created by pathologists, introducing potential inter-observer variability or labeling bias, though specific agreement metrics were not reported.",
+    "The CycleGAN style transfer was trained on a very small target domain (282 histology patches from a single slide), raising concerns about domain shift and overfitting for the visual transformation component.",
+    "No statistical hypothesis testing (e.g., p-values) was reported to assess the significance of the diagnostic performance.",
+    "The study focuses exclusively on Basal Cell Carcinoma (BCC); performance on other skin cancer types or complex histological features was not evaluated.",
+    "Deployment concerns include the computational cost of style transfer (though noted as <3 minutes on specific hardware) and the need for future clinical validation on diverse tissues and microscope types."
+  ]
+}

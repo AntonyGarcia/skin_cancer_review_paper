@@ -1,0 +1,268 @@
+{
+  "file_name": "Wang et al. - 2025 - Deep learning-enhanced Colmap for 3D reconstruction and segmentation of facial port-wine stains for.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning, specifically a Multi-Color Space Adaptive Fusion Network (M-CSAFN), for the segmentation of facial port-wine stains (PWS) lesions. It also utilized Contrastive Language-Image Pre-training (CLIP) similarity scores for evaluation. The study focused on 3D reconstruction and segmentation of PWS, a dermatological condition."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is labeled as an 'Original Article' and presents a novel method combining deep learning with Colmap for 3D reconstruction and segmentation of facial port-wine stains. It includes specific sections for Background, Methods (describing a standardized image acquisition system, 17 patients, and the M-CSAFN network), Results (reporting RMSE of 0.9611 mm, CLIP scores >0.92, and relative error of 4.59%), and Conclusions based on original experimental data and validation."
+  },
+  "title": "Deep learning-enhanced Colmap for 3D reconstruction and segmentation of facial port-wine stains for comprehensive evaluation",
+  "authors": [
+    "Eryu Wang",
+    "Shanguo Feng",
+    "Jiawen Zhang",
+    "Haixia Qiu",
+    "Ying Gu",
+    "Defu Chen"
+  ],
+  "doi": "10.21037/qims-2025-112",
+  "journal": "Quantitative Imaging in Medicine and Surgery",
+  "year": 2025,
+  "article_type": "Original Article",
+  "brief_summary": "This study developed a deep learning-enhanced method for the 3D reconstruction and segmentation of facial port-wine stains (PWS) to improve treatment planning and evaluation. The researchers established a standardized image acquisition system with color calibration to capture 2D images from 17 patients, which were then processed using the Colmap algorithm to generate 3D point clouds and mesh models. A Multi-Color Space Adaptive Fusion Network (M-CSAFN) was employed to segment the 2D lesion images, enabling the calculation of the 3D lesion surface area. The method's accuracy was validated against a structured-light scanning reference, achieving an average root mean square error (RMSE) of 0.9611 mm and a CLIP similarity score exceeding 0.92. Additionally, the average relative error for the computed 3D lesion surface area was 4.59%, significantly outperforming conventional 2D measurement approaches. The results demonstrate that this integrated approach provides high-quality 3D reconstructions with accurate boundaries and superior color fidelity for PWS assessment.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Port-wine stain",
+      "paper_terms": [
+        "port-wine stains",
+        "PWS"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the 3D reconstruction and segmentation of facial port-wine stains. Patient data included red, purple-red, and thickening types of PWS lesions. Validation was also performed using a mannequin head with artificial PWS lesions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "2D lesion masks and 3D lesion point clouds/mesh models",
+        "primary": true,
+        "details": "The paper employs a Multi-Color Space Adaptive Fusion Network (M-CSAFN) for 2D lesion segmentation of port-wine stains. The segmentation masks are used to facilitate 3D reconstruction via Colmap, resulting in 3D lesion point clouds and mesh models. The task is explicitly defined as 'three-dimensional skin lesion segmentation' and '2D lesion segmentation'."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Patient PWS Dataset",
+      "description": "A private dataset of 2D images collected from 17 patients with facial port-wine stains (PWS) using a standardized image acquisition system with color calibration. The dataset includes images of red, purple-red, and thickened types of PWS lesions. Ages ranged from 10 to 54 years (9 males, 8 females).",
+      "classes_used": [
+        "Port-wine stain (PWS)",
+        "Red type",
+        "Purple-red type",
+        "Thickened type"
+      ],
+      "counts": {
+        "total": 5965,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to generate 3D point cloud data via Colmap for 3D reconstruction and segmentation workflow validation.",
+        "validation": "Used for validation of the 3D reconstruction accuracy (RMSE) and CLIP similarity scores against structured-light scanning references for 3 patients.",
+        "testing": "Used for testing the 3D lesion surface area calculation accuracy (relative error) compared to ground truth.",
+        "other": "Used to create 3D mesh models for comprehensive evaluation of the proposed method."
+      }
+    },
+    {
+      "name": "M-CSAFN Segmentation Dataset",
+      "description": "A dataset comprising 1,413 images from 1,193 patients with PWS, annotated under expert clinical guidance. It is described as the largest PWS segmentation dataset known to the authors. Additionally, 9 synthetic lesion patches were created using Microsoft Visio and printed on white paper to simulate PWS appearance on a facial model for surface area validation.",
+      "classes_used": [
+        "Port-wine stain (PWS)"
+      ],
+      "counts": {
+        "total": 1413,
+        "training": 1220,
+        "validation": null,
+        "testing": 193,
+        "per_class": {}
+      },
+      "use": {
+        "training": "The dataset was randomly split into training and test sets in a 6:1 ratio. The training subset was used to train the Multi-Color Space Adaptive Fusion Network (M-CSAFN).",
+        "validation": "null",
+        "testing": "The test subset (193 images) was used to evaluate the M-CSAFN segmentation model.",
+        "other": "Synthetic patches (9 files) were used to validate the accuracy of the 3D lesion surface area calculation method on a mannequin head."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Root Mean Square Error (RMSE)",
+    "CLIP similarity score",
+    "Relative error"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Root Mean Square Error (RMSE)",
+      "purpose": "To quantify the morphological similarity and accuracy of the reconstructed 3D point clouds against structured-light scanning references.",
+      "type": "Error metric"
+    },
+    {
+      "method": "CLIP similarity score",
+      "purpose": "To evaluate the semantic and visual content similarity between the reconstructed 3D mesh models and corresponding 2D images, serving as a cross-domain validation metric.",
+      "type": "Similarity metric"
+    },
+    {
+      "method": "Relative error calculation",
+      "purpose": "To assess the accuracy of the computed 3D lesion surface area compared to ground-truth values (derived from flattened patches or 2D measurements) and to compare the performance of the 3D method against conventional 2D measurement approaches.",
+      "type": "Error metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It reported descriptive statistics and error metrics (RMSE, CLIP similarity scores, relative error) to validate the accuracy of the proposed method against reference standards."
+  },
+  "results_obtained_in_each_dataset": {
+    "Patient PWS Dataset (3D Reconstruction Validation)": {
+      "metric": "Root Mean Square Error (RMSE) of point cloud registration against structured-light scanning reference",
+      "models": {
+        "Proposed Method (Deep learning-enhanced Colmap)": {
+          "average_RMSE": "0.9611 mm",
+          "case_9_RMSE": "0.8107 mm",
+          "case_16_RMSE": "1.0020 mm",
+          "case_17_RMSE": "1.0706 mm"
+        }
+      },
+      "notes": "The proposed method generated significantly more point clouds (10-20 times greater) than the structured light camera. The RMSE values for Cases 9, 16, and 17 were 0.8107 mm, 1.0020 mm, and 1.0706 mm respectively."
+    },
+    "Patient PWS Dataset (Mesh Model Semantic Similarity)": {
+      "metric": "CLIP similarity score between 3D mesh model and corresponding 2D image",
+      "models": {
+        "Proposed Method (Deep learning-enhanced Colmap)": {
+          "average_CLIP_score": ">0.92",
+          "specific_group_averages": [
+            "0.9209",
+            "0.9210",
+            "0.9249"
+          ],
+          "range": "0.8994 to 0.9436",
+          "specific_case_scores": {
+            "Case 6 (Red)": [
+              "0.9140",
+              "0.9514",
+              "0.9436",
+              "0.9463",
+              "0.9565",
+              "0.9568",
+              "0.9448",
+              "0.9385",
+              "0.9497"
+            ],
+            "Case 12 (Purple-red)": "Included in aggregate",
+            "Case 13 (Thickening)": "Included in aggregate"
+          }
+        }
+      },
+      "notes": "CLIP similarity across three classifications (red, purple-red, thickening) exceeded 0.93. Specific CLIP scores for Case 6 (Red type) across different angles/views were listed as 0.9140, 0.9514, 0.9436, 0.9463, 0.9565, 0.9568, 0.9448, 0.9385, 0.9497."
+    },
+    "Patient PWS Dataset (Lesion Surface Area Calculation)": {
+      "metric": "Relative error of computed 3D lesion surface area vs ground truth",
+      "models": {
+        "Proposed Method (3D Reconstruction)": {
+          "average_relative_error": "4.59%"
+        },
+        "Baseline Method (2D Measurement)": {
+          "average_relative_error": "9.22%"
+        }
+      },
+      "notes": "Specific surface area values for red, purple-red, and thickening types were 9.8432 cm², 26.8481 cm², and 166.8408 cm² respectively. The 3D measurement error (4.59%) was significantly lower than the 2D measurement error (9.22%)."
+    },
+    "M-CSAFN Segmentation Dataset (Synthetic Patches on Mannequin)": {
+      "metric": "Relative error of surface area calculation on synthetic patches",
+      "models": {
+        "Proposed Method (3D Calculation)": {
+          "average_relative_error": "4.59%"
+        },
+        "Baseline Method (2D Measurement via ImageJ/Ruler)": {
+          "average_relative_error": "9.22%"
+        }
+      },
+      "notes": "Nine synthetic PWS patches with known surface areas were used. The 3D method's average relative error was 4.59%, compared to 9.22% for the 2D method. The 3D measurements were closer to the true value."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multi-Color Space Adaptive Fusion Network (M-CSAFN)",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "backbone": "Six-branch structure based on U-Net, with each branch representing a distinct color space",
+      "color_conversion": "Input RGB image mapped to six different color spaces through a color conversion layer",
+      "encoder_decoder": "Six parallel U-Net-based encoder-decoder networks",
+      "block_modification": "Dense dilated residual (DDR) block used to substitute stacked convolutional layers at the base of the traditional U-Net architecture to reduce parameters and mitigate overfitting",
+      "block_details": "DDR contains 32 basic dilated residual units",
+      "fusion_mechanism": "Adaptive fusion combining prediction results from different color-space branches using an adaptively weighted combination strategy",
+      "fusion_formula": "Y_pred = sigmod( sum(omega_c * X_C) + b )",
+      "fusion_weights": "Initial weight value for each branch set to 1/6; bias term b set to 0; weights continuously updated during training until convergence"
+    },
+    "training_details": {
+      "framework": "TensorFlow 2.5",
+      "language": "Python 3.8.10",
+      "hardware": "NVIDIA GeForce RTX 4090 graphics card with 24GB video memory",
+      "os": "Linux Ubuntu 18.04",
+      "batch_size": 2,
+      "epochs": 300,
+      "optimizer": "Adam",
+      "initial_learning_rate": 0.001,
+      "termination_learning_rate": "10^-8",
+      "learning_rate_schedule": "Dynamic learning rate adjustment facilitated by hyperbolic tangent function"
+    },
+    "classification_or_output_head": {
+      "loss_function": "Combination of Binary Cross Entropy (BCE) loss and Structural Similarity Index Measure (SSIM) loss",
+      "loss_formula": "Loss = lambda * L_BCE + (1 - lambda) * L_SSIM",
+      "loss_balance_coefficient": 0.5,
+      "bce_definition": "L_BCE = - (1/N) * sum( y_i * log(p_i) + (1 - y_i) * log(1 - p_i) )",
+      "ssim_definition": "L_SSIM = 1 - mean(SSIM(X, Y_true, X, Y_pred)) + std(SSIM(X, Y_true, X, Y_pred))"
+    },
+    "approximate_parameters": "Sixfold that of a single-branch network (due to six parallel U-Net branches)"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Multi-Color Space Adaptive Fusion Network (M-CSAFN)",
+    "U-Net",
+    "DeepLabv3",
+    "CLIP",
+    "Colmap"
+  ],
+  "preprocessing_techniques": [
+    "Standardized image acquisition system with uniform and constant illumination (color temperature 6500K)",
+    "Color calibration using a 48-color standard colorimetric chart and DataColor Spyder Checkr program to apply color correction",
+    "De-noising and smoothing algorithms applied to 3D point clouds",
+    "2D lesion segmentation using M-CSAFN model to generate segmentation masks",
+    "Masking segmentation results onto original 2D images to isolate lesion regions",
+    "Conversion of 2D lesion images to 3D lesion point clouds using prior camera pose and internal parameters",
+    "Poisson surface reconstruction to convert 3D lesion point clouds into 3D mesh models"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Data augmentation",
+      "details": "Applied to increase sample diversity for the M-CSAFN model. Specific geometric or color transform parameters were not reported in the text."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep learning-enhanced Colmap method successfully generates high-quality 3D port-wine stain (PWS) models with accurate boundaries and superior color fidelity.",
+    "The method integrates a standardized image acquisition system with color calibration, the Colmap 3D reconstruction algorithm, and a Multi-Color Space Adaptive Fusion Network (M-CSAFN) for segmentation.",
+    "The 3D reconstruction accuracy was validated against a structured-light scanning reference, achieving an average root mean square error (RMSE) of 0.9611 mm.",
+    "The semantic and visual similarity between the reconstructed 3D mesh models and corresponding 2D images was high, with an average CLIP similarity score exceeding 0.92.",
+    "The average relative error for the computed 3D lesion surface area was 4.59%, which is significantly lower than the 9.22% error associated with conventional 2D measurement approaches.",
+    "The method offers a promising tool for the precise assessment and treatment planning of PWS by enabling reliable quantitative evaluation of lesion surface area.",
+    "Limitations acknowledged include inadequate robustness regarding hair, which leads to sparse reconstruction points and artifacts, and the need for large, multi-institutional datasets to mitigate data bias in deep learning scenarios.",
+    "Future work suggests exploring deep learning algorithms that combine point cloud semantic and color information for direct 3D segmentation to further refine delineation accuracy and reduce surface area calculation errors."
+  ],
+  "important_remarks": [
+    "The study relies on a small, single-center patient cohort (17 patients) for 3D reconstruction validation, limiting generalizability.",
+    "The M-CSAFN segmentation model was trained on a dataset of 1,413 images from 1,193 patients, but the paper acknowledges the need for large, multi-institutional datasets to mitigate data bias in deep learning scenarios.",
+    "The method exhibits inadequate robustness regarding hair, which leads to sparse reconstruction points and artifacts.",
+    "Validation of the 3D lesion surface area calculation accuracy was partially performed using synthetic patches on a mannequin head rather than only ground-truth clinical data.",
+    "The paper does not report formal hypothesis testing, p-values, or confidence intervals; it relies on descriptive error metrics (RMSE, relative error) for validation.",
+    "The segmentation network (M-CSAFN) was tested on four additional public skin lesion datasets, but specific performance metrics for these external datasets were not detailed in the provided context.",
+    "The study addresses the limitation of previous works that lacked real patient data for validating 3D reconstruction and segmentation methodologies."
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "file_name": "ma_2018_deep_attention_network_for_melanoma_detection_improved_by_color_constanc.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a Deep Attention Network (DAN), a deep learning model optimized by an attention mechanism and Fisher criterion, for melanoma detection using dermoscopy images. It also employs color constancy algorithms (max-RGB, Grey-World, Shades of Grey, Grey-edge) as preprocessing steps to improve the classification performance of the deep learning model."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, including the proposal of a Deep Attention Network (DAN) optimized by an attention mechanism and Fisher criterion, and the evaluation of four color constancy algorithms (max-RGB, Grey-World, Shades of Grey, Grey-edge) on the ISIC2017 dataset. It reports specific experimental results, such as AUC metrics (e.g., 79.4% for Shades of Grey), and compares the proposed method against a regular CNN. Although published in a conference proceedings (2018 9th International Conference on Information Technology in Medicine and Education), it contains original research results rather than being a narrative or systematic review."
+  },
+  "title": "Deep Attention Network for Melanoma Detection Improved by Color Constancy",
+  "authors": [
+    "Ze Ma",
+    "Shiqun Yin"
+  ],
+  "doi": "10.1109/ITME.2018.00037",
+  "journal": "2018 9th International Conference on Information Technology in Medicine and Education",
+  "year": 2018,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses melanoma detection using dermoscopy images by proposing a Deep Attention Network (DAN) optimized with an attention mechanism and Fisher criterion. The researchers utilized the ISIC2017 dataset, which included 2000 training, 150 validation, and 300 test images, to evaluate the model's performance. To mitigate color variations caused by illumination, four color constancy algorithms (max-RGB, Grey-World, Shades of Grey, and Grey-edge) were applied as preprocessing steps. The main evaluation approach compared the DAN against a regular CNN and measured classification performance using the Area Under the Curve (AUC) metric. The results demonstrated that the DAN was more robust than the CNN, particularly with insufficient training data, and that all tested color constancy algorithms improved the AUC, with Shades of Grey achieving the highest score of 79.4%.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for the binary classification task. The dataset (ISIC2017) contained 374 melanoma images in the training set, which were augmented to balance the class distribution."
+    },
+    {
+      "lesion_type": "Non-melanoma",
+      "paper_terms": [
+        "non-melanoma"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary classification task. The paper notes that the number of non-melanoma images was significantly larger than melanoma images in the original dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs Non-melanoma",
+        "primary": true,
+        "details": "Binary classification of dermoscopy images into melanoma and non-melanoma classes using a Deep Attention Network (DAN). The model predicts class labels (k ∈ {0, 1}) and outputs probability values for classification. Performance was evaluated using the Area Under the Curve (AUC) metric."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2017",
+      "description": "A dataset provided by the International Skin Imaging Collaboration (ISIC) focusing on the automatic analysis of skin lesions, consisting of dermoscopy images.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 2450,
+        "training": 2000,
+        "validation": 150,
+        "testing": 300,
+        "per_class": {
+          "melanoma": 374,
+          "non-melanoma": null
+        }
+      },
+      "use": {
+        "training": "Used to train the Deep Attention Network (DAN) and a regular CNN for comparison. The original training set was augmented via rotation to create a class-balanced dataset of 20,000 images.",
+        "validation": "Used for validation (150 images).",
+        "testing": "Used for testing (300 images).",
+        "other": "None"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "AUC"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using the Area Under the Curve (AUC) metric, and comparisons were made based on these metric values without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2017": {
+      "experiment": "Impact of Color Constancy on Deep Attention Network (DAN)",
+      "metric": "AUC (Area Under the Curve)",
+      "models": {
+        "DAN (None/Original)": {
+          "AUC": "76.3%"
+        },
+        "DAN (max-RGB)": {
+          "AUC": "78.7%"
+        },
+        "DAN (Grey-world)": {
+          "AUC": "79.1%"
+        },
+        "DAN (Shades of Grey)": {
+          "AUC": "79.4%"
+        },
+        "DAN (Grey-edge)": {
+          "AUC": "78.3%"
+        }
+      },
+      "notes": "All four color constancy algorithms improved the performance of DAN compared to the original images. Shades of Grey achieved the highest AUC. The paper also notes that DAN was more efficient/robust than a regular CNN, especially when training data was insufficient (tested with 5000, 10000, 15000, and 20000 training images), but specific AUC values for the CNN vs DAN comparison across different data sizes are not provided numerically in the text, only referenced in Figure 4."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Deep Attention Network (DAN)",
+    "pretraining": "null",
+    "input_size": "Resized to a 'befitting size' after cropping the center area of original images (resolutions > 1000x70); specific input dimensions not reported.",
+    "architecture_details": {
+      "model_family": "Deep Learning / Convolutional Neural Network",
+      "structure": "19-layer network divided into three attention modules. Each attention module consists of a mask branch (bottom-up and top-down structure) and a trunk branch (feedforward convolutional structure).",
+      "attention_mechanism": "Combines bottom-up and top-down structures with feedforward convolution. Mask branch learns attention maps M(x), trunk branch learns feature maps T(x). Output H(x) = (1 + M(x)) * T(x).",
+      "layers": "19 layers total. Mask branch includes two convolutional (down-sampling) steps and two linear interpolation (up-sampling) steps. Last two layers use 1x1 convolution and global average pooling instead of fully connected layers.",
+      "heads": "Binary classifier head (k ∈ {0, 1}).",
+      "optimizer": "Stochastic Gradient Descent (SGD)",
+      "loss_function": "Modified loss function constrained by Fisher criterion: J = L + γJ1 - ηJ2, where L is traditional loss (softmax or cross-entropy), J1 is within-class distance metric, J2 is between-class distance metric, and γ, η are tunable weights.",
+      "hyperparameters": {
+        "learning_rate": "Initial 0.05, decreases with gamma = 0.1",
+        "momentum": "0.9",
+        "mini_batch_size": "30",
+        "epochs": "10"
+      },
+      "training_schedule": "Trained for 10 epochs until convergence."
+    },
+    "training_details": {
+      "dataset": "ISIC2017 (augmented to 20,000 class-balanced images via rotation)",
+      "hardware": "GPU (NVIDIA-SMI 367.48)",
+      "framework": "TensorFlow",
+      "preprocessing": "Color constancy algorithms (max-RGB, Grey-World, Shades of Grey, Grey-edge) applied as preprocessing. Center cropping and proportional resizing of dermoscopy images."
+    },
+    "classification_or_output_head": {
+      "type": "Binary Classification",
+      "output": "Probability values for class k ∈ {0, 1}",
+      "final_layers": "1x1 convolution and global average pooling"
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Deep Attention Network (DAN)",
+    "Convolutional Neural Network (CNN)",
+    "Support Vector Machine (SVM)",
+    "Sparse Coding",
+    "Fully Convolutional Network",
+    "Residual Network"
+  ],
+  "preprocessing_techniques": [
+    "Color constancy algorithms applied for color calibration: max-RGB, Grey-World, Shades of Grey, and Grey-edge",
+    "Center cropping of input images to preserve the shape of the skin lesion region",
+    "Proportional resizing of cropped images to a 'befitting size' (original resolutions > 1000x70)",
+    "Data augmentation via rotation of melanoma images to establish a class-balanced dataset"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Melanoma images in the training set were rotated by smaller degrees to establish a class-balanced dataset, augmenting the original 374 melanoma images to create a total of 20,000 class-balanced training images."
+    }
+  ],
+  "conclusions": [
+    "The proposed Deep Attention Network (DAN) optimized by an attention mechanism and Fisher criterion is more robust and efficient than a regular Convolutional Neural Network (CNN), particularly when training data is insufficient.",
+    "Color constancy algorithms (max-RGB, Grey-World, Shades of Grey, and Grey-edge) effectively correct color variations caused by illumination in dermoscopy images, thereby improving the classification performance of the DAN model.",
+    "Among the tested color constancy algorithms, Shades of Grey achieved the highest performance improvement, resulting in an AUC of 79.4% on the ISIC2017 dataset.",
+    "All four tested color constancy algorithms improved the AUC of the DAN model compared to the baseline without color correction (76.3%).",
+    "The study demonstrates that addressing color calibration is a significant factor in improving melanoma detection systems using deep learning."
+  ],
+  "important_remarks": [
+    "The study is limited to a single dataset (ISIC2017) with no external validation, raising concerns about generalizability to other populations or imaging devices.",
+    "The paper does not report any statistical significance testing (e.g., p-values or confidence intervals) for the performance improvements, relying solely on point estimates of AUC.",
+    "The dataset was artificially balanced by rotating melanoma images to create 20,000 training samples from only 374 original melanoma images, which may lead to overfitting or inflated performance metrics due to data leakage via rotation augmentation.",
+    "The specific input dimensions for the Deep Attention Network are not reported, only described as a 'befitting size' after center cropping and proportional resizing.",
+    "The paper does not provide a detailed breakdown of the non-melanoma class count in the original ISIC2017 dataset, only noting it was significantly larger than the melanoma class.",
+    "Performance gains from color constancy are modest (AUC increase from 76.3% to 79.4%), and the clinical relevance of this improvement is not discussed.",
+    "The study is a conference paper (ITME 2018) with limited scope and depth compared to journal publications, and the model architecture details are simplified."
+  ]
+}

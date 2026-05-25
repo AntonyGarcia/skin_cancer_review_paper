@@ -1,0 +1,203 @@
+{
+  "file_name": "jain_2021_cryptinfer_enabling_encrypted_inference_on_skin_lesion_images_for_mela.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a modified LeNet-like Convolutional Neural Network (CNN) architecture to perform binary classification (benign vs. malignant) of skin lesion images for melanoma detection. The study specifically focuses on enabling encrypted inference of this deep learning model using Fully Homomorphic Encryption (FHE) with the CKKS scheme."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work titled 'CryptInfer: Enabling Encrypted Inference on Skin Lesion Images for Melanoma Detection.' It describes the design and implementation of a modified LeNet-like CNN architecture, the application of the CKKS Fully Homomorphic Encryption scheme, and reports new empirical results including classification accuracy (80%), latency (51 seconds), and throughput (18,000 images/hour) on a real-world melanoma dataset. It is published as a full paper (7 pages) in the AI-MLSystems 2021 conference proceedings, not as a review or survey."
+  },
+  "title": "CryptInfer: Enabling Encrypted Inference on Skin Lesion Images for Melanoma Detection",
+  "authors": [
+    "Nayna Jain",
+    "Karthik Nandakumar",
+    "Nalini Ratha",
+    "Sharath Pankanti",
+    "Uttam Kumar"
+  ],
+  "doi": "10.1145/3486001.3486233",
+  "journal": "AI-MLSystems 2021",
+  "year": 2021,
+  "article_type": "Conference paper",
+  "brief_summary": "This study introduces CryptInfer, a framework enabling encrypted inference for melanoma detection using a modified LeNet-like Convolutional Neural Network and the CKKS Fully Homomorphic Encryption scheme. The authors address privacy concerns in cloud-based medical imaging by performing binary classification (benign vs. malignant) on encrypted 128x128 skin lesion images from a real-world dataset. To overcome computational challenges, the system employs optimization strategies such as packing, multi-threading, and weight pruning within the constraints of the HElib library. Evaluation on the melanoma dataset achieved a classification accuracy of 80% with a security level of 10^6 bits. The results demonstrate a latency of 51 seconds for single image inference and a throughput of 18,000 images per hour for batched inference. These findings confirm that privacy-preserving machine learning as a service is practically feasible for high-resolution medical images.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma (malignant) and Benign skin lesions",
+      "paper_terms": [
+        "melanoma",
+        "benign",
+        "malignant",
+        "skin lesion images"
+      ],
+      "role": "Target class",
+      "details": "The study performs binary classification (benign vs. malignant) on a real-world melanoma dataset. The images belong to two classes: benign or malignant. The specific dataset source is cited as Gutman et al. [16] (Skin Lesion Analysis Toward Melanoma Detection)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesion images into benign or malignant classes",
+        "primary": true,
+        "details": "The paper performs binary classification (benign vs. malignant) of skin lesion images for melanoma detection using a modified LeNet-like CNN. The model outputs are discrete diagnostic categories (benign or malignant), achieved via a fully connected layer with 2 nodes for binary classification and softmax activation (though inference uses the max output). The reported accuracy is 80% (or 80.90% for the unpruned model)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "MNIST",
+      "description": "A public dataset of handwritten digit images used for initial analysis of optimization strategies and evaluating throughput/latency of encrypted inference. Images are 28x28 grayscale.",
+      "classes_used": [
+        "Digits 0-9"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for initial analysis of optimization strategies (packing, multi-threading) to guide the design for the melanoma dataset.",
+        "other": "Used to evaluate different optimization strategies and their role in determining throughput and latency."
+      }
+    },
+    {
+      "name": "Melanoma Dataset (Skin Lesion Analysis Toward Melanoma Detection)",
+      "description": "A real-world dataset of skin lesion images sourced from Gutman et al. [16] (ISIC). The images are 128x128 RGB images belonging to two classes: benign or malignant. Training data was generated by augmenting random images from the downloaded dataset using TensorFlow ImageDataGenerator.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Training data was generated by augmenting random images from the downloaded dataset.",
+        "validation": null,
+        "testing": "Used for end-to-end encrypted inference evaluation. The model achieved 80% accuracy (pruned) and 80.90% accuracy (unpruned) on this dataset.",
+        "other": "Used to demonstrate the feasibility of private inference on large-sized real-world medical images."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Classification Accuracy",
+    "Latency (Execution Time)",
+    "Throughput"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. The study focuses on demonstrating the feasibility, accuracy (80%), latency (51 seconds), and throughput (18,000 images/hour) of encrypted inference using Fully Homomorphic Encryption, rather than statistical hypothesis testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "MNIST": {
+      "metric": "Test Accuracy (Plaintext)",
+      "models": {
+        "Simple CNN (28 filters, 3x3 kernel, mean pooling, approx ReLU, 1 FC layer)": {
+          "accuracy": "97.84%"
+        }
+      },
+      "notes": "Used for initial analysis of optimization strategies (packing, multi-threading) and throughput/latency evaluation. The model was trained for 100 epochs using sparse_categorical_crossentropy loss and ADAM optimizer (lr=0.001). The depth parameter L was set to 300 for single image inference and 400 for batched inference."
+    },
+    "Melanoma Dataset (Skin Lesion Analysis Toward Melanoma Detection)": {
+      "metric": "Classification Accuracy",
+      "models": {
+        "Modified LeNet-like CNN (Unpruned)": {
+          "accuracy": "80.90%"
+        },
+        "Modified LeNet-like CNN (Pruned)": {
+          "accuracy": "80.00%"
+        }
+      },
+      "notes": "The dataset contains 128x128 RGB images of benign and malignant lesions. Training data was generated via augmentation (rotation, shifts, flips, shear). The model was trained for 35 epochs (categorical_crossentropy, ADAM, lr=0.001) and pruned for 5 epochs. Security level is 10^6 bits. Latency for single image inference is 51.03 seconds. Throughput is 18,000 images/hour (with pruning) or 8,530 images/hour (without pruning). Batched inference latency was 115 minutes (without pruning) and 55 minutes (with pruning) for 16,384 packed images."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Modified LeNet-like Convolutional Neural Network (CNN)",
+    "pretraining": "null",
+    "input_size": "128x128 RGB images",
+    "architecture_details": {
+      "layer_1": "Convolution Layer 1 with 6 filters, 5x5 kernel, stride 1",
+      "layer_2": "Average Pool Layer with 2x2 kernel",
+      "layer_3": "Approximate ReLU activation",
+      "layer_4": "Convolution Layer 2 with 16 filters, 5x5 kernel, stride 1",
+      "layer_5": "Average Pool Layer with 2x2 kernel",
+      "layer_6": "Approximate ReLU activation",
+      "layer_7": "Flattening Layer (dimension 29x29x16 = 13456)",
+      "layer_8": "Fully Connected Layer (size 13456x120)",
+      "layer_9": "Approximate ReLU activation",
+      "layer_10": "Fully Connected Layer (size 120x84)",
+      "layer_11": "Fully Connected Layer (size 84x2 nodes) for binary classification with softmax activation"
+    },
+    "training_details": {
+      "framework": "Keras",
+      "epochs": 35,
+      "loss_function": "categorical_crossentropy",
+      "optimizer": "ADAM",
+      "learning_rate": 0.001,
+      "pruning": "Pruned for 5 epochs using Keras",
+      "security_parameters": "m=65536, r=50, slots=16384, multiplicative depth L=600",
+      "security_level": "10^6 bits"
+    },
+    "classification_or_output_head": {
+      "type": "Fully Connected Layer",
+      "size": "84x2 nodes",
+      "activation": "Softmax (though inference uses max output)",
+      "task": "Binary classification (benign vs. malignant)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Modified LeNet-like Convolutional Neural Network (CNN)",
+    "Simple CNN (28 filters, 3x3 kernel, mean pooling, approx ReLU, 1 FC layer)",
+    "CryptoNets",
+    "SHE (Somewhat Homomorphic Encryption) model for Diabetic Retinopathy",
+    "CaRENets (BFV scheme) for Diabetic Retinopathy"
+  ],
+  "preprocessing_techniques": [
+    "Resizing: Original images were resized to 128x128 RGB images.",
+    "Normalization: Featurewise standard normalization was applied (featurewise_std_normalization = True).",
+    "Data Augmentation: Training data was generated by augmenting random images using TensorFlow ImageDataGenerator with the following parameters: rotation_range=20, width_shift_range=0.2, height_shift_range=0.2, horizontal_flip=True, shear_range=0.2."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "TensorFlow ImageDataGenerator",
+      "details": "Used to generate training data by augmenting random images from the downloaded melanoma dataset. Parameters: featurewise_std_normalization=True, rotation_range=20, width_shift_range=0.2, height_shift_range=0.2, horizontal_flip=True, shear_range=0.2."
+    }
+  ],
+  "conclusions": [
+    "The study demonstrates that privacy-preserving machine learning as a service (MLaaS) based on encrypted data is practically feasible for high-resolution medical images.",
+    "The proposed CryptInfer framework achieves 80% classification accuracy on encrypted skin lesion images from a real-world melanoma dataset using the CKKS Fully Homomorphic Encryption scheme with a security level of 10^6 bits.",
+    "Single image inference latency is 51 seconds, and batched inference throughput reaches 18,000 images per hour, indicating that encrypted inference can meet practical performance requirements.",
+    "Optimization strategies including ciphertext packing, multi-threading, and network pruning are critical for reducing computational overhead and improving throughput in encrypted CNN inference.",
+    "The work advances the state-of-the-art by demonstrating end-to-end encrypted inference on large-sized (128x128) real-world skin lesion images, overcoming limitations of previous approaches that relied on smaller datasets like MNIST or CIFAR-10.",
+    "Pruning the neural network significantly improves execution time for batched inference without compromising accuracy, although it offers no benefit for single image inference latency."
+  ],
+  "important_remarks": [
+    "The study relies on a modified LeNet-like CNN architecture rather than state-of-the-art deep networks, which may limit the generalizability of the accuracy results compared to modern architectures.",
+    "The reported 80% classification accuracy on the melanoma dataset is relatively low for clinical diagnostic applications, potentially limiting immediate clinical utility without further model optimization.",
+    "The dataset source (Gutman et al.) is cited, but specific details regarding the train/validation/test split sizes and class distribution are not explicitly provided in the text, raising potential concerns about dataset bias or leakage if splits were not rigorous.",
+    "The model was trained using data augmentation (rotation, shifts, flips, shear) on random images from the downloaded dataset, but the exact proportion of augmented vs. original data is not specified.",
+    "The evaluation was conducted on a specific high-performance server environment (IBM POWER9 with 112 CPUs); performance metrics (latency/throughput) may not be directly transferable to standard cloud or edge devices.",
+    "The work addresses privacy via Fully Homomorphic Encryption (CKKS) but does not report on the computational overhead of the encryption/decryption steps themselves, only the inference time.",
+    "The paper acknowledges that bootstrapping is not supported by many CKKS implementations, forcing a constraint on multiplicative depth (L=600), which limits the complexity of networks that can be securely deployed.",
+    "No external validation was performed; the model was only tested on the single melanoma dataset used for training/augmentation, limiting evidence of robustness across different populations or imaging devices.",
+    "The study focuses on binary classification (benign vs. malignant) and does not address multi-class skin lesion classification or other dermatological tasks, restricting its scope.",
+    "While the paper claims to be the first to show encrypted inference on real-world melanoma images, it compares performance against prior works on diabetic retinopathy, which may not be a direct benchmark for clinical relevance in dermatology."
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "file_name": "m_2026_skin_lesion_segmentation_with_deep_learning_for_cancer_detection.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning, specifically a Hybrid U-Net with Transformer, Deep Supervision, and Boundary-Guided Attention (BGA) mechanism, to perform skin lesion segmentation on the ISIC 2018 dataset for early melanoma detection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a 'Hybrid U-Net with Deep Supervision and Boundary-Guided Attention' model. It details the methodology, performs quantitative evaluation on the ISIC 2018 dataset (achieving a Dice coefficient of 92.97%), and compares results against baselines and other models like ESC-U-Net. Although published in a conference proceedings (RAEEUCCI), it contains new algorithmic contributions and empirical results rather than summarizing prior literature."
+  },
+  "title": "Skin Lesion Segmentation with Deep Learning for Cancer Detection",
+  "authors": [
+    "Sudarsh R M",
+    "Varun S A",
+    "Ruhan Bevi"
+  ],
+  "doi": "10.1109/RAEEUCCI67649.2026.11504994",
+  "journal": "2026 International Conference on Recent Advances in Electrical, Electronics, Ubiquitous Communication, and Computational Intelligence (RAEEUCCI)",
+  "year": 2026,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of accurate skin lesion segmentation for early melanoma detection by proposing a Hybrid U-Net-Transformer model enhanced with Deep Supervision and a Boundary-Guided Attention (BGA) mechanism. The authors evaluated their approach on the ISIC 2018 dataset, which contains 2594 dermoscopic images split into training and validation sets. The model was trained for 60 epochs and assessed using Dice coefficient, Intersection over Union (IoU), and pixel accuracy metrics. The proposed architecture achieved a Dice coefficient of 92.97%, an IoU of 84.63%, and a pixel accuracy of 97.98%, outperforming baseline U-Net and other hybrid variants. The results indicate that integrating contextual feature learning with explicit boundary guidance significantly improves contour localization and segmentation robustness for irregular lesions.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "dermoscopic skin lesions",
+        "dermoscopic images"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the segmentation of general skin lesions found in the ISIC 2018 dataset. The paper does not specify individual histological classes (e.g., melanoma, nevus) but treats the lesions as a single class for segmentation purposes, noting challenges like irregular shapes, low contrast, and hair occlusion."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Contextual/Motivation",
+      "details": "Mentioned in the context of early detection and computer-aided diagnostic systems. The paper states that accurate segmentation is essential for early melanoma detection, but the experiments themselves are performed on the general ISIC 2018 dataset without reporting specific melanoma vs. non-melanoma classification results."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary segmentation mask of skin lesions (lesion region vs. background)",
+        "primary": true,
+        "details": "The paper focuses on 'skin lesion segmentation' using a Hybrid U-Net with Deep Supervision and Boundary-Guided Attention. The ground-truth masks are binary (lesion=1, background=0). Performance is evaluated using Dice coefficient, IoU, and pixel accuracy, which are standard metrics for segmentation tasks."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A public dataset of dermoscopic images used for skin lesion segmentation. The images were preprocessed by resizing to 256x256 pixels and normalizing intensity values to [0,1]. Ground-truth masks were converted to binary format (lesion=1, background=0).",
+      "classes_used": [
+        "Skin lesions (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 2075,
+        "validation": 519,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the baseline U-Net, Hybrid U-Net with Deep Supervision, and Hybrid U-Net with Deep Supervision and Boundary-Guided Attention models for 60 epochs.",
+        "validation": "Used for monitoring performance (Dice coefficient, IoU, pixel accuracy) after each training epoch to select the best model.",
+        "testing": "Not explicitly reported as a separate test set; the validation set was used for final evaluation metrics.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient",
+    "Intersection over Union (IoU)",
+    "pixel accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Test-Time Augmentation (TTA)",
+      "purpose": "To examine model robustness under inference-time perturbations and improve segmentation stability and generalization performance.",
+      "type": "Robustness analysis"
+    },
+    {
+      "method": "Comparative analysis of metrics (Dice coefficient, IoU, pixel accuracy)",
+      "purpose": "To quantitatively compare the proposed Hybrid U-Net with Deep Supervision and Boundary-Guided Attention against baseline U-Net, Hybrid U-Net-Transformer, and ESC-U-Net models.",
+      "type": "Performance evaluation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "No hypothesis testing was reported; the paper relies on quantitative metric comparisons (Dice coefficient, IoU, pixel accuracy) and visual analysis without statistical significance tests."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018": {
+      "split": "Validation (used for final evaluation)",
+      "models": {
+        "Baseline U-Net": {
+          "Dice (%)": 86.84,
+          "IoU (%)": 79.19,
+          "Pixel Accuracy (%)": 94.64
+        },
+        "Hybrid U-Net-Transformer": {
+          "Dice (%)": 87.48,
+          "IoU (%)": 80.19,
+          "Pixel Accuracy (%)": 94.72
+        },
+        "Hybrid U-Net-Transformer + BGA + DS (Proposed)": {
+          "Dice (%)": 92.97,
+          "IoU (%)": 84.63,
+          "Pixel Accuracy (%)": 97.98
+        },
+        "ESC-U-Net (Hybrid CNN–Swin Transformer) [4]": {
+          "Dice (%)": 92.53,
+          "IoU (%)": 81.67,
+          "Pixel Accuracy (%)": 97.89
+        },
+        "Baseline U-Net (with TTA)": {
+          "Dice (%)": 91.31,
+          "IoU (%)": 85.03,
+          "Pixel Accuracy (%)": 96.69
+        },
+        "Hybrid U-Net-Transformer (with TTA)": {
+          "Dice (%)": 90.58,
+          "IoU (%)": 84.1,
+          "Pixel Accuracy (%)": 96.45
+        },
+        "Hybrid U-Net-Transformer + BGA + Deep Supervision (with TTA)": {
+          "Dice (%)": 92.98,
+          "IoU (%)": 85.67,
+          "Pixel Accuracy (%)": 98.12
+        }
+      },
+      "notes": "The proposed Hybrid U-Net with Deep Supervision and Boundary-Guided Attention achieved the highest scores among the primary models. Test-Time Augmentation (TTA) was applied to evaluate robustness, resulting in slight metric variations. The proposed model outperformed the ESC-U-Net baseline. Failure cases were noted for extreme low-contrast lesions, dense hair occlusion, and irregularly shaped lesions with diffuse boundaries."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Hybrid U-Net with Deep Supervision and Boundary-Guided Attention (BGA)",
+    "pretraining": "Not reported (used pre-trained fixed models for fair comparison in baseline/hybrid variants, but specific pretraining weights for the proposed model are not detailed)",
+    "input_size": "256 x 256 pixels",
+    "architecture_details": {
+      "base_architecture": "U-Net (Encoder-Decoder structure)",
+      "hybrid_components": "CNN and Transformer blocks (Hybrid U-Net-Transformer)",
+      "deep_supervision": "Auxiliary segmentation heads added at different stages of the decoder block for multi-scale feature learning and gradient propagation",
+      "boundary_guided_attention": "BGA module integrating Sobel-based edge information into the decoder for feature refinement and contour localization",
+      "loss_function": "Composite loss function including segmentation loss, deep supervision loss, and boundary alignment loss",
+      "inference": "Output from the last decoder block; Test-Time Augmentation (TTA) used for robustness evaluation"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": "1 × 10^-4",
+      "batch_size": "4",
+      "epochs": "60",
+      "hardware": "NVIDIA RTX 3050 GPU (8GB memory)",
+      "training_time": "Approximately 3–4 hours",
+      "precision": "Automatic mixed precision training"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "output_format": "Binary mask (lesion=1, background=0)",
+      "final_layer": "Last decoder block output"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Baseline U-Net",
+    "Hybrid U-Net-Transformer",
+    "Hybrid U-Net with Deep Supervision",
+    "Hybrid U-Net with Deep Supervision and Boundary-Guided Attention (Proposed)",
+    "ESC-U-Net (Hybrid CNN–Swin Transformer)",
+    "DermaTransNet",
+    "MSRED-BGA",
+    "U-Net++",
+    "Dual encoder variants of U-Nets",
+    "Multi-scale residual encoding and decoding models (MSRED)",
+    "Lightweight multi-scale models",
+    "Hybrid GAN-ViT models",
+    "GAN models"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to a fixed size of 256 × 256 pixels",
+    "Normalizing intensity values to the range [0, 1]",
+    "Converting ground-truth segmentation masks to binary format (lesion=1, background=0)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Training-time geometric transforms",
+      "details": "Horizontal and vertical flipping, random rotations, and scaling were applied during training to improve generalization and simulate variations in lesion appearance."
+    },
+    {
+      "technique": "Test-Time Augmentation (TTA)",
+      "details": "Multiple transformed versions of the input image (e.g., flipped or scaled variants) were generated during inference to examine model robustness and improve segmentation stability and generalization performance."
+    }
+  ],
+  "conclusions": [
+    "The proposed Hybrid U-Net with Deep Supervision and Boundary-Guided Attention (BGA) mechanism achieves superior segmentation performance on the ISIC 2018 dataset, attaining a Dice coefficient of 92.97%, an IoU of 84.63%, and a pixel accuracy of 97.98%.",
+    "Integrating explicit boundary guidance via the BGA module significantly improves contour localization and reduces background leakage compared to baseline U-Net and Hybrid U-Net-Transformer models without BGA.",
+    "The proposed model outperforms the ESC-U-Net (Hybrid CNN–Swin Transformer) baseline, demonstrating higher Dice (92.97% vs. 92.53%) and IoU (84.63% vs. 81.67%) scores.",
+    "Test-Time Augmentation (TTA) improves model robustness and segmentation stability, with the proposed model achieving a Dice score of 92.98% and IoU of 85.67% under TTA conditions.",
+    "Deep supervision enhances gradient flow and multi-scale feature learning, leading to more stable convergence and improved generalization capabilities compared to the baseline U-Net.",
+    "The model exhibits limitations in handling extreme low-contrast lesions, dense hair occlusion, and irregularly shaped lesions with diffuse boundaries.",
+    "The architecture shows reduced sensitivity for detecting small lesions covering less than 5% of the image, likely due to encoder downsampling operations.",
+    "The model is sensitive to image artifacts such as ruler edges and illumination variations, which can be amplified by the boundary attention module, leading to incorrect predictions."
+  ],
+  "important_remarks": [
+    "The study is limited to a single dataset (ISIC 2018) with no external validation, raising concerns about generalizability to other populations or imaging devices.",
+    "The paper is published in a conference proceedings (RAEEUCCI) rather than a peer-reviewed journal, which may indicate lower scrutiny compared to top-tier venues.",
+    "The model exhibits significant performance degradation on lesions with extreme low contrast, dense hair occlusion, and irregular shapes with diffuse boundaries.",
+    "The model shows reduced sensitivity for small lesions covering less than 5% of the image area, likely due to encoder downsampling operations.",
+    "The Boundary-Guided Attention module is sensitive to image artifacts such as ruler edges and illumination variations, which can be amplified and lead to incorrect predictions.",
+    "The proposed architecture increases computational complexity compared to the conventional U-Net baseline, though it maintains efficiency suitable for conference-level contributions.",
+    "No statistical significance testing (e.g., p-values) was performed; results rely solely on quantitative metric comparisons (Dice, IoU, Pixel Accuracy).",
+    "The study does not report specific performance metrics for melanoma vs. non-melanoma classification, focusing only on general skin lesion segmentation."
+  ]
+}

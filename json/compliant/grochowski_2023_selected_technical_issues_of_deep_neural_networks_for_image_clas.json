@@ -1,0 +1,419 @@
+{
+  "file_name": "grochowski_2023_selected_technical_issues_of_deep_neural_networks_for_image_clas.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep neural networks (specifically VGG-based CNNs like VGG16, VGG11, and VGG8) to perform skin cancer detection (benign vs. malignant classification) on a publicly available dataset of skin lesions. Methods such as dropout, batch normalization, transfer learning, and k-fold validation were applied to obtain the results."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental results obtained by applying and evaluating deep neural networks (VGG16, VGG11, VGG8) on a skin cancer detection task using a publicly available dataset. It details specific methods (dropout, batch normalization, transfer learning, k-fold validation), reports quantitative results (accuracy, specificity, sensitivity, training time), and draws conclusions based on these new experiments, rather than summarizing prior literature."
+  },
+  "title": "Selected technical issues of deep neural networks for image classification purposes",
+  "authors": [
+    "M. GROCHOWSKI",
+    "A. KWASIGROCH",
+    "A. MIKOŁAJCZYK"
+  ],
+  "doi": "10.24425/bpas.2019.128485",
+  "journal": "BULLETIN OF THE POLISH ACADEMY OF SCIENCES TECHNICAL SCIENCES",
+  "year": 2019,
+  "article_type": "Research paper",
+  "brief_summary": "This study evaluated the impact of deep learning techniques on skin cancer classification using VGG-based convolutional neural networks (VGG16, VGG11, and VGG8) on a publicly available dataset of skin lesions. The researchers analyzed the effects of dropout, batch normalization, transfer learning, model ensembling, and activation functions on network performance. To ensure objectivity, each model was trained six times with results averaged, and five-fold cross-validation was applied to mitigate dataset selection bias. The dataset consisted of approximately 13,000 dermatoscopic images, which were preprocessed and augmented to address class imbalance between benign and malignant cases. Key findings indicated that transfer learning significantly improved classification accuracy by approximately 10% and reduced training time, while model ensembling further enhanced results. The study concludes that these deep learning advancements effectively address technical challenges in skin lesion classification, providing valuable insights for future research.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "benign instances",
+        "benign lesions"
+      ],
+      "role": "Target class",
+      "details": "One of the two binary classification classes in the skin cancer detection task. The dataset contained approximately 12,500 benign instances, which were upsampled to balance the classes."
+    },
+    {
+      "lesion_type": "Malignant skin lesions",
+      "paper_terms": [
+        "malignant",
+        "malignant instances",
+        "malignant lesions",
+        "skin cancer"
+      ],
+      "role": "Target class",
+      "details": "One of the two binary classification classes in the skin cancer detection task. The dataset contained approximately 1,100 malignant instances. The paper notes that malignant lesions include melanomas, though the specific histological subtypes are not detailed."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into benign or malignant categories",
+        "primary": true,
+        "details": "The paper focuses on skin cancer detection, specifically distinguishing between benign and malignant instances of skin lesions. The task is explicitly described as 'image classification' and 'skin lesion classification'. The model predicts discrete diagnostic categories (benign vs. malignant) using VGG-based CNNs. Performance was evaluated using accuracy, specificity, sensitivity, and ROC curves."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Dataset (International Society for Digital Imaging of the Skin)",
+      "description": "A publicly available dataset of high-quality, labeled dermatoscopic images of skin lesions provided by the International Society for Digital Imaging of the Skin. It includes additional masks indicating the position of the lesion in the image. The dataset is highly unbalanced.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": 13600,
+        "training": 24709,
+        "validation": 200,
+        "testing": 200,
+        "per_class": {
+          "benign": 12500,
+          "malignant": 1100
+        }
+      },
+      "use": {
+        "training": "Used for training the VGG-based CNNs (VGG16, VGG11, VGG8). The dataset was preprocessed (lesion extraction using masks, resizing to 224x224, normalization) and augmented (rotation, shifts, etc.). Malignant class was upsampled by copying instances 13 times to balance classes. Used in a 5-fold cross-validation scheme where each fold had 24,709 training images (12,333 benign, 12,376 malignant).",
+        "validation": "Used for validation in the 5-fold cross-validation scheme. Each fold had a unique validation set of 200 images (100 benign, 100 malignant) used to tune thresholds and evaluate performance during training.",
+        "testing": "Used for testing in the 5-fold cross-validation scheme. Each fold had a unique test set of 200 images (100 benign, 100 malignant) to evaluate final model performance.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy (ACC)",
+    "specificity (SPC)",
+    "True Negative Rate (TNR)",
+    "sensitivity (SST)",
+    "True Positive Rate (TPR)",
+    "ROC curves"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "k-fold cross-validation",
+      "purpose": "To mitigate the impact of the selection of learning, test, and validation sets and to ensure objectivity of results.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Averaging results over multiple training runs",
+      "purpose": "To increase the objectivity of the results by training each tested model 6 times and averaging their outcomes.",
+      "type": "Uncertainty estimation / Repetition"
+    },
+    {
+      "method": "ROC curves",
+      "purpose": "To evaluate and compare the performance of the evaluated systems across different thresholds.",
+      "type": "Performance evaluation metric"
+    },
+    {
+      "method": "Classification threshold tuning",
+      "purpose": "To increase classification accuracy by iterating threshold values and selecting the one with the best accuracy on the validation set.",
+      "type": "Hyperparameter optimization"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It relied on k-fold cross-validation, averaging results over six training runs, and comparing performance metrics (accuracy, specificity, sensitivity, AUC) to draw conclusions."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC Dataset (Skin Lesion Classification)": {
+      "description": "Binary classification of benign vs. malignant skin lesions using 5-fold cross-validation. Each model trained 6 times with results averaged. Threshold tuning applied on validation set.",
+      "metrics": [
+        "Accuracy (ACC)",
+        "Area Under Curve (AUC)",
+        "Sensitivity (SST) / True Positive Rate (TPR)",
+        "Specificity (SPC) / True Negative Rate (TNR)"
+      ],
+      "models": {
+        "Network A (VGG8, Leaky ReLU, Dropout, Batch Norm)": {
+          "Single Network": {
+            "ACC": "72.12",
+            "AUC": "0.808",
+            "SST": "0.754",
+            "SPC": "0.688"
+          },
+          "Model Ensembling (Average)": {
+            "ACC": "74.10",
+            "AUC": "0.822",
+            "SST": "0.774",
+            "SPC": "0.708"
+          },
+          "Model Ensembling (Logistic Classifier)": {
+            "ACC": "73.60",
+            "AUC": "0.823",
+            "SST": "0.738",
+            "SPC": "0.734"
+          }
+        },
+        "Network B (VGG8, ReLU, Dropout)": {
+          "Single Network": {
+            "ACC": "70.38",
+            "AUC": "0.786",
+            "SST": "0.734",
+            "SPC": "0.673"
+          },
+          "Model Ensembling (Average)": {
+            "ACC": "72.50",
+            "AUC": "0.802",
+            "SST": "0.842",
+            "SPC": "0.608"
+          },
+          "Model Ensembling (Logistic Classifier)": {
+            "ACC": "73.00",
+            "AUC": "0.804",
+            "SST": "0.854",
+            "SPC": "0.606"
+          }
+        },
+        "Network C (VGG8, ReLU, Batch Norm)": {
+          "Single Network": {
+            "ACC": "72.87",
+            "AUC": "0.804",
+            "SST": "0.775",
+            "SPC": "0.683"
+          },
+          "Model Ensembling (Average)": {
+            "ACC": "76.50",
+            "AUC": "0.821",
+            "SST": "0.786",
+            "SPC": "0.744"
+          },
+          "Model Ensembling (Logistic Classifier)": {
+            "ACC": "75.50",
+            "AUC": "0.821",
+            "SST": "0.822",
+            "SPC": "0.688"
+          }
+        },
+        "Network D (VGG8, ReLU, Dropout, Batch Norm)": {
+          "Single Network": {
+            "ACC": "73.77",
+            "AUC": "0.828",
+            "SST": "0.784",
+            "SPC": "0.692"
+          },
+          "Model Ensembling (Average)": {
+            "ACC": "76.80",
+            "AUC": "0.851",
+            "SST": "0.796",
+            "SPC": "0.740"
+          },
+          "Model Ensembling (Logistic Classifier)": {
+            "ACC": "76.90",
+            "AUC": "0.852",
+            "SST": "0.802",
+            "SPC": "0.736"
+          }
+        },
+        "Network E (VGG11, ReLU, Dropout)": {
+          "Single Network": {
+            "ACC": "68.83",
+            "AUC": "0.765",
+            "SST": "0.752",
+            "SPC": "0.625"
+          },
+          "Model Ensembling (Average)": {
+            "ACC": "71.20",
+            "AUC": "0.779",
+            "SST": "0.816",
+            "SPC": "0.608"
+          },
+          "Model Ensembling (Logistic Classifier)": {
+            "ACC": "71.30",
+            "AUC": "0.781",
+            "SST": "0.766",
+            "SPC": "0.660"
+          }
+        },
+        "Network F (VGG16, ReLU, Dropout)": {
+          "Single Network": {
+            "ACC": "67.78",
+            "AUC": "0.749",
+            "SST": "0.687",
+            "SPC": "0.668"
+          },
+          "Model Ensembling (Average)": {
+            "ACC": "65.40",
+            "AUC": "0.759",
+            "SST": "0.586",
+            "SPC": "0.722"
+          },
+          "Model Ensembling (Logistic Classifier)": {
+            "ACC": "66.20",
+            "AUC": "0.758",
+            "SST": "0.628",
+            "SPC": "0.696"
+          }
+        },
+        "Network G (VGG16, ReLU, Transfer Learning, Dropout, Batch Norm)": {
+          "Single Network": {
+            "ACC": "76.67",
+            "AUC": "0.858",
+            "SST": "0.801",
+            "SPC": "0.732"
+          },
+          "Model Ensembling (Average)": {
+            "ACC": "79.40",
+            "AUC": "0.882",
+            "SST": "0.868",
+            "SPC": "0.720"
+          },
+          "Model Ensembling (Logistic Classifier)": {
+            "ACC": "79.60",
+            "AUC": "0.883",
+            "SST": "0.878",
+            "SPC": "0.714"
+          }
+        }
+      },
+      "notes": "Transfer learning increased classification accuracy by approximately 10% compared to networks trained from scratch and shortened training time twice. Model ensembling improved performance for all architectures; ensembling by logistic classifier was slightly better than averaging in most cases. Network G (VGG16 with transfer learning) achieved the highest accuracy (79.60% with logistic ensembling). Network without any mechanism converged fastest but achieved worst results."
+    }
+  },
+  "architecture_used": {
+    "main_model": "VGG-based Convolutional Neural Networks (VGG8, VGG11, VGG16)",
+    "pretraining": "Transfer learning applied to Network G using a publicly available pretrained VGG16 model from the Keras library. Networks A-F were trained from scratch.",
+    "input_size": "224x224x3 pixels (RGB)",
+    "architecture_details": {
+      "backbone_variants": [
+        {
+          "name": "VGG8",
+          "layers": "conv-64, conv-64, maxpool, conv-128, conv-128, maxpool, conv-256, conv-256, conv-256, conv-256, FC-1024, Sigmoid neuron",
+          "parameters": 30659587
+        },
+        {
+          "name": "VGG11",
+          "layers": "conv-64, conv-64, maxpool, conv-128, conv-128, maxpool, conv-256, conv-256, conv-256, conv-256, conv-256, maxpool, FC-1024, Sigmoid neuron",
+          "parameters": 35971843
+        },
+        {
+          "name": "VGG16",
+          "layers": "conv-64, conv-64, maxpool, conv-128, conv-128, maxpool, conv-256, conv-256, conv-256, conv-256, conv-256, maxpool, conv-512, conv-512, conv-512, conv-512, conv-512, maxpool, FC-1024, Sigmoid neuron",
+          "parameters": 41456449
+        }
+      ],
+      "activation_functions": [
+        "ReLU",
+        "Leaky ReLU"
+      ],
+      "modifications": [
+        "Dropout",
+        "Batch Normalization"
+      ],
+      "classifier_head": "Fully connected layer (FC-1024) followed by a sigmoid neuron for binary classification"
+    },
+    "training_details": {
+      "optimizer": "Mini-batch gradient descent with Nesterov momentum",
+      "momentum_coefficient": 0.9,
+      "loss_function": "Binary cross-entropy",
+      "learning_rate": {
+        "initial": "0.01 for Networks B, C, D, E; 0.001 for Networks A, F, G",
+        "schedule": "Divided by 3 each time validation loss did not decrease during 4 subsequent epochs"
+      },
+      "early_stopping": "Stopped when no improvement in validation loss was recorded during 8 subsequent epochs",
+      "epochs_to_converge": {
+        "Network A (VGG8, Leaky ReLU, Dropout, Batch Norm)": 31.6,
+        "Network B (VGG8, ReLU, Dropout)": 17.8,
+        "Network C (VGG8, ReLU, Batch Norm)": 24.6,
+        "Network D (VGG8, ReLU, Dropout, Batch Norm)": 29.8,
+        "Network E (VGG11, ReLU, Dropout)": 20.4,
+        "Network F (VGG16, ReLU, Dropout)": 30.0,
+        "Network G (VGG16, ReLU, Transfer Learning, Dropout, Batch Norm)": 3.75
+      },
+      "training_time_hours": {
+        "Network A": 3.6,
+        "Network B": 1.5,
+        "Network C": 2.1,
+        "Network D": 3.5,
+        "Network E": 3.75,
+        "Network F": 5.2,
+        "Network G": "Not explicitly stated, but noted as 'twice' shorter than training from scratch"
+      },
+      "validation_strategy": "5-fold cross-validation",
+      "repetitions": "Each model trained 6 times, results averaged",
+      "hardware": "Nvidia GeForce GTX 980 Ti GPU (6 GB memory), Intel Core i7-4930K processor, 16 GB RAM",
+      "software": "Python Keras library on top of Theano library, Nvidia CUDA library"
+    },
+    "classification_or_output_head": {
+      "type": "Sigmoid neuron",
+      "ensemble_methods": [
+        "Average ensembling (averaging outputs of 6 trained networks)",
+        "Logistic classifier ensembling (sigmoid neuron trained on outputs of 6 networks)"
+      ]
+    },
+    "approximate_parameters": {
+      "VGG8": 30659587,
+      "VGG11": 35971843,
+      "VGG16": 41456449
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "VGG8",
+    "VGG11",
+    "VGG16",
+    "Network A (VGG8 with Leaky ReLU, Dropout, Batch Normalization)",
+    "Network B (VGG8 with ReLU, Dropout)",
+    "Network C (VGG8 with ReLU, Batch Normalization)",
+    "Network D (VGG8 with ReLU, Dropout, Batch Normalization)",
+    "Network E (VGG11 with ReLU, Dropout)",
+    "Network F (VGG16 with ReLU, Dropout)",
+    "Network G (VGG16 with Transfer Learning, ReLU, Dropout, Batch Normalization)",
+    "Support Vector Machine (SVM)",
+    "Neural Network (NN)",
+    "Deep Neural Networks (DNN)",
+    "Convolutional Neural Networks (CNN)",
+    "Logistic Classifier (used for model ensembling)"
+  ],
+  "preprocessing_techniques": [
+    "Lesion extraction from images using provided segmentation masks",
+    "Filtering of incorrect masks (masks with less than 10 white pixels)",
+    "Cropping of lesions that covered less than 20% of the image using a bounding square derived from the minimum enclosing circle of the mask",
+    "Extension of the bounding square size by 44% to include surrounding skin",
+    "Resizing of images to 224x224x3 pixels",
+    "Normalization by subtracting the mean and setting the standard deviation to one and zero, respectively",
+    "Data augmentation including rotation, shifts, horizontal flip, and zooming"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Rotation, width and height shift, horizontal flip, and vertical flip were applied to the dataset."
+    },
+    {
+      "technique": "Zooming",
+      "details": "Zooming was applied as part of the data augmentation process."
+    },
+    {
+      "technique": "Class Balancing Augmentation (Upsampling)",
+      "details": "The malignant class was upsampled by copying the 884 available malignant instances 13 times to balance the classes with the benign class (resulting in 12,376 malignant instances per fold)."
+    },
+    {
+      "technique": "Online Augmentation",
+      "details": "Data augmentation was performed online during training, before providing images to the neural network input, ensuring that copied instances became different due to the applied transforms."
+    }
+  ],
+  "conclusions": [
+    "Transfer learning significantly improved classification accuracy by approximately 10.24 percentage points compared to networks trained from scratch and reduced the training time and number of epochs to converge by about half.",
+    "Model ensembling improved the performance of all evaluated architectures, with ensembling via a logistic classifier yielding slightly better results than averaging outputs in most cases.",
+    "Batch normalization significantly outperformed dropout as a regularization method, particularly when combined with model ensembling; networks with batch normalization were more appropriate for ensembling than those with dropout.",
+    "The combination of both dropout and batch normalization mechanisms led to a deterioration of classification performance.",
+    "For datasets with a relatively small number of training samples, using a network with a smaller number of layers (e.g., VGG8) resulted in better performance than deeper architectures (e.g., VGG16), suggesting that increasing layer count is not always beneficial.",
+    "The study did not confirm the superiority of the Leaky ReLU activation function over the standard ReLU function in this specific application, indicating that activation function performance is problem-dependent.",
+    "Classification threshold tuning on the validation set effectively increased classification accuracy compared to using a fixed threshold.",
+    "The network with the smallest number of layers (VGG8) performed best among the architectures tested without transfer learning, while the VGG16 network with transfer learning achieved the highest overall accuracy (79.60% with logistic ensembling)."
+  ],
+  "important_remarks": [
+    "The study relies on a single, publicly available dataset (ISIC) with significant class imbalance (12,500 benign vs. 1,100 malignant instances), which was addressed by upsampling the malignant class by copying instances 13 times, potentially introducing data leakage or overfitting risks if not handled carefully during validation.",
+    "The dataset is highly unbalanced and contains images of varying quality and size (900x900 to 3000x4000 px), which may limit the generalizability of the results to other clinical settings with different image acquisition protocols.",
+    "The paper notes that the boundary between benign and malignant lesions can be fuzzy and subject to inter-physician disagreement, which represents a fundamental limitation in the ground truth labels used for training and evaluation.",
+    "The best-performing model (Network G, VGG16 with transfer learning) achieved an accuracy of 79.60%, which, while an improvement over baseline models, remains relatively low for a critical diagnostic task, suggesting that deep learning alone may not yet match dermatologist-level performance without further advancements.",
+    "The study did not perform external validation on a separate, independent dataset; all results are derived from 5-fold cross-validation on the same ISIC dataset, limiting the assessment of external validity.",
+    "The combination of dropout and batch normalization was found to deteriorate classification performance, indicating that these regularization techniques may be redundant or conflicting when used together in this specific architecture.",
+    "Transfer learning significantly reduced training time (by about half) and improved accuracy by approximately 10% compared to training from scratch, highlighting the importance of pre-trained weights for this task.",
+    "Model ensembling improved performance across all architectures, with ensembling via a logistic classifier yielding slightly better results than simple averaging in most cases.",
+    "For datasets with limited training samples, shallower networks (VGG8) performed better than deeper ones (VGG16) when trained from scratch, suggesting that network depth should be matched to data availability.",
+    "The study did not confirm the superiority of Leaky ReLU over standard ReLU, indicating that activation function choice may be problem-dependent and not universally beneficial."
+  ]
+}

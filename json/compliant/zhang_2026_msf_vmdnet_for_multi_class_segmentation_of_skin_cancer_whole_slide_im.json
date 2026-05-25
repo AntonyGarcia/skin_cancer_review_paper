@@ -1,0 +1,559 @@
+{
+  "file_name": "zhang_2026_msf_vmdnet_for_multi_class_segmentation_of_skin_cancer_whole_slide_im.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning model named MSF-VMDNet (Multi-Scale Frequency VMamba Dual Encoder Network) for the multi-class segmentation of skin cancer whole-slide images and dermoscopic images. The method combines U-Net and Vision Mamba encoders with multi-frequency domain attention to segment tissue classes in histopathological and dermoscopic datasets (e.g., Histopathology Non-Melanoma Skin Cancer Segmentation Dataset and ISIC 2018)."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new deep learning model, MSF-VMDNet, for multi-class segmentation of skin cancer. It includes a detailed methodology, dataset descriptions (Histopathology Non-Melanoma Skin Cancer Segmentation Dataset, ISIC 2018, PanNuke, Synapse), experimental results with specific metrics (MIoU of 95.37%, Dice coefficient of 95.11%), and ablation studies, which are characteristic of a primary research article rather than a review."
+  },
+  "title": "MSF-VMDNet for multi class segmentation of skin cancer whole slide images using a multi frequency dual encoder network",
+  "authors": [
+    "Jiangliang Zhang",
+    "Qiumei Pu",
+    "Jinglong Tian",
+    "Junhao Wang",
+    "Jieyao Wei",
+    "Menghan Yang",
+    "Lina Zhao"
+  ],
+  "doi": "10.1038/s41598-026-40044-1",
+  "journal": "Scientific Reports",
+  "year": 2026,
+  "article_type": "Research Article",
+  "brief_summary": "This study addresses the complex task of multi-class segmentation of skin cancer whole-slide images by proposing MSF-VMDNet, a dual-encoder network combining U-Net and Vision Mamba architectures. The model utilizes a multi-frequency domain attention mechanism to extract high-resolution semantic information and optimize long-range dependency modeling for precise tissue differentiation. It was evaluated primarily on the Histopathology Non-Melanoma Skin Cancer Segmentation Dataset, achieving an MIoU of 95.37% and a Dice coefficient of 95.11%. The research also validated the model's generalization capabilities through extended experiments on the ISIC 2018 dermoscopic, PanNuke nuclear pathology, and Synapse image datasets. The results demonstrate that MSF-VMDNet significantly outperforms existing methods in segmentation accuracy and contour clarity for skin cancer histopathological images.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "One of the three cancer types in the Histopathology Non-Melanoma Skin Cancer Segmentation Dataset (140 images). Merged with other cancer subtypes into a single 'tumor' class for segmentation."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma",
+        "SCC"
+      ],
+      "role": "Target class",
+      "details": "One of the three cancer types in the Histopathology Non-Melanoma Skin Cancer Segmentation Dataset (60 images). Merged with other cancer subtypes into a single 'tumor' class for segmentation."
+    },
+    {
+      "lesion_type": "Intraepidermal carcinoma",
+      "paper_terms": [
+        "intraepidermal carcinoma",
+        "IEC"
+      ],
+      "role": "Target class",
+      "details": "One of the three cancer types in the Histopathology Non-Melanoma Skin Cancer Segmentation Dataset (90 images). Merged with other cancer subtypes into a single 'tumor' class for segmentation."
+    },
+    {
+      "lesion_type": "Tumor / Cancer cells",
+      "paper_terms": [
+        "tumor",
+        "cancer cells",
+        "cell carcinoma"
+      ],
+      "role": "Target class",
+      "details": "The three cancer subtypes (BCC, SCC, IEC) were merged into a single class for the segmentation task. Also referenced as 'tumor areas' and 'cancer cells' in PanNuke dataset validation."
+    },
+    {
+      "lesion_type": "Skin lesions",
+      "paper_terms": [
+        "skin lesions",
+        "lesion areas"
+      ],
+      "role": "Target class",
+      "details": "Segmented in the ISIC 2018 dermoscopic image dataset, which covers various skin lesion types."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as one of the three most common types of skin cancer, but not included in the experimental datasets or segmentation classes."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Multi-class segmentation masks for tissue classes (e.g., tumor, epidermis, dermis, hair follicle, sweat gland, fat, etc.) in skin cancer whole-slide images and dermoscopic images.",
+        "primary": true,
+        "details": "The paper explicitly focuses on 'multi-class segmentation' of skin cancer histopathological images and dermoscopic images. The model predicts pixel-wise class labels for 10 distinct tissue classes in the NMSC dataset and lesion areas in the ISIC 2018 dataset. Evaluation metrics include MIoU and Dice coefficient, which are standard for segmentation tasks."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Histopathology Non-Melanoma Skin Cancer (NMSC) Segmentation Dataset",
+      "description": "A publicly available dataset of H&E-stained whole-slide pathological images provided by MyLab Pathology Laboratory in Salisbury, Australia (collected late 2017 to early 2018). It covers non-melanoma skin cancer with annotations by expert pathologists.",
+      "classes_used": [
+        "basal cell carcinoma",
+        "squamous cell carcinoma",
+        "intraepidermal carcinoma",
+        "background",
+        "normal tissues (glands, inflammatory cells, hair follicles, subcutaneous tissue, reticular dermis, papillary dermis, epidermis, keratin)"
+      ],
+      "counts": {
+        "total": 290,
+        "training": 232,
+        "validation": null,
+        "testing": 58,
+        "per_class": {
+          "basal cell carcinoma": 140,
+          "squamous cell carcinoma": 60,
+          "intraepidermal carcinoma": 90
+        }
+      },
+      "use": {
+        "training": "Primary training dataset for the MSF-VMDNet model. Split 80/20 into training and testing sets. Rotation augmentation applied.",
+        "validation": null,
+        "testing": "Used for primary evaluation of multi-class segmentation performance on skin cancer histological slides.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2018 Dataset",
+      "description": "A dermoscopic image dataset containing over 10,000 images covering various skin lesion types with manually annotated lesion regions. Used to validate generalization on dermoscopic images.",
+      "classes_used": [
+        "skin lesion masks",
+        "melanoma",
+        "nevi",
+        "other skin lesions"
+      ],
+      "counts": {
+        "total": 10000,
+        "training": 8000,
+        "validation": 1000,
+        "testing": 1000,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for extended experiments to validate segmentation performance on dermoscopic images. Split 80/10/10 into training/validation/testing.",
+        "validation": "Used for validation during extended experiments.",
+        "testing": "Used for testing generalization on dermoscopic images.",
+        "other": null
+      }
+    },
+    {
+      "name": "PanNuke Dataset",
+      "description": "A histopathological nuclear image dataset with multi-class annotations. The study used a subset of 800 selected patches favoring higher nuclei counts.",
+      "classes_used": [
+        "stromal cell nuclei",
+        "epithelial cells",
+        "inflammatory cells",
+        "tumor cells",
+        "unlabeled/other"
+      ],
+      "counts": {
+        "total": 800,
+        "training": 640,
+        "validation": 80,
+        "testing": 80,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to assess multi-class segmentation capability on nuclear pathology images. Split 80/10/10 into training/validation/testing.",
+        "validation": "Used for validation during extended experiments.",
+        "testing": "Used for testing multi-class nuclear segmentation performance.",
+        "other": null
+      }
+    },
+    {
+      "name": "Synapse Dataset",
+      "description": "A computed tomography (CT) image dataset focusing on organ and tissue segmentation in abdominal regions, collected from various patients.",
+      "classes_used": [
+        "Aorta",
+        "Gallbladder",
+        "Spleen",
+        "Kidney (Left/Right)",
+        "Liver",
+        "Pancreas",
+        "Stomach"
+      ],
+      "counts": {
+        "total": 3779,
+        "training": 18,
+        "validation": 12,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to validate model generalizability across different medical imaging domains (CT). Split into training (18 subjects) and validation (12 subjects) sets across organs and patients.",
+        "validation": "Used for validation during extended experiments.",
+        "testing": null,
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Mean Intersection over Union (MIoU)",
+    "Mean Pixel Accuracy (MPA)",
+    "Dice Coefficient",
+    "p-value (from paired t-test)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Paired t-test",
+      "purpose": "To assess the statistical significance of improvements in Dice scores between the proposed MSF-VMDNet model and baseline models across multiple datasets.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Significance threshold (p < 0.05)",
+      "purpose": "To determine statistical significance for the paired t-test results.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Paired t-test",
+    "null_hypothesis": "There is no significant difference in the Dice scores between the proposed MSF-VMDNet model and the baseline models.",
+    "alternative_hypothesis": "There is a significant difference in the Dice scores between the proposed MSF-VMDNet model and the baseline models.",
+    "alpha": 0.05,
+    "interpretation": "Statistical significance was established if p < 0.05. The paper reports that Dice score improvements across datasets are significant (p < 0.01), indicating robust performance gains."
+  },
+  "results_obtained_in_each_dataset": {
+    "Histopathology Non-Melanoma Skin Cancer (NMSC) Dataset": {
+      "metric": "MIoU, MPA, ACC, Dice",
+      "models": {
+        "U-Net": {
+          "MIoU": "83.38%",
+          "MPA": "85.64%",
+          "ACC": "88.09%",
+          "Dice": "87.98%"
+        },
+        "Attention U-Net": {
+          "MIoU": "88.86%",
+          "MPA": "90.48%",
+          "ACC": "91.67%",
+          "Dice": "91.56%"
+        },
+        "DeepLabV3Plus": {
+          "MIoU": "87.93%",
+          "MPA": "89.43%",
+          "ACC": "91.39%",
+          "Dice": "90.64%"
+        },
+        "SegNet": {
+          "MIoU": "81.23%",
+          "MPA": "86.82%",
+          "ACC": "83.96%",
+          "Dice": "84.65%"
+        },
+        "ResUNet": {
+          "MIoU": "85.63%",
+          "MPA": "88.83%",
+          "ACC": "90.07%",
+          "Dice": "89.51%"
+        },
+        "Dense U-Net": {
+          "MIoU": "89.26%",
+          "MPA": "89.62%",
+          "ACC": "90.39%",
+          "Dice": "89.71%"
+        },
+        "TransUNet": {
+          "MIoU": "90.87%",
+          "MPA": "92.28%",
+          "ACC": "91.67%",
+          "Dice": "91.73%"
+        },
+        "Hms-UNet": {
+          "MIoU": "92.95%",
+          "MPA": "92.78%",
+          "ACC": "93.34%",
+          "Dice": "92.36%"
+        },
+        "VM U-Net": {
+          "MIoU": "89.74%",
+          "MPA": "91.12%",
+          "ACC": "92.05%",
+          "Dice": "91.43%"
+        },
+        "CSWin-UNet": {
+          "MIoU": "91.36%",
+          "MPA": "92.47%",
+          "ACC": "92.68%",
+          "Dice": "92.13%"
+        },
+        "VMamba": {
+          "MIoU": "90.12%",
+          "MPA": "91.86%",
+          "ACC": "92.31%",
+          "Dice": "91.72%"
+        },
+        "Swin-UMamba": {
+          "MIoU": "91.84%",
+          "MPA": "92.63%",
+          "ACC": "92.89%",
+          "Dice": "92.37%"
+        },
+        "DctViT": {
+          "MIoU": "88.92%",
+          "MPA": "90.74%",
+          "ACC": "91.22%",
+          "Dice": "90.85%"
+        },
+        "DBFFT": {
+          "MIoU": "87.46%",
+          "MPA": "89.91%",
+          "ACC": "90.65%",
+          "Dice": "89.97%"
+        },
+        "MSF-VMDNet (Ours)": {
+          "MIoU": "95.37%",
+          "MPA": "96.23%",
+          "ACC": "96.46%",
+          "Dice": "95.11%"
+        }
+      },
+      "notes": "Statistical significance of Dice score improvements assessed via paired t-test (p < 0.01). Baseline models like U-Net and SegNet had MIoU below 85%. TransUNet exceeded 90% MIoU. MSF-VMDNet significantly outperformed all baselines."
+    },
+    "ISIC 2018 Dataset": {
+      "metric": "MIoU, MPA, ACC, Dice",
+      "models": {
+        "Hms-UNet": {
+          "MIoU": "91.92%",
+          "MPA": "92.41%",
+          "ACC": "93.10%",
+          "Dice": "92.05%"
+        },
+        "VM U-Net": {
+          "MIoU": "88.97%",
+          "MPA": "90.75%",
+          "ACC": "91.62%",
+          "Dice": "90.83%"
+        },
+        "CSWin-UNet": {
+          "MIoU": "90.83%",
+          "MPA": "91.92%",
+          "ACC": "92.58%",
+          "Dice": "91.74%"
+        },
+        "VMamba": {
+          "MIoU": "89.76%",
+          "MPA": "91.35%",
+          "ACC": "92.12%",
+          "Dice": "91.22%"
+        },
+        "Swin-UMamba": {
+          "MIoU": "92.05%",
+          "MPA": "92.74%",
+          "ACC": "93.08%",
+          "Dice": "92.56%"
+        },
+        "DctViT": {
+          "MIoU": "87.89%",
+          "MPA": "89.85%",
+          "ACC": "90.92%",
+          "Dice": "89.77%"
+        },
+        "DBFFT": {
+          "MIoU": "86.42%",
+          "MPA": "88.92%",
+          "ACC": "90.47%",
+          "Dice": "88.81%"
+        },
+        "MSF-VMDNet (Ours)": {
+          "MIoU": "93.62%",
+          "MPA": "94.35%",
+          "ACC": "95.22%",
+          "Dice": "94.54%"
+        }
+      },
+      "notes": "Used to validate generalization on dermoscopic images. MSF-VMDNet achieved the best performance across all metrics, significantly surpassing other models. Challenges included complex backgrounds, multi-scale lesions, lighting conditions, and hair occlusions."
+    },
+    "PanNuke Dataset": {
+      "metric": "Not explicitly reported in text",
+      "models": {
+        "MSF-VMDNet (Ours)": {
+          "result": "Best performance across all evaluated metrics for specific categories: glands, hair follicles, inflammation, and cell carcinoma."
+        }
+      },
+      "notes": "Used to assess multi-class segmentation capability on nuclear pathology images. The paper states the model consistently achieved the best performance across all evaluated metrics compared to Hms-UNet, VM U-Net, CSWin-UNet, VMamba, Swin-UMamba, and DctViT, but specific numerical values are not provided in the extracted context."
+    },
+    "Synapse Dataset": {
+      "metric": "Not explicitly reported in text",
+      "models": {
+        "MSF-VMDNet (Ours)": {
+          "result": "Validated generalizability across different domains."
+        }
+      },
+      "notes": "Used to validate model generalizability in medical image segmentation across different domains (CT images). Specific quantitative results are not provided in the extracted context."
+    },
+    "Ablation Study (NMSC Dataset)": {
+      "metric": "MIoU, MPA, ACC, Dice",
+      "models": {
+        "U-Net": {
+          "MIoU": "80.2%",
+          "MPA": "85.1%",
+          "ACC": "87.6%",
+          "Dice": "86.8%"
+        },
+        "U-Net + VMamba": {
+          "MIoU": "83.9%",
+          "MPA": "87.2%",
+          "ACC": "89.4%",
+          "Dice": "88.5%"
+        },
+        "U-Net + Spect": {
+          "MIoU": "84.5%",
+          "MPA": "87.8%",
+          "ACC": "90.0%",
+          "Dice": "89.2%"
+        },
+        "U-Net + SCConv": {
+          "MIoU": "82.8%",
+          "MPA": "86.5%",
+          "ACC": "88.9%",
+          "Dice": "87.6%"
+        },
+        "U-Net (AFNO) + VMamba": {
+          "MIoU": "87.4%",
+          "MPA": "89.4%",
+          "ACC": "91.1%",
+          "Dice": "91.0%"
+        },
+        "U-Net + VMamba + Spect": {
+          "MIoU": "89.0%",
+          "MPA": "90.7%",
+          "ACC": "91.8%",
+          "Dice": "91.6%"
+        },
+        "U-Net + VMamba + SCConv": {
+          "MIoU": "85.7%",
+          "MPA": "88.5%",
+          "ACC": "90.5%",
+          "Dice": "89.7%"
+        },
+        "U-Net (AFNO) + VMamba + Spect": {
+          "MIoU": "90.4%",
+          "MPA": "92.2%",
+          "ACC": "93.5%",
+          "Dice": "92.6%"
+        },
+        "U-Net (AFNO) + VMamba + SCConv": {
+          "MIoU": "91.1%",
+          "MPA": "92.5%",
+          "ACC": "93.8%",
+          "Dice": "93.0%"
+        },
+        "MSF-VMDNet (AFNO + VMamba + Spect + SCConv)": {
+          "MIoU": "95.4%",
+          "MPA": "96.2%",
+          "ACC": "96.5%",
+          "Dice": "95.1%"
+        }
+      },
+      "notes": "Ablation study on the histopathological dataset. MSF-VMDNet achieved the best performance across all metrics. Synergistic effects of local, global, frequency, and fine convolutional enhancements were demonstrated."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MSF-VMDNet (Multi-Scale Frequency VMamba Dual Encoder Network)",
+    "pretraining": "null",
+    "input_size": "512 × 512",
+    "architecture_details": {
+      "encoder_type": "Dual Encoder",
+      "encoder_components": [
+        {
+          "name": "U-Net Encoder",
+          "description": "Incorporates an improved AFNO (Adaptive Fourier Neural Operators) spectral decomposition module for frequency domain mechanism to extract high-resolution multi-class semantic information and strengthen spatial information through multi-scale feature aggregation."
+        },
+        {
+          "name": "Vision Mamba Encoder",
+          "description": "Based on a Linear State Space Model (SSM) to optimize long-range dependency modeling. Includes explicit FFT/IFFT transformation and Spectral Gating mechanism for adaptive regulation of frequency components, and SS2D module to capture periodic structures."
+        }
+      ],
+      "decoder_components": [
+        {
+          "name": "SCConv Module",
+          "description": "Fuses features from different frequency domains and spatial levels to strengthen cross-level feature fusion and ensure complete semantic transmission."
+        }
+      ],
+      "mechanism": "Multi-frequency domain attention mechanism mapping subtle class-discriminative features into the frequency domain; low-frequency features enhance global structural perception, high-frequency features refine boundaries and texture details."
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "loss_function": "Cross-entropy loss with L2-regularization (L = LCE + λ∥θ∥2)",
+      "hardware": "NVIDIA RTX 4070 GPU with 24GB memory",
+      "data_preprocessing": "Images resized to 512 × 512 and normalized to [0, 1]; masks mapped to single-channel semantic labels; rotation-based augmentation applied only to NMSC training set.",
+      "hyperparameters": "Batch size, learning rate, and number of epochs varied by dataset (specific values not reported in text, referenced as Table 3)."
+    },
+    "classification_or_output_head": {
+      "type": "Pixel-wise classification",
+      "output": "Multi-class segmentation masks (10 classes for NMSC, 5 classes for PanNuke, etc.)",
+      "details": "Predicts one-hot ground truth probabilities for each pixel."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MSF-VMDNet",
+    "U-Net",
+    "Attention U-Net",
+    "DeepLabV3Plus",
+    "SegNet",
+    "ResUNet",
+    "Dense U-Net",
+    "TransUNet",
+    "Hms-UNet",
+    "VM U-Net",
+    "CSWin-UNet",
+    "VMamba",
+    "Swin-UMamba",
+    "DctViT",
+    "DBFFT",
+    "DTONet",
+    "LeaNet",
+    "MHorUNet",
+    "ADF-Net",
+    "CTH-Net",
+    "Segment Anything Model (SAM)",
+    "MedSAM",
+    "H-SAM",
+    "EfficientSAM"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 512 × 512 pixels",
+    "Normalization of image pixel values to the range [0, 1]",
+    "Mapping segmentation masks to single-channel semantic labels",
+    "Grayscale conversion for NMSC histopathology images",
+    "Rotation-based data augmentation applied to the NMSC training set",
+    "Selection of PanNuke subset with high nuclear density"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Applied to the training set of the Histopathology Non-Melanoma Skin Cancer (NMSC) dataset due to its small size. No specific probability or angle range was reported."
+    }
+  ],
+  "conclusions": [
+    "The proposed MSF-VMDNet model significantly outperforms existing segmentation methods in multi-class segmentation of skin cancer histological slides, achieving an MIoU of 95.37% and a Dice coefficient of 95.11%.",
+    "The dual-encoder architecture, combining U-Net with an improved AFNO spectral decomposition module and a Vision Mamba encoder based on a Linear State Space Model, effectively extracts high-resolution semantic information and optimizes long-range dependency modeling.",
+    "The multi-frequency domain attention mechanism maps subtle class-discriminative features into the frequency domain, reinforcing contextual features, reducing misclassification rates, and producing clearer contours at class boundaries.",
+    "The SCConv module in the decoding phase improves overall segmentation performance by fusing features from different frequency domains and spatial levels, integrating shallow edge textures with deep cellular features.",
+    "Ablation studies demonstrate that the synergistic combination of local, global, frequency, and fine convolutional enhancements (AFNO + VMamba + Spect + SCConv) yields the best performance, confirming the importance of each component for handling complex textures and blurred boundaries.",
+    "Statistical analysis using paired t-tests confirms that the Dice score improvements of MSF-VMDNet over baseline models are significant (p < 0.01).",
+    "The model demonstrates strong generalization capabilities across different medical imaging domains, including dermoscopic images (ISIC 2018), pathological cell nucleus images (PanNuke), and abdominal CT organs (Synapse).",
+    "Cross-domain training strategies and the model's architecture help minimize the impact of dataset size and composition biases, improving generalization to unseen samples and imaging modalities."
+  ],
+  "important_remarks": [
+    "The primary training dataset (NMSC) is small (290 images) and exhibits demographic bias: patients are exclusively from a single Australian laboratory (MyLab Pathology), with a median age of 70 and a 2:1 female-to-male ratio, limiting generalizability to other populations.",
+    "The NMSC dataset is class-imbalanced, with Basal Cell Carcinoma (140 images) significantly outnumbering Squamous Cell Carcinoma (60 images) and Intraepidermal Carcinoma (90 images). The study mitigates this by merging all three cancer subtypes into a single 'tumor' class, which obscures inter-class differentiation capabilities.",
+    "The NMSC dataset was split into training and testing sets with a 4:1 ratio (232 training, 58 testing) without explicit mention of cross-validation or stratified sampling, raising potential concerns about data leakage or split bias given the small sample size.",
+    "Data augmentation (rotation) was applied only to the NMSC training set due to its small size; no augmentation was used for the larger ISIC 2018, PanNuke, or Synapse datasets, creating an inconsistency in preprocessing strategies across experiments.",
+    "The study claims strong generalization across domains (histopathology, dermoscopy, nuclei, CT) but relies on extended experiments on external datasets rather than independent external validation cohorts for the primary clinical task (skin cancer segmentation).",
+    "Specific quantitative results for the PanNuke and Synapse datasets are not explicitly reported in the text, limiting the ability to verify the claimed performance gains on these generalization benchmarks.",
+    "The model was trained on a single GPU (NVIDIA RTX 4070), which may limit the reproducibility of hyperparameter choices (batch size, learning rate) for larger models or datasets by other researchers.",
+    "The paper acknowledges that tumor regions are highly intertwined with normal tissues (epidermis, dermis, etc.), and while the model improves boundary clarity, the complexity of these morphological features remains a significant challenge for segmentation accuracy."
+  ]
+}

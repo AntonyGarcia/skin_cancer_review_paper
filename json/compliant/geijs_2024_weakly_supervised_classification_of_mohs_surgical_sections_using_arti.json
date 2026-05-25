@@ -1,0 +1,337 @@
+{
+  "file_name": "geijs_2024_weakly_supervised_classification_of_mohs_surgical_sections_using_arti.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed and evaluated a deep learning model for the weakly supervised classification of basal cell carcinoma (BCC) in Mohs micrographic surgery (MMS) whole-slide images. The method utilized attention maps to bridge weakly supervised learning with interpretable segmentation, achieving an AUC of 0.958 on internal testing and 0.934 on external testing. The AI model was used to detect BCC and highlight regions of interest to aid dermatopathologists and surgeons."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'Research Article' in the header. It presents original experimental work involving the development and evaluation of a deep learning model for weakly supervised classification of basal cell carcinoma in Mohs surgical sections. The paper includes specific sections for 'Materials and Methods' (describing data acquisition from 2 medical centers, preprocessing, and model training), 'Results' (reporting AUC, accuracy, and sensitivity metrics), and 'Discussion', which are characteristic of primary research rather than a review."
+  },
+  "title": "Weakly Supervised Classification of Mohs Surgical Sections Using Artificial Intelligence",
+  "authors": [
+    "Daan J. Geijs",
+    "Lisa M. Hillen",
+    "Stephan Dooper",
+    "Veronique Winnepenninckx",
+    "Vamsi Vara",
+    "David R. Carr",
+    "Kathryn T. Shahwan",
+    "Geert Litjens",
+    "Avital Amir"
+  ],
+  "doi": "10.1016/j.modpat.2024.100653",
+  "journal": "Modern Pathology",
+  "year": 2025,
+  "article_type": "Research Article",
+  "brief_summary": "This study developed and evaluated a deep learning model for the weakly supervised classification of basal cell carcinoma (BCC) in Mohs micrographic surgery whole-slide images. The model utilized attention maps to bridge weakly supervised learning with interpretable segmentation, leveraging data from two Dutch medical centers for training and testing, and an independent dataset from The Ohio State University for external validation. The AI system achieved an area under the receiver operating characteristic curve (AUC) of 0.958 on internal testing and 0.934 on the external dataset without fine-tuning. Attention maps demonstrated high sensitivity in localizing tumor regions, with performance improving when small detections were filtered out. These findings indicate that the model is highly effective and interpretable, offering a promising tool to aid dermatopathologists and Mohs surgeons in BCC detection.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "Basal cell carcinoma",
+        "BCC",
+        "tumor"
+      ],
+      "role": "Target class",
+      "details": "The primary target for classification and detection. The study focused on BCC in Mohs micrographic surgery (MMS) whole-slide images. The dataset included common histologic variants: superficial, nodular, infiltrative, and micronodular subtypes, as well as BCCs with keratinization and/or pigmentation. The model was trained to distinguish slides containing BCC from those without."
+    },
+    {
+      "lesion_type": "Non-BCC / Negative for BCC",
+      "paper_terms": [
+        "Non-BCC",
+        "no BCC",
+        "negative for BCC",
+        "no tumor"
+      ],
+      "role": "Comparator class",
+      "details": "Slides confirmed to not contain BCC, used as the negative class for binary classification. In the internal dataset, these comprised 61% of slides (909/1502). In the external dataset, they comprised 69% of slides (241/348)."
+    },
+    {
+      "lesion_type": "Risky skin cancers",
+      "paper_terms": [
+        "risky skin cancers"
+      ],
+      "role": "Mentioned only (Pretraining dataset)",
+      "details": "Included in the COBRA dataset used for pretraining the model, but not the primary target of the final MMS classification task."
+    },
+    {
+      "lesion_type": "Abnormalities",
+      "paper_terms": [
+        "abnormalities"
+      ],
+      "role": "Mentioned only (Pretraining dataset)",
+      "details": "Included in the COBRA dataset used for pretraining the model, but not the primary target of the final MMS classification task."
+    },
+    {
+      "lesion_type": "Nonmalignancies",
+      "paper_terms": [
+        "nonmalignancies"
+      ],
+      "role": "Mentioned only (Pretraining dataset)",
+      "details": "Included in the COBRA dataset used for pretraining the model, but not the primary target of the final MMS classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Slide-level presence or absence of Basal Cell Carcinoma (BCC)",
+        "primary": true,
+        "details": "Binary classification task predicting whether a Mohs micrographic surgery whole-slide image contains BCC (positive) or no BCC (negative). The model uses weakly supervised learning with attention maps to output slide-level labels. Performance was evaluated using AUC, accuracy, sensitivity, specificity, and F1 score."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Internal Dataset (Radboudumc and MUMC+)",
+      "description": "A combined dataset of 1502 H&E-stained frozen section histology slides from 666 distinct patients sourced from the pathology departments of two Dutch university medical centers: Maastricht University Medical Center (MUMC+) and Radboud University Medical Center (Radboudumc). The data includes common histologic variants of BCC (superficial, nodular, infiltrative, micronodular) and BCCs with keratinization and/or pigmentation. Slides were collected retrospectively from 2016 to 2021, digitized at 40x magnification (0.24 µm pixel size), and manually labeled using grand-challenge.org.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Non-BCC (no BCC)"
+      ],
+      "counts": {
+        "total": 1502,
+        "training": 633,
+        "validation": 152,
+        "testing": 719,
+        "per_class": {
+          "BCC": 593,
+          "Non-BCC": 909
+        }
+      },
+      "use": {
+        "training": "Used for fine-tuning the model after pretraining. Split into training (633 slides) and validation (152 slides) sets with stratification by origin and BCC presence.",
+        "validation": "Used for model validation during fine-tuning.",
+        "testing": "Used for internal testing (719 slides). Performance evaluated with AUC 0.958.",
+        "other": "None"
+      }
+    },
+    {
+      "name": "External Dataset (Ohio State University)",
+      "description": "An independent dataset of 348 slides with fresh frozen tissue from cases of BCC treated with Mohs micrographic surgery at The Ohio State University Wexner Medical Center. Slides were scanned at 20x magnification using a Leica Aperio AT2. Labeled by 1 resident dermatologist and 1 attending Mohs surgeon via grandchallenge.org.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Non-BCC (no BCC)"
+      ],
+      "counts": {
+        "total": 348,
+        "training": null,
+        "validation": null,
+        "testing": 348,
+        "per_class": {
+          "BCC": 107,
+          "Non-BCC": 241
+        }
+      },
+      "use": {
+        "training": "None",
+        "validation": "None",
+        "testing": "Used for external testing without fine-tuning or preprocessing. Performance evaluated with AUC 0.934.",
+        "other": "None"
+      }
+    },
+    {
+      "name": "COBRA Dataset",
+      "description": "A large publicly accessible dataset comprising 4394 labeled skin biopsies used for pretraining the model. It includes formalin-fixed paraffin-embedded (FFPE) H&E-stained images. Classes include BCC, risky skin cancers, abnormalities, and nonmalignancies.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Risky skin cancers",
+        "Abnormalities",
+        "Nonmalignancies"
+      ],
+      "counts": {
+        "total": 4394,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for pretraining the StreamingCLAM model (initial stage with frozen ResNet-50 encoder and second stage with unfrozen encoder). Also used to train the CycleGAN for color normalization.",
+        "validation": "None",
+        "testing": "None",
+        "other": "Pretraining and preprocessing (CycleGAN training)"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area under the receiver operating characteristic curve (AUC)",
+    "Accuracy",
+    "F1 score",
+    "Sensitivity",
+    "Specificity",
+    "Dice score",
+    "Average false positive (FP) rate per slide",
+    "Confusion matrix"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Bootstrapping",
+      "purpose": "To calculate 95% confidence intervals for performance metrics (AUC, accuracy, F1 score) based on 10,000 iterations.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Confusion matrix",
+      "purpose": "To determine true positives, true negatives, false positives, and false negatives for slide-level classification performance.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) curve analysis",
+      "purpose": "To assess the model's performance in predicting the presence of BCC and to calculate the Area Under the Curve (AUC).",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Dice score",
+      "purpose": "To evaluate the overlap between model-generated attention map objects and manual annotations for segmentation accuracy.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Sensitivity and Specificity calculation",
+      "purpose": "To quantify the TP rate and average FP rate per slide across all slides.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Visual inspection and consensus review by dermatopathologists",
+      "purpose": "To validate false positives and false negatives, resolving disagreements between AI predictions and ground truth annotations.",
+      "type": "Validation method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests) for comparing model performance. Statistical analysis was limited to calculating 95% confidence intervals using bootstrapping (10,000 iterations) for performance metrics such as AUC, accuracy, and F1 score."
+  },
+  "results_obtained_in_each_dataset": {
+    "Internal Dataset (Radboudumc and MUMC+)": {
+      "metric": "Slide-level classification performance",
+      "models": {
+        "StreamingCLAM (ResNet-50)": {
+          "AUC": "0.958 (95% CI: 0.936-0.980)",
+          "Accuracy": "0.942 (95% CI: 0.827-1.000)",
+          "F1 Score": "0.921 (95% CI: 0.763-1.000)",
+          "False Positives (slides)": "10",
+          "False Negatives (slides)": "25"
+        },
+        "StreamingCLAM (ResNet-50) - Corrected for Label Errors": {
+          "AUC": "0.980 (95% CI: 0.967-0.992)",
+          "Accuracy": "0.960 (95% CI: 0.880-1.000)",
+          "F1 Score": "0.946 (95% CI: 0.838-1.000)"
+        }
+      },
+      "notes": "The internal test set consisted of 719 slides. 10 slides were classified as false positives and 25 as false negatives. Visual inspection by two dermatopathologists revealed that 10 of the false positives were actually true positives (corrected to TP) and 3 of the false negatives were actually true negatives (corrected to TN), leading to the 'Internal corrected' metrics. Errors were primarily due to small tumor areas, thin superficial lesions, or out-of-focus slides."
+    },
+    "External Dataset (Ohio State University)": {
+      "metric": "Slide-level classification performance",
+      "models": {
+        "StreamingCLAM (ResNet-50)": {
+          "AUC": "0.934 (95% CI: 0.903-0.964)",
+          "Accuracy": "0.944 (95% CI: 0.832-1.000)",
+          "F1 Score": "0.908 (95% CI: 0.723-1.000)",
+          "False Positives (slides)": "18",
+          "False Negatives (slides)": "21"
+        }
+      },
+      "notes": "The external test set consisted of 348 slides. The model was applied without fine-tuning or preprocessing. The dataset included slides scanned at 20x magnification using a Leica Aperio AT2, differing from the internal dataset's 40x scanning."
+    },
+    "Attention Map Localization Performance (Internal Dataset)": {
+      "metric": "Tumor region localization sensitivity and false positive rate per slide",
+      "models": {
+        "StreamingCLAM (No filtering)": {
+          "Sensitivity": "0.853",
+          "Average False Positives per slide": "8.044"
+        },
+        "StreamingCLAM (Filtering objects < 200 µm)": {
+          "Sensitivity": "0.873",
+          "Average False Positives per slide": "Reduced (specific value not explicitly stated, but noted as reduced from 8.044)"
+        },
+        "StreamingCLAM (Filtering objects < 800 µm)": {
+          "Sensitivity": "0.905",
+          "Average False Positives per slide": "0.511"
+        }
+      },
+      "notes": "Sensitivity and average FP rate were assessed by comparing attention map objects to manual annotations. A size threshold of 800 µm provided a balance where sensitivity remained high (0.905) while average FPs dropped substantially to 0.511. The intersection of sensitivity and FP curves suggested an optimal range between 302 and 613 µm."
+    }
+  },
+  "architecture_used": {
+    "main_model": "StreamingCLAM (Streaming Clustering-based Attention Multiple Instance Learning)",
+    "pretraining": "Pretrained on the COBRA dataset (4394 labeled skin biopsies) using a two-stage process. Stage 1: Frozen ImageNet-pretrained ResNet-50 encoder. Stage 2: Unfrozen ResNet-50 encoder and attention heads. Fine-tuned on frozen section histology slides from Radboudumc and MUMC+.",
+    "input_size": "46,080 x 46,080 pixels (padded to uniform dimension). Streaming tile size of 3840 pixels.",
+    "architecture_details": {
+      "backbone": "ResNet-50",
+      "encoder_state": "Initially frozen (Stage 1), then unfrozen (Stage 2)",
+      "attention_mechanism": "Streaming clustering-based attention multiple instance learning (StreamingCLAM). Two attention-head modules randomly initialized for each class prediction (tumor and no tumor).",
+      "pooling_layer": "Global average pooling layer replaced with a single n x n max-pool layer with stride n to reduce downsampling and maintain spatial context.",
+      "kernel_size": "n = 16 (determined by input image resolution and GPU memory constraints for RTX 2080TI)",
+      "batch_normalization": "Retained in a frozen state throughout both stages."
+    },
+    "training_details": {
+      "optimizer": "Adaptive Moment Estimation (Adam)",
+      "learning_rate": "1e-4",
+      "batch_size": "8",
+      "training_stages": 3,
+      "stage_1_details": "Pretraining on COBRA dataset with frozen ResNet-50 encoder. Attention heads initialized randomly.",
+      "stage_2_details": "Unfreezing ResNet-50 encoder. Attention heads initialized with optimal weights from Stage 1. Training on COBRA dataset.",
+      "stage_3_details": "Fine-tuning on frozen tissue sections from Radboudumc and MUMC+. Early stopping used.",
+      "convergence_criterion": "Training iterations halted upon stabilization of the model's loss."
+    },
+    "classification_or_output_head": {
+      "type": "Two attention-head modules",
+      "classes": [
+        "Tumor (BCC)",
+        "No tumor (Non-BCC)"
+      ],
+      "output": "Slide-level classification probabilities and attention maps."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "StreamingCLAM",
+    "ResNet-50",
+    "CycleGAN"
+  ],
+  "preprocessing_techniques": [
+    "Tissue mask generation using a convolutional neural network to optimize slide packing and reduce file sizes.",
+    "Color normalization using a CycleGAN trained on formalin-fixed and paraffin-embedded (FFPE) H&E-stained BCC images from the COBRA dataset.",
+    "Padding input images to a uniform dimension of 46,080 x 46,080 pixels.",
+    "Filtering attention map detections smaller than 200 µm to remove minor artifacts and reduce false positives.",
+    "Merging proximate objects in attention maps with a distance parameter of 448 µm."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Color Normalization",
+      "details": "Applied using a CycleGAN trained on formalin-fixed and paraffin-embedded (FFPE) H&E-stained BCC images from the COBRA dataset to normalize color across different centers (Radboudumc and MUMC+)."
+    },
+    {
+      "technique": "Tissue Masking / Slide Packing",
+      "details": "Tissue masks generated using a convolutional neural network to place tissue sections as closely together as possible, optimizing slide packing to reduce file sizes and computational costs."
+    },
+    {
+      "technique": "Image Padding",
+      "details": "Input whole-slide images were padded to a uniform dimension of 46,080 x 46,080 pixels."
+    }
+  ],
+  "conclusions": [
+    "The deep learning model achieved high slide-level classification performance for basal cell carcinoma (BCC) detection in Mohs micrographic surgery whole-slide images, with an AUC of 0.958 on internal testing and 0.934 on an independent external dataset without fine-tuning.",
+    "The model demonstrated robust generalizability across different data sets and conditions, maintaining high performance on external data acquired with different scanning techniques and without preprocessing.",
+    "Attention maps effectively highlighted critical tumor regions, providing interpretability and insights into the model's decision-making process, with a sensitivity of 0.853 for localizing tumor regions.",
+    "Filtering attention map detections smaller than 200 µm reduced the average false positives per slide from 8 to 2 while maintaining a sensitivity of 0.873, suggesting an optimal balance between detection sensitivity and precision.",
+    "The model's performance was limited by small tumor areas (e.g., thin superficial lesions), out-of-focus slides, and tissue folds, which accounted for false negatives, and by high inflammation or adnexal structures, which contributed to false positives.",
+    "The use of attention maps enhances the model's interpretability, making it a promising tool for aiding dermatopathologists and Mohs micrographic surgery (MMS) surgeons in BCC detection and potentially increasing surgeon self-reliance."
+  ],
+  "important_remarks": [
+    "The study is limited by label errors in the internal dataset; visual inspection by dermatopathologists revealed that 10 false positives were actually true positives and 3 false negatives were true negatives, suggesting the corrected performance (AUC 0.980) may be more representative of the model's potential.",
+    "The model's performance was negatively impacted by specific histological challenges, including small tumor areas (thin superficial lesions), out-of-focus slides, and tissue folds, which led to false negatives.",
+    "False positives in attention maps were frequently caused by high inflammation or adnexal structures, indicating a limitation in distinguishing tumor from benign mimics without explicit segmentation training.",
+    "The external validation dataset was acquired using a different scanning technique (20x magnification vs. 40x) and tissue preparation, yet the model maintained robust performance (AUC 0.934) without fine-tuning, demonstrating strong generalizability.",
+    "Attention maps are not optimized for segmentation accuracy and produced an average of 8 false positives per slide without filtering; however, filtering detections smaller than 200 µm reduced false positives to an average of 2 while maintaining high sensitivity (0.873).",
+    "The study utilized a weakly supervised approach with slide-level labels only, which limits the model's ability to explicitly learn tumor localization boundaries compared to fully supervised segmentation methods.",
+    "The internal dataset was sourced from two Dutch medical centers, and the external dataset from one US center, limiting the geographic and demographic diversity of the validation data."
+  ]
+}

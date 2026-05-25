@@ -1,0 +1,540 @@
+{
+  "file_name": "liu_2023_a_fuzzy_transformer_fusion_network_fuzzytransnet_for_medical_image_segm.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a hybrid neural network called FuzzyTransNet, which combines fuzzy logic, Swin Transformer V2, and ResNet50, for the segmentation of skin melanoma (a dermatology/skin cancer task) using the ISIC 2017 and ISIC 2018 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel hybrid neural network called FuzzyTransNet for medical image segmentation. It details the methodology (fuzzy logic, Swin Transformer V2, ResNet50), describes experiments conducted on the ISIC 2017 and ISIC 2018 datasets, and presents original quantitative results (Dice coefficient, accuracy) comparing the proposed method against state-of-the-art algorithms. The structure includes standard research sections such as Introduction, Methods, Results, and Ablation Study, indicating it is an original experimental study rather than a review."
+  },
+  "title": "A Fuzzy Transformer Fusion Network (FuzzyTransNet) for Medical Image Segmentation: The Case of Rectal Polyps and Skin Lesions",
+  "authors": [
+    "Ruihua Liu",
+    "Siyu Duan",
+    "Lihang Xu",
+    "Lingkun Liu",
+    "Jinshuang Li",
+    "Yangyang Zou"
+  ],
+  "doi": "10.3390/app13169121",
+  "journal": "Applied Sciences",
+  "year": 2023,
+  "article_type": "Article",
+  "brief_summary": "This study proposes FuzzyTransNet, a hybrid neural network combining fuzzy logic, Swin Transformer V2, and ResNet50 for the segmentation of skin melanoma and rectal polyps. The model utilizes fuzzy logic and wavelet transformation for preprocessing to handle indistinct lesion boundaries, followed by parallel feature extraction from the Transformer and CNN branches. The method was evaluated on the ISIC 2017 and ISIC 2018 skin lesion datasets using metrics including Dice coefficient, Jaccard Index, and accuracy. On the ISIC 2018 dataset, FuzzyTransNet achieved a Dice coefficient of 88.9% and accuracy of 96.1%, outperforming state-of-the-art methods like CA-Net and TransFuse. Additionally, the model demonstrated strong generalization capabilities by achieving remarkable segmentation outcomes on three colon polyp datasets: CVC-ColonDB, Kvasir, and CVC-linicDB.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "skin melanoma",
+        "melanoma",
+        "nodular melanoma",
+        "freckled melanoma",
+        "superficial spreading melanoma",
+        "malignant melanomas"
+      ],
+      "role": "Target class",
+      "details": "The primary target for segmentation experiments on the ISIC 2017 and ISIC 2018 datasets. The paper notes that ISIC datasets include examples of nodular, freckled, and superficial spreading melanoma."
+    },
+    {
+      "lesion_type": "Rectal Polyps",
+      "paper_terms": [
+        "rectal polyps",
+        "colon polyps",
+        "polyps"
+      ],
+      "role": "Target class",
+      "details": "Used to demonstrate generalization capabilities on three colon polyp datasets: CVC-ColonDB, Kvasir, and CVC-linicDB."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise segmentation masks for skin melanoma lesions and rectal polyps.",
+        "primary": true,
+        "details": "The paper proposes FuzzyTransNet for medical image segmentation. The model predicts binary masks for lesion regions (skin melanoma and rectal polyps) against the background. Evaluation metrics include Dice coefficient, Jaccard Index (JI), mIoU, and accuracy, which are standard for segmentation tasks. The loss function is binary cross-entropy with sigmoid activation, typical for pixel-wise binary segmentation."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public skin lesion dataset from the International Skin Imaging Collaboration, containing examples of nodular melanoma, freckled melanoma, and superficial spreading melanoma. Used for skin lesion segmentation evaluation.",
+      "classes_used": [
+        "Melanoma (lesion vs background)"
+      ],
+      "counts": {
+        "total": 2600,
+        "training": 2000,
+        "validation": null,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as the evaluation dataset for the proposed approach (specifically the 2000 training images were part of the dataset, though the text notes it serves as an evaluation dataset alongside ISIC 2018).",
+        "validation": "null",
+        "testing": "Used for testing (600 melanoma testing images).",
+        "other": "null"
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A public skin lesion dataset from the International Skin Imaging Collaboration, serving as a primary benchmark for medical image algorithm evaluation. Contains complex skin lesions with ambiguous boundaries.",
+      "classes_used": [
+        "Melanoma (lesion vs background)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 1816,
+        "validation": 259,
+        "testing": 778,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training (70% of the dataset, 1816 images).",
+        "validation": "Used for validation (10% of the dataset, 259 images).",
+        "testing": "Used for testing (20% of the dataset, 778 images).",
+        "other": "null"
+      }
+    },
+    {
+      "name": "CVC-ColonDB",
+      "description": "A colon polyp dataset comprising 300 images collected from 15 colonoscopy video sequences with a resolution of 288 × 384. Used to demonstrate generalization capabilities.",
+      "classes_used": [
+        "Polyp (lesion vs background)"
+      ],
+      "counts": {
+        "total": 300,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used for visual comparison and segmentation outcome validation.",
+        "other": "Used to validate efficacy on rectal polyp segmentation tasks."
+      }
+    },
+    {
+      "name": "Kvasir (Kvasir-SEG)",
+      "description": "An open dataset of gastrointestinal polyp images and corresponding segmentation masks, manually annotated and validated by experienced gastroenterologists. Includes 1000 polyp images from Kvasir Dataset v2 with varying resolutions (332 × 487 to 1920 × 1072 pixels), resized to 512 × 512 for experiments.",
+      "classes_used": [
+        "Polyp (lesion vs background)"
+      ],
+      "counts": {
+        "total": 1000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used for visual comparison and segmentation outcome validation.",
+        "other": "Used to validate efficacy on rectal polyp segmentation tasks."
+      }
+    },
+    {
+      "name": "CVC-linicDB",
+      "description": "A colon polyp dataset consisting of 612 images with dimensions of 500 × 570. Ground-truth images are provided and compiled by medical professionals.",
+      "classes_used": [
+        "Polyp (lesion vs background)"
+      ],
+      "counts": {
+        "total": 612,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used for visual comparison and segmentation outcome validation.",
+        "other": "Used to validate efficacy on rectal polyp segmentation tasks."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient",
+    "Jaccard Index",
+    "accuracy",
+    "mIoU",
+    "mDice"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using absolute metric values (Dice coefficient, Jaccard Index, Accuracy) and percentage point differences between the proposed method and state-of-the-art baselines."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "description": "Skin lesion segmentation test set (600 images). Results compared against state-of-the-art methods.",
+      "models": {
+        "FuzzyTransNet (Our method)": {
+          "Jaccard Index": 0.799,
+          "Dice Coefficient": 0.886,
+          "Accuracy": 0.955
+        },
+        "U-Net": {
+          "Jaccard Index": 0.763,
+          "Dice Coefficient": 0.847,
+          "Accuracy": 0.928
+        },
+        "CDNN": {
+          "Jaccard Index": 0.765,
+          "Dice Coefficient": 0.849,
+          "Accuracy": 0.934
+        },
+        "DDN": {
+          "Jaccard Index": 0.765,
+          "Dice Coefficient": 0.866,
+          "Accuracy": 0.94
+        },
+        "FrCN": {
+          "Jaccard Index": 0.771,
+          "Dice Coefficient": 0.871,
+          "Accuracy": 0.94
+        },
+        "SLSDeep": {
+          "Jaccard Index": 0.782,
+          "Dice Coefficient": 0.878,
+          "Accuracy": 0.936
+        },
+        "DCL-PSI": {
+          "Jaccard Index": 0.777,
+          "Dice Coefficient": 0.857,
+          "Accuracy": 0.941
+        },
+        "U-Net++": {
+          "Jaccard Index": 0.773,
+          "Dice Coefficient": 0.855,
+          "Accuracy": 0.938
+        },
+        "TransFuse": {
+          "Jaccard Index": 0.795,
+          "Dice Coefficient": 0.872,
+          "Accuracy": 0.944
+        },
+        "Ms RED": {
+          "Jaccard Index": 0.786,
+          "Dice Coefficient": 0.865,
+          "Accuracy": 0.941
+        }
+      },
+      "notes": "FuzzyTransNet outperformed U-Net by 3.6% (JI), 3.9% (Dice), and 2.7% (ACC). It outperformed DCL-PSI by 2.2%, 3.1%, and 1.4% respectively. It outperformed Ms RED by 1.4%, 0.7%, and 1.4% respectively. It surpassed TransFuse by 0.4% (JI), 1.4% (Dice), and 1.1% (ACC)."
+    },
+    "ISIC 2018": {
+      "description": "Skin lesion segmentation test set (778 images). Partitioned into 70% train, 10% val, 20% test. Resampled to 224x320 pixels.",
+      "models": {
+        "FuzzyTransNet (Our method)": {
+          "Jaccard Index": 0.801,
+          "Dice Coefficient": 0.889,
+          "Accuracy": 0.961
+        },
+        "U-Net": {
+          "Jaccard Index": 0.755,
+          "Dice Coefficient": 0.824,
+          "Accuracy": 0.895
+        },
+        "U-Net++": {
+          "Jaccard Index": 0.761,
+          "Dice Coefficient": 0.851,
+          "Accuracy": 0.925
+        },
+        "DCL-PSI": {
+          "Jaccard Index": 0.763,
+          "Dice Coefficient": 0.847,
+          "Accuracy": 0.929
+        },
+        "DO-Net": {
+          "Jaccard Index": 0.794,
+          "Dice Coefficient": 0.854,
+          "Accuracy": 0.941
+        },
+        "CA-Net": {
+          "Jaccard Index": 0.794,
+          "Dice Coefficient": 0.874,
+          "Accuracy": 0.948
+        },
+        "TransFuse": {
+          "Jaccard Index": 0.791,
+          "Dice Coefficient": 0.869,
+          "Accuracy": 0.942
+        },
+        "Ms RED": {
+          "Jaccard Index": 0.793,
+          "Dice Coefficient": 0.876,
+          "Accuracy": 0.946
+        }
+      },
+      "notes": "FuzzyTransNet outperformed CA-Net by 0.7% (JI), 2.5% (Dice), and 1.3% (ACC). Compared to TransFuse (using ResNet34 and ViT), FuzzyTransNet showed improvements of 1.0% (JI), 2.0% (Dice), and 1.9% (ACC). The abstract states it outperformed optimal algorithms by 1.3% in Dice and 1.3% in accuracy."
+    },
+    "Ablation Study (ISIC 2017 & 2018)": {
+      "description": "Evaluation of backbone and fusion design components. Dice coefficients reported.",
+      "models": {
+        "E.1 (R34 + DeiT-S, Sequential)": {
+          "ISIC2017 Dice": 0.849,
+          "ISIC2018 Dice": 0.852
+        },
+        "E.2 (R50 + DeiT-S, Sequential)": {
+          "ISIC2017 Dice": 0.853,
+          "ISIC2018 Dice": 0.855
+        },
+        "E.3 (R50 + Swin V2, Sequential)": {
+          "ISIC2017 Dice": 0.859,
+          "ISIC2018 Dice": 0.862
+        },
+        "E.4 (R34 + DeiT-S, Parallel)": {
+          "ISIC2017 Dice": 0.872,
+          "ISIC2018 Dice": 0.869
+        },
+        "E.5 (R50 + Swin V1, Parallel)": {
+          "ISIC2017 Dice": 0.874,
+          "ISIC2018 Dice": 0.875
+        },
+        "E.6 (R50 + Swin V2, Parallel)": {
+          "ISIC2017 Dice": 0.877,
+          "ISIC2018 Dice": 0.879
+        },
+        "E.7 (E.6 + Fuzzy Block, Parallel)": {
+          "ISIC2017 Dice": 0.884,
+          "ISIC2018 Dice": 0.887
+        },
+        "F.2 (R50 + Swin V2, No Fuzzy, No Aug)": {
+          "Jaccard": 0.797,
+          "Dice": 0.879,
+          "Accuracy": 0.951
+        },
+        "F.3 (R50 + Swin V2, Fuzzy, No Aug)": {
+          "Jaccard": 0.801,
+          "Dice": 0.887,
+          "Accuracy": 0.958
+        },
+        "Ours (R50 + Swin V2, Fuzzy, Aug)": {
+          "Jaccard": 0.801,
+          "Dice": 0.889,
+          "Accuracy": 0.961
+        }
+      },
+      "notes": "E.7 (with fuzzy block) showed increments of 0.7% (ISIC2017) and 0.8% (ISIC2018) in Dice compared to E.6. Component-wise analysis (Table 5) shows adding ResNet50/Swin V2 improved metrics over TransFuse baselines, and adding the fuzzy block further improved results."
+    },
+    "Kvasir": {
+      "description": "Colon polyp segmentation dataset (1000 images). Results are averaged over sixfold cross-validation.",
+      "models": {
+        "FuzzyTransNet (Our method)": {
+          "Dice": 0.929,
+          "mIoU": 0.875
+        },
+        "U-Net": {
+          "Dice": 0.818,
+          "mIoU": 0.746
+        },
+        "U-Net++": {
+          "Dice": 0.821,
+          "mIoU": 0.743
+        },
+        "ResUNet++": {
+          "Dice": 0.813,
+          "mIoU": 0.793
+        },
+        "PraNet": {
+          "Dice": 0.813,
+          "mIoU": 0.793
+        },
+        "HarDNetMSEG": {
+          "Dice": 0.912,
+          "mIoU": 0.857
+        },
+        "TransUnet": {
+          "Dice": 0.913,
+          "mIoU": 0.857
+        },
+        "TransFuse": {
+          "Dice": 0.918,
+          "mIoU": 0.868
+        },
+        "Ms RED": {
+          "Dice": 0.911,
+          "mIoU": 0.854
+        }
+      },
+      "notes": "FuzzyTransNet achieved Dice and mIoU metrics 1.1% and 0.7% higher than TransFuse, respectively. TransFuse performed best among the eight comparative networks listed."
+    },
+    "ClinicDB (CVC-ClinicDB)": {
+      "description": "Colon polyp segmentation dataset. Results are averaged over sixfold cross-validation.",
+      "models": {
+        "FuzzyTransNet (Our method)": {
+          "Dice": 0.942,
+          "mIoU": 0.891
+        },
+        "U-Net": {
+          "Dice": 0.823,
+          "mIoU": 0.75
+        },
+        "U-Net++": {
+          "Dice": 0.794,
+          "mIoU": 0.729
+        },
+        "ResUNet++": {
+          "Dice": 0.796,
+          "mIoU": 0.796
+        },
+        "PraNet": {
+          "Dice": 0.796,
+          "mIoU": 0.796
+        },
+        "HarDNetMSEG": {
+          "Dice": 0.932,
+          "mIoU": 0.882
+        },
+        "TransUnet": {
+          "Dice": 0.932,
+          "mIoU": 0.883
+        },
+        "TransFuse": {
+          "Dice": 0.934,
+          "mIoU": 0.886
+        },
+        "Ms RED": {
+          "Dice": 0.934,
+          "mIoU": 0.885
+        }
+      },
+      "notes": "FuzzyTransNet achieved Dice and mIoU metrics 0.8% and 0.5% higher than TransFuse, respectively."
+    },
+    "ColonDB (CVC-ColonDB)": {
+      "description": "Colon polyp segmentation dataset (300 images). Results are averaged over sixfold cross-validation.",
+      "models": {
+        "FuzzyTransNet (Our method)": {
+          "Dice": 0.778,
+          "mIoU": 0.689
+        },
+        "U-Net": {
+          "Dice": 0.512,
+          "mIoU": 0.444
+        },
+        "U-Net++": {
+          "Dice": 0.483,
+          "mIoU": 0.41
+        },
+        "HarDNetMSEG": {
+          "Dice": 0.731,
+          "mIoU": 0.66
+        },
+        "TransUnet": {
+          "Dice": 0.78,
+          "mIoU": 0.697
+        },
+        "TransFuse": {
+          "Dice": 0.773,
+          "mIoU": 0.696
+        },
+        "Ms RED": {
+          "Dice": 0.779,
+          "mIoU": 0.69
+        }
+      },
+      "notes": "FuzzyTransNet did not achieve the optimal performance on this dataset; TransUnet had a slightly higher Dice (0.780 vs 0.778). However, FuzzyTransNet showed an improvement in Dice coefficient compared to TransFuse (0.773)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "FuzzyTransNet",
+    "pretraining": "Swin Transformer V2 pre-trained on low-resolution images; ResNet50 (standard ImageNet pretraining implied by backbone name, though not explicitly detailed in text).",
+    "input_size": "224 × 320 pixels (resampled from ISIC datasets); Patch size S=16 for Transformer branch.",
+    "architecture_details": {
+      "backbone": "Hybrid parallel architecture combining ResNet50 (CNN branch) and Swin Transformer V2 (Transformer branch).",
+      "preprocessing": "Fuzzy preprocessing module using fuzzy logic and wavelet transformation (histogram equalization, low/high-frequency extraction) with a Fuzzy Block utilizing Gaussian membership functions.",
+      "fusion_module": "Fusion block combining channel attention (SE Block) and spatial attention mechanisms; uses 3x3 convolution, Hadamard products, and residual connections to fuse multi-level features from both branches.",
+      "output_head": "Attention-gated (AG) network with skip connections and upsampling to generate final segmentation masks.",
+      "transformer_details": "Swin Transformer V2 with log-spaced continuous position bias to handle arbitrary coordinate ranges and window sizes.",
+      "cnn_details": "ResNet50 producing feature maps at scales H/4, H/8, H/16, H/32."
+    },
+    "training_details": {
+      "optimizer": "Mini-batch stochastic gradient descent (SGD)",
+      "learning_rate": "7 × 10^-5",
+      "momentum": "0.9",
+      "epochs": "70",
+      "batch_size": "4",
+      "framework": "PyTorch",
+      "hardware": "32 GB RAM"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask generation",
+      "mechanism": "Attention-gated skip connections and upsampling",
+      "loss_function": "Binary cross-entropy with sigmoid activation (implied by segmentation task and metrics, though not explicitly named in text snippets provided, standard for this task; text mentions Dice/Jaccard/Accuracy metrics)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "FuzzyTransNet",
+    "U-Net",
+    "U-Net++",
+    "CDNN",
+    "DDN",
+    "FrCN",
+    "SLSDeep",
+    "DCL-PSI",
+    "TransFuse",
+    "Ms RED",
+    "DO-Net",
+    "CA-Net",
+    "ResUNet++",
+    "PraNet",
+    "HarDNetMSEG",
+    "TransUnet",
+    "ResNet34",
+    "ResNet50",
+    "Swin Transformer",
+    "Swin Transformer V2",
+    "DeiT-Small",
+    "ViT"
+  ],
+  "preprocessing_techniques": [
+    "Fuzzy logic preprocessing module using fuzzy block with Gaussian membership functions to handle uncertain lesion boundaries",
+    "Histogram equalization to retain core information of original grayscale images",
+    "Wavelet transformation for image enhancement, specifically extracting low-frequency information to enhance contrast and high-frequency information to highlight detailed features",
+    "Resampling images to 224 × 320 pixels for ISIC datasets",
+    "Resizing Kvasir dataset images to 512 × 512 pixels",
+    "Data augmentation (mentioned as a component in ablation study, though specific techniques like elastic deformation are discussed in literature review rather than explicitly applied in the final model configuration)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Fuzzy Preprocessing and Wavelet Transformation",
+      "details": "Applied as a preprocessing enhancement method prior to the fuzzy block. It involved three separate treatments on original grayscale images: histogram equalization to retain core information, extraction of low-frequency information via wavelet transform to enhance contrast, and extraction of high-frequency information via wavelet transform to highlight detailed features. The paper notes this 'data augmentation block' effectively preprocessed experimental data to alleviate low contrast and noise issues."
+    },
+    {
+      "technique": "Image Resampling/Resizing",
+      "details": "ISIC datasets were resampled to 224 × 320 pixels. Kvasir dataset images were resized to 512 × 512 pixels."
+    }
+  ],
+  "conclusions": [
+    "The proposed FuzzyTransNet, a hybrid neural network combining fuzzy logic preprocessing, Swin Transformer V2, and ResNet50, outperforms state-of-the-art methods in skin melanoma segmentation.",
+    "On the ISIC 2018 dataset, FuzzyTransNet achieved a Dice coefficient of 88.9% and accuracy of 96.1%, surpassing the previous optimal algorithm (CA-Net) by 2.5% in Dice coefficient and 1.3% in accuracy.",
+    "On the ISIC 2017 dataset, FuzzyTransNet achieved a Dice coefficient of 88.6% and accuracy of 95.5%, outperforming U-Net by 3.9% in Dice coefficient and 2.7% in accuracy.",
+    "The fuzzy block effectively identifies uncertain lesion boundaries, while the parallel Transformer-CNN branch adeptly extracts global features and captures underlying details.",
+    "The method demonstrates strong generalization capabilities, achieving remarkable segmentation outcomes on colon polyp datasets (Kvasir, CVC-ColonDB, and CVC-linicDB) with similar indistinct boundaries.",
+    "Ablation studies confirm that the parallel architecture and the integration of the fuzzy block significantly enhance performance compared to sequential designs and models without fuzzy preprocessing.",
+    "FuzzyTransNet showed greater advantages over baselines like TransFuse in handling complex lesion boundaries with ambiguous borders, attributed to the effective data augmentation and fuzzy block design."
+  ],
+  "important_remarks": [
+    "The study lacks formal statistical hypothesis testing (e.g., p-values, confidence intervals); performance claims are based solely on absolute metric differences.",
+    "Generalization to colon polyp datasets (CVC-ColonDB, Kvasir, CVC-linicDB) was evaluated using visual comparisons and averaged sixfold cross-validation metrics, but specific train/validation/test splits for these external datasets were not detailed, raising potential data leakage or evaluation consistency concerns.",
+    "On the CVC-ColonDB dataset, FuzzyTransNet did not achieve the optimal performance (Dice 0.778 vs TransUnet 0.780), indicating limitations in generalization to certain polyp morphologies.",
+    "The model was trained on a very small batch size (4) with only 70 epochs, which may limit the robustness of the learned features compared to larger-scale training protocols.",
+    "The paper does not report the total number of trainable parameters for FuzzyTransNet, making it difficult to assess computational complexity and deployment feasibility.",
+    "Preprocessing techniques (histogram equalization, wavelet transformation) were applied as part of the data augmentation block; however, the specific implementation details of how these interact with the fuzzy block are not fully elaborated in the provided text.",
+    "The study focuses on binary segmentation (lesion vs. background) and does not address multi-class segmentation or classification tasks, limiting its direct clinical applicability for differential diagnosis."
+  ]
+}

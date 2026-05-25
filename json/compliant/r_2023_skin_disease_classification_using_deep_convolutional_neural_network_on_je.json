@@ -1,0 +1,206 @@
+{
+  "file_name": "r_2023_skin_disease_classification_using_deep_convolutional_neural_network_on_je.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a custom Convolutional Neural Network (CNN) and pre-trained deep learning models (MobileNet and ResNet50) to classify dermoscopic skin images from the PH2 dataset into benign and malignant categories. The models were trained and deployed on a Jetson Nano Developer Kit to achieve a classification accuracy of 93.33%."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the design, training, and hardware deployment of a custom Convolutional Neural Network (CNN) on a Jetson Nano Developer Kit for skin disease classification. It includes a methodology section, dataset description (PH2), implementation details, and results comparing the proposed model against pre-trained models (MobileNet, ResNet50), achieving 93.33% accuracy. Although published in a conference proceedings (IEEE AESPC), it reports new empirical results rather than summarizing prior literature."
+  },
+  "title": "Skin Disease Classification Using Deep Convolutional Neural Network on Jetson Nano Developer Kit",
+  "authors": [
+    "Naga Swetha",
+    "Vimal K. Shrivastava"
+  ],
+  "doi": "10.1109/AESPC59761.2023.10389889",
+  "journal": "2023 IEEE 3rd International Conference on Applied Electromagnetics, Signal Processing, & Communication (AESPC)",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the classification of skin lesions into benign and malignant categories using deep learning models deployed on edge hardware. The researchers utilized the PH2 dataset, comprising 199 dermoscopic images, and implemented a custom Convolutional Neural Network (CNN) alongside pre-trained MobileNet and ResNet50 models. The models were trained on a Jetson Nano Developer Kit to enable potential clinical deployment for dermatologists. Evaluation was performed on a test set of 60 images, comparing the classification accuracy of the proposed architecture against the baseline models. The proposed CNN model achieved a classification accuracy of 93.33%, outperforming MobileNet (80%) and ResNet50 (56.66%). The results suggest that the lightweight CNN model is effective for skin cancer detection and suitable for use as a second opinion tool in dermatology.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "Classified as malignant; 39 malignant images in the PH2 dataset (10 in test set); detected with 93.33% accuracy."
+    },
+    {
+      "lesion_type": "Benign Skin Lesions",
+      "paper_terms": [
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "Classified as benign; 160 benign images in the PH2 dataset (50 in test set)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Benign vs. Malignant skin lesion categories",
+        "primary": true,
+        "details": "Binary classification of dermoscopic skin images from the PH2 dataset into two discrete diagnostic categories: benign and malignant. The model predicts class labels using a final dense layer with two neurons and softmax activation. The primary metric reported is classification accuracy (93.33% for the proposed CNN model on the test set)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2 dataset",
+      "description": "A dermoscopic image dataset downloaded from Kaggle, consisting of benign and malignant skin lesion images.",
+      "classes_used": [
+        "benign",
+        "malignant"
+      ],
+      "counts": {
+        "total": 199,
+        "training": 139,
+        "validation": null,
+        "testing": 60,
+        "per_class": {
+          "benign": {
+            "total": 160,
+            "training": 110,
+            "testing": 50
+          },
+          "malignant": {
+            "total": 39,
+            "training": 29,
+            "testing": 10
+          }
+        }
+      },
+      "use": {
+        "training": "Used to train the proposed CNN model and pre-trained models (MobileNet, ResNet50) via transfer learning.",
+        "validation": null,
+        "testing": "Used to evaluate the classification accuracy of the trained models.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "classification accuracy",
+    "top-1 accuracy",
+    "top-2 accuracy",
+    "top-3 accuracy",
+    "average accuracy",
+    "training accuracy",
+    "validation accuracy",
+    "loss"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made based on classification accuracy metrics alone."
+  },
+  "results_obtained_in_each_dataset": {
+    "PH2 dataset": {
+      "split": "Test set (60 images: 50 benign, 10 malignant)",
+      "experiment": "Binary classification of benign vs. malignant skin lesions",
+      "models": {
+        "Proposed CNN Model": {
+          "classification_accuracy": "93.33%"
+        },
+        "MobileNet": {
+          "classification_accuracy": "80%"
+        },
+        "ResNet50": {
+          "classification_accuracy": "56.66%"
+        }
+      },
+      "notes": "The proposed CNN model outperformed the pre-trained models (MobileNet and ResNet50). The models were trained for 30 epochs using the Adam optimizer on the training set (139 images: 110 benign, 29 malignant). The results were implemented and evaluated on a Jetson Nano Developer Kit."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Custom Convolutional Neural Network (CNN)",
+    "pretraining": "The proposed CNN was trained from scratch. Pre-trained models MobileNet and ResNet50 were used for comparison with transfer learning (weights loaded from ImageNet, last layer removed, all layers frozen except the new dense layer).",
+    "input_size": "Not explicitly reported (dataset is PH2, images resized implicitly for model input).",
+    "architecture_details": {
+      "model_family": "CNN",
+      "layers": [
+        {
+          "layer_type": "Convolutional",
+          "filters": 16,
+          "kernel_size": "3x3",
+          "activation": "ReLU"
+        },
+        {
+          "layer_type": "Convolutional",
+          "filters": 32,
+          "kernel_size": "3x3",
+          "activation": "ReLU"
+        },
+        {
+          "layer_type": "Convolutional",
+          "filters": 32,
+          "kernel_size": "3x3",
+          "activation": "ReLU"
+        },
+        {
+          "layer_type": "Convolutional",
+          "filters": 64,
+          "kernel_size": "3x3",
+          "activation": "ReLU"
+        },
+        {
+          "layer_type": "Convolutional",
+          "filters": 64,
+          "kernel_size": "3x3",
+          "activation": "ReLU"
+        }
+      ],
+      "pooling": "Max pooling with pool size 2x2 after each convolution layer",
+      "regularization": "Dropout of 25% applied after each convolution layer"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "epochs": 30,
+      "batch_size": "Not reported",
+      "loss_function": "Not explicitly reported (implied categorical cross-entropy due to softmax output)",
+      "hardware": "Jetson Nano Developer Kit"
+    },
+    "classification_or_output_head": {
+      "type": "Dense layer",
+      "neurons": 2,
+      "activation": "Softmax"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Proposed CNN Model",
+    "MobileNet",
+    "ResNet50"
+  ],
+  "preprocessing_techniques": [
+    "Dataset partitioning: Random split into 70% training set (139 images) and 30% test set (60 images)",
+    "Transfer learning: Pre-trained models (MobileNet, ResNet50) loaded with ImageNet weights; last layer removed and replaced with a dense layer with 2 nodes and softmax activation; all layers frozen except the new dense layer during training"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed custom Convolutional Neural Network (CNN) model achieved a classification accuracy of 93.33% on the PH2 dataset test set, outperforming pre-trained MobileNet (80%) and ResNet50 (56.66%) models.",
+    "The study successfully implemented and deployed the deep learning model on a Jetson Nano Developer Kit, demonstrating the feasibility of using edge hardware for skin cancer classification.",
+    "The proposed CNN model is effective for detecting melanoma skin cancer and can serve as a second opinion tool for dermatologists.",
+    "The authors acknowledge that future work should explore other deep learning models to potentially improve or validate the current findings."
+  ],
+  "important_remarks": [
+    "The study relies on the small PH2 dataset (199 total images, 39 malignant), which limits statistical power and generalizability.",
+    "The dataset split is a single random partition (70% train, 30% test) without cross-validation, increasing the risk of split-specific bias.",
+    "No external validation was performed; results are confined to the PH2 dataset.",
+    "The paper does not report standard deviation, confidence intervals, or statistical significance tests for the reported accuracies.",
+    "The ResNet50 model achieved a low accuracy of 56.66%, which is near random chance for binary classification, suggesting potential issues with transfer learning application or hyperparameter tuning for this specific small dataset.",
+    "Data leakage risks are present as the paper does not explicitly confirm that image-level separation was maintained during the random split, though it is implied.",
+    "The claim of being the 'first instance' of deploying a skin cancer model on Jetson Nano is a novelty claim rather than a scientific finding and may be outdated.",
+    "The study focuses on hardware deployment feasibility rather than clinical diagnostic performance metrics such as sensitivity, specificity, or AUC.",
+    "The proposed CNN was trained from scratch on a very small dataset, which typically risks overfitting, yet no overfitting analysis (e.g., train vs. validation loss curves) is provided in the text."
+  ]
+}

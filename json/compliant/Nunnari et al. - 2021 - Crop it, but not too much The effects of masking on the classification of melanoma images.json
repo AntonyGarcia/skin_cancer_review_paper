@@ -1,0 +1,395 @@
+{
+  "file_name": "Nunnari et al. - 2021 - Crop it, but not too much The effects of masking on the classification of melanoma images.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used Convolutional Neural Networks (CNNs), specifically VGG16 architectures with transfer learning, to classify melanoma images from the ISIC 2016, ISIC 2018, and MedNode datasets. It also employed a U-Net architecture for image segmentation to generate masks and used Grad-CAM for saliency map analysis to investigate model attention patterns."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental results from testing nine combinations of masking and cropping on three datasets (ISIC2016, ISIC2018, MedNode) using CNNs (VGG16) and U-Net for segmentation. It includes a detailed methodology, quantitative results with statistical analysis (t-tests, 10-fold cross-validation), and new findings regarding the effects of masking on classification performance, rather than summarizing prior literature."
+  },
+  "title": "Crop it, but not too much: the effects of masking on the classification of melanoma images",
+  "authors": [
+    "Fabrizio Nunnari",
+    "Abraham Ezema",
+    "Daniel Sonntag"
+  ],
+  "doi": null,
+  "journal": null,
+  "year": 2021,
+  "article_type": "Research paper",
+  "brief_summary": "This study investigates the impact of image masking and cropping on the classification of melanoma versus nevi using Convolutional Neural Networks (VGG16) across the ISIC 2016, ISIC 2018, and MedNode datasets. The authors employed a U-Net architecture for segmentation to generate masks and evaluated nine different masking and cropping combinations using 10-fold cross-validation. Results indicated that while cropping generally increased classification performance, applying masks that completely removed healthy skin pixels significantly decreased specificity. Grad-CAM saliency map analysis revealed that models tended to focus on healthy skin at the image borders when classifying nevi, suggesting that removing this context harms performance. The study concludes that excessive masking can deteriorate classification accuracy, highlighting the importance of retaining some surrounding skin information.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "MEL"
+      ],
+      "role": "Target class (positive case)",
+      "details": "Binary classification target; selected from ISIC 2018 Task 3 along with nevus for training the segmentation model and subsequent classification experiments."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi",
+        "NV"
+      ],
+      "role": "Target class (negative case)",
+      "details": "Binary classification target; selected from ISIC 2018 Task 3 along with melanoma. Other classes in ISIC 2018 Task 3 were excluded due to erroneous mask prediction results."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesion images into melanoma (positive) or nevus (negative) classes.",
+        "primary": true,
+        "details": "The paper investigates the effects of masking and cropping on the classification of melanoma images. It uses VGG16 architectures with transfer learning to perform binary classification (melanoma vs. nevus) on the ISIC 2016, ISIC 2018, and MedNode datasets. Performance is evaluated using accuracy, specificity, sensitivity, and ROC AUC. While a U-Net architecture is used for segmentation to generate masks, this is a preprocessing step for the primary classification task, not the main prediction outcome."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A public skin lesion image dataset from the International Skin Imaging Collaboration (ISIC) 2018 challenge, specifically Task 3. The study used 7818 samples (7645 correctly cropped) after filtering out images with masks less than 1/8 of the picture area.",
+      "classes_used": [
+        "Melanoma (MEL)",
+        "Nevus (NV)"
+      ],
+      "counts": {
+        "total": 7818,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Nevus": 6710,
+          "Melanoma": 1108
+        }
+      },
+      "use": {
+        "training": "Used for training binary classification models (VGG16) under nine masking/cropping conditions via 10-fold cross-validation.",
+        "validation": "Used for validation within the 10-fold cross-validation strategy (10% of the dataset per fold).",
+        "testing": "Used for testing within the 10-fold cross-validation strategy (10% of the dataset per fold).",
+        "other": null
+      }
+    },
+    {
+      "name": "MedNode",
+      "description": "A public dataset of non-dermoscopic images for computer-assisted melanoma diagnosis. The study used 170 samples (169 correctly cropped) after filtering.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": 170,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Nevus": 100,
+          "Melanoma": 70
+        }
+      },
+      "use": {
+        "training": "Used for training binary classification models under nine masking/cropping conditions via 10-fold cross-validation.",
+        "validation": "Used for validation within the 10-fold cross-validation strategy (10% of the dataset per fold).",
+        "testing": "Used for testing within the 10-fold cross-validation strategy (10% of the dataset per fold).",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2016",
+      "description": "A public skin lesion image dataset from the ISIC 2016 challenge. The study used 900 samples (884 correctly cropped) after filtering.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": 900,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Nevus": 727,
+          "Melanoma": 173
+        }
+      },
+      "use": {
+        "training": "Used for training binary classification models under nine masking/cropping conditions via 10-fold cross-validation.",
+        "validation": "Used for validation within the 10-fold cross-validation strategy (10% of the dataset per fold).",
+        "testing": "Used for testing within the 10-fold cross-validation strategy (10% of the dataset per fold).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "specificity",
+    "sensitivity",
+    "ROC AUC",
+    "Area Under the Curve"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10-fold cross-validation",
+      "purpose": "To evaluate classification performance across three datasets (ISIC 2016, ISIC 2018, MedNode) and overcome biases due to randomization.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "t-tests for independent samples",
+      "purpose": "To measure the statistical significance of the difference of metrics (accuracy, specificity, sensitivity, ROC AUC) between the no-mask condition (A) and all other masking/cropping conditions.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Significance thresholds (p-values)",
+      "purpose": "To indicate the level of statistical significance for the t-test results, using codes: + (p < .1), * (p < .05), ** (p < .01), *** (p < 0.001).",
+      "type": "Significance threshold"
+    },
+    {
+      "method": "Mean and standard deviation",
+      "purpose": "To report performance metrics across the 10 folds of cross-validation.",
+      "type": "Descriptive statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "t-tests for independent samples",
+    "null_hypothesis": "There is no difference in classification metrics (accuracy, specificity, sensitivity, ROC AUC) between the no-mask condition (A) and the other masking/cropping conditions.",
+    "alternative_hypothesis": "There is a statistically significant difference in classification metrics between the no-mask condition (A) and the other masking/cropping conditions.",
+    "alpha": 0.05,
+    "interpretation": "Significance was determined using p-value thresholds: p < .1 (+), p < .05 (*), p < .01 (**), and p < 0.001 (***). Results indicated that masking conditions M0 and M1 significantly lowered accuracy and specificity compared to the baseline, while cropping conditions CR0-A and CR1-A significantly increased accuracy and sensitivity. Cropping combined with masking (CR0-M, CR1-M) significantly decreased specificity."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2018": {
+      "description": "7818 samples (7645 correctly cropped), 85.8% nevi. Evaluated via 10-fold cross-validation. Metrics: Accuracy (ACC), Specificity (SPEC), Sensitivity (SENS), ROC AUC.",
+      "models": {
+        "VGG16 (Transfer Learning)": {
+          "Condition A (Baseline)": {
+            "ACC": "0.902 (0.014)",
+            "SPEC": "0.926 (0.020)",
+            "SENS": "0.752 (0.048)",
+            "AUC": "0.944 (0.010)"
+          },
+          "Condition RM": {
+            "ACC": "0.898 (0.011)",
+            "SPEC": "0.920 (0.012)",
+            "SENS": "0.768 (0.053)",
+            "AUC": "0.940 (0.012)"
+          },
+          "Condition CM": {
+            "ACC": "0.905 (0.012)",
+            "SPEC": "0.933 (0.015)",
+            "SENS": "0.738 (0.063)",
+            "AUC": "0.944 (0.012)"
+          },
+          "Condition M0": {
+            "ACC": "0.885 (0.010)",
+            "SPEC": "0.905 (0.016)",
+            "SENS": "0.762 (0.060)",
+            "AUC": "0.936 (0.012)"
+          },
+          "Condition M1": {
+            "ACC": "0.885 (0.010)",
+            "SPEC": "0.905 (0.012)",
+            "SENS": "0.764 (0.042)",
+            "AUC": "0.935 (0.010)"
+          },
+          "Condition CR0-A": {
+            "ACC": "0.926 (0.013)",
+            "SPEC": "0.947 (0.016)",
+            "SENS": "0.801 (0.054)",
+            "AUC": "0.961 (0.009)"
+          },
+          "Condition CR0-M": {
+            "ACC": "0.833 (0.018)",
+            "SPEC": "0.845 (0.027)",
+            "SENS": "0.757 (0.042)",
+            "AUC": "0.915 (0.010)"
+          },
+          "Condition CR1-A": {
+            "ACC": "0.922 (0.007)",
+            "SPEC": "0.948 (0.012)",
+            "SENS": "0.770 (0.057)",
+            "AUC": "0.958 (0.009)"
+          },
+          "Condition CR1-M": {
+            "ACC": "0.884 (0.008)",
+            "SPEC": "0.911 (0.013)",
+            "SENS": "0.729 (0.046)",
+            "AUC": "0.921 (0.014)"
+          }
+        }
+      },
+      "statistical_comparisons_vs_baseline_A": {
+        "M0": {
+          "ACC_diff": "-0.0172 (-1.91%)",
+          "SPEC_diff": "-0.0217 (-2.34%)",
+          "p_value_code": "** (p < 0.01)"
+        },
+        "M1": {
+          "ACC_diff": "-0.0168 (-1.86%)",
+          "SPEC_diff": "-0.0214 (-2.31%)",
+          "AUC_diff": "-0.0092 (-0.97%)",
+          "p_value_code": "** (p < 0.01) for ACC/SPEC, + (p < 0.1) for AUC"
+        },
+        "CR0-A": {
+          "ACC_diff": "0.0239 (2.65%)",
+          "SPEC_diff": "0.0201 (2.17%)",
+          "SENS_diff": "0.0485 (6.45%)",
+          "AUC_diff": "0.0171 (1.81%)",
+          "p_value_code": "** (p < 0.01) for ACC/AUC, * (p < 0.05) for SPEC, + (p < 0.1) for SENS"
+        },
+        "CR0-M": {
+          "ACC_diff": "-0.0689 (-7.64%)",
+          "SPEC_diff": "-0.0812 (-8.76%)",
+          "AUC_diff": "-0.0299 (-3.17%)",
+          "p_value_code": "*** (p < 0.001)"
+        },
+        "CR1-A": {
+          "ACC_diff": "0.0201 (2.23%)",
+          "SPEC_diff": "0.0211 (2.28%)",
+          "AUC_diff": "0.0141 (1.49%)",
+          "p_value_code": "** (p < 0.01) for ACC/AUC, * (p < 0.05) for SPEC"
+        },
+        "CR1-M": {
+          "ACC_diff": "-0.0173 (-1.92%)",
+          "SPEC_diff": "-0.0160 (-1.73%)",
+          "AUC_diff": "-0.0236 (-2.50%)",
+          "p_value_code": "** (p < 0.01) for ACC, + (p < 0.1) for SPEC, *** (p < 0.001) for AUC"
+        }
+      },
+      "notes": "Rectangular (RM) and Circular (CM) masks did not lead to significant changes. Full (M0) and Extended (M1) masks lowered accuracy and specificity. Cropping with visible healthy skin (CR0-A, CR1-A) increased performance. Cropping with masked healthy pixels (CR0-M, CR1-M) significantly dropped specificity."
+    },
+    "MedNode": {
+      "description": "170 samples (169 correctly cropped), 58.8% nevi. Evaluated via 10-fold cross-validation.",
+      "models": {
+        "VGG16 (Transfer Learning)": {
+          "notes": "Specific metric values for all conditions are not explicitly listed in the main text; only notable statistical differences are reported."
+        }
+      },
+      "statistical_comparisons_vs_baseline_A": {
+        "CR0-M": {
+          "SPEC_drop": "10.85%",
+          "p_value_code": "+ (p < 0.1)"
+        }
+      },
+      "notes": "The only notable performance difference was in the CR0-M condition with a 10.85% drop in specificity. Statistical verification of performance increases in CR*-A conditions was not possible due to lower sample size."
+    },
+    "ISIC2016": {
+      "description": "900 samples (884 correctly cropped), 80.8% nevi. Evaluated via 10-fold cross-validation.",
+      "models": {
+        "VGG16 (Transfer Learning)": {
+          "notes": "Specific metric values for all conditions are not explicitly listed in the main text; only qualitative trends and statistical significance are reported."
+        }
+      },
+      "statistical_comparisons_vs_baseline_A": {
+        "M0": {
+          "effect": "Drop in specificity"
+        },
+        "M1": {
+          "effect": "Drop in specificity"
+        },
+        "CM": {
+          "effect": "Drop in specificity"
+        },
+        "CR0-M": {
+          "effect": "Significant drop in accuracy and specificity"
+        },
+        "CR1-M": {
+          "effect": "Significant drop in accuracy and specificity"
+        }
+      },
+      "notes": "Masking conditions M0 and M1 led to a drop in specificity. The CM condition also showed a drop in specificity. Crop & mask conditions (CR0-M and CR1-M) showed significant drops in both accuracy and specificity."
+    }
+  },
+  "architecture_used": {
+    "main_model": "VGG16 (for classification), U-Net (for segmentation)",
+    "pretraining": "VGG16 pre-trained on ImageNet; U-Net trained on ISIC 2018 Task 1 images",
+    "input_size": "227x227 pixels (for VGG16 classification); 160x160 pixels (for U-Net segmentation)",
+    "architecture_details": {
+      "classification_model": {
+        "base": "VGG16",
+        "modification": "Original three final fully connected layers replaced with two 2048-node fully connected layers",
+        "activation": "ReLU",
+        "regularization": "Dropout of 0.5 after each 2048-node layer"
+      },
+      "segmentation_model": {
+        "base": "U-Net (variation of Ronnenberg's method by Nguyen et al.)",
+        "structure": "9 convolution blocks, each a pair of 2D same convolution with kernel size 3x3x3",
+        "downsampling": "Max-pooling with size 2x2",
+        "upsampling": "2x2 transposed 2D same convolution",
+        "skip_connections": "Concatenation of upsampling result and downsampling output with corresponding resolution",
+        "filters": "Initial 32 filters, doubling at each downsampling step"
+      }
+    },
+    "training_details": {
+      "epochs": "Maximum of 100 epochs",
+      "optimizer": "SGD",
+      "learning_rate": "1e-5",
+      "decay": "1e-4",
+      "momentum": "0.9",
+      "nesterov": "True",
+      "loss_function": "Accuracy optimized with class weight compensation for class imbalance",
+      "data_augmentation": "8x factor: horizontal flip and rotations (0, 90, 180, 270 degrees)",
+      "validation_strategy": "10-fold cross-validation (10% testing, 10% validation per fold)"
+    },
+    "classification_or_output_head": {
+      "layers": "Two 2048-node fully connected layers followed by a final 2-class discrimination softmax layer",
+      "activation": "ReLU for hidden layers, Softmax for output"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "VGG16",
+    "U-Net"
+  ],
+  "preprocessing_techniques": [
+    "Image masking using U-Net segmentation to remove healthy skin pixels",
+    "Rectangular Mask (RM): Removing 30% of the image surface around the border",
+    "Circular Mask (CM): Drawing a circle at the middle of images to remove corners",
+    "Full Mask (M0): Revealing only lesion pixels by masking out surrounding skin",
+    "Extended Mask (M1): Applying a mask extended by a factor of 1.1 around the center to show lesion pixels and a fraction of surrounding skin",
+    "Cropping with visible healthy skin (CR0-A, CR1-A): Cropping images to the bounding box of masks M0/M1 while retaining surrounding skin pixels",
+    "Cropping with masked healthy pixels (CR0-M, CR1-M): Cropping images to the bounding box of masks M0/M1 and blacking out outside pixels",
+    "Data augmentation: Horizontal flipping and rotations (0, 90, 180, 270 degrees) with an 8x augmentation factor",
+    "Scaling images to CNN input resolution (227x227 pixels) using nearest neighbor filter before rotation to avoid black bands",
+    "Filtering out images with masks less than 1/8 of the picture area"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied as part of an 8x augmentation factor during training."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Applied at angles of 0, 90, 180, and 270 degrees as part of an 8x augmentation factor during training."
+    },
+    {
+      "technique": "Scaling",
+      "details": "Images were scaled to the CNN input resolution of 227x227 pixels using a nearest neighbor filter before rotation to avoid black bands."
+    }
+  ],
+  "conclusions": [
+    "Cropping images generally increases classification performance (accuracy and sensitivity) by allowing the CNN to focus more on the lesion details.",
+    "Applying masks that completely remove healthy skin pixels (Full Mask M0 and Extended Mask M1) significantly decreases classification specificity.",
+    "Combining cropping with masking of healthy skin pixels (conditions CR0-M and CR1-M) leads to a significant drop in both accuracy and specificity.",
+    "Grad-CAM saliency map analysis reveals that CNN models tend to focus on healthy skin at the image borders when classifying nevi (negative cases), suggesting that this surrounding context is crucial for correct classification.",
+    "Excessive masking deteriorates classification performance, indicating that CNNs require an 'area of alternative attention' (surrounding healthy skin) to distinguish nevi from melanomas, rather than relying solely on the lesion itself.",
+    "The study challenges the assumption that masking out healthy skin always improves classification by removing bias, demonstrating instead that it can remove medically relevant information needed for specificity."
+  ],
+  "important_remarks": [
+    "The study challenges the common assumption that masking out healthy skin always improves classification by removing bias; excessive masking (removing all healthy skin pixels) significantly decreases specificity.",
+    "Grad-CAM analysis reveals that CNNs tend to focus on healthy skin at the image borders when classifying nevi, indicating that surrounding context is crucial for correct classification and that removing it harms performance.",
+    "Cropping images to the lesion bounding box while retaining visible healthy skin (conditions CR0-A and CR1-A) generally increases classification performance (accuracy and sensitivity) by allowing the model to focus on lesion details.",
+    "Combining cropping with masking of healthy skin pixels (conditions CR0-M and CR1-M) leads to a significant drop in both accuracy and specificity, suggesting that blacking out surrounding pixels removes medically relevant information.",
+    "The study addresses potential dataset bias (e.g., border bias noted by Bissoto et al.) but finds that when the lesion is fully visible, the network concentrates on the lesioned area, mitigating border bias effects in their specific experimental setup.",
+    "Statistical verification of performance increases in cropping conditions with visible skin (CR*-A) was not possible for the MedNode and ISIC2016 datasets due to their smaller sample sizes, limiting the generalizability of this specific finding across all tested datasets.",
+    "The U-Net segmentation model used to generate masks was trained on ISIC 2018 Task 1 images; any imprecision in this segmentation could contribute to the observed performance drops in masking conditions, though the authors do not quantify this error rate.",
+    "The MedNode dataset consists of non-dermoscopic images, providing a test of the masking effects on a different imaging modality than the dermoscopic ISIC datasets, though its small size (170 samples) limits statistical power."
+  ]
+}

@@ -1,0 +1,480 @@
+{
+  "file_name": "dominguez_morales_2024_melanoma_breslow_thickness_classification_using_ensemble.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses semi-supervised convolutional neural networks (CNNs) and an ensemble-based knowledge distillation approach to classify melanoma Breslow thickness and distinguish between in situ and invasive melanoma using dermoscopic images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the training and evaluation of semi-supervised convolutional neural networks and ensemble-based knowledge distillation models on four datasets (VRUH, ISIC, Polesie et al., Kawahara et al.) to classify melanoma Breslow thickness and distinguish in situ from invasive melanoma. It reports specific quantitative results (AUCs, balanced accuracy, F1-scores) from a stratified 5-fold cross-validation scheme and an external test set, which characterizes it as a research study rather than a review."
+  },
+  "title": "Melanoma Breslow thickness classification using ensemble-based knowledge distillation with semi-supervised convolutional neural networks",
+  "authors": [
+    "Juan P. Dominguez-Morales",
+    "Juan-Carlos Hernández-Rodríguez",
+    "Lourdes Duran-Lopez",
+    "Julían Conejo-Mir",
+    "Jose-Juan Pereyra-Rodriguez"
+  ],
+  "doi": "10.1109/JBHI.2024.3465929",
+  "journal": "IEEE Journal of Biomedical and Health Informatics",
+  "year": 2024,
+  "article_type": "Research article",
+  "brief_summary": "This study addresses the challenge of classifying melanoma Breslow thickness and distinguishing between in situ and invasive melanoma using dermoscopic images. The authors employed semi-supervised convolutional neural networks with a multi-teacher ensemble knowledge distillation approach, comparing them against supervised learning models. The models were trained and evaluated on four datasets, including VRUH, ISIC, Polesie et al., and Kawahara et al., using a stratified 5-fold cross-validation scheme and an external test set. The best semi-supervised models achieved AUCs of 0.8547 for Breslow thickness classification and 0.8768 for in situ versus invasive melanoma classification. Evaluation on the external test set confirmed that semi-supervised learning consistently outperformed supervised learning across all tasks. The results demonstrate that semi-supervised learning can improve model performance in melanoma classification tasks compared to traditional supervised methods.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant melanoma",
+        "in situ melanoma",
+        "invasive melanoma",
+        "Mis",
+        "Miv"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on classifying melanoma Breslow thickness and distinguishing between in situ (Mis) and invasive (Miv) melanoma. The datasets used (VRUH, ISIC, Polesie et al., Kawahara et al.) contain histopathologically confirmed melanoma cases. The classification tasks are binary (BT < 0.8 mm vs ≥ 0.8 mm; Mis vs Miv) and multiclass (including normal skin)."
+    },
+    {
+      "lesion_type": "Normal skin",
+      "paper_terms": [
+        "Normal skin"
+      ],
+      "role": "Target class",
+      "details": "Included in the multiclass classification task alongside in situ and invasive melanoma. Figure 1 illustrates normal skin histology, and Table IX reports results for the multiclass task which includes this class."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma Breslow thickness (binary: < 0.8 mm vs ≥ 0.8 mm)",
+        "primary": true,
+        "details": "Binary classification of melanoma Breslow thickness into two discrete categories: less than 0.8 mm and greater than or equal to 0.8 mm. The model predicts discrete diagnostic categories using dermoscopic images."
+      },
+      {
+        "task_type": "Classification",
+        "target": "In situ vs invasive melanoma (binary: Mis vs Miv)",
+        "primary": false,
+        "details": "Binary classification distinguishing between in situ melanoma (Mis) and invasive melanoma (Miv). The model predicts discrete disease labels."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Multiclass lesion type (Normal skin, Mis, Miv)",
+        "primary": false,
+        "details": "Multiclass classification combining normal skin, in situ melanoma, and invasive melanoma with Breslow thickness information. The model predicts discrete diagnostic categories."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "VRUH (Virgen del Rocio University Hospital)",
+      "description": "A dermoscopic image repository from a tertiary hospital in Seville, Spain, prospectively collected between 2016 and 2023. The study protocol was approved by the Andalusian Review Board and Ethics Committee. It has been made publicly available for this work.",
+      "classes_used": [
+        "In situ melanoma (Mis)",
+        "Invasive melanoma (Miv)",
+        "Breslow thickness < 0.8 mm",
+        "Breslow thickness ≥ 0.8 mm"
+      ],
+      "counts": {
+        "total": 868,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "In situ": 201,
+          "Invasive": 667,
+          "Breslow < 0.8 mm": 552,
+          "Breslow ≥ 0.8 mm": 316
+        }
+      },
+      "use": {
+        "training": "Used as part of the general dataset for training models via stratified 5-fold cross-validation.",
+        "validation": "Used as part of the general dataset for validation via stratified 5-fold cross-validation.",
+        "testing": "Used as part of the general dataset for testing via stratified 5-fold cross-validation.",
+        "other": null
+      }
+    },
+    {
+      "name": "Polesie et al.",
+      "description": "A publicly available dataset of melanoma cases from the study by Polesie et al. [27].",
+      "classes_used": [
+        "In situ melanoma (Mis)",
+        "Invasive melanoma (Miv)",
+        "Breslow thickness < 0.8 mm",
+        "Breslow thickness ≥ 0.8 mm"
+      ],
+      "counts": {
+        "total": 193,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "In situ": 117,
+          "Invasive": 76,
+          "Breslow < 0.8 mm": 140,
+          "Breslow ≥ 0.8 mm": 53
+        }
+      },
+      "use": {
+        "training": "Used as part of the general dataset for training models via stratified 5-fold cross-validation.",
+        "validation": "Used as part of the general dataset for validation via stratified 5-fold cross-validation.",
+        "testing": "Used as part of the general dataset for testing via stratified 5-fold cross-validation.",
+        "other": null
+      }
+    },
+    {
+      "name": "Kawahara et al.",
+      "description": "A public-access dataset of melanoma cases from the study by Kawahara et al. [28].",
+      "classes_used": [
+        "In situ melanoma (Mis)",
+        "Invasive melanoma (Miv)",
+        "Breslow thickness < 0.8 mm",
+        "Breslow thickness ≥ 0.8 mm"
+      ],
+      "counts": {
+        "total": 247,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "In situ": 64,
+          "Invasive": 183,
+          "Breslow < 0.8 mm": 166,
+          "Breslow ≥ 0.8 mm": 81
+        }
+      },
+      "use": {
+        "training": "Used as part of the general dataset for training models via stratified 5-fold cross-validation.",
+        "validation": "Used as part of the general dataset for validation via stratified 5-fold cross-validation.",
+        "testing": "Used as part of the general dataset for testing via stratified 5-fold cross-validation.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC archive (International Skin Imaging Collaboration)",
+      "description": "An extensive open-source public-access archive of skin images. The study retrieved a subset of dermoscopic images of histopathologically confirmed melanoma with Breslow thickness metadata available for labeled images, and histopathologically confirmed cases with dermoscopic images but no BT metadata for unlabeled images.",
+      "classes_used": [
+        "In situ melanoma (Mis)",
+        "Invasive melanoma (Miv)",
+        "Breslow thickness < 0.8 mm",
+        "Breslow thickness ≥ 0.8 mm"
+      ],
+      "counts": {
+        "total": 141,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "In situ": 19,
+          "Invasive": 122,
+          "Breslow < 0.8 mm": 106,
+          "Breslow ≥ 0.8 mm": 35
+        }
+      },
+      "use": {
+        "training": "Used as part of the general dataset for training models via stratified 5-fold cross-validation. Specifically, 141 labeled images and 2,508 unlabeled images were used in the semi-supervised learning approach.",
+        "validation": "Used as part of the general dataset for validation via stratified 5-fold cross-validation.",
+        "testing": "Used as part of the general dataset for testing via stratified 5-fold cross-validation.",
+        "other": "Provided unlabeled images for semi-supervised learning."
+      }
+    },
+    {
+      "name": "External test set",
+      "description": "A completely unseen dataset used to evaluate the performance of the trained models. It consisted of labeled cases from the Virgen del Rocio University Hospital.",
+      "classes_used": [
+        "In situ melanoma (Mis)",
+        "Invasive melanoma (Miv)",
+        "Breslow thickness < 0.8 mm",
+        "Breslow thickness ≥ 0.8 mm"
+      ],
+      "counts": {
+        "total": 462,
+        "training": null,
+        "validation": null,
+        "testing": 462,
+        "per_class": {
+          "In situ": 114,
+          "Invasive": 348,
+          "Breslow < 0.8 mm": 312,
+          "Breslow ≥ 0.8 mm": 150
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for external evaluation of both supervised and semi-supervised CNN models.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Precision",
+    "Recall",
+    "Sensitivity",
+    "Specificity",
+    "F1-score",
+    "AUC of the ROC curve",
+    "Balanced accuracy",
+    "Kappa score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Stratified 5-fold cross-validation",
+      "purpose": "To train and evaluate the supervised and semi-supervised CNN models, ensuring representative distribution of classes in each fold.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Average and standard deviation",
+      "purpose": "To report the performance metrics (AUC, Balanced accuracy, F1-score, Kappa score, Precision, Recall, Specificity) across the five cross-validation folds, providing a measure of variability and central tendency.",
+      "type": "Descriptive statistics"
+    },
+    {
+      "method": "Grid Search",
+      "purpose": "To select and fine-tune hyperparameters (learning rate, batch size, optimizer) by evaluating configurations to find the best performing setup.",
+      "type": "Hyperparameter optimization"
+    },
+    {
+      "method": "Class weighting (compute class weight function)",
+      "purpose": "To weigh the loss function during training to handle class imbalance (specifically for the most represented classes BT < 0.8 mm and Mis) and avoid overfitting.",
+      "type": "Data preprocessing/Training technique"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance comparisons between supervised and semi-supervised models were based on average metrics and standard deviations across cross-validation folds without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "BT Classification Task (Overall)": {
+      "metric": "Average and Standard Deviation across 5-fold CV",
+      "models": {
+        "Supervised Learning": {
+          "Balanced Accuracy": "0.7148 ± 0.0620",
+          "F1-score": "0.7244 ± 0.0656",
+          "Kappa score": "0.4314 ± 0.1249",
+          "Precision": "0.7302 ± 0.0590",
+          "AUC": "0.7752 ± 0.0532",
+          "Recall": "0.6233 ± 0.1029",
+          "Specificity": "0.8062 ± 0.0323"
+        },
+        "Semi-supervised Learning": {
+          "Balanced Accuracy": "0.7350 ± 0.0719",
+          "F1-score": "0.7407 ± 0.0762",
+          "Kappa score": "0.4724 ± 0.1377",
+          "Precision": "0.7585 ± 0.0526",
+          "AUC": "0.8232 ± 0.0666",
+          "Recall": "0.6155 ± 0.1733",
+          "Specificity": "0.8544 ± 0.0371"
+        }
+      },
+      "notes": "Semi-supervised models achieved higher performance than supervised models in the BT classification task, improving them by 5 points on the AUC on average. The best supervised model achieved an AUC of 0.8329 and the best semi-supervised model achieved an AUC of 0.8768."
+    },
+    "BT Classification Task (Per Dataset)": {
+      "VRUH": {
+        "metric": "Average and Standard Deviation across 5-fold CV",
+        "models": {
+          "Supervised Learning": {
+            "Balanced Accuracy": "0.7022 ± 0.0643",
+            "F1-score": "0.7031 ± 0.0691",
+            "Kappa score": "0.3979 ± 0.1325",
+            "Precision": "0.7151 ± 0.0584",
+            "AUC": "0.7585 ± 0.0752",
+            "Recall": "0.6466 ± 0.1171",
+            "Specificity": "0.7578 ± 0.0142"
+          },
+          "Semi-supervised Learning": {
+            "Balanced Accuracy": "0.7085 ± 0.0757",
+            "F1-score": "0.7054 ± 0.0841",
+            "Kappa score": "0.4091 ± 0.1480",
+            "Precision": "0.7233 ± 0.0657",
+            "AUC": "0.7714 ± 0.0777",
+            "Recall": "0.6334 ± 0.1826",
+            "Specificity": "0.7836 ± 0.0483"
+          }
+        }
+      },
+      "Polesie et al.": {
+        "metric": "Average and Standard Deviation across 5-fold CV",
+        "models": {
+          "Supervised Learning": {
+            "Balanced Accuracy": "0.7141 ± 0.0870",
+            "F1-score": "0.7074 ± 0.0846",
+            "Kappa score": "0.4045 ± 0.1576",
+            "Precision": "0.7359 ± 0.1001",
+            "AUC": "0.8403 ± 0.0629",
+            "Recall": "0.6339 ± 0.0699",
+            "Specificity": "0.7942 ± 0.1353"
+          },
+          "Semi-supervised Learning": {
+            "Balanced Accuracy": "0.8292 ± 0.0972",
+            "F1-score": "0.7980 ± 0.1151",
+            "Kappa score": "0.6205 ± 0.2057",
+            "Precision": "0.8680 ± 0.0706",
+            "AUC": "0.8790 ± 0.0747",
+            "Recall": "0.6806 ± 0.1915",
+            "Specificity": "0.9778 ± 0.0444"
+          }
+        }
+      },
+      "Kawahara et al.": {
+        "metric": "Average and Standard Deviation across 5-fold CV",
+        "models": {
+          "Supervised Learning": {
+            "Balanced Accuracy": "0.7154 ± 0.1446",
+            "F1-score": "0.8520 ± 0.0822",
+            "Kappa score": "0.4995 ± 0.3284",
+            "Precision": "0.8698 ± 0.0902",
+            "AUC": "0.8978 ± 0.0824",
+            "Recall": "0.4489 ± 0.2569",
+            "Specificity": "0.9818 ± 0.0364"
+          },
+          "Semi-supervised Learning": {
+            "Balanced Accuracy": "0.7512 ± 0.1649",
+            "F1-score": "0.8500 ± 0.1109",
+            "Kappa score": "0.5228 ± 0.3326",
+            "Precision": "0.8670 ± 0.0913",
+            "AUC": "0.9415 ± 0.0527",
+            "Recall": "0.5211 ± 0.3431",
+            "Specificity": "0.9814 ± 0.0228"
+          }
+        }
+      },
+      "ISIC": {
+        "metric": "Average and Standard Deviation across 5-fold CV",
+        "models": {
+          "Supervised Learning": {
+            "Balanced Accuracy": "0.5739 ± 0.0865",
+            "F1-score": "0.6636 ± 0.0788",
+            "Kappa score": "0.1452 ± 0.1784",
+            "Precision": "0.6593 ± 0.0877",
+            "AUC": "0.5189 ± 0.1574",
+            "Recall": "0.3561 ± 0.1674",
+            "Specificity": "0.7918 ± 0.0330"
+          },
+          "Semi-supervised Learning": {
+            "Balanced Accuracy": "0.7581 ± 0.1225",
+            "F1-score": "0.8289 ± 0.0738",
+            "Kappa score": "0.5443 ± 0.2545",
+            "Precision": "0.8351 ± 0.0813",
+            "AUC": "0.8290 ± 0.0779",
+            "Recall": "0.5833 ± 0.2021",
+            "Specificity": "0.9329 ± 0.0510"
+          }
+        }
+      }
+    },
+    "In Situ vs Invasive Melanoma Classification Task (Overall)": {
+      "metric": "Average and Standard Deviation across 5-fold CV",
+      "models": {
+        "Supervised Learning": {
+          "AUC": "0.8085 ± 0.0242"
+        },
+        "Semi-supervised Learning": {
+          "AUC": "0.8232 ± 0.0666"
+        }
+      },
+      "notes": "Semi-supervised models achieved higher performance than supervised models in the Mis versus Miv classification task, improving them by 6 points on the AUC on average. The best supervised model achieved an AUC of 0.7743 and the best semi-supervised model achieved an AUC of 0.8547."
+    },
+    "Multiclass Classification Task (Overall)": {
+      "metric": "AUC",
+      "models": {
+        "Supervised Learning": {
+          "AUC": "0.7493"
+        },
+        "Semi-supervised Learning": {
+          "AUC": "0.7787"
+        }
+      },
+      "notes": "The best supervised model achieved an AUC of 0.7493 and the best semi-supervised model achieved an AUC of 0.7787."
+    },
+    "External Test Set": {
+      "metric": "Performance Comparison",
+      "models": {
+        "Semi-supervised Learning": {
+          "Performance": "Higher performance in all classification tasks compared to supervised learning"
+        }
+      },
+      "notes": "An external test set consisting of 462 labeled images (114 Mis, 348 Miv, 312 BT < 0.8 mm, 150 BT ≥ 0.8 mm) was evaluated. Semi-supervision achieved higher performance in all the classification tasks."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Semi-supervised Convolutional Neural Networks (CNNs) using a multi-teacher ensemble knowledge distillation approach. Teacher models and student models were based on DenseNet121, ResNet50, and VGG16 architectures.",
+    "pretraining": "Models were initialized with ImageNet weights.",
+    "input_size": "Not reported.",
+    "architecture_details": {
+      "backbone_models": [
+        "DenseNet121",
+        "ResNet50",
+        "VGG16"
+      ],
+      "modification": "The original last layer (1000 output neurons) was removed and replaced with a Dense layer with 128 neurons, followed by an output layer with 2 neurons for binary classification tasks.",
+      "ensemble_approach": "Offline response-based Multi-Teacher Knowledge Distillation (KD) with semi-supervised learning. A 5-fold cross-validation scheme was used where 5 teacher models (T1-T5) generated pseudo-labels for unlabeled data via majority voting, which were then used to train student models (S1-S5)."
+    },
+    "training_details": {
+      "framework": "PyTorch 1.8.2",
+      "optimizer": "Adam",
+      "learning_rate_range": "10^-2 to 10^-4",
+      "loss_function": "CrossEntropyLoss",
+      "batch_size": 64,
+      "max_epochs": 15,
+      "hyperparameter_optimization": "Grid Search was used to select batch size, learning rate, and optimizer.",
+      "class_imbalance_handling": "Sklearn's compute class weight function was used to weigh the loss function.",
+      "hardware": "NVIDIA A100 GPU",
+      "early_stopping": "Model saved only if validation loss improved from previous steps."
+    },
+    "classification_or_output_head": {
+      "type": "Dense layer followed by output layer",
+      "details": "A Dense layer with 128 neurons was used as an intermediate layer, followed by an output layer with 2 neurons corresponding to the binary classes (e.g., BT < 0.8 mm vs ≥ 0.8 mm or Mis vs Miv)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Semi-supervised Convolutional Neural Networks (CNNs)",
+    "Supervised Convolutional Neural Networks (CNNs)",
+    "Multi-Teacher Ensemble Knowledge Distillation models",
+    "Teacher models (T1-T5)",
+    "Student models (S1-S5)",
+    "DenseNet121",
+    "ResNet50",
+    "VGG16",
+    "de novo CNN (Polesie et al.)",
+    "ResNet50 (Gillstedt et al.)",
+    "ResNetV2",
+    "InceptionV3",
+    "EfficientNetB6"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation: 90-degree rotations (90, 180, 270 degrees), horizontal flips, and vertical flips applied with a probability of 0.5 for each transformation per epoch.",
+    "Class weighting: Sklearn's compute class weight function used to weigh the loss function to handle class imbalance."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms (Rotation, Horizontal Flip, Vertical Flip)",
+      "details": "Applied 90-degree rotations (90, 180, or 270 degrees), horizontal flips, and vertical flips. Each transformation was applied with a probability of 0.5 per epoch, meaning each image had a 50% chance of being rotated, a 50% chance of being horizontally flipped, and a 50% chance of being vertically flipped during each epoch. Implemented using the Albumentations library."
+    }
+  ],
+  "conclusions": [
+    "Semi-supervised learning using a multi-teacher ensemble knowledge distillation approach consistently outperformed supervised learning across all classification tasks (Breslow thickness, in situ vs. invasive melanoma, and multiclass).",
+    "The best semi-supervised model achieved an AUC of 0.8768 for Breslow thickness classification and 0.8547 for distinguishing in situ from invasive melanoma.",
+    "Evaluation on an external test set confirmed that semi-supervision achieved higher performance than supervised learning in all classification tasks, demonstrating better generalization.",
+    "Semi-supervised models improved performance by approximately 5 points on the AUC for Breslow thickness classification and 6 points for in situ versus invasive melanoma classification compared to supervised models.",
+    "The study demonstrates that semi-supervised learning can effectively improve model performance in melanoma classification tasks, potentially supporting dermatologists by reducing the need for extensive labeled datasets."
+  ],
+  "important_remarks": [
+    "The study uses a stratified 5-fold cross-validation scheme but does not report formal statistical hypothesis testing (e.g., p-values) to confirm the significance of performance improvements between supervised and semi-supervised models.",
+    "The external test set (462 images) was drawn from the same institution (Virgen del Rocio University Hospital) as the VRUH dataset, limiting the true geographic and demographic diversity of the external validation.",
+    "The ISIC dataset subset used for semi-supervised learning included 2,508 unlabeled images but only 141 labeled images, creating a significant class imbalance that was addressed via class weighting rather than balanced sampling.",
+    "The Breslow thickness threshold of 0.8 mm was used as a binary classification cut-off based on clinical guidelines for sentinel lymph node biopsy, rather than treating BT as a continuous regression variable, which may obscure nuanced thickness predictions.",
+    "The paper acknowledges that most public datasets do not report specific BT values but wide ranges, limiting the availability of high-quality labeled data for regression tasks.",
+    "Performance on the ISIC dataset was notably lower for supervised models (AUC 0.5189 for BT classification) compared to other datasets, suggesting potential domain shift or dataset bias when applying models trained on hospital-specific data to broader public archives.",
+    "The semi-supervised approach relies on pseudo-labels generated by teacher models via majority voting; errors in these pseudo-labels could propagate to student models, although the study reports consistent improvements.",
+    "The study is an author's version not yet fully edited, and content may change prior to final publication."
+  ]
+}

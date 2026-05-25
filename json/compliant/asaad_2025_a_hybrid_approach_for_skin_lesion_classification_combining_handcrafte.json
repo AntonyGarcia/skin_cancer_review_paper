@@ -1,0 +1,221 @@
+{
+  "file_name": "asaad_2025_a_hybrid_approach_for_skin_lesion_classification_combining_handcrafte.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a hybrid AI approach for melanoma detection (dermatology task) on the HAM10000 dataset. It combines handcrafted dermatological descriptors with deep features extracted from a fine-tuned ResNet-50 convolutional neural network (CNN). These features are processed using Linear Discriminant Analysis (LDA) and classified using classical machine learning algorithms (LightGBM, XGBoost, SVM, etc.) to achieve binary classification of melanoma vs. non-melanoma."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents an original hybrid framework for skin lesion classification, detailing specific methods (handcrafted features, ResNet-50, LDA, LightGBM), experiments on the HAM10000 dataset, and new empirical results (ROC-AUC of 0.958). It includes sections on methodology, experiments, and results, indicating it is an original technical study rather than a review."
+  },
+  "title": "A Hybrid Approach for Skin Lesion Classification Combining Handcrafted and Deep Learning Features",
+  "authors": [
+    "Soud Asaad",
+    "Mohamed Deriche"
+  ],
+  "doi": "10.1109/ICSPIS67605.2025.11318366",
+  "journal": "2025 8th International Conference on Signal Processing and Information Security (ICSPIS)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of accurate melanoma detection in dermoscopy by proposing a hybrid framework that fuses handcrafted dermatological descriptors with deep learning features. The authors extracted 33 handcrafted shape, color, and texture features and combined them with 6 supervised deep features derived from a lightly fine-tuned ResNet-50 network processed via Linear Discriminant Analysis. This 39-dimensional feature vector was classified using classical machine learning algorithms, with LightGBM yielding the best performance. The model was evaluated on the HAM10000 dataset for binary melanoma versus non-melanoma classification. The proposed approach achieved a ROC-AUC of 0.958 and an accuracy of 0.944, outperforming individual feature sets and several recent deep learning baselines. The results demonstrate that careful feature engineering and fusion with lightweight classifiers can achieve state-of-the-art diagnostic performance while remaining computationally efficient and interpretable.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The positive class in the binary classification task (melanoma vs. non-melanoma) on the HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Non-melanoma",
+      "paper_terms": [
+        "non-melanoma"
+      ],
+      "role": "Target class",
+      "details": "The negative class in the binary classification task, comprising the other six classes present in the HAM10000 dataset (e.g., nevus, basal cell carcinoma, etc., though specific subtypes are not individually listed as targets in this binary setup)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnosis of melanoma versus non-melanoma",
+        "primary": true,
+        "details": "The paper performs binary classification of skin lesions into 'melanoma' and 'non-melanoma' classes using the HAM10000 dataset. The model predicts discrete diagnostic categories using classical machine learning classifiers (LightGBM, XGBoost, SVM, etc.) on fused handcrafted and deep features. Performance is measured using Accuracy and ROC-AUC."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000",
+      "description": "A large collection of multi-source dermoscopic images of common pigmented skin lesions, used as the primary benchmark for the study.",
+      "classes_used": [
+        "melanoma",
+        "non-melanoma"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Training images were augmented (random rotations, flips, shifts) and used to fine-tune the ResNet-50 network and train the classical machine learning classifiers.",
+        "validation": "Null",
+        "testing": "The test distribution was preserved from the original dataset split to evaluate the final model performance.",
+        "other": "Null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "F1",
+    "ROC-AUC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Stratified Cross-Validation",
+      "purpose": "Used to fit hyperparameters for classical machine learning classifiers (SVM, KNN, Random Forest, XGBoost, LightGBM) and evaluate model performance.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Grid Search",
+      "purpose": "Used in conjunction with cross-validation to find the best hyperparameters for the classifiers.",
+      "type": "Hyperparameter optimization"
+    },
+    {
+      "method": "Linear Discriminant Analysis (LDA)",
+      "purpose": "Used for dimensionality reduction of deep features to maximize inter-class separation and minimize intra-class variability, leveraging class information.",
+      "type": "Dimensionality reduction / Feature extraction"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made based on point estimates of metrics (Accuracy, ROC-AUC) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "experiment_E1_33_handcrafted": {
+        "metric": "ROC-AUC",
+        "models": {
+          "XGBoost": "0.8826"
+        },
+        "notes": "XGBoost achieved the best ROC-AUC."
+      },
+      "experiment_E2_33_plus_PCA": {
+        "metric": "Accuracy",
+        "models": {
+          "LightGBM": "0.9146"
+        },
+        "notes": "Best performance with 20 PCA components."
+      },
+      "experiment_E3_LDA_6_only": {
+        "metric": "ROC-AUC",
+        "models": {
+          "LightGBM": "0.9020"
+        },
+        "notes": "LightGBM achieved the best ROC-AUC."
+      },
+      "experiment_E4_33_plus_LDA_6_39D": {
+        "metric": "Accuracy",
+        "models": {
+          "LightGBM": "0.9436"
+        },
+        "notes": "LightGBM achieved the best ROC-AUC and accuracy."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Hybrid framework combining handcrafted dermatological descriptors with deep features from a fine-tuned ResNet-50 CNN, processed via Linear Discriminant Analysis (LDA), and classified using classical machine learning algorithms (LightGBM, XGBoost, SVM, KNN, Random Forest).",
+    "pretraining": "ResNet-50 pretrained on ImageNet.",
+    "input_size": "224 x 224 pixels (for ResNet-50 input).",
+    "architecture_details": {
+      "deep_feature_extractor": "ResNet-50",
+      "deep_feature_processing": "Linear Discriminant Analysis (LDA) to reduce dimensionality to 6 components.",
+      "handcrafted_features": "33 descriptors (shape, color, texture) extracted from masked lesion regions.",
+      "feature_fusion": "Concatenation of 33 handcrafted features and 6 LDA-transformed deep features into a 39-dimensional vector.",
+      "classifiers": [
+        "LightGBM",
+        "XGBoost",
+        "SVM",
+        "KNN",
+        "Random Forest"
+      ]
+    },
+    "training_details": {
+      "resnet_finetuning_epochs": 5,
+      "resnet_optimizer": "Adam",
+      "resnet_learning_rate": "1e-5",
+      "resnet_loss_function": "Binary cross-entropy",
+      "resnet_batch_size": 32,
+      "resnet_augmentation": "Rotations, flips, shifts",
+      "classifier_hyperparameter_tuning": "Grid search with stratified cross-validation"
+    },
+    "classification_or_output_head": {
+      "type": "Classical Machine Learning Classifiers",
+      "best_performing_model": "LightGBM",
+      "final_output": "Binary classification (Melanoma vs. Non-melanoma)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet-50",
+    "LightGBM",
+    "XGBoost",
+    "SVM",
+    "KNN",
+    "Random Forest",
+    "AlexNet",
+    "Inception v3",
+    "RegNetY-320",
+    "Multimodal transformer"
+  ],
+  "preprocessing_techniques": [
+    "Lesion cropping using binary segmentation masks to isolate the lesion region from the background skin.",
+    "Image resizing to 224 x 224 pixels for ResNet-50 input.",
+    "Image normalization (standard normalization applied to ResNet-50 inputs).",
+    "Data augmentation for training images: random rotations, flips, and shifts.",
+    "Tabular feature standardization using StandardScaler.",
+    "Class weight balancing (class_weight=balanced) to address class imbalance."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Random rotations, flips, and shifts applied to training images for ResNet-50 fine-tuning."
+    },
+    {
+      "technique": "Class Balancing",
+      "details": "Class weights set to 'balanced' (class_weight=balanced) to address class imbalance in the HAM10000 dataset."
+    }
+  ],
+  "conclusions": [
+    "The proposed hybrid framework, which fuses 33 handcrafted dermatological descriptors with 6 LDA-compressed deep features from a fine-tuned ResNet-50, achieves a ROC-AUC of 0.958 and an accuracy of 0.944 on the HAM10000 dataset for binary melanoma classification.",
+    "LightGBM was identified as the best-performing classifier among the tested classical machine learning models (SVM, KNN, Random Forest, XGBoost, LightGBM) when applied to the fused 39-dimensional feature vector.",
+    "The fusion of handcrafted and deep features outperforms individual feature sets (handcrafted-only, PCA-reduced, or LDA-only) and several recently reported deep learning baselines.",
+    "The approach demonstrates that careful feature engineering and fusion with lightweight classical machine learning methods can achieve state-of-the-art diagnostic performance while remaining computationally efficient and interpretable, rivaling heavy end-to-end CNNs.",
+    "The inclusion of handcrafted descriptors preserves interpretability by providing diagnostic cues aligned with established clinical heuristics, preventing overfitting to spurious correlations and improving generalization.",
+    "The pipeline is lightweight and practical for clinical deployment, requiring significantly fewer parameters and reduced computational load compared to large-scale deep learning models, and can be trained in minutes on a CPU.",
+    "Future work will focus on extending the framework to multiclass lesion classification, incorporating clinical metadata, and utilizing explainable AI (XAI) techniques."
+  ],
+  "important_remarks": [
+    "The study is limited to binary classification (melanoma vs. non-melanoma) on the HAM10000 dataset; it does not address multiclass lesion classification or other dermatological conditions.",
+    "The paper does not report formal statistical significance testing (e.g., p-values or confidence intervals) for performance comparisons; results are based on point estimates.",
+    "The model was trained and evaluated on a single dataset (HAM10000), lacking external validation on independent cohorts to assess generalizability across different populations or imaging devices.",
+    "The deep features were extracted from a ResNet-50 fine-tuned for only 5 epochs with a low learning rate (1e-5), which may limit the depth of feature representation compared to fully converged models.",
+    "The approach relies on binary segmentation masks for lesion cropping; performance is contingent on the quality of these masks, and errors in mask generation could propagate to feature extraction.",
+    "The paper acknowledges class imbalance in the HAM10000 dataset and addresses it via class weights, but does not detail the specific distribution of classes in the train/test splits used.",
+    "The comparison with prior work is partially confounded by the use of different datasets (e.g., PH2, Edinburgh, Dermofit) in cited baselines, making direct performance comparisons difficult.",
+    "The pipeline is designed for computational efficiency (CPU training), which may come at the cost of feature richness compared to large-scale end-to-end deep learning models trained on GPUs."
+  ]
+}

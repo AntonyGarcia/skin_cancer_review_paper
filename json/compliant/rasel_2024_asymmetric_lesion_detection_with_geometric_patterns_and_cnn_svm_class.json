@@ -1,0 +1,527 @@
+{
+  "file_name": "rasel_2024_asymmetric_lesion_detection_with_geometric_patterns_and_cnn_svm_class.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a pre-trained Convolutional Neural Network (CNN) to extract shape, color, and texture features from dermoscopic images, which were then used to train a multiclass Support Vector Machine (SVM) classifier to classify lesion shapes (Asymmetric, Half-Symmetric, and Symmetric) for melanoma detection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, including the proposal of a new pixel-count-based imaging technique (GSAA) and a CNN-SVM classification model for asymmetric lesion detection. It reports specific experimental results, such as a 99.00% detection rate for the geometry-based experiment and performance metrics (94% Kappa Score, 95% Macro F1-score, 97% weighted F1-score) for the CNN-based experiment on the PH2 and ISIC2016 datasets. Although it includes a related works section, its primary purpose is to report new technical contributions and validation rather than summarizing prior literature."
+  },
+  "title": "Asymmetric Lesion Detection with Geometric Patterns and CNN-SVM Classification",
+  "authors": [
+    "M. A. Rasel",
+    "Sameem Abdul Kareem",
+    "Zhenli Kwan",
+    "Nik Aimee Azizah Faheem",
+    "Winn Hui Han",
+    "Rebecca Kai Jan Choong",
+    "Shin Shen Yong",
+    "Unaizah Obaidellah"
+  ],
+  "doi": "10.1016/j.compbiomed.2024.108851",
+  "journal": "Computers in Biology and Medicine",
+  "year": 2024,
+  "article_type": "Research paper",
+  "brief_summary": "This study addresses the critical task of detecting asymmetric skin lesions for melanoma diagnosis by proposing a novel pixel-count-based geometric imaging technique and a CNN-SVM classification model. The researchers annotated a non-annotated dataset using clinical assessments and utilized the PH2 and ISIC2016 datasets to train a pre-trained ResNet-101 CNN for extracting shape, color, and texture features. These features were fed into a multiclass Support Vector Machine (SVM) classifier to categorize lesions as Asymmetric, Half-Symmetric, or Symmetric. The geometry-based experiment achieved a 99.00% detection rate for dermatological asymmetric lesions, while the CNN-based model attained a 94% Kappa Score, 95% Macro F1-score, and 97% weighted F1-score. Comparative analysis demonstrated that the proposed R101+SVM model outperformed other popular CNN architectures like AlexNet, GoogLeNet, and SqueezeNet, as well as existing state-of-the-art methods in the literature.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant Melanoma",
+        "Melanoma-asymmetric"
+      ],
+      "role": "Target class / Clinical context",
+      "details": "Melanoma is the primary clinical condition of interest, with asymmetry being a key diagnostic criterion. The study focuses on detecting asymmetric lesions associated with melanoma risk."
+    },
+    {
+      "lesion_type": "Asymmetric Lesion",
+      "paper_terms": [
+        "Asymmetric",
+        "dermatological asymmetric lesions",
+        "asymmetric skin lesions"
+      ],
+      "role": "Target class",
+      "details": "One of the three shape-based classes used in the classification task (Asymmetric, Half-Symmetric, Symmetric). Identified using geometric patterns and CNN-SVM on PH2 and ISIC2016 datasets."
+    },
+    {
+      "lesion_type": "Half-Symmetric Lesion",
+      "paper_terms": [
+        "Half-Symmetric",
+        "symmetric concerning one axis"
+      ],
+      "role": "Target class",
+      "details": "One of the three shape-based classes used in the classification task. Identified using geometric patterns and CNN-SVM on PH2 and ISIC2016 datasets."
+    },
+    {
+      "lesion_type": "Symmetric Lesion",
+      "paper_terms": [
+        "Symmetric",
+        "symmetric concerning two axes",
+        "symmetrical"
+      ],
+      "role": "Target class",
+      "details": "One of the three shape-based classes used in the classification task. Identified using geometric patterns and CNN-SVM on PH2 and ISIC2016 datasets."
+    },
+    {
+      "lesion_type": "Benign Lesion",
+      "paper_terms": [
+        "benign",
+        "benign lesions",
+        "benign keratosis"
+      ],
+      "role": "Comparator class / Mentioned only",
+      "details": "Mentioned in the context of differentiating benign from malignant lesions and in related works (e.g., Talavera-Martínez et al. classifying symmetry). The current study's primary labels are shape-based (Asymmetric, Half-Symmetric, Symmetric) rather than histopathological diagnosis, though asymmetry is linked to malignancy risk."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Lesion shape categories (Asymmetric, Half-Symmetric, Symmetric)",
+        "primary": true,
+        "details": "The paper performs multiclass classification of dermoscopic lesion shapes using a CNN-SVM model. The target classes are discrete diagnostic categories: Asymmetric, Half-Symmetric, and Symmetric. The study also includes a geometry-based experiment (GSAA) that classifies lesions into these same three discrete categories based on pixel counts and quotients."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2",
+      "description": "A publicly available annotated dermoscopic dataset developed by Hispano Pedro Hospital, Portugal, containing skin lesion shapes classified into three categories with ground truth binary masks.",
+      "classes_used": [
+        "Symmetric",
+        "Half-Symmetric",
+        "Asymmetric"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Symmetric": 117,
+          "Half-Symmetric": 31,
+          "Asymmetric": 52
+        }
+      },
+      "use": {
+        "training": "Used to create the augmented PH2 (APH2) dataset via vertical and horizontal mirroring (increasing from 200 to 600 images) for training the CNN model.",
+        "validation": "null",
+        "testing": "Used for testing the CNN model when trained on APH2 and tested on the same dataset (APH2). Also used for evaluating the GSAA technique.",
+        "other": "Used for evaluating the Geometry Shape-Based Asymmetry Analysis (GSAA) technique."
+      }
+    },
+    {
+      "name": "APH2 (Augmented PH2)",
+      "description": "An augmented version of the PH2 dataset created by applying vertical and horizontal mirroring to the original 200 images, resulting in 600 images.",
+      "classes_used": [
+        "Symmetric",
+        "Half-Symmetric",
+        "Asymmetric"
+      ],
+      "counts": {
+        "total": 600,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as the primary training dataset for the CNN model (95% split).",
+        "validation": "null",
+        "testing": "Used for testing the CNN model when trained on APH2 and tested on the same dataset.",
+        "other": "null"
+      }
+    },
+    {
+      "name": "ISIC2016",
+      "description": "A dataset comprising 1279 dermoscopic images with segmented masks. It lacked ground truth for lesion symmetry, which was annotated by a multidisciplinary team of five clinical experts using a voting system.",
+      "classes_used": [
+        "Symmetric",
+        "Half-Symmetric",
+        "Asymmetric"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Symmetric": 268,
+          "Half-Symmetric": 344,
+          "Asymmetric": 667
+        }
+      },
+      "use": {
+        "training": "Used for training the CNN model (5% split).",
+        "validation": "null",
+        "testing": "Used for testing the CNN model when trained on ISIC2016 and tested on the same dataset, and when trained on APH2 and tested on ISIC2016.",
+        "other": "Used for evaluating the GSAA technique."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Precision",
+    "Recall",
+    "F1-Score",
+    "Macro F1-Score",
+    "Weighted F1-Score",
+    "Kappa Score",
+    "Accuracy",
+    "Confusion Matrix"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Confusion Matrix",
+      "purpose": "To evaluate the performance of the GSAA technique and CNN-SVM classifiers by comparing predicted values against ground truth values.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Kappa Score (Cohen's Kappa)",
+      "purpose": "To measure the agreement between the model's predictions and the ground truth, accounting for chance agreement.",
+      "type": "Agreement metric"
+    },
+    {
+      "method": "Macro F1-Score",
+      "purpose": "To calculate the average evaluation metric for the three classes (Asymmetric, Half-Symmetric, Symmetric) in imbalanced datasets.",
+      "type": "Aggregation metric"
+    },
+    {
+      "method": "Weighted F1-Score",
+      "purpose": "To calculate the average evaluation metric for the three classes, weighted by the number of samples in each class.",
+      "type": "Aggregation metric"
+    },
+    {
+      "method": "Precision, Recall, and Accuracy",
+      "purpose": "To evaluate the classifier's performance on true positives, false positives, false negatives, and true negatives.",
+      "type": "Evaluation metrics"
+    },
+    {
+      "method": "Voting System",
+      "purpose": "To establish ground truth labels for the ISIC2016 dataset by aggregating opinions from five clinical experts.",
+      "type": "Labeling method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics such as Precision, Recall, F1-Score, Kappa Score, and Accuracy, along with confusion matrices."
+  },
+  "results_obtained_in_each_dataset": {
+    "PH2": {
+      "experiment": "Geometry Shape-Based Asymmetry Analysis (GSAA)",
+      "metrics": {
+        "Kappa Score": "98.2%",
+        "Accuracy": "99.0%",
+        "Detection Rate": "99.00%"
+      },
+      "notes": "The GSAA technique misclassified 2 out of 200 images due to artifacts and incompleteness. Confusion Matrix (Table 3): Symmetric predicted as Symmetric: 116, Half-Symmetric: 1; Half-Symmetric predicted as Symmetric: 1, Half-Symmetric: 30; Asymmetric predicted as Asymmetric: 52."
+    },
+    "ISIC2016": {
+      "experiment": "Geometry Shape-Based Asymmetry Analysis (GSAA)",
+      "metrics": {
+        "Kappa Score": "98.5%",
+        "Accuracy": "99.1%",
+        "Detection Rate": "99.06%"
+      },
+      "notes": "The GSAA technique misclassified 12 out of 1279 images due to artifacts and incompleteness. Confusion Matrix (Table 5): Symmetric predicted as Symmetric: 267, Half-Symmetric: 4, Asymmetric: 7; Half-Symmetric predicted as Symmetric: 1, Half-Symmetric: 340; Asymmetric predicted as Asymmetric: 660."
+    },
+    "CNN-SVM Classification Experiments": {
+      "models_evaluated": [
+        "R18+SVM (ResNet18 + SVM)",
+        "R50+SVM (ResNet50 + SVM)",
+        "R101+SVM (ResNet101 + SVM)"
+      ],
+      "best_overall_performance": {
+        "model": "R101+SVM",
+        "metrics": {
+          "Kappa Score": "94%",
+          "Macro F1-Score": "95%",
+          "Weighted F1-Score": "97%"
+        },
+        "notes": "Reported in Abstract as the best performance found for classifying lesion shapes."
+      },
+      "experiment_1": {
+        "name": "Training on ISIC2016 and Testing on ISIC2016",
+        "dataset": "ISIC2016",
+        "results": {
+          "R18+SVM": {
+            "Precision_Asymmetric": 0.97,
+            "Precision_Half-Symmetric": 0.94,
+            "Precision_Symmetric": 0.77,
+            "Recall_Asymmetric": 0.89,
+            "Recall_Half-Symmetric": 1.0,
+            "Recall_Symmetric": 0.91,
+            "F1-Score_Asymmetric": 0.93,
+            "F1-Score_Half-Symmetric": 0.97,
+            "F1-Score_Symmetric": 0.83,
+            "M-F1": 0.91,
+            "W-F1": 0.92,
+            "K-Score": 0.87
+          },
+          "R50+SVM": {
+            "Precision_Asymmetric": 0.97,
+            "Precision_Half-Symmetric": 0.88,
+            "Precision_Symmetric": 0.92,
+            "Recall_Asymmetric": 0.91,
+            "Recall_Half-Symmetric": 0.94,
+            "Recall_Symmetric": 1.0,
+            "F1-Score_Asymmetric": 0.94,
+            "F1-Score_Half-Symmetric": 0.91,
+            "F1-Score_Symmetric": 0.96,
+            "M-F1": 0.94,
+            "W-F1": 0.94,
+            "K-Score": 0.89
+          },
+          "R101+SVM": {
+            "Precision_Asymmetric": 0.94,
+            "Precision_Half-Symmetric": 0.94,
+            "Precision_Symmetric": 0.92,
+            "Recall_Asymmetric": 0.94,
+            "Recall_Half-Symmetric": 0.94,
+            "Recall_Symmetric": 0.92,
+            "F1-Score_Asymmetric": 0.94,
+            "F1-Score_Half-Symmetric": 0.94,
+            "F1-Score_Symmetric": 0.92,
+            "M-F1": 0.93,
+            "W-F1": 0.94,
+            "K-Score": 0.9
+          }
+        }
+      },
+      "experiment_2": {
+        "name": "Training on APH2 and Testing on ISIC2016",
+        "dataset": "ISIC2016 (Test)",
+        "training_dataset": "APH2",
+        "results": {
+          "R18+SVM": {
+            "Precision_Asymmetric": 0.94,
+            "Precision_Half-Symmetric": 0.82,
+            "Precision_Symmetric": 0.77,
+            "Recall_Asymmetric": 0.86,
+            "Recall_Half-Symmetric": 0.93,
+            "Recall_Symmetric": 0.83,
+            "F1-Score_Asymmetric": 0.9,
+            "F1-Score_Half-Symmetric": 0.88,
+            "F1-Score_Symmetric": 0.8,
+            "M-F1": 0.86,
+            "W-F1": 0.87,
+            "K-Score": 0.79
+          },
+          "R50+SVM": {
+            "Precision_Asymmetric": 0.85,
+            "Precision_Half-Symmetric": 1.0,
+            "Precision_Symmetric": 0.77,
+            "Recall_Asymmetric": 0.9,
+            "Recall_Half-Symmetric": 0.85,
+            "Recall_Symmetric": 0.83,
+            "F1-Score_Asymmetric": 0.88,
+            "F1-Score_Half-Symmetric": 0.92,
+            "F1-Score_Symmetric": 0.8,
+            "M-F1": 0.86,
+            "W-F1": 0.87,
+            "K-Score": 0.79
+          },
+          "R101+SVM": {
+            "Precision_Asymmetric": 0.88,
+            "Precision_Half-Symmetric": 0.94,
+            "Precision_Symmetric": 0.92,
+            "Recall_Asymmetric": 0.94,
+            "Recall_Half-Symmetric": 0.84,
+            "Recall_Symmetric": 0.92,
+            "F1-Score_Asymmetric": 0.91,
+            "F1-Score_Half-Symmetric": 0.89,
+            "F1-Score_Symmetric": 0.92,
+            "M-F1": 0.91,
+            "W-F1": 0.9,
+            "K-Score": 0.85
+          }
+        }
+      },
+      "experiment_3": {
+        "name": "Training on APH2 and Testing on APH2",
+        "dataset": "APH2",
+        "training_dataset": "APH2",
+        "results": {
+          "R18+SVM": {
+            "Precision_Asymmetric": 0.75,
+            "Precision_Half-Symmetric": 0.8,
+            "Precision_Symmetric": 1.0,
+            "Recall_Asymmetric": 1.0,
+            "Recall_Half-Symmetric": 0.95,
+            "Recall_Symmetric": 0.86,
+            "F1-Score_Asymmetric": 0.73,
+            "F1-Score_Half-Symmetric": 0.97,
+            "F1-Score_Symmetric": 0.85,
+            "M-F1": 0.9,
+            "W-F1": 0.83,
+            "K-Score": null
+          },
+          "R50+SVM": {
+            "Precision_Asymmetric": 1.0,
+            "Precision_Half-Symmetric": 0.8,
+            "Precision_Symmetric": 0.94,
+            "Recall_Asymmetric": 1.0,
+            "Recall_Half-Symmetric": 0.94,
+            "Recall_Symmetric": 1.0,
+            "F1-Score_Asymmetric": 0.8,
+            "F1-Score_Half-Symmetric": 0.94,
+            "F1-Score_Symmetric": 1.0,
+            "M-F1": 0.91,
+            "W-F1": 0.94,
+            "K-Score": 0.89
+          },
+          "R101+SVM": {
+            "Precision_Asymmetric": 1.0,
+            "Precision_Half-Symmetric": 0.8,
+            "Precision_Symmetric": 1.0,
+            "Recall_Asymmetric": 1.0,
+            "Recall_Half-Symmetric": 0.95,
+            "Recall_Symmetric": 1.0,
+            "F1-Score_Asymmetric": 1.0,
+            "F1-Score_Half-Symmetric": 0.89,
+            "F1-Score_Symmetric": 0.97,
+            "M-F1": 0.95,
+            "W-F1": 0.97,
+            "K-Score": 0.94
+          }
+        }
+      },
+      "experiment_4": {
+        "name": "Training on ISIC2016 and Testing on APH2",
+        "dataset": "APH2 (Test)",
+        "training_dataset": "ISIC2016",
+        "results": {
+          "R18+SVM": {
+            "Precision_Asymmetric": 1.0,
+            "Precision_Half-Symmetric": 1.0,
+            "Precision_Symmetric": 0.72,
+            "Recall_Asymmetric": 0.73,
+            "Recall_Half-Symmetric": 0.71,
+            "Recall_Symmetric": 1.0,
+            "F1-Score_Asymmetric": 0.84,
+            "F1-Score_Half-Symmetric": 0.83,
+            "F1-Score_Symmetric": 0.84,
+            "M-F1": 0.84,
+            "W-F1": 0.84,
+            "K-Score": 0.74
+          },
+          "R50+SVM": {
+            "Precision_Asymmetric": 1.0,
+            "Precision_Half-Symmetric": 0.8,
+            "Precision_Symmetric": 0.89,
+            "Recall_Asymmetric": 1.0,
+            "Recall_Half-Symmetric": 0.67,
+            "Recall_Symmetric": 0.94,
+            "F1-Score_Asymmetric": 1.0,
+            "F1-Score_Half-Symmetric": 0.73,
+            "F1-Score_Symmetric": 0.91,
+            "M-F1": 0.88,
+            "W-F1": 0.9,
+            "K-Score": 0.83
+          },
+          "R101+SVM": {
+            "Precision_Asymmetric": 1.0,
+            "Precision_Half-Symmetric": 0.6,
+            "Precision_Symmetric": 1.0,
+            "Recall_Asymmetric": 1.0,
+            "Recall_Half-Symmetric": 1.0,
+            "Recall_Symmetric": 0.9,
+            "F1-Score_Asymmetric": 1.0,
+            "F1-Score_Half-Symmetric": 0.75,
+            "F1-Score_Symmetric": 0.95,
+            "M-F1": 0.9,
+            "W-F1": 0.94,
+            "K-Score": 0.88
+          }
+        }
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "CNN-SVM (Convolutional Neural Network combined with Support Vector Machine)",
+    "pretraining": "Pre-trained on ImageNet dataset (1000 object categories, 1.2 million training images)",
+    "input_size": "224-by-224-by-3",
+    "architecture_details": {
+      "backbone_models": [
+        "ResNet18 (71 layers, 11.6M parameters)",
+        "ResNet50 (177 layers, 25.5M parameters)",
+        "ResNet101 (347 layers, 44.6M parameters)"
+      ],
+      "intermediate_layers": "Convolutional layers, Rectified Linear Units (ReLU), and Max-pooling layers",
+      "feature_extraction_layer": "fc1000 (fully connected layer, layer right before the classification layer)",
+      "mini_batch_size": 32
+    },
+    "training_details": {
+      "optimizer": "Stochastic Gradient Descent (SGD)",
+      "svm_configuration": {
+        "type": "Multiclass Linear SVM",
+        "coding_design": "Error-Correcting Output Codes (ECOC)",
+        "strategy": "One-versus-one (ovo)"
+      },
+      "data_split": "95% for training and validation (75% train, 20% validation), 5% for testing"
+    },
+    "classification_or_output_head": {
+      "original_head": "1000 classes (from ImageNet)",
+      "modified_head": "3 classes (Asymmetric, Half-Symmetric, Symmetric)",
+      "classifier": "Multiclass Support Vector Machine (SVM)"
+    },
+    "approximate_parameters": {
+      "ResNet18": "11.6M",
+      "ResNet50": "25.5M",
+      "ResNet101": "44.6M"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet18",
+    "ResNet50",
+    "ResNet101",
+    "Support Vector Machine (SVM)",
+    "R18+SVM",
+    "R50+SVM",
+    "R101+SVM",
+    "Convolutional Neural Network (CNN)",
+    "Multiclass SVM",
+    "Linear SVM",
+    "Error-Correcting Output Codes (ECOC)",
+    "One-versus-one (ovo)"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation via vertical and horizontal mirroring to create the Augmented PH2 (APH2) dataset (increasing 200 images to 600)",
+    "Input resizing to 224-by-224-by-3 pixels for CNN models",
+    "Use of pre-existing binary lesion masks (segmentation masks) from PH2 and ISIC2016 datasets as input for GSAA",
+    "Splitting binary mask images into four portions using two perpendicular axes at the lesion centroid for GSAA",
+    "Pixel counting of white areas in split images for GSAA",
+    "Quotient calculation and thresholding (0.90 to 1.10) for symmetry classification in GSAA"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Vertical and Horizontal Mirroring",
+      "details": "Applied to the original PH2 dataset (200 images) to create the Augmented PH2 (APH2) dataset, increasing the total number of images to 600. This was used to address the limited availability of labeled data for training the CNN model."
+    }
+  ],
+  "conclusions": [
+    "The proposed Geometry Shape-Based Asymmetry Analysis (GSAA) technique achieved a 99.00% detection rate for dermatological asymmetric lesions on the PH2 dataset and a 99.06% detection rate on the ISIC2016 dataset, with misclassifications primarily attributed to image artifacts and incomplete lesion capture.",
+    "The CNN-SVM classification model, specifically using a pre-trained ResNet-101 backbone (R101+SVM), outperformed other tested architectures (ResNet-18 and ResNet-50) and existing state-of-the-art methods in the literature for classifying lesion shapes.",
+    "The best-performing CNN-SVM model (R101+SVM) achieved a Kappa Score of 94%, a Macro F1-score of 95%, and a weighted F1-score of 97% for classifying lesions into Asymmetric, Half-Symmetric, and Symmetric categories.",
+    "The study successfully annotated a non-annotated dataset (ISIC2016) for lesion symmetry using a voting system of five clinical experts, addressing the gap of limited labeled data for asymmetric lesion training.",
+    "The combination of geometric pattern analysis and CNN-based feature extraction provides a robust, automated method for detecting asymmetric lesions, potentially reducing the burden on dermatologists and improving the consistency and speed of skin lesion analysis compared to subjective manual assessments."
+  ],
+  "important_remarks": [
+    "The study annotates the ISIC2016 dataset for lesion symmetry using a voting system of five clinical experts, addressing a gap in ground truth data, but this introduces potential subjectivity and inter-observer variability in the labels.",
+    "The Geometry Shape-Based Asymmetry Analysis (GSAA) technique misclassified images due to image artifacts and incomplete lesion capture, indicating sensitivity to segmentation quality and image completeness.",
+    "The CNN-SVM models were evaluated on only two datasets (PH2 and ISIC2016), limiting the assessment of generalizability to other populations or imaging devices.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals for the performance metrics, relying solely on descriptive statistics.",
+    "The GSAA method is limited to analyzing shape symmetry via pixel counts in four quadrants; it does not simultaneously account for border, structure, and color properties, which are critical for comprehensive asymmetry assessment.",
+    "Data augmentation was limited to vertical and horizontal mirroring, which may not sufficiently address class imbalance or diversity compared to more advanced augmentation techniques.",
+    "The study acknowledges that asymmetry alone has limited diagnostic value for disease diagnosis, yet focuses primarily on shape-based classification without integrating other ABCDE criteria in the final model.",
+    "No external validation was performed; the model was tested on the same datasets used for training (with splits) or cross-tested between PH2 and ISIC2016, raising concerns about overfitting to specific dataset characteristics."
+  ]
+}

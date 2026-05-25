@@ -1,0 +1,323 @@
+{
+  "file_name": "akbarpour_2025_deep_learning_based_nuclei_segmentation_and_melanoma_detection_in.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep neural network (DNN)-based technique, specifically an Enhanced INS-Net (ECE-Net) combined with an ensemble model, to perform nuclei segmentation and melanoma detection in skin histopathological images. The method involves test image augmentation and morphological processing to identify melanoma regions, achieving a Dice score of 91.61% for segmentation and 87.9% for melanoma detection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel deep neural network (Enhanced INS-Net/ECE-Net) combined with an ensemble model for nuclei segmentation and melanoma detection. It details specific methods including test image augmentation, morphological processing, and layer configurations, and reports original experimental results with quantitative metrics (e.g., Dice score of 91.61%) comparing the proposed method against state-of-the-art techniques like U-Net and INS-Net."
+  },
+  "title": "Deep Learning-Based Nuclei Segmentation and Melanoma Detection in Skin Histopathological Image Using Test Image Augmentation and Ensemble Model",
+  "authors": [
+    "Mohammadesmaeil Akbarpour",
+    "Hamed Fazlollahiaghamalek",
+    "Mahdi Barati",
+    "Mehrdad Hashemi Kamangar",
+    "Mrinal Mandal"
+  ],
+  "doi": "10.3390/jimaging11080274",
+  "journal": "J. Imaging",
+  "year": 2025,
+  "article_type": "Article",
+  "brief_summary": "This study proposes a deep learning-based technique for nuclei segmentation and melanoma detection in H&E-stained skin histopathological images to address the challenges of manual analysis. The method utilizes an Enhanced INS-Net (ECE-Net) combined with a novel ensemble strategy that applies test-time image augmentation, including rotations and Gaussian filtering, to a single model. The dataset consisted of 100 histopathological images partitioned into training, testing, and validation sets, sourced from the Cross Cancer Institute at the University of Alberta. The model's performance was evaluated using metrics such as Dice coefficient and Jaccard score, comparing it against state-of-the-art architectures like U-Net and INS-Net. The proposed ECE-Net achieved a Dice score of 91.61% for nuclei segmentation and 87.9% for melanoma region detection. These results demonstrate that the proposed approach outperforms existing methods, offering a robust solution for computer-aided melanoma diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "Cutaneous Malignant Melanoma",
+        "cancerous regions"
+      ],
+      "role": "Target class",
+      "details": "Primary target for detection and segmentation; classified as class c=1 in the ensemble model output."
+    },
+    {
+      "lesion_type": "Non-melanoma",
+      "paper_terms": [
+        "non-melanoma"
+      ],
+      "role": "Comparator class",
+      "details": "Classified as class c=2 in the ensemble model output; represents non-cancerous tissue in the context of melanoma detection."
+    },
+    {
+      "lesion_type": "Background",
+      "paper_terms": [
+        "background"
+      ],
+      "role": "Comparator class",
+      "details": "Classified as class c=3 in the ensemble model output; represents non-tissue or empty space in the histopathological images."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Nuclei segmentation masks and melanoma region detection masks",
+        "primary": true,
+        "details": "The paper performs pixel-wise classification for nuclei segmentation into three classes (melanoma, non-melanoma, background) using an Enhanced INS-Net (ECE-Net) and ensemble model, achieving a Dice score of 91.61%. It also performs melanoma region detection using morphological operations on the segmented masks, achieving a Dice score of 87.9%."
+      },
+      {
+        "task_type": "Detection",
+        "target": "Melanoma regions",
+        "primary": false,
+        "details": "Melanoma region detection is performed via morphological processing (dilation, image filling, erosion, threshold) on the nuclei-segmented masks to extract cancerous regions from the original image."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Cross Cancer Institute, University of Alberta Dataset",
+      "description": "A private dataset of digitized biopsies obtained from the Cross Cancer Institute at the University of Alberta, Edmonton, Canada, following protocols for examining specimens with skin melanoma. It includes large images (approx. 5000 × 5000 pixels) and medium-sized histopathological images (960 × 960 pixels).",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma",
+        "Background"
+      ],
+      "counts": {
+        "total": 115,
+        "training": 70,
+        "validation": 15,
+        "testing": 15,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the Enhanced INS-Net (ECE-Net) model on 64x64 pixel blocks extracted from the images.",
+        "validation": "Used for validating the model performance.",
+        "testing": "Used for testing the model, where test-time augmentation (rotations and Gaussian filtering) was applied to these images.",
+        "other": "The dataset also included 15 large images (approx. 5000 × 5000 pixels) which were likely used for context or preprocessing, but the core experimental split focused on the 100 medium-sized images."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "Dice coefficient",
+    "Jaccard Score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Averaging and Voting techniques",
+      "purpose": "To combine individual segmentation masks generated by five augmented images to determine the final class of each pixel in the ensemble model.",
+      "type": "Ensemble method"
+    },
+    {
+      "method": "Confusion Matrix analysis",
+      "purpose": "To evaluate the performance of the ECE-Net model by counting True Positives, True Negatives, False Positives, and False Negatives for nuclei segmentation.",
+      "type": "Evaluation metric calculation basis"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics (Accuracy, Precision, Recall, Dice Coefficient, Jaccard Score) and confusion matrices without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Cross Cancer Institute, University of Alberta Dataset": {
+      "nuclei_segmentation": {
+        "metrics": [
+          "Accuracy (%)",
+          "Precision (%)",
+          "Recall (%)",
+          "Dice Coefficient (%)"
+        ],
+        "models": {
+          "U-Net [15]": {
+            "Accuracy": 78.79,
+            "Precision": 87.41,
+            "Recall": 57.87,
+            "Dice Coefficient": 69.63
+          },
+          "FGDC-Net [21]": {
+            "Accuracy": 93.63,
+            "Precision": 88.97,
+            "Recall": 87.3,
+            "Dice Coefficient": 88.13
+          },
+          "INS-Net [24]": {
+            "Accuracy": 94.11,
+            "Precision": 89.88,
+            "Recall": 88.18,
+            "Dice Coefficient": 89.02
+          },
+          "ACF-Net [20]": {
+            "Accuracy": 94.26,
+            "Precision": 91.36,
+            "Recall": 87.59,
+            "Dice Coefficient": 89.43
+          },
+          "ECE-Net (without ensemble)": {
+            "Accuracy": 94.84,
+            "Precision": 89.66,
+            "Recall": 90.82,
+            "Dice Coefficient": 90.23
+          },
+          "ECE-Net with voting ensemble (N = 3)": {
+            "Accuracy": 95.4,
+            "Precision": 90.86,
+            "Recall": 91.76,
+            "Dice Coefficient": 91.3
+          },
+          "ECE-Net with average ensemble (N = 3)": {
+            "Accuracy": 95.47,
+            "Precision": 91.01,
+            "Recall": 91.85,
+            "Dice Coefficient": 91.43
+          },
+          "ECE-Net with voting ensemble (N = 5)": {
+            "Accuracy": 95.51,
+            "Precision": 91.1,
+            "Recall": 91.92,
+            "Dice Coefficient": 91.51
+          },
+          "ECE-Net with average ensemble (N = 5)": {
+            "Accuracy": 95.56,
+            "Precision": 91.25,
+            "Recall": 91.99,
+            "Dice Coefficient": 91.61
+          }
+        },
+        "notes": "The ECE-Net with average ensemble (N=5) achieved the highest Dice coefficient of 91.61% for nuclei segmentation. The number of augmented images had a greater impact on performance than the choice of ensemble technique."
+      },
+      "melanoma_region_detection": {
+        "metrics": [
+          "Accuracy (%)",
+          "Precision (%)",
+          "Recall (%)",
+          "Dice Coefficient (%)",
+          "Jaccard Score (%)"
+        ],
+        "models": {
+          "INS-Net model [24]": {
+            "Accuracy": 97.7,
+            "Precision": 83.22,
+            "Recall": 87.08,
+            "Dice Coefficient": 85.1,
+            "Jaccard Score": 74.07
+          },
+          "ECE-Net model": {
+            "Accuracy": 97.82,
+            "Precision": 85.96,
+            "Recall": 87.2,
+            "Dice Coefficient": 86.58,
+            "Jaccard Score": 76.33
+          },
+          "ECE-Net + voting ensemble": {
+            "Accuracy": 97.96,
+            "Precision": 86.82,
+            "Recall": 88.08,
+            "Dice Coefficient": 87.45,
+            "Jaccard Score": 77.69
+          },
+          "ECE-Net + Ave. ensemble": {
+            "Accuracy": 98.03,
+            "Precision": 87.39,
+            "Recall": 88.41,
+            "Dice Coefficient": 87.9,
+            "Jaccard Score": 78.41
+          }
+        },
+        "notes": "Melanoma region detection performance mirrors nuclei segmentation results. The ECE-Net + Ave. ensemble achieved the highest Dice coefficient of 87.9% for melanoma detection. The MRD module utilizes masks generated by the nuclei-segmented images."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Enhanced INS-Net (ECE-Net)",
+    "pretraining": null,
+    "input_size": "64 × 64 pixels",
+    "architecture_details": {
+      "backbone": "Modified INS-Net with two parallel paths: Detailed Feature Extraction (DFE) and Coarse Feature Extraction (CFE)",
+      "total_layers": 22,
+      "layer_composition": {
+        "DFE_path": {
+          "layers": 9,
+          "type": "Conv2d, Batch Normalization, ReLU (C-BN-R) with concatenation after every two layers; no pooling"
+        },
+        "CFE_path": {
+          "layers": 10,
+          "type": "U-Net-shaped with 4 downsampling and 4 upsampling layers"
+        },
+        "fusion": "Concatenation of DFE, CFE, and skip connections",
+        "final_layers": "Two convolutional layers followed by Softmax"
+      },
+      "filter_sizes": "1×1 to 23×23",
+      "filters_per_layer": 64,
+      "skip_connections": 7
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": null,
+      "training_schedule": null,
+      "implementation": "Python 3.11"
+    },
+    "classification_or_output_head": {
+      "type": "Softmax",
+      "classes": 3,
+      "class_labels": [
+        "Melanoma (c=1)",
+        "Non-melanoma (c=2)",
+        "Background (c=3)"
+      ]
+    },
+    "approximate_parameters": 152401
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Enhanced INS-Net (ECE-Net)",
+    "U-Net",
+    "FGDC-Net",
+    "INS-Net",
+    "ACF-Net"
+  ],
+  "preprocessing_techniques": [
+    "Color normalization using global mean and standard deviation per channel to speed up convergence and stabilize learning",
+    "Test-time image augmentation including geometric rotations (90, 180, 270 degrees clockwise)",
+    "Test-time image augmentation using a 3x3 Gaussian mean filter for noise reduction and image enhancement",
+    "Test-time image augmentation using Canny edge detection to generate edge-enhanced images",
+    "Image patch extraction: splitting large images into non-overlapping 64x64 pixel blocks",
+    "Morphological processing for melanoma region detection including dilation, image filling, erosion, and thresholding"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Rotation",
+      "details": "Test-time augmentation involving clockwise rotations of 90, 180, and 270 degrees applied to the input image."
+    },
+    {
+      "technique": "Gaussian Filtering",
+      "details": "Application of a 3x3 Gaussian mean filter to reduce noise and enhance the image."
+    },
+    {
+      "technique": "Edge Enhancement",
+      "details": "Generation of an enhanced image using the formula X_enh = X * h + αX_edge, where X is the input image, h is the Gaussian filter, X_edge is a binary edge image obtained via Canny edge detector, and α = 20."
+    },
+    {
+      "technique": "Test-Time Augmentation Strategy",
+      "details": "Augmentation applied during the testing/inference stage rather than training, generating a total of five images (original, three rotated, one enhanced) from a single input to improve inference robustness."
+    }
+  ],
+  "conclusions": [
+    "The proposed Enhanced INS-Net (ECE-Net) combined with an ensemble model using test-time image augmentation (rotations and Gaussian filtering) outperforms state-of-the-art architectures (U-Net, FGDC-Net, INS-Net, ACF-Net) in nuclei segmentation and melanoma detection.",
+    "The ECE-Net model achieved a Dice score of 91.61% for nuclei segmentation and 87.9% for melanoma region detection, demonstrating robust performance.",
+    "The number of augmented images used during testing has a greater impact on segmentation performance than the choice of ensemble technique (voting vs. averaging).",
+    "While averaging ensemble generally outperformed voting ensemble with fewer augmented images (N=3), voting ensemble performed better when the number of augmented images was increased to five (N=5).",
+    "The proposed ECE-Net model is computationally more efficient, requiring fewer parameters (152,401) and convolutional layers (15) compared to other recent models like U-Net (905,472 parameters) and ACF-Net (228,096 parameters).",
+    "Test-time augmentation strategies, including geometric rotations and edge enhancement, significantly improve the accuracy of pixel classification in histopathological images without requiring additional training data."
+  ],
+  "important_remarks": [
+    "The study relies on a small, single-center dataset (100 medium-sized images from the Cross Cancer Institute, University of Alberta), which limits generalizability and introduces potential population bias.",
+    "No external validation was performed; the model was only tested on the internal hold-out set (15 images), raising concerns about overfitting and real-world robustness.",
+    "The paper explicitly acknowledges that the computationally intensive nature of the processing prevents real-time diagnosis, limiting immediate clinical deployment.",
+    "Data availability is restricted to request from the corresponding author, hindering reproducibility and independent verification.",
+    "The study did not report any formal statistical significance testing (e.g., p-values) for performance comparisons, relying solely on descriptive metrics.",
+    "Test-time augmentation was used to boost performance, which increases inference latency and computational cost compared to standard single-pass inference.",
+    "Melanoma region detection is derived indirectly via morphological operations on nuclei segmentation masks rather than direct detection, meaning errors in segmentation propagate to detection results.",
+    "The dataset split (70 train, 15 test, 15 validation) is very small for deep learning, increasing the risk of data leakage or biased performance estimates if image-level leakage occurred within patches."
+  ]
+}

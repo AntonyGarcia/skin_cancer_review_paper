@@ -1,0 +1,207 @@
+{
+  "file_name": "axak_2018_recognition_of_image_resizing_and_color_based_on_a_convolutional_neura.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a Mask R-CNN convolutional neural network (with a modified multilayer perceptron learning algorithm and ResNet-101 backbone) to perform instance segmentation and recognition of skin lesions (melanoma) using the ISIC 2016 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents an original experimental study involving the application of a Mask R-CNN convolutional neural network for recognizing skin disease (melanoma). It describes a specific methodology, including a modification of the multilayer perceptron learning algorithm, and reports results from an experiment using the ISIC 2016 dataset, rather than summarizing prior literature."
+  },
+  "title": "Recognition of image resizing and color based on a convolutional neural network",
+  "authors": [
+    "Н.Г. Аксак",
+    "А.А. Беcсонов",
+    "И.В. Новосельцев",
+    "О.Г. Руденко"
+  ],
+  "doi": null,
+  "journal": "БИОНИКА ИНТЕЛЛЕКТА",
+  "year": 2018,
+  "article_type": "Article",
+  "brief_summary": "This study applies a Mask R-CNN convolutional neural network to recognize image resizing and color changes, specifically for the task of melanoma detection. The authors propose a modification to the multilayer perceptron learning algorithm within the network, utilizing matrix variants of the Kaczmarz (Widrow-Hoff) procedure with an insensitivity zone to handle limited interference. The experimental evaluation utilized the ISIC 2016 dataset, which provided 900 photographs of skin lesions along with corresponding binary masks. The network was trained for 30 epochs using weights pre-trained on the COCO dataset with a ResNet-101 backbone. In a second experiment focusing on classification, the model achieved a classification accuracy of 91.63% after 70 epochs to distinguish between benign and malignant lesions. The results demonstrate that the proposed approach effectively performs instance segmentation and classification of skin diseases.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "меланомы",
+        "melanoma",
+        "злокачественное"
+      ],
+      "role": "Target class",
+      "details": "The study focused on recognizing skin disease melanoma using the ISIC 2016 dataset. The classification task distinguished between benign and malignant lesions, with malignant lesions identified as melanoma."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "доброкачественное образование",
+        "benign"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the comparator class in the binary classification task (benign vs. malignant) within Experiment 2, utilizing the ISIC 2016 dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Instance Segmentation",
+        "target": "Pixel-wise masks for skin lesions",
+        "primary": true,
+        "details": "The paper uses Mask R-CNN to perform instance segmentation, determining pixels belonging to each object (skin lesion) separately. The model outputs bounding boxes, class labels, and masks for detected lesions."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (benign vs. malignant/melanoma)",
+        "primary": true,
+        "details": "In Experiment 2, the model performs a classification task to distinguish between benign lesions and malignant lesions (melanoma). The paper reports a classification accuracy of 91.63% after 70 epochs. The output involves predicting discrete diagnostic categories."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2016: Skin Lesion Analysis Towards Melanoma Detection",
+      "description": "A dataset from the ISIC 2016 competition containing photographs of skin lesions with corresponding binary masks for precise contour determination. It was used as the primary data source for both instance segmentation and classification tasks.",
+      "classes_used": [
+        "Melanoma (malignant)",
+        "Benign skin lesions"
+      ],
+      "counts": {
+        "total": 900,
+        "training": 600,
+        "validation": 300,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as the training sample for the Mask R-CNN network to perform instance segmentation (Experiment 1) and classification (Experiment 2).",
+        "validation": "Used as the validation sample (referred to as 'проверочных' or verification set) for the Mask R-CNN network.",
+        "testing": null,
+        "other": "Pre-trained weights from the COCO dataset were used to initialize the ResNet-101 backbone before training on this dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "classification accuracy",
+    "bounding box loss",
+    "classifier loss",
+    "mask predictor loss",
+    "region proposal loss"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Results were reported as classification accuracy (91.63%) and qualitative observations of effectiveness."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2016: Skin Lesion Analysis Towards Melanoma Detection": {
+      "Experiment 1 (Instance Segmentation)": {
+        "metric": "Qualitative effectiveness and loss components",
+        "models": {
+          "Mask R-CNN (ResNet-101 backbone, pre-trained on COCO)": {
+            "training_epochs": "30",
+            "loss_components": [
+              "Bounding Box loss",
+              "Classifier loss",
+              "Mask predictor loss",
+              "Region Proposal Network (RPN) loss"
+            ],
+            "qualitative_results": "The network performed effective recognition of skin lesions, providing accurate pixel-wise masks and bounding boxes. It successfully tracked lesion growth, identifying primary and secondary regions in some cases."
+          }
+        },
+        "notes": "The paper states that the obtained results testify to the effectiveness of the developed approach. Specific quantitative segmentation metrics (e.g., IoU, Dice) were not reported in the text."
+      },
+      "Experiment 2 (Classification)": {
+        "metric": "Classification Accuracy",
+        "models": {
+          "Mask R-CNN (Modified MLP learning algorithm with Kaczmarz/Widrow-Hoff procedure and insensitivity zone)": {
+            "accuracy": "91.63%",
+            "training_epochs": "70",
+            "classes": [
+              "Benign (доброкачественное образование)",
+              "Malignant/Melanoma (злокачественное)"
+            ]
+          }
+        },
+        "notes": "Classification results were visualized with color coding: green for benign (not recognized as malignant), red for malignant (high probability), and blue for borderline cases near the threshold."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Mask R-CNN",
+    "pretraining": "ResNet-101 backbone pre-trained on the COCO dataset",
+    "input_size": null,
+    "architecture_details": {
+      "backbone": "ResNet-101",
+      "base_architecture": "Extended version of Faster R-CNN",
+      "modifications": "Modified multilayer perceptron (MLP) learning algorithm using matrix variants of the Kaczmarz (Widrow-Hoff) procedure with an insensitivity zone (dead zone) to handle limited interference",
+      "components": [
+        "Region Proposal Network (RPN)",
+        "Bounding Box predictor",
+        "Classifier",
+        "Mask predictor"
+      ]
+    },
+    "training_details": {
+      "optimizer": "Modified gradient descent based on Kaczmarz (Widrow-Hoff) procedure with regularization parameters",
+      "epochs_experiment_1": 30,
+      "epochs_experiment_2": 70,
+      "loss_functions": [
+        "Bounding Box loss",
+        "Classifier loss",
+        "Mask predictor loss",
+        "Region Proposal Network (RPN) loss"
+      ],
+      "dataset": "ISIC 2016 (900 images: 600 training, 300 validation)"
+    },
+    "classification_or_output_head": {
+      "task": "Instance segmentation and binary classification (benign vs. malignant/melanoma)",
+      "outputs": [
+        "Bounding boxes",
+        "Class labels",
+        "Pixel-wise masks"
+      ],
+      "accuracy": "91.63% (after 70 epochs in Experiment 2)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Mask R-CNN",
+    "MRCNN",
+    "Faster R-CNN",
+    "Fast R-CNN",
+    "R-CNN",
+    "ResNet-101",
+    "Multilayer Perceptron (MLP)",
+    "Adaline"
+  ],
+  "preprocessing_techniques": [
+    "Use of pre-trained weights from the COCO dataset to initialize the ResNet-101 backbone",
+    "Application of binary masks for precise contour determination of skin lesions",
+    "Modification of the multilayer perceptron learning algorithm using matrix variants of the Kaczmarz (Widrow-Hoff) procedure with an insensitivity zone (dead zone) to handle limited interference"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The Mask R-CNN convolutional neural network is effective for instance segmentation of skin lesions, providing accurate pixel-wise masks and bounding boxes.",
+    "The proposed modification to the multilayer perceptron learning algorithm, utilizing matrix variants of the Kaczmarz (Widrow-Hoff) procedure with an insensitivity zone, effectively handles limited interference.",
+    "The network successfully tracks lesion growth, identifying both primary and secondary regions in cases of developing disease.",
+    "The approach achieved a classification accuracy of 91.63% after 70 epochs in distinguishing between benign and malignant (melanoma) lesions.",
+    "The use of pre-trained weights from the COCO dataset with a ResNet-101 backbone facilitated the training process on the ISIC 2016 dataset."
+  ],
+  "important_remarks": [
+    "The study relies on a very small dataset (900 images total, split into 600 training and 300 validation) from the ISIC 2016 competition, which limits the generalizability and statistical robustness of the results.",
+    "No external validation was performed; the model was only evaluated on the internal validation set from the ISIC 2016 dataset.",
+    "The paper does not report standard segmentation metrics (e.g., IoU, Dice coefficient) for the instance segmentation task, relying instead on qualitative descriptions of effectiveness and loss component graphs.",
+    "The classification accuracy of 91.63% was achieved after 70 epochs, but no confidence intervals, p-values, or statistical significance tests were provided to support this result.",
+    "The paper lacks details on data leakage prevention mechanisms, such as patient-level splitting, raising concerns about potential overfitting given the small dataset size.",
+    "The proposed modification to the multilayer perceptron learning algorithm (matrix variants of the Kaczmarz/Widrow-Hoff procedure with an insensitivity zone) is theoretically described but its specific impact on performance compared to standard backpropagation is not quantitatively isolated or benchmarked.",
+    "The study focuses on a specific task (melanoma detection) using a pre-trained backbone (ResNet-101 on COCO), which may introduce domain bias as COCO images differ significantly from dermatological images.",
+    "The paper does not discuss computational efficiency, inference time, or deployment feasibility in clinical settings, which are critical for practical application."
+  ]
+}

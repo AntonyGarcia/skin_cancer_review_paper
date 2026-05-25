@@ -1,0 +1,390 @@
+{
+  "file_name": "islam_2025_reproducible_u_net_baselines_and_lightweight_ensembles_for_skin_lesio.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning models, specifically U-Net variants (Custom U-Net, MONAI U-Net), transformer-based architectures (DuaSkinSeg, Lightweight DuaSkinSeg), and State Space Models (UNetMamba), to perform skin lesion segmentation on dermoscopy images from the ISIC-2018, ISIC-2017, and PH2 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental results, including the implementation and evaluation of specific deep learning models (Custom U-Net, MONAI U-Net, DuaSkinSeg, Lightweight DuaSkinSeg, UNetMamba) on skin lesion segmentation tasks. It reports new quantitative metrics (Dice scores, IoU, parameter counts, FLOPs) from experiments conducted on ISIC-2018, ISIC-2017, and PH2 datasets, and provides a reproducible benchmark with deterministic splits and released code/checkpoints. Although published in a conference proceedings (ICCIT), it contains original research findings rather than summarizing prior literature."
+  },
+  "title": "Reproducible U-Net Baselines and Lightweight Ensembles for Skin Lesion Segmentation on ISIC-2018 under low GPU resources",
+  "authors": [
+    "Md Minhaj Ul Islam",
+    "Dr. Rahat Hossain",
+    "Faisal Md.Rahat"
+  ],
+  "doi": "10.1109/ICCIT68739.2025.11490537",
+  "journal": "28th International Conference on Computer and Information Technology (ICCIT)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenges of reproducibility and high computational costs in skin lesion segmentation by providing a deterministic benchmark on the ISIC-2018, ISIC-2017, and PH2 datasets. The authors evaluated several deep learning architectures, including U-Net variants (Custom U-Net, MONAI U-Net), transformer-based models (DuaSkinSeg, Lightweight DuaSkinSeg), and State Space Models (UNetMamba). The standard DuaSkinSeg achieved the highest performance with 87.85% Dice score, while the proposed Lightweight DuaSkinSeg variant maintained competitive accuracy (87.72% Dice) with a 73% reduction in parameters and 38% less GPU memory usage. Additionally, an Enhanced Ensemble model demonstrated superior boundary detection capabilities with a Boundary IoU of 0.1502. The research concludes that lightweight models offer viable, resource-efficient alternatives for deployment in constrained environments without significant performance loss.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "Skin lesion",
+        "skin lesions"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on the segmentation of skin lesions in general, using datasets (ISIC-2018, ISIC-2017, PH2) that contain various types of skin lesions. The study does not perform classification into specific histological subtypes (e.g., melanoma vs. nevus) but treats the lesion boundary as the segmentation target for all included images."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the context of clinical relevance (early detection, heterogeneous pigmentation) and as a type of lesion that traditional methods struggle with, but not as a specific experimental class or label in the segmentation task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion boundary masks",
+        "primary": true,
+        "details": "The paper focuses on skin lesion boundary segmentation, predicting pixel-wise masks for lesion boundaries. Performance is evaluated using metrics such as Dice score, Intersection over Union (IoU), Boundary IoU, and Hausdorff distance (HD-95) on datasets including ISIC-2018, ISIC-2017, and PH2."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC-2018",
+      "description": "The primary dataset used for the study, specifically the ISIC 2018 Task 1 challenge data. The authors created deterministic train/val/test splits from this dataset, excluding 140 problematic images with corrupted masks or artifacts.",
+      "classes_used": [
+        "Skin lesion boundary (segmentation mask)"
+      ],
+      "counts": {
+        "total": 3594,
+        "training": 2293,
+        "validation": 301,
+        "testing": 1000,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training all models (Custom U-Net, MONAI U-Net, DuaSkinSeg, Lightweight DuaSkinSeg, UNetMamba) with deterministic splits (seed=42) and fixed augmentation seeds.",
+        "validation": "Used for validation during training (301 images) and for evaluating cross-dataset generalization (zero-shot transfer).",
+        "testing": "Used for final testing (1,000 images from the ISIC 2018 challenge test set) and for analyzing performance by lesion characteristics (size and boundary regularity).",
+        "other": "Used for creating the reproducible benchmark and releasing code/checkpoints."
+      }
+    },
+    {
+      "name": "ISIC-2017",
+      "description": "A public dermoscopy dataset used to evaluate the generalization capability of the trained models without retraining.",
+      "classes_used": [
+        "Skin lesion boundary (segmentation mask)"
+      ],
+      "counts": {
+        "total": 2000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for zero-shot transfer testing to evaluate cross-dataset generalization.",
+        "other": "Used for multi-dataset validation to ensure reproducibility and robustness."
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A public dermoscopy dataset used to evaluate the generalization capability of the trained models without retraining.",
+      "classes_used": [
+        "Skin lesion boundary (segmentation mask)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for zero-shot transfer testing to evaluate cross-dataset generalization.",
+        "other": "Used for multi-dataset validation to ensure reproducibility and robustness."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice score",
+    "Intersection over Union (IoU)",
+    "Boundary IoU",
+    "Hausdorff distance (HD-95)",
+    "Pixel Accuracy",
+    "Sensitivity (Recall)",
+    "Specificity",
+    "Precision",
+    "Trainable parameters",
+    "Model size (MB)",
+    "Peak GPU memory (GB)",
+    "Inference time (s)",
+    "FLOPs",
+    "Efficiency Score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Deterministic train/val/test splits with fixed random seeds",
+      "purpose": "To ensure exact reproducibility of the benchmark and prevent data leakage during model evaluation.",
+      "type": "Experimental design"
+    },
+    {
+      "method": "Zero-shot transfer testing",
+      "purpose": "To evaluate cross-dataset generalization capability on ISIC-2017 and PH2 datasets without retraining.",
+      "type": "Validation strategy"
+    },
+    {
+      "method": "Performance analysis by lesion characteristics (size and boundary regularity)",
+      "purpose": "To analyze model performance variations across different subsets of the test data (e.g., small vs. large lesions, regular vs. irregular boundaries).",
+      "type": "Subgroup analysis"
+    },
+    {
+      "method": "Efficiency Score calculation",
+      "purpose": "To quantify and compare the trade-off between computational resources (parameters, GPU memory, inference time) and segmentation performance.",
+      "type": "Metric derivation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using deterministic metrics (Dice score, IoU, etc.) and efficiency scores without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC-2018": {
+      "description": "Primary dataset for model training and evaluation with deterministic splits (seed=42). Excluded 140 problematic images.",
+      "metrics": {
+        "Dice": {
+          "DuaSkinSeg": "87.85%",
+          "Lightweight DuaSkinSeg": "87.72%",
+          "Enhanced Ensemble": "87.53%",
+          "Custom U-Net": "86.30%",
+          "MONAI U-Net": "84.50%",
+          "UNetMamba (Fine-tuned)": "81.61%"
+        },
+        "IoU": {
+          "DuaSkinSeg": "78.27%",
+          "Lightweight DuaSkinSeg": "78.11%",
+          "Enhanced Ensemble": "77.86%",
+          "Custom U-Net": "76.11%",
+          "MONAI U-Net": "73.72%",
+          "UNetMamba (Fine-tuned)": "70.09%"
+        },
+        "Boundary IoU": {
+          "DuaSkinSeg": "0.1420",
+          "Lightweight DuaSkinSeg": "0.1417",
+          "Enhanced Ensemble": "0.1502",
+          "Custom U-Net": "0.1392",
+          "MONAI U-Net": "0.1322",
+          "UNetMamba (Fine-tuned)": "0.1271"
+        },
+        "HD-95 (px)": {
+          "DuaSkinSeg": "19.31",
+          "Lightweight DuaSkinSeg": "19.47",
+          "Enhanced Ensemble": "18.73",
+          "Custom U-Net": "20.15",
+          "MONAI U-Net": "22.18",
+          "UNetMamba (Fine-tuned)": "24.62"
+        },
+        "Pixel Accuracy": {
+          "DuaSkinSeg": "0.9445",
+          "Lightweight DuaSkinSeg": "0.9441",
+          "Enhanced Ensemble": "0.9465",
+          "Custom U-Net": "0.9398",
+          "MONAI U-Net": "0.9365",
+          "UNetMamba (Fine-tuned)": "0.9278"
+        },
+        "Sensitivity": {
+          "DuaSkinSeg": "0.9012",
+          "Lightweight DuaSkinSeg": "0.9019",
+          "Enhanced Ensemble": "0.8804",
+          "Custom U-Net": "0.8635",
+          "MONAI U-Net": "0.8312",
+          "UNetMamba (Fine-tuned)": "0.8388"
+        },
+        "Specificity": {
+          "DuaSkinSeg": "0.9869",
+          "Lightweight DuaSkinSeg": "0.9871",
+          "Enhanced Ensemble": "0.9862",
+          "Custom U-Net": "0.9847",
+          "MONAI U-Net": "0.9821",
+          "UNetMamba (Fine-tuned)": "0.9829"
+        },
+        "Precision": {
+          "DuaSkinSeg": "0.8740",
+          "Lightweight DuaSkinSeg": "0.8747",
+          "Enhanced Ensemble": "0.8608",
+          "Custom U-Net": "0.8461",
+          "MONAI U-Net": "0.8203",
+          "UNetMamba (Fine-tuned)": "0.8265"
+        }
+      },
+      "notes": "DuaSkinSeg achieved the highest Dice score. Lightweight DuaSkinSeg maintained competitive accuracy with 73% fewer parameters. Enhanced Ensemble excelled in boundary detection (Boundary IoU 0.1502). Performance varied by lesion size: Small (<500px²) 82.3% Dice, Medium (500-5000px²) 88.9% Dice, Large (>5000px²) 86.1% Dice. Performance varied by boundary regularity: Regular 91.2% Dice, Irregular 84.7% Dice, Severe irregularity 78.9% Dice."
+    },
+    "ISIC-2017": {
+      "description": "Used for zero-shot transfer testing to evaluate cross-dataset generalization without retraining.",
+      "metrics": {
+        "Dice": {
+          "DuaSkinSeg": "86.12%",
+          "Lightweight DuaSkinSeg": "85.98%",
+          "Enhanced Ensemble": "85.67%",
+          "Custom U-Net": "84.73%"
+        }
+      },
+      "notes": "Average drop from ISIC-2018 performance was <1% for all models (DuaSkinSeg: 0.90%, Lightweight DuaSkinSeg: 0.87%, Enhanced Ensemble: 0.93%, Custom U-Net: 0.79%)."
+    },
+    "PH2": {
+      "description": "Used for zero-shot transfer testing to evaluate cross-dataset generalization without retraining.",
+      "metrics": {
+        "Dice": {
+          "DuaSkinSeg": "89.34%",
+          "Lightweight DuaSkinSeg": "89.21%",
+          "Enhanced Ensemble": "88.95%",
+          "Custom U-Net": "87.15%"
+        }
+      },
+      "notes": "Average drop from ISIC-2018 performance was <1% for all models."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multiple architectures evaluated: Custom U-Net, MONAI U-Net, DuaSkinSeg, Lightweight DuaSkinSeg, UNetMamba, and an Enhanced Ensemble.",
+    "pretraining": "Not explicitly reported; models were trained on ISIC-2018 with deterministic splits. UNetMamba was fine-tuned.",
+    "input_size": "384x384 pixels (with aspect ratio preservation)",
+    "architecture_details": {
+      "Custom U-Net": {
+        "type": "U-Net variant",
+        "structure": "Five-level encoder-decoder with skip connections",
+        "features": "[32, 64, 128, 256]",
+        "optimizations": "Batch normalization, residual connections",
+        "parameters": "4.3M"
+      },
+      "MONAI U-Net": {
+        "type": "U-Net variant (MONAI framework)",
+        "optimizations": "Residual units, advanced normalization, optimized memory usage",
+        "parameters": "2.6M"
+      },
+      "Attention U-Net": {
+        "type": "U-Net variant",
+        "components": "CBAM (Convolutional Block Attention Module) in skip connections",
+        "parameters": "57.8M"
+      },
+      "DuaSkinSeg": {
+        "type": "Dual-encoder hybrid (CNN + Vision Transformer)",
+        "encoder_1": "MobileNetV2 CNN path",
+        "encoder_2": "Vision Transformer encoder",
+        "fusion": "Feature fusion with skip connections",
+        "parameters": "31.2M"
+      },
+      "Lightweight DuaSkinSeg": {
+        "type": "Compressed DuaSkinSeg variant",
+        "transformer_encoder_changes": "Embedding dimensions reduced (384→192), attention heads reduced (12→6), blocks reduced (12→8)",
+        "cnn_encoder_changes": "ResNet50 replaced with MobileNetV2",
+        "fusion_changes": "Cross-attention channels reduced (384→192)",
+        "decoder_changes": "Base channels reduced (512→256)",
+        "parameters": "8.4M"
+      },
+      "UNetMamba": {
+        "type": "U-Net with State Space Models",
+        "components": "2D-adapted Mamba units replacing convolutional blocks in bottleneck and decoder pathways",
+        "performance_note": "Fine-tuned version achieved 81.61% Dice"
+      },
+      "Enhanced Ensemble": {
+        "type": "Weighted ensemble",
+        "components": [
+          "Attention U-Net (Best)",
+          "Attention U-Net (Second)",
+          "Custom U-Net (Best)",
+          "Custom U-Net (Second)"
+        ],
+        "weights": [
+          0.35,
+          0.3,
+          0.2,
+          0.15
+        ],
+        "augmentation": "Test-time augmentation (TTA) with flips and rotations"
+      }
+    },
+    "training_details": {
+      "framework": "PyTorch 2.1.0",
+      "hardware": "NVIDIA GTX 1070 (8 GB VRAM)",
+      "cuda_version": "13.0",
+      "precision": "Mixed precision (AMP)",
+      "epochs": "Up to 100",
+      "early_stopping": "Patience = 15",
+      "batch_size": "4–12 (tuned per model to fit memory)",
+      "random_seed": "42",
+      "augmentation": "Random flips, rotations (±30°), brightness/contrast adjustments, elastic deformations (fixed seeds)"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "metrics_used_for_optimization": "Dice, IoU, Boundary IoU, HD-95, Pixel Accuracy, Sensitivity, Specificity, Precision"
+    },
+    "approximate_parameters": {
+      "Custom U-Net": "4.3M",
+      "MONAI U-Net": "2.6M",
+      "Attention U-Net": "57.8M",
+      "DuaSkinSeg": "31.2M",
+      "Lightweight DuaSkinSeg": "8.4M",
+      "Enhanced Ensemble": "8.0M (combined)"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Custom U-Net",
+    "MONAI U-Net",
+    "Attention U-Net",
+    "DuaSkinSeg",
+    "Lightweight DuaSkinSeg",
+    "UNetMamba",
+    "Enhanced Ensemble"
+  ],
+  "preprocessing_techniques": [
+    "Resolution normalization to 384x384 pixels with aspect ratio preservation",
+    "Artifact removal (rulers, color calibration charts)",
+    "Color normalization techniques",
+    "Exclusion of 140 problematic images with corrupted masks or significant artifacts",
+    "Deterministic train/val/test splits using fixed random seeds (seed=42)",
+    "Data augmentation during training: random flips, rotations (±30°), brightness/contrast adjustments, and elastic deformations (applied with fixed seeds)",
+    "Test-time augmentation (TTA) with flips and rotations for the Enhanced Ensemble model"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Training Data Augmentation",
+      "details": "Applied during training with fixed seeds for reproducibility. Techniques included: random flips, rotations (±30°), brightness/contrast adjustments, and elastic deformations."
+    },
+    {
+      "technique": "Test-Time Augmentation (TTA)",
+      "details": "Used for the Enhanced Ensemble model to improve robustness. Techniques included flips and rotations."
+    }
+  ],
+  "conclusions": [
+    "The standard DuaSkinSeg model achieved the highest segmentation performance on the ISIC-2018 dataset with a Dice score of 87.85% and IoU of 78.27%.",
+    "The proposed Lightweight DuaSkinSeg variant maintained competitive accuracy (87.72% Dice) while reducing parameters by 73% (from 31.2M to 8.4M) and decreasing GPU memory usage by 38%.",
+    "Lightweight DuaSkinSeg demonstrated robust cross-dataset generalization with less than 1% average performance drop on ISIC-2017 and PH2 datasets.",
+    "For severely resource-constrained environments, Custom U-Net (86.30% Dice, 4.3M parameters) and MONAI U-Net (84.50% Dice, 2.6M parameters) provide viable, efficient alternatives.",
+    "The Enhanced Ensemble model excelled in boundary detection, achieving the highest Boundary IoU (0.1502) and lowest Hausdorff distance (18.73 pixels), though it required higher computational costs.",
+    "Model performance varied significantly by lesion characteristics: small lesions (<500px²) were challenging (82.3% Dice), while medium-to-large lesions achieved higher accuracy (88.9% Dice); irregular boundaries also posed challenges compared to regular ones.",
+    "Transformer-based models generally outperformed CNN-based approaches in accuracy, but architectural compression allowed lightweight variants to preserve most of this advantage with significantly fewer resources.",
+    "The study highlights a trade-off where models with faster inference speeds (e.g., MONAI U-Net) may have lower segmentation quality, necessitating model selection based on specific deployment constraints.",
+    "The authors acknowledge limitations regarding the difficulty of segmenting small lesions and severe boundary irregularities, and note that quantization and pruning were not explored as potential further optimizations."
+  ],
+  "important_remarks": [
+    "The study lacks formal statistical hypothesis testing (p-values or confidence intervals); performance comparisons rely solely on deterministic metric values.",
+    "Cross-dataset generalization was evaluated via zero-shot transfer without retraining, which may overestimate real-world clinical robustness compared to fine-tuned models.",
+    "The primary dataset (ISIC-2018) had 140 images with corrupted masks or artifacts excluded, which may introduce selection bias regarding image quality.",
+    "Performance is significantly biased towards medium-to-large lesions (88.9% Dice) and regular boundaries (91.2% Dice), with notably poor results for small lesions (<500px²: 82.3% Dice) and severe irregularity (78.9% Dice).",
+    "The research is constrained by low GPU resources (NVIDIA GTX 1070, 8GB VRAM), limiting the scalability of the findings to high-resource clinical environments.",
+    "Quantization and pruning techniques were not explored, representing a missed opportunity for further computational optimization.",
+    "The Enhanced Ensemble model, while superior in boundary detection (Boundary IoU 0.1502), incurs significantly higher computational costs (124.8 GFLOPs) compared to single models, impacting deployment feasibility.",
+    "The paper does not report clinical validation or prospective trials, limiting the immediate clinical relevance of the segmentation benchmarks."
+  ]
+}

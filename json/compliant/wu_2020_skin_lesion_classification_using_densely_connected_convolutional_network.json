@@ -1,0 +1,408 @@
+{
+  "file_name": "wu_2020_skin_lesion_classification_using_densely_connected_convolutional_network.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning model called ARDT-DenseNet (a densely connected convolutional network with attention and residual learning) to perform skin lesion classification on dermoscopy images from the ISIC 2016 and ISIC 2017 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel deep learning model (ARDT-DenseNet) for skin lesion classification, details its architecture and training methodology, and reports original experimental results and performance metrics (ACC, AUC) on the ISIC 2016 and ISIC 2017 datasets, which aligns with the definition of a research paper producing new results."
+  },
+  "title": "Skin Lesion Classification Using Densely Connected Convolutional Networks with Attention Residual Learning",
+  "authors": [
+    "Jing Wu",
+    "Wei Hu",
+    "Yuan Wen",
+    "WenLi Tu",
+    "XiaoMing Liu"
+  ],
+  "doi": "10.3390/s20247080",
+  "journal": "Sensors",
+  "year": 2020,
+  "article_type": "Article",
+  "brief_summary": "This study proposes ARDT-DenseNet, a densely connected convolutional network incorporating attention and residual learning, to address the challenges of intra-class variation and inter-class similarity in skin lesion classification. The model was evaluated on the ISIC 2016 and ISIC 2017 dermoscopy image datasets using binary classification tasks for melanoma and seborrheic keratosis. Experimental results demonstrated that the proposed method achieved an accuracy of 85.7% and an AUC of 83.7% on ISIC 2016, along with an average AUC of 91.8% on ISIC 2017. The architecture successfully reduced the number of parameters by half compared to residual networks of similar depth while maintaining competitive accuracy. Consequently, the method achieved state-of-the-art performance, outperforming existing models in skin lesion classification tasks.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "Studied as a malignant skin cancer derived from melanocytes. Used as the positive class in binary classification tasks (melanoma vs. other) on ISIC 2016 and ISIC 2017 datasets."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus",
+        "benign",
+        "benign melanocytic nevus",
+        "dysplastic nevus"
+      ],
+      "role": "Target class",
+      "details": "Studied as a benign skin lesion derived from melanocytes. Included in the 'benign' category for ISIC 2016 and as a distinct class in ISIC 2017. Grouped with seborrheic keratosis as 'non-melanocytes' in Task 2 of ISIC 2017."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "Studied as a benign skin lesion derived from keratinocytes (non-melanocytes). Used as the positive class in binary classification tasks (seborrheic keratosis vs. other) on ISIC 2016 and ISIC 2017 datasets."
+    },
+    {
+      "lesion_type": "Other (Non-target lesions)",
+      "paper_terms": [
+        "other",
+        "non-melanocytes"
+      ],
+      "role": "Comparator class",
+      "details": "Represents the negative class in binary classification tasks. In ISIC 2017 Task 2, this specifically refers to seborrheic keratosis when the target is melanoma/nevus, or melanoma/nevus when the target is seborrheic keratosis."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories (malignant vs. benign, melanoma vs. other, seborrheic keratosis vs. other)",
+        "primary": true,
+        "details": "The paper performs binary classification tasks on the ISIC 2016 and ISIC 2017 datasets. Specifically, it classifies lesions as 'malignant (melanoma) vs. benign' and 'seborrheic keratosis vs. other' (or 'melanocytes vs. non-melanocytes'). The model outputs prediction scores for class labels, evaluated using metrics such as Accuracy (ACC), Sensitivity (SE), Specificity (SP), and Area Under the ROC Curve (AUC)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2016",
+      "description": "The International Skin Imaging Collaboration 2016 dataset, containing dermoscopy images of skin lesions matched with gold standard definitive malignant diagnosis. It is a publicly available dataset provided by the organization that provides the largest publicly available dermoscopy image dataset of skin lesions.",
+      "classes_used": [
+        "malignant (melanoma)",
+        "benign"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the ARDT-DenseNet model. The training set was expanded 60 times via data augmentation (random cropping, rotation, flipping, and scaling patches) to address class imbalance, resulting in 54,000 images for training.",
+        "validation": "null",
+        "testing": "Used for testing the model's performance, evaluating metrics such as SE, SP, ACC, and AUC on the 379 test images.",
+        "other": "Used for binary classification tasks: malignant (melanoma) vs. benign."
+      }
+    },
+    {
+      "name": "ISIC 2017",
+      "description": "The International Standard Industrial Classification 2017 dataset (also referred to as International Skin Imaging Collaboration 2017 in the text), containing dermoscopy lesion images paired with gold standard diagnoses. It includes three categories of lesions.",
+      "classes_used": [
+        "melanoma",
+        "nevus",
+        "seborrheic keratosis"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "training": {
+            "melanoma": 374,
+            "nevus": 254,
+            "seborrheic keratosis": 1372
+          },
+          "validation": {
+            "melanoma": 30,
+            "nevus": 42,
+            "seborrheic keratosis": 78
+          },
+          "testing": {
+            "melanoma": 117,
+            "nevus": 90,
+            "seborrheic keratosis": 393
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the ARDT-DenseNet model. The training set was expanded 60 times via data augmentation to address severe class imbalance, resulting in 12,000 images for training.",
+        "validation": "Used to verify the performance of the model during the training process using the official validation set.",
+        "testing": "Used for testing the model's performance on two binary classification subtasks: melanoma (melanoma vs. others) and seborrheic keratosis (seborrheic keratosis vs. others).",
+        "other": "Used for binary classification tasks: melanoma vs. benign (seborrheic keratosis/nevus) and melanocytes (melanoma/nevus) vs. non-melanocytes (seborrheic keratosis)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "average precision (AP)",
+    "classification accuracy (ACC)",
+    "sensitivity (SE)",
+    "specificity (SP)",
+    "area under the ROC curve (AUC)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics (ACC, AUC, SE, SP) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2016": {
+      "metric": [
+        "Sensitivity (SE)",
+        "Specificity (SP)",
+        "Accuracy (ACC)",
+        "Area Under the ROC Curve (AUC)"
+      ],
+      "models": {
+        "VGGNet": {
+          "SE": "0.768",
+          "SP": "0.678",
+          "ACC": "0.812",
+          "AUC": "0.802"
+        },
+        "GoogLeNet": {
+          "SE": "0.770",
+          "SP": "0.689",
+          "ACC": "0.817",
+          "AUC": "0.816"
+        },
+        "ResNet50": {
+          "SE": "0.799",
+          "SP": "0.714",
+          "ACC": "0.830",
+          "AUC": "0.782"
+        },
+        "ResNet101": {
+          "SE": "0.804",
+          "SP": "0.739",
+          "ACC": "0.834",
+          "AUC": "0.821"
+        },
+        "DenseNet100": {
+          "SE": "0.812",
+          "SP": "0.742",
+          "ACC": "0.842",
+          "AUC": "0.817"
+        },
+        "ARDT-DenseNet": {
+          "SE": "0.816",
+          "SP": "0.756",
+          "ACC": "0.857",
+          "AUC": "0.837"
+        }
+      },
+      "notes": "ARDT-DenseNet achieved the best performance among all compared models on the ISIC 2016 test set."
+    },
+    "ISIC 2017": {
+      "metric": [
+        "Sensitivity (SE)",
+        "Specificity (SP)",
+        "Accuracy (ACC)",
+        "Area Under the ROC Curve (AUC)"
+      ],
+      "models": {
+        "Task 1 (Melanoma vs. Others)": {
+          "VGGNet": {
+            "SE": "0.801",
+            "SP": "0.757",
+            "ACC": "0.742",
+            "AUC": "0.809"
+          },
+          "GoogLeNet": {
+            "SE": "0.795",
+            "SP": "0.764",
+            "ACC": "0.767",
+            "AUC": "0.824"
+          },
+          "ResNet50": {
+            "SE": "0.628",
+            "SP": "0.882",
+            "ACC": "0.835",
+            "AUC": "0.852"
+          },
+          "ResNet101": {
+            "SE": "0.637",
+            "SP": "0.890",
+            "ACC": "0.839",
+            "AUC": "0.861"
+          },
+          "DenseNet100": {
+            "SE": "0.641",
+            "SP": "0.887",
+            "ACC": "0.842",
+            "AUC": "0.861"
+          },
+          "ARDT-DenseNet": {
+            "SE": "0.668",
+            "SP": "0.896",
+            "ACC": "0.868",
+            "AUC": "0.879"
+          }
+        },
+        "Task 2 (Seborrheic Keratosis vs. Others)": {
+          "VGGNet": {
+            "SE": "0.809",
+            "SP": "0.723",
+            "ACC": "0.746",
+            "AUC": "0.832"
+          },
+          "GoogLeNet": {
+            "SE": "0.824",
+            "SP": "0.788",
+            "ACC": "0.758",
+            "AUC": "0.847"
+          },
+          "ResNet50": {
+            "SE": "0.865",
+            "SP": "0.837",
+            "ACC": "0.838",
+            "AUC": "0.942"
+          },
+          "ResNet101": {
+            "SE": "0.871",
+            "SP": "0.849",
+            "ACC": "0.843",
+            "AUC": "0.950"
+          },
+          "DenseNet100": {
+            "SE": "0.869",
+            "SP": "0.852",
+            "ACC": "0.850",
+            "AUC": "0.939"
+          },
+          "ARDT-DenseNet": {
+            "SE": "0.887",
+            "SP": "0.873",
+            "ACC": "0.878",
+            "AUC": "0.957"
+          }
+        }
+      },
+      "notes": "ARDT-DenseNet achieved an average AUC of 91.8% across Task 1 and Task 2. In Task 1, ARDT-DenseNet ACC was 86.8% (2.6% higher than DenseNet100) and AUC was 87.9%. In Task 2, ARDT-DenseNet ACC was 87.9% (1.8% higher than DenseNet100) and AUC was 95.7%. ARDT-DenseNet has 20.3 x 10^6 parameters."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ARDT-DenseNet",
+    "pretraining": "null",
+    "input_size": "224 x 224",
+    "architecture_details": {
+      "backbone": "DenseNet100",
+      "components": [
+        "ARDT blocks",
+        "Dense blocks",
+        "Transition blocks",
+        "Attention and residual modules",
+        "Global average pooling layer",
+        "Classification layer"
+      ],
+      "dense_block_structure": {
+        "num_dense_blocks": 4,
+        "layers_per_block": 12,
+        "growth_rate": 12,
+        "operations_per_layer": "1x1 conv, 3x3 conv"
+      },
+      "first_convolution": {
+        "kernel_size": "3x3",
+        "stride": 1,
+        "padding": "valid",
+        "num_kernels": "4k (where k is growth rate)"
+      },
+      "transition_block_modification": "Output channel consistent with input channel of current ARDT block",
+      "activation_method": "Pre-activation (regularization, then activation, then convolution)",
+      "attention_mechanism": "Uses high-level feature map as low attention mask; no additional parameters introduced",
+      "residual_learning": "Element-wise addition of identity mapping"
+    },
+    "training_details": {
+      "optimizer": "SGD",
+      "initial_learning_rate": 0.0001,
+      "learning_rate_schedule": "Reduced by half every 30 epochs",
+      "batch_size": 10,
+      "max_epochs": 100,
+      "weight_decay": 0.0001,
+      "momentum": 0.9,
+      "attention_initial_weight": 0.001,
+      "implementation_framework": "PyTorch",
+      "data_augmentation": [
+        "Random cropping",
+        "Random rotation",
+        "Flipping",
+        "Scaling patches"
+      ],
+      "training_set_expansion": "Expanded 60 times"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classifier",
+      "loss_function": "Weighted binary cross-entropy",
+      "loss_formula": "L_loss = -w_i * y_i * log(x_n) + (1-y_i) * log(1-x_i)",
+      "output_activation": "Softmax"
+    },
+    "approximate_parameters": "20.3 x 10^6"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ARDT-DenseNet",
+    "VGGNet",
+    "GoogLeNet",
+    "ResNet50",
+    "ResNet101",
+    "DenseNet100",
+    "ARL-CNN"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation: Random cropping, random rotation, and flipping",
+    "Patch extraction: Randomly selecting patches of different scales (1/5, 2/5, 3/5, and 4/5 of the original image) from the center of each image",
+    "Resizing: Adjusting extracted patches to 224 × 224 using bilinear interpolation",
+    "Oversampling: Repeating samples of the minority class and randomly sampling from them to balance class distribution in the training set",
+    "Training set expansion: Expanding the training set 60 times (generating 60 pictures per training image)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Patch Extraction and Scaling",
+      "details": "Randomly selected patches of different scales (1/5, 2/5, 3/5, and 4/5 of the original image) from the center of each image. Each size operation generated 15 pictures, and each training image generated a total of 60 pictures. Extracted patches were resized to 224 × 224 using bilinear interpolation."
+    },
+    {
+      "technique": "Random Cropping",
+      "details": "Applied as part of the data augmentation process to expand the training set."
+    },
+    {
+      "technique": "Random Rotation",
+      "details": "Applied as part of the data augmentation process to expand the training set."
+    },
+    {
+      "technique": "Flipping",
+      "details": "Applied as part of the data augmentation process to expand the training set."
+    },
+    {
+      "technique": "Oversampling (Class Balancing)",
+      "details": "Used to address severe class imbalance. Samples of the minority class were repeated, and new samples were randomly sampled from the minority class to ensure all classes had an equal number of samples for training."
+    },
+    {
+      "technique": "Training Set Expansion",
+      "details": "The training set was expanded 60 times (generating 60 pictures per training image) to address class imbalance. For example, the ISIC 2017 training set of 2000 images was expanded to 12,000 pictures."
+    }
+  ],
+  "conclusions": [
+    "The proposed ARDT-DenseNet model, which integrates attention and residual learning into a densely connected convolutional network, achieves state-of-the-art performance in skin lesion classification compared to baseline models such as VGGNet, GoogLeNet, ResNet, and DenseNet.",
+    "ARDT-DenseNet reduces the number of parameters by half compared to residual networks of similar depth while maintaining competitive accuracy, achieving a parameter count of 20.3 x 10^6.",
+    "The model achieved an accuracy of 85.7% and an AUC of 83.7% on the ISIC 2016 dataset.",
+    "On the ISIC 2017 dataset, ARDT-DenseNet achieved an average AUC of 91.8%, with specific AUCs of 87.9% for melanoma classification and 95.7% for seborrheic keratosis classification.",
+    "The introduction of attention and residual learning resulted in accuracy improvements of 2.6% and 1.8% over the baseline DenseNet100 in ISIC 2017 Task 1 and Task 2, respectively.",
+    "The attention mechanism utilizes high-level feature maps as low attention masks without introducing additional parameters, effectively highlighting distinguishing regions of skin lesions.",
+    "The method addresses challenges of intra-class variation and inter-class similarity in dermoscopy images by adaptively focusing on semantic regions of interest.",
+    "The proposed approach reduces computational cost and training/inference requirements by avoiding the need for special hardware-software equipment and minimizing additional parameters associated with traditional attention modules."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC 2016 and ISIC 2017 datasets, which may limit generalizability to other populations or imaging devices not represented in these specific public challenges.",
+    "Severe class imbalance in the ISIC 2017 dataset (e.g., 1372 seborrheic keratosis vs. 374 melanoma in training) was addressed by oversampling the minority class and expanding the training set 60 times via patch extraction; this aggressive augmentation may lead to overfitting or data leakage if not strictly managed.",
+    "The paper does not report formal statistical significance testing (e.g., p-values or confidence intervals) for performance comparisons, relying instead on descriptive metrics.",
+    "The model was evaluated without external data; while it outperformed some top-ranking challenge models, the lack of external validation limits evidence of robustness across diverse clinical settings.",
+    "The attention mechanism uses high-level feature maps as low attention masks without introducing additional parameters, which reduces computational cost but may limit the expressiveness of the attention module compared to learnable parameter-based approaches.",
+    "The paper claims state-of-the-art performance but compares against a limited set of baselines and challenge models; some top-ranking models (e.g., #2 [34]) achieved higher specificity but at the cost of significantly lower sensitivity, highlighting a trade-off not fully explored in the proposed method's balance."
+  ]
+}

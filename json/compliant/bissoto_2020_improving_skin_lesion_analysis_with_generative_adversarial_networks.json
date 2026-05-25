@@ -1,0 +1,236 @@
+{
+  "file_name": "bissoto_2020_improving_skin_lesion_analysis_with_generative_adversarial_networks.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Generative Adversarial Networks (GANs) to generate synthetic skin lesion images for data augmentation and employs Deep Neural Networks for skin lesion classification tasks in the context of melanoma detection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is identified as an M.Sc. dissertation that presents original experimental results using Generative Adversarial Networks (GANs) to generate synthetic skin lesion images for data augmentation. It includes specific methods, datasets (ISIC Archive), quantitative results (AUC scores, p-values in Table I), and investigations into model bias, rather than merely summarizing prior literature."
+  },
+  "title": "Improving Skin Lesion Analysis with Generative Adversarial Networks",
+  "authors": [
+    "Alceu Bissoto",
+    "Sandra Avila"
+  ],
+  "doi": null,
+  "journal": "ISIC Skin Image Analysis Workshop at the Conference on Computer Vision and Pattern Recognition (CVPR)",
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of limited annotated data in automated skin lesion analysis for melanoma detection by employing Generative Adversarial Networks (GANs) to generate synthetic dermoscopic images. Using the ISIC Archive dataset, the authors augment training data with high-resolution synthetic samples that preserve clinically meaningful dermoscopic attributes, resulting in consistent performance improvements for classification models as measured by AUC scores. Additionally, the research investigates dataset bias by analyzing how models exploit spurious correlations from image acquisition artifacts rather than true clinical features. Experiments involving the progressive destruction of lesion information revealed that models maintained high performance even without clinically relevant data, indicating a reliance on spurious correlations. The findings highlight critical issues with generalization and bias in current deep learning approaches for skin cancer analysis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "skin cancer"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on melanoma detection and classification. The classification task distinguishes between malignant (melanoma) and benign lesions, as indicated by the use of dermoscopic attributes to characterize lesions as 'malignant or benign' and the context of melanoma being the most lethal skin cancer."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "healthy patients"
+      ],
+      "role": "Comparator class",
+      "details": "The study involves classifying skin lesions as malignant or benign. The term 'benign' is used to describe the non-melanoma class in the classification task, and 'healthy patients' are mentioned in the context of false positives."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Malignant (melanoma) vs. Benign skin lesions",
+        "primary": true,
+        "details": "The paper focuses on automated skin lesion analysis for melanoma detection, specifically classifying lesions as malignant or benign. The study uses Deep Neural Networks for this classification task, evaluating performance via Area Under the ROC Curve (AUC) scores on datasets like the ISIC Archive. Additionally, the paper employs Generative Adversarial Networks (GANs) for image generation/synthesis to augment the classification training data, but the primary diagnostic task evaluated is binary classification."
+      },
+      {
+        "task_type": "Generation/Synthesis",
+        "target": "Synthetic dermoscopic skin lesion images",
+        "primary": false,
+        "details": "The paper introduces a GAN-based method to generate high-resolution, clinically-meaningful synthetic skin lesion images conditioned on semantic and instance maps (dermoscopic attributes) to address data scarcity for the classification task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Archive",
+      "description": "A large, less controlled dataset containing images of different sources, used for training, evaluating, and comparing models in skin lesion analysis. Specifically, annotations from Task II of the ISIC 2018 Challenge were used for dermoscopic attributes.",
+      "classes_used": [
+        "Malignant (Melanoma)",
+        "Benign"
+      ],
+      "counts": {
+        "total": null,
+        "training": 2346,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as the primary source for real images to train the classification network and to generate synthetic data via GANs. The base training set size was 2,346 images.",
+        "validation": null,
+        "testing": "Used for testing via augmented replicas of real-only images to evaluate the classification network's performance (AUC).",
+        "other": "Annotations for dermoscopic patterns (pigment network, negative network, streaks, milia-like cysts, globules) from Task II of the ISIC 2018 Challenge were used to create semantic and instance maps for GAN conditioning and bias analysis."
+      }
+    },
+    {
+      "name": "Interactive Atlas of Dermoscopy",
+      "description": "An educational medical dataset containing standardized metadata and images. It contains both dermoscopic and clinical images.",
+      "classes_used": [
+        "Benign",
+        "Malignant"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Mentioned as one of the two datasets that dominate research in automated skin lesion analysis alongside the ISIC Archive. Clinical images are noted as being present only in this dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "AUC (Area Under the ROC Curve)",
+    "p-value"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "p-value",
+      "purpose": "To compare the performance of real and synthetic training sets for a skin cancer classification network, indicating statistical significance of the differences in AUC scores.",
+      "type": "Hypothesis test statistic"
+    },
+    {
+      "method": "Mean ± Standard Deviation",
+      "purpose": "To report the performance (AUC) of the classification network trained 10 times with each set, providing an estimate of variance/uncertainty in the results.",
+      "type": "Descriptive statistic"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "p-value",
+    "null_hypothesis": "There is no significant difference in the performance (AUC) of the skin cancer classification network when trained with real data versus synthetic data augmentations.",
+    "alternative_hypothesis": "There is a significant difference in the performance (AUC) of the skin cancer classification network when trained with real data versus synthetic data augmentations.",
+    "alpha": null,
+    "interpretation": "The paper reports p-values in Table I to compare the performance of real and synthetic training sets. The p-values (ranging from 2.5 × 10^-3 to 2.6 × 10^-2) indicate statistical significance for the differences in AUC scores between the baseline real set and various synthetic augmentation scenarios, suggesting that the synthetic data consistently improved or altered performance significantly compared to the baseline."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC Archive": {
+      "metric": "AUC (%)",
+      "models": {
+        "Real": {
+          "AUC": "83.4 ± 0.9"
+        },
+        "0 Instance": {
+          "AUC": "82.0 ± 0.7"
+        },
+        "Semantic": {
+          "AUC": "78.1 ± 1.2"
+        },
+        "1 PGAN": {
+          "AUC": "73.3 ± 1.5"
+        },
+        "Real+Instance": {
+          "AUC": "82.8 ± 0.8"
+        },
+        "Real+Semantic": {
+          "AUC": "82.6 ± 0.8"
+        },
+        "Real+PGAN": {
+          "AUC": "83.7 ± 0.8"
+        },
+        "Real+2×PGAN": {
+          "AUC": "83.6 ± 1.0"
+        },
+        "Real+Instance+PGAN": {
+          "AUC": "84.7 ± 0.5"
+        }
+      },
+      "notes": "The table reports p-values comparing each synthetic set against the Real baseline. The p-values are: 2.5 × 10^-3 (Real vs Real), 2.8 × 10^-5 (0 Instance), 6.9 × 10^-8 (Semantic), 2.3 × 10^-9 (1 PGAN), 1.1 × 10^-4 (Real+Instance), 1.2 × 10^-4 (Real+Semantic), 2.6 × 10^-2 (Real+PGAN), 2.0 × 10^-2 (Real+2×PGAN). The Real+Instance+PGAN set has no reported p-value. The network was trained 10 times with each set. Synthetic images yielded an average improvement of 1.3 percentage points in AUC while keeping the network more stable."
+    },
+    "Bias Analysis (ISIC Dataset)": {
+      "metric": "Performance relative to chance",
+      "models": {
+        "Disturbed Dataset (No Clinical Info)": {
+          "performance": "Much better than chance"
+        }
+      },
+      "notes": "When clinically-meaningful information (lesion pixels, border, diameter) was progressively destroyed, the classification models still achieved high levels of performance, much better than chance. This suggests the models rely on spurious correlations (artifacts from image acquisition) rather than clinical features. Feeding the network with dermoscopic attributes did not improve performance."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Pix2pixHD (High-Definition) for image synthesis; Deep Neural Network (specific architecture not named, referred to as 'skin classification network') for classification",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "generator": "Pix2pixHD architecture using two nested generators: an outer 'local' generator and an inner 'global' generator. The global generator uses a style transfer network (based on CycleGAN) as a base for the local generator. The output of the global generator feeds the local generator in the encoding process (element-wise sum of global's features and local's encoding).",
+      "discriminator": "Three discriminators working simultaneously at different resolutions (low, medium, high) to penalize structure at different scales. Low-resolution discriminator focuses on general structure/coarse details; high-resolution discriminators focus on fine details.",
+      "loss_function": "Adversarial loss; L1 distance term between synthetic and ground truth targets (from pix2pix); PatchGAN-style patch-based discrimination (from pix2pix).",
+      "normalization": "Batch normalization (mentioned as standard in modern GAN frameworks, though specific implementation in Pix2pixHD not detailed beyond standard usage)."
+    },
+    "training_details": {
+      "training_schedule": "Generators trained separately first (global then local), then the whole framework fine-tuned together.",
+      "hyperparameters": "null",
+      "optimizer": "null"
+    },
+    "classification_or_output_head": {
+      "task": "Binary classification (Malignant vs. Benign)",
+      "details": "The classification network was trained 10 times with each dataset combination. Input to the classifier was dermoscopic images. The specific architecture of the classifier (e.g., ResNet, VGG) is not explicitly named in the provided text, only referred to as 'Deep Neural Networks' or 'skin classification network'.",
+      "output": "AUC (Area Under the ROC Curve) score"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Generative Adversarial Networks (GANs)",
+    "Deep Neural Networks",
+    "Pix2pixHD",
+    "CycleGAN",
+    "Skin classification network"
+  ],
+  "preprocessing_techniques": [
+    "Use of dermoscopic attributes (pigment network, negative network, streaks, globules, milia-like cysts) as semantic and instance maps for GAN conditioning",
+    "Progressive destruction of clinical information for bias analysis: removing pixel colors inside the lesion, removing border information (bounding box), and removing lesion size/diameter (bounding box at 70%)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "GAN-based Synthetic Data Generation",
+      "details": "Used Pix2pixHD to generate high-resolution synthetic skin lesion images conditioned on semantic and instance maps derived from dermoscopic attributes (pigment network, negative network, streaks, milia-like cysts, globules) and border specifications. The synthetic images were added to the training dataset to augment the real data."
+    },
+    {
+      "technique": "Real Data Augmentation",
+      "details": "Tested with augmented replicas of real-only images for evaluation purposes, though specific geometric or color transform details for this augmentation are not explicitly reported in the provided text."
+    },
+    {
+      "technique": "Class Balancing via Synthetic Sampling",
+      "details": "Generated synthetic samples to augment the training set, creating combinations such as 'Real+Instance', 'Real+Semantic', 'Real+PGAN', 'Real+2xPGAN', and 'Real+Instance+PGAN' to balance and expand the dataset size (e.g., doubling from 2,346 to 4,692 or tripling to 7,038 images)."
+    }
+  ],
+  "conclusions": [
+    "Generative Adversarial Networks (GANs) can generate high-resolution, clinically-meaningful synthetic skin lesion images that, when used for data augmentation, consistently improve the performance of skin lesion classification models across different scenarios and datasets.",
+    "The proposed GAN-based synthesis method is considered state-of-the-art for skin lesion synthesis, leveraging dermoscopic attributes to ensure clinical relevance and improve generalization.",
+    "Classification models exhibit significant bias by exploiting spurious correlations (artifacts from image acquisition) rather than clinically meaningful features; models achieve high performance even when all clinically meaningful lesion information is destroyed.",
+    "Feeding classification networks with dermoscopic attributes does not improve performance, suggesting that current models do not rely on these specific clinical features for their predictions.",
+    "The inflated performance of models due to dataset bias is a critical issue for AI research in dermatology, as it raises concerns about the reliability and generalization of automated solutions.",
+    "Automated skin lesion analysis has the potential to improve public health outcomes, particularly in lower-middle-income countries, by reaching at-risk populations and enabling specialists to focus on positive cases, provided that models are as unbiased as possible."
+  ],
+  "important_remarks": [
+    "Classification models exhibit severe dataset bias by exploiting spurious correlations (e.g., image acquisition artifacts like dark corners, marker ink, gel bubbles) rather than clinically meaningful features; models maintain high performance even when all clinically relevant lesion information (pixels, borders, diameter) is destroyed.",
+    "Feeding classification networks with explicit dermoscopic attributes (semantic maps) did not improve performance, suggesting current models do not rely on these specific clinical features for predictions.",
+    "The study highlights a critical generalization issue: inflated performance metrics may be misleading due to dataset bias, posing significant risks for clinical deployment where models might fail on unseen data lacking these artifacts.",
+    "The research was conducted as an M.Sc. dissertation published at a workshop (ISIC Skin Image Analysis Workshop at CVPR 2019), which may imply a narrower scope or validation compared to larger multi-center clinical trials.",
+    "The classification network architecture is not explicitly named (referred to only as 'Deep Neural Networks' or 'skin classification network'), limiting reproducibility of the specific classifier used.",
+    "The study focuses on binary classification (malignant vs. benign) using the ISIC Archive dataset, which may not fully represent the complexity of multi-class skin lesion analysis or diverse global populations.",
+    "While GAN-based augmentation improved stability and slightly boosted AUC, the primary finding is the alarming reliance of deep learning models on non-clinical artifacts, which is a major caveat for interpreting such results."
+  ]
+}

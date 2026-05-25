@@ -1,0 +1,267 @@
+{
+  "file_name": "tymchenko_2020_classification_of_skin_lesions_using_multi_task_deep_neural_netwo.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses multi-task deep neural networks (specifically convolutional neural networks) for the classification of melanoma stages and semi-supervised segmentation of skin lesions using RGB photos and patient metadata."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes an original end-to-end method for classifying melanoma stages and performing semi-supervised segmentation using multi-task deep neural networks. It details the implementation of a specific architecture (CNNs with meta-data integration), describes the use of SIIM & ISIC datasets, and reports experimental results including a ROC-AUC of 0.93 on 10982 unique unseen images. Although it includes a literature review section, its primary purpose is presenting new experimental results and a novel technical approach."
+  },
+  "title": "Classification of skin lesions using multi-task deep neural networks",
+  "authors": [
+    "Borys I. Tymchenko",
+    "Philip O. Marchenko",
+    "Eugene M. Khvedchenya",
+    "Dmitry V. Spodarets"
+  ],
+  "doi": "10.15276/hait.03.2020.3",
+  "journal": "Herald of Advanced Information Technology",
+  "year": 2020,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes an end-to-end multi-task deep learning method for classifying melanoma stages and performing semi-supervised segmentation of skin lesions using RGB images and patient metadata. The researchers utilized convolutional neural networks integrated with patient-level data such as sex and age, sourced from the SIIM & ISIC datasets spanning 2017 to 2020. To enhance generalization and reduce variance, the model employed an ensemble of networks pretrained on large datasets and fine-tuned on the target data. The evaluation was conducted on 10,982 unique unseen images to assess the robustness of the classification and segmentation tasks. The main result demonstrated that the proposed method achieved a ROC-AUC score of 0.93. These findings indicate that incorporating metadata and using ensemble techniques significantly improves the accuracy of melanoma detection algorithms.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanomas",
+        "malignant",
+        "melanoma stage",
+        "melanoma malignancy"
+      ],
+      "role": "Target class",
+      "details": "The primary focus of the study is the classification of melanoma stages and malignancy. The dataset contains approximately 3000 malignant images out of 50,000 total images. The task involves distinguishing malignant melanomas from benign lesions and classifying their stages."
+    },
+    {
+      "lesion_type": "Benign Lesions",
+      "paper_terms": [
+        "benign",
+        "benign lesions",
+        "nevi"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class for binary classification (benign vs. malignant). The paper mentions 'nevi' in the context of previous work by Brinker et al. [9] using 4204 images of melanoma and nevi, and notes that early-stage melanoma can be indistinguishable from benign lesions."
+    },
+    {
+      "lesion_type": "Unknown Diagnosis",
+      "paper_terms": [
+        "unknown",
+        "diagnosis=unknown"
+      ],
+      "role": "Exclusion/Mentioned only",
+      "details": "The dataset includes a diagnosis category labeled 'unknown'. The paper states that for this diagnosis, researchers guarantee it is not malignant. This category is excluded from the training data ('diagnosis, as they are available only in training datasets' implies exclusion from the target variable used for supervised learning of malignancy)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma stage and malignancy (benign vs. malignant)",
+        "primary": true,
+        "details": "The paper proposes an end-to-end method for the classification of melanoma stage using convolutional neural networks from an RGB photo and persons' metadata. The target variable is binarized (benign_malignant) and also includes detailed diagnosis information. The model predicts discrete diagnostic categories (malignant vs. benign) and uses ROC-AUC as the evaluation metric for this binary classification task."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Region of melanoma appearance (lesion mask)",
+        "primary": false,
+        "details": "The paper provides a method of semi-supervised (also referred to as unsupervised in later sections) segmentation of the region of melanoma appearance. The model generates a segmentation mask (M) which is used to refine the classification output. The segmentation is learned from binary annotated datasets without additional info about segments."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "SIIM & ISIC Datasets (2017-2020)",
+      "description": "A collection of RGB images and patient metadata sourced from the International Skin Imaging Collaboration (ISIC) and various hospitals including Hospital Clínic de Barcelona, Medical University of Vienna, Memorial Sloan Kettering Cancer Center, Melanoma Institute Australia, The University of Queensland, and the University of Athens Medical School. The data was provided in DICOM and JPEG formats (resized to 1024x1024) along with CSV files containing patient metadata.",
+      "classes_used": [
+        "benign",
+        "malignant",
+        "unknown"
+      ],
+      "counts": {
+        "total": 50000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "malignant": 3000,
+          "benign": null,
+          "unknown": null
+        }
+      },
+      "use": {
+        "training": "Used for training the multi-task deep neural network. The dataset was split into training and validation subsets using a triple stratified leak-free KFold cross-validation approach to prevent data leakage. Images with 'diagnosis=unknown' were excluded from the supervised training target.",
+        "validation": "Used for validation during the training process via cross-validation folds.",
+        "testing": "Used for final evaluation on 10,982 unique unseen images to assess robustness and generalization.",
+        "other": "Pretrained networks (e.g., ImageNet) were used for transfer learning before fine-tuning on this target dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "ROC-AUC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Triple-stratified leak-free K-Fold cross-validation",
+      "purpose": "To split training and validation data while preventing data leakage from duplicate images or images from the same patient across folds.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "ROC-AUC (Area Under the Receiver Operating Characteristic Curve)",
+      "purpose": "To evaluate the performance of binary classifiers by plotting sensitivity against 1-specificity across varying thresholds.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Ensemble averaging (mean of sigmoid outputs)",
+      "purpose": "To reduce variance and improve generalization by merging predictions from multiple models and test-time augmentations.",
+      "type": "Uncertainty Estimation / Variance Reduction"
+    },
+    {
+      "method": "Test-time augmentations (TTA)",
+      "purpose": "To reduce prediction variance by averaging predictions on transformed versions of input images (horizontal flip, vertical flip, transpose).",
+      "type": "Variance Reduction"
+    },
+    {
+      "method": "Otsu thresholding",
+      "purpose": "To binarize the continuous mask output from the segmentation branch for calibration.",
+      "type": "Thresholding Method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using ROC-AUC scores on held-out test sets."
+  },
+  "results_obtained_in_each_dataset": {
+    "SIIM & ISIC Melanoma Classification (Kaggle Competition)": {
+      "dataset_description": "RGB images and patient metadata from SIIM & ISIC datasets (2017-2020). Test set consisted of 10,982 unique unseen images, split into 30% public test and 70% blind test.",
+      "evaluation_metric": "ROC-AUC",
+      "models": {
+        "Best Single Model (EfficientNet-B5, OHEM loss)": {
+          "ROC-AUC": "0.9304 (blind) / 0.9402 (public)"
+        },
+        "Single Model without segmentation branch": {
+          "ROC-AUC": "0.9286 (blind) / 0.9372 (public)"
+        },
+        "Single Model without meta-data input": {
+          "ROC-AUC": "0.9104 (blind) / 0.9253 (public)"
+        },
+        "Ensemble (Mean of raw outputs)": {
+          "ROC-AUC": "0.9347 (blind) / 0.9497 (public)"
+        },
+        "Ensemble (Mean of sigmoid outputs)": {
+          "ROC-AUC": "0.9353 (blind) / 0.9511 (public)"
+        },
+        "Ensemble (Log-mean)": {
+          "ROC-AUC": "0.9392 (blind) / 0.9492 (public)"
+        },
+        "Best Ensemble (EfficientNet-B4, EfficientNet-B5, EfficientNet-B6, SE-ResNext 101)": {
+          "ROC-AUC": "0.93 (reported in Abstract for the proposed method on 10982 unique unseen images)",
+          "Kaggle Rank": "420/1148"
+        }
+      },
+      "notes": "The best single model scored 0.9304/0.9402 ROC-AUC. Ensembling with test-time augmentations improved generalization. The best ensemble consisted of EfficientNet-B4, EfficientNet-B5, EfficientNet-B6, and SE-ResNext 101. The method ranked 420/1148 in the Kaggle competition, while the rank 1 method scored 0.9490/0.9586 ROC-AUC."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multi-task deep neural network consisting of a two-branch CNN structure with an image encoder, a meta-data encoder, a segmentation decoder, and a classifier head.",
+    "pretraining": "ImageNet-trained encoders were used. Specifically, EfficientNet models (B4, B5, B6) and SE-ResNext 101 were utilized as image encoders.",
+    "input_size": "Training image sizes were 256x256, 384x384, and 512x512. Input images were cropped to a central square and resized. Meta-data inputs included binary/string parameters encoded as one-hot vectors and numerical parameters (age, sex, nationality).",
+    "architecture_details": {
+      "image_encoder": "EfficientNet-B4, EfficientNet-B5, EfficientNet-B6, or SE-ResNext 101. The encoder was used as is (pretrained on ImageNet).",
+      "meta_data_encoder": "A single linear layer with ReLU activation. Binary/string parameters were one-hot encoded; numerical parameters were left as is. Representations were concatenated with image features.",
+      "segmentation_branch": "A decoder connected to the last convolutional layer of the image encoder. It outputs a continuous mask M of shape [H, W].",
+      "classifier_branch": "Connected to the last convolutional layer of the image encoder. It outputs logits C.",
+      "fusion_mechanism": "Refined segmentation mask M_refined = sigmoid(M) * C. Refined classifier logits C_refined = sum(M_refined) / sum(sigmoid(M)).",
+      "ensemble": "Ensemble of EfficientNet-B4, EfficientNet-B5, EfficientNet-B6, and SE-ResNext 101."
+    },
+    "training_details": {
+      "optimizer": "Not explicitly named, but mentions 'mini-batched gradient descent'. References to Adam [27] and SGDR [29] in bibliography suggest potential usage, but not explicitly confirmed in text for this specific model's final training loop.",
+      "loss_function": "OHEM (Online Hard Example Mining) loss was used for the best single model. Flooded loss (J_flood = |J(theta) - b| + b) was also mentioned as a technique to avoid local minima.",
+      "learning_rate_schedule": "Mentions 'differential learning rates' and 'reduction of the learning rate based on a cosine function' in the context of related work [9], but does not explicitly state the schedule used for their final models.",
+      "augmentation": "Online augmentations from Albumentations: horizontal/vertical flips, shift/scale/rotation, RGB channel shift, brightness/contrast/gamma changes. Microscope augmentation (random black circle outline) and Cutout regularization.",
+      "cross_validation": "Triple-stratified leak-free K-Fold cross-validation."
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (malignant vs benign) and segmentation mask generation.",
+      "output_format": "Single number for classifier output (logits/probability after sigmoid), matrix [H, W] for segmentation mask.",
+      "post_processing": "Otsu thresholding for binarizing segmentation masks. Morphological opening applied to binarized masks. Test-time augmentations (horizontal flip, vertical flip, transpose) averaged (mean of sigmoid outputs)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Multi-task deep neural network (CNN with image encoder, metadata encoder, segmentation decoder, and classifier head)",
+    "EfficientNet-B4",
+    "EfficientNet-B5",
+    "EfficientNet-B6",
+    "SE-ResNext 101",
+    "ResNet-50",
+    "Deep residual networks",
+    "Convolutional neural networks (CNN)",
+    "Multi-task U-Net",
+    "SVM with radial basis kernel",
+    "k-nearest neighbor",
+    "DePicT Melanoma Deep-CLASS"
+  ],
+  "preprocessing_techniques": [
+    "Central square cropping of original images",
+    "Resizing to target resolutions (256x256, 384x384, 512x512)",
+    "CLAHE (Contrast Limited Adaptive Histogram Equalization) for contrast enhancement",
+    "Online data augmentation using Albumentations library: horizontal/vertical flips, shift/scale/rotation, RGB channel shift, brightness/contrast/gamma changes",
+    "Microscope augmentation (adding random black circle outline) to alleviate spurious correlation with zoom level",
+    "Cutout regularization (masking several small random patches) to improve robustness to hair/obscured lesions",
+    "Bilinear interpolation for resizing predicted masks to input image resolution during inference",
+    "Otsu thresholding for binarizing continuous segmentation masks",
+    "Morphological opening to reduce small false-positive regions in binarized masks",
+    "Test-time augmentations (TTA): horizontal flip, vertical flip, transpose, and averaging predictions"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Online Data Augmentation (Albumentations)",
+      "details": "Applied at least one augmentation to training images before inputting to the CNN. Techniques included: horizontal and vertical flips; shift, scale, and rotation; shift of RGB channels; and random changes of brightness, contrast, and gamma."
+    },
+    {
+      "technique": "Microscope Augmentation",
+      "details": "Added a random black circle outline to the image of the lesion to alleviate spurious correlation between diagnosis and zoom level on the dermatoscope."
+    },
+    {
+      "technique": "Cutout Regularization",
+      "details": "Masked several small patches at random to improve robustness to partially covered or obscured lesions (e.g., by hair), avoiding obscuring large parts of the lesion."
+    },
+    {
+      "technique": "Class Balancing via Resampling",
+      "details": "Randomly resampled the dataset at each epoch. Downsampled the majority class (benign lesions) to match the number of the minority class (malignant) to handle class imbalance."
+    },
+    {
+      "technique": "Test-Time Augmentation (TTA)",
+      "details": "Used during inference to reduce prediction variance. Included horizontal flip, vertical flip, and transpose. Predictions were averaged (mean of sigmoid outputs)."
+    }
+  ],
+  "conclusions": [
+    "The proposed end-to-end multi-task deep neural network method, which integrates RGB images with patient metadata (sex, age, nationality), demonstrates stable results and learns good general features for melanoma classification.",
+    "Incorporating patient metadata into the model significantly improves classification performance, as evidenced by a drop in ROC-AUC from 0.9304 to 0.9104 when metadata was excluded.",
+    "The inclusion of a semi-supervised segmentation branch in the multi-task architecture contributes to performance, as removing it reduced the ROC-AUC from 0.9304 to 0.9286.",
+    "Using an ensemble of networks pretrained on large datasets and fine-tuned on the target dataset increases generalization and reduces variance compared to single models.",
+    "Test-time augmentations (TTA) and ensembling techniques (specifically mean of sigmoid outputs) further improve generalization on unseen data, achieving a public test ROC-AUC of 0.9511.",
+    "The best single model (EfficientNet-B5 with OHEM loss) achieved a ROC-AUC of 0.9304 on the blind test set and 0.9402 on the public test set.",
+    "The proposed method achieved a ROC-AUC of 0.93 on 10,982 unique unseen images, ranking 420th out of 1,148 participants in the Kaggle SIIM-ISIC Melanoma Classification Competition.",
+    "The study successfully implemented semi-supervised segmentation of melanoma regions using only binary annotated datasets without additional segment information.",
+    "The authors acknowledge that CNNs sometimes fail to capture all pixels for big or uneven lesions, resulting in inconsistent masks, which is identified as a limitation for future research."
+  ],
+  "important_remarks": [
+    "The study relies on the SIIM & ISIC Kaggle dataset, which contains 434 duplicate images; while the authors used 'triple stratified leak-free KFold' to mitigate leakage, the presence of duplicates in the source data remains a potential bias risk.",
+    "The dataset exhibits significant class imbalance, with only ~3,000 malignant cases out of ~50,000 total images; the paper notes that 'unknown' diagnosis cases are guaranteed non-malignant but excludes them from supervised training targets.",
+    "The model's performance (ROC-AUC 0.93) is lower than the Kaggle competition winner (ROC-AUC 0.9490/0.9586), indicating that while effective, the proposed method is not state-of-the-art for this specific benchmark.",
+    "The semi-supervised segmentation branch is a notable strength as it learns lesion regions from binary annotations without explicit segmentation masks, though the authors acknowledge it fails to capture pixels for large or uneven lesions.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals; significance is inferred solely from ROC-AUC comparisons on held-out test sets.",
+    "The model integrates patient metadata (age, sex, nationality) which improves performance, but this limits clinical deployment in settings where such demographic data is unavailable or unreliable.",
+    "The study acknowledges that CNNs may overfit to structured noise in images (e.g., linear bars, pen marks, hairlines) due to varying imaging standards across the multiple hospital sources.",
+    "The evaluation was conducted on 10,982 unique unseen images from the Kaggle test set, but there is no external validation on independent datasets from different institutions or populations."
+  ]
+}

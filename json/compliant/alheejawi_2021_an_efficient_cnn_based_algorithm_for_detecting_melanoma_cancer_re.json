@@ -1,0 +1,262 @@
+{
+  "file_name": "alheejawi_2021_an_efficient_cnn_based_algorithm_for_detecting_melanoma_cancer_re.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning-based Convolutional Neural Network (CNN) architecture named INS-Net (Improved NS-Net) to segment melanoma nuclei and detect melanoma regions in H&E-stained histopathological images of skin tissue (dermatology/skin cancer context). The method involves 25 convolutional layers to classify pixels into melanoma nuclei, non-melanoma nuclei, and background, followed by morphological operations to generate melanoma region masks."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents an original experimental study proposing a new deep learning-based algorithm (INS-Net) for detecting melanoma regions in H&E-stained histopathological images. It includes a 'Proposed Technique' section detailing the CNN architecture, a 'Results and Discussions' section with performance evaluation using a specific dataset (100 images from 4 WSIs) and metrics (Accuracy, Dice Coefficient), and comparisons with state-of-the-art methods. Although published in a conference proceedings (IEEE EMBC), it reports original research results rather than summarizing prior literature."
+  },
+  "title": "An efficient CNN based algorithm for detecting melanoma cancer regions in H&E-stained images",
+  "authors": [
+    "Salah Alheejawi",
+    "Richard Berendt",
+    "Naresh Jha",
+    "Santi P. Maity",
+    "Mrinal Mandal"
+  ],
+  "doi": "10.1109/EMBC46164.2021.9630443",
+  "journal": "2021 43rd Annual International Conference of the IEEE Engineering in Medicine & Biology Society (EMBC)",
+  "year": 2021,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes an efficient deep learning algorithm, INS-Net, to detect melanoma regions in Hematoxylin and Eosin (H&E)-stained histopathological images of skin tissue. The method utilizes a 25-layer Convolutional Neural Network to segment nuclei into melanoma, non-melanoma, and background classes, followed by morphological operations to generate melanoma region masks. The model was evaluated on a dataset of 100 images extracted from 4 Whole Slide Images using four-fold cross-validation. Performance was assessed using Accuracy and Dice Coefficient metrics, comparing the proposed method against state-of-the-art techniques like SegNet, U-Net, and NS-Net. The results demonstrated that INS-Net achieved a nuclei segmentation accuracy of 94.12% and a melanoma region segmentation accuracy of 97.70%, outperforming existing methods.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "Cutaneous Malignant Melanoma",
+        "CMM",
+        "melanoma nuclei",
+        "melanoma region"
+      ],
+      "role": "Target class",
+      "details": "The primary target of the study. The paper proposes an algorithm to detect melanoma regions and segment melanoma nuclei in H&E-stained histopathological images of skin tissue. The dataset consists of images from skin tissue slides containing melanoma."
+    },
+    {
+      "lesion_type": "Non-melanoma nuclei",
+      "paper_terms": [
+        "non-melanoma nuclei",
+        "non-melanoma"
+      ],
+      "role": "Comparator class",
+      "details": "Used as a negative class for nuclei segmentation and classification. The CNN segments nuclei into three classes: melanoma nuclei, non-melanoma nuclei, and background."
+    },
+    {
+      "lesion_type": "Background",
+      "paper_terms": [
+        "background",
+        "background regions",
+        "background pixels"
+      ],
+      "role": "Comparator class",
+      "details": "Used as a third class for pixel-level segmentation in the nuclei segmentation module. The output image pixels are classified into melanoma, non-melanoma, and background."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-level classification of H&E-stained histopathological image pixels into three classes: melanoma nuclei, non-melanoma nuclei, and background; followed by generation of melanoma region masks.",
+        "primary": true,
+        "details": "The paper proposes INS-Net, a 25-layer CNN architecture for pixel-wise segmentation. The SoftMax layer outputs probabilities for K=3 classes (melanoma nuclei, non-melanoma nuclei, background) for each pixel. The primary output is a segmentation mask of melanoma regions derived from the segmented nuclei via morphological operations. Performance is evaluated using Accuracy and Dice Coefficient for segmentation tasks."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Nuclei classification (melanoma vs. non-melanoma) as an intermediate step.",
+        "primary": false,
+        "details": "The nuclei segmentation module classifies individual nuclei into melanoma or non-melanoma classes. While this involves classification, the ultimate goal and primary reported task is the segmentation of melanoma regions in the tissue image. The paper notes that accurate nuclei classification is important for the subsequent region detection."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Custom H&E-stained Skin Tissue Dataset",
+      "description": "A dataset consisting of 100 H&E-stained 960 x 960 RGB images extracted from 4 Whole Slide Images (WSIs) of skin tissue.",
+      "classes_used": [
+        "melanoma nuclei",
+        "non-melanoma nuclei",
+        "background"
+      ],
+      "counts": {
+        "total": 100,
+        "training": 75,
+        "validation": null,
+        "testing": 25,
+        "per_class": {}
+      },
+      "use": {
+        "training": "75 ROI windows from 3 WSIs were used as the training dataset for the INS-Net and comparative models (SegNet, U-Net, NS-Net) in each fold of the four-fold cross-validation.",
+        "validation": null,
+        "testing": "25 H&E-stained images from the remaining 1 WSI were used as the testing dataset in each fold of the four-fold cross-validation.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Dice Coefficient",
+    "Precision",
+    "Recall"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Four-fold cross-validation",
+      "purpose": "To evaluate the performance of the proposed INS-Net and comparative models by splitting the dataset into training and testing sets in four iterations.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Average performance calculation",
+      "purpose": "To aggregate the performance measures obtained from the four folds of cross-validation.",
+      "type": "Aggregation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons between the proposed INS-Net and state-of-the-art methods were based on descriptive statistics (Accuracy, Dice Coefficient, Precision, Recall) averaged over four-fold cross-validation."
+  },
+  "results_obtained_in_each_dataset": {
+    "Custom H&E-stained Skin Tissue Dataset (100 images from 4 WSIs)": {
+      "Nuclei Segmentation Performance": {
+        "metric": "Accuracy, Dice Coefficient",
+        "models": {
+          "SegNet": {
+            "Accuracy": "87.84%",
+            "Dice Coefficient": "85.81%"
+          },
+          "U-Net": {
+            "Accuracy": "78.79%",
+            "Dice Coefficient": "69.63%"
+          },
+          "NS-Net": {
+            "Accuracy": "90.21%",
+            "Dice Coefficient": "88.52%"
+          },
+          "INS-Net (proposed)": {
+            "Accuracy": "94.12%",
+            "Dice Coefficient": "89.17%"
+          }
+        },
+        "notes": "The proposed INS-Net outperformed SegNet, U-Net, and NS-Net in nuclei segmentation. All models were trained with 75 H&E-stained images per fold of four-fold cross-validation."
+      },
+      "Nuclei Classification Performance": {
+        "metric": "Accuracy, Dice Coefficient",
+        "models": {
+          "NS-Net+FC": {
+            "Accuracy": "97.27%",
+            "Dice Coefficient": "81.37%"
+          },
+          "INS-Net (proposed)": {
+            "Accuracy": "99.33%",
+            "Dice Coefficient": "86.48%"
+          }
+        },
+        "notes": "INS-Net provides superior nuclei classification performance compared to NS-Net+FC. The INS-Net integrates nuclei segmentation and classification in a single CNN architecture, whereas NS-Net+FC uses an SVM classifier with hand-crafted features."
+      },
+      "Melanoma Region Detection (MRD) Performance": {
+        "metric": "Accuracy, Dice Coefficient",
+        "models": {
+          "PBS-ResNet": {
+            "Accuracy": "94.66%",
+            "Dice Coefficient": "78.00%"
+          },
+          "NS-Net+FC+MRD": {
+            "Accuracy": "95.80%",
+            "Dice Coefficient": "80.88%"
+          },
+          "INS-Net+MRD (proposed)": {
+            "Accuracy": "97.70%",
+            "Dice Coefficient": "85.10%"
+          }
+        },
+        "notes": "The proposed INS-Net+MRD provides superior melanoma region detection performance compared to PBS-ResNet and NS-Net+FC+MRD. The NS-Net+FC+MRD technique generated significant false positives and false negatives due to misclassification of melanoma nuclei."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "INS-Net (Improved NS-Net)",
+    "pretraining": null,
+    "input_size": "960 x 960 RGB images",
+    "architecture_details": {
+      "type": "Convolutional Neural Network (CNN)",
+      "total_layers": 25,
+      "paths": "Two paths: Path A (11 layers) for coarse features, Path B (12 layers) for fine features",
+      "skip_connections": 5,
+      "layer_types": [
+        "C-BN-R layer (Convolution, Batch Normalization, ReLU activation)",
+        "C-BN-R-P layer (C-BN-R followed by Max Pooling with 2x2 window and stride)",
+        "C-BN-R-UnP layer (C-BN-R followed by UnPooling with 2x2 upsampling factor using bilinear interpolation)",
+        "Concatenate layer",
+        "SoftMax layer",
+        "Pixel classification layer"
+      ],
+      "pooling": "Max pooling with 2x2 window and stride",
+      "activation": "Rectified Linear Units (ReLU)",
+      "normalization": "Batch Normalization"
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": null,
+      "training_schedule": null,
+      "parameter_counts": null
+    },
+    "classification_or_output_head": {
+      "type": "SoftMax layer followed by Pixel classification layer",
+      "classes": 3,
+      "class_labels": [
+        "melanoma nuclei",
+        "non-melanoma nuclei",
+        "background"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "INS-Net (Improved NS-Net)",
+    "SegNet",
+    "U-Net",
+    "NS-Net",
+    "NS-Net+FC",
+    "PBS-ResNet",
+    "NS-Net+FC+MRD",
+    "INS-Net+MRD",
+    "Support Vector Machine (SVM)"
+  ],
+  "preprocessing_techniques": [
+    "Extraction of 100 H&E-stained 960 x 960 RGB images (ROI windows) from 4 Whole Slide Images (WSIs)",
+    "Four-fold cross-validation splitting of dataset into training (75 images) and testing (25 images) sets",
+    "Morphological operations for melanoma region mask generation: binary morphological dilation (disc structuring element with 5-15 pixels radius), image fill operation, erosion operation, and area thresholding (600 pixels / 150 µm²)",
+    "Variant implementation of image closing operation followed by image fill and area threshold"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed INS-Net algorithm effectively segments melanoma regions in H&E-stained histopathological images by first classifying nuclei into melanoma, non-melanoma, and background classes using a 25-layer CNN, followed by morphological operations.",
+    "INS-Net achieved superior nuclei segmentation accuracy (94.12%) and Dice Coefficient (89.17%) compared to state-of-the-art methods SegNet, U-Net, and NS-Net.",
+    "The integrated nuclei classification performance of INS-Net was 99.33% accuracy, outperforming the NS-Net+FC method (97.27% accuracy).",
+    "The proposed INS-Net+MRD technique provided superior melanoma region detection performance (97.70% accuracy, 85.10% Dice Coefficient) compared to PBS-ResNet and NS-Net+FC+MRD.",
+    "The NS-Net+FC+MRD technique generated significant false positives and false negatives due to the misclassification of melanoma nuclei, highlighting the importance of accurate nuclei classification for region detection.",
+    "The proposed technique demonstrates excellent segmentation performance with low computational complexity.",
+    "Accurate melanoma nuclei classification is critical for obtaining good melanoma region detection performance, as misclassifications negatively impact the final region masks."
+  ],
+  "important_remarks": [
+    "The study relies on a very small, non-public dataset consisting of only 100 images extracted from 4 Whole Slide Images (WSIs), which limits generalizability and raises concerns about overfitting.",
+    "No external validation was performed; the model was only evaluated on the internal dataset using four-fold cross-validation.",
+    "The paper does not report standard deviation or confidence intervals for the performance metrics, making it difficult to assess the statistical significance of the improvements over baseline models.",
+    "No formal hypothesis testing (e.g., p-values) was conducted to validate the superiority of the proposed INS-Net over state-of-the-art methods.",
+    "The dataset composition and source of the 4 WSIs (e.g., patient demographics, scanner types, staining protocols) are not described, introducing potential population and technical bias.",
+    "Data leakage risk exists because the images are extracted from only 4 WSIs; if the cross-validation splits do not strictly separate WSIs or if there is overlap in tissue regions, performance estimates may be optimistically biased.",
+    "The melanoma region detection module relies on heuristic morphological operations (dilation, erosion, area thresholding) rather than learned features, which may not adapt well to varying tissue architectures.",
+    "The paper claims 'low computational complexity' but does not provide quantitative metrics such as inference time, FLOPs, or memory usage to substantiate this claim.",
+    "The proposed method is designed for H&E-stained images only; its applicability to other staining methods (e.g., IHC) is not addressed.",
+    "The study focuses on cutaneous melanoma; results may not be transferable to other melanoma types (e.g., mucosal or uveal) or other cancer types."
+  ]
+}

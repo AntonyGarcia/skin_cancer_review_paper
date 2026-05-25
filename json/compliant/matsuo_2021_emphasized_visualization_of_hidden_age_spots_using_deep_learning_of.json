@@ -1,0 +1,499 @@
+{
+  "file_name": "matsuo_2021_emphasized_visualization_of_hidden_age_spots_using_deep_learning_of.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning, specifically a U-NET neural network, to generate UV images from RGB color images of skin. This AI method was applied to datasets of skin images (RGB and UV) captured using medical dermoscopy cameras for younger and older individuals to visualize and extract hidden age spots, which is a dermatology-related task."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and training of a U-NET deep learning model to generate UV images from RGB images and extract hidden age spots. It details specific methods, datasets (1008 training images per group), model architecture (Table 1), loss functions (MSE), evaluation metrics (PSNR), and experimental results (Section 5), which are characteristic of a primary research study rather than a review."
+  },
+  "title": "Emphasized Visualization of Hidden Age Spots Using Deep Learning of Young Skin",
+  "authors": [
+    "Rui Matsuo",
+    "Makoto Hasegawa"
+  ],
+  "doi": "10.1109/ITC-CSCC52171.2021.9501434",
+  "journal": "2021 36th International Technical Conference on Circuits/Systems, Computers and Communications (ITC-CSCC)",
+  "year": 2021,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a deep learning method to emphasize and visualize hidden age spots on the skin of older individuals by leveraging images of younger skin. The researchers captured paired RGB and UV images from a 21-year-old female and a 53-year-old male using a medical dermoscopy camera to create training datasets. A U-NET neural network with 31,395,777 parameters was trained on the younger skin dataset to generate UV-like images from RGB inputs, achieving a peak signal-to-noise ratio of 28 dB. The model failed to recognize hidden age spots in the older adult's skin, effectively removing them in the generated image. By computing the difference between the image generated from the young skin model and one generated from an older skin model, the hidden age spots were successfully extracted and visualized. The authors conclude that this method is suitable for cosmetic applications rather than medical diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Age spots (including hidden age spots)",
+      "paper_terms": [
+        "age spots",
+        "hidden age spots"
+      ],
+      "role": "Target class",
+      "details": "The primary focus of the study is the visualization and extraction of hidden age spots on the skin of older adults by comparing deep learning-generated UV images from young and old skin datasets."
+    },
+    {
+      "lesion_type": "Moles",
+      "paper_terms": [
+        "moles"
+      ],
+      "role": "Comparator class / Mentioned only",
+      "details": "Moles are present in the skin of younger and older individuals in the datasets. The paper notes that remarkable age spots were sometimes misidentified as moles by the U-NET model trained on young skin, but moles were not the primary diagnostic target or classification label for the deep learning task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Generation/Synthesis",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Generation/Synthesis",
+        "target": "UV-like images generated from RGB color images",
+        "primary": true,
+        "details": "The paper uses a U-NET deep learning model to synthesize/generate UV images from RGB color images. The task is image-to-image translation (synthesis), not classification or regression. The model predicts pixel values to create a new image that approximates a UV image, evaluated using Mean Squared Error (MSE) loss and Peak Signal-to-Noise Ratio (PSNR)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Younger Skin Dataset",
+      "description": "A dataset of paired RGB color and UV images captured from a 21-year-old female using a medical dermoscopy digital camera. The subject had some moles but few age spots.",
+      "classes_used": [
+        "RGB images",
+        "UV images"
+      ],
+      "counts": {
+        "total": 2020,
+        "training": 1008,
+        "validation": null,
+        "testing": 80,
+        "per_class": {
+          "RGB": 1088,
+          "UV": 1088
+        }
+      },
+      "use": {
+        "training": "Used to train the U-NET neural network to generate UV-like images from RGB inputs.",
+        "validation": null,
+        "testing": "Used for testing hidden age spot extraction performance.",
+        "other": "Used to generate a model that approximates UV images for younger skin, which was then applied to older skin images to remove hidden age spots."
+      }
+    },
+    {
+      "name": "Older Adult Skin Dataset",
+      "description": "A dataset of paired RGB color and UV images captured from a 53-year-old male using a medical dermoscopy digital camera. The subject had notable age spots and many hidden age spots.",
+      "classes_used": [
+        "RGB images",
+        "UV images"
+      ],
+      "counts": {
+        "total": 2020,
+        "training": 1008,
+        "validation": null,
+        "testing": 80,
+        "per_class": {
+          "RGB": 1088,
+          "UV": 1088
+        }
+      },
+      "use": {
+        "training": "Used to train a separate U-NET model for older skin.",
+        "validation": null,
+        "testing": "Used for testing hidden age spot extraction performance.",
+        "other": "Used to generate a second model; the difference between images generated by the young skin model and the older skin model was computed to extract hidden age spots."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Mean Squared Error (MSE)",
+    "Peak Signal-to-Noise Ratio (PSNR)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "No hypothesis testing was reported in the paper."
+  },
+  "results_obtained_in_each_dataset": {
+    "Younger Skin Dataset (21-year-old female)": {
+      "metric": "Peak Signal-to-Noise Ratio (PSNR)",
+      "models": {
+        "U-NET": {
+          "PSNR": "28 dB"
+        }
+      },
+      "notes": "The U-NET model trained on the younger skin dataset achieved a PSNR of 28 dB. The generated images approximated UV images closely. The model did not recognize hidden age spots that were not present in the younger subject's skin, so these spots were not displayed in the generated images."
+    },
+    "Older Adult Skin Dataset (53-year-old male)": {
+      "metric": "Peak Signal-to-Noise Ratio (PSNR)",
+      "models": {
+        "U-NET": {
+          "PSNR": "24 dB"
+        }
+      },
+      "notes": "The U-NET model trained on the older adult skin dataset achieved a PSNR of 24 dB. When the U-NET trained on younger skin was applied to older adult images, the generated images did not contain hidden age spots. Remarkable age spots were sometimes misidentified as moles and displayed in the generated images. The difference image between the image generated by the young skin model and the older skin model successfully extracted hidden age spots."
+    }
+  },
+  "architecture_used": {
+    "main_model": "U-NET",
+    "pretraining": "null",
+    "input_size": "256x256x3",
+    "architecture_details": {
+      "layer_type": "Convolutional Neural Network (U-Net architecture)",
+      "total_parameters": 31395777,
+      "encoder_layers": [
+        {
+          "layer": "conv2d_1",
+          "type": "Conv2D",
+          "output_shape": "256x256x8",
+          "parameters": 224
+        },
+        {
+          "layer": "batch_normalization_1",
+          "type": "BatchNormalization",
+          "output_shape": "256x256x64",
+          "parameters": 256
+        },
+        {
+          "layer": "conv2d_2",
+          "type": "Conv2D",
+          "output_shape": "256x256x64",
+          "parameters": 36928
+        },
+        {
+          "layer": "batch_normalization_2",
+          "type": "BatchNormalization",
+          "output_shape": "256x256x64",
+          "parameters": 256
+        },
+        {
+          "layer": "max_pooling2d_1",
+          "type": "MaxPooling2D",
+          "output_shape": "128x128x64",
+          "parameters": 0
+        },
+        {
+          "layer": "conv2d_3",
+          "type": "Conv2D",
+          "output_shape": "128x128x128",
+          "parameters": 73856
+        },
+        {
+          "layer": "batch_normalization_3",
+          "type": "BatchNormalization",
+          "output_shape": "128x128x128",
+          "parameters": 512
+        },
+        {
+          "layer": "conv2d_4",
+          "type": "Conv2D",
+          "output_shape": "128x128x128",
+          "parameters": 147584
+        },
+        {
+          "layer": "batch_normalization_4",
+          "type": "BatchNormalization",
+          "output_shape": "128x128x128",
+          "parameters": 512
+        },
+        {
+          "layer": "max_pooling2d_2",
+          "type": "MaxPooling2D",
+          "output_shape": "64x64x128",
+          "parameters": 0
+        },
+        {
+          "layer": "conv2d_5",
+          "type": "Conv2D",
+          "output_shape": "64x64x256",
+          "parameters": 295168
+        },
+        {
+          "layer": "batch_normalization_5",
+          "type": "BatchNormalization",
+          "output_shape": "64x64x256",
+          "parameters": 1024
+        },
+        {
+          "layer": "conv2d_6",
+          "type": "Conv2D",
+          "output_shape": "64x64x256",
+          "parameters": 590080
+        },
+        {
+          "layer": "batch_normalization_6",
+          "type": "BatchNormalization",
+          "output_shape": "64x64x256",
+          "parameters": 1024
+        },
+        {
+          "layer": "max_pooling2d_3",
+          "type": "MaxPooling2D",
+          "output_shape": "32x32x256",
+          "parameters": 0
+        },
+        {
+          "layer": "conv2d_7",
+          "type": "Conv2D",
+          "output_shape": "32x32x512",
+          "parameters": 1180160
+        },
+        {
+          "layer": "batch_normalization_7",
+          "type": "BatchNormalization",
+          "output_shape": "32x32x512",
+          "parameters": 2048
+        },
+        {
+          "layer": "conv2d_8",
+          "type": "Conv2D",
+          "output_shape": "32x32x512",
+          "parameters": 2359808
+        },
+        {
+          "layer": "batch_normalization_8",
+          "type": "BatchNormalization",
+          "output_shape": "32x32x512",
+          "parameters": 2048
+        },
+        {
+          "layer": "max_pooling2d_4",
+          "type": "MaxPooling2D",
+          "output_shape": "16x16x512",
+          "parameters": 0
+        },
+        {
+          "layer": "conv2d_9",
+          "type": "Conv2D",
+          "output_shape": "16x16x1024",
+          "parameters": 4719616
+        },
+        {
+          "layer": "dropout_1",
+          "type": "Dropout",
+          "output_shape": "16x16x1024",
+          "parameters": 0
+        },
+        {
+          "layer": "conv2d_10",
+          "type": "Conv2D",
+          "output_shape": "16x16x1024",
+          "parameters": 9438208
+        },
+        {
+          "layer": "batch_normalization_9",
+          "type": "BatchNormalization",
+          "output_shape": "16x16x1024",
+          "parameters": 4096
+        },
+        {
+          "layer": "dropout_2",
+          "type": "Dropout",
+          "output_shape": "16x16x1024",
+          "parameters": 0
+        },
+        {
+          "layer": "batch_normalization_10",
+          "type": "BatchNormalization",
+          "output_shape": "16x16x1024",
+          "parameters": 4096
+        }
+      ],
+      "decoder_layers": [
+        {
+          "layer": "conv2d_trans_1",
+          "type": "Conv2DTranspose",
+          "output_shape": "32x32x512",
+          "parameters": 4719104
+        },
+        {
+          "layer": "add_1",
+          "type": "Add",
+          "output_shape": "32x32x512",
+          "parameters": 0,
+          "connection": "batch_normalization_8"
+        },
+        {
+          "layer": "conv2d_11",
+          "type": "Conv2D",
+          "output_shape": "32x32x512",
+          "parameters": 2359808
+        },
+        {
+          "layer": "batch_normalization_11",
+          "type": "BatchNormalization",
+          "output_shape": "32x32x512",
+          "parameters": 2048
+        },
+        {
+          "layer": "conv2d_12",
+          "type": "Conv2D",
+          "output_shape": "32x32x512",
+          "parameters": 2359808
+        },
+        {
+          "layer": "batch_normalization_12",
+          "type": "BatchNormalization",
+          "output_shape": "32x32x512",
+          "parameters": 2048
+        },
+        {
+          "layer": "conv2d_trans_2",
+          "type": "Conv2DTranspose",
+          "output_shape": "64x64x256",
+          "parameters": 1179904
+        },
+        {
+          "layer": "add_2",
+          "type": "Add",
+          "output_shape": "64x64x256",
+          "parameters": 0,
+          "connection": "batch_normalization_6"
+        },
+        {
+          "layer": "conv2d_13",
+          "type": "Conv2D",
+          "output_shape": "64x64x256",
+          "parameters": 590080
+        },
+        {
+          "layer": "batch_normalization_13",
+          "type": "BatchNormalization",
+          "output_shape": "64x64x256",
+          "parameters": 1024
+        },
+        {
+          "layer": "conv2d_14",
+          "type": "Conv2D",
+          "output_shape": "64x64x256",
+          "parameters": 590080
+        },
+        {
+          "layer": "batch_normalization_14",
+          "type": "BatchNormalization",
+          "output_shape": "64x64x256",
+          "parameters": 1024
+        },
+        {
+          "layer": "conv2d_trans_3",
+          "type": "Conv2DTranspose",
+          "output_shape": "128x128x128",
+          "parameters": 295040
+        },
+        {
+          "layer": "add_3",
+          "type": "Add",
+          "output_shape": "128x128x128",
+          "parameters": 0,
+          "connection": "batch_normalization_4"
+        },
+        {
+          "layer": "conv2d_15",
+          "type": "Conv2D",
+          "output_shape": "128x128x128",
+          "parameters": 147584
+        },
+        {
+          "layer": "batch_normalization_15",
+          "type": "BatchNormalization",
+          "output_shape": "128x128x128",
+          "parameters": 512
+        },
+        {
+          "layer": "conv2d_16",
+          "type": "Conv2D",
+          "output_shape": "128x128x128",
+          "parameters": 147584
+        },
+        {
+          "layer": "batch_normalization_16",
+          "type": "BatchNormalization",
+          "output_shape": "128x128x128",
+          "parameters": 512
+        },
+        {
+          "layer": "conv2d_trans_4",
+          "type": "Conv2DTranspose",
+          "output_shape": "256x256x64",
+          "parameters": 73792
+        },
+        {
+          "layer": "add_4",
+          "type": "Add",
+          "output_shape": "256x256x64",
+          "parameters": 0,
+          "connection": "batch_normalization_2"
+        },
+        {
+          "layer": "conv2d_17",
+          "type": "Conv2D",
+          "output_shape": "256x256x64",
+          "parameters": 36928
+        },
+        {
+          "layer": "batch_normalization_17",
+          "type": "BatchNormalization",
+          "output_shape": "256x256x64",
+          "parameters": 256
+        },
+        {
+          "layer": "conv2d_18",
+          "type": "Conv2D",
+          "output_shape": "256x256x64",
+          "parameters": 36928
+        },
+        {
+          "layer": "batch_normalization_18",
+          "type": "BatchNormalization",
+          "output_shape": "256x256x64",
+          "parameters": 256
+        },
+        {
+          "layer": "conv2d_19",
+          "type": "Conv2D",
+          "output_shape": "256x256x1",
+          "parameters": 1731
+        }
+      ]
+    },
+    "training_details": {
+      "optimizer": "Adamax",
+      "loss_function": "Mean Squared Error (MSE)",
+      "epochs": 200,
+      "batch_size": 6,
+      "training_data_size": "1008 RGB and 1008 UV images per dataset",
+      "validation_data_size": "512 RGB and 512 UV images per dataset",
+      "testing_data_size": "80 RGB and 80 UV images per dataset"
+    },
+    "classification_or_output_head": {
+      "type": "Conv2D",
+      "output_shape": "256x256x1",
+      "parameters": 1731,
+      "description": "Final layer producing the generated UV image approximation"
+    },
+    "approximate_parameters": 31395777
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-NET"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to 256x256 pixels",
+    "Pairing RGB color images with UV images captured simultaneously using a medical dermoscopy digital camera"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "A U-NET neural network trained on UV images of younger skin can generate UV-like images from RGB color images captured by a general smartphone camera, achieving a Peak Signal-to-Noise Ratio (PSNR) of 28 dB.",
+    "The deep learning model trained on young skin successfully removes hidden age spots from images of older adults because it does not recognize age spots that were not present in the younger subject's skin.",
+    "Remarkable age spots in older adults were sometimes misidentified as moles and displayed in the generated images by the young-skin-trained model.",
+    "Computing the difference image between the UV image generated by the young-skin-trained model and the UV image generated by an older-skin-trained model allows for the successful extraction and visualization of hidden age spots.",
+    "The proposed method is suitable for cosmetic applications for middle-aged and elderly people rather than for medical diagnosis or use."
+  ],
+  "important_remarks": [
+    "The study relies on a highly limited dataset consisting of only two subjects (one 21-year-old female and one 53-year-old male), raising significant concerns about population bias and generalizability.",
+    "The method is explicitly stated by the authors to be suitable for cosmetic applications rather than medical diagnosis or use.",
+    "The deep learning model trained on young skin failed to recognize hidden age spots in older adults because those spots were not present in the training data, effectively removing them rather than detecting them.",
+    "Remarkable age spots in older adults were sometimes misidentified as moles and displayed in the generated images, indicating potential diagnostic confusion or artifact generation.",
+    "The approach extracts hidden age spots by computing the difference between images generated by a young-skin-trained model and an older-skin-trained model, rather than direct detection.",
+    "No external validation was performed; the model was tested only on the specific older adult subject used for the difference calculation.",
+    "The study does not report standard classification metrics (e.g., sensitivity, specificity, AUC) as the primary task is image generation/synthesis evaluated by PSNR and MSE."
+  ]
+}

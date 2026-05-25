@@ -1,0 +1,550 @@
+{
+  "file_name": "wang_2026_dermacalibra_a_robust_and_explainable_multimodal_framework_for_skin_le.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes DermaCalibra, a multimodal deep learning framework for skin lesion diagnosis. It utilizes a ResNet50 backbone, Monte Carlo dropout for Bayesian uncertainty estimation, and cross-attention fusion to integrate dermoscopic images with clinical metadata. The model was evaluated on the PAD-UFES-20 dataset for classifying skin lesions such as Melanoma, Basal Cell Carcinoma, and others."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents DermaCalibra, a novel multimodal deep learning framework for skin lesion diagnosis. It details original experimental methods including the development of specific modules (AMCR, MDFM-CAF, GFA), training on the PAD-UFES-20 dataset, and extensive validation including ablation studies and external validation on hospital and synthetic datasets. The results section reports new performance metrics (BACC 84.2%, Macro AUC 96.9%) and compares them against state-of-the-art methods, indicating original research rather than a literature review."
+  },
+  "title": "DermaCalibra: A Robust and Explainable Multimodal Framework for Skin Lesion Diagnosis via Bayesian Uncertainty and Dynamic Modulation",
+  "authors": [
+    "Ben Wang",
+    "Qingjun Niu",
+    "Chengying She",
+    "Jialu Zhang",
+    "Wei Gao",
+    "Lizhuang Liu"
+  ],
+  "doi": "10.3390/diagnostics16040630",
+  "journal": "Diagnostics",
+  "year": 2026,
+  "article_type": "Article",
+  "brief_summary": "This study proposes DermaCalibra, a robust and explainable multimodal deep learning framework for skin lesion diagnosis that addresses class imbalance and visual ambiguity in clinical datasets. Built on a ResNet50 backbone, the model integrates dermoscopic images with clinical metadata using three key modules: Attention-Based Multimodal Channel Recalibration (AMCR) for uncertainty-aware loss weighting, Metadata-Driven Dynamic Feature Modulation and Cross-Attention Fusion (MDFM-CAF) for feature integration, and Gradient Feature Attribution (GFA) for interpretability. The framework was evaluated on the PAD-UFES-20 dataset, achieving a balanced accuracy of 84.2% and a Macro AUC of 96.9%, outperforming state-of-the-art methods by 3.6%. External validation on an unseen hospital dataset from Changzhou and synthetic datasets demonstrated strong generalizability without retraining, with the hospital dataset yielding a BACC of 91.7%. The results indicate that DermaCalibra effectively bridges deep learning complexity with clinical intuition, offering a reliable tool for early skin cancer detection in resource-limited settings.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "Basal Cell Carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "Evaluated on the PAD-UFES-20 dataset; included in comparative performance metrics (Table 2) and confusion analysis with SCC."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma",
+      "paper_terms": [
+        "Squamous Cell Carcinoma",
+        "SCC"
+      ],
+      "role": "Target class",
+      "details": "Evaluated on the PAD-UFES-20 dataset; noted as underrepresented (approx. 8.4% of samples) and having lower sensitivity (56.3%)."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "Evaluated on the PAD-UFES-20 dataset; included in comparative performance metrics (Table 2)."
+    },
+    {
+      "lesion_type": "Actinic Keratosis",
+      "paper_terms": [
+        "Actinic Keratosis",
+        "ACK"
+      ],
+      "role": "Target class",
+      "details": "Evaluated on the PAD-UFES-20 dataset; noted as a rare condition in the dataset; included in comparative performance metrics (Table 2)."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "Seborrheic Keratosis",
+        "SEK"
+      ],
+      "role": "Target class",
+      "details": "Evaluated on the PAD-UFES-20 dataset; included in comparative performance metrics (Table 2)."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "Nevus",
+        "NEV"
+      ],
+      "role": "Target class",
+      "details": "Evaluated on the PAD-UFES-20 dataset; included in comparative performance metrics (Table 2)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Six discrete skin lesion diagnostic categories (Melanoma, Basal Cell Carcinoma, Squamous Cell Carcinoma, Actinic Keratosis, Seborrheic Keratosis, and Nevus).",
+        "primary": true,
+        "details": "The model performs multi-class classification of skin lesions using dermoscopic images and clinical metadata. The primary task is explicitly stated as 'skin lesion diagnosis' and 'classification of six skin lesion classes'. Performance is evaluated using classification metrics such as Balanced Accuracy (BACC), Accuracy, Macro AUC, Precision, Recall (Sensitivity), Specificity, and F1 Score. The framework addresses class imbalance among these discrete diagnostic categories."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PAD-UFES-20",
+      "description": "A multimodal dataset collected at the Federal University of Espírito Santo, Brazil, comprising dermoscopic images and 81-dimensional clinical metadata (demographics, history, symptoms). Approximately 58.4% of images were confirmed via histopathological biopsy, and 41.6% via clinical consensus of three dermatologists.",
+      "classes_used": [
+        "Actinic Keratosis (ACK)",
+        "Basal Cell Carcinoma (BCC)",
+        "Melanoma (MEL)",
+        "Nevus (NEV)",
+        "Squamous Cell Carcinoma (SCC)",
+        "Seborrheic Keratosis (SEK)"
+      ],
+      "counts": {
+        "total": 2298,
+        "training": 1532,
+        "validation": 383,
+        "testing": 383,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Primary training dataset for the DermaCalibra model.",
+        "validation": "Used for model validation during training.",
+        "testing": "Used for primary performance evaluation (BACC 84.2%, Macro AUC 96.9%).",
+        "other": "Used as the source for synthesizing metadata distributions for external validation datasets."
+      }
+    },
+    {
+      "name": "Changzhou Hospital Dataset",
+      "description": "A private, hospital-provided multimodal dataset from the Second People’s Hospital of Changzhou, China. It contains dermoscopic images captured via mobile devices under standard clinical lighting, annotated with 81-dimensional metadata mirroring PAD-UFES-20. The dataset is not publicly available.",
+      "classes_used": [
+        "Basal Cell Carcinoma (BCC)",
+        "Nevus (NEV)",
+        "Actinic Keratosis (ACK)",
+        "Melanoma (MEL)"
+      ],
+      "counts": {
+        "total": 20,
+        "training": null,
+        "validation": null,
+        "testing": 20,
+        "per_class": {
+          "BCC": 6,
+          "NEV": 6,
+          "ACK": "underrepresented",
+          "MEL": "underrepresented"
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "External validation to assess out-of-the-box generalizability without retraining. Achieved BACC 91.7%.",
+        "other": "Pilot validation for clinical applicability in a distinct demographic (Chinese population)."
+      }
+    },
+    {
+      "name": "Synthetic HAM10000 Dataset",
+      "description": "A synthetic dataset constructed by sampling 2000 images from the public HAM10000 dataset. Stratified sampling preserved original class distribution. Metadata was synthesized to match PAD-UFES-20's 81 dimensions (18 real dimensions for age/sex/localization, 63 synthesized from PAD-UFES-20 distributions). Classes were mapped to PAD-UFES-20 categories; DF and VASC were excluded.",
+      "classes_used": [
+        "Actinic Keratosis (ACK) [mapped from AKIEC]",
+        "Basal Cell Carcinoma (BCC)",
+        "Melanoma (MEL)",
+        "Nevus (NEV) [mapped from NV]",
+        "Seborrheic Keratosis (SEK) [mapped from BKL]"
+      ],
+      "counts": {
+        "total": 2000,
+        "training": null,
+        "validation": null,
+        "testing": 2000,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "External validation to assess generalizability on a larger scale without retraining. Achieved BACC 78.3%.",
+        "other": "Synthetic dataset used to test robustness to domain shifts (camera sensors, geography)."
+      }
+    },
+    {
+      "name": "Synthetic ISIC 2019 Dataset",
+      "description": "A synthetic dataset constructed by sampling 5000 images from the public ISIC 2019 dataset. Stratified sampling preserved class distribution. Metadata was synthesized to match PAD-UFES-20's 81 dimensions. SCC samples (82) from ISIC 2019 were included to allow direct evaluation of this class, which was missing in the synthetic HAM10000 subset. DF and VASC were excluded.",
+      "classes_used": [
+        "Actinic Keratosis (ACK) [mapped from AKIEC]",
+        "Basal Cell Carcinoma (BCC)",
+        "Melanoma (MEL)",
+        "Nevus (NEV) [mapped from NV]",
+        "Squamous Cell Carcinoma (SCC)",
+        "Seborrheic Keratosis (SEK) [mapped from BKL]"
+      ],
+      "counts": {
+        "total": 5000,
+        "training": null,
+        "validation": null,
+        "testing": 5000,
+        "per_class": {
+          "ACK": 298,
+          "BCC": 1177,
+          "MEL": 428,
+          "NEV": 2325,
+          "SCC": 82,
+          "SEK": 690
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "External validation to assess generalizability, particularly for underrepresented classes like SCC. Achieved BACC 71.6%.",
+        "other": "Synthetic dataset used to test robustness to domain shifts and evaluate performance on SCC."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Balanced Accuracy (BACC)",
+    "Accuracy (ACC)",
+    "Macro Area Under the Receiver Operating Characteristic Curve (Macro AUC)",
+    "Precision",
+    "Recall (Sensitivity)",
+    "Specificity",
+    "F1 Score",
+    "Class-Wise Accuracy (CA)",
+    "Insertion AUC",
+    "Deletion AUC",
+    "Faithfulness Drop"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Wilcoxon signed-rank test",
+      "purpose": "To assess statistical significance of performance differences between DermaCalibra and other models on the PAD-UFES-20 test set.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Monte Carlo dropout",
+      "purpose": "To implement Bayesian uncertainty estimation for adjusting focal loss weights and prioritizing underrepresented classes.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Stratified sampling",
+      "purpose": "To preserve class distribution when constructing synthetic datasets from HAM10000 and ISIC 2019.",
+      "type": "Sampling method"
+    },
+    {
+      "method": "Correlation coefficients",
+      "purpose": "To validate the distribution of synthesized metadata against PAD-UFES-20 (age, sex, localization).",
+      "type": "Descriptive statistic"
+    },
+    {
+      "method": "6-fold cross-validation (patient-based split)",
+      "purpose": "To evaluate the robustness of the framework across different data splits in the ablation study.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Region-stratified split",
+      "purpose": "To evaluate model robustness by introducing controlled distribution differences in lesion regions and age.",
+      "type": "Cross-validation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Wilcoxon signed-rank test",
+    "null_hypothesis": "There is no significant difference in performance between DermaCalibra and the comparative baseline models.",
+    "alternative_hypothesis": "There is a significant difference in performance between DermaCalibra and the comparative baseline models.",
+    "alpha": 0.05,
+    "interpretation": "Statistical significance was assessed using the Wilcoxon signed-rank test with a threshold of p < 0.05 to validate the performance improvements of DermaCalibra over other models on the PAD-UFES-20 test set."
+  },
+  "results_obtained_in_each_dataset": {
+    "PAD-UFES-20": {
+      "split": "Test set (N=383 cases)",
+      "models": {
+        "DermaCalibra (Ours)": {
+          "Accuracy (%)": 85.6,
+          "BACC (%)": 84.2,
+          "Macro AUC (%)": 96.9,
+          "Precision (ACK)": 89.4,
+          "Precision (BCC)": 88.2,
+          "Precision (MEL)": 72.7,
+          "Precision (NEV)": 86.4,
+          "Precision (SCC)": 62.1,
+          "Precision (SEK)": 85.7,
+          "F1 Score (ACK)": 85.9,
+          "F1 Score (BCC)": 89.1,
+          "F1 Score (MEL)": 80.0,
+          "F1 Score (NEV)": 90.5,
+          "F1 Score (SCC)": 59.0,
+          "F1 Score (SEK)": 88.9,
+          "Sensitivity (ACK)": 82.8,
+          "Sensitivity (BCC)": 90.1,
+          "Sensitivity (MEL)": 88.9,
+          "Sensitivity (NEV)": 95.0,
+          "Sensitivity (SCC)": 56.3,
+          "Sensitivity (SEK)": 92.3,
+          "Specificity (ACK)": 95.4,
+          "Specificity (BCC)": 93.0,
+          "Specificity (MEL)": 99.2,
+          "Specificity (NEV)": 98.3,
+          "Specificity (SCC)": 96.9,
+          "Specificity (SEK)": 98.3,
+          "Class-Wise Accuracy (ACK)": 91.4,
+          "Class-Wise Accuracy (BCC)": 91.9,
+          "Class-Wise Accuracy (MEL)": 98.9,
+          "Class-Wise Accuracy (NEV)": 97.9,
+          "Class-Wise Accuracy (SCC)": 93.5,
+          "Class-Wise Accuracy (SEK)": 97.6
+        },
+        "MetaNet": {
+          "Accuracy (%)": 73.2,
+          "BACC (%)": 74.2,
+          "Macro AUC (%)": 93.6
+        },
+        "MetaBlock": {
+          "Accuracy (%)": 73.5,
+          "BACC (%)": 76.5,
+          "Macro AUC (%)": 93.5
+        },
+        "Concat": {
+          "Accuracy (%)": 74.1,
+          "BACC (%)": 72.8,
+          "Macro AUC (%)": 92.9
+        },
+        "Visual": {
+          "Accuracy (%)": 81.2,
+          "BACC (%)": 80.6,
+          "Macro AUC (%)": 95.3
+        },
+        "Khurshid": {
+          "Accuracy (%)": 84.8,
+          "BACC (%)": 81.1,
+          "Macro AUC (%)": 96.7
+        }
+      },
+      "ablation_study_patient_based_split": {
+        "models": {
+          "Baseline (v1)": {
+            "BACC (%)": 80.6,
+            "Accuracy (%)": 81.2,
+            "Macro AUC (%)": 95.3
+          },
+          "v1 + MDFM-CAF": {
+            "BACC (%)": 82.0,
+            "Accuracy (%)": 84.3,
+            "Macro AUC (%)": 95.8
+          },
+          "v1 + AMCR": {
+            "BACC (%)": 82.2,
+            "Accuracy (%)": 84.9,
+            "Macro AUC (%)": 97.0
+          },
+          "v1 + AMCR + MDFM-CAF": {
+            "BACC (%)": 84.2,
+            "Accuracy (%)": 85.6,
+            "Macro AUC (%)": 96.9
+          }
+        }
+      },
+      "ablation_study_region_stratified_split": {
+        "subset_a": {
+          "models": {
+            "Baseline (v1)": {
+              "BACC (%)": 77.5,
+              "Accuracy (%)": 82.1,
+              "AUC (%)": 94.7
+            },
+            "v1 + MDFM-CAF": {
+              "BACC (%)": 78.6,
+              "Accuracy (%)": 82.2,
+              "AUC (%)": 95.8
+            },
+            "v1 + AMCR": {
+              "BACC (%)": 78.0,
+              "Accuracy (%)": 82.7,
+              "AUC (%)": 95.8
+            },
+            "v1 + AMCR + MDFM-CAF": {
+              "BACC (%)": 83.3,
+              "Accuracy (%)": 86.4,
+              "AUC (%)": 96.6
+            }
+          }
+        },
+        "subset_b": {
+          "models": {
+            "Baseline (v1)": {
+              "BACC (%)": 81.0,
+              "Accuracy (%)": 82.2,
+              "AUC (%)": 95.7
+            },
+            "v1 + MDFM-CAF": {
+              "BACC (%)": 84.5,
+              "Accuracy (%)": 85.4,
+              "AUC (%)": 95.8
+            },
+            "v1 + AMCR": {
+              "BACC (%)": 84.5,
+              "Accuracy (%)": 82.8,
+              "AUC (%)": 97.0
+            },
+            "v1 + AMCR + MDFM-CAF": {
+              "BACC (%)": 86.5,
+              "Accuracy (%)": 86.5,
+              "AUC (%)": 97.9
+            }
+          }
+        }
+      },
+      "interpretability_evaluation": {
+        "dataset_size": "N=50",
+        "models": {
+          "Grad-CAM (Baseline)": {
+            "Insertion AUC": "0.548 ± 0.322",
+            "Deletion AUC": "0.676 ± 0.258",
+            "Faithfulness Drop": "1.751 ± 1.405"
+          },
+          "GFA (Ours)": {
+            "Insertion AUC": "0.842 ± 0.249",
+            "Deletion AUC": "0.421 ± 0.368",
+            "Faithfulness Drop": "2.618 ± 1.587"
+          }
+        }
+      },
+      "notes": "Statistical significance assessed using Wilcoxon signed-rank test (p < 0.05). DermaCalibra outperformed Visual by 3.6% BACC and Khurshid by 3.1% BACC. Sensitivity surpassed 80% for all classes except SCC (56.3%). Specificity exceeded 90% across all classes."
+    },
+    "Changzhou Hospital Dataset": {
+      "split": "Testing (N=20 cases)",
+      "models": {
+        "DermaCalibra": {
+          "BACC (%)": 91.7
+        }
+      },
+      "notes": "External validation without retraining. Per-class metrics omitted due to small sample size (20 images) and severe class imbalance. Classes present: BCC (6), NEV (6), ACK (underrepresented), MEL (underrepresented)."
+    },
+    "Synthetic HAM10000 Dataset": {
+      "split": "Testing (N=2000 cases)",
+      "models": {
+        "DermaCalibra": {
+          "BACC (%)": 78.3
+        }
+      },
+      "notes": "External validation without retraining. Synthetic dataset constructed by sampling 2000 images from HAM10000 with synthesized metadata matching PAD-UFES-20 distributions. Classes mapped: ACK (from AKIEC), BCC, MEL, NEV (from NV), SEK (from BKL). DF and VASC excluded."
+    },
+    "Synthetic ISIC 2019 Dataset": {
+      "split": "Testing (N=5000 cases)",
+      "models": {
+        "DermaCalibra": {
+          "BACC (%)": 71.6
+        }
+      },
+      "notes": "External validation without retraining. Synthetic dataset constructed by sampling 5000 images from ISIC 2019 with synthesized metadata. Classes mapped: ACK (from AKIEC), BCC, MEL, NEV (from NV), SCC, SEK (from BKL). Included 82 SCC samples to evaluate underrepresented class. Metadata correlation with PAD-UFES-20: Age 0.93, Sex 0.90, Localization 0.94."
+    }
+  },
+  "architecture_used": {
+    "main_model": "DermaCalibra",
+    "pretraining": "ResNet50 backbone used; specific pretraining weights not explicitly stated, but ResNet50 is cited as robust for small datasets like PAD-UFES-20.",
+    "input_size": "Dermoscopic images (dimensions not explicitly specified, but ResNet50 typically expects 224x224); Clinical metadata vector of 81 dimensions.",
+    "architecture_details": {
+      "backbone": "ResNet50",
+      "backbone_parameters": "23.6 M parameters",
+      "feature_extraction_layer": "Layer4 of ResNet50 (Output feature map F ∈ R^2048x7x7)",
+      "modules": [
+        {
+          "name": "AMCR (Attention-Based Multimodal Channel Recalibration)",
+          "function": "Bayesian uncertainty estimation via Monte Carlo dropout to adjust focal loss weights."
+        },
+        {
+          "name": "MDFM-CAF (Metadata-Driven Dynamic Feature Modulation and Cross-Attention Fusion)",
+          "function": "Fuses image and metadata features using dynamic convolution and cross-attention."
+        },
+        {
+          "name": "GFA (Gradient Feature Attribution)",
+          "function": "Generates pixel-level diagnostic heatmaps and metadata importance scores."
+        }
+      ]
+    },
+    "training_details": {
+      "epochs": "150",
+      "optimizer": "Not explicitly stated in context (SGD listed in abbreviations but not linked to training config)",
+      "loss_function": "Focal loss (weights adjusted by AMCR uncertainty)",
+      "batch_size": "Not reported",
+      "learning_rate": "Not reported",
+      "hardware": "Not explicitly stated in context (mentions 'specified hardware' and '8 workers for data loading')",
+      "training_time": "Approximately 1 day"
+    },
+    "classification_or_output_head": {
+      "type": "Multiclass Classification",
+      "classes": 6,
+      "class_labels": [
+        "Melanoma (MEL)",
+        "Basal Cell Carcinoma (BCC)",
+        "Squamous Cell Carcinoma (SCC)",
+        "Actinic Keratosis (ACK)",
+        "Seborrheic Keratosis (SEK)",
+        "Nevus (NEV)"
+      ]
+    },
+    "approximate_parameters": "23.6 M (ResNet50 backbone only; total model parameters not explicitly summed)"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "DermaCalibra",
+    "MetaNet",
+    "MetaBlock",
+    "Concat",
+    "Visual",
+    "Khurshid",
+    "ResNet50",
+    "Xception",
+    "EfficientNet",
+    "Grad-CAM",
+    "GFA",
+    "Baseline (v1)",
+    "v1 + MDFM-CAF",
+    "v1 + AMCR",
+    "v1 + AMCR + MDFM-CAF"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 224 × 224 pixels",
+    "Normalization using mean [0.485, 0.456, 0.406] and standard deviation [0.229, 0.224, 0.225]",
+    "Handling missing metadata via median imputation for numerical values and 'unknown' label for categorical gaps"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Stratified Sampling",
+      "details": "Used to construct synthetic datasets from HAM10000 (2000 images) and ISIC 2019 (5000 images) to preserve original class distributions and reflect real-world class imbalance."
+    },
+    {
+      "technique": "Metadata Synthesis",
+      "details": "Synthesized 81-dimensional metadata for synthetic datasets by encoding age, sex, and localization (18 dimensions) and generating remaining 63 dimensions by sampling from PAD-UFES-20 statistical distributions or filling with median/mode values for unmodeled features."
+    },
+    {
+      "technique": "Image Preprocessing (Resizing and Normalization)",
+      "details": "Images were resized to 224 × 224 pixels and normalized using mean [0.485, 0.456, 0.406] and standard deviation [0.229, 0.224, 0.225]. (Note: This is a standard preprocessing step, not explicitly labeled as an augmentation technique in the text, but often serves as a baseline for augmentation)."
+    },
+    {
+      "technique": "Generative Adversarial Networks (GANs)",
+      "details": "Mentioned as a potential future work to synthesize SCC images and apply color jitter and texture enhancements to capture subtle differences; not used in the current study's training pipeline."
+    }
+  ],
+  "conclusions": [
+    "DermaCalibra effectively bridges the gap between deep learning complexity and clinical intuition through uncertainty-aware reasoning and transparent interpretability.",
+    "The framework provides a reliable and scalable computer-aided diagnostic tool for early skin lesion detection, particularly in resource-limited clinical environments.",
+    "DermaCalibra outperforms current state-of-the-art methods by 3.6% in balanced accuracy (BACC) on the PAD-UFES-20 dataset, demonstrating superior handling of class imbalance and low inter-class variability.",
+    "The AMCR module's Bayesian uncertainty estimation via Monte Carlo dropout effectively mitigates class imbalance by prioritizing underrepresented classes.",
+    "The MDFM-CAF module enhances discrimination between visually similar lesions (such as BCC and SCC) through dynamic feature fusion and cross-attention.",
+    "The GFA module significantly improves interpretability compared to Grad-CAM, achieving higher Insertion AUC (0.842 vs 0.548) and Faithfulness Drop (2.618 vs 1.751), confirming the clinical relevance of the identified regions and metadata importance.",
+    "DermaCalibra demonstrates robust generalizability across diverse clinical settings without retraining, achieving a BACC of 91.7% on an unseen hospital dataset from Changzhou and 78.3% on a synthetic HAM10000 dataset.",
+    "Sensitivity surpassed 80% for all classes except Squamous Cell Carcinoma (SCC), which had a sensitivity of 56.3%, reflecting robust true-positive detection for most pathologies.",
+    "Specificity exceeded 90% across all classes, underscoring the model's efficacy in identifying true negatives and minimizing unnecessary interventions.",
+    "Confusion primarily occurs between BCC and SCC classes due to minute visual differences and shared clinical features, though this misclassification is noted to have limited impact on patient care as both typically require biopsy for definitive diagnosis."
+  ],
+  "important_remarks": [
+    "The primary training dataset (PAD-UFES-20) is small (2,298 images) and sourced from a single institution in Brazil, limiting generalizability and risking overfitting to specific photographic protocols and equipment.",
+    "External validation on the Changzhou hospital dataset is based on only 20 images, which severely limits statistical power and the reliability of the reported 91.7% BACC.",
+    "Validation on synthetic HAM10000 and ISIC 2019 datasets relies on synthesized metadata rather than real clinical data, introducing potential distributional biases that may artificially mirror the training environment.",
+    "The model exhibits poor sensitivity for Squamous Cell Carcinoma (SCC) at 56.3% on the test set, a limitation attributed to visual similarity with Basal Cell Carcinoma and underrepresentation in the training data.",
+    "The study does not report batch size, learning rate, or specific optimizer details for the main training experiments, hindering full reproducibility.",
+    "Hardware specifications for training are not explicitly stated, though inference was conducted on an NVIDIA 4090 GPU.",
+    "The Changzhou hospital dataset is private and not publicly available, preventing independent verification of the external validation results.",
+    "Class imbalance remains a significant challenge, particularly for rare lesions like Actinic Keratosis (ACK) and SCC, despite the use of the AMCR module."
+  ]
+}

@@ -1,0 +1,452 @@
+{
+  "file_name": "Hoang et al. - 2025 - DermoMamba a cross-scale Mamba-based model with guide fusion loss for skin lesion segmentation in d.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper introduces DermoMamba, a deep learning model based on the Mamba architecture and Convolutional Neural Networks (CNNs), specifically designed for skin lesion segmentation in dermoscopy images. The study utilizes AI methods including a Cross-Scale Mamba Block, Convolutional Block Attention Module, and a novel Guide Fusion Loss function. The model was trained and evaluated on dermatological datasets (ISIC 2018 and PH2) to segment skin lesions, which is a critical step in skin cancer detection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as an 'ORIGINAL ARTICLE' and presents a new model called DermoMamba. It details the introduction of novel components (Cross-Scale Mamba Block, Guide Fusion Loss), describes experimental methods on specific datasets (ISIC 2018, PH2), and reports quantitative results including performance metrics, parameter counts, FLOPS, and p-values, which are characteristic of original experimental research."
+  },
+  "title": "DermoMamba: a cross-scale Mamba-based model with guide fusion loss for skin lesion segmentation in dermoscopy images",
+  "authors": [
+    "Ngoc-Khai Hoang",
+    "Dinh-Hieu Nguyen",
+    "Thi-Thao Tran",
+    "Van-Truong Pham"
+  ],
+  "doi": "10.1007/s10044-025-01506-w",
+  "journal": "Pattern Analysis and Applications",
+  "year": 2025,
+  "article_type": "Original research article",
+  "brief_summary": "This study introduces DermoMamba, a compact U-shaped deep learning model designed for skin lesion segmentation in dermoscopy images to aid in early skin cancer detection. The architecture integrates a novel Cross-Scale Mamba Block for capturing long-range dependencies with Convolutional Block Attention Modules in skip connections, alongside a new Guide Fusion Loss function to enhance boundary segmentation accuracy. The model was evaluated on the ISIC 2018 and PH2 datasets, demonstrating superior performance compared to advanced CNN, Transformer, and Mamba-based methods. Notably, DermoMamba achieves this improved accuracy while maintaining high efficiency, utilizing only 4.95 million parameters and less than 1 G FLOPS. Statistical analysis confirmed the significant superiority of the proposed method over existing state-of-the-art models. The results indicate that DermoMamba effectively balances segmentation precision with computational compactness, making it suitable for resource-constrained clinical applications.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesion",
+        "dermoscopic skin lesion images"
+      ],
+      "role": "Segmentation target",
+      "details": "The study focuses on the segmentation of skin lesions in dermoscopy images using the ISIC 2018 and PH2 datasets. While the paper mentions 'melanoma' in the context of early detection and clinical relevance, it does not report specific lesion type labels (e.g., melanoma, nevus, BCC) as distinct classes for the segmentation task; the task is binary segmentation of lesion vs. background."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Mentioned only (Clinical context)",
+      "details": "Mentioned in the Introduction and Related Work as a critical skin cancer for early detection, motivating the need for segmentation, but not listed as a specific class label in the segmentation experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks in dermoscopy images",
+        "primary": true,
+        "details": "The paper focuses on skin lesion segmentation, producing binary masks distinguishing lesions from background. The model DermoMamba is evaluated using segmentation metrics such as Dice coefficient, Intersection over Union (IoU), Precision, and Recall on the ISIC 2018 and PH2 datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A dataset of dermoscopic images created by the International Skin Imaging Collaboration (ISIC) to advance machine learning and deep learning models for skin lesion analysis. Images were adjusted to a fixed size of 192 × 256 pixels.",
+      "classes_used": [
+        "Skin lesions (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 2075,
+        "validation": null,
+        "testing": 519,
+        "per_class": {}
+      },
+      "use": {
+        "training": "80% of the dataset (2075 images) was used for training.",
+        "validation": "null",
+        "testing": "20% of the dataset (519 images) was set aside for testing.",
+        "other": "null"
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A dataset curated by the Dermatology Service of Pedro Hispano Hospital in Matosinhos, Portugal, designed for research, evaluation, and development of algorithms for dermoscopic image segmentation and classification. Images were transformed to a size of 192 × 256 pixels.",
+      "classes_used": [
+        "Common nevi",
+        "Atypical nevi",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 200,
+        "training": 170,
+        "validation": null,
+        "testing": 30,
+        "per_class": {
+          "common nevi": 80,
+          "atypical nevi": 80,
+          "melanoma": 40
+        }
+      },
+      "use": {
+        "training": "170 images were used for training.",
+        "validation": "null",
+        "testing": "30 images were used for testing.",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice Similarity Coefficient (DSC)",
+    "Intersection over Union (IoU)",
+    "Precision",
+    "Recall",
+    "Parameters (count)",
+    "FLOPS (Floating Point Operations)",
+    "p-value"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "t-test",
+      "purpose": "To evaluate differences between the noise-added cases and the original clean test set, and to compare the performance of DermoMamba against other state-of-the-art models (CNN, Transformer, and Mamba-based) on the ISIC 2018 and PH2 datasets.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "p-value analysis",
+      "purpose": "To determine statistical significance of the superiority of DermoMamba over comparative models. A significance threshold of p < 0.05 was used to confirm significant improvements in metrics such as Dice Similarity Coefficient (DSC) and Intersection over Union (IoU).",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "t-test",
+    "null_hypothesis": "There is no significant difference in performance metrics (such as Dice Similarity Coefficient, Intersection over Union, Precision, and Recall) between the proposed DermoMamba model and the comparative state-of-the-art models (CNN, Transformer, and Mamba-based methods).",
+    "alternative_hypothesis": "There is a significant difference in performance metrics, specifically that DermoMamba performs significantly better than the comparative models.",
+    "alpha": 0.05,
+    "interpretation": "The study used a significance threshold of p < 0.05 to confirm the statistical superiority of DermoMamba over existing models. For the ISIC 2018 dataset, p-values for DSC and IoU were reported for various comparisons (e.g., U-Net DSC p=0.0002, IoU p=5.9e-5; ResU-Net DSC p=6.268e-10, IoU p=5.814e-11), with most showing p < 0.05, indicating significant improvement. For the PH2 dataset, similar p-values were reported (e.g., U-Net DSC p=1.665e-4, Precision p=5.31e-3), confirming significant improvements for most comparisons, while noting exceptions like AC-MambaSeg and TransUNet where p > 0.05."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018": {
+      "split": "Testing (20% of 2594 images)",
+      "metrics": [
+        "Dice Similarity Coefficient (DSC)",
+        "Intersection over Union (IoU)",
+        "Precision",
+        "Recall",
+        "Parameters (Params)",
+        "FLOPS"
+      ],
+      "models": {
+        "DermoMamba (Proposed)": {
+          "DSC": "90.91%",
+          "IoU": "84.49%",
+          "Precision": "93.45%",
+          "Recall": "90.32%",
+          "Params": "4.95M",
+          "FLOPS": "0.97G"
+        },
+        "U-Net": {
+          "DSC": "88.42%",
+          "IoU": "80.89%",
+          "Params": "31.04M",
+          "FLOPS": "34.59G",
+          "p_value_DSC_vs_DermoMamba": "0.0002",
+          "p_value_IoU_vs_DermoMamba": "5.9e-5"
+        },
+        "Double U-Net": {
+          "DSC": "89.21%",
+          "IoU": "83.29%",
+          "Params": "18.84M",
+          "FLOPS": "33.12G",
+          "p_value_DSC_vs_DermoMamba": "0.0125",
+          "p_value_IoU_vs_DermoMamba": "0.0101"
+        },
+        "U-Net++": {
+          "DSC": "89.37%",
+          "IoU": "82.33%",
+          "Params": "9.16M",
+          "FLOPS": "25.99G",
+          "p_value_DSC_vs_DermoMamba": "0.0194",
+          "p_value_IoU_vs_DermoMamba": "0.0136"
+        },
+        "ResU-Net": {
+          "DSC": "85.62%",
+          "IoU": "77.70%",
+          "Params": "13.04M",
+          "FLOPS": "53.41G",
+          "p_value_DSC_vs_DermoMamba": "6.268e-10",
+          "p_value_IoU_vs_DermoMamba": "5.814e-11"
+        },
+        "CMUNet": {
+          "DSC": "89.39%",
+          "IoU": "82.36%",
+          "Params": "49.93M",
+          "FLOPS": "68.33G",
+          "p_value_DSC_vs_DermoMamba": "0.0205",
+          "p_value_IoU_vs_DermoMamba": "0.0148"
+        },
+        "SegNet": {
+          "DSC": "89.00%",
+          "IoU": "81.85%",
+          "Params": "29.44M",
+          "FLOPS": "30.05G",
+          "p_value_DSC_vs_DermoMamba": "4.9e-3",
+          "p_value_IoU_vs_DermoMamba": "2.9e-3"
+        },
+        "Attention U-Net": {
+          "DSC": "89.25%",
+          "IoU": "82.13%",
+          "Params": "31.9M",
+          "FLOPS": "35.41G",
+          "p_value_DSC_vs_DermoMamba": "0.0122",
+          "p_value_IoU_vs_DermoMamba": "0.0070"
+        },
+        "ConvUNeXt": {
+          "DSC": "86.95%",
+          "IoU": "79.14%",
+          "Params": "3.51M",
+          "FLOPS": "5.39G",
+          "p_value_DSC_vs_DermoMamba": "9.5e-3",
+          "p_value_IoU_vs_DermoMamba": "8.0e-3"
+        },
+        "TransUNet": {
+          "DSC": "86.60%",
+          "IoU": "79.02%",
+          "Params": "60.56M",
+          "FLOPS": "16.26G",
+          "p_value_DSC_vs_DermoMamba": "2.129e-8",
+          "p_value_IoU_vs_DermoMamba": "7.442e-6"
+        },
+        "CellFormer": {
+          "DSC": "90.63%",
+          "IoU": "84.06%",
+          "Params": "39.25M",
+          "FLOPS": "16.01G",
+          "note": "p-value > 0.05 (not statistically significant)"
+        },
+        "SwinU-Net": {
+          "DSC": "89.70%",
+          "IoU": "82.84%",
+          "Params": "27.17M",
+          "FLOPS": "6.00G",
+          "p_value_DSC_vs_DermoMamba": "2.0e-7",
+          "p_value_IoU_vs_DermoMamba": "7.0e-8"
+        },
+        "SegFormer": {
+          "DSC": "90.36%",
+          "IoU": "82.13%",
+          "Params": "13.70M",
+          "FLOPS": "2.57G",
+          "note": "p-value > 0.05 (not statistically significant)"
+        },
+        "AC-MambaSeg": {
+          "DSC": "90.36%",
+          "IoU": "82.13%",
+          "Params": "7.99M",
+          "FLOPS": "2.09G",
+          "note": "p-value > 0.05 (not statistically significant)"
+        }
+      },
+      "notes": "DermoMamba achieved superior performance with significantly fewer parameters and FLOPS compared to most baselines. Statistical significance (p < 0.05) was confirmed against U-Net, Double U-Net, U-Net++, ResU-Net, CMUNet, SegNet, Attention U-Net, ConvUNeXt, TransUNet, and SwinU-Net. No significant difference was found against AC-MambaSeg, CellFormer, and SegFormer."
+    },
+    "PH2": {
+      "split": "Testing (30 of 200 images)",
+      "metrics": [
+        "Dice Similarity Coefficient (DSC)",
+        "Intersection over Union (IoU)",
+        "Precision",
+        "Recall",
+        "Parameters (Params)",
+        "FLOPS"
+      ],
+      "models": {
+        "DermoMamba (Proposed)": {
+          "DSC": "95.11%",
+          "IoU": "91.51%",
+          "note": "Least number of parameters and FLOPs among all referenced models"
+        },
+        "AC-MambaSeg": {
+          "DSC": "95.01%",
+          "IoU": "90.69%",
+          "note": "p-value > 0.05 (not statistically significant)"
+        },
+        "ConvUNeXt": {
+          "DSC": "94.97%",
+          "IoU": "90.28%",
+          "note": "p-value > 0.05 (not statistically significant)"
+        },
+        "CellFormer": {
+          "DSC": "95.11%",
+          "IoU": "91.51%",
+          "note": "p-value > 0.05 (not statistically significant)"
+        },
+        "TransUNet": {
+          "DSC": "93.94%",
+          "IoU": "88.80%",
+          "note": "p-value < 0.05"
+        },
+        "SwinU-Net": {
+          "DSC": "93.77%",
+          "IoU": "88.45%",
+          "note": "p-value < 0.05"
+        },
+        "SegFormer": {
+          "DSC": "94.55%",
+          "IoU": "90.28%",
+          "note": "p-value < 0.05"
+        },
+        "DoubleU-Net": {
+          "DSC": "94.09%",
+          "IoU": "null",
+          "p_value_DSC_vs_DermoMamba": "0.0291"
+        },
+        "U-Net": {
+          "DSC": "92.45%",
+          "IoU": "null",
+          "p_value_DSC_vs_DermoMamba": "1.665e-4"
+        },
+        "U-Net++": {
+          "DSC": "93.71%",
+          "IoU": "null",
+          "p_value_DSC_vs_DermoMamba": "2.89e-3"
+        },
+        "ResU-Net": {
+          "DSC": "88.82%",
+          "IoU": "null",
+          "p_value_DSC_vs_DermoMamba": "3.471e-4"
+        },
+        "CMUNet": {
+          "DSC": "91.93%",
+          "IoU": "null",
+          "p_value_DSC_vs_DermoMamba": "2.888e-3"
+        },
+        "SegNet": {
+          "DSC": "92.28%",
+          "IoU": "null",
+          "p_value_DSC_vs_DermoMamba": "1.813e-3"
+        },
+        "Attention U-Net": {
+          "DSC": "89.86%",
+          "IoU": "null",
+          "p_value_DSC_vs_DermoMamba": "6e-3"
+        }
+      },
+      "notes": "DermoMamba demonstrated superior performance compared to CNN-, Transformer-, and Mamba-based models. Except for AC-MambaSeg, ConvUNeXt, and CellFormer, all other models showed p-values < 0.05, indicating statistically significant improvements. DermoMamba used the least number of parameters and FLOPs."
+    }
+  },
+  "architecture_used": {
+    "main_model": "DermoMamba",
+    "pretraining": "null",
+    "input_size": "192 × 256 pixels",
+    "architecture_details": {
+      "model_family": "U-shaped network (U-Net style)",
+      "backbone_components": [
+        "Cross-Scale Mamba Block (CSM Block)",
+        "Convolutional Block Attention Module (CBAM)",
+        "Bottleneck block with 4-branch configuration"
+      ],
+      "cross_scale_mamba_block_details": {
+        "description": "Sequential architecture combining global feature capture with expanded receptive field and bottleneck structure",
+        "mechanism": "Optimized multiaxial Mamba mechanism for spatial information aggregation",
+        "scanning": "Sweep Mamba scanning in three dimensions: height, width, and channel",
+        "activation": "SilU activation function"
+      },
+      "skip_connections": "Enhanced with Convolutional Block Attention Module (CBAM) to preserve information and enhance attention to important details",
+      "bottleneck_structure": {
+        "branches": 4,
+        "components": [
+          "PCA-PSA++",
+          "PASPP",
+          "MCSA",
+          "Proposed Cross-Scale Mamba Block"
+        ]
+      }
+    },
+    "training_details": {
+      "loss_function": "Guide Fusion Loss (novel loss function introducing attention map calculation for boundary regions)",
+      "optimizer": "null",
+      "hyperparameters": "null",
+      "training_schedule": "null"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation output",
+      "details": "Decoder block reconstructs segmented images; output is binary mask distinguishing lesion from background"
+    },
+    "approximate_parameters": "4.95 million"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "DermoMamba",
+    "U-Net",
+    "Double U-Net",
+    "U-Net++",
+    "ResU-Net",
+    "CMUNet",
+    "SegNet",
+    "Attention U-Net",
+    "ConvUNeXt",
+    "TransUNet",
+    "CellFormer",
+    "SwinU-Net",
+    "SegFormer",
+    "AC-MambaSeg",
+    "VMamba",
+    "VM-UNet",
+    "Swin-UMamba",
+    "FMamba",
+    "MSFM-UNET",
+    "U-Mamba",
+    "TransUnet",
+    "SWMA-UNet",
+    "ResUnet",
+    "SMRU-Net",
+    "MA-UNet",
+    "TESL-Net",
+    "TFormer",
+    "UltraLight VM-UNet",
+    "MedMamba",
+    "Dermosegdiff",
+    "HSH-UNet",
+    "LMFUNet"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to a fixed size of 192 × 256 pixels for both ISIC 2018 and PH2 datasets",
+    "Data augmentation techniques including rotation, flipping, and scaling during training"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Applied during training to diversify the datasets and enrich training data."
+    },
+    {
+      "technique": "Flipping",
+      "details": "Applied during training to diversify the datasets and enrich training data."
+    },
+    {
+      "technique": "Scaling",
+      "details": "Applied during training to diversify the datasets and enrich training data."
+    }
+  ],
+  "conclusions": [
+    "The proposed DermoMamba model achieves superior segmentation performance compared to advanced CNN, Transformer, and Mamba-based methods on the ISIC 2018 and PH2 datasets.",
+    "DermoMamba effectively balances accuracy and computational efficiency, utilizing only 4.95 million parameters and less than 1 G FLOPS, which is significantly lower than most comparative models.",
+    "The integration of the Cross-Scale Mamba Block allows the model to capture long-range dependencies and global features while maintaining the local information extraction capabilities of CNNs.",
+    "The novel Guide Fusion Loss function enhances segmentation accuracy, particularly at boundary regions, by introducing an innovative attention map calculation.",
+    "The 4-branch bottleneck configuration provides statistically significant improvements in segmentation accuracy and reliability compared to 1-branch and 2-branch configurations.",
+    "Statistical analysis (t-test, p < 0.05) confirms the significant superiority of DermoMamba over most state-of-the-art models, with exceptions noted against AC-MambaSeg, CellFormer, and SegFormer on specific metrics.",
+    "The model demonstrates strong generalization capabilities, as evidenced by stable learning curves and robust performance under varying noise levels.",
+    "DermoMamba is suitable for resource-constrained clinical applications due to its compact architecture and high efficiency without compromising segmentation precision."
+  ],
+  "important_remarks": [
+    "The study relies on two public datasets (ISIC 2018 and PH2) without external validation on independent clinical cohorts, limiting generalizability assessment.",
+    "On the ISIC 2018 dataset, the proposed DermoMamba model did not show statistically significant superiority (p > 0.05) against three specific state-of-the-art models: AC-MambaSeg, CellFormer, and SegFormer.",
+    "On the PH2 dataset, the model also failed to show statistically significant superiority (p > 0.05) against AC-MambaSeg, ConvUNeXt, and CellFormer.",
+    "The PH2 dataset is small (200 images total, 30 for testing), which may limit the robustness of statistical conclusions compared to the larger ISIC 2018 dataset.",
+    "The paper claims the model is suitable for resource-constrained clinical applications due to low parameter count (4.95M) and FLOPS (<1G), but does not provide empirical evidence of deployment or inference speed on actual clinical hardware.",
+    "The segmentation task is binary (lesion vs. background) and does not differentiate between specific lesion types (e.g., melanoma vs. nevus), which limits direct clinical utility for differential diagnosis."
+  ]
+}

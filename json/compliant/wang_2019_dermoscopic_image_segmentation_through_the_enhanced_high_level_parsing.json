@@ -1,0 +1,261 @@
+{
+  "file_name": "wang_2019_dermoscopic_image_segmentation_through_the_enhanced_high_level_parsing.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning approach, specifically a fully convolutional neural network (FCN) with a ResNet-50 backbone, to perform skin lesion segmentation in dermoscopic images. It introduces an enhanced high-level parsing (EHP) module and a class weighted loss (CWL) to improve segmentation accuracy on the ISBI 2017 database."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new deep learning architecture (Enhanced High-Level Parsing and Class Weighted Loss) for skin lesion segmentation. It details a specific methodology, implements the model on the ISBI 2017 dataset, and reports quantitative results (Jaccard Index, Dice Coefficient, etc.) comparing it to state-of-the-art methods, which characterizes it as a research paper rather than a review."
+  },
+  "title": "DERMOSCOPIC IMAGE SEGMENTATION THROUGH THE ENHANCED HIGH-LEVEL PARSING AND CLASS WEIGHTED LOSS",
+  "authors": [
+    "Xiaohong Wang",
+    "Henghui Ding",
+    "Xudong Jiang"
+  ],
+  "doi": null,
+  "journal": "ICIP 2019",
+  "year": 2019,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of accurate skin lesion segmentation in dermoscopic images, which is critical for computer-aided melanoma analysis. The authors propose a fully convolutional neural network (FCN) with a ResNet-50 backbone, incorporating an enhanced high-level parsing (EHP) module and a class weighted loss (CWL) to improve feature representation and handle class imbalance. The EHP module utilizes global feature learning and multiscale class-likelihood fusion to preserve spatial details, while CWL balances the prediction between lesion and background pixels. The model was evaluated on the ISBI 2017 skin lesion challenge database, which contains 2000 training and 600 testing images. Quantitative results demonstrate that the proposed method achieves state-of-the-art performance, outperforming existing methods with a Jaccard Index of 78.10% and a Dice Coefficient of 85.89% on the test set.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesion (general)",
+      "paper_terms": [
+        "skin lesion",
+        "lesion"
+      ],
+      "role": "Target class",
+      "details": "The primary segmentation target in the study. The paper focuses on segmenting skin lesions from background in dermoscopic images using the ISBI 2017 database."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class (subset)",
+      "details": "Mentioned as the context for computer-aided analysis and as a specific subset of lesions evaluated in the ISBI 2017 database (Table 2 reports performance on 'Melanoma' cases)."
+    },
+    {
+      "lesion_type": "Non-melanoma",
+      "paper_terms": [
+        "non-melanoma"
+      ],
+      "role": "Target class (subset)",
+      "details": "Evaluated as a separate category from melanoma in the ISBI 2017 database results (Table 2 reports performance on 'Non-melanoma' cases)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion mask (pixel-wise binary classification of lesion vs. background)",
+        "primary": true,
+        "details": "The paper performs dermoscopic image segmentation to delineate skin lesion boundaries from the background. The model outputs a pixel-wise prediction map (binary mask) using a fully convolutional neural network with an enhanced high-level parsing module and class weighted loss. Performance is evaluated using Jaccard Index, Dice Coefficient, Sensitivity, and G-mean on the ISBI 2017 database."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISBI 2017 skin lesion challenge database",
+      "description": "A public dataset from the ISBI 2017 challenge used for dermoscopic image segmentation. It contains images with varying sizes (from 540x722 to 4499x6478 pixels) and includes ground truth annotations for skin lesions.",
+      "classes_used": [
+        "skin lesion",
+        "background",
+        "melanoma",
+        "non-melanoma"
+      ],
+      "counts": {
+        "total": 2600,
+        "training": 2000,
+        "validation": null,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the proposed FCN with ResNet-50 backbone, EHP module, and CWL. Data augmentation (random flip and scale) was applied to the training set.",
+        "validation": null,
+        "testing": "Used for evaluating the segmentation performance (Jaccard Index, Dice Coefficient, Sensitivity, G-mean) and comparing with state-of-the-art methods.",
+        "other": "Used for ablation analysis to examine the impact of individual components (EHP, CWL) on segmentation performance."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Jaccard Index (JA)",
+    "Dice Coefficient (DC)",
+    "Sensitivity (SE)",
+    "G-mean (GM)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using quantitative metrics (Jaccard Index, Dice Coefficient, Sensitivity, G-mean) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISBI 2017 database": {
+      "metric": [
+        "Jaccard Index (JA)",
+        "Dice Coefficient (DC)",
+        "Sensitivity (SE)",
+        "G-mean (GM)"
+      ],
+      "models": {
+        "Baseline (FCN with ResNet-50)": {
+          "JA": "75.09%",
+          "DC": "83.67%",
+          "SE": "80.19%",
+          "GM": "88.05%"
+        },
+        "Baseline + EHP": {
+          "JA": "77.00%",
+          "DC": "84.94%",
+          "SE": "84.01%",
+          "GM": "89.78%"
+        },
+        "Baseline + EHP + CWL (Proposed Method)": {
+          "JA": "78.10%",
+          "DC": "85.89%",
+          "SE": "87.32%",
+          "GM": "91.09%"
+        },
+        "Team-Yuan": {
+          "Overall_JA": "76.50%",
+          "Overall_SE": "82.50%",
+          "Melanoma_JA": "71.20%",
+          "Melanoma_SE": "76.99%",
+          "Non-melanoma_JA": "77.78%",
+          "Non-melanoma_SE": "83.85%"
+        },
+        "Team-Berseth": {
+          "Overall_JA": "76.20%",
+          "Overall_SE": "82.00%",
+          "Melanoma_JA": "68.82%",
+          "Melanoma_SE": "73.75%",
+          "Non-melanoma_JA": "78.02%",
+          "Non-melanoma_SE": "83.99%"
+        },
+        "Team-popleyi": {
+          "Overall_JA": "76.00%",
+          "Overall_SE": "80.20%",
+          "Melanoma_JA": "69.28%",
+          "Melanoma_SE": "73.40%",
+          "Non-melanoma_JA": "77.60%",
+          "Non-melanoma_SE": "81.85%"
+        },
+        "Team-Ahn": {
+          "Overall_JA": "75.80%",
+          "Overall_SE": "80.10%",
+          "Melanoma_JA": "69.06%",
+          "Melanoma_SE": "73.26%",
+          "Non-melanoma_JA": "77.45%",
+          "Non-melanoma_SE": "81.81%"
+        },
+        "Team-Titans": {
+          "Overall_JA": "75.40%",
+          "Overall_SE": "81.70%",
+          "Melanoma_JA": "68.78%",
+          "Melanoma_SE": "74.35%",
+          "Non-melanoma_JA": "77.00%",
+          "Non-melanoma_SE": "83.46%"
+        },
+        "Li et al.": {
+          "Overall_JA": "76.50%",
+          "Overall_SE": "82.50%",
+          "Melanoma_JA": "N.A",
+          "Melanoma_SE": "N.A",
+          "Non-melanoma_JA": "N.A",
+          "Non-melanoma_SE": "N.A"
+        },
+        "Bi et al.": {
+          "Overall_JA": "77.73%",
+          "Overall_SE": "86.20%",
+          "Melanoma_JA": "72.18%",
+          "Melanoma_SE": "80.67%",
+          "Non-melanoma_JA": "79.07%",
+          "Non-melanoma_SE": "87.54%"
+        }
+      },
+      "notes": "The proposed method (Baseline + EHP + CWL) achieved state-of-the-art performance on the ISBI 2017 database. It improved the Jaccard Index (JA) and Sensitivity (SE) by 0.4% and 1.1% respectively compared to the best competing method (Bi et al.) on overall skin lesions. The method also outperformed others on both melanoma and non-melanoma subsets. Ablation studies showed that adding EHP improved JA, DC, SE, and GM by 1.9%, 1.3%, 3.8%, and 1.7% respectively over the baseline, and adding CWL further boosted SE by 3.3%."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Fully Convolutional Network (FCN) with ResNet-50 backbone",
+    "pretraining": "ResNet-50 pre-trained on ImageNet",
+    "input_size": "Images resized to have maximum extent of 512 pixels",
+    "architecture_details": {
+      "backbone": "ResNet-50",
+      "modules": [
+        "Enhanced High-Level Parsing (EHP) module",
+        "Global feature learning",
+        "Multiscale class-likelihood fusion",
+        "Class Weighted Loss (CWL)"
+      ],
+      "details": "The EHP module generates meaningful feature representation at high-level layers (Block 4 and Block 5) using global feature learning and multiscale class-likelihood fusion. The CWL is used to handle class imbalance between lesion and background pixels."
+    },
+    "training_details": {
+      "optimizer": "Stochastic Gradient Descent (SGD)",
+      "learning_rate": "Initial learning rate 10^-3, power 0.9, updated with multiplication (1 - iter/max_iter)^power",
+      "epochs": 150,
+      "batch_size": 4,
+      "data_augmentation": "Random flip and scale"
+    },
+    "classification_or_output_head": {
+      "type": "Deconvolution network / Upsampling",
+      "loss_function": "Class Weighted Loss (CWL)",
+      "loss_formula": "L = - sum(w_i * y_ip * log(o_ip))",
+      "class_weights": "Calculated based on class distribution imbalance: w_i = 1 - (N_i / sum(N_i))"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Fully Convolutional Network (FCN) with ResNet-50 backbone (Baseline)",
+    "Baseline + Enhanced High-Level Parsing (EHP) module",
+    "Baseline + EHP + Class Weighted Loss (CWL) (Proposed Method)",
+    "Team-Yuan",
+    "Team-Berseth",
+    "Team-popleyi",
+    "Team-Ahn",
+    "Team-Titans",
+    "Li et al.",
+    "Bi et al."
+  ],
+  "preprocessing_techniques": [
+    "Image resizing: Input images were resized to have a maximum extent of 512 pixels.",
+    "Data augmentation: Random flip and scale were applied to the training set."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random flip",
+      "details": "Applied to the training set to generate more informative training data and overcome the insufficiency of quality training data."
+    },
+    {
+      "technique": "Random scale",
+      "details": "Applied to the training set to handle the large size variation of skin lesions and generate more informative training data."
+    }
+  ],
+  "conclusions": [
+    "The proposed method, which integrates an Enhanced High-Level Parsing (EHP) module and Class Weighted Loss (CWL) into a Fully Convolutional Network with a ResNet-50 backbone, achieves state-of-the-art performance on the ISBI 2017 skin lesion segmentation database.",
+    "The EHP module effectively generates rich discriminative feature representations and preserves detailed spatial information, improving the delineation of inconspicuous lesions and complex boundaries.",
+    "The Class Weighted Loss (CWL) successfully addresses the class imbalance between lesion and background pixels, leading to more balanced and consistent lesion prediction.",
+    "The proposed framework outperforms existing state-of-the-art methods, improving the Jaccard Index by 0.4% and Sensitivity by 1.1% compared to the best competing method (Bi et al.) on overall skin lesions.",
+    "The method demonstrates robustness and consistency by outperforming other methods on both melanoma and non-melanoma subsets of the ISBI 2017 database.",
+    "The proposed architecture is particularly effective for challenging cases, such as lesions with low contrast, where standard fully convolutional networks often fail to distinguish the lesion from the background."
+  ],
+  "important_remarks": [
+    "The study is limited to a single dataset (ISBI 2017), which may introduce dataset bias and limits the generalizability of the findings to other clinical populations or imaging devices.",
+    "No external validation was performed; the model was only evaluated on the test split of the ISBI 2017 challenge database.",
+    "The paper does not report any statistical significance testing (e.g., p-values) for the performance improvements over competing methods, relying solely on point estimates of metrics.",
+    "The dataset exhibits significant class imbalance, with only approximately 20% of pixels labeled as lesion, which the authors address via Class Weighted Loss but highlights as a fundamental data characteristic.",
+    "The input images vary widely in size (540x722 to 4499x6478 pixels), and the model requires resizing to a maximum extent of 512 pixels, which may impact spatial resolution and boundary precision for very large original images.",
+    "The paper does not discuss potential data leakage risks associated with the ISBI 2017 challenge dataset structure or preprocessing steps beyond standard augmentation.",
+    "Clinical relevance is inferred from the task of melanoma analysis, but the paper does not provide clinical outcomes, inter-observer agreement metrics, or prospective validation."
+  ]
+}

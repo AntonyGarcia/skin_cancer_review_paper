@@ -1,0 +1,224 @@
+{
+  "file_name": "manivannan_2023_skin_lesion_segmentation_using_residual_u_net.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning approach, specifically a ResNet101 backboned U-NET architecture, for skin lesion segmentation on the ISIC 2017 dataset. The model achieved training and test Jaccard scores of 96.28% and 84.20% respectively."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a ResNet101 backboned U-NET architecture for skin lesion segmentation. It details a specific methodology including data preprocessing, augmentation (increasing dataset from 2000 to 6000 pairs), and training on the ISIC 2017 dataset. It reports original results, achieving training and test Jaccard scores of 96.28% and 84.20% respectively, and compares these against existing methods. Although published in a conference proceedings (SPIN 2023), it contains original technical contributions and empirical validation rather than summarizing prior literature."
+  },
+  "title": "Skin Lesion Segmentation using Residual U-NET",
+  "authors": [
+    "S. Manivannan",
+    "N. Venkateswaran"
+  ],
+  "doi": "10.1109/SPIN57001.2023.10116287",
+  "journal": "10th International Conference on Signal Processing and Integrated Networks (SPIN)",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a ResNet101 backboned U-NET architecture for the semantic segmentation of skin lesions from dermoscopic images to aid in the diagnosis of conditions like malignant melanoma. The model was trained and tested on the ISIC 2017 dataset, which was augmented from 2000 to 6000 image-mask pairs using techniques such as flipping, rotation, and grid distortion to improve performance. The architecture leverages a pretrained ResNet101 encoder for efficient feature extraction and retention, replacing the conventional U-NET encoding path. Evaluation metrics included Jaccard and MeanIOU scores, with the proposed method achieving a training Jaccard score of 96.28% and a test Jaccard score of 84.20%. These results demonstrate that the model outperforms several existing methods listed in the comparative analysis, highlighting the effectiveness of the proposed deep learning approach for accurate skin lesion segmentation.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "lesion",
+        "pigmented skin lesions"
+      ],
+      "role": "Segmentation target",
+      "details": "The paper focuses on the segmentation of skin lesions from dermoscopic images using the ISIC 2017 dataset. The ground truth masks are binary, distinguishing between 'Healthy region' and 'lesion region'. While 'malignant melanoma' is mentioned as a specific life-threatening skin cancer and a motivation for the work, the experiments perform binary segmentation of all lesions present in the dataset rather than classifying specific histopathological types."
+    },
+    {
+      "lesion_type": "Malignant melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "Melanoma"
+      ],
+      "role": "Motivation/Context",
+      "details": "Mentioned in the Abstract and Introduction as a type of skin cancer with similar initial symptoms to other lesions, highlighting the importance of segmentation for diagnosis. It is not explicitly listed as a distinct class label in the segmentation task, which uses binary masks for all lesions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary mask distinguishing lesion region from healthy skin region",
+        "primary": true,
+        "details": "The paper performs semantic segmentation of skin lesions from dermoscopic images. The ground truth masks are binary, containing two class labels: 'Healthy region' and 'lesion region'. The model predicts a pixel-wise segmentation mask, evaluated using Jaccard (MeanIOU) and Dice scores."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017 Challenge Dataset",
+      "description": "A public dataset from the International Skin Imaging Collaboration containing dermoscopic images and segmented ground truth masks. The original dataset contained 2000 image-mask pairs with varying dimensions and resolutions. It was augmented to 6000 pairs for training.",
+      "classes_used": [
+        "Healthy region",
+        "Lesion region"
+      ],
+      "counts": {
+        "total": 2000,
+        "training": 6000,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the ResNet101 backboned U-NET architecture. The original 2000 pairs were augmented to 6000 pairs using techniques like flipping, rotation, and grid distortion.",
+        "validation": "Used for validation (MeanIOU score of 84.20% reported). Specific count not provided.",
+        "testing": "Used for testing (Test Jaccard score of 84.20% reported). Specific count not provided.",
+        "other": null
+      }
+    },
+    {
+      "name": "ImageNet",
+      "description": "A benchmark dataset consisting of millions of images spread across 1000 different classes. Used to pretrain the ResNet101 backbone encoder.",
+      "classes_used": [
+        "1000 classes"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for pretraining the ResNet101 encoder weights before fine-tuning on the skin lesion segmentation task.",
+        "validation": null,
+        "testing": null,
+        "other": "Pretraining source for the backbone network."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Jaccard score",
+    "MeanIOU",
+    "Dice score",
+    "Loss"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "No hypothesis testing was reported in the paper."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017 Challenge Dataset": {
+      "metric": "MeanIOU (Jaccard Score)",
+      "models": {
+        "Proposed ResNet101 backboned U-NET (with data augmentation)": {
+          "training_MeanIOU": "96.2%",
+          "validation_MeanIOU": "84.20%",
+          "test_Jaccard": "84.20%"
+        },
+        "Proposed ResNet101 backboned U-NET (without data augmentation)": {
+          "MeanIOU": "76.43%"
+        },
+        "D.K Nguyen et al. [4]": {
+          "MeanIOU": "78.1%"
+        },
+        "R. Mishra [10]": {
+          "MeanIOU": "84.2%"
+        },
+        "G.S. Araujo [11]": {
+          "MeanIOU": "83.3%"
+        },
+        "M.S Kartal [9]": {
+          "MeanIOU": "80.9%"
+        },
+        "M.D Alahmadi [13]": {
+          "MeanIOU": "95.76%"
+        }
+      },
+      "notes": "The proposed model achieved a training MeanIOU of 96.2% and validation MeanIOU of 84.20% after 100 epochs with data augmentation. The test Jaccard score was reported as 84.20%. Without data augmentation, the MeanIOU was 76.43%. The paper notes that the proposed approach outperforms existing results listed in Table 1."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet101 backboned U-NET",
+    "pretraining": "ResNet101 backbone pretrained on ImageNet dataset (1000 classes)",
+    "input_size": "256x256",
+    "architecture_details": {
+      "encoder": "ResNet101 architecture (replaces conventional U-NET encoding path)",
+      "decoder": "U-NET expansion path (transposed convolution)",
+      "backbone_type": "101-layered residual CNN",
+      "key_components": "2D Residual blocks with skip connections to mitigate vanishing gradient",
+      "framework": "Tensorflow 2.9"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.0001,
+      "epochs": 100,
+      "batch_size": 16,
+      "loss_function": "Jaccard loss (inspired by Jaccard coefficient/MeanIOU)",
+      "hardware": "Intel Core i7 CPU, NVIDIA 1060 6GB RAM GPU",
+      "data_augmentation": "Albumentations library (VerticalFlip, HorizontalFlip, RandomRotate90, GridDistortion, Transpose); dataset increased from 2000 to 6000 pairs",
+      "preprocessing": "Uniform scaling to 256x256, pixel normalization between 0 and 1 (dividing by 255)"
+    },
+    "classification_or_output_head": {
+      "type": "Semantic Segmentation",
+      "output": "Binary mask (Healthy region vs Lesion region)",
+      "details": "Fully convolutional network outputting pixel-wise segmentation"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet101 backboned U-NET (Proposed)",
+    "U-NET",
+    "Mask R-CNN",
+    "Modified U-NET with EfficientNet B4 and ResNet",
+    "Modified U-NET with Pyramid Pooling Module (PPM) and dilated convolution",
+    "Multiscale Attention U-Net"
+  ],
+  "preprocessing_techniques": [
+    "Uniform scaling of images to 256x256 dimensions",
+    "Pixel normalization between 0 and 1 by dividing pixel values by 255",
+    "Data augmentation using Albumentations library including VerticalFlip, HorizontalFlip, RandomRotate90, GridDistortion, and Transpose"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms (Flipping)",
+      "details": "VerticalFlip and HorizontalFlip applied using the Albumentations library."
+    },
+    {
+      "technique": "Geometric Transforms (Rotation)",
+      "details": "RandomRotate90 applied using the Albumentations library."
+    },
+    {
+      "technique": "Geometric Transforms (Distortion)",
+      "details": "GridDistortion applied using the Albumentations library."
+    },
+    {
+      "technique": "Geometric Transforms (Transpose)",
+      "details": "Transpose applied using the Albumentations library."
+    },
+    {
+      "technique": "Dataset Expansion",
+      "details": "Data augmentation increased the training dataset size from 2000 to 6000 image-mask pairs."
+    }
+  ],
+  "conclusions": [
+    "The proposed ResNet101 backboned U-NET architecture effectively segments skin lesions from healthy skin, achieving a training Jaccard score of 96.28% and a test Jaccard score of 84.20%.",
+    "Extensive data augmentation is critical for model performance; increasing the dataset size from 2000 to 6000 image-mask pairs using techniques like flipping, rotation, and grid distortion drastically improved the MeanIOU score from 76.43% to 96.2%.",
+    "The use of a pretrained ResNet101 backbone allows for efficient feature extraction and retention, mitigating the need to train from scratch and enabling faster convergence compared to conventional U-NET architectures.",
+    "The model demonstrates robustness in segmenting broad lesion regions and capturing the curves and bends of lesions, though slight mismatches occur at sharp edges.",
+    "The proposed method outperforms several existing methods listed in comparative analysis, including those by D.K Nguyen et al., R. Mishra, and G.S. Araujo.",
+    "Future work may involve modifying the encoder-decoder with different backbones (e.g., VGG19, EfficientNet) and experimenting with different combinations of summed loss functions to further reduce the difference between ground truth and predicted outputs."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC 2017 dataset without external validation, limiting the generalizability of the results to other populations or imaging devices.",
+    "Data augmentation was critical for performance, increasing the training set from 2000 to 6000 pairs; without augmentation, the MeanIOU dropped significantly from 96.2% to 76.43%, indicating high dependency on augmented data.",
+    "The paper reports a test Jaccard score of 84.20% but does not provide a separate validation set size or detailed breakdown of the test set composition, raising potential concerns about data leakage or insufficient independent testing.",
+    "The model exhibits slight mismatches at sharp edges of lesions, which contributes to loss, suggesting limitations in boundary precision for complex lesion geometries.",
+    "The work is published in a conference proceeding (SPIN 2023) rather than a peer-reviewed journal, which may imply less rigorous scrutiny compared to journal publications.",
+    "Comparative results are drawn from various other studies using the same dataset, but direct head-to-head comparison under identical experimental conditions (e.g., same augmentation, preprocessing, and hardware) is not explicitly controlled or reported.",
+    "The hardware used for training (Intel Core i7 CPU, NVIDIA 1060 6GB RAM GPU) is modest, which may limit the scalability or reproducibility of the training process for larger models or datasets."
+  ]
+}

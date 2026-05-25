@@ -1,0 +1,379 @@
+{
+  "file_name": "doan_2025_a_knowledge_distillation_approach_for_diffusion_based_generative_skin.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a diffusion-based generative model (LiteDermoSegDiff) and Edge-Focused Knowledge Distillation (EFKD) for skin lesion segmentation on dermoscopic images from the ISIC2018 and HAM10000 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel Edge-Focused Knowledge Distillation (EFKD) strategy and a lightweight model named LiteDermoSegDiff. It includes specific methodology sections (Implementation Details, Datasets), quantitative results comparing performance on ISIC2018 and HAM10000 datasets (Table I), ablation studies (Table II, Fig. 4), and qualitative comparisons (Fig. 3). Although published in a conference proceedings (RIVF 2025), it reports new technical contributions and empirical validation rather than summarizing prior literature."
+  },
+  "title": "A Knowledge Distillation Approach for Diffusion-based Generative Skin Lesion Segmentation",
+  "authors": [
+    "Viet-Hoang Doan",
+    "Thanh-Danh Nguyen",
+    "Tuan-Kiet Ngo",
+    "Vinh-Tiep Nguyen"
+  ],
+  "doi": "10.1109/RIVF68649.2025.11365106",
+  "journal": "2025 RIVF International Conference on Computing and Communication Technologies (RIVF)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of deploying computationally heavy diffusion-based models for skin lesion segmentation by proposing an Edge-Focused Knowledge Distillation (EFKD) strategy. The authors introduce LiteDermoSegDiff, a lightweight student model that compresses the teacher DermoSegDiff by prioritizing the transfer of contour information to preserve boundary fidelity. The method was evaluated on the ISIC2018 and HAM10000 dermoscopic datasets using standard segmentation metrics such as Dice Score, sensitivity, and specificity. Results demonstrate that LiteDermoSegDiff achieves up to 88.9% parameter reduction, decreasing model size from 81.6M to 9.3M on ISIC2018, while maintaining competitive segmentation accuracy. The findings confirm that diffusion-based generative models can be substantially compressed without compromising diagnostic reliability, making them suitable for resource-constrained clinical environments.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "dermoscopic images"
+      ],
+      "role": "Target class",
+      "details": "The paper focuses on binary segmentation of skin lesions (foreground vs. background) on dermoscopic images from the ISIC2018 and HAM10000 datasets. It does not distinguish specific histopathological classes (e.g., melanoma, BCC) but treats the lesion as a single binary mask for segmentation purposes."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary skin lesion mask (foreground vs. background) on dermoscopic images",
+        "primary": true,
+        "details": "The paper focuses on binary segmentation of skin lesions. The model LiteDermoSegDiff produces segmentation masks by predicting noise in a diffusion process, which is then averaged and thresholded to generate the final binary mask. Performance is evaluated using segmentation metrics such as Dice Score (DSC), sensitivity (SE), specificity (SP), and accuracy (ACC)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2018",
+      "description": "A publicly available dermoscopic skin lesion segmentation dataset containing 2,594 images with pixel-level annotations of skin lesions.",
+      "classes_used": [
+        "Skin lesion (foreground)",
+        "Background"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the LiteDermoSegDiff model (specific split counts not reported, but used in conjunction with HAM10000 training).",
+        "validation": "Used for validation (specific split counts not reported).",
+        "testing": "Used for testing and quantitative evaluation of segmentation performance (Dice Score, Sensitivity, Specificity, Accuracy).",
+        "other": null
+      }
+    },
+    {
+      "name": "HAM10000",
+      "description": "A subset of the ISIC archive containing 10,015 dermoscopic images of common pigmented skin lesions with segmentation masks.",
+      "classes_used": [
+        "Skin lesion (foreground)",
+        "Background"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 7200,
+        "validation": 1800,
+        "testing": 1015,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the LiteDermoSegDiff model.",
+        "validation": "Used for validation of the LiteDermoSegDiff model.",
+        "testing": "Used for testing and quantitative evaluation of segmentation performance (Dice Score, Sensitivity, Specificity, Accuracy).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice Score (DSC)",
+    "Sensitivity (SE)",
+    "Specificity (SP)",
+    "Accuracy (ACC)",
+    "Parameter count (Params)",
+    "GFLOPs",
+    "Memory consumption",
+    "Inference speed (FPS)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were based on quantitative metrics (Dice Score, Sensitivity, Specificity, Accuracy) and parameter counts without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2018": {
+      "description": "Dermoscopic skin lesion segmentation dataset with 2,594 images. Evaluated on binary segmentation masks.",
+      "metrics": [
+        "Params (M)",
+        "Dice Score (DSC)",
+        "Sensitivity (SE)",
+        "Specificity (SP)",
+        "Accuracy (ACC)"
+      ],
+      "models": {
+        "U-Net [3]": {
+          "Params": "31.0M",
+          "DSC": "0.8729",
+          "SE": "0.8739",
+          "SP": "0.9515",
+          "ACC": "0.9303"
+        },
+        "TransUNet [6]": {
+          "Params": "66.8M",
+          "DSC": "0.8610",
+          "SE": "0.8668",
+          "SP": "0.9447",
+          "ACC": "0.9223"
+        },
+        "Swin-UNet [9]": {
+          "Params": "41.3M",
+          "DSC": "0.8532",
+          "SE": "0.8148",
+          "SP": "0.9641",
+          "ACC": "0.9232"
+        },
+        "DeepLabv3+ [4]": {
+          "Params": "41.1M",
+          "DSC": "0.8820",
+          "SE": "0.8560",
+          "SP": "0.9770",
+          "ACC": "0.9510"
+        },
+        "Att-UNet [32]": {
+          "Params": "34.8M",
+          "DSC": "0.8425",
+          "SE": "0.8524",
+          "SP": "0.9734",
+          "ACC": "0.9395"
+        },
+        "MissFormer [38]": {
+          "Params": "42.4M",
+          "DSC": "0.8697",
+          "SE": "0.8256",
+          "SP": "0.9725",
+          "ACC": "0.9320"
+        },
+        "DermoSegDiff [26]": {
+          "Params": "81.6M",
+          "DSC": "0.8926",
+          "SE": "0.8812",
+          "SP": "0.9647",
+          "ACC": "0.9419"
+        },
+        "LiteDermoSegDiff (Ours)": {
+          "Params": "9.3M",
+          "DSC": "0.8826",
+          "SE": "0.8715",
+          "SP": "0.9616",
+          "ACC": "0.9365"
+        }
+      },
+      "notes": "LiteDermoSegDiff achieved the second-best Dice Score (0.8826), closely approaching the teacher DermoSegDiff (0.8926), while reducing parameters from 81.6M to 9.3M (88.9% reduction). It consistently delivered higher Dice Scores than CNN-based methods (U-Net, DeepLabv3+) and showed advantages over Transformer-based methods (TransUNet, Swin-UNet) in Dice Score and sensitivity."
+    },
+    "HAM10000": {
+      "description": "Subset of the ISIC archive with 10,015 dermoscopic images, split into 7,200/1,800/1,015 for train/val/test. Evaluated on binary segmentation masks.",
+      "metrics": [
+        "Params (M)",
+        "Dice Score (DSC)",
+        "Sensitivity (SE)",
+        "Specificity (SP)",
+        "Accuracy (ACC)"
+      ],
+      "models": {
+        "U-Net [3]": {
+          "Params": "31.0M",
+          "DSC": "0.9317",
+          "SE": "0.9480",
+          "SP": "0.9728",
+          "ACC": "0.9480"
+        },
+        "TransUNet [6]": {
+          "Params": "66.8M",
+          "DSC": "0.8610",
+          "SE": "0.8668",
+          "SP": "0.9447",
+          "ACC": "0.9233"
+        },
+        "Swin-UNet [9]": {
+          "Params": "41.3M",
+          "DSC": "0.9283",
+          "SE": "0.9336",
+          "SP": "0.9723",
+          "ACC": "0.9656"
+        },
+        "DeepLabv3+ [4]": {
+          "Params": "41.1M",
+          "DSC": "0.9268",
+          "SE": "0.9277",
+          "SP": "0.9768",
+          "ACC": "0.9651"
+        },
+        "Att-UNet [32]": {
+          "Params": "34.8M",
+          "DSC": "0.9285",
+          "SE": "0.9187",
+          "SP": "0.9784",
+          "ACC": "0.9663"
+        },
+        "MissFormer [38]": {
+          "Params": "42.4M",
+          "DSC": "0.9254",
+          "SE": "0.9271",
+          "SP": "0.9760",
+          "ACC": "0.9644"
+        },
+        "DermoSegDiff [26]": {
+          "Params": "40.3M",
+          "DSC": "0.9487",
+          "SE": "0.9351",
+          "SP": "0.9887",
+          "ACC": "0.9759"
+        },
+        "LiteDermoSegDiff (Ours)": {
+          "Params": "8.5M",
+          "DSC": "0.9453",
+          "SE": "0.9506",
+          "SP": "0.9810",
+          "ACC": "0.9738"
+        }
+      },
+      "notes": "LiteDermoSegDiff secured the second-best Dice Score (0.9453) on HAM10000, closely approaching the teacher DermoSegDiff (0.9487). It achieved the highest Sensitivity (0.9506) among all listed models. Parameters were reduced from 40.3M to 8.5M."
+    },
+    "Ablation Study (Parameter Reduction)": {
+      "dataset": "ISIC2018 and HAM10000",
+      "description": "Analysis of parameter reduction by cutting the depth of the teacher DermoSegDiff model.",
+      "models": {
+        "DermoSegDiff (Original, Depth 6)": {
+          "ISIC2018_Params": "81.6M",
+          "HAM10000_Params": "40.3M"
+        },
+        "DermoSegDiff (Cut Stage 6, Depth 5)": {
+          "ISIC2018_Params": "39.9M",
+          "HAM10000_Params": "20.3M",
+          "Dice_Score_ISIC2018": "0.88"
+        },
+        "DermoSegDiff (Cut Stage 5, Depth 4)": {
+          "ISIC2018_Params": "19.9M",
+          "HAM10000_Params": "12.6M"
+        },
+        "LiteDermoSegDiff (Cut Stage 4, Depth 3)": {
+          "ISIC2018_Params": "9.3M",
+          "HAM10000_Params": "8.5M"
+        }
+      },
+      "notes": "Progressively reducing depth from 6 to 3 stages significantly decreased parameters. The Dice Score for the Depth 5 model on ISIC2018 was reported as 0.88 in the ablation table, indicating competitive performance despite significant size reduction."
+    },
+    "Ablation Study (Threshold Sensitivity)": {
+      "dataset": "ISIC2018",
+      "description": "Analysis of the boundary-aware threshold value τ used to separate edge and body regions in EFKD.",
+      "models": {
+        "LiteDermoSegDiff (Optimal τ)": {
+          "Threshold_τ": "0.6",
+          "Performance": "Peak Dice Score"
+        }
+      },
+      "notes": "Performance peaked at τ = 0.6, providing a balanced trade-off between lesion coverage and boundary precision. Lower thresholds risked including ambiguous pixels, while higher thresholds excluded valid lesion areas."
+    }
+  },
+  "architecture_used": {
+    "main_model": "LiteDermoSegDiff (a lightweight diffusion-based student model derived from the teacher DermoSegDiff via Edge-Focused Knowledge Distillation)",
+    "pretraining": "Not explicitly reported; the student model is trained from scratch using knowledge distillation from the teacher model DermoSegDiff.",
+    "input_size": "128x128 pixels (images resized to this dimension)",
+    "architecture_details": {
+      "base_architecture": "U-Net-like architecture",
+      "model_family": "Denoising Diffusion Probabilistic Model (DDPM)",
+      "teacher_model": "DermoSegDiff (dual-branch diffusion architecture with boundary-aware loss)",
+      "student_depth": "3 stages (reduced from teacher's 6 stages)",
+      "diffusion_steps": "250 steps",
+      "variance_schedule": "Linearly increasing variances from beta_start = 0.0004 to beta_end = 0.08",
+      "distillation_strategy": "Edge-Focused Knowledge Distillation (EFKD) separating edge and body regions using a threshold tau = 0.6",
+      "loss_components": "Edge-focused loss (L_edge), body-focused loss (L_body), combined with boundary-aware loss (L_boundary); weights lambda_e = 5, lambda_b = 2"
+    },
+    "training_details": {
+      "framework": "PyTorch (v1.14.0)",
+      "hardware": "Single NVIDIA RTX A4000 GPU",
+      "optimizer": "Adam",
+      "learning_rate": "2e-4 (initial), reduced by factor of 0.5 if no improvement in last 10 epochs",
+      "epochs": "2,000",
+      "batch_size": "16",
+      "data_augmentation": "Albumentations: affine transforms, flipping, coarse dropout, intensity/geometric perturbations",
+      "inference_method": "Nine segmentation masks sampled per test image, averaged, and thresholded at 0"
+    },
+    "classification_or_output_head": {
+      "output_type": "Noise prediction (epsilon) in diffusion process",
+      "final_prediction": "Averaged and thresholded noise predictions produce binary segmentation masks"
+    },
+    "approximate_parameters": {
+      "student_model": "9.3M (on ISIC2018), 8.5M (on HAM10000)",
+      "teacher_model": "81.6M (on ISIC2018), 40.3M (on HAM10000)"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "LiteDermoSegDiff",
+    "DermoSegDiff",
+    "U-Net",
+    "TransUNet",
+    "Swin-UNet",
+    "DeepLabv3+",
+    "Att-UNet",
+    "MissFormer",
+    "U-Net++",
+    "Attention U-Net",
+    "Vision Transformers (ViTs)",
+    "TranssUNet",
+    "MedSegDiff",
+    "Boundary-Privileged Knowledge Distillation (BPKD)",
+    "Progressive distillation"
+  ],
+  "preprocessing_techniques": [
+    "Resizing: All images from ISIC2018 and HAM10000 datasets were resized to 128x128 pixels.",
+    "Data Augmentation: Albumentations library used for affine transforms, flipping, coarse dropout, and intensity/geometric perturbations during training."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Affine transforms",
+      "details": "Applied via the Albumentations library during training."
+    },
+    {
+      "technique": "Flipping",
+      "details": "Applied via the Albumentations library during training."
+    },
+    {
+      "technique": "Coarse dropout",
+      "details": "Applied via the Albumentations library during training."
+    },
+    {
+      "technique": "Intensity perturbations",
+      "details": "Applied via the Albumentations library during training."
+    },
+    {
+      "technique": "Geometric perturbations",
+      "details": "Applied via the Albumentations library during training."
+    }
+  ],
+  "conclusions": [
+    "The proposed Edge-Focused Knowledge Distillation (EFKD) strategy successfully compresses diffusion-based segmentation models by prioritizing the transfer of contour information, allowing the lightweight student model (LiteDermoSegDiff) to maintain sharp lesion boundaries while significantly reducing parameters.",
+    "LiteDermoSegDiff achieves up to 88.9% parameter reduction (from 81.6M to 9.3M on ISIC2018 and from 40.3M to 8.5M on HAM10000) compared to the teacher model DermoSegDiff.",
+    "Despite the substantial size reduction, LiteDermoSegDiff maintains competitive segmentation accuracy, securing the second-best Dice Score on both ISIC2018 (0.8826) and HAM10000 (0.9453) datasets, closely approaching the teacher model's performance.",
+    "LiteDermoSegDiff outperforms traditional CNN-based methods (e.g., U-Net, DeepLabv3+) and Transformer-based models (e.g., TransUNet, Swin-UNet) in terms of Dice Score and sensitivity, demonstrating the advantage of diffusion-based generative approaches for skin lesion segmentation.",
+    "The boundary-aware threshold parameter (τ) in EFKD is critical for performance, with an optimal value of τ = 0.6 providing a balanced trade-off between lesion coverage and boundary precision; lower thresholds risk including ambiguous pixels, while higher thresholds exclude valid lesion areas.",
+    "The study confirms that diffusion-based segmentation models can be substantially compressed without compromising diagnostic reliability or boundary awareness, making them suitable for deployment in resource-constrained clinical and mobile environments."
+  ],
+  "important_remarks": [
+    "The study is limited to binary skin lesion segmentation and does not address multi-class or specific histopathological subtypes (e.g., melanoma vs. benign), limiting direct clinical applicability for differential diagnosis.",
+    "Performance was evaluated exclusively on two public datasets (ISIC2018 and HAM10000); the lack of external validation on diverse, multi-center, or out-of-distribution datasets raises concerns about generalizability to real-world clinical populations.",
+    "No statistical significance testing (e.g., p-values, confidence intervals) was reported for performance comparisons, relying solely on point estimates of Dice Score, Sensitivity, Specificity, and Accuracy.",
+    "The model was trained and evaluated on images resized to 128x128 pixels, which may compromise the preservation of fine-grained boundary details critical for dermatological diagnosis compared to higher-resolution inputs.",
+    "The teacher model DermoSegDiff was used as the sole source for knowledge distillation; the robustness of the student model depends heavily on the teacher's quality, and no analysis of distillation failure modes or error propagation is provided.",
+    "The optimal threshold parameter (τ = 0.6) for separating edge and body regions was determined via ablation on ISIC2018; its stability and optimality across different datasets or image qualities are not rigorously validated.",
+    "Inference requires sampling nine masks per test image and averaging them, which increases computational latency compared to single-pass deterministic models, potentially impacting real-time deployment despite the reduced parameter count.",
+    "The paper reports no analysis of data leakage risks, such as potential overlap between training and testing splits in the HAM10000 dataset or cross-dataset contamination, which is critical for reliable benchmarking."
+  ]
+}

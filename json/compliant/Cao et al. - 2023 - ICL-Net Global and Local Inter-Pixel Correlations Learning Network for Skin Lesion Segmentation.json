@@ -1,0 +1,371 @@
+{
+  "file_name": "Cao et al. - 2023 - ICL-Net Global and Local Inter-Pixel Correlations Learning Network for Skin Lesion Segmentation.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes ICL-Net, a deep learning network using a pyramid transformer inter-pixel correlations (PTIC) module and a local neighborhood metric learning (LNML) module within an encoder-decoder architecture, to perform skin lesion segmentation on dermoscopic images from datasets like ISIC 2018, ISIC2016, and PH2."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel deep learning method called ICL-Net for skin lesion segmentation, detailing its architecture (PTIC and LNML modules), training methodology, and comprehensive experimental validation on public datasets (ISIC 2018, ISIC2016, PH2) with quantitative results and ablation studies."
+  },
+  "title": "ICL-Net: Global and Local Inter-Pixel Correlations Learning Network for Skin Lesion Segmentation",
+  "authors": [
+    "Weiwei Cao",
+    "Gang Yuan",
+    "Qi Liu",
+    "Chengtao Peng",
+    "Jing Xie",
+    "Xiaodong Yang",
+    "Xinye Ni",
+    "Jian Zheng"
+  ],
+  "doi": "10.1109/JBHI.2022.3162342",
+  "journal": "IEEE Journal of Biomedical and Health Informatics",
+  "year": 2023,
+  "article_type": "Journal article",
+  "brief_summary": "This study proposes ICL-Net, a novel deep learning architecture for skin lesion segmentation in dermoscopic images, designed to address challenges such as variable lesion shapes and blurry boundaries. The network integrates a pyramid transformer inter-pixel correlations (PTIC) module to capture global context and a local neighborhood metric learning (LNML) module to enhance local semantic correlations within an encoder-decoder framework. The authors evaluated the method on public datasets including ISIC 2018, ISIC 2016, and PH2, utilizing standard semantic segmentation metrics and statistical analysis. Experimental results demonstrate that ICL-Net achieves superior segmentation performance compared to other state-of-the-art methods. The findings confirm that learning both global and local inter-pixel correlations significantly improves feature representation and segmentation accuracy.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesion",
+        "lesion regions",
+        "pigment disorders"
+      ],
+      "role": "Segmentation target",
+      "details": "The paper focuses on the segmentation of skin lesions in dermoscopic images. While the context mentions 'melanoma' in the introduction as a malignant skin cancer and 'benign and malignant skin cancers' generally, the specific experiments and datasets (ISIC 2018, ISIC2016, PH2) are used for the binary segmentation task of lesion vs. background, rather than multi-class classification of specific histological types. The paper does not report results for specific lesion subtypes (e.g., melanoma vs. nevus) but treats 'skin lesion' as the target class for segmentation."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion regions in dermoscopic images",
+        "primary": true,
+        "details": "The paper performs binary semantic segmentation of skin lesions versus background. The model predicts a pixel-wise mask indicating whether each pixel belongs to the lesion class or the background class. Evaluation metrics include Jaccard Similarity Index (JSI), Dice Similarity Coefficient (DSC), Sensitivity, Specificity, and Accuracy, which are standard for segmentation tasks."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A public dermoscopic image dataset for skin lesion segmentation. The study utilized the training subset of this dataset.",
+      "classes_used": [
+        "skin lesion (foreground)",
+        "background"
+      ],
+      "counts": {
+        "total": null,
+        "training": 2594,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training via four-fold cross-validation.",
+        "validation": "Used for validation via four-fold cross-validation.",
+        "testing": "Used for testing via four-fold cross-validation.",
+        "other": "The online test set of ISIC 2018 was also used to evaluate the effectiveness of the proposed method."
+      }
+    },
+    {
+      "name": "ISIC 2016",
+      "description": "A public dermoscopic image dataset for skin lesion segmentation. The study utilized a subset of this dataset for training.",
+      "classes_used": [
+        "skin lesion (foreground)",
+        "background"
+      ],
+      "counts": {
+        "total": null,
+        "training": 900,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "900 images were used for training.",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A public dermoscopic image dataset for skin lesion segmentation. The study utilized a subset of this dataset for testing.",
+      "classes_used": [
+        "skin lesion (foreground)",
+        "background"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "200 images were used for testing.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (ACC)",
+    "Jaccard Similarity Index (JSI)",
+    "Dice Similarity Coefficient (DSC)",
+    "Sensitivity (SE)",
+    "Specificity (SP)",
+    "Inter-class distance",
+    "Inner-class distance",
+    "Distance ratio (DR)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Paired t-test",
+      "purpose": "To verify whether the performance of ICL-Net is significantly better than other state-of-the-art methods in terms of JSI and DSC metrics on ISIC2018 and ISIC2016+PH2 datasets.",
+      "type": "Hypothesis test"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Paired t-test",
+    "null_hypothesis": "There is no significant difference in performance (JSI and DSC) between ICL-Net and other state-of-the-art methods.",
+    "alternative_hypothesis": "The performance (JSI and DSC) of ICL-Net is significantly better than that of other state-of-the-art methods.",
+    "alpha": 0.05,
+    "interpretation": "The paired t-test was used to verify whether the performance of ICL-Net is significantly better than other methods in terms of JSI and DSC metrics on ISIC2018 and ISIC2016+PH2 datasets. The results indicated that all improvements were statistically significant."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2018": {
+      "metric": [
+        "Accuracy (ACC)",
+        "Jaccard Similarity Index (JSI)",
+        "Dice Similarity Coefficient (DSC)",
+        "Sensitivity (SE)",
+        "Specificity (SP)"
+      ],
+      "models": {
+        "ICL-Net": {
+          "JSI": "0.8327",
+          "DSC": "0.9003"
+        },
+        "FCN": {
+          "note": "Worse than U-Net"
+        },
+        "U-Net": {
+          "note": "Better than FCN"
+        },
+        "CENet": {
+          "note": "Improvement in JSI and DSC over U-Net"
+        },
+        "CTLNet": {
+          "JSI": "0.8507",
+          "DSC": "0.9155"
+        },
+        "CANet": {
+          "note": "Further improvement over CTLNet"
+        },
+        "CPFNet": {
+          "note": "Further improvement over CTLNet"
+        },
+        "DFNet": {
+          "note": "Better performance than CANet and CPFNet"
+        },
+        "FATNet": {
+          "note": "Improvement over DFNet"
+        },
+        "BAT": {
+          "note": "Further improvement over FATNet"
+        }
+      },
+      "notes": "ICL-Net achieves an overall improvement in three main metrics (ACC, JSI, and DSC) than other state-of-the-art methods."
+    },
+    "ISIC2016+PH2": {
+      "metric": [
+        "Accuracy (ACC)",
+        "Jaccard Similarity Index (JSI)",
+        "Dice Similarity Coefficient (DSC)",
+        "Sensitivity (SE)",
+        "Specificity (SP)"
+      ],
+      "models": {
+        "ICL-Net": {
+          "JSI": "0.8725",
+          "DSC": "0.9280"
+        },
+        "Baseline": {
+          "JSI": "0.8442",
+          "DSC": "0.9114"
+        },
+        "U-Net": {
+          "JSI": "0.8356",
+          "DSC": "0.9056"
+        },
+        "Baseline + PTIC": {
+          "JSI": "0.8607",
+          "DSC": "0.9219"
+        },
+        "U-Net + PTIC": {
+          "JSI": "0.8500",
+          "DSC": "0.9142"
+        },
+        "Baseline + LNML": {
+          "JSI_improvement": "1.79%",
+          "DSC_improvement": "1.12%"
+        },
+        "U-Net + LNML": {
+          "JSI_improvement": "1.95%",
+          "DSC_improvement": "1.21%"
+        },
+        "ICL-Net (Ablation)": {
+          "JSI": "0.8725",
+          "DSC": "0.9280"
+        },
+        "U-Net (Ablation)": {
+          "JSI": "0.8687",
+          "DSC": "0.9269"
+        }
+      },
+      "notes": "All ablation experiments were conducted on the ISIC2016+PH2 dataset. The JSI and DSC of ICL-Net improved from 0.8442/0.9114 (Baseline) to 0.8725/0.9280. The JSI and DSC of U-Net improved from 0.8356/0.9056 to 0.8687/0.9269 with the proposed modules. Optimal hyperparameters for LNML were k=16 and Θ=3. Optimal weighting parameters were α=1 and β=0.01."
+    },
+    "ISIC2018 Test Set": {
+      "metric": [
+        "Threshold Jaccard Similarity Index (JSI_th)",
+        "Jaccard Similarity Index (JSI)",
+        "Dice Similarity Coefficient (DSC)",
+        "Accuracy (ACC)",
+        "Sensitivity (SE)",
+        "Specificity (SP)"
+      ],
+      "models": {
+        "ICL-Net": {
+          "JSI_th": "0.803",
+          "JSI": "0.839",
+          "DSC": "0.903",
+          "ACC": "0.944",
+          "SE": "0.941",
+          "SP": "0.929"
+        },
+        "ACANet": {
+          "note": "ICL-Net achieves better results by a large margin"
+        },
+        "SCDC": {
+          "note": "ICL-Net achieves better results by a large margin"
+        }
+      },
+      "notes": "ICL-Net achieves comparable performance to other top-ranking methods and better results than ACANet and SCDC. JSI_th equals JSI when JSI > 0.65, otherwise 0."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ICL-Net (Global and Local Inter-Pixel Correlations Learning Network)",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "framework": "Encoder-decoder architecture",
+      "backbone": "Fully convolutional network (specifically U-Net and a custom Baseline encoder-decoder network used in ablation studies)",
+      "modules": [
+        {
+          "name": "Pyramid Transformer Inter-Pixel Correlations (PTIC) Module",
+          "description": "Captures non-local context information and global pixel-level relationships using multi-scale features.",
+          "components": [
+            "Multi-scale feature inputs (F1, F2, ..., Fn)",
+            "Down-sampling and 1x1 convolution to reduce channels to quarter",
+            "Query (Q), Key (K), Value (V) calculation",
+            "Relative position encodings (learnable parameterized vectors Rh and Rw)",
+            "Attention logits calculation: Att = softmax(QT ◦ R + QT ◦ K)",
+            "Output calculation: Ffinal = φ reshape(V ◦ AttT) + Fn",
+            "Two fully connected (FC) layers to model global inter-pixel correlations",
+            "Sigmoid activation function"
+          ]
+        },
+        {
+          "name": "Local Neighborhood Metric Learning (LNML) Module",
+          "description": "Strengthens local semantic correlations and increases separability between classes, focusing on lesion edges.",
+          "components": [
+            "Neighborhood Information Map (NIM) generation using dilation and erosion operators with structural element Θ",
+            "Triplet loss application for metric learning",
+            "Margin set to 0.3"
+          ]
+        }
+      ],
+      "transformer_details": {
+        "heads": 4,
+        "position_encoding": "Relative position encodings"
+      }
+    },
+    "training_details": {
+      "loss_functions": [
+        {
+          "name": "Binary Cross-Entropy Loss (Lg)",
+          "formula": "Lg = -GFC · log(YFC) - (1 - GFC) · log(1 - YFC)",
+          "usage": "Optimizing the output of the FC layers in the PTIC module"
+        },
+        {
+          "name": "Triplet Loss (Ltriplet)",
+          "usage": "Used in the LNML module for local neighborhood metric learning"
+        }
+      ],
+      "hyperparameters": {
+        "LNML_k": 16,
+        "LNML_Theta": 3,
+        "weight_alpha": 1,
+        "weight_beta": 0.01,
+        "margin": 0.3
+      },
+      "training_phase_note": "The LNML module is used only in the training phase."
+    },
+    "classification_or_output_head": {
+      "type": "Pixel-wise segmentation mask",
+      "details": "Two fully connected layers followed by a sigmoid function for global inter-pixel correlation modeling; final output is a binary mask for skin lesion vs. background."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ICL-Net",
+    "FCN",
+    "U-Net",
+    "CENet",
+    "CTLNet",
+    "CANet",
+    "CPFNet",
+    "DFNet",
+    "FATNet",
+    "BAT",
+    "ACANet",
+    "SCDC",
+    "Baseline"
+  ],
+  "preprocessing_techniques": [],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Online random flipping",
+      "details": "Used for data augmentation on the ISIC2018 dataset."
+    },
+    {
+      "technique": "Online random flipping, rotation, zooming, shift, and shear",
+      "details": "Rotation range was from -10 to 10 degrees. These techniques were adopted for data augmentation in the experiments."
+    }
+  ],
+  "conclusions": [
+    "The proposed ICL-Net achieves superior segmentation performance compared to state-of-the-art methods on public datasets (ISIC 2018, ISIC2016, and PH2).",
+    "Learning both global and local inter-pixel correlations significantly improves feature representation, increasing inter-class variances and intra-class similarities.",
+    "The Pyramid Transformer Inter-Pixel Correlations (PTIC) module effectively captures multi-scale non-local context information and global pixel-level relationships, improving segmentation accuracy.",
+    "The Local Neighborhood Metric Learning (LNML) module strengthens local semantic correlations and increases separability between classes, particularly at lesion boundaries.",
+    "Ablation studies confirm that both the PTIC and LNML modules contribute significantly to the overall performance of the network.",
+    "The performance improvements of ICL-Net over other methods are statistically significant (p < 0.05) as verified by paired t-tests on JSI and DSC metrics.",
+    "The LNML module is effective only during the training phase to guide the learning of discriminative feature representations.",
+    "Optimal hyperparameters for the LNML module were identified as k=16 and Θ=3, with weighting parameters α=1 and β=0.01."
+  ],
+  "important_remarks": [
+    "The Local Neighborhood Metric Learning (LNML) module is used exclusively during the training phase to guide feature representation; it is not part of the inference architecture, which limits its direct utility for uncertainty estimation or test-time adaptation.",
+    "The study relies entirely on public datasets (ISIC 2018, ISIC 2016, PH2) with no external clinical validation, limiting the assessment of generalizability to diverse real-world clinical populations and imaging devices.",
+    "The paper does not report the computational complexity (e.g., FLOPs, inference time, or parameter count) of ICL-Net, despite acknowledging that the transformer and fully connected layers in the PTIC module increase computation, which is a critical factor for clinical deployment.",
+    "The model was trained on a relatively small batch size (4) and limited epochs (100) with a specific learning rate schedule, which may affect the robustness of the learned features compared to larger-scale training regimes.",
+    "The dataset sizes are modest (2,594 training images for ISIC 2018, 900 for ISIC 2016), and the use of four-fold cross-validation on ISIC 2018 may introduce variance depending on the specific data splits, though statistical significance was confirmed via paired t-tests.",
+    "The paper treats skin lesion segmentation as a binary task (lesion vs. background) without addressing multi-class classification of specific lesion types (e.g., melanoma vs. nevus), which restricts its immediate clinical relevance for differential diagnosis."
+  ]
+}

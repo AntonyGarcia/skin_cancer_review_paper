@@ -1,0 +1,370 @@
+{
+  "file_name": "zhang_2023_fitrans_skin_lesion_segmentation_based_on_feature_integration_and_tra.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes FITrans, a deep learning model combining Convolutional Neural Networks (CNN) and Transformer for skin lesion segmentation in dermoscopic images. It uses a ResNet-50 backbone for feature extraction and Transformer for global context modeling to segment skin lesions, achieving Jaccard coefficients of 88.6% on ISIC2016 and 81.7% on ISIC2017."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents FITrans, a novel deep learning model for skin lesion segmentation, and reports original experimental results including ablation studies and comparative performance metrics (Jaccard coefficients) on the ISIC2016 and ISIC2017 datasets. Although published in the proceedings of the 3rd International Conference on Neural Networks, Information and Communication Engineering (NNICE), it contains original algorithmic contributions and empirical validation rather than summarizing prior literature."
+  },
+  "title": "FITrans: Skin Lesion Segmentation Based on Feature Integration and Transformer",
+  "authors": [
+    "Likun ZHANG"
+  ],
+  "doi": "10.1109/NNICE58320.2023.10105777",
+  "journal": "2023 3rd International Conference on Neural Networks, Information and Communication Engineering (NNICE)",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes FITrans, a deep learning model for automatic skin lesion segmentation in dermoscopic images to assist in melanoma diagnosis. The architecture integrates a ResNet-50 backbone for multi-level feature extraction with a Transformer module to capture long-distance dependencies and global context. To address blurred boundaries and low contrast, the model employs weakly supervised weight feedback and explicit edge guidance for discriminative feature learning. The method was evaluated on the ISIC2016 and ISIC2017 datasets using the Jaccard coefficient as the primary metric. FITrans achieved Jaccard coefficients of 88.6% on ISIC2016 and 81.7% on ISIC2017, outperforming five mainstream segmentation methods. The results demonstrate that the model effectively improves edge segmentation accuracy for complex skin lesions.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "skin lesion",
+      "paper_terms": [
+        "skin lesion",
+        "skin damage"
+      ],
+      "role": "Segmentation target",
+      "details": "The paper focuses on the segmentation of skin lesions in dermoscopic images. The term 'skin damage' is used once in the abstract to refer to complex skin lesions. The study does not distinguish between specific histological subtypes (e.g., melanoma vs. nevus) for the segmentation task itself, but rather treats 'skin lesion' as the foreground class against the background."
+    },
+    {
+      "lesion_type": "melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Clinical context / Diagnostic target",
+      "details": "Melanoma is cited as the primary clinical motivation for the work ('evaluation of melanoma', 'automated diagnosis of melanoma'). The datasets used (ISIC2016, ISIC2017) are from the 'Skin lesion analysis towards melanoma detection' challenges, implying the lesions include melanoma, but the paper does not report performance metrics stratified by specific lesion type (e.g., it does not separate melanoma segmentation accuracy from benign lesion segmentation accuracy)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks in dermoscopic images",
+        "primary": true,
+        "details": "The paper proposes FITrans for automatic skin lesion segmentation. The model predicts pixel-wise segmentation masks (foreground vs. background) for skin lesions. Performance is evaluated using the Jaccard coefficient (JA), Dice coefficient (DI), pixel-wise accuracy (AC), sensitivity (SE), and specificity (SP) on the ISIC2016 and ISIC2017 datasets. The task involves distinguishing lesion pixels from background pixels, not predicting discrete diagnostic categories or continuous numeric outcomes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2016",
+      "description": "Dataset hosted and released by the International Symposium on biomedical imaging (ISBI 2016 challenge: Skin lesion analysis towards melanoma detection). Contains dermoscopic images collected by different devices in top clinical centers around the world.",
+      "classes_used": [
+        "skin lesion (foreground)",
+        "background"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Not explicitly used for training FITrans; used for testing/evaluation.",
+        "validation": "Not reported.",
+        "testing": "Used for testing/evaluation of the FITrans model. FITrans achieved a Jaccard coefficient (JA) of 88.6%.",
+        "other": "Used for comparative experiments against other methods (Yu, SLSDeep, BiDFL)."
+      }
+    },
+    {
+      "name": "ISIC2017",
+      "description": "Dataset hosted and released by the International Symposium on biomedical imaging (ISBI 2017 challenge: Skin lesion analysis towards melanoma detection). Contains dermoscopic images collected by different devices in top clinical centers around the world.",
+      "classes_used": [
+        "skin lesion (foreground)",
+        "background"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the FITrans model (along with data augmentation).",
+        "validation": "Used for validation during the training process.",
+        "testing": "Used for testing/evaluation of the FITrans model. FITrans achieved a Jaccard coefficient (JA) of 81.7%.",
+        "other": "Used for ablation studies to verify the effectiveness of integrated features (HSM, LEM, GCM) and comparative experiments against other methods (Yu, SLSDeep, StarShape, Mutual, BiDF)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Jaccard coefficient (JA)",
+    "Dice coefficient (DI)",
+    "Pixel-wise accuracy (AC)",
+    "Sensitivity (SE)",
+    "Specificity (SP)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using absolute metric values (Jaccard coefficient, Dice coefficient, etc.) without statistical significance analysis."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2016": {
+      "description": "Dataset containing 900 training images and 379 test images. Evaluation metrics include Jaccard coefficient (JA), Dice coefficient (DI), pixel-wise accuracy (AC), sensitivity (SE), and specificity (SP).",
+      "models": {
+        "FITrans": {
+          "JA": "88.6",
+          "DI": "93.5",
+          "AC": "97.0",
+          "SP": "97.1",
+          "SE": "92.6"
+        },
+        "Yu": {
+          "JA": "84.7",
+          "DI": "91.2",
+          "AC": "95.5",
+          "SP": "96.6",
+          "SE": "91.8"
+        },
+        "Bi": {
+          "JA": "84.6",
+          "DI": "91.1",
+          "AC": "95.5",
+          "SP": "96.5",
+          "SE": "92.1"
+        },
+        "BiDFL": {
+          "JA": "88.1",
+          "DI": "93.3",
+          "AC": "96.7",
+          "SP": null,
+          "SE": null
+        },
+        "SLSDeep": {
+          "JA": null,
+          "DI": null,
+          "AC": null,
+          "SP": null,
+          "SE": null
+        }
+      },
+      "notes": "FITrans's JA increased by 3.9%, 4.0%, and 0.5% compared to Yu, SLSDeep, and Bi respectively. FITrans achieved the best results in DI, SP, AC, and SE."
+    },
+    "ISIC2017": {
+      "description": "Dataset containing 2750 dermoscopic images (2000 training, 150 validation, 600 testing). Evaluation metrics include Jaccard coefficient (JA), Dice coefficient (DI), pixel-wise accuracy (AC), sensitivity (SE), and specificity (SP).",
+      "models": {
+        "FITrans": {
+          "JA": "81.7",
+          "DI": "88.8",
+          "AC": "94.7",
+          "SP": "98.3",
+          "SE": "86.4"
+        },
+        "Yu": {
+          "JA": "76.5",
+          "DI": "84.9",
+          "AC": "93.4",
+          "SP": "97.5",
+          "SE": "82.5"
+        },
+        "StarShape": {
+          "JA": "77.3",
+          "DI": "85.7",
+          "AC": "93.8",
+          "SP": "97.3",
+          "SE": "85.5"
+        },
+        "SLSDeep": {
+          "JA": "78.2",
+          "DI": "87.8",
+          "AC": "93.6",
+          "SP": "98.3",
+          "SE": "81.6"
+        },
+        "Mutual": {
+          "JA": "80.4",
+          "DI": "87.8",
+          "AC": "94.7",
+          "SP": "96.8",
+          "SE": "87.4"
+        },
+        "BiDF": {
+          "JA": "81.4",
+          "DI": "88.5",
+          "AC": "94.6",
+          "SP": null,
+          "SE": null
+        }
+      },
+      "notes": "FITrans's JA increased by 5.2%, 4.4%, 3.5%, 1.3%, and 0.3% compared to Yu, SLSDeep, StarShape, Mutual, and BiDF respectively. FITrans achieved the highest score in DI, SP, and AC."
+    },
+    "ISIC2017_Ablation": {
+      "description": "Ablation studies performed on the ISIC2017 dataset to verify the effect of aggregated features (HSM, LEM, GCM) and Transformer parameters.",
+      "models": {
+        "Baseline": {
+          "JA": "78.5"
+        },
+        "Baseline+HSM": {
+          "JA": "79.3"
+        },
+        "Baseline+LEM": {
+          "JA": "80.1"
+        },
+        "Baseline+GCM": {
+          "JA": "79.8"
+        },
+        "Baseline+HSM+LEM": {
+          "JA": "80.6"
+        },
+        "Baseline+HSM+GCM": {
+          "JA": "80.3"
+        },
+        "Baseline+HSM+LEM+GCM": {
+          "JA": "80.8"
+        },
+        "Baseline+ASP": {
+          "JA": "79.1"
+        },
+        "Baseline+PSP": {
+          "JA": "79.0"
+        },
+        "Baseline+Conv": {
+          "JA": "78.6"
+        },
+        "Baseline+LEM-E-Block1": {
+          "JA": "79.8"
+        },
+        "Baseline+LEM-E-Block1,2": {
+          "JA": "80.1"
+        },
+        "Baseline+LEM-E-Block2,3": {
+          "JA": "79.3"
+        },
+        "Baseline+LEM-E-Block1,2,3": {
+          "JA": "79.0"
+        },
+        "Multi-task Network-α=0.1": {
+          "JA": "78.4"
+        },
+        "Baseline+GCM-α=1": {
+          "JA": "77.5"
+        },
+        "Baseline+GCM-α=0.1": {
+          "JA": "79.6"
+        },
+        "Baseline+GCM-α=0.01": {
+          "JA": "79.8"
+        },
+        "Transformer_d=128_hidden_dim=512_L=8": {
+          "JA": "81.7"
+        },
+        "Transformer_d=256_hidden_dim=512_L=8": {
+          "JA": "81.3"
+        },
+        "Transformer_d=512_hidden_dim=512_L=8": {
+          "JA": "81.1"
+        },
+        "Transformer_d=128_hidden_dim=1024_L=8": {
+          "JA": "81.2"
+        },
+        "Transformer_d=128_hidden_dim=2048_L=8": {
+          "JA": null
+        },
+        "Transformer_d=128_hidden_dim=512_L=4": {
+          "JA": "81.4"
+        },
+        "Transformer_d=128_hidden_dim=512_L=16": {
+          "JA": "81.8"
+        }
+      },
+      "notes": "Baseline JA was 78.5. Adding HSM, LEM, and GCM improved performance. The combination of HSM+LEM+GCM achieved 80.8 JA. For Transformer parameters, d=128, hidden_dim=512, L=8 yielded 81.7 JA. When hidden_dim=2048, the network could not converge. L=16 yielded the best performance (81.8) but L=8 was selected to balance complexity."
+    }
+  },
+  "architecture_used": {
+    "extraction_error": "Expecting ',' delimiter: line 49 column 47 (char 2538)",
+    "answer": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "FITrans",
+    "FCRN",
+    "SLSDeep",
+    "BIDFL",
+    "StarShape",
+    "Mutual",
+    "BiDF",
+    "Bi",
+    "Yu",
+    "DANet",
+    "Non-local",
+    "FCN",
+    "ResNet-50",
+    "Baseline",
+    "Baseline+HSM",
+    "Baseline+LEM",
+    "Baseline+GCM",
+    "Baseline+HSM+LEM",
+    "Baseline+HSM+GCM",
+    "Baseline+HSM+LEM+GCM",
+    "Baseline+ASP",
+    "Baseline+PSP",
+    "Baseline+Conv",
+    "Baseline+LEM-E-Block1",
+    "Baseline+LEM-E-Block1,2",
+    "Baseline+LEM-E-Block2,3",
+    "Baseline+LEM-E-Block1,2,3",
+    "Multi-task Network",
+    "Baseline+GCM-α=1",
+    "Baseline+GCM-α=0.1",
+    "Baseline+GCM-α=0.01",
+    "Transformer_d=128_hidden_dim=512_L=8",
+    "Transformer_d=256_hidden_dim=512_L=8",
+    "Transformer_d=512_hidden_dim=512_L=8",
+    "Transformer_d=128_hidden_dim=1024_L=8",
+    "Transformer_d=128_hidden_dim=512_L=4",
+    "Transformer_d=128_hidden_dim=512_L=16"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 192×256 using bilinear interpolation",
+    "Data augmentation including random rotation between -10 and 10 degrees",
+    "Random horizontal and vertical flips",
+    "Random shift from 0 to 20 pixels",
+    "Color jittering"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random rotation",
+      "details": "Rotation between -10 and 10 degrees"
+    },
+    {
+      "technique": "Random flip",
+      "details": "Horizontal and vertical flips"
+    },
+    {
+      "technique": "Random shift",
+      "details": "Shift from 0 to 20 pixels"
+    },
+    {
+      "technique": "Color jittering",
+      "details": "Applied to expand the training dataset"
+    }
+  ],
+  "conclusions": [
+    "The proposed FITrans model, which combines multi-level feature aggregation and a Transformer, effectively addresses the challenges of blurred boundaries and low contrast in skin lesion segmentation.",
+    "FITrans achieved Jaccard coefficients of 88.6% on the ISIC2016 dataset and 81.7% on the ISIC2017 dataset, outperforming five mainstream segmentation methods (Yu, SLSDeep, Bi, StarShape, and Mutual/BiDF).",
+    "The integration of high-level semantic features (HSM), low-level edge features (LEM), and global context features (GCM) significantly improved segmentation accuracy compared to the baseline model (JA increase from 78.5% to 80.8%).",
+    "The LEM module was identified as the most effective individual component for improving performance, followed by GCM and HSM.",
+    "The Transformer module successfully captured long-distance dependencies and compensated for the lack of low-level feature utilization in standard Transformers, enhancing edge segmentation accuracy.",
+    "Optimal Transformer parameters were found to be sequence dimension d=128, hidden dimension 512, and layer count L=8, balancing performance (JA 81.7%) with computational complexity.",
+    "The model is helpful for the accurate segmentation of complex skin lesions, which is critical for the automated diagnosis and evaluation of melanoma."
+  ],
+  "important_remarks": [
+    "The study is limited to two public datasets (ISIC2016 and ISIC2017) without external validation on independent clinical cohorts, limiting generalizability to diverse real-world settings.",
+    "No statistical significance testing (e.g., p-values) was performed for performance comparisons; results are reported solely as absolute metric values.",
+    "The model relies on weakly supervised weight feedback and explicit edge guidance using segmentation and classification labels, which may introduce bias if ground truth annotations are noisy or inconsistent.",
+    "The Transformer component failed to converge when the hidden dimension was set to 2048, indicating sensitivity to hyperparameter choices and potential computational constraints.",
+    "Performance metrics (Jaccard coefficient) on ISIC2017 (81.7%) are notably lower than on ISIC2016 (88.6%), suggesting potential dataset-specific bias or difficulty in generalizing across different challenge years.",
+    "The paper does not report performance stratified by specific lesion types (e.g., melanoma vs. benign), preventing assessment of clinical relevance for high-risk lesions.",
+    "Data augmentation techniques (rotation, flip, shift, color jittering) were applied, but the impact of these augmentations on model robustness to domain shifts was not explicitly analyzed."
+  ]
+}

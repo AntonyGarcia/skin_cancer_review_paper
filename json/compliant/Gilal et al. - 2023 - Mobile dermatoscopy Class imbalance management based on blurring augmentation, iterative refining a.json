@@ -1,0 +1,267 @@
+{
+  "file_name": "Gilal et al. - 2023 - Mobile dermatoscopy Class imbalance management based on blurring augmentation, iterative refining a.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning, specifically transfer learning with EfficientNet convolutional neural networks (CNNs), to perform binary classification (melanoma detection) on dermoscopic images from the ISIC-2019 and ISIC-2020 datasets. It also implements a custom loss function (γ-RCEL) and data augmentation techniques to manage class imbalance."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents an original end-to-end framework for real-time melanoma detection using mobile devices. It details the development of a novel blurring augmentation scheme, iterative refining, and a custom cost-weighted recall loss function (γ-RCEL). The authors conducted 144 experiments using EfficientNet architectures on ISIC-2019 and ISIC-2020 datasets, reporting specific performance metrics (accuracy, balanced accuracy, ROCAUC, recall rates) and comparing them against state-of-the-art methods. The structure includes Introduction, Related Work, Methods, Results, and Conclusion, indicating original experimental research rather than a literature review."
+  },
+  "title": "Mobile Dermatoscopy: Class Imbalance Management Based on Blurring Augmentation, Iterative Refining and Cost-Weighted Recall Loss",
+  "authors": [
+    "Nauman Ullah Gilal",
+    "Samah Ahmed Mustapha Ahmed",
+    "Jens Schneider",
+    "Mowafa Househ",
+    "Marco Agus"
+  ],
+  "doi": "10.18178/joig.11.2.161-169",
+  "journal": "Journal of Image and Graphics",
+  "year": 2023,
+  "article_type": "Research paper",
+  "brief_summary": "This study presents an end-to-end framework for real-time melanoma detection on mobile devices using EfficientNet convolutional neural networks trained on the ISIC-2019 and ISIC-2020 datasets. To address class imbalance, the authors implemented a radial blurring augmentation scheme to emulate lens aberrations and an iterative undersampling method to clean the dataset. They also introduced a novel cost-weighted recall loss function (γ-RCEL) to penalize malignant misses more heavily than benign false alarms. The models were evaluated on the ISIC-2020 dataset, achieving an accuracy of 96.9%, balanced accuracy of 98%, and an ROC-AUC of 0.98. The framework was successfully deployed in a real-time Android application for self-assessment of moles using a magnifying lens.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant",
+        "M"
+      ],
+      "role": "Target class (positive class)",
+      "details": "Binary classification target; malignant cases were the minority class in the imbalanced ISIC-2019/ISIC-2020 datasets, with specific counts provided for training/testing splits (e.g., 5,106 malignant in ISIC-2020 baseline)."
+    },
+    {
+      "lesion_type": "Benign Lesions",
+      "paper_terms": [
+        "benign",
+        "B",
+        "benignant misses"
+      ],
+      "role": "Comparator class (negative class)",
+      "details": "Binary classification target; benign cases were the majority class in the imbalanced datasets. The paper groups all benign skin lesions under this single label for the binary classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of dermoscopic images into benign (B) or malignant (M) categories.",
+        "primary": true,
+        "details": "The paper explicitly states the goal is to 'detect whether a mole... is benign (B) or malignant (M)' using a binary classification model. The model outputs probabilities for two discrete classes. Performance is evaluated using metrics typical for classification such as accuracy, balanced accuracy, ROC-AUC, and recall rates for both classes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC-2019",
+      "description": "Public domain dataset from The International Skin Imaging Collaboration, containing dermoscopic images of skin lesions. Merged with ISIC-2020 to create the primary training dataset.",
+      "classes_used": [
+        "Benign (B)",
+        "Malignant (M)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Merged with ISIC-2020 to form the 'ISIC-merge' dataset for training.",
+        "validation": null,
+        "testing": null,
+        "other": "Source data for merging."
+      }
+    },
+    {
+      "name": "ISIC-2020",
+      "description": "Public domain dataset from The International Skin Imaging Collaboration, containing dermoscopic images of skin lesions. Used as the primary testing benchmark and merged with ISIC-2019 for training.",
+      "classes_used": [
+        "Benign (B)",
+        "Malignant (M)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Merged with ISIC-2019 to form the 'ISIC-merge' dataset for training.",
+        "validation": null,
+        "testing": "Used as the final evaluation benchmark for reporting performance metrics (accuracy, balanced accuracy, ROCAUC, recall rates).",
+        "other": "Source data for merging."
+      }
+    },
+    {
+      "name": "ISIC-merge",
+      "description": "A custom merged dataset created by combining ISIC-2019 and ISIC-2020. It was split into training and testing sets. The baseline split consisted of 32,542 benign and 5,106 malignant images total, with 80% used for training and 20% for testing.",
+      "classes_used": [
+        "Benign (B)",
+        "Malignant (M)"
+      ],
+      "counts": {
+        "total": 37648,
+        "training": 30118,
+        "validation": null,
+        "testing": 7530,
+        "per_class": {
+          "training_benign": 26033,
+          "training_malignant": 4085,
+          "testing_benign": 6509,
+          "testing_malignant": 1021
+        }
+      },
+      "use": {
+        "training": "Primary dataset for training EfficientNet models, subjected to blurring augmentation and iterative refining (undersampling).",
+        "validation": null,
+        "testing": "Split into a testing subset (20%) used for final evaluation.",
+        "other": "Served as the baseline for comparing data imbalance management schemes."
+      }
+    },
+    {
+      "name": "ISIC-blur",
+      "description": "A dataset derived from ISIC-merge by applying radial blurring augmentation to emulate lens aberrations, resulting in an oversampled dataset with a higher proportion of malignant images.",
+      "classes_used": [
+        "Benign (B)",
+        "Malignant (M)"
+      ],
+      "counts": {
+        "total": 68406,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "benign": 52066,
+          "malignant": 16340
+        }
+      },
+      "use": {
+        "training": "Used for training models with blurring augmentation to reduce class imbalance.",
+        "validation": null,
+        "testing": null,
+        "other": "Subjected to iterative refining (undersampling) to create datasets with varying balance ratios."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "balanced accuracy",
+    "ROCAUC",
+    "benign recall",
+    "malignant recall",
+    "false positive rate",
+    "false negative rate",
+    "miss rate",
+    "false alarm rate"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics (accuracy, balanced accuracy, ROCAUC, recall rates) and visual plots (scatter plots of false alarm rate vs. miss rate) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "extraction_error": "Could not parse a balanced JSON object",
+    "answer": null
+  },
+  "architecture_used": {
+    "main_model": "EfficientNet (specifically EfficientNet-B0, EfficientNet-B2, EfficientNet-Lite0, and EfficientNet-Lite4)",
+    "pretraining": "Transfer learning using pretrained EfficientNet models (weights not explicitly named, but standard pretrained weights implied by 'transfer learning' and 'pretrained EfficientNet model' mention)",
+    "input_size": "320 x 320 pixels",
+    "architecture_details": {
+      "family": "EfficientNet Convolutional Neural Networks (CNNs)",
+      "variants": [
+        "EfficientNet-B0",
+        "EfficientNet-B2",
+        "EfficientNet-Lite0",
+        "EfficientNet-Lite4"
+      ],
+      "implementation_framework": "FastAI",
+      "backend": "PyTorch",
+      "feature_extractor": "Pretrained EfficientNet",
+      "classifier_head": "Dense layer (via FastAI framework)"
+    },
+    "training_details": {
+      "optimizer": "Not explicitly stated (FastAI default likely Adam or SGD, but not specified)",
+      "learning_rate_schedule": "Cyclical learning rate (proposed by Smith)",
+      "initial_learning_rate": "1e-4",
+      "batch_size": "128 (for EfficientNet-B0 and B2)",
+      "epochs": "10",
+      "loss_function": "Custom Cost-Weighted Recall Cross Entropy Loss (γ-RCEL), Recall Cross Entropy Loss (RCEL), Focal Loss, or Standard Cross Entropy Loss",
+      "hardware": "Nvidia RTX 2080 with 11GB RAM",
+      "software_environment": "Python, Jupyter dockers, PyTorch, FastAI, OpenCV"
+    },
+    "classification_or_output_head": {
+      "type": "Binary Classification",
+      "output": "Two probabilities (p_IB for benign, p_IM for malignant)",
+      "activation": "Softmax (implied by probability output)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNet-B0",
+    "EfficientNet-B2",
+    "EfficientNet-Lite0",
+    "EfficientNet-Lite4",
+    "EfficientNet-Lite2",
+    "EfficientNet B02",
+    "EfficientNet Convolutional Neural Network (CNN)",
+    "ensemble of CNNs",
+    "modified Deep Neural Network with Horse Herd Optimization",
+    "ensemble of deep neural network modified with long short term memory"
+  ],
+  "preprocessing_techniques": [
+    "Radial blurring augmentation to emulate lens aberrations (using OpenCV remapping and blending with iterative shrink/expand maps)",
+    "Rotation augmentation (clockwise and anticlockwise 90-degree rotation)",
+    "Flipping augmentation (horizontal flip)",
+    "Iterative undersampling (cleaning) based on loss ranking to remove benign images",
+    "Image resizing/downsampling to 320 x 320 pixels",
+    "Dataset merging (combining ISIC-2019 and ISIC-2020)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Radial Blurring Augmentation",
+      "details": "Oversampling technique applied selectively to malignant images to emulate lens aberrations. Implemented using OpenCV remapping and blending with linear shrink and expansion maps. Used 5 iterative steps. Random blurring values between 0.005 and 0.02 were applied during dataset construction (ISIC-blur) to generate synthetic samples."
+    },
+    {
+      "technique": "Rotation Augmentation",
+      "details": "Applied in conjunction with blurring. For malignant images, three rotation cases were used: clockwise 90-degree, anticlockwise 90-degree, and no rotation (implied by 'three rotation cases' listed as clockwise, anticlockwise, and flipping in the text, but specifically rotation is mentioned for malignant). For benign images, blurring was applied on top of flip images."
+    },
+    {
+      "technique": "Flipping Augmentation",
+      "details": "Horizontal flip applied to benign images, coupled with blurring. For malignant images, flipping was one of the transformations applied alongside rotation."
+    },
+    {
+      "technique": "Iterative Undersampling (Cleaning)",
+      "details": "Undersampling method to reduce class imbalance by removing benign images. Performed iteratively: a model was trained for a limited number of epochs (4 epochs mentioned for the cleaning scheme), training images were ranked by decreasing loss values, and the K benign images with the highest loss values were removed. This was repeated to reach class balance or partial imbalance."
+    }
+  ],
+  "conclusions": [
+    "The proposed end-to-end framework enables real-time melanoma detection on mobile devices equipped with off-the-shelf magnifying lenses.",
+    "The integration of radial blurring augmentation to emulate lens aberrations and iterative undersampling (cleaning) effectively manages class imbalance in dermoscopic datasets.",
+    "The novel cost-weighted recall cross-entropy loss function (γ-RCEL) successfully penalizes malignant misses more heavily than benign false alarms, allowing for controlled trade-offs between false positive and false negative rates.",
+    "The best-performing model (EfficientNet-B2 with blurring augmentation, iterative cleaning, and γ-RCEL with γ=1) achieved an accuracy of 96.9%, balanced accuracy of 98%, and ROC-AUC of 0.98 on the ISIC-2020 dataset.",
+    "The framework was successfully deployed and demonstrated in a real-time Android mobile application for self-assessment of moles.",
+    "The study demonstrates that combining oversampling via blurring, undersampling via loss ranking, and cost-weighted loss functions yields superior performance compared to standard methods in handling extreme class imbalance for melanoma detection."
+  ],
+  "important_remarks": [
+    "The study relies on public datasets (ISIC-2019 and ISIC-2020) merged to create 'ISIC-merge', which may not fully represent the distribution of lesions found in real-world clinical settings or with different mobile dermatoscopy devices.",
+    "The blurring augmentation technique specifically emulates aberrations from a low-cost magnifying lens (Lifetrons Macro 5X); performance may vary with other lens types or higher-quality dermatoscopes.",
+    "The framework was validated on a single mobile device (Samsung Galaxy A51) and a single lens type; external validation across diverse hardware and lens configurations is lacking.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed; comparisons between methods were based on descriptive metrics (accuracy, balanced accuracy, ROC-AUC, recall rates).",
+    "The iterative undersampling (cleaning) process removes benign images based on loss ranking from a preliminary model trained with standard cross-entropy, which could introduce bias if the initial model is imperfect.",
+    "The cost-weighted recall loss function (γ-RCEL) allows for tunable trade-offs between false positives and false negatives, but the optimal γ value depends on the specific clinical risk tolerance, which was not clinically validated.",
+    "The paper acknowledges that the model has not yet been tested in a wild or clinical setting with expert dermatologist support, limiting the current evidence to preliminary experimental results.",
+    "The dataset merging strategy (combining ISIC-2019 and ISIC-2020) was used to partially reduce class imbalance, but the specific impact of this merging on data leakage or distribution shift is not explicitly analyzed."
+  ]
+}

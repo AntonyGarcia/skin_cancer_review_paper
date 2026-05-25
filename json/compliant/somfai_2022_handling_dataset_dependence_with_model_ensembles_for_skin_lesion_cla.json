@@ -1,0 +1,601 @@
+{
+  "file_name": "somfai_2022_handling_dataset_dependence_with_model_ensembles_for_skin_lesion_cla.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses an ensemble of 29 heterogeneous convolutional neural networks (deep learning models) trained on the International Skin Imaging Collaboration (ISIC) dataset to perform binary classification of skin lesions (melanoma vs. non-melanoma) from both dermoscopic and clinical images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'RESEARCH ARTICLE' in the header. It presents original experimental work involving the development and evaluation of a model ensemble of 29 convolutional neural networks for skin lesion classification, including specific methods, datasets (ISIC), and quantitative results (e.g., 79% balanced accuracy)."
+  },
+  "title": "Handling dataset dependence with model ensembles for skin lesion classification from dermoscopic and clinical images",
+  "authors": [
+    "Ellák Somfai",
+    "Benjámin Baffy",
+    "Kristian Fenech",
+    "Rita Hosszú",
+    "Dorina Korózs",
+    "Marcell Pólik",
+    "Miklós Szabó",
+    "András Lőrincz"
+  ],
+  "doi": "10.1002/ima.22827",
+  "journal": "International Journal of Imaging Systems and Technology",
+  "year": 2022,
+  "article_type": "Research article",
+  "brief_summary": "This study addresses dataset dependence in the binary classification of melanoma versus non-melanoma skin lesions using dermoscopic and clinical images. The authors demonstrate that standard machine learning techniques fail to significantly reduce this dependence, which is largely driven by subtle distributional differences rather than simple image statistics. To mitigate this, they propose an ensemble of 29 heterogeneous convolutional neural networks trained on the multi-source International Skin Imaging Collaboration (ISIC) dataset. The model's outputs are fused by a trained committee machine to improve generalization across different data sources. Additionally, the approach is applied to the more challenging task of classifying melanoma from clinical (non-dermoscopic) images. The study reports achieving a balanced accuracy of 79% for binary classification averaged over three clinical datasets.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Binary classification target: melanoma vs. non-melanoma. Used in dermoscopic datasets (HAM10000, PH2, MED-NODE, Semmelweis) and clinical datasets (MED-NODE, ISIC2018, ISIC2019, ISIC2020)."
+    },
+    {
+      "lesion_type": "Non-melanoma skin lesions",
+      "paper_terms": [
+        "non-melanoma",
+        "anything else",
+        "other cancerous types"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary melanoma vs. non-melanoma classification task. Includes benign and other malignant lesions present in the ISIC and HAM10000 datasets."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the context of the MED-NODE dataset which contains 100 nevus and 70 melanoma clinical images, but not explicitly studied as a distinct class in the primary binary experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into melanoma versus non-melanoma (anything else) classes.",
+        "primary": true,
+        "details": "The paper focuses on binary classification of dermoscopic and clinical skin lesion images. The primary task is distinguishing melanoma from non-melanoma lesions. The study reports balanced accuracy (79%) for this binary classification task across multiple datasets (ISIC, HAM10000, MED-NODE, etc.). While intermediate feature classifiers predict categories for specific dermoscopic features (e.g., pigment network presence), these are mapped to binary melanoma-indicative classes for the final ensemble output."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000 (Vidir_modern sub-dataset)",
+      "description": "A sub-dataset of the HAM10000 collection, curated from the Vidir_modern clinic, containing dermoscopic images of skin lesions. One image per lesion was kept.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 1695,
+        "training": null,
+        "validation": null,
+        "testing": 1695,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as an independent test dataset to evaluate dataset dependence and generalization of models trained on other datasets.",
+        "other": null
+      }
+    },
+    {
+      "name": "HAM10000 (Rosendahl sub-dataset)",
+      "description": "A sub-dataset of the HAM10000 collection, curated from the Rosendahl clinic, containing dermoscopic images of skin lesions. One image per lesion was kept.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 1552,
+        "training": null,
+        "validation": null,
+        "testing": 1552,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as an independent test dataset to evaluate dataset dependence and generalization of models trained on other datasets.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC C-ISIC (Combined International Skin Imaging Collaboration)",
+      "description": "The combination of ISIC challenge datasets from 2018, 2019, and 2020, specifically the diagnosis classification datasets (C-ISIC) with duplicates attempted to be included only once. It is a multi-source, high-quality dataset.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as the primary heterogeneous training dataset for the ensemble of 29 convolutional neural networks.",
+        "validation": null,
+        "testing": "Used for out-of-fold evaluation during training and as a benchmark for performance comparison.",
+        "other": "The segmentation dataset of ISIC2018 was used to train the lesion segmenter."
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A publicly available dataset obtained at Hospital Pedro Hispano, Matosinhos, Portugal, containing dermoscopic images of melanocytic lesions with manual segmentation and dermoscopic features.",
+      "classes_used": [
+        "Common nevi",
+        "Atypical nevi",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {
+          "common nevi": 80,
+          "atypical nevi": 80,
+          "melanoma": 40
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as an independent test dataset to evaluate generalization of models trained on ISIC.",
+        "other": null
+      }
+    },
+    {
+      "name": "Semmelweis University Dataset",
+      "description": "A private set of clinical images collected by the Department of Dermatology, Venereology and Dermatooncology of Semmelweis University, Budapest. Curated to maintain consistent image quality and variability.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 156,
+        "training": null,
+        "validation": null,
+        "testing": 156,
+        "per_class": {
+          "melanoma": 52,
+          "non-melanoma": 104
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as an independent test dataset to evaluate generalization of models trained on ISIC.",
+        "other": null
+      }
+    },
+    {
+      "name": "MED-NODE",
+      "description": "A publicly available dataset originating from the Dermatology department of the University of Groningen, containing clinical images.",
+      "classes_used": [
+        "Nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 170,
+        "training": null,
+        "validation": null,
+        "testing": 170,
+        "per_class": {
+          "nevus": 100,
+          "melanoma": 70
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used in the context of clinical image classification experiments.",
+        "other": null
+      }
+    },
+    {
+      "name": "Derm7pt",
+      "description": "A companion dataset to the Derm7pt method, containing image pairs of lesions with both dermoscopic and clinical (macro) photographs, along with histology-based classification and metadata.",
+      "classes_used": [
+        "Melanoma",
+        "Non-melanoma"
+      ],
+      "counts": {
+        "total": 1011,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "melanoma": 253
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for evaluating dataset dependence and generalization (DERM7D for dermoscopic, DERM7M for clinical).",
+        "other": null
+      }
+    },
+    {
+      "name": "PAD-UFES",
+      "description": "A public dataset from the Federal University of Espírito Santo (UFES) in Brazil, containing clinical (macro) images recorded with smartphones, accompanied by metadata.",
+      "classes_used": [
+        "Melanoma",
+        "Other disease types"
+      ],
+      "counts": {
+        "total": 2298,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "melanoma": 50
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for clinical image classification experiments.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Balanced accuracy",
+    "Balanced accuracy on calibrated probabilities",
+    "Loss value",
+    "Loss sharpness"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "To decrease evaluation noise and estimate model performance on training datasets via out-of-fold predictions.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Averaging model outputs",
+      "purpose": "To aggregate predictions from five models obtained from cross-validation folds for evaluation on non-training datasets.",
+      "type": "Ensemble aggregation"
+    },
+    {
+      "method": "Calibrated probabilities (via reliability diagrams/sigmoid fitting)",
+      "purpose": "To convert raw softmax outputs into probabilities that reflect the true fraction of positive samples, addressing class imbalance and confidence calibration.",
+      "type": "Probability calibration"
+    },
+    {
+      "method": "Standard deviation calculation",
+      "purpose": "To report the variability of balanced accuracy metrics over 5 independent runs (each involving 5-fold cross-validation).",
+      "type": "Descriptive statistics"
+    },
+    {
+      "method": "Histogram equalization of image statistics",
+      "purpose": "To control for simple statistical differences (lesion area fraction, color histograms) between datasets to isolate the cause of dataset dependence.",
+      "type": "Data preprocessing/Control"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Statistical comparisons were made using descriptive statistics, specifically reporting balanced accuracy with standard deviations over 5 independent runs."
+  },
+  "results_obtained_in_each_dataset": {
+    "Dermoscopic Classification (C-ISIC, DERM7D, PH2, Semmelweis)": {
+      "dataset_or_experiment_name": "Dermoscopic Binary Classification (Melanoma vs Non-melanoma)",
+      "metric": "Balanced Accuracy (%)",
+      "models": {
+        "EffNet-b4 (baseline)": {
+          "C-ISIC (Train)": "73.7 ± 0.46",
+          "DERM7D (Other)": "59.8 ± 0.34",
+          "C-ISIC (Cal. Pr.)": "79.6 ± 0.27",
+          "DERM7D (Cal. Pr.)": "67.6 ± 0.51"
+        },
+        "EffNet-b4 + CWT": {
+          "C-ISIC (Train)": "74.9 ± 0.38",
+          "DERM7D (Other)": "60.4 ± 0.28",
+          "C-ISIC (Cal. Pr.)": "79.9 ± 0.44",
+          "DERM7D (Cal. Pr.)": "67.0 ± 0.75"
+        },
+        "EffNet-b4 + CWT + WD": {
+          "C-ISIC (Train)": "74.7 ± 0.49",
+          "DERM7D (Other)": "60.5 ± 0.48",
+          "C-ISIC (Cal. Pr.)": "80.5 ± 0.41",
+          "DERM7D (Cal. Pr.)": "67.6 ± 0.51"
+        },
+        "EffNet-b4 + CWT + AUG": {
+          "C-ISIC (Train)": "77.0 ± 0.39",
+          "DERM7D (Other)": "61.8 ± 0.22",
+          "C-ISIC (Cal. Pr.)": "80.3 ± 0.68",
+          "DERM7D (Cal. Pr.)": "67.9 ± 0.56"
+        },
+        "EffNet-b4 + CWT + AUG + WD": {
+          "C-ISIC (Train)": "77.0 ± 0.42",
+          "DERM7D (Other)": "61.4 ± 0.43",
+          "C-ISIC (Cal. Pr.)": "80.2 ± 0.42",
+          "DERM7D (Cal. Pr.)": "67.6 ± 0.31"
+        },
+        "EffNet-b4 + CWT + AUG + WD*": {
+          "C-ISIC (Train)": "77.0 ± 0.26",
+          "DERM7D (Other)": "61.3 ± 0.37",
+          "C-ISIC (Cal. Pr.)": "80.0 ± 0.82",
+          "DERM7D (Cal. Pr.)": "67.7 ± 0.41"
+        },
+        "EffNetv2-M": {
+          "C-ISIC (Train)": "75.8 ± 0.47",
+          "DERM7D (Other)": "60.4 ± 1.24",
+          "C-ISIC (Cal. Pr.)": "82.1 ± 0.57",
+          "DERM7D (Cal. Pr.)": "69.8 ± 0.65"
+        },
+        "EffNetv2-M + CWT": {
+          "C-ISIC (Train)": "76.9 ± 0.40",
+          "DERM7D (Other)": "61.0 ± 0.66",
+          "C-ISIC (Cal. Pr.)": "82.5 ± 0.43",
+          "DERM7D (Cal. Pr.)": "69.9 ± 0.64"
+        },
+        "EffNetv2-M + CWT + WD": {
+          "C-ISIC (Train)": "76.5 ± 0.75",
+          "DERM7D (Other)": "61.0 ± 0.66",
+          "C-ISIC (Cal. Pr.)": "82.5 ± 0.31",
+          "DERM7D (Cal. Pr.)": "70.2 ± 0.83"
+        },
+        "EffNetv2-M + CWT + WD*": {
+          "C-ISIC (Train)": "77.0 ± 0.46",
+          "DERM7D (Other)": "60.3 ± 0.80",
+          "C-ISIC (Cal. Pr.)": "82.4 ± 0.38",
+          "DERM7D (Cal. Pr.)": "69.2 ± 0.70"
+        },
+        "EffNetv2-M + CWT + AUG": {
+          "C-ISIC (Train)": "78.1 ± 0.49",
+          "DERM7D (Other)": "60.4 ± 0.24",
+          "C-ISIC (Cal. Pr.)": "80.2 ± 0.38",
+          "DERM7D (Cal. Pr.)": "68.9 ± 0.51"
+        },
+        "EffNetv2-M + CWT + AUG + WD": {
+          "C-ISIC (Train)": "78.0 ± 0.50",
+          "DERM7D (Other)": "60.5 ± 0.42",
+          "C-ISIC (Cal. Pr.)": "80.3 ± 0.62",
+          "DERM7D (Cal. Pr.)": "68.6 ± 0.24"
+        },
+        "AVG-18": {
+          "C-ISIC (Out-of-fold)": "89.12",
+          "DERM7D": "79.2",
+          "PH2": "84.1",
+          "Semmelweis": "77.0"
+        },
+        "Calib.Prob.AVG-18": {
+          "C-ISIC (Out-of-fold)": "93.45",
+          "DERM7D": "82.5",
+          "PH2": "91.9",
+          "Semmelweis": "81.8"
+        },
+        "Committee-18": {
+          "C-ISIC (Out-of-fold)": "93.44",
+          "DERM7D": "83.6",
+          "PH2": "90.9",
+          "Semmelweis": "83.2"
+        },
+        "Committee-22": {
+          "C-ISIC (Out-of-fold)": "93.56",
+          "DERM7D": "84.8",
+          "PH2": "90.9",
+          "Semmelweis": "83.1"
+        },
+        "Committee-29": {
+          "C-ISIC (Out-of-fold)": "93.51",
+          "DERM7D": "84.8",
+          "PH2": "91.2",
+          "Semmelweis": "83.6",
+          "Sensitivity": "86.3",
+          "Specificity": "81.0",
+          "F1 score": "76.5",
+          "Accuracy": "82.7"
+        }
+      },
+      "notes": "Results for single models (EffNet variants) are averages and standard deviations over 5 independent runs (each run is a 5-fold cross-validation). Committee models are evaluated on out-of-fold predictions for C-ISIC and held-out datasets for others. Committee-29 includes 22 models trained on C-ISIC and 7 on DERM7D. The paper notes that direct comparison with literature is difficult due to dataset dependence."
+    },
+    "Transformed Image Sets (EffNet-b4 + CWT + AUG)": {
+      "dataset_or_experiment_name": "EffNet-b4 + CWT + AUG on Transformed Datasets",
+      "metric": "Balanced Accuracy (%)",
+      "models": {
+        "Nothing (original)": {
+          "C-ISIC (Train)": "77.0 ± 0.39",
+          "DERM7D (Other)": "61.8 ± 0.22",
+          "C-ISIC (Cal. Pr.)": "80.3 ± 0.68",
+          "DERM7D (Cal. Pr.)": "67.9 ± 0.56"
+        },
+        "Area": {
+          "C-ISIC (Train)": "76.6 ± 0.50",
+          "DERM7D (Other)": "62.3 ± 0.18",
+          "C-ISIC (Cal. Pr.)": "80.8 ± 0.86",
+          "DERM7D (Cal. Pr.)": "68.3 ± 0.33"
+        },
+        "Area + edges": {
+          "C-ISIC (Train)": "77.0 ± 0.17",
+          "DERM7D (Other)": "62.5 ± 0.33",
+          "C-ISIC (Cal. Pr.)": "80.7 ± 0.62",
+          "DERM7D (Cal. Pr.)": "68.7 ± 0.26"
+        },
+        "Area + edges + color": {
+          "C-ISIC (Train)": "76.7 ± 0.26",
+          "DERM7D (Other)": "61.5 ± 0.55",
+          "C-ISIC (Cal. Pr.)": "80.6 ± 0.48",
+          "DERM7D (Cal. Pr.)": "68.0 ± 0.36"
+        }
+      },
+      "notes": "Datasets VM, ROS, and DERM7D were altered to have equal lesion-to-image size distribution, similar image edges, and equalized color component distributions. Improvement on other datasets was small, amounting to only about 5% of the dataset dependence gap."
+    },
+    "Clinical (Macro) Image Classification": {
+      "dataset_or_experiment_name": "Clinical Binary Classification (Melanoma vs Non-melanoma)",
+      "metric": "Balanced Accuracy (%)",
+      "models": {
+        "Committee Machine Trained on DERM7M": {
+          "DERM7M (Train)": "69.7 ± 0.7",
+          "PAD-UFES": "71.2 ± 1.1",
+          "MED-NODE": "89.4 ± 1.1",
+          "Average": "76.8 ± 0.6"
+        },
+        "Committee Machine Trained on PAD-UFES": {
+          "DERM7M": "68.1 ± 0.8",
+          "PAD-UFES (Train)": "78.5 ± 1.4",
+          "MED-NODE": "87.7 ± 1.1",
+          "Average": "78.1 ± 0.7"
+        },
+        "Committee Machine Trained on MED-NODE": {
+          "DERM7M": "73.6 ± 1.6",
+          "PAD-UFES": "72.8 ± 0.8",
+          "MED-NODE (Train)": "85.1 ± 2.0",
+          "Average": "77.2 ± 0.9"
+        }
+      },
+      "notes": "No transfer learning was performed on the deepnets; the committee machine was trained with SAM. The paper states that 79% balanced accuracy can be achieved for binary classification averaged over three clinical datasets."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Ensemble of 29 heterogeneous convolutional neural networks (CNNs) fused by a trained committee machine (shallow neural network). The constituent models include 18 models from the winning solution of the 2020 SIIM-ISIC skin lesion classification challenge, 3 purpose-developed feature classifiers (border, color asymmetry, and center lesion classifiers), and 7 derm7pt classifiers targeting specific dermoscopic features.",
+    "pretraining": "The 18 constituent models from the 2020 SIIM-ISIC challenge used pre-trained weights (specifically EfficientNet and ResNeSt backbones). The feature classifiers and derm7pt classifiers were trained from scratch or on specific subsets (e.g., derm7pt classifiers trained on the Derm7pt companion dataset).",
+    "input_size": "Input image sizes for the constituent models ranged between 384x384 pixels and 896x896 pixels.",
+    "architecture_details": {
+      "constituent_models": [
+        {
+          "name": "SIIM-ISIC Challenge Models",
+          "backbone": "EfficientNet family (b3 to b7), ResNeSt, Squeeze-and-Excitation-ResNeXt (SE-ResNeXt)",
+          "details": "18 models. Some used patient metadata (sex, age). Input sizes varied (384x384 to 896x896)."
+        },
+        {
+          "name": "Feature Classifiers",
+          "backbone": "CNNs (specific architecture details not fully enumerated, but described as classifiers fed by preprocessed images)",
+          "details": "3 models: Border classifier (narrow strip around lesion perimeter), Color asymmetry classifier (RGB color asymmetry), and Center lesion classifier (region around centroid at full resolution). Used class-weighted training and heavy augmentation."
+        },
+        {
+          "name": "Derm7pt Classifiers",
+          "backbone": "CNNs",
+          "details": "7 models targeting features of the 7-point checklist (pigment network, blue-whitish veil, vascular structures, pigmentation, streaks, dots/globules, regression structures). Trained on Derm7pt dataset."
+        },
+        {
+          "name": "Committee Machine",
+          "type": "Shallow Neural Network",
+          "layers": "Three fully connected hidden layers with 128, 64, and 32 neurons respectively.",
+          "activation/regularization": "Dropout of 0.5 after each layer."
+        }
+      ],
+      "segmenter": "U-net-based convnet with skip connections replaced by 'efficient channel attention' blocks for lesion segmentation (used to generate masks for the constituent models)."
+    },
+    "training_details": {
+      "optimizer": "Adam (or AdamW for decoupled weight decay) for constituent models; Adam for the committee machine.",
+      "loss_function": "Categorical cross-entropy for the committee machine. Constituent models used standard training objectives with class-weighted training (CWT) and heavy augmentation (AUG).",
+      "hyperparameters": {
+        "committee_machine": {
+          "learning_rate": "10^-4",
+          "epochs": 30,
+          "mini_batch_size": 192
+        },
+        "constituent_models": {
+          "weight_regularization": "Traditional weight decay or decoupled weight decay (AdamW).",
+          "class_imbalance_handling": "Class-weighted training (amplitude of weight adjustments inversely proportional to class abundance).",
+          "augmentation": "Heavy augmentation."
+        }
+      },
+      "training_schedule": "5-fold cross-validation for evaluation. Committee machine trained on out-of-fold predictions."
+    },
+    "classification_or_output_head": {
+      "type": "Softmax outputs from constituent models fused by the committee machine.",
+      "committee_output": "Binary classification output (Melanoma vs. Non-melanoma) via the final layer of the committee machine.",
+      "calibration": "Probabilities were calibrated using sigmoid fitting (reliability diagrams) to address class imbalance and confidence calibration."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNet-b4",
+    "EfficientNet-b4 + Class-Weighted Training (CWT)",
+    "EfficientNet-b4 + CWT + Weight Decay (WD)",
+    "EfficientNet-b4 + CWT + Augmentation (AUG)",
+    "EfficientNet-b4 + CWT + AUG + WD",
+    "EfficientNet-b4 + CWT + AUG + Decoupled Weight Decay (WD*)",
+    "EfficientNet-v2-M",
+    "EfficientNet-v2-M + CWT",
+    "EfficientNet-v2-M + CWT + WD",
+    "EfficientNet-v2-M + CWT + WD*",
+    "EfficientNet-v2-M + CWT + AUG",
+    "EfficientNet-v2-M + CWT + AUG + WD",
+    "ResNeSt",
+    "Squeeze-and-Excitation-ResNeXt (SE-ResNeXt)",
+    "Border classifier",
+    "Color asymmetry classifier",
+    "Center lesion classifier",
+    "Derm7pt classifiers (7 models targeting 7-point checklist features)",
+    "AVG-18 (Ensemble of 18 models averaged)",
+    "Calib.Prob.AVG-18 (Ensemble of 18 models with calibrated probabilities averaged)",
+    "Committee-18 (Ensemble of 18 models fused by committee machine)",
+    "Committee-22 (Ensemble of 22 models fused by committee machine)",
+    "Committee-29 (Ensemble of 29 models fused by committee machine)",
+    "Committee Machine (Shallow neural network with 3 fully connected hidden layers: 128, 64, 32 neurons)",
+    "U-net-based convnet (for lesion segmentation)",
+    "Sharpness Aware Minimization (SAM) trained committee machines"
+  ],
+  "preprocessing_techniques": [
+    "Lesion segmentation using a U-net-based convnet with efficient channel attention blocks to generate masks for constituent models",
+    "Border classifier preprocessing: extracting a narrow strip of the lesion's image around its perimeter",
+    "Color asymmetry classifier preprocessing: processing for color and structure asymmetry",
+    "Center lesion classifier preprocessing: extracting a region around the centroid of the lesion at full resolution",
+    "Derm7pt classifier preprocessing: feature-based preprocessing targeting criteria of the 7-point checklist (pigment network, blue-whitish veil, vascular structures, pigmentation, streaks, dots/globules, regression structures)",
+    "Input image resizing: varying input sizes between 384x384 pixels and 896x896 pixels for different models",
+    "Histogram equalization of lesion area fractions: cropping or padding images to achieve identical cumulative distribution functions for lesion-to-image area fraction",
+    "Artifact removal: cropping black lines near edges (e.g., millimeter scales) from DERM7D images",
+    "Color component histogram equalization: applying constant periodic shifts for hue and strictly increasing piece-wise linear transfer functions for saturation and value",
+    "Heavy data augmentation during training"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Heavy data augmentation",
+      "details": "Applied during training for constituent models (specifically mentioned for EfficientNet-b4 and EfficientNetv2-M variants). The paper notes 'heavy augmentation' as a key technique but does not specify the exact geometric or color transform parameters (e.g., rotation angles, flip probabilities) in the provided text, referring instead to the general practice."
+    },
+    {
+      "technique": "Class-weighted training (CWT)",
+      "details": "Used to counteract class imbalance. The amplitude of the convnet's weight adjustments during backpropagation was inversely proportional to the class abundance."
+    },
+    {
+      "technique": "Weight regularization (Weight Decay / Decoupled Weight Decay)",
+      "details": "Implemented as traditional weight decay or decoupled from the gradient-based update using the Adam optimizer (AdamW). Used in combination with other techniques."
+    },
+    {
+      "technique": "Sharpness Aware Minimization (SAM) and Adaptive SAM (ASAM)",
+      "details": "Used as a training strategy to prefer network parameters with uniformly low loss in the parametric neighborhood, improving generalization. Applied to both deep convnets and the committee machine."
+    },
+    {
+      "technique": "Histogram equalization of image statistics (Control/Preprocessing)",
+      "details": "Used to control for simple statistical differences between datasets rather than as a generative augmentation. Specifically: (1) equalized fraction histograms of lesion areas, (2) removed black edges/artifacts from images, and (3) equalized color component histograms (constant periodic shifts for hue, strictly increasing piece-wise linear transfer functions for saturation and value)."
+    }
+  ],
+  "conclusions": [
+    "Standard machine learning techniques aimed at improving predictive power provide only slight performance gains and do not significantly reduce dataset dependence in skin lesion classification.",
+    "Simple differences in image statistics (such as lesion area fraction and color histograms) account for only approximately 5% of the observed dataset dependence, indicating that the issue is driven by more subtle distributional differences.",
+    "The proposed solution to mitigate dataset dependence involves two essential ingredients: using an ensemble of heterogeneous models and training on a heterogeneous, multi-source dataset.",
+    "The ensemble of 29 heterogeneous convolutional neural networks, fused by a trained committee machine, effectively handles dataset dependence and improves generalization across different dermoscopic datasets (C-ISIC, DERM7D, PH2, Semmelweis).",
+    "The Committee-29 model achieved a balanced accuracy of 93.51% on the training dataset (C-ISIC) and maintained strong performance on external datasets (e.g., 84.8% on DERM7D, 91.2% on PH2, 83.6% on Semmelweis).",
+    "The approach was successfully extended to the more challenging task of classifying melanoma from clinical (non-dermoscopic) images, achieving a balanced accuracy of 79% averaged over three clinical datasets (DERM7M, PAD-UFES, MED-NODE) without fine-tuning the deep convolutional networks.",
+    "Sharpness Aware Minimization (SAM) and adaptive SAM (ASAM) are superior training strategies for improving generalization in datasets with unknown or imprecise statistical properties compared to standard regularization methods.",
+    "Probability calibration is important for addressing class imbalance and ensuring that model outputs reflect true confidence, although the primary performance gains came from the ensemble architecture and training strategy."
+  ],
+  "important_remarks": [
+    "The study highlights that standard machine learning techniques (e.g., class-weighted training, augmentation) provide only slight performance gains and fail to significantly reduce dataset dependence, which is driven by subtle distributional differences rather than simple image statistics (which account for only ~5% of the dependence).",
+    "The proposed solution relies on two essential ingredients: an ensemble of heterogeneous models and training on a heterogeneous, multi-source dataset (C-ISIC), which effectively mitigates dataset dependence.",
+    "The Committee-29 ensemble achieved a balanced accuracy of 93.51% on the training dataset (C-ISIC) but showed significant performance drops on external datasets (e.g., 84.8% on DERM7D, 91.2% on PH2, 83.6% on Semmelweis), illustrating the persistent challenge of dataset dependence even with ensembles.",
+    "The approach was extended to clinical (macro) images without fine-tuning the deep convolutional networks, achieving a balanced accuracy of 79% averaged over three clinical datasets (DERM7M, PAD-UFES, MED-NODE), demonstrating generalization to lower-quality, scarcer data sources.",
+    "Sharpness Aware Minimization (SAM) and adaptive SAM (ASAM) are identified as superior training strategies for improving generalization in datasets with unknown or imprecise statistical properties compared to standard regularization methods.",
+    "The study notes that direct comparison with existing literature is difficult due to dataset dependence, as performance varies significantly depending on the specific training and testing dataset combinations.",
+    "The clinical image classification task is noted as harder due to lower image quality (light reflection issues) and smaller, scarcer public datasets compared to dermoscopic images.",
+    "The paper uses a private dataset from Semmelweis University (156 images) alongside public datasets, which may limit reproducibility and external validation for that specific subset."
+  ]
+}

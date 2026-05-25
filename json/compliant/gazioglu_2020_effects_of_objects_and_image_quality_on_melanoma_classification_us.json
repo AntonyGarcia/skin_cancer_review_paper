@@ -1,0 +1,623 @@
+{
+  "file_name": "gazioglu_2020_effects_of_objects_and_image_quality_on_melanoma_classification_us.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper explicitly uses Deep Neural Networks (specifically CNN models: ResNet50, DenseNet121, VGG16, and AlexNet) to perform melanoma classification on dermoscopic images, investigating the effects of image quality and external objects on the AI model's performance."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as 'Research' in the header and abstract. It presents original experimental work involving the training and evaluation of four CNN models (ResNet50, DenseNet121, VGG16, AlexNet) on modified ISBI Challenge datasets to investigate the effects of image quality and external objects on melanoma classification. It includes specific methodology, results with performance metrics (accuracy, sensitivity, etc.), and conclusions derived from new data analysis, rather than summarizing prior literature."
+  },
+  "title": "Effects of objects and image quality on melanoma classification using Deep Neural Networks",
+  "authors": [
+    "Bilge Süheyla Akkoca-Gazioğlu",
+    "Mustafa Kamasak"
+  ],
+  "doi": "10.21203/rs.3.rs-35907/v1",
+  "journal": "Biomedical Signal Processing and Control",
+  "year": 2021,
+  "article_type": "Research",
+  "brief_summary": "This study investigates the impact of external objects (rulers, hair) and image quality degradations (blur, noise, contrast) on the performance of four Convolutional Neural Networks (ResNet50, DenseNet121, VGG16, and AlexNet) for melanoma classification. The models were evaluated on modified ISBI Challenge datasets using accuracy, sensitivity, specificity, and precision metrics across six test sets. Results indicated that DenseNet121 achieved the highest overall accuracy (89.22% on the hair set) and performed best on noisy and blurred images, while ResNet50 was superior for images with contrast issues or rulers. The presence of rulers decreased classification accuracy, whereas hairy images yielded high success rates, likely due to the larger sample size in the dataset. The authors conclude that DenseNet121 is robust for melanoma classification under various image distortions, while ResNet50 is recommended for contrast-related challenges.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "Primary target class for classification. The study investigates the effect of image quality and objects on the classification of melanoma images."
+    },
+    {
+      "lesion_type": "Benign lesions",
+      "paper_terms": [
+        "benign",
+        "benign lesions",
+        "benign images"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the comparator class to melanoma in the binary classification task. The paper notes that benign recognition had better performance than melanoma in noisy sets and that models evolved towards making benign-biased decisions in blur datasets."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned only in the context of the ISBI 2017 Challenge dataset (referenced in the background section) which contains three classes: nevus, melanoma, and seborrheic keratosis. The current study uses modified ISBI Challenge datasets but focuses on the binary melanoma vs. benign distinction."
+    },
+    {
+      "lesion_type": "Seborrheic keratosis",
+      "paper_terms": [
+        "seborrheic keratosis"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned only in the context of the ISBI 2017 Challenge dataset classes (nevus, melanoma, seborrheic keratosis) in the background section. Not explicitly used as a distinct class in the reported experiments of this paper."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic categories: Melanoma (malignant) vs. Benign lesions",
+        "primary": true,
+        "details": "The paper explicitly investigates 'melanoma classification' using Deep Neural Networks (CNNs: ResNet50, DenseNet121, VGG16, AlexNet). The models predict discrete classes (melanoma or benign) using a final layer with 2 neurons. Performance is evaluated using classification metrics: accuracy, sensitivity, specificity, and precision. The task is binary classification between malignant melanoma and benign lesions."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISBI Challenge Datasets (2017, 2018, 2019)",
+      "description": "A combination of dermoscopic image datasets released by the ISBI Challenge in 2017, 2018, and 2019. The study utilized the training sets from all three years and the 2017 validation/test sets (as 2018/2019 test labels were not released). Images were combined and split into training and test partitions. The dataset originally contained multiple classes (e.g., nevus, melanoma, seborrheic keratosis), but for this study, lesions labeled as melanocytic nevus and benign keratosis/seborrheic keratosis were grouped as 'benign', resulting in a binary classification task.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": null,
+        "training": 25400,
+        "validation": null,
+        "testing": 3000,
+        "per_class": {
+          "training": {
+            "Benign": 11400,
+            "Melanoma": 14000
+          },
+          "testing": {
+            "Benign": 1500,
+            "Melanoma": 1500
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the CNN models (ResNet50, DenseNet121, VGG16, AlexNet). The training set was split from the combined ISBI datasets at an approximate 80-20% ratio.",
+        "validation": "null",
+        "testing": "Used for evaluating model performance. The test set was split into subsets based on external objects (Test Ruler, Test Hair, Test None) and synthetic degradations (Blur, Noise, Contrast).",
+        "other": "null"
+      }
+    },
+    {
+      "name": "Test Ruler Subset",
+      "description": "A subset of the test set containing images with an artificial ruler added to some images (and original images with rulers) to analyze the effect of external objects. Images containing both ruler and hair were discarded to isolate the effect of the ruler.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 650,
+        "training": null,
+        "validation": null,
+        "testing": 650,
+        "per_class": {
+          "Benign": 350,
+          "Melanoma": 300
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used to evaluate the impact of rulers on classification accuracy.",
+        "other": "null"
+      }
+    },
+    {
+      "name": "Test Hair Subset",
+      "description": "A subset of the test set containing images that include any amount of hair (a few or more hairs) to analyze the effect of hair on classification.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 2550,
+        "training": null,
+        "validation": null,
+        "testing": 2550,
+        "per_class": {
+          "Benign": 1200,
+          "Melanoma": 1350
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used to evaluate the impact of hair on classification accuracy.",
+        "other": "null"
+      }
+    },
+    {
+      "name": "Test None Subset",
+      "description": "A subset of the test set containing only lesion images without hair or ruler, serving as a high-quality baseline for comparison.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 2100,
+        "training": null,
+        "validation": null,
+        "testing": 2100,
+        "per_class": {
+          "Benign": 1050,
+          "Melanoma": 1050
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used as the baseline high-quality test set and as the source for generating synthetically degraded images (blur, noise, contrast).",
+        "other": "null"
+      }
+    },
+    {
+      "name": "Test Blurred Subset",
+      "description": "A subset of the test set where Gaussian blur filters were applied to images from the Test None set with varying sigma values (1 to 20) and filter sizes (5x5 to 81x81) to create 20 different levels of blur.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 2100,
+        "training": null,
+        "validation": null,
+        "testing": 2100,
+        "per_class": {
+          "Benign": 1050,
+          "Melanoma": 1050
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used to evaluate the impact of image blur on classification performance.",
+        "other": "Synthetic degradation"
+      }
+    },
+    {
+      "name": "Test Noisy Subset",
+      "description": "A subset of the test set where Gaussian distributed noise with zero mean and various standard deviations (sigma 1 to 30) was added to images from the Test None set, creating 30 different probe sets.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 2100,
+        "training": null,
+        "validation": null,
+        "testing": 2100,
+        "per_class": {
+          "Benign": 1050,
+          "Melanoma": 1050
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used to evaluate the impact of image noise on classification performance.",
+        "other": "Synthetic degradation"
+      }
+    },
+    {
+      "name": "Test Contrasted Subset",
+      "description": "A subset of the test set where contrast was adjusted using a contrast factor (0.2 to 4.0 in increments of 0.2) on images from the Test None set, creating 20 different sets.",
+      "classes_used": [
+        "Melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 2100,
+        "training": null,
+        "validation": null,
+        "testing": 2100,
+        "per_class": {
+          "Benign": 1050,
+          "Melanoma": 1050
+        }
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used to evaluate the impact of image contrast on classification performance.",
+        "other": "Synthetic degradation"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "Precision",
+    "True Positive Ratio (TPR)",
+    "True Negative Ratio (TNR)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10-fold cross-validation",
+      "purpose": "To calculate and average performance metrics (accuracy, sensitivity, specificity, precision) for each test set.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Early stopping",
+      "purpose": "To prevent overfitting during model training by stopping when training loss dropped below a threshold.",
+      "type": "Training regularization"
+    },
+    {
+      "method": "Threshold-based stopping criterion",
+      "purpose": "To determine the stopping point for training based on a specific loss value.",
+      "type": "Training parameter"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons between models and conditions were made using descriptive statistics (accuracy, sensitivity, specificity, precision) averaged over 10-fold cross-validation without inferential statistical testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Test Hair": {
+      "description": "Subset of test set containing images with hair (1200 benign, 1350 melanoma).",
+      "metric": "Accuracy, Sensitivity, Specificity, Precision, True-Predicted/All",
+      "models": {
+        "DenseNet121": {
+          "Accuracy": "89.22",
+          "Sensitivity": "0.8955",
+          "Specificity": "0.8883",
+          "Precision": "0.9002",
+          "True-Predicted/All": "2275/2550"
+        },
+        "ResNet50": {
+          "Accuracy": "87.96",
+          "Sensitivity": "0.8681",
+          "Specificity": "0.8925",
+          "Precision": "0.9008",
+          "True-Predicted/All": "2243/2550"
+        },
+        "AlexNet": {
+          "Accuracy": "84.51",
+          "Sensitivity": "0.8688",
+          "Specificity": "0.9133",
+          "Precision": "0.8676",
+          "True-Predicted/All": "2155/2550"
+        },
+        "VGG16": {
+          "Accuracy": "86.2",
+          "Sensitivity": "0.8177",
+          "Specificity": "0.9116",
+          "Precision": "0.9123",
+          "True-Predicted/All": "2198/2550"
+        }
+      },
+      "notes": "DenseNet121 achieved the highest accuracy (89.22%). Hairy images yielded the best success rate overall, attributed to the larger sample size in the dataset."
+    },
+    "Test None": {
+      "description": "Baseline high-quality test set with no hair or ruler (1050 benign, 1050 melanoma).",
+      "metric": "Accuracy, Sensitivity, Specificity, Precision, True-Predicted/All",
+      "models": {
+        "DenseNet121": {
+          "Accuracy": "88.81",
+          "Sensitivity": "0.9209",
+          "Specificity": "0.8552",
+          "Precision": "0.8641",
+          "True-Predicted/All": "1865/2100"
+        },
+        "ResNet50": {
+          "Accuracy": "86.95",
+          "Sensitivity": "0.9142",
+          "Specificity": "0.8247",
+          "Precision": "0.8391",
+          "True-Predicted/All": "1826/2100"
+        },
+        "AlexNet": {
+          "Accuracy": "84.95",
+          "Sensitivity": "0.8657",
+          "Specificity": "0.8333",
+          "Precision": "0.8391",
+          "True-Predicted/All": "1784/2100"
+        },
+        "VGG16": {
+          "Accuracy": "86.57",
+          "Sensitivity": "0.8161",
+          "Specificity": "0.9152",
+          "Precision": "0.9059",
+          "True-Predicted/All": "1818/2100"
+        }
+      },
+      "notes": "DenseNet121 performed best on high-quality images. DenseNet also performed better for both hairy and high quality images."
+    },
+    "Test Ruler": {
+      "description": "Subset of test set containing images with rulers (350 benign, 300 melanoma).",
+      "metric": "Accuracy, Sensitivity, Specificity, Precision, True-Predicted/All",
+      "models": {
+        "DenseNet121": {
+          "Accuracy": "86",
+          "Sensitivity": "0.9100",
+          "Specificity": "0.8171",
+          "Precision": "0.8100",
+          "True-Predicted/All": "559/650"
+        },
+        "ResNet50": {
+          "Accuracy": "85.23",
+          "Sensitivity": "0.8933",
+          "Specificity": "0.8171",
+          "Precision": "0.8072",
+          "True-Predicted/All": "554/650"
+        },
+        "AlexNet": {
+          "Accuracy": "80.92",
+          "Sensitivity": "0.8466",
+          "Specificity": "0.7771",
+          "Precision": "0.7650",
+          "True-Predicted/All": "526/650"
+        },
+        "VGG16": {
+          "Accuracy": "81.69",
+          "Sensitivity": "0.9433",
+          "Specificity": "0.7085",
+          "Precision": "0.7350",
+          "True-Predicted/All": "531/650"
+        }
+      },
+      "notes": "The presence of rulers decreased classification accuracy. ResNet50 performed better than other models when a ruler was present."
+    },
+    "Blur Set (9x9)": {
+      "description": "Test set with Gaussian blur (sigma 1-20, filter size 9x9).",
+      "metric": "Benign TNR, Melanoma TPR",
+      "models": {
+        "ResNet50": {
+          "Benign TNR": "87.6",
+          "Melanoma TPR": "86.53"
+        },
+        "AlexNet": {
+          "Benign TNR": "82.86",
+          "Melanoma TPR": "89.6"
+        },
+        "DenseNet121": {
+          "Benign TNR": "89.6",
+          "Melanoma TPR": "87.93"
+        },
+        "VGG16": {
+          "Benign TNR": "88.2",
+          "Melanoma TPR": "85.8"
+        }
+      },
+      "notes": "DenseNet121 had the best average accuracy in blur datasets. Both classes are sensitive to blur changes."
+    },
+    "Blur Set (77x77)": {
+      "description": "Test set with Gaussian blur (sigma 1-20, filter size 77x77).",
+      "metric": "Benign TNR, Melanoma TPR",
+      "models": {
+        "ResNet50": {
+          "Benign TNR": "97.2",
+          "Melanoma TPR": "38.26"
+        },
+        "AlexNet": {
+          "Benign TNR": "84.66",
+          "Melanoma TPR": "70.86"
+        },
+        "DenseNet121": {
+          "Benign TNR": "85",
+          "Melanoma TPR": "75.93"
+        },
+        "VGG16": {
+          "Benign TNR": "99.4",
+          "Melanoma TPR": "25.4"
+        }
+      },
+      "notes": "Models evolved towards making benign biased decisions due to increasing information loss. False negative results increased while false positives decreased."
+    },
+    "Noise Set (σ = 2)": {
+      "description": "Test set with Gaussian noise (sigma 2).",
+      "metric": "Benign TNR, Melanoma TPR",
+      "models": {
+        "ResNet50": {
+          "Benign TNR": "88.06",
+          "Melanoma TPR": "83.2"
+        },
+        "AlexNet": {
+          "Benign TNR": "82.86",
+          "Melanoma TPR": "86.33"
+        },
+        "DenseNet121": {
+          "Benign TNR": "88.66",
+          "Melanoma TPR": "87.73"
+        },
+        "VGG16": {
+          "Benign TNR": "85",
+          "Melanoma TPR": "82.26"
+        }
+      },
+      "notes": "DenseNet121 was the best model for the noise dataset. Melanoma images were more sensitive to noise than benign images."
+    },
+    "Noise Set (σ = 28)": {
+      "description": "Test set with Gaussian noise (sigma 28).",
+      "metric": "Benign TNR, Melanoma TPR",
+      "models": {
+        "ResNet50": {
+          "Benign TNR": "85.93",
+          "Melanoma TPR": "53.93"
+        },
+        "AlexNet": {
+          "Benign TNR": "90.2",
+          "Melanoma TPR": "47.13"
+        },
+        "DenseNet121": {
+          "Benign TNR": "94.73",
+          "Melanoma TPR": "55.46"
+        },
+        "VGG16": {
+          "Benign TNR": "84.13",
+          "Melanoma TPR": "53.73"
+        }
+      },
+      "notes": "Noise significantly degrades performance on melanoma images; recognition rates decrease compared to benign lesions in noisy sets."
+    },
+    "Contrast Set (c = 0.4)": {
+      "description": "Test set with contrast factor 0.4.",
+      "metric": "Benign TNR, Melanoma TPR",
+      "models": {
+        "ResNet50": {
+          "Benign TNR": "97",
+          "Melanoma TPR": "34.8"
+        },
+        "AlexNet": {
+          "Benign TNR": "94.4",
+          "Melanoma TPR": "51.73"
+        },
+        "DenseNet121": {
+          "Benign TNR": "97.93",
+          "Melanoma TPR": "46.53"
+        },
+        "VGG16": {
+          "Benign TNR": "96.33",
+          "Melanoma TPR": "47.13"
+        }
+      },
+      "notes": "ResNet50 worked better than other CNN models in changes of contrast factor. Melanoma lesions were not badly affected by contrast increases."
+    },
+    "Contrast Set (c = 3.8)": {
+      "description": "Test set with contrast factor 3.8.",
+      "metric": "Benign TNR, Melanoma TPR",
+      "models": {
+        "ResNet50": {
+          "Benign TNR": "6.53",
+          "Melanoma TPR": "99.06"
+        },
+        "AlexNet": {
+          "Benign TNR": "46.26",
+          "Melanoma TPR": "85.93"
+        },
+        "DenseNet121": {
+          "Benign TNR": "31",
+          "Melanoma TPR": "93.86"
+        },
+        "VGG16": {
+          "Benign TNR": "20.33",
+          "Melanoma TPR": "95.2"
+        }
+      },
+      "notes": "Classification ratio of malignant melanoma increases until contrast factor gets value of 1. As contrast value increased beyond 1, it continued to perform well. Classification of benign lesions continued to decrease."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Four Convolutional Neural Network (CNN) models: ResNet50, DenseNet121, VGG16, and AlexNet.",
+    "pretraining": "Transfer learning was used for the models (specifically mentioned for AlexNet in background context, and implied for others as 'commonly used' pre-trained architectures). The last fully connected layer of all networks was removed and replaced with a custom classifier.",
+    "input_size": "224 x 224 pixels (images were resized to this dimension).",
+    "architecture_details": {
+      "ResNet50": {
+        "layers": "177 layers",
+        "parameters": "Over 23 million trainable parameters",
+        "structure": "Micro architectural module structure with skip connections."
+      },
+      "DenseNet121": {
+        "structure": "Dense Transform Network connecting each layer to all other layers in a feed-forward style. Layers are narrow (e.g., 12 feature maps per layer).",
+        "parameters": "Fewer parameters than traditional networks."
+      },
+      "AlexNet": {
+        "layers": "25 layers total (5 convolution, 3 max-pooling, 2 dropout, 3 fully connected, 7 ReLU, 2 normalization, softmax, input/output layers).",
+        "parameters": "Approximately 60 million parameters.",
+        "components": "ReLU activation, max-pooling."
+      },
+      "VGG16": {
+        "layers": "41 layers total (13 convolutions, 3 fully connected layers, including Maxpooling, ReLU, dropout, softmax).",
+        "parameters": "Approximately 138 million parameters.",
+        "structure": "Traditional sequential network architecture."
+      },
+      "Custom_Classifier": {
+        "input_neurons": "1000",
+        "hidden_layer_neurons": "40",
+        "output_neurons": "2 (binary classification)",
+        "activation": "ReLU",
+        "dropout": "0.2"
+      }
+    },
+    "training_details": {
+      "optimizer": "ADAM (also tested Stochastic Gradient Descent/SGD)",
+      "loss_function": "Negative Log Likelihood (NLL) Loss Function (also tested Cross Entropy Loss Function)",
+      "learning_rate": "0.0001 (also tested different values)",
+      "weight_decay": "Tested values from 0.1 to 0.9 (9 different values)",
+      "early_stopping": "Used with a threshold of 1e-6 (training stopped if loss < 10^-6)",
+      "data_augmentation": "Rotation, flipping, and cropping operations.",
+      "normalization": "Channel-wise normalization using mean and scale computed from ISIC datasets (PyTorch predefined function).",
+      "cross_validation": "10-fold cross-validation."
+    },
+    "classification_or_output_head": {
+      "type": "Custom fully-connected network",
+      "structure": "1000 input neurons -> 40 hidden neurons -> 2 output neurons",
+      "activation": "ReLU",
+      "dropout_rate": "0.2"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet50",
+    "DenseNet121",
+    "VGG16",
+    "AlexNet"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 224 x 224 pixels to match CNN input requirements",
+    "Channel-wise normalization using mean and scale computed from ISIC datasets (PyTorch predefined function)",
+    "Data augmentation via rotation (45 degrees) and flipping (horizontal, vertical, and both axes) to balance class counts",
+    "Synthetic image degradation for testing: Application of Gaussian blur filters with varying sigma (1-20) and filter sizes (5x5 to 81x81)",
+    "Synthetic image degradation for testing: Addition of Gaussian distributed noise with zero mean and varying standard deviations (sigma 1-30)",
+    "Synthetic image degradation for testing: Adjustment of contrast using factors from 0.2 to 4.0 in increments of 0.2",
+    "MinMax Normalization of image pixel values to 0-255 range after noise addition"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Images were rotated by 45 degrees."
+    },
+    {
+      "technique": "Flipping",
+      "details": "Images were flipped horizontally, vertically, and on both axes."
+    },
+    {
+      "technique": "Class Balancing via Augmentation",
+      "details": "Data augmentation was applied specifically to melanoma images to balance the class distribution with benign images, as the original dataset had an imbalance (e.g., 11,400 benign vs. 3,500 melanoma in training before augmentation)."
+    }
+  ],
+  "conclusions": [
+    "DenseNet121 demonstrated the best overall robustness and highest average accuracy across datasets with image degradations (noise and blur) and external objects (hair).",
+    "ResNet50 was identified as the superior model for handling images with contrast issues and for images containing rulers.",
+    "The presence of rulers in dermoscopic images decreased classification accuracy, likely due to insufficient training data for ruler features.",
+    "Hairy images yielded the highest success rates, attributed to the larger sample size of hairy images in the dataset and better learning of hair patterns by the models.",
+    "Noise significantly degraded performance on melanoma images, with recognition rates decreasing compared to benign lesions in noisy sets.",
+    "Melanoma lesions were less affected by contrast changes than benign lesions; as contrast increased beyond a factor of 1, melanoma classification performance remained strong while benign classification decreased.",
+    "Both melanoma and benign classes were sensitive to blur changes, with models evolving towards benign-biased decisions due to information loss in heavily blurred images.",
+    "DenseNet121 performed better than other models for both hairy and high-quality (no object/degradation) images."
+  ],
+  "important_remarks": [
+    "The study relies on synthetic image degradations (blur, noise, contrast) applied to the ISBI Challenge datasets rather than real-world clinical image quality variations, limiting external validity.",
+    "The high performance on the 'Test Hair' subset (89.22% accuracy) is attributed to dataset bias, as the hairy image set contained the largest number of images (2550 total) compared to other subsets, rather than inherent model robustness to hair.",
+    "The 'Test Ruler' subset is significantly smaller (650 images) and underrepresented in training, leading to decreased accuracy; the authors note that learning of ruler features was insufficient due to low sample size.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals for performance comparisons between models or conditions.",
+    "Models exhibited a bias towards benign classification in heavily degraded images (blur/noise), evolving towards benign-biased decisions due to information loss, which poses a risk for false negatives in clinical deployment.",
+    "The dataset combines ISBI 2017, 2018, and 2019 challenges, grouping 'nevus' and 'seborrheic keratosis' as 'benign', which may obscure class-specific performance differences within the benign category.",
+    "No external validation was performed; all models were trained and tested on modified subsets of the ISBI Challenge datasets, raising concerns about generalizability to other dermoscopic image distributions."
+  ]
+}

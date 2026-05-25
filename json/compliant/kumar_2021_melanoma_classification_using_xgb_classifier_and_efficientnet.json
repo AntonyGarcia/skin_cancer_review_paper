@@ -1,0 +1,318 @@
+{
+  "file_name": "kumar_2021_melanoma_classification_using_xgb_classifier_and_efficientnet.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a two-stage AI architecture for melanoma classification in dermatology. Stage 1 employs an XGB Classifier with adversarial validation on tabular metadata, and Stage 2 uses an EfficientNet (EffNet) deep learning model (CNN) ensemble on dermoscopy images from the SIIM-ISIC dataset to classify melanoma vs. benign lesions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a two-stage architecture (XGB Classifier and EfficientNet) for melanoma classification. It details specific methods including dataset description (SIIM-ISIC), model training, data augmentation techniques, and reports new experimental results (AUC scores) compared to previous state-of-the-art models. Although published in a conference proceedings (CONIT 2021), it contains original research findings rather than summarizing prior literature."
+  },
+  "title": "Melanoma Classification using XGB Classifier and EfficientNet",
+  "authors": [
+    "Jagadish Kumar",
+    "S Maheswaran",
+    "U Jaikishan",
+    "G Divagar",
+    "B"
+  ],
+  "doi": "10.1109/CONIT51480.2021.9498424",
+  "journal": "2021 International Conference on Intelligent Technologies (CONIT)",
+  "year": 2021,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a two-stage architecture for melanoma classification using the SIIM-ISIC 2019 and 2020 datasets to address class imbalance and improve diagnostic accuracy. Stage 1 employs an XGB Classifier with adversarial validation on tabular metadata, while Stage 2 utilizes a weighted ensemble of EfficientNet models (B0-B6) trained on dermoscopy images in TFRecords format. The authors implemented extensive data augmentation techniques, including upsampling, coarse dropout, and hair augmentation, to handle the scarcity of positive melanoma cases. Evaluation was conducted using Out-Of-Fold (OOF) AUC scores, with the final weighted ensemble achieving an AUC of 0.9344. The results demonstrate that this combined approach outperforms previous state-of-the-art models, improving AUC scores by 0.35 points.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant melanoma",
+        "positive targets",
+        "positive for melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for classification. In the SIIM-ISIC 2020 dataset, it corresponds to the target label '1'. In the SIIM-ISIC 2019 dataset, there were 4522 positive cases out of 25331 records."
+    },
+    {
+      "lesion_type": "Benign Lesions",
+      "paper_terms": [
+        "Benign",
+        "Non-Melanoma",
+        "others",
+        "seborrheic keratosis"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class for the binary classification task. In the SIIM-ISIC 2020 dataset, it corresponds to the target label '0'. The metadata explicitly lists 'seborrheic keratosis' as an example of a lesion diagnosis in this category."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. Benign (Non-Melanoma) lesion diagnosis",
+        "primary": true,
+        "details": "Binary classification task predicting whether a skin lesion is malignant melanoma (target label '1') or benign/non-melanoma (target label '0'). The model outputs class predictions using a weighted ensemble of XGB Classifier (on tabular metadata) and EfficientNet models (on dermoscopy images), evaluated via AUC scores."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "SIIM-ISIC 2020",
+      "description": "Society for Imaging Informatics in Medicine (SIIM) and International Skin Image Collaboration (ISIC) 2020 dataset containing dermoscopy images and patient metadata (sex, age, anatomic site, lesion diagnosis, target label). Provided in DICOM, JPEG, and TFRecords formats.",
+      "classes_used": [
+        "Melanoma (target label 1)",
+        "Benign/Non-Melanoma (target label 0)"
+      ],
+      "counts": {
+        "total": 33126,
+        "training": 2056,
+        "validation": null,
+        "testing": 10982,
+        "per_class": {
+          "training_positive_melanoma": 584,
+          "training_negative_benign": 1472
+        }
+      },
+      "use": {
+        "training": "Used for training the EfficientNet models (Stage 2) and XGB Classifier (Stage 1). Specifically, 2056 records were used for training, with 584 positive melanoma cases.",
+        "validation": "Used for adversarial validation in Stage 1 (targets replaced as 0 for train, 1 for test) and Out-Of-Fold (OOF) evaluation for EfficientNet models.",
+        "testing": "10982 records used for testing/evaluation in Stage 1 adversarial validation setup.",
+        "other": "Combined with ISIC 2019 for training EfficientNet B2 and B5 models."
+      }
+    },
+    {
+      "name": "ISIC 2019",
+      "description": "International Skin Image Collaboration 2019 dataset containing dermoscopy images and metadata. Used to address class imbalance and provide additional training data.",
+      "classes_used": [
+        "Melanoma (positive targets)",
+        "Benign/Non-Melanoma (others)"
+      ],
+      "counts": {
+        "total": 25331,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "positive_melanoma": 4522,
+          "negative_benign": 20809
+        }
+      },
+      "use": {
+        "training": "Used for training EfficientNet models (Stage 2). Specifically combined with SIIM-ISIC 2020 for training EfficientNet B2 and B5 models.",
+        "validation": null,
+        "testing": null,
+        "other": "Used to increase minority class samples via upsampling and data augmentation."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "ROC Score",
+    "Train roc Mean",
+    "Test roc Mean",
+    "Out-Of-Fold (OOF) AUC",
+    "AUC",
+    "Validation loss"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Adversarial Validation",
+      "purpose": "Used in Stage 1 to build a robust validation set and avoid overfitting by treating the source of data (train vs test) as a binary classification target.",
+      "type": "Validation technique"
+    },
+    {
+      "method": "ROC Score (Area Under the Curve)",
+      "purpose": "Used to evaluate the performance of the XGB Classifier in Stage 1 and the EfficientNet models in Stage 2.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Out-Of-Fold (OOF) AUC",
+      "purpose": "Calculated for all EfficientNet models to determine their individual performance and to create a weighted ensemble for final predictions.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Stratified K-Fold Cross-Validation",
+      "purpose": "Used to split the dataset into training and test splits while preserving class distribution to tackle class imbalance, specifically using Triple Stratified K-Fold with five folds for Stage 2.",
+      "type": "Cross-validation strategy"
+    },
+    {
+      "method": "GridSearchCV",
+      "purpose": "Used to obtain optimal parameters for the XGB Classifier.",
+      "type": "Hyperparameter optimization"
+    },
+    {
+      "method": "Weighted Ensemble",
+      "purpose": "Used to combine predictions from multiple EfficientNet models based on their OOF AUC scores to improve overall classification accuracy.",
+      "type": "Model aggregation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using ROC scores, AUC (Area Under the Curve), and validation loss, with comparisons made against previous state-of-the-art models based on these metrics rather than statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "SIIM-ISIC 2020 and ISIC 2019": {
+      "metric": "AUC (Area Under the Curve)",
+      "models": {
+        "XGB Classifier (Adversarial Validation)": {
+          "Train roc Mean": "0.8548",
+          "Test roc Mean": "0.8521"
+        },
+        "XGB Classifier (Adversarial Validation with Feature Drop)": {
+          "Train roc Mean": "0.7113",
+          "Test roc Mean": "0.7043"
+        },
+        "EfficientNet B2": {
+          "OOF AUC": "0.908"
+        },
+        "EfficientNet B4": {
+          "OOF AUC": "0.900"
+        },
+        "EfficientNet B5": {
+          "OOF AUC": "0.911"
+        },
+        "EfficientNet B6": {
+          "OOF AUC": "0.918"
+        },
+        "Weighted Ensemble (Stage 1 + Stage 2)": {
+          "Overall AUC": "0.9344"
+        },
+        "Ours (XGB + EffNet) (Comparison with Previous Works)": {
+          "AUC": "0.9356"
+        }
+      },
+      "notes": "The XGB Classifier with Adversarial Validation improved the overall prediction result by 1%. The weighted ensemble of EfficientNet models based on OOF AUC scores resulted in an overall AUC of 0.9344. The final prediction is an overall weighted ensemble of Stage 1 and Stage 2 predictions in a 10-90 ratio. The proposed method improved AUC scores by 0.35 points compared to previous state-of-the-art models. In comparison with previous works, the proposed model achieved an AUC of 0.9356, outperforming Transfer learning (0.890), DCNN-FV (0.852), FCRN/LICU (0.912), DCNN (0.892), and CNN+RAPooling (0.842)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two-stage architecture: Stage 1 uses XGB Classifier; Stage 2 uses a weighted ensemble of EfficientNet models (B0-B6).",
+    "pretraining": "Noisy-student pre-trained weights for EfficientNet models.",
+    "input_size": "Resized to aspect ratio 1:1.5; specific training resolutions used were 256x256, 384x384, 512x512, and 768x768.",
+    "architecture_details": {
+      "stage_1_model": "XGB Classifier",
+      "stage_2_models": [
+        "EfficientNet B2",
+        "EfficientNet B4",
+        "EfficientNet B5",
+        "EfficientNet B6"
+      ],
+      "ensemble_method": "Weighted ensemble based on Out-Of-Fold (OOF) AUC scores. Final prediction combines Stage 1 and Stage 2 in a 10-90 ratio.",
+      "implementation_source": "gen-efficientnet-pytorch repository"
+    },
+    "training_details": {
+      "optimizer": "Adam Optimizer",
+      "loss_function": "Not explicitly reported (standard for classification implied)",
+      "epochs": "Twelve epochs per fold",
+      "folds": "Triple Stratified K-Fold with five folds",
+      "batch_size": "Varying depending on model size",
+      "learning_rate_schedule": "Used to adjust learning rate and avoid overfitting",
+      "data_augmentation": [
+        "Upsampling",
+        "Coarse Dropout",
+        "Hair Augmentation",
+        "Random crop",
+        "Flip",
+        "Random color jitter",
+        "Random rotation"
+      ],
+      "preprocessing": [
+        "Imputing missing values with 'unknown'",
+        "Feature engineering",
+        "Dummies of categorical data",
+        "Adversarial Validation (targets replaced as 0 for train, 1 for test)"
+      ]
+    },
+    "classification_or_output_head": {
+      "stage_1_output": "Predictions for train/test set observations based on tabular metadata",
+      "stage_2_output": "Class predictions for melanoma vs. benign lesions",
+      "final_output": "Weighted ensemble of Stage 1 and Stage 2 predictions"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "XGB Classifier",
+    "EfficientNet B0",
+    "EfficientNet B1",
+    "EfficientNet B2",
+    "EfficientNet B3",
+    "EfficientNet B4",
+    "EfficientNet B5",
+    "EfficientNet B6",
+    "Weighted Ensemble (XGB Classifier + EfficientNet)",
+    "Transfer learning",
+    "DCNN-FV",
+    "FCRN/LICU",
+    "DCNN",
+    "CNN+RAPooling"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to an aspect ratio of 1:1.5",
+    "Training on specific image resolutions: 256x256, 384x384, 512x512, and 768x768",
+    "Imputing missing tabular values with 'unknown'",
+    "Feature engineering on categorical metadata",
+    "Generating dummies for categorical data",
+    "Adversarial validation (replacing targets as 0 for train and 1 for test to build robust validation)",
+    "Upsampling to handle class imbalance",
+    "Coarse Dropout (randomly removing squares from training images)",
+    "Hair Augmentation (imposing cutouts of actual hair strips onto images)",
+    "Random crop",
+    "Random flip",
+    "Random color jitter",
+    "Random rotation"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Upsampling",
+      "details": "Used to increase the number of minority class (melanoma) examples and overcome class imbalance in the dataset."
+    },
+    {
+      "technique": "Coarse Dropout",
+      "details": "Randomly removes squares from training images to prevent overfitting and increase diversity."
+    },
+    {
+      "technique": "Hair Augmentation",
+      "details": "Imposes cutouts of actual hair strips onto images to diversify the dataset."
+    },
+    {
+      "technique": "Random Crop",
+      "details": "Simple augmentation technique applied to training images."
+    },
+    {
+      "technique": "Random Flip",
+      "details": "Simple augmentation technique applied to training images."
+    },
+    {
+      "technique": "Random Color Jitter",
+      "details": "Simple augmentation technique applied to training images."
+    },
+    {
+      "technique": "Random Rotation",
+      "details": "Augmentation technique used to increase diversity."
+    }
+  ],
+  "conclusions": [
+    "The proposed two-stage architecture, combining an XGB Classifier with adversarial validation (Stage 1) and a weighted ensemble of EfficientNet models (Stage 2), achieved an overall AUC of 0.9344.",
+    "The final prediction is a weighted ensemble of Stage 1 and Stage 2 predictions in a 10-90 ratio.",
+    "The proposed method improved AUC scores by 0.35 points compared to previous state-of-the-art models, outperforming Transfer learning (0.890), DCNN-FV (0.852), FCRN/LICU (0.912), DCNN (0.892), and CNN+RAPooling (0.842).",
+    "Adversarial validation in Stage 1 improved the overall prediction result by 1% and helped reduce model overfitting.",
+    "Data augmentation techniques, including upsampling, coarse dropout, and hair augmentation, were effective in addressing class imbalance and increasing the diversity of training samples.",
+    "Training models on an image resolution of 512x512 provided a balance between speed and accuracy.",
+    "EfficientNet architectures B2, B4, B5, and B6 provided the best AUC scores and lower loss among the tested EfficientNet variants."
+  ],
+  "important_remarks": [
+    "The study relies on the SIIM-ISIC 2019 and 2020 datasets, which may introduce population or dataset bias as these are specific public challenges rather than a broad, multi-center clinical cohort.",
+    "The paper does not report external validation on independent datasets; results are based on internal cross-validation (Triple Stratified K-Fold) and held-out test splits within the provided datasets.",
+    "Adversarial validation was used in Stage 1 to detect distribution shifts between training and test sets, but this technique itself does not guarantee generalizability to unseen clinical populations.",
+    "The final model performance (AUC 0.9356) is compared against previous state-of-the-art models, but the comparison lacks statistical significance testing (p-values) to confirm the robustness of the improvement.",
+    "The paper does not report sensitivity, specificity, or precision/recall metrics, relying solely on AUC/ROC scores, which may mask performance issues on the minority class (melanoma) in a clinical context.",
+    "Data leakage risks are mitigated by using Out-Of-Fold (OOF) predictions for ensemble weighting, but the use of 'unknown' for missing metadata imputation and feature engineering on the full dataset prior to splitting requires careful scrutiny to ensure no information leakage occurred.",
+    "The model's clinical relevance is limited by the lack of discussion on deployment constraints, interpretability (e.g., saliency maps), or integration with dermatologist workflows.",
+    "The paper acknowledges class imbalance (1.76% positive targets in training set) and addresses it via upsampling and augmentation, but the effectiveness of these techniques on real-world prevalence is not evaluated."
+  ]
+}

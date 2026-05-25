@@ -1,0 +1,318 @@
+{
+  "file_name": "Chen et al. - 2022 - Deep learning on reflectance confocal microscopy improves Raman spectral diagnosis of basal cell car.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning, specifically two ResNet50 convolutional neural network (CNN) models trained with transfer learning, to classify reflectance confocal microscopy (RCM) images. The AI models were used to identify hair structures and epidermis in basal cell carcinoma (BCC) diagnosis to reduce false positives in Raman spectral analysis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a two-step classification model using deep learning (ResNet50 CNNs) on reflectance confocal microscopy (RCM) images to improve Raman spectral diagnosis of basal cell carcinoma. It includes specific sections for Methods (clinical data set, data preprocessing, model architecture), Results (specific metrics like 92.4% specificity), and Conclusions based on new data analysis, rather than summarizing prior literature."
+  },
+  "title": "Deep learning on reflectance confocal microscopy improves Raman spectral diagnosis of basal cell carcinoma",
+  "authors": [
+    "Mengkun Chen",
+    "Xu Feng",
+    "Matthew C. Fox",
+    "Jason S. Reichenberg",
+    "Fabiana C. P. S. Lopes",
+    "Katherine R. Sebastian",
+    "Mia K. Markey",
+    "James W. Tunnell"
+  ],
+  "doi": "10.1117/1.JBO.27.6.065004",
+  "journal": "Journal of Biomedical Optics",
+  "year": 2022,
+  "article_type": "Research paper",
+  "brief_summary": "This study aimed to improve the specificity of Raman spectroscopy (RS) for detecting basal cell carcinoma (BCC) by integrating it with reflectance confocal microscopy (RCM) images processed by deep learning. The researchers utilized two ResNet50 convolutional neural networks trained via transfer learning to identify hair structures and epidermis in 191 RCM images from a dataset of 292 site-matched RS and RCM images. These AI models were applied to filter false positive Raman spectra corresponding to normal skin structures identified in the RCM images. The evaluation showed that the deep learning approach removed 52% of false positive predictions while maintaining 100% sensitivity, thereby increasing the overall diagnostic specificity from 84.2% to 92.4%. The results demonstrate that combining RS with deep-learning-aided RCM is a promising tool for guiding tumor resection surgery in Mohs micrographic surgery.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC",
+        "BCC tumor"
+      ],
+      "role": "Target class",
+      "details": "The primary disease entity studied. The paper focuses on improving the specificity of Raman spectral diagnosis for BCC by using deep learning on RCM images to filter out false positives from normal structures. The dataset included 30 BCC images in the train group and 36 BCC images in the task group."
+    },
+    {
+      "lesion_type": "Normal skin structures (Hair)",
+      "paper_terms": [
+        "hair structures",
+        "hair follicle",
+        "hair shaft",
+        "hair core",
+        "normal tissue structures"
+      ],
+      "role": "Comparator class / False positive source",
+      "details": "Normal hair structures were identified as a major source of false positive Raman spectra. The study trained a CNN to identify hair structures in RCM images to exclude them from BCC predictions. Images with abnormal hair patterns were excluded from training."
+    },
+    {
+      "lesion_type": "Normal skin structures (Epidermis)",
+      "paper_terms": [
+        "epidermis",
+        "epidermal layers",
+        "normal tissue structures"
+      ],
+      "role": "Comparator class / False positive source",
+      "details": "Normal epidermal structures were identified as another major source of false positive Raman spectra. The study trained a CNN to identify epidermis in RCM images to exclude them from BCC predictions."
+    },
+    {
+      "lesion_type": "Normal skin structures (Other)",
+      "paper_terms": [
+        "dermis",
+        "fat",
+        "inflammation",
+        "normal tissues"
+      ],
+      "role": "Mentioned only",
+      "details": "These structures were mentioned as constituents of the skin where RS and RCM images were acquired, but they were not the specific targets of the deep learning classification models, which focused on hair and epidermis to reduce false positives for BCC."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of RCM images into 'hair structure' vs 'non-hair structure' and 'epidermis' vs 'non-epidermis'.",
+        "primary": true,
+        "details": "The paper trained two ResNet50 convolutional neural network (CNN) models for binary classification. One model classified RCM images as containing hair structures or not, and the other classified them as containing epidermis or not. These models used transfer learning and SoftMax activation to output probabilities for discrete diagnostic categories (hair/epidermis presence) to filter false positives in Raman spectral diagnosis of basal cell carcinoma."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Combined Clinical Dataset (Feng et al. 2019 and 2020)",
+      "description": "A collection of site-matched Raman spectroscopy (RS) and reflectance confocal microscopy (RCM) images acquired from Mohs micrographic surgical sections. The data originated from two prior studies by Feng et al. (2019 and 2020) conducted at The University of Texas at Austin. The RCM images were acquired using a custom-built Raman confocal microscope with an 830-nm excitation wavelength. The dataset was split into a training group and a task (testing) group for the deep learning models.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Hair structure (hair follicle, hair shaft, hair core)",
+        "Epidermis",
+        "Non-BCC (normal tissue structures including dermis, fat, inflammation)"
+      ],
+      "counts": {
+        "total": 292,
+        "training": 191,
+        "validation": null,
+        "testing": 62,
+        "per_class": {
+          "train_group_total": 230,
+          "train_group_BCC": 30,
+          "train_group_non_BCC": 200,
+          "train_group_final": 191,
+          "task_group_total": 62,
+          "task_group_BCC": 36,
+          "task_group_non_BCC": 26
+        }
+      },
+      "use": {
+        "training": "The training set (derived from the train group) was used to train two ResNet50 CNN models for binary classification of hair structures and epidermis. The split ratio for the hair model was 121/35/35 (train/validation/test) and for the epidermis model was 139/26/26. Data augmentation was applied to the positive class in the training set.",
+        "validation": "Validation sets were used during the training of the ResNet50 models to monitor loss and accuracy. The specific counts were 35 images for the hair model validation set and 26 images for the epidermis model validation set.",
+        "testing": "The test sets (35 images for hair model, 26 images for epidermis model) were used to evaluate model performance and select classification thresholds based on ROC curves. The independent 'task group' (62 images) served as the external test set to validate the models' ability to filter false positives in Raman spectral diagnosis.",
+        "other": "The dataset was also used to build a Raman biophysical model in prior work (Feng et al. 2019) which achieved 100% sensitivity and 84% specificity. The RCM images from the 'task group' corresponded to Raman spectra predicted as BCC (true and false positives) by that prior model."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Area Under the Curve (AUC)",
+    "Receiver Operating Characteristic (ROC)",
+    "False Positive Rate",
+    "True Negative Rate",
+    "Confusion Matrix"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10 times bootstrapping",
+      "purpose": "To demonstrate that there was no bias when splitting train/validation/test sets.",
+      "type": "Resampling method"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) analysis",
+      "purpose": "To evaluate model performance and select classification thresholds based on the Area Under the Curve (AUC).",
+      "type": "Diagnostic accuracy assessment"
+    },
+    {
+      "method": "Area Under the Curve (AUC)",
+      "purpose": "To quantify the diagnostic performance of the hair structure model (AUC 0.99) and epidermis model (AUC 0.93) on the test sets.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Sensitivity and Specificity calculation",
+      "purpose": "To evaluate the diagnostic accuracy of the Raman biophysical model alone (100% sensitivity, 84% specificity) and the combined deep learning-aided approach (100% sensitivity, 92.4% specificity).",
+      "type": "Diagnostic accuracy metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using sensitivity, specificity, and Area Under the Curve (AUC) metrics."
+  },
+  "results_obtained_in_each_dataset": {
+    "Combined Clinical Dataset (Feng et al. 2019 and 2020)": {
+      "train_group": {
+        "description": "191 RCM images used for training two ResNet50 CNN models (hair structure and epidermis classification) after removing 39 images with abnormal hair patterns.",
+        "split_details": {
+          "hair_model": {
+            "train": 121,
+            "validation": 35,
+            "test": 35
+          },
+          "epidermis_model": {
+            "train": 139,
+            "validation": 26,
+            "test": 26
+          }
+        },
+        "class_distribution_in_train_set": {
+          "hair_model": {
+            "positive_hair": 23,
+            "negative_non_hair": 168
+          },
+          "epidermis_model": {
+            "positive_epidermis": 33,
+            "negative_non_epidermis": 158
+          }
+        }
+      },
+      "test_group_independent_of_task": {
+        "hair_structure_model": {
+          "AUC": 0.99,
+          "test_set_composition": {
+            "positive_hair": 5,
+            "negative_non_hair": 30
+          },
+          "selected_threshold_performance": {
+            "sensitivity": "80%",
+            "specificity": "100%"
+          }
+        },
+        "epidermis_model": {
+          "AUC": 0.93,
+          "test_set_composition": {
+            "positive_epidermis": "not explicitly stated, but derived from 26 total",
+            "negative_non_epidermis": "not explicitly stated, but derived from 26 total"
+          },
+          "selected_threshold_performance": {
+            "sensitivity": "95%",
+            "specificity": "84%"
+          }
+        }
+      },
+      "task_group": {
+        "description": "62 RCM images (36 BCC, 26 non-BCC) corresponding to Raman spectra predicted as BCC by the prior biophysical model. Used for final validation of the deep learning filtering approach.",
+        "model_predictions_on_task_group": {
+          "hair_structure_model": {
+            "predicted_as_hair": {
+              "non_BCC_images": 8,
+              "BCC_images": 0
+            }
+          },
+          "epidermis_model": {
+            "predicted_as_epidermis": {
+              "non_BCC_images": 5,
+              "BCC_images": 0
+            }
+          },
+          "combined_union": {
+            "total_non_BCC_images_identified_as_non_BCC": 13,
+            "total_BCC_images_identified_as_non_BCC": 0
+          }
+        },
+        "impact_on_Raman_diagnosis": {
+          "initial_Raman_model_performance": {
+            "sensitivity": "100%",
+            "specificity": "84.2%"
+          },
+          "false_positives_before_filtering": {
+            "count": 27,
+            "associated_RCM_images": 26
+          },
+          "false_positives_removed": {
+            "count": 14,
+            "percentage_reduction": "52%"
+          },
+          "final_combined_model_performance": {
+            "sensitivity": "100%",
+            "specificity": "92.4%",
+            "specificity_increase": "8%"
+          }
+        }
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet50",
+    "pretraining": "Transfer learning from ImageNet weights. For the hair structure model, weights for all 50 layers were imported. For the epidermis model, weights for the first 40 layers were imported, with the remaining 10 layers and the final classifier layer left trainable.",
+    "input_size": "224 x 224 x 3 (height x width x channels). Grayscale images were repeated across three RGB channels to match the input size for transfer learning.",
+    "architecture_details": {
+      "backbone": "ResNet50 convolutional neural network used for feature extraction.",
+      "modifications": "The top fully connected (FC) layers of the pre-trained ResNet50 were removed. A new single FC layer with two neurons was added as the output layer.",
+      "heads": "Two separate binary classification models were trained: one for 'hair structure' vs 'non-hair structure' and one for 'epidermis' vs 'non-epidermis'.",
+      "classifier_head": "A single fully connected layer with two neurons, followed by a SoftMax activation function to output probabilities."
+    },
+    "training_details": {
+      "optimizer": "Mini-batch Stochastic Gradient Descent (SGD) with momentum (β = 0.9).",
+      "loss_function": "Cross-entropy loss with L2 regularization (λ = 0.01).",
+      "batch_size": "16 images per batch.",
+      "epochs": "100 epochs.",
+      "training_duration": "0.5 hours per model.",
+      "hardware": "One NVIDIA Tesla K80 Graphic Card on Google Cloud Platform.",
+      "data_augmentation": "Training set augmentation included flipping, rotating, scaling, and shifting. Positive class images were augmented to balance the dataset. Test/validation sets did not receive positive sample augmentation.",
+      "validation_strategy": "10 times bootstrapping was used to demonstrate no bias in train/validation/test splits."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet50",
+    "Raman biophysical model"
+  ],
+  "preprocessing_techniques": [
+    "Exclusion of images containing both BCC and hair follicle structures to ensure single-class labels",
+    "Exclusion of 39 hair structure images with abnormal patterns (incomplete circular structure, missing pixels, or abnormal growth appearance) from the training set",
+    "Random division of the training group into training, validation, and test sets",
+    "Data augmentation on the positive class only (hair structure or epidermis images) in the training set to balance the dataset",
+    "Augmentation techniques: flipping, rotating, scaling, and shifting",
+    "Resizing all images to 224 × 224 × 3 (height × width × channels)",
+    "Conversion of grayscale images to three RGB channels by repeating the grayscale image across each channel to match ResNet50 input requirements",
+    "Routine normalization (each pixel minus mean value) and standardization (divided by standard deviation)",
+    "10 times bootstrapping to verify no bias in train/validation/test set splits"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms (Flipping, Rotating, Scaling, Shifting)",
+      "details": "Applied to positive class images (hair structure or epidermis) in the training set to balance the dataset. Also applied randomly to batches of 16 images during training via TensorFlow ImageDataGenerator to increase dataset variation. Specific probabilities or ranges were not reported."
+    },
+    {
+      "technique": "Positive Class Balancing Augmentation",
+      "details": "Data augmentation was performed exclusively on the positive class (hair structure images for the hair model, epidermis images for the epidermis model) within the training set to address class imbalance. The negative class images were not augmented."
+    },
+    {
+      "technique": "Test-Time Augmentation",
+      "details": "Not used. The paper explicitly states that test/validation sets did not receive positive sample augmentation, and the number of positive and negative samples remained unbalanced in the test set."
+    }
+  ],
+  "conclusions": [
+    "Combining Raman spectroscopy (RS) with deep-learning-aided reflectance confocal microscopy (RCM) is a promising tool for guiding tumor resection surgery in Mohs micrographic surgery.",
+    "The proposed two-step classification model, using ResNet50 convolutional neural networks to identify hair structures and epidermis in RCM images, successfully improved the specificity of RS for detecting basal cell carcinoma (BCC) from 84.2% to 92.4%.",
+    "The deep learning approach removed 52% of false positive predictions from the Raman biophysical model while maintaining a sensitivity of 100%.",
+    "False positive Raman spectra often originate from normal skin structures such as hair follicles and epidermis, which can be readily identified in RCM images to reduce diagnostic errors.",
+    "The study demonstrates the feasibility of using deep learning on RCM images to automatically filter false positives in Raman spectral diagnosis without requiring additional input from the clinician.",
+    "The authors acknowledge limitations regarding the small sample size and the need to expand the work to include more patients and diverse representations of normal skin structures to further enhance model accuracy."
+  ],
+  "important_remarks": [
+    "The study relies on a small dataset (191 training images, 62 task group images) derived from only 30 patients, limiting generalizability.",
+    "The deep learning models were trained exclusively on 'typical' hair structures; 39 images with abnormal hair patterns were excluded from training because they caused non-converging loss and overfitting, meaning the model cannot identify less common hair morphologies.",
+    "The epidermis classification model showed lower performance (AUC 0.93) compared to the hair structure model (AUC 0.99), and the epidermis test set was highly imbalanced (only 5 positive samples vs 30 negative samples in the hair test set; similar imbalance implied for epidermis).",
+    "The final diagnosis logic used a 'union' of two separate models (hair and epidermis) rather than a single multi-class model, as combining them into one model resulted in reduced specificity for both structures.",
+    "The Raman biophysical model used as the baseline had a specificity of 84.2% (improved to 92.4% with RCM), but the paper does not report statistical significance (p-values) for this improvement.",
+    "The study acknowledges that BCC itself does not have a unique recognizable structure in RCM images, so the RCM models were not trained to detect BCC directly but only to filter false positives from normal structures.",
+    "Data leakage risk is mitigated by the strict separation of the train group and task group with no overlap, but the small sample size and lack of external validation remain significant limitations."
+  ]
+}

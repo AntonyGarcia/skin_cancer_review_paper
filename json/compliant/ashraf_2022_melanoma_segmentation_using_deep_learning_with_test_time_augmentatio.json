@@ -1,0 +1,530 @@
+{
+  "file_name": "ashraf_2022_melanoma_segmentation_using_deep_learning_with_test_time_augmentatio.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning models (UNet, ResUNet, and ResUNet++) for automated skin lesion segmentation in a dermatology context. The study employs these AI architectures on dermoscopic images from the ISIC-2016 and ISIC-2017 datasets to segment melanoma and other skin lesions, utilizing test-time augmentation and conditional random fields for post-processing."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel deep learning-based approach for skin lesion segmentation using UNet, ResUNet, and ResUNet++ models with test-time augmentation and conditional random fields. It details specific methods (preprocessing, training on ISIC-2016/2017 datasets), reports quantitative results (Jaccard Index, Dice Coefficient), and compares performance against state-of-the-art techniques, which characterizes it as an original research study rather than a review."
+  },
+  "title": "Melanoma segmentation using deep learning with test‑time augmentations and conditional random fields",
+  "authors": [
+    "Hassan Ashraf",
+    "Asim Waris",
+    "Muhammad Fazeel Ghafoor",
+    "Syed Omer Gilani",
+    "Imran Khan Niazi"
+  ],
+  "doi": "10.1038/s41598-022-07885-y",
+  "journal": "Scientific Reports",
+  "year": 2022,
+  "article_type": "Research article",
+  "brief_summary": "This study proposes a fully automated deep learning framework for skin lesion segmentation to address challenges in computer-aided diagnosis. The authors utilize UNet, ResUNet, and ResUNet++ architectures, enhanced by morphological filtering for preprocessing and test-time augmentation with conditional random fields for postprocessing. The models were trained and evaluated on the ISIC-2016 and ISIC-2017 dermoscopic image datasets. The proposed method achieved average Jaccard Indices of 85.96% and 80.05% on ISIC-2016 and ISIC-2017 respectively when trained individually, and up to 90.02% on ISIC-2016 when trained on the combined dataset. The results demonstrate that the framework outperforms state-of-the-art techniques and meets the inter-observer agreement threshold for clinical relevance.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesion (general)",
+      "paper_terms": [
+        "skin lesion",
+        "skin tumor",
+        "pigmentation"
+      ],
+      "role": "Segmentation target",
+      "details": "The study focuses on the segmentation of skin lesions/tumors in dermoscopic images from the ISIC-2016 and ISIC-2017 datasets. The task is binary segmentation (lesion vs. background) rather than multi-class classification of specific histopathological types."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Contextual/Referenced class",
+      "details": "Melanoma is mentioned in the introduction as the primary clinical motivation for the segmentation work (most lethal form of skin cancer), but the experiments perform general skin lesion segmentation, not melanoma-specific classification or segmentation distinct from other lesions."
+    },
+    {
+      "lesion_type": "Non-melanoma",
+      "paper_terms": [
+        "non-melanoma"
+      ],
+      "role": "Contextual/Referenced class",
+      "details": "Mentioned in the introduction as a category of skin lesions that CAD systems help determine, but not a specific target label in the segmentation experiments."
+    },
+    {
+      "lesion_type": "Benign lesion",
+      "paper_terms": [
+        "benign",
+        "benign skin lesions"
+      ],
+      "role": "Contextual/Referenced class",
+      "details": "Mentioned in the introduction regarding the tracking of benign lesions to prevent evolution to malignant ones, but not a specific segmentation target class in the experiments."
+    },
+    {
+      "lesion_type": "Seborrheic keratosis",
+      "paper_terms": [
+        "seborrheic keratosis"
+      ],
+      "role": "Mentioned only (in related work)",
+      "details": "Mentioned in the literature review section when citing Goyal et al. (2017) who segmented this class, but not a target class in the current study's experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks (binary segmentation of lesion vs. background)",
+        "primary": true,
+        "details": "The paper performs semantic segmentation of skin lesions in dermoscopic images using UNet, ResUNet, and ResUNet++ architectures. The output is a pixel-wise mask predicting the lesion region. Performance is evaluated using Jaccard Index and Dice Coefficient, which are standard metrics for segmentation tasks, not classification or regression."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC-2016",
+      "description": "A public dermoscopic image dataset from the International Skin Imaging Collaboration (ISIC) 2016 challenge, containing 8-bit RGB images with annotated masks.",
+      "classes_used": [
+        "Skin lesion (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used individually for training the UNet, ResUNet, and ResUNet++ models.",
+        "validation": "Not explicitly used for validation; the dataset structure provided training and testing splits.",
+        "testing": "Used individually for testing the models trained on ISIC-2016.",
+        "other": "Combined with ISIC-2017 training data to create a merged dataset for training; combined with ISIC-2017 testing data to create a merged testing set for evaluation."
+      }
+    },
+    {
+      "name": "ISIC-2017",
+      "description": "A public dermoscopic image dataset from the International Skin Imaging Collaboration (ISIC) 2017 challenge, containing 8-bit RGB images with annotated ground masks.",
+      "classes_used": [
+        "Skin lesion (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 4100,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used individually for training the UNet, ResUNet, and ResUNet++ models.",
+        "validation": "Available in the dataset but not explicitly utilized in the reported experimental workflow; the study focused on training/testing splits.",
+        "testing": "Used individually for testing the models trained on ISIC-2017.",
+        "other": "Combined with ISIC-2016 training data to create a merged dataset for training; combined with ISIC-2016 testing data to create a merged testing set for evaluation."
+      }
+    },
+    {
+      "name": "Merged Dataset (ISIC-2016 + ISIC-2017)",
+      "description": "A custom dataset created by combining training images from ISIC-2016 and ISIC-2017, with duplicate images removed, resulting in a unique set of training and testing images.",
+      "classes_used": [
+        "Skin lesion (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 3129,
+        "training": 2150,
+        "validation": null,
+        "testing": 979,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as the primary training set for the UNet, ResUNet, and ResUNet++ models to leverage larger sample size.",
+        "validation": "Not explicitly used.",
+        "testing": "Used as the primary testing set for evaluating models trained on the merged dataset.",
+        "other": "Used to evaluate generalizability by testing models trained on this merged set against individual ISIC-2016 and ISIC-2017 testing subsets."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Jaccard Index",
+    "Dice Coefficient",
+    "Precision",
+    "Recall",
+    "Sensitivity",
+    "Specificity",
+    "Intersection over Union (IoU)",
+    "Receiver Operating Curves (ROC)",
+    "Area Under the Curves (AUC)",
+    "False Negatives (FN)",
+    "True Negatives (TN)",
+    "False Positives (FP)",
+    "True Positives (TP)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Inter-observer agreement comparison",
+      "purpose": "To assess the clinical relevance and robustness of the proposed segmentation framework by comparing its performance metrics against the inter-observer agreement threshold of expert dermatologists.",
+      "type": "Benchmarking/Validation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive statistics (Jaccard Index, Dice Coefficient, etc.) and compared against state-of-the-art methods and inter-observer agreement thresholds without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC-2016": {
+      "metric": "Jaccard Index",
+      "models": {
+        "Proposed UNet": {
+          "Jaccard Index": "85.96%"
+        },
+        "Proposed ResUNet": {
+          "Jaccard Index": "84.15%"
+        },
+        "Proposed ResUNet++": {
+          "Jaccard Index": "85.88%"
+        }
+      },
+      "notes": "Models were trained individually on ISIC-2016. The proposed UNet achieved the highest Jaccard Index among the proposed models. The framework's performance complies with inter-observer agreement of expert dermatologists for 93.40% of predicted masks."
+    },
+    "ISIC-2017": {
+      "metric": "Jaccard Index",
+      "models": {
+        "Proposed UNet": {
+          "Jaccard Index": "80.05%"
+        },
+        "Proposed ResUNet": {
+          "Jaccard Index": "77.66%"
+        },
+        "Proposed ResUNet++": {
+          "Jaccard Index": "80.03%"
+        }
+      },
+      "notes": "Models were trained individually on ISIC-2017. The proposed method significantly outperformed state-of-the-art frameworks on this dataset. For 68.16% of test images, the Jaccard Index was more than 80%, which is higher than the top participant (57.83%) of the ISIC-2017 challenge. 20% of testing images achieved a Jaccard Index below 70% (failure cases)."
+    },
+    "Combined Dataset (ISIC-2016 + ISIC-2017) - Trained and Tested on Combined": {
+      "metric": "Jaccard Index",
+      "models": {
+        "UNet": {
+          "Jaccard Index": "84.60%"
+        },
+        "ResUNet": {
+          "Jaccard Index": "81.07%"
+        },
+        "ResUNet++": {
+          "Jaccard Index": "85.44%"
+        }
+      },
+      "notes": "ResUNet++ yielded the highest Jaccard Index on the combined testing dataset."
+    },
+    "Combined Dataset (ISIC-2016 + ISIC-2017) - Trained on Combined, Tested on ISIC-2016": {
+      "metric": "Jaccard Index",
+      "models": {
+        "UNet": {
+          "Jaccard Index": "89.59%"
+        },
+        "ResUNet": {
+          "Jaccard Index": "86.64%"
+        },
+        "ResUNet++": {
+          "Jaccard Index": "90.02%"
+        }
+      },
+      "notes": "ResUNet++ produced the highest Jaccard Index of 90.02% on the ISIC-2016 testing dataset when trained on the combined dataset."
+    },
+    "Combined Dataset (ISIC-2016 + ISIC-2017) - Trained on Combined, Tested on ISIC-2017": {
+      "metric": "Jaccard Index",
+      "models": {
+        "UNet": {
+          "Jaccard Index": "80.65%"
+        },
+        "ResUNet": {
+          "Jaccard Index": "77.89%"
+        },
+        "ResUNet++": {
+          "Jaccard Index": "80.73%"
+        }
+      },
+      "notes": "ResUNet++ produced the highest Jaccard Index of 80.73% on the ISIC-2017 testing dataset when trained on the combined dataset."
+    },
+    "Ablation Study - Augmentations (Trained on Combined)": {
+      "metric": "Jaccard Index",
+      "models": {
+        "UNet (No augmentations)": {
+          "Jaccard Index": "82.34%"
+        },
+        "ResUNet (No augmentations)": {
+          "Jaccard Index": "79.22%"
+        },
+        "ResUNet++ (No augmentations)": {
+          "Jaccard Index": "82.87%"
+        },
+        "UNet (Rotation, vertical, horizontal flip)": {
+          "Jaccard Index": "82.25%"
+        },
+        "ResUNet (Rotation, vertical, horizontal flip)": {
+          "Jaccard Index": "79.28%"
+        },
+        "ResUNet++ (Rotation, vertical, horizontal flip)": {
+          "Jaccard Index": "83.01%"
+        },
+        "UNet (7 augmentations)": {
+          "Jaccard Index": "83.39%"
+        },
+        "ResUNet (7 augmentations)": {
+          "Jaccard Index": "80.35%"
+        },
+        "ResUNet++ (7 augmentations)": {
+          "Jaccard Index": "83.44%"
+        },
+        "UNet (10 augmentations)": {
+          "Jaccard Index": "82.72%"
+        },
+        "ResUNet (10 augmentations)": {
+          "Jaccard Index": "79.81%"
+        },
+        "ResUNet++ (10 augmentations)": {
+          "Jaccard Index": "83.10%"
+        }
+      },
+      "notes": "Highest Jaccard Index resulted from combination 3 (seven augmentations). Increasing to ten augmentations did not further improve performance."
+    },
+    "Ablation Study - Preprocessing (Trained on Combined)": {
+      "metric": "Jaccard Index",
+      "models": {
+        "UNet (With preprocessing)": {
+          "Jaccard Index": "82.84%"
+        },
+        "ResUNet (With preprocessing)": {
+          "Jaccard Index": "79.34%"
+        },
+        "ResUNet++ (With preprocessing)": {
+          "Jaccard Index": "82.45%"
+        },
+        "UNet (Without preprocessing)": {
+          "Jaccard Index": "81.39%"
+        },
+        "ResUNet (Without preprocessing)": {
+          "Jaccard Index": "79.15%"
+        },
+        "ResUNet++ (Without preprocessing)": {
+          "Jaccard Index": "81.88%"
+        }
+      },
+      "notes": "Preprocessing (morphological filters with inpainting) improved performance."
+    },
+    "Ablation Study - Postprocessing (Trained on Combined)": {
+      "metric": "Jaccard Index",
+      "models": {
+        "UNet (Normal)": {
+          "Jaccard Index": "83.84%"
+        },
+        "ResUNet (Normal)": {
+          "Jaccard Index": "80.34%"
+        },
+        "ResUNet++ (Normal)": {
+          "Jaccard Index": "82.45%"
+        },
+        "UNet (CRF)": {
+          "Jaccard Index": "83.94%"
+        },
+        "ResUNet (CRF)": {
+          "Jaccard Index": "80.59%"
+        },
+        "ResUNet++ (CRF)": {
+          "Jaccard Index": "82.44%"
+        },
+        "UNet (TTA)": {
+          "Jaccard Index": "84.59%"
+        },
+        "ResUNet (TTA)": {
+          "Jaccard Index": "80.89%"
+        },
+        "ResUNet++ (TTA)": {
+          "Jaccard Index": "82.43%"
+        },
+        "UNet (CRF-TTA)": {
+          "Jaccard Index": "84.60%"
+        },
+        "ResUNet (CRF-TTA)": {
+          "Jaccard Index": "81.07%"
+        },
+        "ResUNet++ (CRF-TTA)": {
+          "Jaccard Index": "82.44%"
+        }
+      },
+      "notes": "TTA and CRF were used in postprocessing. CRF-TTA generally provided the best or comparable results."
+    },
+    "State-of-the-Art Comparison (Trained and Tested on ISIC-2016)": {
+      "metric": "Jaccard Index",
+      "models": {
+        "Team-EXB": {
+          "Jaccard Index": "84.30%"
+        },
+        "Team-CUMED2": {
+          "Jaccard Index": "82.90%"
+        },
+        "Team-Rahman": {
+          "Jaccard Index": "82.22%"
+        },
+        "Bi et al.": {
+          "Jaccard Index": "84.64%"
+        },
+        "Yuan et al.": {
+          "Jaccard Index": "84.70%"
+        },
+        "Lesion-Net": {
+          "Jaccard Index": "86.47%"
+        },
+        "Proposed UNet": {
+          "Jaccard Index": "85.96%"
+        },
+        "Proposed ResUNet": {
+          "Jaccard Index": "84.15%"
+        },
+        "Proposed ResUNet++": {
+          "Jaccard Index": "85.88%"
+        }
+      },
+      "notes": "The proposed method achieved a competitive Jaccard Index on ISIC-2016."
+    },
+    "State-of-the-Art Comparison (Trained and Tested on ISIC-2017)": {
+      "metric": "Jaccard Index",
+      "models": {
+        "Yuan et al. (CDNN)": {
+          "Jaccard Index": "76.50%"
+        },
+        "Li et al.": {
+          "Jaccard Index": "76.20%"
+        },
+        "Bi et al. (ResNet)": {
+          "Jaccard Index": "76.00%"
+        },
+        "Lin et al. (UNet)": {
+          "Jaccard Index": "62.00%"
+        },
+        "Al-masni et al. (FrCN)": {
+          "Jaccard Index": "77.11%"
+        },
+        "Kashan et al. (ResUNet)": {
+          "Jaccard Index": "77.20%"
+        },
+        "Lesion-Net": {
+          "Jaccard Index": "78.28%"
+        },
+        "Proposed UNet": {
+          "Jaccard Index": "80.05%"
+        },
+        "Proposed ResUNet": {
+          "Jaccard Index": "77.66%"
+        },
+        "Proposed ResUNet++": {
+          "Jaccard Index": "80.03%"
+        }
+      },
+      "notes": "The proposed method significantly outperformed state-of-the-art frameworks on ISIC-2017."
+    }
+  },
+  "architecture_used": {
+    "main_model": "UNet, ResUNet, ResUNet++",
+    "pretraining": "Not reported",
+    "input_size": "256 x 256 (selected as optimal; 128x128, 192x192, and 512x512 also tested)",
+    "architecture_details": {
+      "UNet": {
+        "type": "Fully Convolutional Network (FCN)",
+        "structure": "U-shaped architecture with contracting path and upsampling operators (no pooling)",
+        "blocks": "9 blocks",
+        "convolutional_layers": 21,
+        "activation": "ReLU after convolutional layers, Sigmoid at output"
+      },
+      "ResUNet": {
+        "type": "Deep Residual U-Net",
+        "structure": "Encoder, bridge, and decoder blocks with residual units",
+        "sublevels": 7,
+        "convolutional_layers": 15,
+        "activation": "ReLU after convolutional layers, Sigmoid at output"
+      },
+      "ResUNet++": {
+        "type": "Improved ResUNet",
+        "structure": "Encoder, bridge, and decoder blocks with residual units",
+        "convolutional_layers": 41,
+        "activation": "ReLU after convolutional layers, Sigmoid at output"
+      },
+      "common_layers": "3x3 convolutional layers in encoder/bridge/decoder blocks; 1x1 convolutional layer followed by sigmoid in output block"
+    },
+    "training_details": {
+      "optimizer": "ADAM",
+      "learning_rate_scheduler": "Cosine annealing-based stochastic gradient descent with restarts (SGDR)",
+      "learning_rate": "Initial 1e-2, decreased to 1e-4 (10% reduction after each loop)",
+      "epochs": "Cumulative 300 (early stop criterion; 5 epochs per cycle with restarts scaled by 1.5)",
+      "batch_size": 16,
+      "loss_function": "Dice Loss",
+      "augmentation": "Combination 3 (7 augmentations: rotation, vertical/horizontal flip, hue saturation value, RGB shift, random brightness, random contrast)",
+      "preprocessing": "Morphological filters with inpainting algorithm to remove hair structures"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "output_layer": "1x1 convolutional layer followed by sigmoid function",
+      "task": "Binary segmentation (lesion vs. background)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "UNet",
+    "ResUNet",
+    "ResUNet++",
+    "Bi et al. (multistage cascade FCN)",
+    "Yuan et al. (deep FCN)",
+    "Lin et al. (U-Net-based histogram equalization)",
+    "Goyal et al. (FCN)",
+    "Yuan et al. (CDNN)",
+    "Kashan et al. (ResUNet)",
+    "Lesion-Net",
+    "Team-EXB",
+    "Team-CUMED2",
+    "Team-Rahman",
+    "Al-masni et al. (FrCN)"
+  ],
+  "preprocessing_techniques": [
+    "Resizing and rescaling images to 256 × 256 pixels using nearest-neighbor interpolation",
+    "Conversion of RGB dermoscopic images to grayscale",
+    "Application of morphological filters (specifically black top-hat filter) to identify unwanted structures",
+    "Thresholding operation to generate a binary mask of undesired structures (hair)",
+    "Inpainting algorithm to remove hair structures and restore clean skin lesion images",
+    "Image augmentation (used during training, not strictly preprocessing but related): pixel level transformations (motion blur, random brightness, random contrast, random gamma, hue saturation value, RGB shift, grayscale) and spatial level transformations (random 90 rotation, vertical flip, horizontal flip)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Training-time Image Augmentation",
+      "details": "Used to mitigate overfitting and increase robustness. The study evaluated combinations of pixel-level and spatial-level transformations. The optimal combination (Combination 3) consisted of 7 augmentations: rotation, vertical flip, horizontal flip, hue saturation value, RGB shift, random brightness, and random contrast. Other tested combinations included no augmentations, 3 augmentations (rotation, vertical, horizontal flip), and 10 augmentations (adding motion blur, random gamma, and grayscale to the 7). Specific pixel-level techniques listed in Table 1 include: motion blur, random brightness, random contrast, random gamma, hue saturation value, RGB shift, and grayscale. Specific spatial-level techniques listed in Table 1 include: random 90 rotation, vertical flip, and horizontal flip."
+    },
+    {
+      "technique": "Test-Time Augmentation (TTA)",
+      "details": "Used in the postprocessing stage to improve segmentation accuracy. TTA pools predictions from multiple transformed copies of a given test input to produce a 'smoothed' prediction. The average of predictions from each augmented test image is used as the final prediction. It was tested individually and in combination with Conditional Random Fields (CRF)."
+    },
+    {
+      "technique": "Conditional Random Fields (CRF)",
+      "details": "Used in the postprocessing stage to fine-tune rough image segmentation results by considering spatial information and neighboring labels. It was tested individually and in combination with TTA (CRF-TTA)."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep learning framework, utilizing UNet, ResUNet, and ResUNet++ architectures with test-time augmentation (TTA) and conditional random fields (CRF), achieves high-performance skin lesion segmentation, outperforming state-of-the-art methods on the ISIC-2017 dataset and remaining competitive on ISIC-2016.",
+    "Training on a combined dataset of ISIC-2016 and ISIC-2017 improves generalization, with the ResUNet++ model achieving a Jaccard Index of 90.02% on the ISIC-2016 testing set and 80.73% on the ISIC-2017 testing set.",
+    "The segmentation performance meets the inter-observer agreement threshold of expert dermatologists (Jaccard Index > 78.6%), confirming the clinical relevance and reliability of the proposed methodology.",
+    "Preprocessing with morphological filters and inpainting to remove hair structures, along with specific data augmentation strategies (seven transformations), significantly improves segmentation accuracy compared to raw images or fewer augmentations.",
+    "Test-time augmentation (TTA) combined with conditional random fields (CRF) in the postprocessing stage further enhances segmentation accuracy by fine-tuning predicted masks.",
+    "The study highlights that while quantitative evaluation is common, few prior studies address clinical relevance; this work bridges that gap by benchmarking against expert dermatologist agreement.",
+    "The authors acknowledge that larger training datasets are needed to further reduce under- and over-segmentation cases and improve system performance.",
+    "The proposed methodology is scalable and robust, suggesting potential for extension to other biomedical image segmentation challenges."
+  ],
+  "important_remarks": [
+    "The study focuses on binary segmentation of skin lesions rather than specific melanoma classification; melanoma is cited as clinical motivation but not a distinct experimental target class.",
+    "Performance on the ISIC-2017 dataset was lower (Jaccard Index ~80%) compared to ISIC-2016 (~86-90%), attributed to greater variations in lesion shape/size and poor contrast in ISIC-2017 images.",
+    "20% of test images in the ISIC-2017 dataset resulted in 'failure cases' (Jaccard Index < 70%), partly due to incorrect ground truth annotations in the dataset (e.g., masks not tight to lesions, presence of rulers).",
+    "The paper claims clinical relevance by comparing model performance against the inter-observer agreement threshold of expert dermatologists (Jaccard Index > 78.6%), but does not perform formal statistical hypothesis testing or report p-values.",
+    "The methodology relies on public datasets (ISIC-2016 and ISIC-2017); external validation on independent, unseen clinical datasets from different institutions or demographics is not reported.",
+    "The study acknowledges that larger training datasets are needed to further reduce under- and over-segmentation cases, indicating a limitation regarding data scale.",
+    "Preprocessing steps (morphological filters and inpainting) were used to remove hair structures, which may introduce bias if the algorithm fails to distinguish hair from lesion boundaries in low-contrast images.",
+    "Test-Time Augmentation (TTA) and Conditional Random Fields (CRF) were used for post-processing; while they improved accuracy, they increase computational cost during inference, which is a consideration for real-time deployment."
+  ]
+}

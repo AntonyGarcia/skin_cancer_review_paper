@@ -1,0 +1,228 @@
+{
+  "file_name": "Hajiarbabi - 2023 - Skin cancer detection using multi-scale deep learning and transfer learning.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a multi-scale deep learning approach with transfer learning to detect melanoma versus non-melanoma skin cancer. Specifically, it employs Convolutional Neural Networks (CNNs), specifically MobileNetV2, trained on the ISIC2020 dataset using weights from ImageNet, combined with a fully connected neural network for classification."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'Research Article' in the header. It presents original experimental work involving a proposed multi-scale deep learning system with transfer learning for skin cancer detection. The paper details specific methodology (preprocessing, data augmentation, MobileNetV2 architecture), describes experiments conducted on the ISIC2020 dataset, and reports new quantitative results (accuracy, precision, recall) comparing the proposed method to state-of-the-art methods."
+  },
+  "title": "Skin Cancer Detection using Multi Scale Deep Learning and Transfer Learning",
+  "authors": [
+    "Mohammadreza Hajiarbabi"
+  ],
+  "doi": "10.21203/rs.3.rs-2790927/v1",
+  "journal": null,
+  "year": 2023,
+  "article_type": "Research Article",
+  "brief_summary": "This study proposes a multi-scale deep learning system with transfer learning to detect melanoma versus non-melanoma skin cancer. The authors utilized the ISIC2020 dataset, which contains 33,126 training images, and applied extensive preprocessing including normalization and data augmentation via rotation and cropping. The methodology employs three MobileNetV2 models trained on ImageNet weights, processing images at original, 75% cropped, and 50% cropped scales to focus on the lesion center. The outputs from these multi-scale networks are combined and fed into a fully connected neural network for final classification. The proposed method achieved an accuracy of 90.8%, precision of 91.5%, and recall of 88.6%. These results demonstrate the superiority of the multi-scale approach compared to several state-of-the-art methods.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for detection in the binary classification task (Melanoma vs. non-Melanoma)."
+    },
+    {
+      "lesion_type": "Non-Melanoma Skin Cancer",
+      "paper_terms": [
+        "non-Melanoma",
+        "non-melanoma cancers",
+        "benign cancers"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary classification task. The paper notes that non-melanoma cancers include types such as basal cell carcinoma (BCC) and squamous cell carcinoma (SCC), though these specific subtypes are not individually distinguished in the experimental labels."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. non-Melanoma",
+        "primary": true,
+        "details": "Binary classification task to detect melanoma versus non-melanoma skin cancer. The model uses a fully connected layer with 2 outputs and a softmax layer for class prediction. Performance was evaluated using accuracy, precision, and recall metrics."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2020",
+      "description": "The SIIM-ISIC 2020 Challenge Dataset, a patient-centric dataset of dermoscopic images and metadata for identifying melanomas. It contains images from 2000 patients.",
+      "classes_used": [
+        "Melanoma",
+        "non-Melanoma"
+      ],
+      "counts": {
+        "total": 44108,
+        "training": 33126,
+        "validation": null,
+        "testing": 10982,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the MobileNetV2 models. The 33,126 training images were augmented via rotation (10 degrees) and cropping (5% and 10% from top/bottom/left/right) to increase the dataset size.",
+        "validation": null,
+        "testing": "Used for testing the proposed multi-scale deep learning model.",
+        "other": "ImageNet weights were used for transfer learning initialization, but ImageNet itself was not the primary dataset for the skin cancer task."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Precision",
+    "Recall"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using accuracy, precision, and recall metrics, and results were compared qualitatively to other methods without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2020": {
+      "metric": [
+        "Accuracy",
+        "Precision",
+        "Recall"
+      ],
+      "models": {
+        "Proposed Method (Multi-scale MobileNetV2)": {
+          "Accuracy": "90.8",
+          "Precision": "91.5",
+          "Recall": "88.6"
+        },
+        "DeVries and Ramachandram [17]": {
+          "Accuracy": "90.3",
+          "Precision": "null",
+          "Recall": "null"
+        },
+        "Rezvantalab et al. [12]": {
+          "Accuracy": "83.8",
+          "Precision": "null",
+          "Recall": "null"
+        },
+        "Nasr Esfahani et al. [16]": {
+          "Accuracy": "81",
+          "Precision": "75",
+          "Recall": "81"
+        },
+        "Sagar and Dheeba [13]": {
+          "Accuracy": "93.5",
+          "Precision": "94",
+          "Recall": "77"
+        },
+        "Jojoa Acosta et al. [14]": {
+          "Accuracy": "90.4",
+          "Precision": "null",
+          "Recall": "82"
+        }
+      },
+      "notes": "The proposed method outperformed other methods in accuracy and was comparable in precision and recall. Note: The test set for some comparative methods may differ from the proposed method's test set."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MobileNetV2",
+    "pretraining": "ImageNet weights used for initial transfer learning",
+    "input_size": "Original image size (resized back to original after cropping)",
+    "architecture_details": {
+      "backbone": "MobileNetV2 with 53 layers",
+      "multi_scale_approach": "Three parallel MobileNetV2 networks processing images at different scales: original size, 75% crop (resized to original), and 50% crop (resized to original)",
+      "feature_aggregation": "Global average pooling (global-average-pooling-2D) applied to each branch, then combined into a single vector",
+      "classifier_head": "Fully connected layer with 2 outputs followed by a softmax layer for binary classification (Melanoma vs. non-Melanoma)",
+      "transfer_learning_fine_tuning": "Last classification layer replaced with 2-class softmax; back-propagation applied to fine-tune weights; small learning rate used to prevent dramatic weight changes; back-propagation not applied to the whole network (partial fine-tuning)"
+    },
+    "training_details": {
+      "optimizer": "Not explicitly reported (standard back-propagation mentioned)",
+      "loss_function": "Not explicitly reported (softmax layer implies cross-entropy)",
+      "hyperparameters": {
+        "batch_size": 32,
+        "learning_rate_initial": 0.0001,
+        "learning_rate_fine_tuning": 1e-05,
+        "epochs": 10
+      },
+      "data_augmentation": {
+        "rotation": "10 degrees",
+        "cropping": "5% and 10% from top, bottom, left, right (scaled back to original size)",
+        "normalization": "Subtracting mean of RGB values"
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Fully connected layer with 2 outputs",
+      "activation": "Softmax"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MobileNetV2",
+    "LightNet",
+    "SVM",
+    "deep SVM",
+    "CNN (Esteva)",
+    "Support Vector Machine (SVM)",
+    "sparse coding",
+    "AlexNet",
+    "VGGNet",
+    "GoogleNet",
+    "DenseNet201",
+    "Inception v3",
+    "ResNet 152",
+    "InceptionResNet v2",
+    "ResNet-50",
+    "Densenet169",
+    "ResNet152",
+    "region-based CNN"
+  ],
+  "preprocessing_techniques": [
+    "Normalization: Subtracting the mean of RGB values from the images",
+    "Data Augmentation (Rotation): Rotating each image by 10 degrees",
+    "Data Augmentation (Cropping): Cropping 5% and 10% from the top, bottom, left, and right of the image",
+    "Resizing: Scaling cropped images back to the original size",
+    "Multi-scale Processing: Processing images at three scales: original size, 75% crop (resized to original), and 50% crop (resized to original) to focus on the lesion center",
+    "Noise and Illumination Correction: Preprocessing applied to remove noise and illumination effects (specific techniques not detailed beyond normalization)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Each image was rotated by 10 degrees."
+    },
+    {
+      "technique": "Cropping",
+      "details": "5% and 10% of the image was cropped from the top, bottom, left, and right parts, then scaled back to the original size."
+    },
+    {
+      "technique": "Multi-scale Cropping",
+      "details": "Images were processed at three scales: original size, 75% crop (resized to original), and 50% crop (resized to original) to focus on the lesion center."
+    },
+    {
+      "technique": "Class Balancing",
+      "details": "The paper notes the importance of keeping the number of samples in each class close to each other to avoid bias, but does not specify a specific algorithmic technique (e.g., oversampling/undersampling) used to achieve this balance."
+    }
+  ],
+  "conclusions": [
+    "The proposed multi-scale deep learning system with transfer learning is capable of detecting melanoma versus non-melanoma skin cancer.",
+    "The proposed method achieved an accuracy of 90.8%, precision of 91.5%, and recall of 88.6% on the ISIC2020 dataset.",
+    "The proposed method outperformed other state-of-the-art methods in terms of accuracy.",
+    "The proposed method was comparable to other methods in terms of precision and recall.",
+    "The multi-scale structure allowed the model to focus more on the cancerous part of the image compared to using a simple deep learning model.",
+    "Image processing techniques, including normalization and data augmentation (rotation and cropping), improved the quality and quantity of training images, leading to improved accuracy.",
+    "Future work may involve using other deep learning structures and applying additional image processing techniques such as removing hair and marks from images."
+  ],
+  "important_remarks": [
+    "The study lacks external validation, relying solely on the ISIC2020 dataset for both training and testing.",
+    "The paper explicitly notes that the test sets for comparative methods may differ from the proposed method's test set, limiting the validity of direct performance comparisons.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed to validate the significance of the performance improvements.",
+    "The dataset contains images from only 2000 patients, which may limit the generalizability of the model to broader populations.",
+    "The study does not distinguish between specific subtypes of non-melanoma skin cancer (e.g., basal cell carcinoma vs. squamous cell carcinoma), grouping them as a single 'non-Melanoma' class.",
+    "The author acknowledges that future work is needed to address artifacts such as hair and marks in images, which were not removed in this study.",
+    "The model was trained on consumer-grade hardware (Laptop with RTX 3080 Max-Q), which may not reflect deployment constraints in clinical settings requiring robust, scalable infrastructure."
+  ]
+}

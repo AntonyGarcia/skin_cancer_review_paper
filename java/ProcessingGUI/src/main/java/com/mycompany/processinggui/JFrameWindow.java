@@ -41,6 +41,7 @@ public class JFrameWindow extends javax.swing.JFrame {
         jList1.setCellRenderer(new javax.swing.DefaultListCellRenderer() {
             private final java.awt.Color ALIAS_GREEN = new java.awt.Color(144, 238, 144);
             private final java.awt.Color NC_RED = new java.awt.Color(255, 160, 160);
+            private final java.awt.Color NA_YELLOW = new java.awt.Color(255, 255, 153);
             @Override
             public java.awt.Component getListCellRendererComponent(
                     javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -54,6 +55,9 @@ public class JFrameWindow extends javax.swing.JFrame {
                 if (!isSelected) {
                     if (nonCompliantTerms.contains(term)) {
                         setBackground(NC_RED);
+                        setOpaque(true);
+                    } else if (notAvailableTerms.contains(term)) {
+                        setBackground(NA_YELLOW);
                         setOpaque(true);
                     } else {
                         java.util.List<String> aliases = aliasData.get(term);
@@ -81,14 +85,17 @@ public class JFrameWindow extends javax.swing.JFrame {
                     jList3Model.addElement(alias);
                 }
                 jButton3.setText(nonCompliantTerms.contains(term) ? "Compliant" : "Non-Compliant");
+                jButton7.setText(notAvailableTerms.contains(term) ? "Mark as Available" : "Dataset N/A");
                 boolean singleFile = getTermFileCount(term) == 1;
                 jButton4.setEnabled(singleFile);
                 jButton5.setEnabled(singleFile);
                 jButton6.setEnabled(true);
+                jButton7.setEnabled(true);
             } else {
                 jButton4.setEnabled(false);
                 jButton5.setEnabled(false);
                 jButton6.setEnabled(false);
+                jButton7.setEnabled(false);
             }
         });
 
@@ -106,11 +113,22 @@ public class JFrameWindow extends javax.swing.JFrame {
         doiItem.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
         doiItem.addActionListener(e -> copyDoiToClipboard());
 
+        javax.swing.JMenuItem nonCompliantItem = new javax.swing.JMenuItem("Non-Compliant");
+        nonCompliantItem.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        nonCompliantItem.addActionListener(e -> toggleNonCompliant());
+
+        javax.swing.JMenuItem notAvailableItem = new javax.swing.JMenuItem("Dataset N/A");
+        notAvailableItem.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        notAvailableItem.addActionListener(e -> toggleNotAvailable());
+
         list1Menu.add(copyItem);
         list1Menu.addSeparator();
         list1Menu.add(mergeItem);
         list1Menu.addSeparator();
         list1Menu.add(doiItem);
+        list1Menu.addSeparator();
+        list1Menu.add(nonCompliantItem);
+        list1Menu.add(notAvailableItem);
 
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -131,6 +149,17 @@ public class JFrameWindow extends javax.swing.JFrame {
                 mergeItem.setEnabled(selected > 1);
                 doiItem.setEnabled(selected == 1 && currentSelectedTerm != null
                         && getTermFileCount(currentSelectedTerm) == 1);
+                if (selected == 1 && currentSelectedTerm != null) {
+                    nonCompliantItem.setEnabled(true);
+                    nonCompliantItem.setText(nonCompliantTerms.contains(currentSelectedTerm)
+                            ? "Mark as Compliant" : "Non-Compliant");
+                    notAvailableItem.setEnabled(true);
+                    notAvailableItem.setText(notAvailableTerms.contains(currentSelectedTerm)
+                            ? "Mark as Available" : "Dataset N/A");
+                } else {
+                    nonCompliantItem.setEnabled(false);
+                    notAvailableItem.setEnabled(false);
+                }
                 list1Menu.show(e.getComponent(), e.getX(), e.getY());
             }
         });
@@ -250,6 +279,7 @@ public class JFrameWindow extends javax.swing.JFrame {
         try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.walk(jsonRoot)) {
             java.util.List<java.nio.file.Path> jsonFiles = stream
                     .filter(p -> p.toString().endsWith(".json"))
+                    .filter(p -> !p.getParent().getFileName().toString().equals("non_compliant"))
                     .collect(java.util.stream.Collectors.toList());
 
             for (java.nio.file.Path path : jsonFiles) {
@@ -302,6 +332,7 @@ public class JFrameWindow extends javax.swing.JFrame {
         try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.walk(jsonRoot)) {
             java.util.List<java.nio.file.Path> jsonFiles = stream
                     .filter(p -> p.toString().endsWith(".json"))
+                    .filter(p -> !p.getParent().getFileName().toString().equals("non_compliant"))
                     .collect(java.util.stream.Collectors.toList());
             for (java.nio.file.Path path : jsonFiles) {
                 try {
@@ -352,6 +383,7 @@ public class JFrameWindow extends javax.swing.JFrame {
     private void loadOrInitAliasData(java.util.Set<String> allNames) {
         aliasData.clear();
         nonCompliantTerms.clear();
+        notAvailableTerms.clear();
         boolean fileExists = aliasFilePath != null && java.nio.file.Files.exists(aliasFilePath);
         if (fileExists) {
             try {
@@ -369,10 +401,14 @@ public class JFrameWindow extends javax.swing.JFrame {
                     if (entry.optBoolean("non_compliant", false)) {
                         nonCompliantTerms.add(term);
                     }
+                    if (entry.optBoolean("not_available", false)) {
+                        notAvailableTerms.add(term);
+                    }
                 }
             } catch (Exception e) {
                 aliasData.clear();
                 nonCompliantTerms.clear();
+                notAvailableTerms.clear();
                 fileExists = false;
             }
         }
@@ -405,6 +441,9 @@ public class JFrameWindow extends javax.swing.JFrame {
                 if (nonCompliantTerms.contains(term)) {
                     entry.put("non_compliant", true);
                 }
+                if (notAvailableTerms.contains(term)) {
+                    entry.put("not_available", true);
+                }
                 arr.put(entry);
             }
             java.nio.file.Files.writeString(aliasFilePath, arr.toString(2), java.nio.charset.StandardCharsets.UTF_8);
@@ -436,6 +475,8 @@ public class JFrameWindow extends javax.swing.JFrame {
         jButton6.setText("Google Search");
         jButton6.setEnabled(false);
         jButton6.addActionListener(e -> openGoogleSearch());
+        jButton7.addActionListener(e -> toggleNotAvailable());
+        jButton7.setEnabled(false);
         jTextFieldSearch.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override public void insertUpdate(javax.swing.event.DocumentEvent e) { refreshList1(); }
             @Override public void removeUpdate(javax.swing.event.DocumentEvent e) { refreshList1(); }
@@ -501,7 +542,7 @@ public class JFrameWindow extends javax.swing.JFrame {
         try {
             String raw = java.nio.file.Files.readString(chosen, java.nio.charset.StandardCharsets.UTF_8);
             String pretty = new org.json.JSONObject(raw).toString(4);
-            showJsonWindow(chosen.getFileName().toString(), pretty);
+            showJsonWindow(chosen.getFileName().toString(), pretty, chosen);
         } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this,
                     "Could not read file: " + ex.getMessage(),
@@ -509,7 +550,7 @@ public class JFrameWindow extends javax.swing.JFrame {
         }
     }
 
-    private void showJsonWindow(String title, String content) {
+    private void showJsonWindow(String title, String content, java.nio.file.Path filePath) {
         javax.swing.JDialog dialog = new javax.swing.JDialog(this, title, false);
         dialog.setMinimumSize(new java.awt.Dimension(1000, 700));
         dialog.setSize(1200, 800);
@@ -667,7 +708,96 @@ public class JFrameWindow extends javax.swing.JFrame {
         javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(textArea);
         scroll.setHorizontalScrollBarPolicy(javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
+        // Top toolbar
+        boolean alreadyNonCompliant = filePath != null
+                && filePath.getParent() != null
+                && filePath.getParent().getFileName().toString().equals("non_compliant");
+        javax.swing.JButton moveBtn = new javax.swing.JButton(
+                alreadyNonCompliant ? "Remove from List" : "Move to Non-Compliant");
+        moveBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        moveBtn.setEnabled(filePath != null);
+        moveBtn.addActionListener(ev -> {
+            String confirmMsg = alreadyNonCompliant
+                    ? "Remove datasets of \"" + filePath.getFileName() + "\" from the list?"
+                    : "Move \"" + filePath.getFileName() + "\" to non_compliant?";
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(dialog,
+                    confirmMsg, "Confirm", javax.swing.JOptionPane.YES_NO_OPTION);
+            if (confirm != javax.swing.JOptionPane.YES_OPTION) return;
+            try {
+                if (!alreadyNonCompliant) {
+                    java.nio.file.Path ncDir = findJsonRoot();
+                    if (ncDir == null) {
+                        javax.swing.JOptionPane.showMessageDialog(dialog, "Could not locate json root.",
+                                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    ncDir = ncDir.resolve("non_compliant");
+                    java.nio.file.Files.createDirectories(ncDir);
+                    java.nio.file.Path dest = ncDir.resolve(filePath.getFileName());
+                    if (java.nio.file.Files.exists(dest)) {
+                        int dup = 1;
+                        String stem = filePath.getFileName().toString().replaceAll("\\.json$", "");
+                        while (true) {
+                            java.nio.file.Path cand = ncDir.resolve(stem + "__dup" + dup + ".json");
+                            if (!java.nio.file.Files.exists(cand)) { dest = cand; break; }
+                            dup++;
+                        }
+                    }
+                    java.nio.file.Files.move(filePath, dest);
+                }
+
+                // Collect dataset names from the file
+                java.util.Set<String> movedNames = new java.util.HashSet<>();
+                try {
+                    org.json.JSONObject rec = new org.json.JSONObject(content);
+                    Object du = rec.opt("datasets_used");
+                    if (du instanceof org.json.JSONArray movedArr) {
+                        for (int mi = 0; mi < movedArr.length(); mi++) {
+                            Object item = movedArr.get(mi);
+                            String n = item instanceof org.json.JSONObject obj2
+                                    ? obj2.optString("name", "") : item.toString().trim();
+                            if (!n.isEmpty()) movedNames.add(n);
+                        }
+                    }
+                } catch (Exception ignored) {}
+
+                // Remove terms whose aliases are exclusively in this file
+                java.util.List<String> toRemove = new java.util.ArrayList<>();
+                for (java.util.Map.Entry<String, java.util.List<String>> me : aliasData.entrySet()) {
+                    int remaining = 0;
+                    for (String a : me.getValue()) {
+                        int cnt = datasetFileCounts.getOrDefault(a, 0);
+                        if (movedNames.contains(a)) cnt--;
+                        remaining += Math.max(cnt, 0);
+                    }
+                    if (remaining == 0) toRemove.add(me.getKey());
+                }
+                for (String t : toRemove) {
+                    aliasData.remove(t);
+                    nonCompliantTerms.remove(t);
+                    notAvailableTerms.remove(t);
+                }
+
+                // Update file counts
+                for (String n : movedNames) {
+                    datasetFileCounts.computeIfPresent(n, (k, v) -> v > 1 ? v - 1 : null);
+                }
+
+                saveAliasData();
+                refreshList1();
+                dialog.dispose();
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(dialog,
+                        "Could not move file: " + ex.getMessage(),
+                        "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        javax.swing.JPanel topBar = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 4));
+        topBar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, java.awt.Color.GRAY));
+        topBar.add(moveBtn);
+
         dialog.setLayout(new java.awt.BorderLayout());
+        dialog.add(topBar, java.awt.BorderLayout.NORTH);
         dialog.add(scroll, java.awt.BorderLayout.CENTER);
         dialog.add(searchBar, java.awt.BorderLayout.SOUTH);
         dialog.setVisible(true);
@@ -768,6 +898,20 @@ public class JFrameWindow extends javax.swing.JFrame {
         jList1.setSelectedValue(currentSelectedTerm, true);
     }
 
+    private void toggleNotAvailable() {
+        if (currentSelectedTerm == null || !aliasData.containsKey(currentSelectedTerm)) return;
+        if (notAvailableTerms.contains(currentSelectedTerm)) {
+            notAvailableTerms.remove(currentSelectedTerm);
+            jButton7.setText("Dataset N/A");
+        } else {
+            notAvailableTerms.add(currentSelectedTerm);
+            jButton7.setText("Mark as Available");
+        }
+        saveAliasData();
+        refreshList1();
+        jList1.setSelectedValue(currentSelectedTerm, true);
+    }
+
     private void setupTextFieldRename() {
         jTextField1.addActionListener(e -> renameCurrentTerm());
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -835,6 +979,7 @@ public class JFrameWindow extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -899,6 +1044,9 @@ public class JFrameWindow extends javax.swing.JFrame {
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton6.setText("Search Google");
 
+        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton7.setText("Dataset N/A");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -923,7 +1071,7 @@ public class JFrameWindow extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+                        .addComponent(jTextField1))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
@@ -931,8 +1079,9 @@ public class JFrameWindow extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
-                        .addGap(0, 58, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -955,7 +1104,8 @@ public class JFrameWindow extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton7))
                 .addContainerGap())
         );
 
@@ -1004,6 +1154,7 @@ public class JFrameWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1022,5 +1173,6 @@ public class JFrameWindow extends javax.swing.JFrame {
     private final java.util.LinkedHashMap<String, java.util.List<String>> aliasData = new java.util.LinkedHashMap<>();
     private final java.util.Map<String, Integer> datasetFileCounts = new java.util.HashMap<>();
     private final java.util.Set<String> nonCompliantTerms = new java.util.HashSet<>();
+    private final java.util.Set<String> notAvailableTerms = new java.util.HashSet<>();
     private String currentSelectedTerm = null;
 }

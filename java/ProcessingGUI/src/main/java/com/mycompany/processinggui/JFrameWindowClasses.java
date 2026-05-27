@@ -30,6 +30,8 @@ public class JFrameWindowClasses extends javax.swing.JFrame {
         }
         classFilePaths.clear();
         classFilePaths.putAll(collectClassFilePaths());
+        compliantJsonFileCount = countJsonFilesInFolder("compliant");
+        nonCompliantJsonFileCount = countJsonFilesInFolder("non_compliant");
         datasetFileCounts.clear();
         for (java.util.Map.Entry<String, java.util.Set<java.nio.file.Path>> entry : classFilePaths.entrySet()) {
             datasetFileCounts.put(entry.getKey(), entry.getValue().size());
@@ -186,19 +188,34 @@ public class JFrameWindowClasses extends javax.swing.JFrame {
         javax.swing.JMenuItem pasteItem = new javax.swing.JMenuItem("Paste");
         pasteItem.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
         pasteItem.addActionListener(e -> pasteToList2());
+        javax.swing.JMenuItem nonCompliantAliasItem = new javax.swing.JMenuItem("Non-Compliant");
+        nonCompliantAliasItem.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        nonCompliantAliasItem.addActionListener(e -> moveSelectedAliasesToNonCompliant());
         list3Menu.add(pasteItem);
+        list3Menu.add(nonCompliantAliasItem);
 
         jList3.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent e) {
-                if (e.isPopupTrigger() && !listClipboard.isEmpty())
-                    list3Menu.show(e.getComponent(), e.getX(), e.getY());
+                maybeShowPopup(e);
             }
 
             @Override
             public void mouseReleased(java.awt.event.MouseEvent e) {
-                if (e.isPopupTrigger() && !listClipboard.isEmpty())
+                maybeShowPopup(e);
+            }
+
+            private void maybeShowPopup(java.awt.event.MouseEvent e) {
+                if (!e.isPopupTrigger()) return;
+                int idx = jList3.locationToIndex(e.getPoint());
+                if (idx >= 0 && !jList3.isSelectedIndex(idx)) {
+                    jList3.setSelectedIndex(idx);
+                }
+                pasteItem.setEnabled(!listClipboard.isEmpty());
+                nonCompliantAliasItem.setEnabled(!jList3.getSelectedValuesList().isEmpty());
+                if (pasteItem.isEnabled() || nonCompliantAliasItem.isEnabled()) {
                     list3Menu.show(e.getComponent(), e.getX(), e.getY());
+                }
             }
         });
     }
@@ -301,6 +318,20 @@ public class JFrameWindowClasses extends javax.swing.JFrame {
         return pathsByTerm;
     }
 
+    private int countJsonFilesInFolder(String folderName) {
+        java.nio.file.Path jsonRoot = findJsonRoot();
+        if (jsonRoot == null) return 0;
+        java.nio.file.Path folder = jsonRoot.resolve(folderName);
+        if (!java.nio.file.Files.isDirectory(folder)) return 0;
+        try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.walk(folder)) {
+            return (int) stream
+                    .filter(p -> p.toString().endsWith(".json"))
+                    .count();
+        } catch (java.io.IOException e) {
+            return 0;
+        }
+    }
+
     private java.util.List<java.nio.file.Path> listJsonFiles(boolean includeNonCompliant) {
         java.nio.file.Path jsonRoot = findJsonRoot();
         if (jsonRoot == null) {
@@ -383,7 +414,7 @@ public class JFrameWindowClasses extends javax.swing.JFrame {
                 for (int i = 0; i < arr.length(); i++) {
                     org.json.JSONObject entry = arr.getJSONObject(i);
                     String term = cleanTerm(entry.optString("term", ""));
-                    if (!allNames.contains(term)) {
+                    if (term.isEmpty()) {
                         aliasDataChanged = true;
                         continue;
                     }
@@ -397,9 +428,13 @@ public class JFrameWindowClasses extends javax.swing.JFrame {
                             aliasDataChanged = true;
                         }
                     }
-                    if (!aliases.contains(term)) {
+                    if (allNames.contains(term) && !aliases.contains(term)) {
                         aliases.add(0, term);
                         aliasDataChanged = true;
+                    }
+                    if (aliases.isEmpty()) {
+                        aliasDataChanged = true;
+                        continue;
                     }
                     aliasData.put(term, aliases);
                     if (entry.optBoolean("non_compliant", false)) {
@@ -467,9 +502,11 @@ public class JFrameWindowClasses extends javax.swing.JFrame {
                 : allTerms.stream().filter(t -> classTermMatchesFilter(t, filter))
                           .collect(java.util.stream.Collectors.toList());
         jList1.setListData(terms.toArray(new String[0]));
+        String fileCounts = " | JSON files: compliant " + compliantJsonFileCount
+                + ", non-compliant " + nonCompliantJsonFileCount;
         jLabel1.setText(filter.isEmpty()
-                ? "Unique datasets: " + terms.size()
-                : "Showing: " + terms.size() + " / " + allTerms.size());
+                ? "Unique datasets: " + terms.size() + fileCounts
+                : "Showing: " + terms.size() + " / " + allTerms.size() + fileCounts);
         jList1.repaint();
     }
 
@@ -523,6 +560,49 @@ public class JFrameWindowClasses extends javax.swing.JFrame {
             }
         }
         return false;
+    }
+
+    private java.util.List<java.nio.file.Path> findMatchingClassFilesForTerms(
+            java.util.Collection<String> lesionTypes,
+            boolean includeNonCompliant) {
+        java.util.Set<String> terms = new java.util.HashSet<>();
+        for (String lesionType : lesionTypes) {
+            String clean = cleanTerm(lesionType);
+            if (!clean.isEmpty()) {
+                terms.add(clean);
+            }
+        }
+        if (terms.isEmpty()) {
+            return java.util.Collections.emptyList();
+        }
+
+        java.util.List<java.nio.file.Path> matchingFiles = new java.util.ArrayList<>();
+        for (java.nio.file.Path path : listJsonFiles(includeNonCompliant)) {
+            try {
+                String content = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
+                if (recordHasClassAlias(new org.json.JSONObject(content), terms)) {
+                    matchingFiles.add(path);
+                }
+            } catch (Exception ignored) {}
+        }
+        return matchingFiles;
+    }
+
+    private java.util.Set<String> collectClusterTermsInFiles(java.util.List<java.nio.file.Path> files) {
+        java.util.Set<String> clusterTerms = new java.util.HashSet<>(
+                aliasData.getOrDefault(currentSelectedTerm, java.util.Collections.emptyList()));
+        java.util.Set<String> found = new java.util.TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        for (java.nio.file.Path path : files) {
+            try {
+                String content = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
+                for (String classTerm : collectClassTerms(new org.json.JSONObject(content))) {
+                    if (containsIgnoreCase(clusterTerms, classTerm)) {
+                        found.add(classTerm);
+                    }
+                }
+            } catch (Exception ignored) {}
+        }
+        return found;
     }
 
     private boolean containsIgnoreCase(java.util.Collection<String> values, String target) {
@@ -881,13 +961,23 @@ public class JFrameWindowClasses extends javax.swing.JFrame {
     }
 
     private void moveCurrentClassFilesToNonCompliant() {
-        java.util.List<java.nio.file.Path> matchingFiles = findMatchingClassFiles(false);
+        java.util.List<String> aliases = aliasData.getOrDefault(currentSelectedTerm, java.util.Collections.emptyList());
+        java.util.List<String> termsToMove = chooseClassTermsToMove(aliases);
+        if (termsToMove.isEmpty()) {
+            return;
+        }
+
+        java.util.List<java.nio.file.Path> matchingFiles = findMatchingClassFilesForTerms(termsToMove, false);
         if (matchingFiles.isEmpty()) {
             nonCompliantTerms.add(currentSelectedTerm);
             jButton3.setText("Compliant");
             saveAliasData();
             refreshList1();
             jList1.setSelectedValue(currentSelectedTerm, true);
+            return;
+        }
+
+        if (!confirmMoveDoesNotHideOtherClusterTerms(termsToMove, matchingFiles)) {
             return;
         }
 
@@ -911,6 +1001,105 @@ public class JFrameWindowClasses extends javax.swing.JFrame {
             jTextField1.setText("");
             jList3Model.clear();
             loadClassNamesIntoList();
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Could not move matching JSON files: " + ex.getMessage(),
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private java.util.List<String> chooseClassTermsToMove(java.util.List<String> aliases) {
+        if (aliases.size() <= 1) {
+            return java.util.Collections.singletonList(currentSelectedTerm);
+        }
+
+        String onlyCurrent = "Only \"" + currentSelectedTerm + "\"";
+        String wholeCluster = "Whole Cluster";
+        String cancel = "Cancel";
+        int choice = javax.swing.JOptionPane.showOptionDialog(this,
+                "\"" + currentSelectedTerm + "\" is a cluster with " + aliases.size()
+                        + " terms.\nMove only the selected/main term, or explicitly move the whole cluster?",
+                "Non-Compliant",
+                javax.swing.JOptionPane.DEFAULT_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE,
+                null,
+                new Object[]{onlyCurrent, wholeCluster, cancel},
+                cancel);
+
+        if (choice == 0) {
+            return java.util.Collections.singletonList(currentSelectedTerm);
+        }
+        if (choice == 1) {
+            return new java.util.ArrayList<>(aliases);
+        }
+        return java.util.Collections.emptyList();
+    }
+
+    private boolean confirmMoveDoesNotHideOtherClusterTerms(
+            java.util.List<String> termsToMove,
+            java.util.List<java.nio.file.Path> matchingFiles) {
+        java.util.Set<String> touchedClusterTerms = collectClusterTermsInFiles(matchingFiles);
+        java.util.Set<String> requestedTerms = new java.util.HashSet<>(termsToMove);
+        touchedClusterTerms.removeIf(term -> containsIgnoreCase(requestedTerms, term));
+        if (touchedClusterTerms.isEmpty()) {
+            return true;
+        }
+
+        String alsoTouched = String.join(", ", touchedClusterTerms);
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+                "The JSON file(s) that would be moved also contain these cluster term(s):\n"
+                        + alsoTouched
+                        + "\n\nMove anyway?",
+                "Confirm Non-Compliant Move",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+        return confirm == javax.swing.JOptionPane.YES_OPTION;
+    }
+
+    private void moveSelectedAliasesToNonCompliant() {
+        if (currentSelectedTerm == null || !aliasData.containsKey(currentSelectedTerm)) return;
+        java.util.List<String> selectedAliases = jList3.getSelectedValuesList();
+        if (selectedAliases.isEmpty()) return;
+
+        java.util.List<java.nio.file.Path> matchingFiles = findMatchingClassFilesForTerms(selectedAliases, false);
+        if (matchingFiles.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "No compliant JSON files found for the selected alias term(s).",
+                    "Non-Compliant", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if (!confirmMoveDoesNotHideOtherClusterTerms(selectedAliases, matchingFiles)) {
+            return;
+        }
+
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+                "Move " + matchingFiles.size() + " JSON file(s) for selected alias term(s) only?",
+                "Non-Compliant", javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+        if (confirm != javax.swing.JOptionPane.YES_OPTION) return;
+
+        java.nio.file.Path jsonRoot = findJsonRoot();
+        if (jsonRoot == null) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Could not locate json root.",
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            java.nio.file.Path nonCompliantDir = jsonRoot.resolve("non_compliant");
+            java.nio.file.Files.createDirectories(nonCompliantDir);
+            for (java.nio.file.Path path : matchingFiles) {
+                moveJsonToDirectory(path, nonCompliantDir);
+            }
+            loadClassNamesIntoList();
+            if (aliasData.containsKey(currentSelectedTerm)) {
+                jList1.setSelectedValue(currentSelectedTerm, true);
+            } else {
+                currentSelectedTerm = null;
+                jTextField1.setText("");
+                jList3Model.clear();
+            }
         } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this,
                     "Could not move matching JSON files: " + ex.getMessage(),
@@ -1196,5 +1385,7 @@ public class JFrameWindowClasses extends javax.swing.JFrame {
     private final java.util.Map<String, java.util.Set<java.nio.file.Path>> classFilePaths = new java.util.HashMap<>();
     private final java.util.Set<String> nonCompliantTerms = new java.util.HashSet<>();
     private final java.util.Set<String> notAvailableTerms = new java.util.HashSet<>();
+    private int compliantJsonFileCount = 0;
+    private int nonCompliantJsonFileCount = 0;
     private String currentSelectedTerm = null;
 }

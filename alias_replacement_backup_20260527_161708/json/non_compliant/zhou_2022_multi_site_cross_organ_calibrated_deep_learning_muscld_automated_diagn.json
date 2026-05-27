@@ -1,0 +1,390 @@
+{
+  "file_name": "zhou_2022_multi_site_cross_organ_calibrated_deep_learning_muscld_automated_diagn.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Multi-Site Cross-Organ Calibrated Deep Learning (MuSClD), a deep learning approach, to automate the diagnosis and subtyping of non-melanoma skin cancer (NMSC), specifically distinguishing basal cell carcinoma (BCC) and squamous cell carcinoma (SCC) subtypes from histopathological whole slide images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work introducing a new deep learning approach called Multi-Site Cross-Organ Calibrated Deep Learning (MuSClD). It details specific methods for domain adaptation, describes the construction of training and held-out testing cohorts (Australian and Swiss), and reports quantitative results including AUC metrics and p-values for automated diagnosis of non-melanoma skin cancer subtypes. The structure includes standard research sections such as Introduction, Methods, Results, and Conclusion, rather than summarizing prior literature."
+  },
+  "title": "Multi-site cross-organ calibrated deep learning (MuSClD): Automated diagnosis of non-melanoma skin cancer",
+  "authors": [
+    "Yufei Zhou",
+    "Can Koyuncu",
+    "Cheng Lu",
+    "Rainer Grobholz",
+    "Ian Katz",
+    "Anant Madabhushi",
+    "Andrew Janowczyk"
+  ],
+  "doi": "10.1016/j.media.2022.102702",
+  "journal": "Medical Image Analysis",
+  "year": 2022,
+  "article_type": "Original research article",
+  "brief_summary": "This study introduces Multi-Site Cross-Organ Calibrated Deep Learning (MuSClD) to automate the diagnosis and subtyping of non-melanoma skin cancer (NMSC), specifically distinguishing basal cell carcinoma (BCC), in-situ squamous cell carcinoma (SCC-In Situ), and invasive SCC. The method utilizes whole slide images from an Australian training cohort (n=85) and a Swiss held-out testing cohort (n=352), employing Swiss lung tissue as an off-target calibration template to mitigate domain shift caused by pre-analytical variances. The evaluation approach involved assessing color distribution metrics and measuring one-vs-rest AUC scores for NMSC subtyping on the external test site. Key results demonstrated that MuSClD significantly improved classification performance compared to baseline uncalibrated models, achieving AUCs of 0.92 for BCC (p=0.01) and 0.92 for SCC-Invasive (p=1e-5). The study concludes that cross-organ calibration effectively mitigates domain shift and reduces data leakage risks while maintaining high diagnostic accuracy.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Benign skin lesion",
+      "paper_terms": [
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "Used as a class in the NMSC-subtyping model trained on the Australian cohort (n=85) to distinguish from malignant subtypes."
+    },
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "One of the primary targets for automated diagnosis and subtyping; achieved an AUC of 0.92 with MuSClD on the Swiss test cohort."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma in situ",
+      "paper_terms": [
+        "in-situ squamous cell carcinomas",
+        "SCC-In Situ",
+        "Bowen disease"
+      ],
+      "role": "Target class",
+      "details": "A superficial form of SCC; distinguished from invasive SCC and BCC. Achieved an AUC of 0.87 with MuSClD on the Swiss test cohort."
+    },
+    {
+      "lesion_type": "Invasive squamous cell carcinoma",
+      "paper_terms": [
+        "invasive squamous cell carcinomas",
+        "SCC-Invasive"
+      ],
+      "role": "Target class",
+      "details": "A malignant subtype of SCC with metastatic potential; distinguished from BCC and SCC-In Situ. Achieved an AUC of 0.92 with MuSClD on the Swiss test cohort."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Non-melanoma skin cancer (NMSC) subtypes: Basal Cell Carcinoma (BCC), In-situ Squamous Cell Carcinoma (SCC-In Situ), and Invasive Squamous Cell Carcinoma (SCC-Invasive), as well as benign tissue.",
+        "primary": true,
+        "details": "The paper performs multi-class classification to distinguish between BCC, SCC-In Situ, and SCC-Invasive subtypes, and benign tissue. The task is explicitly described as 'NMSC-subtyping' and 'multiclass classification'. Performance is evaluated using one-vs-rest AUC scores for each class (e.g., BCC, SCC-In Situ, SCC-Invasive) on an external test cohort."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Australian Training Cohort",
+      "description": "A cohort of whole slide images (WSI) from Southern Sun Pathology, Sydney, Australia, used as the source domain (training site) for the NMSC-subtyping model. It contains skin tissue slides scanned at 20x magnification.",
+      "classes_used": [
+        "Benign",
+        "Basal Cell Carcinoma (BCC)",
+        "In-situ Squamous Cell Carcinoma (SCC-In Situ)",
+        "Invasive Squamous Cell Carcinoma (SCC-Invasive)"
+      ],
+      "counts": {
+        "total": 85,
+        "training": 85,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign": 11,
+          "BCC": 54,
+          "SCC-In Situ": 10,
+          "SCC-Invasive": 10
+        }
+      },
+      "use": {
+        "training": "Used as the primary training dataset for the NMSC-subtyping model. Patches were extracted and calibrated using Swiss lung tissue (MuSClD) or Swiss skin tissue (SOC) for domain adaptation experiments.",
+        "validation": "Internal validation was performed on this cohort using the calibrated data (EALS, ALS) to assess model performance before external testing.",
+        "testing": null,
+        "other": "Used as the source domain (DT) for CycleGAN-based calibration against the target domain (BS)."
+      }
+    },
+    {
+      "name": "Swiss Testing Cohort",
+      "description": "A held-out external cohort of whole slide images (WSI) from Cantonal Hospital Aarau and University Hospital Zurich, Switzerland, used as the target domain (testing site). It contains skin tissue slides scanned at 40x magnification and down-sampled to 20x.",
+      "classes_used": [
+        "Basal Cell Carcinoma (BCC)",
+        "In-situ Squamous Cell Carcinoma (SCC-In Situ)",
+        "Invasive Squamous Cell Carcinoma (SCC-Invasive)"
+      ],
+      "counts": {
+        "total": 352,
+        "training": null,
+        "validation": null,
+        "testing": 352,
+        "per_class": {
+          "BCC": 131,
+          "SCC-In Situ": 12,
+          "SCC-Invasive": 200
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as the independent external test set to evaluate the generalizability of the NMSC-subtyping model trained on the Australian cohort. Performance was measured using one-vs-rest AUC scores.",
+        "other": "Swiss lung tissue samples from this site were used as off-target calibration templates (BL) to mitigate domain shift for the Australian training data."
+      }
+    },
+    {
+      "name": "Swiss Lung Tissue Cohort",
+      "description": "A collection of lung tissue whole slide images from the Swiss testing site (Switzerland), used as an off-target organ source for cross-organ calibration.",
+      "classes_used": [
+        "Lung Tissue"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Used as calibration templates (BL) in the MuSClD approach to align the color and intensity distributions of the Australian training data (AS) to the Swiss testing data (BS), mitigating domain shift without data leakage."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "one-vs-rest AUC",
+    "Wasserstein distance",
+    "brightness",
+    "contrast",
+    "RGB intensity",
+    "HSV channels",
+    "Haralick texture features",
+    "mean nuclei area",
+    "Wilcoxon rank-sum test p-value",
+    "Delong test p-value"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Wilcoxon rank-sum test",
+      "purpose": "To determine if image metric distributions (brightness, contrast, RGB intensity, HSV channels) between Australian (AS) and Swiss (BS) sites, and between calibrated (ALS) and Swiss (BS) sites, were statistically significant.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Delong test",
+      "purpose": "To assess whether the improvement between ROC curves (AUC scores) of the MuSClD model and baseline models (SOC) was statistically significant.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Wasserstein distance",
+      "purpose": "To evaluate domain shift and measure the similarity of color, contrast, and morphological feature distributions between datasets.",
+      "type": "Distance metric"
+    },
+    {
+      "method": "One-vs-rest AUC",
+      "purpose": "To evaluate the performance of the multi-class NMSC-subtyping model for each class (Benign, BCC, SCC-In Situ, SCC-Invasive).",
+      "type": "Performance metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Wilcoxon rank-sum test and DeLong test",
+    "null_hypothesis": "For the Wilcoxon rank-sum test: There is no difference in the distribution of image metrics (brightness, contrast, RGB intensity, HSV channels, or morphological features) between the compared sites (e.g., Australian vs. Swiss, or calibrated vs. Swiss). For the DeLong test: There is no significant difference between the ROC curves (AUC scores) of the MuSClD model and the baseline SOC model.",
+    "alternative_hypothesis": "For the Wilcoxon rank-sum test: There is a statistically significant difference in the distribution of image metrics between the compared sites. For the DeLong test: The MuSClD model's AUC is significantly different from the baseline SOC model's AUC.",
+    "alpha": 0.05,
+    "interpretation": "Statistical significance was determined using p-values. For image metric distributions, the Wilcoxon rank-sum test was used to assess if differences were significant (e.g., p < 0.05 indicated significant differences in brightness/contrast between sites). For model performance, the DeLong test was used to assess if improvements in AUC were statistically significant (e.g., p=0.01 for BCC and p=1e-5 for SCC-Invasive indicated significant improvements of MuSClD over baselines)."
+  },
+  "results_obtained_in_each_dataset": {
+    "Australian_Training_Cohort": {
+      "metric": "Patch-level one-vs-rest AUC (Internal Validation)",
+      "models": {
+        "EAS, AS": {
+          "Benign": "0.99",
+          "BCC": "0.99",
+          "SCC-In Situ": "0.97",
+          "SCC-Invasive": "0.99"
+        },
+        "EALS, ALS": {
+          "Benign": "0.98",
+          "BCC": "0.99",
+          "SCC-In Situ": "0.94",
+          "SCC-Invasive": "0.98"
+        },
+        "EAS, ALS": {
+          "Benign": "0.98",
+          "BCC": "0.91",
+          "SCC-In Situ": "0.76",
+          "SCC-Invasive": "0.97"
+        },
+        "EALS, AS": {
+          "Benign": "0.98",
+          "BCC": "0.96",
+          "SCC-In Situ": "0.80",
+          "SCC-Invasive": "0.95"
+        },
+        "EAS, ASS": {
+          "Benign": "0.98",
+          "BCC": "0.99",
+          "SCC-In Situ": "0.92",
+          "SCC-Invasive": "0.86"
+        }
+      },
+      "notes": "Internal validation results for MuSClD (EALS, ALS) showed high patch-level AUCs. The paper notes that EALS, ALS AUCs are close to EAS, AS, indicating limited error introduced by MuSClD."
+    },
+    "Swiss_Testing_Cohort": {
+      "metric": "Patient-level one-vs-rest AUC (Held-out Test)",
+      "models": {
+        "MuSClD (EALS, BS)": {
+          "Benign": "0.92",
+          "BCC": "0.92",
+          "SCC-In Situ": "0.87",
+          "SCC-Invasive": "0.92"
+        },
+        "Baseline SOC (EAS, BS)": {
+          "Benign": "0.96",
+          "BCC": "0.87",
+          "SCC-In Situ": "0.73",
+          "SCC-Invasive": "0.82"
+        }
+      },
+      "notes": "MuSClD significantly improved classification performance compared to baseline SOC for BCC (p=0.01) and SCC-Invasive (p=1e-5). Performance for SCC-In Situ was not statistically significant (p=0.15). Benign classification was similar between models."
+    },
+    "Internal_Validation_Split": {
+      "metric": "Patient-level one-vs-rest AUC (Internal Validation)",
+      "models": {
+        "EAS, AS": {
+          "Benign": "0.97",
+          "BCC": "0.98",
+          "SCC-In Situ": "0.92",
+          "SCC-Invasive": "0.97"
+        },
+        "EALS, ALS": {
+          "Benign": "0.96",
+          "BCC": "0.97",
+          "SCC-In Situ": "0.91",
+          "SCC-Invasive": "0.98"
+        },
+        "EAS, ALS": {
+          "Benign": "0.99",
+          "BCC": "0.94",
+          "SCC-In Situ": "0.78",
+          "SCC-Invasive": "0.91"
+        },
+        "EALS, AS": {
+          "Benign": "0.97",
+          "BCC": "0.96",
+          "SCC-In Situ": "0.88",
+          "SCC-Invasive": "0.99"
+        },
+        "EAS, ASS": {
+          "Benign": "0.90",
+          "BCC": "0.95",
+          "SCC-In Situ": "0.85",
+          "SCC-Invasive": "0.94"
+        }
+      },
+      "notes": "Internal validation on the Australian cohort split 7:3. EALS, ALS (MuSClD calibrated) showed similar performance to EAS, AS (uncalibrated), suggesting minimal artifact introduction."
+    },
+    "Image_Metrics_Comparison": {
+      "metric": "Mean Intensity and Standard Deviation (Brightness, Contrast, RGB, HSV)",
+      "models": {
+        "Australian Skin (AS)": {
+          "Brightness": "0.75 ± 0.05",
+          "Contrast": "0.72 ± 0.07",
+          "R": "0.81 ± 0.07",
+          "G": "0.63 ± 0.09",
+          "B": "0.78 ± 0.05",
+          "H": "0.43 ± 0.03",
+          "S": "0.69 ± 0.08",
+          "V": "0.78 ± 0.10"
+        },
+        "Swiss Skin (BS)": {
+          "Brightness": "0.78 ± 0.05",
+          "Contrast": "0.77 ± 0.05",
+          "R": "0.83 ± 0.04",
+          "G": "0.72 ± 0.07",
+          "B": "0.86 ± 0.03",
+          "H": "0.53 ± 0.13",
+          "S": "0.11 ± 0.04",
+          "V": "0.90 ± 0.02"
+        },
+        "Swiss Lung (BL)": {
+          "Brightness": "0.65 ± 0.08",
+          "Contrast": "0.81 ± 0.40",
+          "R": "0.86 ± 0.04",
+          "G": "0.76 ± 0.05",
+          "B": "0.88 ± 0.02",
+          "H": "0.78 ± 0.03",
+          "S": "0.15 ± 0.04",
+          "V": "0.89 ± 0.02"
+        }
+      },
+      "notes": "Wilcoxon rank-sum test p-values for brightness between AS vs BS was 3e-105, and BL vs BS was 8e-218. BL and BS are closer in green and blue intensity distribution distance compared to AS."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNext50_32x4d",
+    "pretraining": "Not explicitly reported in the provided context, though ResNext is noted for high predictive performance with few parameters.",
+    "input_size": "512 x 512 pixel patches extracted at 20x magnification.",
+    "architecture_details": {
+      "backbone": "ResNext50_32x4d",
+      "calibration_component": "CycleGAN-based framework (MuSClD) consisting of a generator model (GA2B) and a discriminator model (DB) to map training site images to testing site appearance.",
+      "loss_functions": [
+        "L1 reconstruction loss (L_tilde) for CycleGAN calibration to preserve stylistic and spatial attributes.",
+        "Standard classification loss for the NMSC-subtyping classifier (details in Section S1)."
+      ],
+      "augmentation": "Stain augmentation employed during training of all DL networks."
+    },
+    "training_details": {
+      "calibration_training": "MuSClD (CycleGAN) trained until reconstruction loss converged and output qualitatively resembled pre-analytic appearance of off-target organ (Swiss lung).",
+      "classifier_training": "Trained on Australian cohort (n=85). Hyperparameters and detailed network configurations listed in Section S1 (not provided in context).",
+      "optimization": "Not explicitly reported in the provided context."
+    },
+    "classification_or_output_head": {
+      "type": "Fully connected neural network for patient-level output.",
+      "aggregation_method": "Patch-level predictions aggregated via 32-bin histograms for each of the three cancer classes (BCC, SCC-In Situ, SCC-Invasive), normalized and concatenated into a 1x96 vector signature per patient.",
+      "classes": [
+        "Benign",
+        "Basal Cell Carcinoma (BCC)",
+        "In-situ Squamous Cell Carcinoma (SCC-In Situ)",
+        "Invasive Squamous Cell Carcinoma (SCC-Invasive)"
+      ]
+    },
+    "approximate_parameters": "Not explicitly reported, but ResNext was chosen for having comparatively few parameters."
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Multi-Site Cross-Organ Calibrated Deep Learning (MuSClD)",
+    "ResNext50_32x4d",
+    "CycleGAN",
+    "baseline uncalibrated models",
+    "baseline NMSC-subtyping with no calibration",
+    "SOC (Single-Organ Calibration) models"
+  ],
+  "preprocessing_techniques": [
+    "Patch extraction from whole slide images (WSI) at 20x magnification (512 x 512 pixel patches)",
+    "Down-sampling of Swiss testing cohort images from 40x to 20x magnification",
+    "CycleGAN-based cross-organ calibration (MuSClD) using Swiss lung tissue as off-target template to mitigate domain shift",
+    "Stain augmentation during deep learning model training",
+    "Calculation of image metrics including brightness, RMS contrast, and mean intensity of RGB and HSV channels",
+    "Patch-level predictions aggregated via 32-bin histograms for each cancer class, normalized and concatenated into a 1x96 vector signature per patient"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Stain augmentation",
+      "details": "Employed during the training of all deep learning networks (including the classifier and potentially the CycleGAN components) to mitigate pre-analytic variances."
+    }
+  ],
+  "conclusions": [
+    "Multi-Site Cross-Organ Calibrated Deep Learning (MuSClD) effectively mitigates domain shift caused by pre-analytical variances (e.g., staining, scanning) between external sites by using off-target organ tissue (Swiss lung) as a calibration template.",
+    "MuSClD significantly improves the automated diagnosis and subtyping of non-melanoma skin cancer (NMSC) compared to baseline uncalibrated models, achieving statistically significant improvements in one-vs-rest AUC for Basal Cell Carcinoma (BCC) (0.92 vs 0.87, p=0.01) and Invasive Squamous Cell Carcinoma (SCC-Invasive) (0.92 vs 0.82, p=1e-5).",
+    "The MuSClD approach uniquely guards against data leakage risks inherent in other cross-site calibration methods by calibrating training data using off-target tissue from the test site, ensuring genuine independent evaluation.",
+    "While MuSClD improved performance for BCC and SCC-Invasive, the improvement for In-situ Squamous Cell Carcinoma (SCC-In Situ) was not statistically significant (p=0.15).",
+    "Internal validation results suggest that on-target calibration using off-target tissue safely compensates for pre-analytical variabilities without imparting noticeable artifacts to the training data, maintaining high diagnostic accuracy."
+  ],
+  "important_remarks": [
+    "The study addresses the critical issue of data leakage in cross-site calibration, noting that standard same-organ calibration (SOC) can impart test-site specific information (e.g., cell size due to scanner microns/pixel) into training data, potentially inflating testing accuracy and degrading generalizability.",
+    "MuSClD mitigates domain shift by using off-target organ tissue (Swiss lung) from the test site as a calibration template for training data (Australian skin), a strategy that avoids data leakage inherent in calibrating with on-target test data.",
+    "While MuSClD significantly improved AUC for BCC (0.92 vs 0.87, p=0.01) and SCC-Invasive (0.92 vs 0.82, p=1e-5) compared to baseline, the improvement for SCC-In Situ was not statistically significant (p=0.15).",
+    "The Australian training cohort is small (n=85) with class imbalance (e.g., only 10 SCC-In Situ and 10 SCC-Invasive cases), which may limit the robustness of the model for these subtypes compared to the larger Swiss testing cohort (n=352).",
+    "The approach relies on the assumption that cross-organ slides (skin and lung) from the same site share common pre-analytical variance sources (staining, scanning), which was validated by lower Wasserstein distances between Swiss skin and Swiss lung compared to Australian and Swiss skin.",
+    "Internal validation showed that MuSClD preserved histologic appearance without introducing noticeable artifacts, as confirmed by dermatopathologist inspection of 512 ROIs and quantitative metrics, ensuring high-fidelity input for the subtyping algorithm."
+  ]
+}

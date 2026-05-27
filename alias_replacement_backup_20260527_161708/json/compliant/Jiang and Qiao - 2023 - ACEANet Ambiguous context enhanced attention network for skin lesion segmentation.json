@@ -1,0 +1,452 @@
+{
+  "file_name": "Jiang and Qiao - 2023 - ACEANet Ambiguous context enhanced attention network for skin lesion segmentation.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes ACEANet, a deep learning model based on an encoder-decoder architecture with attention modules (Ambiguous Context Enhanced Attention, Dilated Gated Fusion, Cascading Global Context Attention) for skin lesion segmentation from dermoscopic images. It was evaluated on the ISIC2018 and PH2 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel deep learning model (ACEANet) for skin lesion segmentation, describes its architecture (encoder-decoder with specific attention modules), details the experimental methodology using the ISIC2018 and PH2 datasets, and presents original quantitative results and ablation studies comparing its performance against existing methods."
+  },
+  "title": "ACEANet: Ambiguous Context Enhanced Attention Network for skin lesion segmentation",
+  "authors": [
+    "Yun Jiang",
+    "Hao Qiao"
+  ],
+  "doi": "10.3233/IDA-230298",
+  "journal": "Intelligent Data Analysis",
+  "year": 2024,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes ACEANet, a novel encoder-decoder deep learning architecture for skin lesion segmentation from dermoscopic images to assist in skin cancer diagnosis. The model incorporates three key modules: an Ambiguous Context Enhanced Attention (ACEA) module for boundary enhancement, a Dilated Gated Fusion (DGF) block to preserve spatial information, and a Cascading Global Context Attention (CGCA) module for feature fusion. The authors evaluated the network's performance using the ISIC2018 and PH2 datasets, comparing it against existing state-of-the-art methods. Evaluation metrics included Dice score, Jaccard coefficient, Accuracy, and Recall. Experimental results demonstrated that ACEANet achieved superior segmentation performance, with a Dice score of 92.16% on the ISIC2018 dataset, outperforming comparative models.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Included in ISIC2018 dataset (20.0%) and PH2 dataset (20%)."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus",
+        "atypical nevus",
+        "normal nevus"
+      ],
+      "role": "Target class",
+      "details": "Included in ISIC2018 dataset (72.0% nevus) and PH2 dataset (40% atypical nevus, 40% normal nevus)."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratosis"
+      ],
+      "role": "Target class",
+      "details": "Included in ISIC2018 dataset (8.0%)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-level binary mask distinguishing skin lesion regions from background in dermoscopic images.",
+        "primary": true,
+        "details": "The paper proposes ACEANet for 'skin lesion segmentation'. The model outputs a segmentation mask (binary classification of pixels as lesion or non-lesion) evaluated using Dice score, Jaccard coefficient, Accuracy, and Recall on the ISIC2018 and PH2 datasets. The task is explicitly defined as a pixel-level classification problem for segmentation purposes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2018",
+      "description": "A public dermoscopic image dataset provided by the International Skin Imaging Collaboration (ISIC), containing RGB images with varying resolutions (540x576 to 4499x6748 pixels). The authors randomly divided the original dataset into training, validation, and testing subsets.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus",
+        "Seborrheic Keratosis"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 1816,
+        "validation": 260,
+        "testing": 518,
+        "per_class": {
+          "Melanoma": 519,
+          "Nevus": 1868,
+          "Seborrheic Keratosis": 207
+        }
+      },
+      "use": {
+        "training": "Used for training the ACEANet model with data augmentation (horizontal/vertical flipping) and resampling to 256x256 pixels.",
+        "validation": "Used for validation during the training process.",
+        "testing": "Used for final evaluation of segmentation performance (Dice, Jaccard, Accuracy, Recall) without data augmentation.",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A public dermoscopic image dataset that was the first to provide segmentation masks. It contains dermoscopic images of size 768x560 pixels. The authors divided the dataset into training, validation, and testing subsets.",
+      "classes_used": [
+        "Melanoma",
+        "Atypical Nevus",
+        "Normal Nevus"
+      ],
+      "counts": {
+        "total": 200,
+        "training": 140,
+        "validation": 20,
+        "testing": 40,
+        "per_class": {
+          "Melanoma": 40,
+          "Atypical Nevus": 80,
+          "Normal Nevus": 80
+        }
+      },
+      "use": {
+        "training": "Used for training the ACEANet model with data augmentation (horizontal/vertical flipping) and resampling to 256x256 pixels.",
+        "validation": "Used for validation during the training process.",
+        "testing": "Used for final evaluation of segmentation performance (Dice, Jaccard, Accuracy, Recall) without data augmentation.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice score",
+    "Jaccard coefficient",
+    "Accuracy",
+    "Recall"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using point estimates of metrics (Dice score, Jaccard coefficient, Accuracy, Recall) without statistical significance analysis."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2018": {
+      "split": "Test set (518 images)",
+      "metric": "Dice (%), Jaccard (%), Accuracy (%), Recall (%)",
+      "models": {
+        "ACEANet (ours)": {
+          "Dice": "92.16",
+          "Jaccard": "86.46",
+          "Accuracy": "96.75",
+          "Recall": "92.55"
+        },
+        "U-Net": {
+          "Dice": "88.09",
+          "Jaccard": "80.08",
+          "Accuracy": "92.40",
+          "Recall": "91.64"
+        },
+        "ATTU-Net": {
+          "Dice": "90.18",
+          "Jaccard": "85.31",
+          "Accuracy": "92.72",
+          "Recall": "91.83"
+        },
+        "CENet": {
+          "Dice": "90.53",
+          "Jaccard": "83.60",
+          "Accuracy": "95.34",
+          "Recall": "90.59"
+        },
+        "CANet": {
+          "Dice": "92.08",
+          "Jaccard": "null",
+          "Accuracy": "null",
+          "Recall": "null"
+        },
+        "Attn_UNet": {
+          "Dice": "91.00",
+          "Jaccard": "83.0",
+          "Accuracy": "95.00",
+          "Recall": "94.00"
+        },
+        "Swin-UNet": {
+          "Dice": "90.92",
+          "Jaccard": "83.90",
+          "Accuracy": "93.81",
+          "Recall": "92.81"
+        },
+        "FAT-Net": {
+          "Dice": "89.03",
+          "Jaccard": "82.02",
+          "Accuracy": "95.78",
+          "Recall": "91.00"
+        },
+        "Ms Red": {
+          "Dice": "89.99",
+          "Jaccard": "83.45",
+          "Accuracy": "96.19",
+          "Recall": "90.49"
+        },
+        "AS-Net": {
+          "Dice": "89.55",
+          "Jaccard": "83.09",
+          "Accuracy": "95.68",
+          "Recall": "93.06"
+        },
+        "UNeXt": {
+          "Dice": "89.76",
+          "Jaccard": "81.70",
+          "Accuracy": "null",
+          "Recall": "null"
+        },
+        "RMMLP": {
+          "Dice": "91.98",
+          "Jaccard": "85.40",
+          "Accuracy": "null",
+          "Recall": "null"
+        },
+        "GFANet": {
+          "Dice": "90.13",
+          "Jaccard": "83.66",
+          "Accuracy": "96.29",
+          "Recall": "90.75"
+        },
+        "ACCPG-Net": {
+          "Dice": "90.81",
+          "Jaccard": "83.51",
+          "Accuracy": "96.13",
+          "Recall": "91.18"
+        }
+      },
+      "notes": "ACEANet achieved the highest results for Dice, Jac, and Acc. Swin-Unet achieved the best Recall (92.81%). ACEANet outperformed U-Net, ATTU-Net, and AS-Net in all metrics."
+    },
+    "PH2": {
+      "split": "Test set (40 images)",
+      "metric": "Dice (%), Jaccard (%), Accuracy (%), Recall (%)",
+      "models": {
+        "ACEANet (ours)": {
+          "Dice": "94.18",
+          "Jaccard": "89.27",
+          "Accuracy": "96.24",
+          "Recall": "95.65"
+        },
+        "U-Net": {
+          "Dice": "90.71",
+          "Jaccard": "86.82",
+          "Accuracy": "91.04",
+          "Recall": "90.28"
+        },
+        "ResU-Net": {
+          "Dice": "92.82",
+          "Jaccard": "87.64",
+          "Accuracy": "94.92",
+          "Recall": "93.37"
+        },
+        "CENet": {
+          "Dice": "90.81",
+          "Jaccard": "85.69",
+          "Accuracy": "90.98",
+          "Recall": "91.21"
+        },
+        "DSNet": {
+          "Dice": "91.97",
+          "Jaccard": "87.15",
+          "Accuracy": "94.82",
+          "Recall": "96.01"
+        },
+        "CA-Net": {
+          "Dice": "90.45",
+          "Jaccard": "null",
+          "Accuracy": "null",
+          "Recall": "null"
+        },
+        "SwinUNet": {
+          "Dice": "92.88",
+          "Jaccard": "87.16",
+          "Accuracy": "95.75",
+          "Recall": "95.33"
+        },
+        "AS-Net": {
+          "Dice": "93.05",
+          "Jaccard": "87.60",
+          "Accuracy": "95.20",
+          "Recall": "96.23"
+        },
+        "AMCC-Net": {
+          "Dice": "94.00",
+          "Jaccard": "89.00",
+          "Accuracy": "97.00",
+          "Recall": "null"
+        }
+      },
+      "notes": "ACEANet achieved the best results for Dice (94.18%) and Jac (89.27%). AS-Net achieved the highest Recall (96.23%), which is 0.61% higher than ACEANet. AMCC-Net achieved the best Accuracy (97.00%), exceeding ACEANet by 0.76%."
+    },
+    "ISIC2018_Ablation": {
+      "split": "Test set",
+      "metric": "Dice (%), Jaccard (%), Accuracy (%), Recall (%), Time (h)",
+      "models": {
+        "Model 1 (Baseline U-Net + Resnet34)": {
+          "Dice": "88.09",
+          "Jaccard": "80.08",
+          "Accuracy": "92.40",
+          "Recall": "91.64",
+          "Time": "7.3"
+        },
+        "Model 2 (Model 1 + ACEA)": {
+          "Dice": "90.23",
+          "Jaccard": "84.98",
+          "Accuracy": "94.41",
+          "Recall": "92.15",
+          "Time": "8.2"
+        },
+        "Model 3 (Model 1 + DGF)": {
+          "Dice": "91.01",
+          "Jaccard": "84.75",
+          "Accuracy": "93.89",
+          "Recall": "92.21",
+          "Time": "7.9"
+        },
+        "Model 4 (Model 1 + CGCA)": {
+          "Dice": "91.15",
+          "Jaccard": "84.95",
+          "Accuracy": "94.37",
+          "Recall": "91.19",
+          "Time": "8.1"
+        },
+        "Model 5 (Model 1 + ACEA + DGF)": {
+          "Dice": "91.73",
+          "Jaccard": "85.84",
+          "Accuracy": "95.62",
+          "Recall": "92.32",
+          "Time": "8.6"
+        },
+        "Model 6 (Model 1 + CGCA + DGF)": {
+          "Dice": "91.97",
+          "Jaccard": "84.11",
+          "Accuracy": "96.02",
+          "Recall": "91.98",
+          "Time": "8.8"
+        },
+        "Model 7 (Model 1 + ACEA + CGCA)": {
+          "Dice": "91.03",
+          "Jaccard": "84.81",
+          "Accuracy": "94.45",
+          "Recall": "91.51",
+          "Time": "8.8"
+        },
+        "Model 8 (Full ACEANet: ACEA + DGF + CGCA)": {
+          "Dice": "92.16",
+          "Jaccard": "86.46",
+          "Accuracy": "96.75",
+          "Recall": "92.55",
+          "Time": "9.2"
+        }
+      },
+      "notes": "Model 8 (full ACEANet) achieved the highest scores across all metrics compared to baseline and intermediate ablation models."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ACEANet (Ambiguous Context Enhanced Attention Network)",
+    "pretraining": "ResNet34 pre-trained weights used in the encoder",
+    "input_size": "256 x 256 pixels",
+    "architecture_details": {
+      "base_architecture": "Encoder-decoder architecture",
+      "encoder_backbone": "ResNet34 (5-layer encoder)",
+      "key_modules": [
+        {
+          "name": "Ambiguous Context Enhanced Attention (ACEA)",
+          "location": "Skip connections",
+          "function": "Enhances ambiguous boundary information using feature information from the encoder and coarse segmentation map from the decoder via self-attention"
+        },
+        {
+          "name": "Dilated Gated Fusion (DGF) block",
+          "location": "End of the encoding phase",
+          "function": "Reduces loss of spatial location information due to continuous downsampling; divides channel information into groups and extracts features with different receptive fields"
+        },
+        {
+          "name": "Cascading Global Context Attention (CGCA)",
+          "location": "Skip connections between encoder and corresponding decoder layers",
+          "function": "Fuses feature information generated by the encoder with features from the decoder using convolutions with different dilation rates"
+        }
+      ],
+      "decoder_mechanism": "Outputs coarse segmentation maps in each decoder layer, optimized by deep supervision",
+      "downsampling": "Continuous pooling in the encoder leading to decreased spatial resolution"
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": null,
+      "training_schedule": null,
+      "data_augmentation": "Real-time horizontal and vertical flipping during training",
+      "normalization": "Pixel normalization in [0, 1] by mean and variance"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "details": "Pixel-level binary classification (lesion vs. non-lesion) via deep supervision of coarse segmentation maps"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ACEANet",
+    "U-Net",
+    "ATTU-Net",
+    "CENet",
+    "CANet",
+    "Attn_UNet",
+    "Swin-UNet",
+    "FAT-Net",
+    "Ms Red",
+    "AS-Net",
+    "UNeXt",
+    "RMMLP",
+    "GFANet",
+    "ACCPG-Net",
+    "ResU-Net",
+    "DSNet",
+    "AMCC-Net",
+    "FCN",
+    "Model 1",
+    "Model 2",
+    "Model 3",
+    "Model 4",
+    "Model 5",
+    "Model 6",
+    "Model 7",
+    "Model 8"
+  ],
+  "preprocessing_techniques": [
+    "Resampling all images to 256 x 256 pixels",
+    "Pixel normalization in [0, 1] by mean and variance normalization",
+    "Real-time data augmentation via horizontal and vertical flipping during training"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied in real-time during the training process to enlarge the amount of training data. Not applied during testing."
+    },
+    {
+      "technique": "Vertical flipping",
+      "details": "Applied in real-time during the training process to enlarge the amount of training data. Not applied during testing."
+    }
+  ],
+  "conclusions": [
+    "The proposed ACEANet model achieves superior segmentation performance for skin lesions compared to existing state-of-the-art methods on the ISIC2018 and PH2 datasets.",
+    "On the ISIC2018 dataset, ACEANet achieved the highest Dice score (92.16%), Jaccard coefficient (86.46%), and Accuracy (96.75%), demonstrating stability and competitive performance across all metrics.",
+    "On the PH2 dataset, ACEANet achieved the best Dice score (94.18%) and Jaccard coefficient (89.27%), though it was slightly outperformed by AS-Net in Recall (95.65% vs 96.23%) and AMCC-Net in Accuracy (96.24% vs 97.00%).",
+    "The Ambiguous Context Enhanced Attention (ACEA) module effectively augments ambiguous boundary information, while the Dilated Gated Fusion (DGF) block reduces the loss of spatial location information caused by continuous downsampling.",
+    "The Cascading Global Context Attention (CGCA) module successfully fuses feature information between the encoder and decoder, improving the model's ability to capture details and edges.",
+    "Ablation studies confirm that the full ACEANet architecture (combining ACEA, DGF, and CGCA modules) yields the best performance, with each module contributing positively to segmentation accuracy.",
+    "ACEANet demonstrates strong anti-interference ability and robustness against noisy dermoscopic images (e.g., those with hair interference) and low-contrast lesions compared to models like ResU-Net and Swin-UNet.",
+    "The model's multi-scale feature fusion via multiple skip connections allows it to capture features at different scales, leading to more accurate segmentation of irregular and large lesion areas."
+  ],
+  "important_remarks": [
+    "The study lacks external validation, relying solely on two public datasets (ISIC2018 and PH2) which may limit generalizability to other clinical populations or imaging devices.",
+    "The paper does not report any statistical significance tests (e.g., p-values) for the performance comparisons, making it difficult to assess if the improvements over state-of-the-art methods are statistically significant.",
+    "The PH2 dataset test set is very small (40 images), which may lead to high variance in performance metrics and reduce the reliability of the reported results for that specific dataset.",
+    "The ISIC2018 dataset is highly imbalanced (72.0% nevus, 20.0% melanoma, 8.0% seborrheic keratosis), which may bias the model towards the majority class, although Dice loss was used to mitigate this.",
+    "Data leakage risk exists in the ISIC2018 dataset split, as the authors randomly divided the original dataset into training, validation, and testing subsets rather than using a pre-defined, standardized split, which is not standard practice for fair comparison with other works.",
+    "The model's performance on the PH2 dataset was slightly inferior to AS-Net in Recall (95.65% vs 96.23%) and AMCC-Net in Accuracy (96.24% vs 97.00%), indicating that ACEANet is not universally superior across all metrics and datasets.",
+    "The paper does not provide details on the computational complexity (e.g., FLOPs, parameter count) or inference time relative to model size, only reporting training time, which limits assessment of deployment feasibility.",
+    "The study claims robustness against noise (hair, blood vessels) but does not provide quantitative analysis or specific examples of failure cases on noisy images, relying instead on qualitative visual comparisons."
+  ]
+}

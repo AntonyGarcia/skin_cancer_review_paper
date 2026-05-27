@@ -1,0 +1,330 @@
+{
+  "file_name": "oukil_2021_automatic_segmentation_and_melanoma_detection_based_on_color_and_text.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses machine learning and computational modeling for melanoma detection in dermoscopic images. Specifically, it employs K-means clustering for automatic lesion segmentation and extracts color and texture features from five color spaces (RGB, HSV, Lab, XYZ, YCbCr). These features are then used as inputs for three classifiers: K-nearest neighbors (KNN), Support Vector Machine (SVM), and Artificial Neural Network (ANN) to discriminate melanoma from benign lesions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as an 'ORIGINAL ARTICLE' and presents a novel algorithm for automatic segmentation and melanoma detection. It details specific methods (K-means clustering, feature extraction from five color spaces, KNN/SVM/ANN classifiers), describes the experimental setup using the PH2 dataset, and reports original quantitative results (sensitivity 99.25%, specificity 99.58%, accuracy 99.51%) comparing the proposed method to state-of-the-art techniques."
+  },
+  "title": "Automatic segmentation and melanoma detection based on color and texture features in dermoscopic images",
+  "authors": [
+    "S. Oukil",
+    "R. Kasmi",
+    "K. Mokrani",
+    "B. García-Zapirain"
+  ],
+  "doi": "10.1111/srt.13111",
+  "journal": "Skin Research and Technology",
+  "year": 2021,
+  "article_type": "Original research article",
+  "brief_summary": "This study proposes an automatic algorithm for melanoma detection in dermoscopic images by leveraging color and texture features. The method employs K-means clustering for lesion segmentation and extracts attributes from five color spaces (RGB, HSV, Lab, XYZ, YCbCr) to classify lesions using K-nearest neighbors, support vector machine (SVM), and artificial neural network classifiers. The proposed approach was evaluated on the PH2 dataset, which contains 200 dermoscopic images including 40 melanomas and 160 benign lesions. The SVM classifier combined with RGB color space features achieved the best performance, yielding a sensitivity of 99.25%, specificity of 99.58%, and accuracy of 99.51%. These results demonstrate that the proposed method outperforms state-of-the-art techniques, confirming the efficacy of combining color and texture attributes for melanoma diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Malignant lesion class; 40 cases in the PH2 dataset; target of detection and classification."
+    },
+    {
+      "lesion_type": "Benign lesion",
+      "paper_terms": [
+        "benign lesion",
+        "benign lesions"
+      ],
+      "role": "Comparator class",
+      "details": "Group of benign conditions; 160 cases in the PH2 dataset; used as the negative class for melanoma detection."
+    },
+    {
+      "lesion_type": "Common nevus",
+      "paper_terms": [
+        "common nevi"
+      ],
+      "role": "Subset of comparator class",
+      "details": "Specific benign class; 80 cases in the PH2 dataset; grouped under 'benign lesions' for the binary classification task."
+    },
+    {
+      "lesion_type": "Atypical nevus",
+      "paper_terms": [
+        "atypical nevi"
+      ],
+      "role": "Subset of comparator class",
+      "details": "Specific benign class; 80 cases in the PH2 dataset; grouped under 'benign lesions' for the binary classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic label (melanoma vs. benign lesion)",
+        "primary": true,
+        "details": "The paper performs binary classification to discriminate melanoma from benign skin lesions using K-nearest neighbors (KNN), Support Vector Machine (SVM), and Artificial Neural Network (ANN) classifiers. The primary task is classification, as evidenced by the reporting of sensitivity, specificity, and accuracy metrics on the PH2 dataset. The paper also includes a segmentation step (K-means) to generate lesion masks, but the main predictive task for diagnosis is classification."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion mask",
+        "primary": false,
+        "details": "The paper employs K-means clustering for automatic lesion segmentation to generate accurate masks for each lesion, which are then used for feature extraction. This is a preprocessing step for the classification task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2",
+      "description": "A public dermoscopic image database intended for research and benchmarking, containing manual segmentation for each lesion.",
+      "classes_used": [
+        "Melanoma",
+        "Common nevus",
+        "Atypical nevus"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "melanoma": 40,
+          "benign_lesions": 160,
+          "common_nevi": 80,
+          "atypical_nevi": 80
+        }
+      },
+      "use": {
+        "training": "Used for training classifiers (KNN, SVM, ANN) with varying splits (e.g., 60% for learning, 40% for testing in SVM/ANN; 1 sample for testing and remainder for training in KNN).",
+        "validation": "null",
+        "testing": "Used for testing and performance assessment of the proposed algorithm.",
+        "other": "Used for feature reference calculation (averages of six dominant colors extracted from 100 images)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Accuracy",
+    "Dice",
+    "Jaccard",
+    "Area under the curve",
+    "Precision",
+    "Kappa index"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using sensitivity, specificity, accuracy, Dice, and Jaccard indices, and compared qualitatively to state-of-the-art methods."
+  },
+  "results_obtained_in_each_dataset": {
+    "PH2": {
+      "segmentation": {
+        "metric": "Comparison with Jaisakthi et al. (2019)",
+        "models": {
+          "Our algorithm": {
+            "Accuracy": 0.9606,
+            "Sensitivity": 0.9236,
+            "Specificity": 0.987,
+            "Dice": 0.9167,
+            "Jaccard": 0.8462
+          },
+          "Jaisakthi et al.": {
+            "Accuracy": 0.9604,
+            "Sensitivity": 0.89,
+            "Specificity": 0.9879,
+            "Dice": 0.9139,
+            "Jaccard": 0.8437
+          }
+        },
+        "notes": "The automatic segmentation generates an accurate mask for each lesion. The proposed segmentation algorithm generates a mask for each lesion close enough to the manual segmentation."
+      },
+      "classification": {
+        "metric": "Sensitivity (SE), Specificity (SP), Accuracy (ACC)",
+        "models": {
+          "SVM (RGB)": {
+            "SE": 99.25,
+            "SP": 99.58,
+            "ACC": 99.51
+          },
+          "KNN (RGB)": {
+            "SE": 99.23,
+            "SP": 98.26,
+            "ACC": 98.46
+          },
+          "ANN (RGB)": {
+            "SE": 98.25,
+            "SP": 99.45,
+            "ACC": 99.2
+          },
+          "KNN (HSV)": {
+            "SE": 95.73,
+            "SP": 99.11,
+            "ACC": 98.44
+          },
+          "ANN (HSV)": {
+            "SE": 92.25,
+            "SP": 99.45,
+            "ACC": 98
+          },
+          "SVM (HSV)": {
+            "SE": 94.92,
+            "SP": 99.55,
+            "ACC": 98.62
+          },
+          "KNN (Lab)": {
+            "SE": 94,
+            "SP": 98.81,
+            "ACC": 97.85
+          },
+          "ANN (Lab)": {
+            "SE": 95.25,
+            "SP": 98.02,
+            "ACC": 97.45
+          },
+          "SVM (Lab)": {
+            "SE": 95.71,
+            "SP": 96.19,
+            "ACC": 96.09
+          },
+          "KNN (XYZ)": {
+            "SE": 91.66,
+            "SP": 95.13,
+            "ACC": 94.44
+          },
+          "ANN (XYZ)": {
+            "SE": 84,
+            "SP": 97.02,
+            "ACC": 94.4
+          },
+          "SVM (XYZ)": {
+            "SE": 90.83,
+            "SP": 96.87,
+            "ACC": 95.66
+          },
+          "KNN (YCbCr)": {
+            "SE": 99.21,
+            "SP": 98.81,
+            "ACC": 98.98
+          },
+          "ANN (YCbCr)": {
+            "SE": 98.5,
+            "SP": 99.82,
+            "ACC": 99.55
+          },
+          "SVM (YCbCr)": {
+            "SE": 98.8,
+            "SP": 99.2,
+            "ACC": 99.12
+          }
+        },
+        "notes": "The best result was found using SVM with RGB color space features (99.25% SE, 99.58% SP, 99.51% ACC). For KNN and ANN, the best results were found on the YCbCr color space. The test using the PH2 set is to identify melanomas from the benign lesion (atypical nevus common nevus). Measuring the average of 10 cross-validations for each configuration."
+      },
+      "comparison_with_baselines": {
+        "metric": "SE, SP, ACC",
+        "models": {
+          "Our method": {
+            "SE": 99.25,
+            "SP": 99.58,
+            "ACC": 99.51
+          },
+          "Alfed et al. (2017)": {
+            "SE": 99.4,
+            "SP": 98.18,
+            "ACC": 98.79
+          },
+          "Majumder et al. (2018)": {
+            "SE": 95,
+            "SP": 98.8,
+            "ACC": 98
+          },
+          "Barata et al. (2014)": {
+            "SE": 93,
+            "SP": 88,
+            "ACC": null
+          }
+        },
+        "notes": "Our algorithm shows the best balance between sensitivity and specificity. Overall, our system outperforms all other methods."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Traditional machine learning classifiers: K-nearest neighbors (KNN), Support Vector Machine (SVM), and Artificial Neural Network (ANN). The system pipeline includes K-means clustering for segmentation and handcrafted feature extraction.",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "segmentation": "K-means clustering (K=2) applied to a modified color plane (combination of Saturation and Value from HSV space or Green plane) to generate lesion masks.",
+      "feature_extraction": "Handcrafted color and texture features extracted from five color spaces: RGB, HSV, Lab, XYZ, and YCbCr. Features include entropy distances, co-occurrence matrix properties (contrast, homogeneity, energy), and color variance attributes.",
+      "feature_selection": "Relief algorithm used to select the most discriminative features.",
+      "classifiers": {
+        "KNN": "K-nearest neighbors. Used 1 sample for testing and the remainder for training.",
+        "SVM": "Support Vector Machine. Used 60% of lesions for learning and 40% for testing.",
+        "ANN": "Artificial Neural Network. Used 60% of lesions for learning and 40% for testing."
+      }
+    },
+    "training_details": {
+      "dataset": "PH2 dataset (200 dermoscopic images: 40 melanomas, 160 benign lesions).",
+      "validation_method": "10-fold cross-validation averaged for each configuration.",
+      "hyperparameters": {
+        "KNN_k": "1 (leave-one-out style split mentioned: 'one sample for testing and the remained samples for training')",
+        "SVM_split": "60% training / 40% testing",
+        "ANN_split": "60% training / 40% testing"
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (Melanoma vs. Benign lesion)",
+      "best_performing_config": "SVM classifier with RGB color space features",
+      "best_performance_metrics": {
+        "sensitivity": 99.25,
+        "specificity": 99.58,
+        "accuracy": 99.51
+      }
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "K-means clustering",
+    "K-nearest neighbors (KNN)",
+    "Support Vector Machine (SVM)",
+    "Artificial Neural Network (ANN)",
+    "Bag-of-features",
+    "AdaBoost.MC",
+    "MultiLayer Perceptron",
+    "GoogLeNet",
+    "ResNet152",
+    "Region-based convolutional neural network"
+  ],
+  "preprocessing_techniques": [
+    "K-means clustering (K=2) for automatic lesion segmentation on a modified color plane (combination of Saturation and Value from HSV space with reduced values S x 0.9 and V x 0.3, or Green plane if standard deviation of Green plane > 0.25)",
+    "Histogram adjustment of the Green color plane to minimize the effect of hair",
+    "11x11 median filtering to reduce hair artifacts",
+    "Corner removal using active contours to eliminate dark corners of the image",
+    "Elimination of non-lesion objects with an area smaller than 700 pixels",
+    "Morphological erosion with a disk structural element of radius 10",
+    "Morphological dilation with a disk structural element of radius 15",
+    "Super-pixel over-segmentation (900 blobs) using linear iterative clustering for feature extraction",
+    "Conversion of images to five color spaces: RGB, HSV, Lab, XYZ, and YCbCr"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed algorithm, which combines automatic segmentation using K-means clustering with color and texture feature extraction, effectively discriminates melanoma from benign skin lesions in dermoscopic images.",
+    "The method achieved a sensitivity of 99.25%, specificity of 99.58%, and accuracy of 99.51% on the PH2 dataset, outperforming state-of-the-art techniques.",
+    "The Support Vector Machine (SVM) classifier combined with RGB color space features yielded the best classification performance among the tested configurations.",
+    "Color and texture attributes are powerful and relevant features for melanoma detection, with the combination of these features showing improvement over existing methods.",
+    "The automatic segmentation generates accurate masks for lesions that are close to manual segmentation, facilitating effective feature extraction."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the PH2 dataset (200 images), which limits generalizability and raises concerns about external validation on diverse, multi-center populations.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals for the performance metrics, relying instead on point estimates from cross-validation.",
+    "The SVM classifier used a fixed 60/40 train-test split, while KNN used a leave-one-out approach (1 sample for testing); this inconsistency in validation methodology across classifiers may affect the comparability of their results.",
+    "The segmentation step uses K-means clustering with a fixed K=2, which may oversimplify lesion heterogeneity and boundary complexity compared to more advanced segmentation techniques.",
+    "Feature selection was performed using the Relief algorithm, but the specific number of selected features or the threshold for selection is not explicitly detailed in the provided text, potentially affecting reproducibility.",
+    "The method is based on handcrafted features and traditional machine learning classifiers (KNN, SVM, ANN), which may be less robust to variations in image acquisition conditions compared to modern deep learning approaches.",
+    "The paper claims outperformance of state-of-the-art methods but compares against older baselines (e.g., Barata 2014, Majumder 2018) without comparing to more recent deep learning-based methods that might achieve comparable or superior results on the same dataset."
+  ]
+}

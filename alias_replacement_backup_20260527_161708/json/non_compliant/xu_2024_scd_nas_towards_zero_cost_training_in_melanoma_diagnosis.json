@@ -1,0 +1,538 @@
+{
+  "file_name": "xu_2024_scd_nas_towards_zero_cost_training_in_melanoma_diagnosis.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Neural Architecture Search (NAS) combined with Large Language Models (LLMs) as a proxy to automatically design deep learning architectures (specifically ResNet18 and ResNet50 variants) for skin cancer detection. The resulting models were evaluated on the ISIC 2020 dataset for melanoma diagnosis, achieving an AUC of 91.23%."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work introducing a novel framework called SCD-NAS for melanoma diagnosis. It details specific methods (using LLMs as proxies and Search Space Expansion), describes experimental setups on datasets like ISIC 2020 and CIFAR-10, and reports new quantitative results (e.g., AUC of 91.23%) comparing proposed models against baselines. It is published in the IEEE International Conference on Multimedia and Expo (ICME)."
+  },
+  "title": "SCD-NAS: Towards Zero-Cost Training in Melanoma Diagnosis",
+  "authors": [
+    "Hongyan Xu",
+    "Xiu Su",
+    "Arcot Sowmya",
+    "Ian Katz",
+    "Dadong Wang"
+  ],
+  "doi": "10.1109/ICME57554.2024.10687537",
+  "journal": "2024 IEEE International Conference on Multimedia and Expo (ICME)",
+  "year": 2024,
+  "article_type": "Conference paper",
+  "brief_summary": "This study introduces SCD-NAS, a framework for melanoma diagnosis that utilizes Large Language Models (LLMs) as proxies to enable zero-cost training during neural architecture search. The method incorporates a Search Space Expansion (SSE) technique to combine diverse architectural configurations and enhance model performance. The authors evaluated their approach on the ISIC 2020, MedMNISTv2, CIFAR-10, and CIFAR-100 datasets. On the ISIC 2020 dataset, the SCD-NAS-derived ResNet50 model achieved an Area Under the Curve (AUC) of 91.23%, improving upon the baseline by 5.93%. Additionally, the model exceeded the CIFAR-10 benchmark by 2.45% in accuracy, demonstrating robust generalization capabilities.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "The primary diagnostic target for the SCD-NAS framework. The study focuses on melanoma diagnosis using the ISIC 2020 dataset, where 'MEL' denotes the melanoma class in the data split (Table I). The model achieved an AUC of 91.23% on this task."
+    },
+    {
+      "lesion_type": "Non-melanoma skin lesions",
+      "paper_terms": [
+        "Other",
+        "non-pigmented skin cancer"
+      ],
+      "role": "Comparator class",
+      "details": "Referred to as 'Other' in the ISIC 2020 data split (Table I), serving as the negative class for melanoma detection. The paper also references 'non-pigmented skin cancer' in the context of related work (Ref [7]) and general skin cancer detection."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the references section (Ref [4]) regarding a previous study by the authors, but not a target class in the current SCD-NAS experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma diagnosis (binary: Melanoma vs. Other/Non-melanoma) and general image classification (CIFAR-10/100, ChestMNIST, DermaMNIST)",
+        "primary": true,
+        "details": "The paper focuses on melanoma diagnosis using the ISIC 2020 dataset, which involves a binary classification task between 'MEL' (Melanoma) and 'Other' classes. Performance is evaluated using accuracy, precision, specificity, F1 score, and AUC. Additionally, the framework is evaluated on standard classification datasets (CIFAR-10, CIFAR-100, ChestMNIST, DermaMNIST) using accuracy as the primary metric."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2020",
+      "description": "An enhanced version of the ISIC 2020 dataset comprising dermoscopic images for melanoma diagnosis. Images were downsampled to 256x256 dimensions.",
+      "classes_used": [
+        "MEL (Melanoma)",
+        "Other (Non-melanoma/Non-pigmented skin cancer)"
+      ],
+      "counts": {
+        "total": 68472,
+        "training": 54776,
+        "validation": 13696,
+        "testing": 10982,
+        "per_class": {
+          "training_MEL": 4974,
+          "training_Other": 49802,
+          "validation_MEL": 1245,
+          "validation_Other": 12451
+        }
+      },
+      "use": {
+        "training": "Used for training the SCD-NAS derived models (ResNet18 and ResNet50) and for the initial validation during the neural architecture search process.",
+        "validation": "Used for validation during the search phase (Table II) and as the primary dataset for evaluating the final model's performance against baselines.",
+        "testing": "Used as the test set (10,982 images) to evaluate the final SCD ResNet50 model's AUC and efficiency compared to other methods (Table III).",
+        "other": null
+      }
+    },
+    {
+      "name": "MedMNISTv2 (ChestMNIST and DermaMNIST)",
+      "description": "Subsets of the MedMNISTv2 dataset featuring MNIST-style biomedical images. Specifically, ChestMNIST and DermaMNIST were used.",
+      "classes_used": [
+        "ChestMNIST classes (unspecified in text)",
+        "DermaMNIST classes (unspecified in text)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to validate the generalization capabilities of the SCD ResNet50 model. Performance metrics (AUC and ACC) were reported in Table IV.",
+        "other": "Used to demonstrate robust generalization beyond the primary melanoma diagnosis task."
+      }
+    },
+    {
+      "name": "CIFAR-10",
+      "description": "A natural image collection dataset used to evaluate the generalizability of the SCD-NAS framework.",
+      "classes_used": [
+        "10 classes (standard CIFAR-10)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for the neural architecture search phase to identify optimal architectures.",
+        "validation": null,
+        "testing": "Used to test the generalizability of the searched architectures. The SCD ResNet50 model achieved 95.95% accuracy.",
+        "other": "Used to compare the proposed method against baselines like AutoSlim and PAPI."
+      }
+    },
+    {
+      "name": "CIFAR-100",
+      "description": "A natural image collection dataset used to further evaluate the generalizability of the SCD-NAS framework.",
+      "classes_used": [
+        "100 classes (standard CIFAR-100)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to test the generalizability of the architectures searched on CIFAR-10. The SCD ResNet50 model achieved 81.82% accuracy.",
+        "other": "Used to compare the proposed method against baselines like AutoSlim and PAPI."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (Acc)",
+    "Precision (Pre)",
+    "Specificity (Sp)",
+    "F1 score (F1)",
+    "Area Under the Curve (AUC)",
+    "FLOPs",
+    "Parameters",
+    "GPU hours"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using absolute metric values (e.g., AUC, Accuracy) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2020": {
+      "validation_set": {
+        "metric": "Accuracy, Precision, Specificity, F1 Score, AUC",
+        "models": {
+          "Ori ResNet18": {
+            "Accuracy": "93.75",
+            "Precision": "90.31",
+            "Specificity": "95.55",
+            "F1 Score": "90.62",
+            "AUC": "92.19"
+          },
+          "SCD ResNet18": {
+            "Accuracy": "96.25",
+            "Precision": "92.79",
+            "Specificity": "97.66",
+            "F1 Score": "92.01",
+            "AUC": "94.75"
+          },
+          "Ori ResNet50": {
+            "Accuracy": "94.69",
+            "Precision": "91.54",
+            "Specificity": "96.45",
+            "F1 Score": "91.75",
+            "AUC": "92.89"
+          },
+          "SCD ResNet50": {
+            "Accuracy": "97.50",
+            "Precision": "93.44",
+            "Specificity": "98.02",
+            "F1 Score": "92.91",
+            "AUC": "95.10"
+          }
+        },
+        "notes": "SCD ResNet50 outperformed Ori ResNet50 by 2.81% in accuracy and 2.21% in AUC on the validation set."
+      },
+      "test_set": {
+        "metric": "FLOPs, Parameters, AUC",
+        "models": {
+          "ResNet50 [17]": {
+            "FLOPs": "5.40G",
+            "Parameters": "23.51M",
+            "AUC": "81.50"
+          },
+          "Deep Clustering [17]": {
+            "FLOPs": "null",
+            "Parameters": "null",
+            "AUC": "88.89"
+          },
+          "ResNet50 [18]": {
+            "FLOPs": "5.40G",
+            "Parameters": "23.51M",
+            "AUC": "87.50"
+          },
+          "DenseNet121 [18]": {
+            "FLOPs": "3.70G",
+            "Parameters": "6.87M",
+            "AUC": "89.20"
+          },
+          "MetaPruning [19]": {
+            "FLOPs": "3.70G",
+            "Parameters": "6.87M",
+            "AUC": "88.10"
+          },
+          "AutoSlim [20]": {
+            "FLOPs": "3.70G",
+            "Parameters": "6.87M",
+            "AUC": "89.56"
+          },
+          "Ori ResNet18": {
+            "FLOPs": "2.38G",
+            "Parameters": "11.18M",
+            "AUC": "83.50"
+          },
+          "SCD ResNet18": {
+            "FLOPs": "2.72G",
+            "Parameters": "12.50M",
+            "AUC": "90.14"
+          },
+          "Ori ResNet50": {
+            "FLOPs": "5.40G",
+            "Parameters": "25.50M",
+            "AUC": "85.30"
+          },
+          "SCD ResNet50": {
+            "FLOPs": "4.82G",
+            "Parameters": "21.17M",
+            "AUC": "91.23"
+          }
+        },
+        "notes": "SCD ResNet50 achieved an AUC of 91.23%, improving upon the baseline (Ori ResNet50) by 5.93%. It exceeded existing models [17] and [18] in AUC and was 10.74% more efficient in FLOPs than Ori ResNet50."
+      }
+    },
+    "MedMNISTv2": {
+      "ChestMNIST": {
+        "metric": "AUC, Accuracy",
+        "models": {
+          "ResNet18": {
+            "AUC": "76.8",
+            "Accuracy": "94.7"
+          },
+          "ResNet50": {
+            "AUC": "76.9",
+            "Accuracy": "94.7"
+          },
+          "auto-sklearn": {
+            "AUC": "64.9",
+            "Accuracy": "77.9"
+          },
+          "AutoKeras": {
+            "AUC": "74.2",
+            "Accuracy": "93.7"
+          },
+          "Google AutoML": {
+            "AUC": "77.8",
+            "Accuracy": "94.8"
+          },
+          "SCD ResNet50": {
+            "AUC": "79.4",
+            "Accuracy": "95.8"
+          }
+        },
+        "notes": "SCD ResNet50 surpassed the original ResNet50 by gaining 2.5% more AUC."
+      },
+      "DermaMNIST": {
+        "metric": "AUC, Accuracy",
+        "models": {
+          "ResNet18": {
+            "AUC": "91.7",
+            "Accuracy": "73.5"
+          },
+          "ResNet50": {
+            "AUC": "91.3",
+            "Accuracy": "73.5"
+          },
+          "auto-sklearn": {
+            "AUC": "90.2",
+            "Accuracy": "71.9"
+          },
+          "AutoKeras": {
+            "AUC": "91.5",
+            "Accuracy": "74.9"
+          },
+          "Google AutoML": {
+            "AUC": "91.4",
+            "Accuracy": "76.8"
+          },
+          "SCD ResNet50": {
+            "AUC": "93.3",
+            "Accuracy": "78.2"
+          }
+        },
+        "notes": "SCD ResNet50 surpassed the original ResNet50 by gaining 2.0% more AUC."
+      }
+    },
+    "CIFAR-10": {
+      "metric": "FLOPs, Parameters, Accuracy",
+      "models": {
+        "N2N [21]": {
+          "FLOPs": "1.31G",
+          "Parameters": "21.17M",
+          "Accuracy": "94.40"
+        },
+        "PruneTrain [22]": {
+          "FLOPs": "1.31G",
+          "Parameters": "25.50M",
+          "Accuracy": "94.20"
+        },
+        "OTO [23]": {
+          "FLOPs": "1.31G",
+          "Parameters": "25.50M",
+          "Accuracy": "94.87"
+        },
+        "Zhao et.al. [24]": {
+          "FLOPs": "1.31G",
+          "Parameters": "25.50M",
+          "Accuracy": "93.54"
+        },
+        "AutoSlim [20]": {
+          "FLOPs": "1.31G",
+          "Parameters": "25.50M",
+          "Accuracy": "93.02"
+        },
+        "Ye et.al. [25]": {
+          "FLOPs": "1.31G",
+          "Parameters": "25.50M",
+          "Accuracy": "null"
+        },
+        "PAPI [26]": {
+          "FLOPs": "null",
+          "Parameters": "null",
+          "Accuracy": "71.10"
+        },
+        "Ori ResNet18": {
+          "FLOPs": "0.56G",
+          "Parameters": "11.17M",
+          "Accuracy": "92.72"
+        },
+        "SCD ResNet18": {
+          "FLOPs": "0.64G",
+          "Parameters": "12.51M",
+          "Accuracy": "94.26"
+        },
+        "Ori ResNet50": {
+          "FLOPs": "1.31G",
+          "Parameters": "25.50M",
+          "Accuracy": "93.50"
+        },
+        "SCD ResNet50": {
+          "FLOPs": "1.17G",
+          "Parameters": "21.18M",
+          "Accuracy": "95.95"
+        }
+      },
+      "notes": "SCD ResNet50 achieved 95.95% accuracy, exceeding the CIFAR-10 benchmark by 2.45% in accuracy. It surpassed AutoSlim [20] by 5.31% and PAPI [26] by 10.72% in accuracy. It exceeded OTO [23] and Zhao et.al. [24] by 1.08% and 2.41% respectively."
+    },
+    "CIFAR-100": {
+      "metric": "Accuracy",
+      "models": {
+        "N2N [21]": {
+          "Accuracy": "72.40"
+        },
+        "PruneTrain [22]": {
+          "Accuracy": "73.10"
+        },
+        "Zhao et.al. [24]": {
+          "Accuracy": "76.37"
+        },
+        "AutoSlim [20]": {
+          "Accuracy": "76.51"
+        },
+        "Ye et.al. [25]": {
+          "Accuracy": "81.06"
+        },
+        "Ori ResNet18": {
+          "Accuracy": "68.21"
+        },
+        "SCD ResNet18": {
+          "Accuracy": "74.74"
+        },
+        "Ori ResNet50": {
+          "Accuracy": "75.21"
+        },
+        "SCD ResNet50": {
+          "Accuracy": "81.82"
+        }
+      },
+      "notes": "SCD ResNet50 achieved 81.82% accuracy."
+    },
+    "Ablation Study (Search Space Expansion)": {
+      "metric": "Search Space Size, FLOPs, Parameters, Accuracy",
+      "models": {
+        "Without SSE": {
+          "Search Space Size": "4.3 × 10^9",
+          "FLOPs": "1.21G",
+          "Parameters": "22.93M",
+          "Accuracy": "94.12"
+        },
+        "With SSE": {
+          "Search Space Size": "3.3 × 10^13",
+          "FLOPs": "1.17G",
+          "Parameters": "21.18M",
+          "Accuracy": "95.95"
+        }
+      },
+      "notes": "SSE enhanced accuracy without augmenting complexity."
+    },
+    "Time Cost Comparison": {
+      "metric": "FLOPs (G), Supernet Training (GPU hours), Total Training (GPU hours)",
+      "models": {
+        "AutoSlim [20]": {
+          "FLOPs": "1.31",
+          "Supernet Training": "3.2",
+          "Total Training": "5.2"
+        },
+        "SCD ResNet50": {
+          "FLOPs": "1.17",
+          "Supernet Training": "0",
+          "Total Training": "3.8"
+        }
+      },
+      "notes": "SCD ResNet50 saves up to 26.9% in GPU-hours compared to the baseline method (AutoSlim)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "SCD ResNet18 and SCD ResNet50 (derived via SCD-NAS framework)",
+    "pretraining": "Initial weights derived from a zero-mean Gaussian distribution with a standard deviation (σ) of 0.001; no ImageNet pretraining reported.",
+    "input_size": "256x256 pixels (ISIC 2020 images downsampled to this dimension)",
+    "architecture_details": {
+      "framework": "SCD-NAS (Skin Cancer Detection Neural Architecture Search)",
+      "search_method": "One-shot Neural Architecture Search with weight sharing strategy",
+      "proxy": "Large Language Model (LLM) used as a proxy for zero-cost training during the supernet phase",
+      "search_space_expansion": "Search Space Expansion (SSE) technique used to merge distinct search spaces (A and A†), expanding search space size from 4.3 × 10^9 to 3.3 × 10^13",
+      "backbone_variants": [
+        "ResNet18",
+        "ResNet50"
+      ]
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": "5e-5 (initial), with exponential decay strategy",
+      "epochs": "200 epochs",
+      "batch_size": "320",
+      "hardware": "Two NVIDIA RTX A6000 GPUs",
+      "framework": "PyTorch",
+      "supernet_training_cost": "Zero GPU hours (due to LLM proxy)",
+      "total_training_cost": "3.8 GPU hours (for SCD ResNet50 on ISIC 2020)"
+    },
+    "classification_or_output_head": {
+      "type": "Standard classification head (implied by ResNet architecture)",
+      "output_classes": "Binary (Melanoma vs. Other) for ISIC 2020; 10/100 classes for CIFAR datasets"
+    },
+    "approximate_parameters": {
+      "SCD_ResNet18": "12.50M (ISIC 2020), 12.51M (CIFAR-10)",
+      "SCD_ResNet50": "21.17M (ISIC 2020), 21.18M (CIFAR-10)"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "SCD ResNet18",
+    "SCD ResNet50",
+    "Ori ResNet18",
+    "Ori ResNet50",
+    "ResNet50 [17]",
+    "Deep Clustering [17]",
+    "ResNet50 [18]",
+    "DenseNet121 [18]",
+    "MetaPruning [19]",
+    "AutoSlim [20]",
+    "N2N [21]",
+    "PruneTrain [22]",
+    "OTO [23]",
+    "Zhao et.al. [24]",
+    "Ye et.al. [25]",
+    "PAPI [26]",
+    "auto-sklearn",
+    "AutoKeras",
+    "Google AutoML",
+    "InceptionV4",
+    "InceptionV3"
+  ],
+  "preprocessing_techniques": [
+    "Downsampling of original ISIC 2020 images to 256x256 dimensions",
+    "Use of MNIST-style biomedical images for MedMNISTv2 subsets (ChestMNIST and DermaMNIST)",
+    "Use of standard CIFAR-10 and CIFAR-100 datasets (implied standard preprocessing for these benchmarks)"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed SCD-NAS framework effectively integrates Neural Architecture Search (NAS) with Large Language Models (LLMs) as proxies to enable zero-cost training during the supernet phase, significantly reducing computational overhead.",
+    "The Search Space Expansion (SSE) methodology successfully merges distinct architectural search spaces, enhancing model performance without increasing computational complexity (FLOPs or parameters).",
+    "The SCD-NAS-derived ResNet50 model achieved an AUC of 91.23% on the ISIC 2020 melanoma diagnosis dataset, improving upon the baseline ResNet50 by 5.93% and outperforming existing state-of-the-art methods.",
+    "The SCD-NAS-derived ResNet50 model achieved a top-1 accuracy of 95.95% on the CIFAR-10 dataset, exceeding the benchmark by 2.45% and demonstrating robust generalization capabilities beyond the primary medical task.",
+    "The model demonstrated strong generalization on MedMNISTv2 subsets (ChestMNIST and DermaMNIST), surpassing the original ResNet50 by gaining 2.5% and 2.0% more AUC respectively.",
+    "SCD-NAS offers superior efficiency compared to baseline methods, saving up to 26.9% in GPU-hours while maintaining or improving performance metrics.",
+    "Grad-CAM visualizations indicate that the SCD ResNet50 model focuses more concentratedly on the lesion area and efficiently discards background noise compared to the original ResNet50."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC 2020 dataset for melanoma diagnosis, which may introduce population or dataset bias; no external clinical validation on independent cohorts is reported.",
+    "The primary medical evaluation is limited to a binary classification task (Melanoma vs. Other), potentially overlooking the complexity of multi-class skin lesion differentiation.",
+    "The paper does not report any statistical significance testing (e.g., p-values or confidence intervals) for performance comparisons, relying solely on absolute metric differences.",
+    "The 'zero-cost' training claim applies only to the supernet search phase using an LLM proxy; the final model still requires standard training (3.8 GPU hours), which is not negligible for resource-constrained settings.",
+    "The model was trained from scratch with weights initialized from a zero-mean Gaussian distribution (σ=0.001) without ImageNet pretraining, which may limit feature extraction capabilities compared to models using transfer learning.",
+    "Data augmentation techniques are not explicitly reported in the methodology, raising potential concerns about overfitting or robustness to image variations.",
+    "Generalization is demonstrated on natural image datasets (CIFAR-10/100) and non-dermatological medical subsets (ChestMNIST), but clinical relevance to diverse dermatological presentations remains unverified.",
+    "The search space expansion (SSE) technique significantly increases the search space size (from 4.3 × 10^9 to 3.3 × 10^13), which could impact the stability or reproducibility of the architecture search process."
+  ]
+}

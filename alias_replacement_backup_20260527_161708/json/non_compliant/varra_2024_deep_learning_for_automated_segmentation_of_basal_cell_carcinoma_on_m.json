@@ -1,0 +1,257 @@
+{
+  "file_name": "varra_2024_deep_learning_for_automated_segmentation_of_basal_cell_carcinoma_on_m.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning, specifically the Ultralytics YOLOv8 segmentation model, to automatically localize and segment Basal Cell Carcinoma (BCC) on Mohs Micrographic Surgery (MMS) frozen section slides. The study trained the model on 348 whole slide images and evaluated its performance (sensitivity and specificity) for BCC detection across different subtypes."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as an 'Original Article' and describes a primary study involving the training of a deep learning segmentation model (Ultralytics YOLOv8) on a dataset of 348 fresh frozen tissue slides. It presents original experimental methods, results (sensitivity and specificity metrics), and conclusions, rather than summarizing prior literature."
+  },
+  "title": "Deep Learning for Automated Segmentation of Basal Cell Carcinoma on Mohs Micrographic Surgery Frozen Section Slides",
+  "authors": [
+    "Vamsi Varra",
+    "Kathryn T. Shahwan",
+    "Kirsten Johnson",
+    "Rachel M. Kirven",
+    "Trent D. Walker",
+    "Daan Geijs",
+    "Geert Litjens",
+    "David R. Carr"
+  ],
+  "doi": "10.1097/DSS.0000000000004501",
+  "journal": "Dermatologic Surgery",
+  "year": 2025,
+  "article_type": "Original Article",
+  "brief_summary": "This study aimed to train and evaluate a deep learning segmentation model to localize Basal Cell Carcinoma (BCC) on Mohs Micrographic Surgery (MMS) frozen section slides. The researchers utilized the Ultralytics YOLOv8 model, training it on 348 whole slide images manually annotated by a Mohs surgeon. The dataset was split into 80% for training, 10% for validation, and 10% for testing, with performance evaluated using sensitivity and specificity metrics across different BCC subtypes. The model achieved an overall sensitivity of 0.71 and specificity of 0.75, with performance varying significantly by subtype, such as 0.87 sensitivity for nodular BCC and 0.51 for morpheaform/infiltrative BCC. The authors concluded that while the model demonstrated reasonably high sensitivity and specificity, more accurate and clinically relevant performance metrics are needed for segmentation studies. They also noted the need for external validation and improved metrics before clinical implementation.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "Basal Cell Carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "The primary target for segmentation and localization. The study evaluated performance across specific histological subtypes: nodular, superficial, micronodular, and morpheaform/infiltrative BCC."
+    },
+    {
+      "lesion_type": "Benign structures (non-BCC)",
+      "paper_terms": [
+        "inflammation",
+        "hair follicles",
+        "normal epidermis",
+        "healthy uninvolved tissue"
+      ],
+      "role": "Comparator class / Negative class",
+      "details": "These structures were present in the slides and were either correctly identified as negative (true negatives) or incorrectly predicted as BCC (false positives). They served as the negative class for specificity calculations."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Basal Cell Carcinoma (BCC) foci on Mohs Micrographic Surgery (MMS) frozen section slides",
+        "primary": true,
+        "details": "The study trained an Ultralytics YOLOv8 segmentation model to localize and outline BCC foci using polygon coordinates on whole slide images. Performance was evaluated using sensitivity and specificity metrics for individual BCC foci across different subtypes (nodular, superficial, micronodular, morpheaform/infiltrative)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Institutional MMS Frozen Section Dataset",
+      "description": "A proprietary dataset of 348 fresh frozen tissue slides from patients treated with Mohs Micrographic Surgery (MMS) for Basal Cell Carcinoma (BCC) at The Ohio State University Wexner Medical Center between January 1, 2018, and December 31, 2021. Slides were scanned as whole slide images (WSIs) at 20x magnification and annotated by a single Mohs surgeon using the Grand Challenge platform. The dataset was derived from 200 cases requiring single-stage clearance and 120 cases requiring multiple-stage clearance.",
+      "classes_used": [
+        "Basal Cell Carcinoma (BCC)",
+        "Nodular BCC",
+        "Superficial BCC",
+        "Micronodular BCC",
+        "Morpheaform/infiltrative BCC",
+        "Benign structures (inflammation, hair follicles, normal epidermis, healthy uninvolved tissue)"
+      ],
+      "counts": {
+        "total": 348,
+        "training": 278,
+        "validation": 35,
+        "testing": 35,
+        "per_class": {
+          "nodular_bcc_tiles": 32,
+          "superficial_bcc_tiles": 28,
+          "micronodular_bcc_tiles": 19,
+          "morpheaform_infiltrative_bcc_tiles": 34
+        }
+      },
+      "use": {
+        "training": "Used to train the Ultralytics YOLOv8 segmentation model. Tiles containing annotated BCC were split 80% for training.",
+        "validation": "Used for model optimization and adjusting model features. 10% of tiles containing annotated BCC plus an equal number of tiles without BCC were included.",
+        "testing": "Used for final evaluation of model performance (sensitivity and specificity). 10% of tiles containing annotated BCC plus an equal number of tiles without BCC were included.",
+        "other": "The model was pretrained on the COCO dataset before training on this institutional data."
+      }
+    },
+    {
+      "name": "COCO Dataset",
+      "description": "The Microsoft COCO (Common Objects in Context) dataset, used as the source for pretraining the Ultralytics YOLOv8 segmentation model.",
+      "classes_used": [
+        "General object classes (COCO classes)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for pretraining the Ultralytics YOLOv8 model weights before fine-tuning on the institutional MMS dataset.",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "True Positive",
+    "False Positive",
+    "True Negative",
+    "False Negative"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Sensitivity and Specificity calculations",
+      "purpose": "To evaluate the performance of the segmentation model for localizing Basal Cell Carcinoma (BCC) foci on Mohs Micrographic Surgery (MMS) frozen section slides, calculated at the level of individual BCC foci and tiles.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "True Positive, False Positive, True Negative, False Negative counts",
+      "purpose": "To derive sensitivity and specificity metrics by counting individual polygons of BCC on ground truth annotations versus model predictions.",
+      "type": "Confusion matrix components"
+    },
+    {
+      "method": "Stratified analysis by BCC subtype",
+      "purpose": "To evaluate model performance variations across different histological subtypes (nodular, superficial, micronodular, morpheaform/infiltrative) of Basal Cell Carcinoma.",
+      "type": "Subgroup analysis"
+    },
+    {
+      "method": "Adjustment of true-negative counts",
+      "purpose": "To account for the proportion of tiles containing specific BCC subtypes when calculating specificity for tiles containing only a single BCC subtype.",
+      "type": "Data adjustment"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using sensitivity and specificity metrics calculated from confusion matrix components (true positives, false positives, true negatives, false negatives) without statistical inference."
+  },
+  "results_obtained_in_each_dataset": {
+    "Institutional MMS Frozen Section Dataset (Test Set)": {
+      "metric": "Sensitivity and Specificity calculated on individual BCC foci and tiles",
+      "models": {
+        "Ultralytics YOLOv8": {
+          "All tiles (Overall)": {
+            "Sensitivity": 0.71,
+            "Specificity": 0.75,
+            "True Positives": 347,
+            "False Positives": 54,
+            "True Negatives": 162,
+            "False Negatives": 145
+          },
+          "Nodular BCC": {
+            "Sensitivity": 0.87,
+            "Specificity": 0.59,
+            "True Positives": 85,
+            "False Positives": 11,
+            "True Negatives": 16,
+            "False Negatives": 12
+          },
+          "Superficial BCC": {
+            "Sensitivity": 0.79,
+            "Specificity": 0.58,
+            "True Positives": 59,
+            "False Positives": 10,
+            "True Negatives": 14,
+            "False Negatives": 16
+          },
+          "Micronodular BCC": {
+            "Sensitivity": 0.74,
+            "Specificity": 0.83,
+            "True Positives": 92,
+            "False Positives": 2,
+            "True Negatives": 9.5,
+            "False Negatives": 33
+          },
+          "Morpheaform/Infiltrative BCC": {
+            "Sensitivity": 0.51,
+            "Specificity": 0.74,
+            "True Positives": 40,
+            "False Positives": 6,
+            "True Negatives": 17,
+            "False Negatives": 38
+          }
+        }
+      },
+      "notes": "The model was pretrained on the COCO dataset. Performance varied significantly by BCC subtype. Sensitivity was higher for nodular and superficial BCC than for morpheaform/infiltrative and micronodular BCC. Specificity was higher for micronodular and morpheaform/infiltrative BCC than for nodular and superficial BCC. The study noted that sensitivity calculations for morpheaform/infiltrative and micronodular BCC were penalized when the model identified most, but not all foci of BCC within a cluster. Specificity calculations were influenced by the proportion of tiles containing specific subtypes. The authors concluded that sensitivity and specificity are heavily influenced by the number of foci inherent to individual tumor subtypes and may not be ideally suited metrics for segmentation models for BCC."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Ultralytics YOLOv8 segmentation model",
+    "pretraining": "Pretrained on the COCO dataset",
+    "input_size": "640 x 640 pixel tiles",
+    "architecture_details": {
+      "framework": "Ultralytics YOLOv8",
+      "task": "Segmentation",
+      "input_processing": "Whole slide images (WSIs) scaled down to 20% resolution and split into 640 x 640 pixel tiles",
+      "annotation_format": "Polygon coordinates"
+    },
+    "training_details": {
+      "hardware": "NVIDIA GeForce RTX 3070 GPU",
+      "data_split": "80% training, 10% validation, 10% testing",
+      "training_data_count": "3,894 tiles containing annotated BCC",
+      "validation_data_count": "324 tiles",
+      "testing_data_count": "324 tiles",
+      "optimization": "Features adjusted based on validation data set performance"
+    },
+    "classification_or_output_head": {
+      "output_type": "Segmentation masks (polygon coordinates)",
+      "evaluation_metrics": "Sensitivity and Specificity calculated on individual BCC foci"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Ultralytics YOLOv8 segmentation model"
+  ],
+  "preprocessing_techniques": [
+    "Quality control screening of slides to exclude those with substantial artifact preventing annotation",
+    "Digital scanning of fresh frozen tissue slides at 20x magnification as whole slide images (WSIs)",
+    "Scaling down whole slide images to 20% resolution",
+    "Splitting scaled-down WSIs into 640 x 640 pixel tiles",
+    "Pretraining the model on the COCO dataset"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The study successfully trained a segmentation model (Ultralytics YOLOv8) to localize Basal Cell Carcinoma (BCC) on Mohs Micrographic Surgery (MMS) frozen section slides with reasonably high sensitivity (0.71) and specificity (0.75).",
+    "Model performance varied significantly by BCC subtype, with higher sensitivity for nodular (0.87) and superficial (0.79) BCC compared to morpheaform/infiltrative (0.51) and micronodular (0.74) BCC.",
+    "The study concludes that sensitivity and specificity are not ideally suited metrics for evaluating segmentation models for BCC because they are heavily influenced by the number of foci inherent to individual tumor subtypes.",
+    "More accurate and clinically relevant performance metrics for segmentation studies are needed before such models can be implemented in clinical practice.",
+    "The model incorrectly labeled benign structures such as hair follicles, inflammation, and healthy epidermis as BCC in some cases.",
+    "The authors acknowledge the need for external validation and improved metrics before clinical implementation."
+  ],
+  "important_remarks": [
+    "The study lacks external validation, relying solely on a single-institution dataset from The Ohio State University, which limits generalizability.",
+    "The authors explicitly state that sensitivity and specificity are not ideally suited metrics for evaluating BCC segmentation models because they are heavily influenced by the number of foci inherent to individual tumor subtypes.",
+    "Model performance varied significantly by BCC subtype, with lower sensitivity for morpheaform/infiltrative BCC (0.51) compared to nodular BCC (0.87).",
+    "The sensitivity calculation for morpheaform/infiltrative BCC was penalized when the model identified most, but not all foci within a cluster, potentially underestimating clinical utility since subsequent excision would still be correct.",
+    "The model incorrectly labeled benign structures such as hair follicles, inflammation, and healthy epidermis as BCC in some cases.",
+    "Image resolution was scaled down to 20% to accommodate the limited power of the available AI processor (NVIDIA GeForce RTX 3070), which may have negatively impacted performance compared to higher-resolution processing.",
+    "Ground truth annotations grouped clusters of adjacent BCC foci as single units, which decreased the total number of true-positive annotations and may have skewed sensitivity calculations.",
+    "The study did not report formal statistical hypothesis testing, p-values, or confidence intervals for the performance metrics.",
+    "The dataset was derived from a specific time period (2018-2021) and patient population, potentially introducing selection bias.",
+    "The authors recommend using the Dice score as an alternative metric for future segmentation studies, as it evaluates pixel-level classification accuracy rather than focus-level counts."
+  ]
+}

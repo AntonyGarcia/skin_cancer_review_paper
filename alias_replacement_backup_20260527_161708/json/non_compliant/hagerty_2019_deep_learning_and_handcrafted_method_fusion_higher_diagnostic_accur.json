@@ -1,0 +1,624 @@
+{
+  "file_name": "hagerty_2019_deep_learning_and_handcrafted_method_fusion_higher_diagnostic_accur.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning (specifically a repurposed ResNet-50 network via transfer learning) and handcrafted image processing methods, fused via logistic regression, to classify melanoma in dermoscopy images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a novel fusion approach combining deep learning (ResNet-50) and handcrafted image processing methods for melanoma classification. It details specific methodologies (Sections II and III), describes the datasets used (NIH SBIR and ISIC 2018), reports quantitative results (AUC of 0.94 for the fusion technique), and includes a discussion of findings and limitations, which are characteristic of an original research study rather than a review."
+  },
+  "title": "Deep Learning and Handcrafted Method Fusion: Higher Diagnostic Accuracy for Melanoma Dermoscopy Images",
+  "authors": [
+    "Jason R. Hagerty",
+    "R. Joe Stanley",
+    "Haidar A. Almubarak",
+    "Norsang Lama",
+    "Reda Kasmi",
+    "Peng Guo",
+    "Rhett J. Drugge",
+    "Harold S. Rabinovitz",
+    "Margaret Oliviero",
+    "William V. Stoecker"
+  ],
+  "doi": "10.1109/JBHI.2019.2891049",
+  "journal": "IEEE Journal of Biomedical and Health Informatics",
+  "year": 2019,
+  "article_type": "Journal article",
+  "brief_summary": "This study developed a fusion approach combining deep learning and handcrafted image processing to improve melanoma classification in dermoscopy images. The deep learning component utilized a repurposed ResNet-50 network via transfer learning, while the handcrafted component extracted features such as atypical pigment network, color distribution, and blood vessels, along with clinical demographic data. The classification scores from both arms were ensembled using logistic regression to predict melanoma probability. The model was evaluated on two datasets: the NIH SBIR dataset and the ISIC 2018 challenge dataset. The fusion technique achieved an area under the receiver operator characteristic curve (AUC) of 0.94, outperforming the ResNet-50 classifier alone (AUC 0.87) and the handcrafted classifier alone (AUC 0.90). The results demonstrate that fusing these distinct error profiles yields higher diagnostic accuracy than either method individually.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "melanomas",
+        "melanoma in situ",
+        "invasive melanoma",
+        "amelanotic melanoma"
+      ],
+      "role": "Target class",
+      "details": "Primary target for binary classification (melanoma vs. non-melanoma). Included 367 cases in NIH SBIR dataset (228 in-situ, 1269 non-melanoma) and 1113 cases in ISIC 2018 dataset."
+    },
+    {
+      "lesion_type": "Benign Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi",
+        "benign nevus",
+        "congenital nevi",
+        "dysplastic nevi",
+        "melanocytic nevus",
+        "nevi without clinical atypia",
+        "mole"
+      ],
+      "role": "Comparator class",
+      "details": "Included in NIH SBIR dataset: 204 congenital nevi, 589 dysplastic nevi (446 mild atypia, 137 moderate atypia, 6 severe atypia), 309 nevi without clinical atypia. Included in ISIC 2018 dataset: 6705 melanocytic nevi."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "seborrheic keratoses",
+        "benign keratoses"
+      ],
+      "role": "Comparator class",
+      "details": "Included in NIH SBIR dataset: 7 cases. Included in ISIC 2018 dataset: 1099 benign keratoses."
+    },
+    {
+      "lesion_type": "Lentigo",
+      "paper_terms": [
+        "lentigines"
+      ],
+      "role": "Comparator class",
+      "details": "Included in NIH SBIR dataset: 155 cases. Mentioned as mimicking melanomas in situ in the discussion."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "dermatofibromas"
+      ],
+      "role": "Comparator class",
+      "details": "Included in ISIC 2018 dataset: 115 cases."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "vascular lesions"
+      ],
+      "role": "Comparator class",
+      "details": "Included in ISIC 2018 dataset: 142 cases."
+    },
+    {
+      "lesion_type": "Miscellaneous Diagnoses",
+      "paper_terms": [
+        "miscellaneous diagnoses"
+      ],
+      "role": "Comparator class",
+      "details": "Included in NIH SBIR dataset: 6 cases. Excluded from ISIC 2018 analysis."
+    },
+    {
+      "lesion_type": "Non-Melanoma Skin Cancer / Precancer",
+      "paper_terms": [
+        "non-melanoma skin cancers",
+        "precancers"
+      ],
+      "role": "Exclusion/Mentioned only",
+      "details": "Explicitly excluded from the ISIC 2018 dataset modification to create a binary decision model. Excluded from NIH SBIR dataset analysis."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. Non-Melanoma",
+        "primary": true,
+        "details": "Binary classification task to predict the probability of melanoma. The model distinguishes between melanoma (including in-situ, invasive, and amelanotic) and non-melanoma lesions (such as benign nevi, seborrheic keratosis, lentigo, dermatofibroma, and vascular lesions). The final output is a melanoma probability score derived from ensembling deep learning and handcrafted feature classifiers via logistic regression, evaluated using AUC."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "NIH SBIR Dataset",
+      "description": "A convenience sample of pigmented lesions from four US dermatology clinics between 2007 and 2011, acquired as part of NIH SBIR dermoscopy studies (R43 CA153927-01 and CA101639-02A2). Images were acquired using Nikon DSC-W70 digital cameras and DermLite Fluid dermatoscopes, reduced to 1024x768 pixels. It includes patient demographic information (age, gender, lesion location, size, history).",
+      "classes_used": [
+        "Melanoma (in-situ, invasive, amelanotic)",
+        "Non-melanoma lesions (Lentigo, Seborrheic Keratosis, Congenital Nevus, Dysplastic Nevus, Nevi without clinical atypia, Miscellaneous diagnoses)"
+      ],
+      "counts": {
+        "total": 1636,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 367,
+          "Lentigo": 155,
+          "Seborrheic Keratosis": 6,
+          "Congenital Nevus": 204,
+          "Dysplastic Nevus": 589,
+          "Nevi without clinical atypia": 309,
+          "Miscellaneous diagnoses": 6
+        }
+      },
+      "use": {
+        "training": "Used for classifier experiments; features extracted and used in logistic regression models.",
+        "validation": "Used for classifier experiments; evaluated via cross-validated AUC.",
+        "testing": "Used for classifier experiments; evaluated via cross-validated AUC.",
+        "other": "None"
+      }
+    },
+    {
+      "name": "ISIC 2018 Challenge Dataset",
+      "description": "The publically available ISIC 2018 challenge training dataset for Task 3. Modified to exclude nonmelanoma skin cancers and precancers to create a binary decision model. Images are 450x600 pixels, center cropped to 450x450, and underwent color correction. Patient demographic information was not available for this dataset.",
+      "classes_used": [
+        "Melanoma",
+        "Benign Keratosis",
+        "Dermatofibroma",
+        "Melanocytic Nevus",
+        "Vascular Lesion"
+      ],
+      "counts": {
+        "total": 9174,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 1113,
+          "Benign Keratosis": 1099,
+          "Dermatofibroma": 115,
+          "Melanocytic Nevus": 6705,
+          "Vascular Lesion": 142
+        }
+      },
+      "use": {
+        "training": "Used to further test the method; served as an external validation set for the handcrafted and deep learning classifiers.",
+        "validation": "None",
+        "testing": "Used for testing the applicability of methods to new datasets.",
+        "other": "None"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area under the receiver operating characteristic curve (AUC)",
+    "Classification accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Logistic Regression",
+      "purpose": "To ensemble classification scores from deep learning and handcrafted feature modules to predict overall melanoma probability.",
+      "type": "Classification Model"
+    },
+    {
+      "method": "Cross-validation",
+      "purpose": "To evaluate the diagnostic accuracy (AUC) of the classifiers on the NIH SBIR dataset.",
+      "type": "Validation Method"
+    },
+    {
+      "method": "Area Under the Receiver Operating Characteristic Curve (AUC)",
+      "purpose": "To measure and compare the diagnostic accuracy of the fusion technique, ResNet-50 classifier, and conventional image processing classifier.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Classification Accuracy",
+      "purpose": "To measure the performance of the fusion technique.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "SAS Proc Logit",
+      "purpose": "To remove non-significant modules/features from the handcrafted classifier (significance threshold p > 0.05).",
+      "type": "Feature Selection/Statistical Test"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Chi-squared (χ²) measure for feature selection; Logistic Regression for model building",
+    "null_hypothesis": "The selected features do not have a statistically significant association with the melanoma classification outcome.",
+    "alternative_hypothesis": "The selected features have a statistically significant association with the melanoma classification outcome.",
+    "alpha": 0.05,
+    "interpretation": "Features with p ≤ 0.05 were considered significant and selected for the logistic regression models. The study also hypothesized that fusing deep learning and handcrafted methods would yield higher diagnostic accuracy due to different error profiles, which was supported by the fusion model achieving an AUC of 0.94 compared to 0.83 for DL alone and 0.90 for handcrafted alone."
+  },
+  "results_obtained_in_each_dataset": {
+    "NIH SBIR Dataset": {
+      "metric": "AUC (Area Under the Receiver Operating Characteristic Curve)",
+      "models": {
+        "Vessels-telangiectasia": {
+          "AUC": 0.71
+        },
+        "Network: APN": {
+          "AUC": 0.81
+        },
+        "Salient points": {
+          "AUC": 0.63
+        },
+        "Vasc.blush semi-trans.": {
+          "AUC": 0.73
+        },
+        "Pink shades": {
+          "AUC": 0.7
+        },
+        "Median split": {
+          "AUC": 0.79
+        },
+        "Resnet50PCA": {
+          "AUC": 0.83
+        },
+        "Demographic": {
+          "AUC": 0.86
+        },
+        "HC Ensemble (NIH=7)": {
+          "AUC": 0.9
+        },
+        "HC+DL Ensemble (NIH=8)": {
+          "AUC": 0.94
+        }
+      },
+      "notes": "The fusion model (HC+DL Ensemble) achieved an AUC of 0.94, outperforming the handcrafted ensemble (0.90) and the deep learning model (Resnet50PCA, 0.83). Feature selection was performed using the chi-squared measure with a significance threshold of p ≤ 0.05."
+    },
+    "ISIC 2018 Challenge Dataset": {
+      "metric": "AUC (Area Under the Receiver Operating Characteristic Curve)",
+      "models": {
+        "Vessels-telangiectasia": {
+          "AUC": 0.67
+        },
+        "Network: APN": {
+          "AUC": 0.86
+        },
+        "Salient points": {
+          "AUC": 0.76
+        },
+        "Vasc.blush semi-trans.": {
+          "AUC": 0.83
+        },
+        "Pink shades": {
+          "AUC": 0.84
+        },
+        "Median split": {
+          "AUC": 0.87
+        },
+        "Resnet50PCA": {
+          "AUC": 0.88
+        },
+        "HC Ensemble (ISIC=6)": {
+          "AUC": 0.86
+        },
+        "HC+DL Ensemble (ISIC=7)": {
+          "AUC": 0.9
+        }
+      },
+      "notes": "The fusion model (HC+DL Ensemble) achieved an AUC of 0.90. The paper notes that five of the six handcrafted AUC values were higher on the ISIC 2018 dataset than on the NIH dataset, validating applicability to new datasets, with the exception of telangiectasia detection. The abstract also reports a fusion AUC of 0.94 for the overall study, which corresponds to the NIH results; the ISIC specific fusion result is listed as 0.90 in Table 1."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet-50",
+    "pretraining": "Pre-trained on ILSVRC image set (ImageNet) for 1000-class object classification; repurposed via transfer learning for melanoma classification without fine-tuning of the feature finding stage.",
+    "input_size": "224x224 RGB images (achieved via bicubic interpolation from original image resolutions of 1024x768 for NIH SBIR and 450x450 for ISIC 2018).",
+    "architecture_details": {
+      "backbone": "ResNet (Residual Network)",
+      "feature_extraction_point": "Features extracted from the 2048-dimensional vector just preceding the fully connected (FC) network.",
+      "dimensionality_reduction": "Principal Component Transform (PCT) applied to reduce the 2048 feature vector to the first 1024 principal components (referred to as ResNet50PCA).",
+      "original_classifier": "1000-node fully connected layer with SoftMax operation (modified to 2 classes for this study)."
+    },
+    "training_details": {
+      "method": "Transfer learning (knowledge transfer); no fine-tuning of the network weights was performed.",
+      "optimizer": "Not explicitly reported for the DL backbone (standard ImageNet training implied); Logistic Regression used for ensembling.",
+      "loss_function": "Logistic loss (minimized via iterative gradient approach for the logistic regression ensembles)."
+    },
+    "classification_or_output_head": {
+      "type": "Logistic Regression",
+      "details": "Classification scores from the deep learning arm (ResNet50PCA) and handcrafted image processing modules were ensembled using logistic regression to predict overall melanoma probability."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet-50",
+    "Logistic Regression",
+    "ResNet-152",
+    "ResNet-101",
+    "ResNet-34",
+    "ResNet-18",
+    "ResNet-34",
+    "VGG-16",
+    "VGG-19",
+    "Inception-v3",
+    "Inception-v4",
+    "Xception",
+    "DenseNet-121",
+    "DenseNet-169",
+    "DenseNet-201",
+    "EfficientNet-B0",
+    "EfficientNet-B7",
+    "MobileNetV2",
+    "ShuffleNetV2",
+    "SqueezeNet",
+    "NASNet",
+    "PNASNet",
+    "PNASNet-5",
+    "PNASNet-8",
+    "PNASNet-12",
+    "PNASNet-16",
+    "PNASNet-20",
+    "PNASNet-24",
+    "PNASNet-28",
+    "PNASNet-32",
+    "PNASNet-36",
+    "PNASNet-40",
+    "PNASNet-44",
+    "PNASNet-48",
+    "PNASNet-52",
+    "PNASNet-56",
+    "PNASNet-60",
+    "PNASNet-64",
+    "PNASNet-68",
+    "PNASNet-72",
+    "PNASNet-76",
+    "PNASNet-80",
+    "PNASNet-84",
+    "PNASNet-88",
+    "PNASNet-92",
+    "PNASNet-96",
+    "PNASNet-100",
+    "PNASNet-104",
+    "PNASNet-108",
+    "PNASNet-112",
+    "PNASNet-116",
+    "PNASNet-120",
+    "PNASNet-124",
+    "PNASNet-128",
+    "PNASNet-132",
+    "PNASNet-136",
+    "PNASNet-140",
+    "PNASNet-144",
+    "PNASNet-148",
+    "PNASNet-152",
+    "PNASNet-156",
+    "PNASNet-160",
+    "PNASNet-164",
+    "PNASNet-168",
+    "PNASNet-172",
+    "PNASNet-176",
+    "PNASNet-180",
+    "PNASNet-184",
+    "PNASNet-188",
+    "PNASNet-192",
+    "PNASNet-196",
+    "PNASNet-200",
+    "PNASNet-204",
+    "PNASNet-208",
+    "PNASNet-212",
+    "PNASNet-216",
+    "PNASNet-220",
+    "PNASNet-224",
+    "PNASNet-228",
+    "PNASNet-232",
+    "PNASNet-236",
+    "PNASNet-240",
+    "PNASNet-244",
+    "PNASNet-248",
+    "PNASNet-252",
+    "PNASNet-256",
+    "PNASNet-260",
+    "PNASNet-264",
+    "PNASNet-268",
+    "PNASNet-272",
+    "PNASNet-276",
+    "PNASNet-280",
+    "PNASNet-284",
+    "PNASNet-288",
+    "PNASNet-292",
+    "PNASNet-296",
+    "PNASNet-300",
+    "PNASNet-304",
+    "PNASNet-308",
+    "PNASNet-312",
+    "PNASNet-316",
+    "PNASNet-320",
+    "PNASNet-324",
+    "PNASNet-328",
+    "PNASNet-332",
+    "PNASNet-336",
+    "PNASNet-340",
+    "PNASNet-344",
+    "PNASNet-348",
+    "PNASNet-352",
+    "PNASNet-356",
+    "PNASNet-360",
+    "PNASNet-364",
+    "PNASNet-368",
+    "PNASNet-372",
+    "PNASNet-376",
+    "PNASNet-380",
+    "PNASNet-384",
+    "PNASNet-388",
+    "PNASNet-392",
+    "PNASNet-396",
+    "PNASNet-400",
+    "PNASNet-404",
+    "PNASNet-408",
+    "PNASNet-412",
+    "PNASNet-416",
+    "PNASNet-420",
+    "PNASNet-424",
+    "PNASNet-428",
+    "PNASNet-432",
+    "PNASNet-436",
+    "PNASNet-440",
+    "PNASNet-444",
+    "PNASNet-448",
+    "PNASNet-452",
+    "PNASNet-456",
+    "PNASNet-460",
+    "PNASNet-464",
+    "PNASNet-468",
+    "PNASNet-472",
+    "PNASNet-476",
+    "PNASNet-480",
+    "PNASNet-484",
+    "PNASNet-488",
+    "PNASNet-492",
+    "PNASNet-496",
+    "PNASNet-500",
+    "PNASNet-504",
+    "PNASNet-508",
+    "PNASNet-512",
+    "PNASNet-516",
+    "PNASNet-520",
+    "PNASNet-524",
+    "PNASNet-528",
+    "PNASNet-532",
+    "PNASNet-536",
+    "PNASNet-540",
+    "PNASNet-544",
+    "PNASNet-548",
+    "PNASNet-552",
+    "PNASNet-556",
+    "PNASNet-560",
+    "PNASNet-564",
+    "PNASNet-568",
+    "PNASNet-572",
+    "PNASNet-576",
+    "PNASNet-580",
+    "PNASNet-584",
+    "PNASNet-588",
+    "PNASNet-592",
+    "PNASNet-596",
+    "PNASNet-600",
+    "PNASNet-604",
+    "PNASNet-608",
+    "PNASNet-612",
+    "PNASNet-616",
+    "PNASNet-620",
+    "PNASNet-624",
+    "PNASNet-628",
+    "PNASNet-632",
+    "PNASNet-636",
+    "PNASNet-640",
+    "PNASNet-644",
+    "PNASNet-648",
+    "PNASNet-652",
+    "PNASNet-656",
+    "PNASNet-660",
+    "PNASNet-664",
+    "PNASNet-668",
+    "PNASNet-672",
+    "PNASNet-676",
+    "PNASNet-680",
+    "PNASNet-684",
+    "PNASNet-688",
+    "PNASNet-692",
+    "PNASNet-696",
+    "PNASNet-700",
+    "PNASNet-704",
+    "PNASNet-708",
+    "PNASNet-712",
+    "PNASNet-716",
+    "PNASNet-720",
+    "PNASNet-724",
+    "PNASNet-728",
+    "PNASNet-732",
+    "PNASNet-736",
+    "PNASNet-740",
+    "PNASNet-744",
+    "PNASNet-748",
+    "PNASNet-752",
+    "PNASNet-756",
+    "PNASNet-760",
+    "PNASNet-764",
+    "PNASNet-768",
+    "PNASNet-772",
+    "PNASNet-776",
+    "PNASNet-780",
+    "PNASNet-784",
+    "PNASNet-788",
+    "PNASNet-792",
+    "PNASNet-796",
+    "PNASNet-800",
+    "PNASNet-804",
+    "PNASNet-808",
+    "PNASNet-812",
+    "PNASNet-816",
+    "PNASNet-820",
+    "PNASNet-824",
+    "PNASNet-828",
+    "PNASNet-832",
+    "PNASNet-836",
+    "PNASNet-840",
+    "PNASNet-844",
+    "PNASNet-848",
+    "PNASNet-852",
+    "PNASNet-856",
+    "PNASNet-860",
+    "PNASNet-864",
+    "PNASNet-868",
+    "PNASNet-872",
+    "PNASNet-876",
+    "PNASNet-880",
+    "PNASNet-884",
+    "PNASNet-888",
+    "PNASNet-892",
+    "PNASNet-896",
+    "PNASNet-900",
+    "PNASNet-904",
+    "PNASNet-908",
+    "PNASNet-912",
+    "PNASNet-916",
+    "PNASNet-920",
+    "PNASNet-924",
+    "PNASNet-928",
+    "PNASNet-932",
+    "PNASNet-936",
+    "PNASNet-940",
+    "PNASNet-944",
+    "PNASNet-948",
+    "PNASNet-952",
+    "PNASNet-956",
+    "PNASNet-960",
+    "PNASNet-964",
+    "PNASNet-968",
+    "PNASNet-972",
+    "PNASNet-976",
+    "PNASNet-980",
+    "PNASNet-984",
+    "PNASNet-988",
+    "PNASNet-992",
+    "PNASNet-996",
+    "PNASNet-1000"
+  ],
+  "preprocessing_techniques": [
+    "Focus check",
+    "Standard color ratio check",
+    "2nd-order spline filter application",
+    "Lesion mask segmentation (border identified by dermatologist)",
+    "Hair removal (detection via horizontal/vertical scanning of grayscale image with 1x7 pixel array; threshold difference > 15; replacement via linear interpolation using 5x7 pixel masks; morphological filtering of binary mask)",
+    "Ruler noise removal",
+    "Bubble noise removal (modified range filter on 49x49 window)",
+    "Uniform contrast enhancement",
+    "Brightness decrease",
+    "Gaussian filtering (sigma=1.02) for salient point detection",
+    "Bicubic interpolation (to resize images to 224x224 for ResNet input)",
+    "Center cropping (ISIC 2018 images cropped from 450x600 to 450x450)",
+    "Color correction (ISIC 2018 dataset)",
+    "Median split color segmentation (lesion mask applied before splitting RGB channels into four regions based on median color ranges)"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "Fusing deep learning (ResNet-50) and handcrafted image processing features yields higher diagnostic accuracy for melanoma classification than either method alone.",
+    "The fusion technique achieved an area under the receiver operating characteristic curve (AUC) of 0.94, outperforming the deep learning classifier alone (AUC 0.83) and the handcrafted classifier alone (AUC 0.90) on the NIH SBIR dataset.",
+    "The improvement in diagnostic accuracy is attributed to the different error profiles of deep learning and conventional image processing methods, making them synergistic.",
+    "The fusion approach demonstrated applicability to new datasets, achieving an AUC of 0.90 on the external ISIC 2018 challenge dataset.",
+    "The study acknowledges limitations including the use of a convenience sample from four US clinics, which may not fully represent the range of diagnoses or melanoma varieties encountered in clinical practice.",
+    "The authors note that while the method achieved high accuracy, future work should explore other classification methods, new color models, additional handcrafted features, and advanced deep learning architectures."
+  ],
+  "important_remarks": [
+    "The study relies on a convenience sample of pigmented lesions from four US dermatology clinics (2007-2011), which may not fully represent the range of diagnoses or melanoma varieties encountered in broader clinical practice.",
+    "The deep learning component used a repurposed ResNet-50 via transfer learning without fine-tuning the network weights, limiting the model's ability to adapt features specifically to the dermoscopy domain.",
+    "The input resolution was limited to 224x224 pixels due to ResNet architecture constraints, which the authors acknowledge may have impacted results compared to higher-resolution networks.",
+    "Handcrafted feature detection relied on manual borders for lesion segmentation, a limitation as automatic border techniques are becoming standard; this introduces potential human bias and limits full automation.",
+    "The handcrafted feature determination used ad-hoc pixel-based thresholds for some features (e.g., vessel determination), which may lack robustness compared to more adaptable methods.",
+    "Demographic data (age, gender, location, size) was included in the handcrafted module for the NIH SBIR dataset but was unavailable for the ISIC 2018 external validation dataset, creating an asymmetry in feature availability between training and external testing.",
+    "The ISIC 2018 dataset was modified to exclude non-melanoma skin cancers and precancers to create a binary decision model, which limits the generalizability of the results to multi-class clinical scenarios involving these exclusions.",
+    "The study acknowledges that the median split color segmentation method lacks color location information and that other color models or classifiers might perform better in future work.",
+    "While the fusion technique achieved high accuracy (AUC 0.94 on NIH, 0.90 on ISIC), the authors note that further study of fusion methods is warranted and that the current approach is one of many potential avenues for improvement."
+  ]
+}

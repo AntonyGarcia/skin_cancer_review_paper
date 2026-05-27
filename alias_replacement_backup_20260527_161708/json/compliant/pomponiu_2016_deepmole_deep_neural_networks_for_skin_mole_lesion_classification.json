@@ -1,0 +1,291 @@
+{
+  "file_name": "pomponiu_2016_deepmole_deep_neural_networks_for_skin_mole_lesion_classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a pretrained deep neural network (CNN) for transfer learning to automatically extract features from skin mole lesion images for the classification of benign nevi versus malignant melanoma. The implementation utilized the Caffe deep learning library."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work using a pretrained deep neural network (CNN) for transfer learning to classify skin mole lesions. It details a specific methodology (using Caffe, 10-fold cross-validation), describes a custom dataset of 399 images (expanded to 10k via augmentation), and reports new classification results (sensitivity, specificity, accuracy) comparing the proposed method against state-of-the-art techniques."
+  },
+  "title": "DEEPMOLE: DEEP NEURAL NETWORKS FOR SKIN MOLE LESION CLASSIFICATION",
+  "authors": [
+    "V. Pomponiu",
+    "H. Nejati",
+    "N.-M. Cheung"
+  ],
+  "doi": null,
+  "journal": "2016 IEEE 18th International Conference on e-Health Networking, Applications and Services (Healthcom)",
+  "year": 2016,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the classification of benign nevi versus malignant melanoma using a pretrained deep neural network (CNN) for automatic feature extraction via transfer learning. The authors utilized a custom dataset of 399 skin mole images sourced from DermIS and DermQuest, which was expanded to 10,000 images through data augmentation techniques to mitigate overfitting. The CNN architecture, implemented using the Caffe library, served as a feature extractor, with the resulting features classified by a k-nearest neighbors (kNN) algorithm. Performance was evaluated using 10-fold cross-validation, reporting sensitivity, specificity, and accuracy metrics. The proposed method achieved a sensitivity of 92.10%, specificity of 95.18%, and accuracy of 93.64%, outperforming state-of-the-art techniques based on hand-crafted features. The results demonstrate that transfer learning from a pretrained CNN is a viable and effective approach for skin mole lesion classification.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Malignant Melanoma",
+      "paper_terms": [
+        "Malignant melanoma",
+        "MM",
+        "malignant melanoma cases"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the custom dataset of 399 images (182 cases). Diagnosed via histology/biopsy. The paper focuses on differentiating this from benign nevi."
+    },
+    {
+      "lesion_type": "Benign Nevus",
+      "paper_terms": [
+        "benign nevi",
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the custom dataset of 399 images (217 cases). Used as the comparator to malignant melanoma."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin mole lesions into benign nevi or malignant melanoma",
+        "primary": true,
+        "details": "The paper explicitly states the task is 'skin mole lesion classification' to diagnose malignancy. The model predicts discrete diagnostic categories (benign vs. malignant) using a k-nearest neighbors (kNN) classifier on features extracted from a pretrained CNN. Performance is evaluated using sensitivity, specificity, and accuracy metrics on a dataset of 399 images (217 benign nevi, 182 malignant melanomas)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Custom Clinical Dataset (DermIS/DermQuest)",
+      "description": "A custom dataset of skin mole lesion images collected from the European dermatology atlas DermIS and the online dermatology image library DermQuest. The images were acquired using a digital camera with different resolutions. The dataset consists of color (RGB) images of skin mole lesions, with diagnoses obtained from histology via biopsy for melanoma cases. The dataset was manually annotated to obtain Regions of Interest (ROIs).",
+      "classes_used": [
+        "Benign nevi",
+        "Malignant melanoma (MM)"
+      ],
+      "counts": {
+        "total": 399,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign nevi": 217,
+          "Malignant melanoma": 182
+        }
+      },
+      "use": {
+        "training": "Used for training the k-nearest neighbors (kNN) classifier via 10-fold cross-validation. The dataset was expanded to 10,000 images via data augmentation (Gaussian low pass filter, histogram equalization, noise addition, guided filtering, JPEG compression, motion blur) to reduce overfitting.",
+        "validation": "Used for validation within the 10-fold cross-validation scheme (held-out folds).",
+        "testing": "Used for testing within the 10-fold cross-validation scheme (held-out folds).",
+        "other": "The CNN used for feature extraction was pretrained on a different dataset (ImageNet, referenced as [23]), not this specific dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10-fold cross-validation",
+      "purpose": "To estimate the generalization error of the classifier models and evaluate performance metrics (sensitivity, specificity, accuracy) by holding out one fold for testing and using the remaining folds for training in each iteration.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Mean and Standard Deviation",
+      "purpose": "To report the average performance and associated variability (uncertainty) of sensitivity, specificity, and accuracy across all cross-validation folds.",
+      "type": "Descriptive Statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using sensitivity, specificity, and accuracy with standard deviations across 10-fold cross-validation folds, and compared qualitatively to state-of-the-art methods."
+  },
+  "results_obtained_in_each_dataset": {
+    "Custom Clinical Dataset (DermIS/DermQuest)": {
+      "description": "Dataset of 399 skin mole lesion images (217 benign nevi, 182 malignant melanomas), expanded to 10,000 via data augmentation. Evaluated using 10-fold cross-validation.",
+      "evaluation_setting": "10-fold cross-validation",
+      "metrics": [
+        "Sensitivity (%)",
+        "Specificity (%)",
+        "Accuracy (%)"
+      ],
+      "models": {
+        "Proposed Method (F8 - Features from last layer of pretrained CNN)": {
+          "Sensitivity": "92.10 ± 0.5",
+          "Specificity": "95.18 ± 1.3",
+          "Accuracy": "93.64 ± 1.9"
+        },
+        "Proposed Method (F7 - Features from second-to-last layer of pretrained CNN)": {
+          "Sensitivity": "87.91 ± 1.7",
+          "Specificity": "94.93 ± 1.0",
+          "Accuracy": "91.42 ± 0.6"
+        },
+        "Proposed Method (F6 - Features from third-to-last layer of pretrained CNN)": {
+          "Sensitivity": "88.46 ± 0.8",
+          "Specificity": "93.08 ± 1.1",
+          "Accuracy": "90.77 ± 1.5"
+        },
+        "Pomponiu et al. [19] (Hand-crafted features)": {
+          "Sensitivity": "85.71 ± 2.1",
+          "Specificity": "82.48 ± 6.8",
+          "Accuracy": "83.95 ± 3.3"
+        },
+        "Do et al. [18] (Hand-crafted features)": {
+          "Sensitivity": "84.83 ± 2.4",
+          "Specificity": "86.32 ± 8.4",
+          "Accuracy": "85.58 ± 3.9"
+        },
+        "Doukas et al. [17] (Hand-crafted features)": {
+          "Sensitivity": "64.11 ± 4.6",
+          "Specificity": "81.67 ± 7.1",
+          "Accuracy": "77.06 ± 2.9"
+        },
+        "Method [16] (Hand-crafted features)": {
+          "Sensitivity": "60.7 ± 5.5",
+          "Specificity": "80.5 ± 3.8",
+          "Accuracy": "66.7 ± 0.7"
+        }
+      },
+      "notes": "The proposed method using features from the last layer of the pretrained CNN (F8) outperformed state-of-the-art techniques based on hand-crafted features. The CNN was pretrained on a different dataset (natural images) and used as a feature extractor with a kNN classifier (k=2, cosine distance)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Pretrained Convolutional Neural Network (CNN) used as a feature extractor, implemented using the Caffe deep learning library. The specific architecture is referenced as [23] (AlexNet).",
+    "pretraining": "Pretrained on natural images (ImageNet, referenced as [23]), not on the dermatology dataset.",
+    "input_size": "224 x 224 pixels (RGB images resized to this dimension after subtracting the mean image learned by the net).",
+    "architecture_details": {
+      "framework": "Caffe",
+      "layer_structure": "8 layers total: 5 convolutional layers followed by 3 fully connected layers.",
+      "convolutional_layers": [
+        {
+          "layer": 1,
+          "filters": 96,
+          "kernel_size": "11 x 11 x 3"
+        },
+        {
+          "layer": 2,
+          "filters": 256,
+          "kernel_size": "5 x 5 x 48"
+        },
+        {
+          "layer": 3,
+          "description": "Chained without pooling or normalization"
+        },
+        {
+          "layer": 4,
+          "description": "Chained without pooling or normalization"
+        },
+        {
+          "layer": 5,
+          "description": "Chained without pooling or normalization"
+        }
+      ],
+      "fully_connected_layers": [
+        {
+          "layer": 6,
+          "neurons": 4096
+        },
+        {
+          "layer": 7,
+          "neurons": 4096
+        },
+        {
+          "layer": 8,
+          "description": "Output layer (features extracted from here for F8)"
+        }
+      ],
+      "feature_extraction": "Features were extracted from the last three layers (layers 6, 7, and 8) of the network. These layers correspond to F6, F7, and F8 in the results."
+    },
+    "training_details": {
+      "training_method": "Transfer learning (feature extraction only). The CNN weights were frozen; no fine-tuning was performed.",
+      "optimizer": "Not reported (weights were pretrained and not updated during this study).",
+      "loss_function": "Not reported (weights were pretrained and not updated during this study).",
+      "hyperparameters": {
+        "data_augmentation": [
+          "Gaussian low pass filter",
+          "Histogram equalization",
+          "Noise addition",
+          "Guided filtering",
+          "JPEG compression",
+          "Motion blur"
+        ],
+        "dataset_size_augmented": "10,000 images (expanded from 399)"
+      },
+      "validation_scheme": "10-fold cross-validation"
+    },
+    "classification_or_output_head": {
+      "type": "k-Nearest Neighbors (kNN)",
+      "parameters": {
+        "k": 2,
+        "distance_metric": "Cosine distance"
+      },
+      "feature_processing": "Pooled vector difference between extracted features."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Pretrained Convolutional Neural Network (CNN) (AlexNet architecture, implemented in Caffe) used as a feature extractor",
+    "k-Nearest Neighbors (kNN) classifier (k=2, cosine distance)",
+    "Artificial Neural Network (ANN) classifier (referenced in [12] as a baseline/comparison)",
+    "Finite symmetric conditional Markov model (referenced in [13] as a baseline/comparison)",
+    "Layered classification model (referenced in [14] as a baseline/comparison)",
+    "Bag-of-features framework (referenced in [15] as a baseline/comparison)",
+    "Method [16] (Hand-crafted features)",
+    "Doukas et al. [17] (Hand-crafted features)",
+    "Do et al. [18] (Hand-crafted features)",
+    "Pomponiu et al. [19] (Hand-crafted features)"
+  ],
+  "preprocessing_techniques": [
+    "Manual annotation/labeling to obtain Regions of Interest (ROIs) for each skin lesion",
+    "Subtracting the mean image learned by the pretrained network from each ROI image",
+    "Resizing ROI images to 224 x 224 pixels",
+    "Data augmentation via distortions: Gaussian low pass filter, histogram equalization, noise addition, guided filtering, JPEG compression, and motion blur"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Gaussian low pass filter",
+      "details": "Applied as a distortion to modify image intensities to reduce overfitting and gain feature invariance."
+    },
+    {
+      "technique": "Histogram equalization",
+      "details": "Applied as a distortion to modify image intensities to reduce overfitting and gain feature invariance."
+    },
+    {
+      "technique": "Noise addition",
+      "details": "Applied as a distortion to modify image intensities to reduce overfitting and gain feature invariance."
+    },
+    {
+      "technique": "Guided filtering",
+      "details": "Applied as a distortion to modify image intensities to reduce overfitting and gain feature invariance."
+    },
+    {
+      "technique": "JPEG compression",
+      "details": "Applied as a distortion to modify image intensities to reduce overfitting and gain feature invariance."
+    },
+    {
+      "technique": "Motion blur",
+      "details": "Applied as a distortion to modify image intensities to reduce overfitting and gain feature invariance, simulating blurring due to device shaking."
+    }
+  ],
+  "conclusions": [
+    "Transfer learning using features extracted from a pretrained deep neural network (CNN) is a viable and effective solution for skin mole lesion classification, outperforming state-of-the-art methods based on hand-crafted features.",
+    "The proposed method achieved a sensitivity of 92.10%, specificity of 95.18%, and accuracy of 93.64% on a custom clinical dataset of 399 images (expanded to 10,000 via augmentation), demonstrating superior performance compared to previous techniques.",
+    "Features transferred from a CNN pretrained on a different domain (natural images/ImageNet) preserve the ability to discriminate between benign nevi and malignant melanoma, despite the domain gap in image content and lighting conditions.",
+    "Using features from the last layer of the pretrained CNN (F8) yielded the best performance among the tested layers (F6, F7, F8), indicating that deeper layers capture more discriminative features for this task.",
+    "Data augmentation techniques (Gaussian low pass filter, histogram equalization, noise addition, guided filtering, JPEG compression, and motion blur) were effective in reducing overfitting and gaining feature invariance for the small dataset.",
+    "Future research directions include combining DNN-based features with features describing dermatological rules to improve classification performance and adapting these lightweight features for mobile device-based skin cancer triage."
+  ],
+  "important_remarks": [
+    "The study relies on a very small custom clinical dataset of only 399 images (217 benign nevi, 182 malignant melanomas), necessitating extensive data augmentation (expanding to 10,000 images) to mitigate overfitting risks associated with the large CNN parameter count.",
+    "The CNN (AlexNet) was pretrained on natural images (ImageNet) and used strictly as a frozen feature extractor via transfer learning; no fine-tuning was performed, which limits the model's ability to adapt specifically to dermatological features.",
+    "The dataset was sourced from DermIS and DermQuest, introducing potential population and imaging bias as the images were acquired using digital cameras with varying resolutions and lighting conditions, rather than standardized dermatoscopic equipment.",
+    "The diagnosis for malignant melanoma cases was confirmed via histology/biopsy, providing high ground-truth reliability for the positive class, but the benign nevi labels rely on the source database annotations without independent verification described in the text.",
+    "Performance evaluation was conducted using 10-fold cross-validation on the single dataset; there is no external validation on independent datasets, limiting the generalizability of the reported high sensitivity (92.10%) and specificity (95.18%).",
+    "The paper does not report formal statistical hypothesis testing (e.g., p-values) to compare the proposed method against state-of-the-art hand-crafted feature methods, relying instead on mean and standard deviation comparisons.",
+    "Data leakage risk exists if the data augmentation techniques (Gaussian blur, noise, etc.) were applied before splitting into training and test folds, although the text implies augmentation was used to enlarge the dataset generally without explicitly detailing the split timing relative to augmentation."
+  ]
+}

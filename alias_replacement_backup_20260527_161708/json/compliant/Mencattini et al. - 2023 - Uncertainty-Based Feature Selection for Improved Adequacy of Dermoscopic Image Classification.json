@@ -1,0 +1,271 @@
+{
+  "file_name": "Mencattini et al. - 2023 - Uncertainty-Based Feature Selection for Improved Adequacy of Dermoscopic Image Classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Variational Autoencoders (VAEs), a deep learning generative model, to extract latent variables from dermoscopic images for the binary classification of melanoma malignancy. It also compares this approach with standard transfer learning using Convolutional Neural Networks (CNNs) on the ISIC 2016-2017 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving a novel uncertainty-based feature selection strategy using Variational Autoencoders (VAEs) on the ISIC 2016-2017 dataset. It details specific methods (VAE architecture, Monte Carlo uncertainty propagation), experimental setup (500 malignant/500 benign images, 100 repetitions), and reports new quantitative results (accuracy of 0.82 vs 0.74), distinguishing it from a review or survey."
+  },
+  "title": "Uncertainty-Based Feature Selection for Improved Adequacy of Dermoscopic Image Classification",
+  "authors": [
+    "Arianna Mencattini",
+    "Paola Casti",
+    "Michele D’Orazio",
+    "Gianni Antonelli",
+    "Joanna Filippi",
+    "Eugenio Martinelli"
+  ],
+  "doi": "10.1109/TIM.2023.3303498",
+  "journal": "IEEE Transactions on Instrumentation and Measurement",
+  "year": 2023,
+  "article_type": "Journal article",
+  "brief_summary": "This study addresses the binary classification of melanoma malignancy using dermoscopic images from the ISIC 2016–2017 dataset, which comprised 500 malignant and 500 benign cases. The authors propose a novel uncertainty-based feature selection strategy that utilizes latent variables extracted from a Variational Autoencoder (VAE) architecture. By propagating uncertainty related to skin tone variations and gel bubble artifacts via Monte Carlo methods, the method selects robust descriptors that are minimally affected by perturbations. The approach was evaluated using seven standard classification methods, achieving an average accuracy of 0.82 compared to 0.74 without feature selection. These results demonstrate that the proposed strategy significantly improves the adequacy and robustness of the diagnostic model for melanoma detection.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma (malignant)",
+      "paper_terms": [
+        "malignant",
+        "malignant melanoma",
+        "malignant lesion"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the binary classification task using 500 malignant images from the ISIC 2016-2017 dataset."
+    },
+    {
+      "lesion_type": "Nevus (benign)",
+      "paper_terms": [
+        "benign",
+        "benign nevus",
+        "benign findings",
+        "skin nevi"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the binary classification task using 500 benign images from the ISIC 2016-2017 dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of melanoma malignancy (malignant vs. benign)",
+        "primary": true,
+        "details": "The paper addresses the binary classification problem of malignancy assessment using dermoscopic images from the ISIC 2016–2017 dataset (500 malignant and 500 benign cases). The model predicts discrete diagnostic categories (malignant or benign) using seven standard classification methods (LDA, QDA, SVM, kNN) on features extracted via a Variational Autoencoder (VAE). Performance is measured by Accuracy (ACC), True Positive Rate (TPR), and True Negative Rate (TNR)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2016–2017 Challenge Dataset",
+      "description": "A public dataset of dermoscopic images from the International Skin Imaging Collaboration (ISIC). The study used a specific selection of 1000 images from this dataset, excluding those with gel bubbles, hair aberrations, and other acquisition artifacts to minimize systematic errors.",
+      "classes_used": [
+        "Malignant (melanoma)",
+        "Benign (nevus)"
+      ],
+      "counts": {
+        "total": 1000,
+        "training": 50,
+        "validation": 300,
+        "testing": 600,
+        "per_class": {
+          "malignant": {
+            "total": 500,
+            "training": 25,
+            "validation": 150,
+            "testing": 300
+          },
+          "benign": {
+            "total": 500,
+            "training": 25,
+            "validation": 150,
+            "testing": 300
+          }
+        }
+      },
+      "use": {
+        "training": "The first 50 images (25 malignant, 25 benign) were used to train the Variational Autoencoder (VAE) architecture for optimal image reconstruction capability. The remaining 900 images were split, with 300 used for feature selection and 600 used for testing. Within the testing phase, 90% (560 images) were used for training the classification algorithms in each of the 100 repetitions.",
+        "validation": "The first 300 images (150 malignant, 150 benign) from the remaining 900 images were used to perform feature selection in the Discrimination Power-Sensitivity (DP-SENS) domain.",
+        "testing": "The remaining 600 images (300 malignant, 300 benign) were repeatedly randomly split into 90% (560 images) for training the classification algorithm and 10% (60 images) for testing the accuracy. This procedure was repeated 100 times.",
+        "other": "The dataset was also used to compare the proposed uncertainty-based feature selection strategy with standard transfer learning strategies based on Convolutional Neural Networks (CNNs)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (ACC)",
+    "True Positive Rate (TPR)",
+    "True Negative Rate (TNR)",
+    "Discrimination Power (DP)",
+    "Area Under the ROC Curve (AUC)",
+    "Sensitivity (SENS)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Monte Carlo approaches",
+      "purpose": "To perform uncertainty propagation through the black-box VAE model to evaluate the sensitivity of latent variables to perturbations (skin tone variation and gel bubble artifacts).",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Repeated random splitting (100 repetitions)",
+      "purpose": "To assess the reliability and image-independence of the classification accuracy by repeatedly splitting the testing dataset into 90% training and 10% testing subsets.",
+      "type": "Cross-validation statistics"
+    },
+    {
+      "method": "Area Under the ROC Curve (AUC)",
+      "purpose": "To evaluate the discrimination capability of each latent variable in a binary classification problem, used to calculate the Discrimination Power (DP) index.",
+      "type": "Metric for feature evaluation"
+    },
+    {
+      "method": "Discrimination Power (DP) and Sensitivity (SENS) indices",
+      "purpose": "To select robust features by evaluating the variation in discrimination power when variables are extracted from images with perturbations versus without perturbations.",
+      "type": "Feature selection criterion"
+    },
+    {
+      "method": "Standard Deviation (STD) of Accuracy",
+      "purpose": "To quantify the dispersion or variability of the classification accuracy results across the 100 repetitions, demonstrating the robustness of the proposed method compared to baseline approaches.",
+      "type": "Descriptive statistic"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Statistical comparisons were made using average accuracy (ACC) and standard deviation (STD) over 100 repetitions, and performance was evaluated based on adequacy criteria (Discrimination Power and Sensitivity thresholds) rather than statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2016–2017 Challenge Dataset": {
+      "experiment": "Binary classification of melanoma malignancy (malignant vs. benign) using uncertainty-based feature selection",
+      "split": "Training (50 images for VAE), Validation (300 images for feature selection), Testing (600 images, repeatedly split 90/10 for 100 repetitions)",
+      "metrics": [
+        "Accuracy (ACC)",
+        "Standard Deviation of Accuracy (STD)"
+      ],
+      "models": {
+        "Proposed Approach (Uncertainty-Based Feature Selection + 7 Classifiers)": {
+          "ACC": "0.82",
+          "STD": "0.01",
+          "notes": "Average accuracy over 100 repetitions using 7 standard classification methods (LDA, QDA, SVM lin, SVM rbf, kNN with variable K) on 23 selected latent variables."
+        },
+        "Baseline (No Feature Selection)": {
+          "ACC": "0.74",
+          "STD": "0.05",
+          "notes": "Average accuracy over 100 repetitions without any feature selection approach."
+        },
+        "ResNet101 (Transfer Learning)": {
+          "ACC": "null",
+          "STD": "null",
+          "notes": "Results presented in Table III (values not explicitly stated in text chunks, but noted as comparative baseline)."
+        },
+        "Stepwise Regression (SRF)": {
+          "ACC": "null",
+          "STD": "null",
+          "notes": "Results presented in Table IV (values not explicitly stated in text chunks, but noted as comparative baseline)."
+        },
+        "mRMR": {
+          "ACC": "null",
+          "STD": "null",
+          "notes": "Results presented in Table IV (values not explicitly stated in text chunks, but noted as comparative baseline)."
+        }
+      },
+      "notes": "The proposed approach achieved an average accuracy of 0.82 (STD 0.01) compared to 0.74 (STD 0.05) without feature selection. The method demonstrated robustness against impulsive noise density variations (range [0.04–0.05]), with performance degradation limited to ~4% compared to ~13% for the no-feature-selection case. The proposed approach outperformed SRF and mRMR comparative approaches."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Variational Autoencoder (VAE)",
+    "pretraining": "Trained on a subset of the ISIC 2016–2017 dataset (50 images: 25 malignant, 25 benign) for optimal image reconstruction; no external pretraining reported for the VAE. A comparative baseline used ResNet101 pretrained on ImageNet.",
+    "input_size": "128 × 128 × 3 pixels",
+    "architecture_details": {
+      "type": "Encoder/Decoder generative model",
+      "total_layers": 22,
+      "encoder_layers": 11,
+      "decoder_layers": 11,
+      "latent_variables_extracted": 40,
+      "selected_features": 23,
+      "optimizer": "Stochastic gradient descent (referenced via Kingma and Welling formulation)",
+      "loss_function": "Not explicitly stated, but implied by VAE framework (reconstruction loss + KL divergence)",
+      "hyperparameters": {
+        "threshold_DP": 0.58,
+        "threshold_SENS": 0.1
+      },
+      "training_schedule": "Trained on 50 images; uncertainty propagation performed via Monte Carlo simulations over 100 repetitions"
+    },
+    "training_details": {
+      "training_data": "50 images (25 malignant, 25 benign) from ISIC 2016–2017",
+      "validation_data": "300 images (150 malignant, 150 benign) for feature selection in DP-SENS domain",
+      "testing_data": "600 images (300 malignant, 300 benign), repeatedly split 90/10 for 100 repetitions",
+      "repetitions": 100,
+      "uncertainty_method": "Monte Carlo approaches to propagate uncertainty related to skin tone variation and gel bubble effects"
+    },
+    "classification_or_output_head": {
+      "type": "Standard classification methods applied on extracted latent variables",
+      "classifiers_used": [
+        "Linear Discriminant Analysis (LDA)",
+        "Quadratic Discriminant Analysis (QDA)",
+        "Support Vector Machine with linear kernel (SVM lin)",
+        "Support Vector Machine with radial basis function kernel (SVM rbf)",
+        "k-Nearest Neighbors (kNN) with variable K"
+      ],
+      "feature_selection_method": "Uncertainty-based feature selection based on Discrimination Power (DP) and Sensitivity (SENS) indices"
+    },
+    "approximate_parameters": {
+      "VAE": "Not explicitly reported",
+      "ResNet101_baseline": "44.6M learnable parameters"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Variational Autoencoder (VAE)",
+    "Convolutional Neural Network (CNN)",
+    "ResNet101",
+    "Linear Discriminant Analysis (LDA)",
+    "Quadratic Discriminant Analysis (QDA)",
+    "Support Vector Machine (SVM) with linear kernel",
+    "Support Vector Machine (SVM) with radial basis function (RBF) kernel",
+    "k-Nearest Neighbors (kNN)",
+    "Stepwise Regression Fit (SRF)",
+    "Minimum-Redundancy Maximum-Relevance (mRMR)"
+  ],
+  "preprocessing_techniques": [
+    "Exclusion of images with gel bubbles, hair aberrations, and other acquisition artifacts from the dataset",
+    "Shades of gray normalization to mitigate grayish effects",
+    "Color transformation to Y'CbCr color space",
+    "Resampling of Cb and Cr channels from uniform distributions (Cb ~ U([101, 125]), Cr ~ U([130, 155])) to simulate uneven skin tone variations",
+    "Application of impulsive (salt-and-pepper) noise to the luma component (Y') to simulate gel bubble artifacts",
+    "Image augmentation via rotation and shifting (factor of 100) for VAE training"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation and Shifting",
+      "details": "Applied to the 50 training images for the VAE to augment the dataset by a factor of 100, simulating variations in lesion location and orientation as experienced in clinical dermoscopy practice."
+    },
+    {
+      "technique": "Color Space Transformation and Channel Resampling",
+      "details": "Images were transformed to Y'CbCr color space. The Cb and Cr channels were resampled from uniform distributions Cb ~ U([101, 125]) and Cr ~ U([130, 155]) to simulate uneven skin tone variations."
+    },
+    {
+      "technique": "Impulsive (Salt-and-Pepper) Noise Addition",
+      "details": "Additive impulsive noise was applied to the luma component (Y') to simulate gel bubble artifacts. The noise density (probability of spurious salt and pepper spots) was varied within the range [0.04–0.05] during uncertainty propagation experiments."
+    }
+  ],
+  "conclusions": [
+    "The proposed uncertainty-based feature selection strategy using Variational Autoencoders (VAEs) significantly improves the adequacy and robustness of melanoma classification models compared to approaches without feature selection.",
+    "The method achieved an average classification accuracy (ACC) of 0.82 with a standard deviation of 0.01, outperforming the baseline of 0.74 (STD 0.05) obtained without feature selection.",
+    "The proposed approach demonstrates superior robustness to impulsive noise (simulating gel bubble artifacts) compared to standard feature selection methods like Stepwise Regression Fit (SRF) and minimum-Redundancy Maximum-Relevance (mRMR), with performance degradation limited to approximately 4% versus 13% for the no-feature-selection case.",
+    "The methodology is stable across a wide range of threshold parameters (thSENS and thDP), maintaining high performance and proving the reliability of the selection criteria.",
+    "The approach is applicable to transfer learning scenarios with Convolutional Neural Networks (CNNs), where deep features benefit enormously from uncertainty-based selection to assure high discrimination capability and robustness.",
+    "The study acknowledges that future developments should address more challenging multidiagnostic scenarios and incorporate additional sources of uncertainty, such as hair and other skin aberrations."
+  ],
+  "important_remarks": [
+    "The study is limited to a binary classification task (malignant vs. benign) and does not address multidiagnostic scenarios or other skin lesion types.",
+    "The dataset was pre-filtered to exclude images with gel bubbles, hair aberrations, and other acquisition artifacts, which may limit the generalizability of the model to real-world clinical settings where such artifacts are common.",
+    "The Variational Autoencoder (VAE) was trained on a very small subset of data (50 images: 25 malignant, 25 benign), relying heavily on data augmentation (rotation and shifting by a factor of 100) to ensure learnability.",
+    "The paper does not report formal statistical hypothesis testing (e.g., p-values); robustness was demonstrated via standard deviation over 100 repetitions rather than significance tests.",
+    "Uncertainty sources were simulated synthetically (skin tone variation via Cb/Cr resampling and gel bubbles via impulsive noise) rather than using naturally occurring variations, which may not fully capture all real-world perturbations.",
+    "Future work is acknowledged to be necessary for incorporating additional uncertainty sources such as hair and other skin aberrations, indicating current limitations in handling these common dermoscopic artifacts.",
+    "The proposed method is a wrapper approach for feature selection applied to latent variables, which is distinct from end-to-end deep learning classification and may have different computational and deployment implications."
+  ]
+}

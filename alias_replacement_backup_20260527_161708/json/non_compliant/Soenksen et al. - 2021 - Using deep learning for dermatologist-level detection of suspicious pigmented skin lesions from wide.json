@@ -1,0 +1,421 @@
+{
+  "file_name": "Soenksen et al. - 2021 - Using deep learning for dermatologist-level detection of suspicious pigmented skin lesions from wide.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep convolutional neural networks (DCNNs) to detect and classify suspicious pigmented lesions (SPLs) from wide-field images and to extract intrapatient lesion saliency (ugly duckling criteria) for melanoma risk assessment."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'RESEARCH ARTICLE' in the header. It presents original experimental work, including the development of a deep convolutional neural network (DCNN) system, the creation of a dataset from 133 patients, and the reporting of specific performance metrics (sensitivity, specificity, AUC) and validation results against dermatologist consensus."
+  },
+  "title": "Using deep learning for dermatologist-level detection of suspicious pigmented skin lesions from wide-field images",
+  "authors": [
+    "Luis R. Soenksen",
+    "Timothy Kassis",
+    "Susan T. Conover",
+    "Berta Marti-Fuster",
+    "Judith S. Birkenfeld",
+    "Jason Tucker-Schwartz",
+    "Asif Naseem",
+    "Robert R. Stavert",
+    "Caroline C. Kim",
+    "Maryanne M. Senna",
+    "José Avilés-Izquierdo",
+    "James J. Collins",
+    "Regina Barzilay",
+    "Martha L. Gray"
+  ],
+  "doi": "10.1126/scitranslmed.aabb3652",
+  "journal": "Science Translational Medicine",
+  "year": 2021,
+  "article_type": "Research article",
+  "brief_summary": "This study developed a deep convolutional neural network (DCNN) system to detect and classify suspicious pigmented lesions (SPLs) from wide-field images for primary care melanoma screening. The system was trained on a dataset of 38,283 dermatological images collected from 133 patients using various consumer-grade cameras and classified by three board-certified dermatologists. The DCNN achieved a sensitivity of 90.3% and specificity of 89.9% in distinguishing SPLs from nonsuspicious lesions and complex backgrounds. Additionally, the system extracted intrapatient lesion saliency based on the 'ugly duckling' criteria, demonstrating 82.96% agreement with dermatologist consensus rankings on a held-out test set. These results suggest that wide-field DCNN analysis can provide rapid, accurate assessments of pigmented lesion suspiciousness to improve patient triaging and early melanoma detection.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "melanomas stages 0 to IV"
+      ],
+      "role": "Target class",
+      "details": "Included in the SPL class with a count of 2,906 images. 71.5% of lesions in the testing set corresponded to melanoma."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma",
+      "paper_terms": [
+        "squamous cell carcinomas",
+        "SCC"
+      ],
+      "role": "Target class",
+      "details": "Included in the SPL class with a count of 589 images. 14.5% of lesions in the testing set corresponded to SCC."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinomas",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "Included in the SPL class with a count of 568 images. 14.0% of lesions in the testing set corresponded to BCC."
+    },
+    {
+      "lesion_type": "Nonsuspicious Pigmented Lesions Type A",
+      "paper_terms": [
+        "nonsuspicious pigmented lesions type A",
+        "NSPL-A"
+      ],
+      "role": "Comparator class",
+      "details": "Low priority lesions aggregated from nine distinct pigmented lesion subtypes. Count: 10,759 images. 99.15% were nondermoscopy images."
+    },
+    {
+      "lesion_type": "Nonsuspicious Pigmented Lesions Type B",
+      "paper_terms": [
+        "NSPL-B"
+      ],
+      "role": "Comparator class",
+      "details": "Medium priority lesions where dermatological referral or follow-up are usually indicated. Count: 1,110 images. 82.79% were nondermoscopy images."
+    },
+    {
+      "lesion_type": "Bare Skin",
+      "paper_terms": [
+        "bare skin",
+        "bare skin sections"
+      ],
+      "role": "Comparator class",
+      "details": "Nonlesion-related class included to help discriminate pigmented lesions from skin. Count: 10,935 images."
+    },
+    {
+      "lesion_type": "Skin Edges",
+      "paper_terms": [
+        "skin edges"
+      ],
+      "role": "Comparator class",
+      "details": "Nonlesion-related class included to help discriminate pigmented lesions from skin edges. Count: 2,528 images."
+    },
+    {
+      "lesion_type": "Backgrounds",
+      "paper_terms": [
+        "backgrounds"
+      ],
+      "role": "Comparator class",
+      "details": "Nonlesion-related class including fabrics, furniture, walls, and other objects. Count: 8,888 images."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Suspicious pigmented lesions (SPL) vs. nonsuspicious lesions, skin, and complex backgrounds; and six-class taxonomy (SPL, NSPL-A, NSPL-B, skin, skin edges, backgrounds).",
+        "primary": true,
+        "details": "The primary task is binary and multiclass classification. The DCNN distinguishes SPLs from nonsuspicious lesions and backgrounds (binary classification with 90.3% sensitivity and 89.9% specificity). It also classifies images into six specific classes (SPL, NSPL-A, NSPL-B, skin, skin edges, backgrounds) with a micro-averaged AUC of 0.975. The model outputs single-lesion class probabilities for these discrete diagnostic categories."
+      },
+      {
+        "task_type": "Ranking/Risk scoring",
+        "target": "Intrapatient lesion saliency (ugly duckling criteria) ranking.",
+        "primary": false,
+        "details": "The system calculates a quantitative 'ugly duckling' metric based on the geometric distance (cosine) of deep features from each lesion compared to the average feature center of all visible lesions in a patient-specific wide-field image. This generates a ranking of lesions by suspiciousness/oddness, validated against dermatologist consensus rankings (82.96% agreement)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Primary Study Dataset (Soenksen et al. 2021)",
+      "description": "A curated dataset of 38,283 dermatological images collected from 133 patients at Hospital Gregorio Marañón (Madrid, Spain) and publicly available images. Images were obtained using consumer-grade cameras (including Olympus E-420) and nondermoscopy setups. The dataset was classified by three board-certified dermatologists.",
+      "classes_used": [
+        "Suspicious Pigmented Lesions (SPL)",
+        "Nonsuspicious Pigmented Lesions Type A (NSPL-A)",
+        "Nonsuspicious Pigmented Lesions Type B (NSPL-B)",
+        "Bare Skin",
+        "Skin Edges",
+        "Backgrounds"
+      ],
+      "counts": {
+        "total": 38283,
+        "training": 20388,
+        "validation": 6796,
+        "testing": 6796,
+        "per_class": {
+          "SPL": 4063,
+          "NSPL-A": 10759,
+          "NSPL-B": 1110,
+          "Bare Skin": 10935,
+          "Skin Edges": 2528,
+          "Backgrounds": 8888
+        }
+      },
+      "use": {
+        "training": "Used to train baseline DCNN models (60% split) and augmented datasets (300,000 images via augmentation).",
+        "validation": "Used for model validation (20% split).",
+        "testing": "Used for model testing (20% split) and evaluation of sensitivity, specificity, and AUC.",
+        "other": "Used to extract intrapatient lesion saliency (ugly duckling criteria) features."
+      }
+    },
+    {
+      "name": "Ugly Duckling Validation Dataset",
+      "description": "A held-out test set of 135 individual wide-field images from 68 dermatological patients not included in the DCNN training set. Used to validate the saliency ranking against dermatologist consensus.",
+      "classes_used": [
+        "N/A (Used for ranking/saliency validation)"
+      ],
+      "counts": {
+        "total": 135,
+        "training": null,
+        "validation": null,
+        "testing": 135,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to validate the DCNN's ugly duckling saliency ranking against consensus of three board-certified dermatologists.",
+        "other": null
+      }
+    },
+    {
+      "name": "ImageNet",
+      "description": "A public dataset of 14 million images grouped into 21,841 classes, used for transfer learning.",
+      "classes_used": [
+        "21,841 ImageNet classes"
+      ],
+      "counts": {
+        "total": 14000000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as a pretraining source for transfer learning (VGG16 architecture) to extract visual features.",
+        "validation": null,
+        "testing": null,
+        "other": "Pretraining weights initialization."
+      }
+    },
+    {
+      "name": "Publicly Available Images",
+      "description": "Images sourced from open-access dermatology repositories and web scraping, combined with clinical images from Hospital Gregorio Marañón.",
+      "classes_used": [
+        "SPL",
+        "NSPL-A",
+        "NSPL-B",
+        "Bare Skin",
+        "Skin Edges",
+        "Backgrounds"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Included in the primary study dataset for training.",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Accuracy",
+    "Area Under the Curve (AUC)",
+    "Micro-averaged AUC (AUCmicro)",
+    "Macro-averaged AUC",
+    "Receiver Operator Curves (ROCs)",
+    "Agreement percentage",
+    "Cosine distance"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "95% Confidence Interval",
+      "purpose": "To report the uncertainty around sensitivity (90.3%, 95% CI: 90 to 90.6) and specificity (89.9%, 95% CI: 89.6 to 90.2) estimates for distinguishing SPLs from nonsuspicious lesions, skin, and complex backgrounds.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "95% Confidence Interval",
+      "purpose": "To report the uncertainty around the micro-averaged area under the curve (AUCmicro) of 0.975 (95% CI: 0.896 to 0.988) across all six classes.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "95% Confidence Interval",
+      "purpose": "To report the uncertainty around the agreement percentage (82.96%, 95% CI: 67.88 to 88.26%) with dermatological consensus ranking for the ugly duckling saliency method.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) Analysis",
+      "purpose": "To evaluate and compare model performance by plotting true-positive rate against false-positive rate per class and calculating the Area Under the Curve (AUC).",
+      "type": "Performance evaluation metric"
+    },
+    {
+      "method": "Macro-averaged and Micro-averaged AUC",
+      "purpose": "To aggregate AUC values across multiple classes, accounting for class imbalances (micro) or treating all classes equally (macro), to assess overall multiclass classification performance.",
+      "type": "Performance evaluation metric"
+    },
+    {
+      "method": "Cosine Distance",
+      "purpose": "To calculate the geometric distance between DCNN feature vectors of individual lesions and the averaged feature center of all lesions in a patient-specific image, serving as the basis for the 'ugly duckling' saliency ranking.",
+      "type": "Similarity metric / Feature extraction"
+    },
+    {
+      "method": "Categorical Cross-Entropy Loss",
+      "purpose": "To calculate the loss function during the training of the DCNN models.",
+      "type": "Optimization objective"
+    },
+    {
+      "method": "Adam Optimizer",
+      "purpose": "To optimize the model weights during training with specified hyperparameters (learning rate = 0.001, β1 = 0.9, β2 = 0.999, ε = 1 × 10^-7).",
+      "type": "Optimization algorithm"
+    },
+    {
+      "method": "Early Stopping",
+      "purpose": "To prevent overfitting by halting training when accuracy did not change for more than 10 consecutive iterations.",
+      "type": "Regularization / Training strategy"
+    },
+    {
+      "method": "Random Split (60/20/20)",
+      "purpose": "To partition the dataset into training, validation, and testing sets to ensure no overlap of augmented images across sets.",
+      "type": "Data splitting strategy"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). It reported performance metrics (sensitivity, specificity, AUC) with 95% confidence intervals to estimate uncertainty, but did not conduct statistical hypothesis tests to compare groups or validate against a null hypothesis."
+  },
+  "results_obtained_in_each_dataset": {
+    "Primary Study Dataset (Testing Set)": {
+      "baseline_dcnn": {
+        "AUC_micro": "0.975 (95% CI: 0.896 to 0.988)",
+        "AUC_SPL": "0.945 (95% CI: 0.940 to 0.949)",
+        "sensitivity": "0.890 (95% CI: 0.885 to 0.895)",
+        "specificity": "0.899 (95% CI: 0.894 to 0.904)",
+        "accuracy": "84.62% (95% CI: 83.8 to 85.4%)"
+      },
+      "baseline_dcnn_augmented": {
+        "AUC_micro": "0.957 (95% CI: 0.956 to 0.958)",
+        "AUC_SPL": "0.911 (95% CI: 0.909 to 0.913)",
+        "sensitivity": "0.878 (95% CI: 0.771 to 0.881)",
+        "specificity": "0.892 (95% CI: 0.780 to 0.895)",
+        "accuracy": "78.42% (95% CI: 78.1 to 78.7%)"
+      },
+      "vgg16_transfer_learning_bottleneck": {
+        "AUC_micro": "0.975 (95% CI: 0.896 to 0.988)",
+        "accuracy": "79.9% (or 79.94%)",
+        "notes": "Selected as the highest performing architecture for full system integration."
+      },
+      "xception_transfer_learning_bottleneck": {
+        "AUC_micro": "0.858 (95% CI: 0.857 to 0.858)",
+        "AUC_SPL": "0.827 (95% CI: 0.825 to 0.829)",
+        "sensitivity": "0.837 (95% CI: 0.606 to 0.841)",
+        "specificity": "0.770 (95% CI: 0.766 to 0.774)",
+        "accuracy": "61.05% (95% CI: 60.7 to 61.4%)"
+      }
+    },
+    "Ugly Duckling Validation Dataset (135 wide-field images from 68 patients)": {
+      "ugly_duckling_saliency_ranking": {
+        "agreement_u3_k10": "96.3% (95% CI: 83.67 to 97.57%)",
+        "agreement_u3_k3": "82.96% (95% CI: 67.88 to 88.26%)",
+        "agreement_individual_dermatologists": "0.86 ± 0.03",
+        "agreement_consensus": "0.88",
+        "notes": "Agreement defined as matching at least one common lesion between predicted top-u and expert-identified top-k lesions."
+      }
+    },
+    "Previous DCNN System Comparison (Literature)": {
+      "average_accuracy": "72.1% (for suspiciousness-like classification endpoints: malignant vs nonneoplastic and benign)"
+    }
+  },
+  "architecture_used": {
+    "main_model": "Deep Convolutional Neural Networks (DCNNs), specifically a baseline custom DCNN, VGG16, and Xception architectures.",
+    "pretraining": "VGG16 and Xception models were pretrained on the ImageNet dataset (14 million images, 21,841 classes). The baseline DCNN was trained from scratch.",
+    "input_size": "Standard input size of 299 × 299 pixels for VGG16/Xception; 150 × 150 pixels for the baseline DCNN (rescaled at run time).",
+    "architecture_details": {
+      "baseline_dcnn": {
+        "type": "Custom DCNN",
+        "layers": "Three convolutional layers",
+        "details": "Trained on a curated six-class dataset (n=33,980)."
+      },
+      "vgg16": {
+        "type": "Transfer Learning Bottleneck Model (VGG16-BTF)",
+        "layers": "First 15 layers fixed (pretrained); final flattened, dense, dropout, and SoftMax activation layers retrained.",
+        "details": "Selected as the highest performing architecture for full system integration."
+      },
+      "xception": {
+        "type": "Transfer Learning Bottleneck Model (Xception)",
+        "layers": "Deeper network compared to VGG16 (~16 layers for VGG16 vs deeper for Xception).",
+        "details": "Fine-tuning of earlier layers (last two groups of convolutional blocks) did not improve performance."
+      }
+    },
+    "training_details": {
+      "optimizer": "Adam optimizer (learning rate = 0.001, β1 = 0.9, β2 = 0.999, ε = 1 × 10^-7, no AMSGrad)",
+      "loss_function": "Categorical cross-entropy",
+      "data_augmentation": "Rotations (0° to 30°), horizontal/vertical flips, shifts (0 to 10%), color-channel shifts (0 to 10%), zooming (0 to 20%), nearest pixel reflection for filling.",
+      "early_stopping": "Activated when accuracy did not change for more than 10 consecutive epochs.",
+      "dataset_splits": "Training (60%), Validation (20%), Testing (20%). Augmented dataset size: 300,000 images."
+    },
+    "classification_or_output_head": {
+      "type": "Dense layer with SoftMax activation",
+      "classes": "Six classes: Suspicious Pigmented Lesions (SPL), Nonsuspicious Pigmented Lesions Type A (NSPL-A), Nonsuspicious Pigmented Lesions Type B (NSPL-B), Bare Skin, Skin Edges, Backgrounds.",
+      "output": "Single-lesion class probabilities and deep features for ugly duckling saliency ranking."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Baseline DCNN (custom architecture with three convolutional layers)",
+    "VGG16 (transfer learning bottleneck model)",
+    "Xception (transfer learning bottleneck model)"
+  ],
+  "preprocessing_techniques": [
+    "Conversion of images to Portable Network Graphics (PNG) format",
+    "Cropping of wide-field images at multiple scales to extract single-pigmented lesions and nonlesion regions (backgrounds, skin edges, bare skin)",
+    "Rescaling of images to standard input sizes (299 × 299 pixels for VGG16/Xception; 150 × 150 pixels for baseline DCNN)",
+    "Transformation from RGB to Hue, Saturation, Value (HSV) color space",
+    "Contrast-limited adaptive histogram equalization (CLAHE) applied to the Value (V) channel to normalize illumination and adjust contrast",
+    "Transformation back from HSV to RGB space",
+    "Rescaling to different input sizes carried out at run time without further modification for the base dataset",
+    "Data augmentation via random transformations: rotations (0° to 30°), horizontal/vertical flips, horizontal/vertical shifts (0 to 10%), color-channel shifts (0 to 10%), and zooming (0 to 20%)",
+    "Nearest pixel reflection used for pixel filling when transformations required matching original image size",
+    "Randomized dataset splitting into training (60%), validation (20%), and testing (20%) sets performed before data augmentation to prevent overlap"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Rotations (0° to 30°), horizontal flips, vertical flips, horizontal shifts (0 to 10%), vertical shifts (0 to 10%), and zooming (0 to 20%)."
+    },
+    {
+      "technique": "Color Transforms",
+      "details": "Color-channel shifts (0 to 10%)."
+    },
+    {
+      "technique": "Synthetic Data Generation / Dataset Balancing",
+      "details": "Class balancing via random transformations to create a nonoverlapping augmented dataset of 300,000 images (10x the original size) to address class imbalance."
+    },
+    {
+      "technique": "Pixel Filling Strategy",
+      "details": "Nearest pixel reflection used to fill pixels when transformations required matching the original image size."
+    }
+  ],
+  "conclusions": [
+    "A deep convolutional neural network (DCNN) system using wide-field images achieved dermatologist-level performance for detecting suspicious pigmented lesions (SPLs), with 90.3% sensitivity and 89.9% specificity in distinguishing SPLs from nonsuspicious lesions, skin, and complex backgrounds.",
+    "The system avoids the need for cumbersome individual lesion imaging by analyzing wide-field images, enabling rapid assessment of pigmented lesion suspiciousness within a primary care visit.",
+    "A novel method for extracting intrapatient lesion saliency based on the 'ugly duckling' criteria was developed using DCNN features, achieving 82.96% agreement with dermatologist consensus rankings on a held-out test set.",
+    "The VGG16 transfer learning bottleneck model was identified as the highest-performing architecture for full system integration, demonstrating feasibility for primary care melanoma screening.",
+    "The study acknowledges limitations including the reliance on dermatologist consensus rather than biopsy ground truth for classification, the need for broader dataset diversity to improve generalizability, and the requirement for further validation in clinical settings with extreme imaging conditions."
+  ],
+  "important_remarks": [
+    "The study relies on dermatologist consensus for ground truth labels rather than biopsy-proven histopathology, which may introduce labeling bias or misclassification of benign lesions as suspicious or vice versa.",
+    "The dataset is heavily skewed toward nondermoscopy images (e.g., 99.15% of NSPL-A and 90.02% of SPL), reflecting real-world primary care conditions but potentially limiting performance on dermoscopic images.",
+    "The 'ugly duckling' saliency ranking was validated on a small held-out test set of only 135 images from 68 patients, which may limit the generalizability of the intrapatient comparison results.",
+    "The system was trained on data from 133 patients at a single institution (Hospital Gregorio Marañón) combined with public images, raising concerns about population bias and lack of external validation across diverse demographics or clinical settings.",
+    "Performance metrics (sensitivity 90.3%, specificity 89.9%) were reported with 95% confidence intervals, but no formal statistical hypothesis testing (e.g., p-values) was conducted to compare the DCNN against dermatologists.",
+    "The model's ability to distinguish SPLs from complex backgrounds (fabrics, furniture, etc.) is a notable strength for primary care deployment, but the reliance on consumer-grade cameras introduces variability in image quality and lighting conditions.",
+    "The study acknowledges that the current system does not replace dermatological diagnosis but serves as a triaging tool to assist primary care physicians in identifying lesions for referral."
+  ]
+}

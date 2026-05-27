@@ -1,0 +1,188 @@
+{
+  "file_name": "Veltmeijer et al. - 2019 - Integrating clinically-relevant features into skin lesion classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a multi-task neural network for skin lesion classification (specifically distinguishing malignant melanoma from benign lesions) using the ISIC Challenge 2017 dataset. It also employs GANs for data augmentation."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the design and training of a multi-task neural network for skin lesion classification using the ISIC Challenge 2017 dataset. It includes specific methods (data augmentation with GANs, annotation of ABCDE features), results (classification performance metrics for melanoma and nevus classes), and discussion of these new findings, rather than summarizing prior literature."
+  },
+  "title": "Integrating clinically-relevant features into skin lesion classification",
+  "authors": [
+    "Emmeke A. Veltmeijer",
+    "Sezer Karaoglu",
+    "Theo Gevers"
+  ],
+  "doi": null,
+  "journal": null,
+  "year": 2019,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the task of skin lesion classification, specifically distinguishing malignant melanoma from benign lesions, by integrating clinically-relevant features into a multi-task neural network framework. The authors utilized the ISIC Challenge 2017 dataset, annotating images with ABCDE features (Asymmetry, Borders, Colours) and segmentation masks to serve as auxiliary outputs alongside the main classification task. To address data scarcity, the researchers analyzed various data augmentation techniques, including GANs, finding that a combination of classic and GAN augmentation yielded the best results. The evaluation revealed that adding ABC-features as auxiliary outputs did not improve overall performance and actually decreased accuracy for the nevus class. However, the use of segmentation masks as auxiliary outputs significantly improved classification performance for the malignant melanoma class, likely by providing detailed shape and border information.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary malignant class studied; the paper notes it benefits from segmentation masks as auxiliary output due to asymmetrical shape and irregular border."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus",
+        "benign skin lesion types"
+      ],
+      "role": "Target class",
+      "details": "One of the two benign classes studied; performance decreased when ABC-features were added as auxiliary output."
+    },
+    {
+      "lesion_type": "Benign skin lesion (unspecified)",
+      "paper_terms": [
+        "benign skin lesion types",
+        "a benign class"
+      ],
+      "role": "Target class",
+      "details": "The second benign class in the three-class setup; described as having the lowest presence of ABC features and typically symmetrical shapes and regular borders."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories: malignant melanoma vs. two benign skin lesion types (including nevus).",
+        "primary": true,
+        "details": "The paper focuses on skin lesion classification using a multi-task neural network. The main output is the classification of images into malignant melanoma or benign classes. Auxiliary outputs include binary annotations for ABCDE features (Asymmetry, Borders, Colours) and segmentation masks, but these serve to guide the classification task rather than being the primary prediction targets themselves."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Challenge 2017",
+      "description": "A public dataset of skin lesion images used for the study. The authors annotated this dataset with the presence of the first three features of the ABCDE-rule (Asymmetry, irregular Borders, multiple Colours) and segmentation masks to serve as auxiliary outputs.",
+      "classes_used": [
+        "malignant melanoma",
+        "nevus",
+        "benign skin lesion (unspecified)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the multi-task neural network with main classification and auxiliary outputs (ABCDE features and segmentation masks).",
+        "validation": "null",
+        "testing": "Used to evaluate the model's classification performance and explainability.",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "classification performance",
+    "accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Significance testing (implied by 'significantly benefit')",
+      "purpose": "To determine if the use of segmentation masks as auxiliary output improved classification performance for the malignant melanoma class.",
+      "type": "Hypothesis test"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper states that the melanoma class 'significantly benefit[s]' from segmentation masks, but does not report specific p-values, confidence intervals, or formal statistical tests (e.g., t-test, ANOVA) used to derive this conclusion."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC Challenge 2017": {
+      "metric": "Classification performance (qualitative/relative)",
+      "models": {
+        "Multi-task network with classic + GAN augmentation": {
+          "performance": "Best classification performance among augmentation strategies"
+        },
+        "Multi-task network with ABC-features as auxiliary output": {
+          "melanoma": "No improvement reported",
+          "nevus": "Performance decreased",
+          "other_benign": "No specific metric reported, but implied no improvement"
+        },
+        "Multi-task network with segmentation masks as auxiliary output": {
+          "melanoma": "Significantly benefited (improved performance)",
+          "other_classes": "Not explicitly quantified, but melanoma class specifically noted to benefit"
+        }
+      },
+      "notes": "The paper reports qualitative results rather than specific numerical metrics (e.g., accuracy, AUC). Key findings include: 1) Combining classic and GAN data augmentation yielded the best classification performance. 2) Adding ABC-features (Asymmetry, Borders, Colours) as auxiliary outputs did not improve overall performance and decreased performance for the nevus class. 3) Adding segmentation masks as auxiliary outputs significantly improved classification performance for the malignant melanoma class."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multi-task neural network",
+    "pretraining": null,
+    "input_size": null,
+    "architecture_details": {
+      "framework": "Multi-task learning framework",
+      "main_output": "Classification of malignant melanoma vs. two benign skin lesion types",
+      "auxiliary_outputs": [
+        "Binary annotations for ABCDE features (Asymmetry, irregular Borders, multiple Colours)",
+        "Segmentation masks"
+      ]
+    },
+    "training_details": {
+      "data_augmentation": "Combination of classic data augmentation and GAN data augmentation",
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": null,
+      "training_schedule": null
+    },
+    "classification_or_output_head": {
+      "description": "Multi-task output heads for classification and auxiliary feature prediction",
+      "details": "Main classification head for melanoma/benign classes; auxiliary heads for ABC-features and segmentation masks"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "multi-task neural network",
+    "GANs"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation (classic and GAN-based)",
+    "Annotation of ABCDE features (Asymmetry, irregular Borders, multiple Colours) as auxiliary outputs",
+    "Annotation of segmentation masks as auxiliary outputs"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Classic data augmentation",
+      "details": "Used in combination with GAN augmentation; specific geometric or color transform settings not reported."
+    },
+    {
+      "technique": "GAN data augmentation",
+      "details": "Used in combination with classic data augmentation; generated realistic results following diagnostic criteria for each class."
+    }
+  ],
+  "conclusions": [
+    "Combining classic data augmentation with GAN data augmentation yields the best classification performance for skin lesion classification.",
+    "GAN-generated data augmentation produces realistic results that adhere to diagnostic criteria for each lesion class.",
+    "Integrating ABC-features (Asymmetry, irregular Borders, multiple Colours) as auxiliary outputs does not improve overall classification performance.",
+    "Adding ABC-features as auxiliary outputs negatively impacts performance for the nevus class, likely because this class falls between the high and low presence of these features found in other classes, potentially distracting the network.",
+    "The malignant melanoma class significantly benefits from the use of segmentation masks as auxiliary outputs.",
+    "Segmentation masks improve melanoma classification by providing detailed information about asymmetrical shape and irregular borders, which are key distinguishing features of melanoma compared to benign lesions with symmetrical shapes and regular borders."
+  ],
+  "important_remarks": [
+    "The study is limited to the ISIC Challenge 2017 dataset, which may introduce dataset-specific bias and limits generalizability without external validation.",
+    "Integrating ABC-features (Asymmetry, Borders, Colours) as auxiliary outputs did not improve overall classification performance and specifically decreased accuracy for the nevus class.",
+    "The negative impact on the nevus class is attributed to its intermediate presence of ABC-features compared to the other classes, potentially distracting the network.",
+    "The paper reports that the melanoma class 'significantly benefit[s]' from segmentation masks but does not provide specific p-values, confidence intervals, or formal statistical test details to support this claim.",
+    "No specific numerical metrics (e.g., accuracy, AUC values) are reported in the provided text; results are described qualitatively.",
+    "The study relies on 2D image annotations for ABCDE features, which may lack the depth or temporal information available in clinical settings.",
+    "Data leakage risks are not explicitly addressed, though the use of GANs for augmentation requires careful handling to avoid generating synthetic samples that leak information from the training set."
+  ]
+}

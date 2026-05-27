@@ -1,0 +1,375 @@
+{
+  "file_name": "youssef_2018_deep_convolutional_pixel_wise_labeling_for_skin_lesion_image_segmen.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning approach, specifically a deep convolutional encoder-decoder architecture (based on SegNet and VGG-16), for automatic skin lesion image segmentation in dermoscopic images. The method was trained on the ISIC database and tested on the PH2 database to segment melanoma and other skin lesions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents an original experimental study proposing a deep convolutional encoder-decoder architecture for automatic skin lesion image segmentation. It details the methodology, describes the use of the ISIC database for training and the PH2 database for testing, and reports quantitative experimental results (sensitivity, specificity, accuracy, F-measure) comparing the proposed method against others. It is not a review or survey."
+  },
+  "title": "Deep Convolutional Pixel-wise Labeling for Skin Lesion Image Segmentation",
+  "authors": [
+    "Ali Youssef",
+    "Domenico D. Bloisi",
+    "Mario Muscio",
+    "Andrea Pennisi",
+    "Daniele Nardi",
+    "Antonio Facchiano"
+  ],
+  "doi": null,
+  "journal": null,
+  "year": 2018,
+  "article_type": "Conference paper",
+  "brief_summary": "This study presents an automatic method for skin lesion image segmentation in dermoscopic images using a deep convolutional encoder-decoder architecture based on SegNet and VGG-16. The network was trained on the ISIC 2017 database and tested on the independent PH2 database to demonstrate generalizability across different data sources. Two architectures were evaluated: a 13-layer VGG-16-based network and a 4-layer network, with the latter augmented by data augmentation techniques. Performance was assessed using sensitivity, specificity, accuracy, and F-measure on benign and malignant lesions from the PH2 dataset. The results indicate that the proposed 4-layer approach achieves accurate segmentation, particularly for dysplastic nevi and common nevi, while remaining robust to artifacts like hair and air bubbles. The authors also developed a semi-automatic GUI for data annotation to facilitate the generation of ground-truth masks.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant lesions"
+      ],
+      "role": "Target class",
+      "details": "Studied as part of the PH2 dataset (40 images) and mentioned in the context of the ISIC database and classification tasks. The paper notes that the method is robust to irregular textures characteristic of melanoma images."
+    },
+    {
+      "lesion_type": "Dysplastic Nevus",
+      "paper_terms": [
+        "dysplastic nevi",
+        "atypical moles"
+      ],
+      "role": "Target class",
+      "details": "Studied as part of the PH2 dataset (80 images). Segmentation results for this class are reported in Table II."
+    },
+    {
+      "lesion_type": "Common Nevus",
+      "paper_terms": [
+        "common nevi",
+        "melanocytic nevi",
+        "common healthy lesions",
+        "benign lesions"
+      ],
+      "role": "Target class",
+      "details": "Studied as part of the PH2 dataset (80 images). Segmentation results for this class are reported in Table III."
+    },
+    {
+      "lesion_type": "Unknown Object / Artifact",
+      "paper_terms": [
+        "unknown object",
+        "artifacts",
+        "hair",
+        "air/oil bubbles",
+        "band-aids"
+      ],
+      "role": "Exclusion/mentioned only",
+      "details": "Mentioned as objects to be excluded from the lesion mask or handled as artifacts. The annotation tool supports masking these as separate classes (e.g., 'unknown object') to prevent them from being labeled as skin or lesion."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary mask of the skin lesion area (foreground vs. background) and potentially multi-class masks including artifacts (e.g., band-aids, hair) and lesion types (melanoma, nevi).",
+        "primary": true,
+        "details": "The paper presents a 'fully automatic method for skin lesion segmentation based on deep learning' using a 'deep convolutional encoder-decoder architecture for robust semantic pixel-wise labeling.' The network performs 'pixel-wise classification' to distinguish lesion pixels from background pixels. Performance is evaluated using sensitivity, specificity, accuracy, and F-measure on binary masks for different lesion types (dysplastic nevi, common nevi, melanoma) from the PH2 database."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017 Database",
+      "description": "A public dataset from the International Skin Imaging Collaboration (ISIC) challenge, containing high-resolution dermoscopic images and corresponding ground truth segmentation masks. It is an open-source archive of clinically annotated skin lesion images.",
+      "classes_used": [
+        "skin",
+        "lesion",
+        "unknown object"
+      ],
+      "counts": {
+        "total": 2000,
+        "training": 2000,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the deep convolutional encoder-decoder networks (both 13-layer and 4-layer architectures). The dataset was augmented to increase the number of training samples to 14,000.",
+        "validation": null,
+        "testing": null,
+        "other": "Results on this dataset were compared against the best achieved results in the ISIC 2017 challenge."
+      }
+    },
+    {
+      "name": "PH2 Database",
+      "description": "A public dermoscopic image dataset created by Universidade do Porto, Tecnico Lisboa in collaboration with Hospital Pedro Hispano in Matosinhos, Portugal. It consists of RGB dermoscopic images with a resolution of 768x574 pixels and 20x magnification, annotated with ground truth binary masks generated by expert dermatologists.",
+      "classes_used": [
+        "dysplastic nevi (atypical moles)",
+        "common nevi (melanocytic nevi)",
+        "melanoma (malignant lesions)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {
+          "dysplastic nevi": 80,
+          "common nevi": 80,
+          "melanoma": 40
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for testing the trained networks to demonstrate generalizability across different data sources. Performance metrics (sensitivity, specificity, accuracy, F-measure) were calculated for each lesion class and on the whole dataset.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Accuracy",
+    "F-measure"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics (sensitivity, specificity, accuracy, F-measure) and qualitative comparisons against other methods."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017 Database": {
+      "metric": "Accuracy",
+      "models": {
+        "4-layers (2 classes)": "0.87",
+        "4-layers (3 classes)": "0.84",
+        "4-layers* (3 classes)": "0.89",
+        "13-layers (3 classes)": "0.36"
+      },
+      "notes": "Results compared against best achieved results in the ISIC 2017 challenge (Yuan, Berseth, Bi). The 4-layers* model (with data augmentation) achieved the best results. The 13-layers network performed poorly due to overfitting with limited training samples."
+    },
+    "PH2 Database (Dysplastic Nevi)": {
+      "dataset_or_experiment_name": "80 Dysplastic Nevi (Atypical Moles) Images",
+      "metric": [
+        "Sensitivity",
+        "Specificity",
+        "Accuracy",
+        "F-measure"
+      ],
+      "models": {
+        "ASML": {
+          "Sensitivity": "0.86",
+          "Specificity": "0.97",
+          "Accuracy": "0.93",
+          "F-measure": "0.87"
+        },
+        "4-layers*": {
+          "Sensitivity": "0.96",
+          "Specificity": "0.87",
+          "Accuracy": "0.90",
+          "F-measure": "0.88"
+        }
+      },
+      "notes": "The supervised approach (4-layers*) outperformed the unsupervised ASML method in sensitivity and F-measure, though ASML had higher specificity and accuracy."
+    },
+    "PH2 Database (Common Nevi)": {
+      "dataset_or_experiment_name": "80 Melanocytic Nevi (Common Healthy Lesions) Images",
+      "metric": [
+        "Sensitivity",
+        "Specificity",
+        "Accuracy",
+        "F-measure"
+      ],
+      "models": {
+        "ASML": {
+          "Sensitivity": "0.87",
+          "Specificity": "0.97",
+          "Accuracy": "0.95",
+          "F-measure": "0.87"
+        },
+        "4-layers*": {
+          "Sensitivity": "0.98",
+          "Specificity": "0.89",
+          "Accuracy": "0.91",
+          "F-measure": "0.90"
+        }
+      },
+      "notes": "The supervised approach (4-layers*) achieved higher sensitivity and F-measure compared to ASML."
+    },
+    "PH2 Database (Melanoma)": {
+      "dataset_or_experiment_name": "40 Melanoma (Malignant Lesions) Images",
+      "metric": [
+        "Sensitivity",
+        "Specificity",
+        "Accuracy",
+        "F-measure"
+      ],
+      "models": {
+        "ASML": {
+          "Sensitivity": "0.54",
+          "Specificity": "0.96",
+          "Accuracy": "0.66",
+          "F-measure": "0.65"
+        },
+        "4-layers*": {
+          "Sensitivity": "0.83",
+          "Specificity": "0.82",
+          "Accuracy": "0.83",
+          "F-measure": "0.82"
+        }
+      },
+      "notes": "The supervised approach (4-layers*) significantly outperformed the unsupervised ASML method. The paper notes that the method is robust to irregular textures characteristic of melanoma but has limitations with colored band-aids."
+    },
+    "PH2 Database (Whole Dataset)": {
+      "dataset_or_experiment_name": "200 Images from PH2 Dermoscopic Image Database",
+      "metric": [
+        "Sensitivity",
+        "Specificity",
+        "Accuracy",
+        "F-measure"
+      ],
+      "models": {
+        "4-layers (2 classes)": {
+          "Sensitivity": "0.82",
+          "Specificity": "0.97",
+          "Accuracy": "0.93",
+          "F-measure": null
+        },
+        "4-layers (3 classes)": {
+          "Sensitivity": "0.80",
+          "Specificity": "0.98",
+          "Accuracy": "0.93",
+          "F-measure": null
+        },
+        "4-layers* (3 classes)": {
+          "Sensitivity": "0.74",
+          "Specificity": "0.94",
+          "Accuracy": "0.87",
+          "F-measure": "0.86"
+        },
+        "13-layers (3 classes)": {
+          "Sensitivity": "0.87",
+          "Specificity": "0.12",
+          "Accuracy": "0.36",
+          "F-measure": "0.52"
+        }
+      },
+      "notes": "The 4-layers* model achieved an overall segmentation accuracy of more than 90% on specific lesion types, but on the whole dataset, it showed lower sensitivity (0.74) compared to the 2-class version (0.82). The 13-layers network failed to generalize well."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Deep convolutional encoder-decoder architecture based on SegNet and VGG-16",
+    "pretraining": "None; networks were trained from scratch without fine-tuning or learning transfer",
+    "input_size": "High-resolution dermoscopic images (specific dimensions not explicitly stated for input, but PH2 test images were 768x574 pixels)",
+    "architecture_details": {
+      "encoder_variants": [
+        {
+          "name": "13-convolutional Layers Encoder",
+          "backbone": "VGG-16 architecture",
+          "layers": "13 convolutional layers with 3x3 kernel",
+          "components": "Max-pooling (2x2 kernel), batch normalization, ReLU activation"
+        },
+        {
+          "name": "4-convolutional Layers Encoder",
+          "layers": "4 convolutional layers",
+          "layer_specs": "First two layers: 3x3 kernel, 64 filters; Last two layers: 7x7 kernel, 32 filters",
+          "components": "Max-pooling (2x2 kernel, non-overlapping) after conv1, conv2, and conv4; conv3 connected directly to conv4; ReLU activation; Batch normalization after each convolutional layer and before pooling; Dropout applied on each encoder convolutional layer"
+        }
+      ],
+      "decoder": "Corresponding decoder network for each encoder, using max-pooling indices from encoder for upsampling",
+      "output_head": "Soft-max pixel-wise classifier producing dense feature maps"
+    },
+    "training_details": {
+      "optimizer": "Not specified",
+      "loss_function": "Soft-max classification (implied by pixel-wise labeling)",
+      "hyperparameters": {
+        "dropout": "Applied on each encoder convolutional layer",
+        "batch_normalization": "Used after each convolutional layer and before pooling"
+      },
+      "training_schedule": {
+        "dataset": "ISIC 2017 Database",
+        "training_samples": "2000 original images augmented to 14,000 images",
+        "augmentation_techniques": [
+          "Vertical and horizontal image flipping",
+          "Image denoising using Non-local Means Denoising",
+          "Image blurring",
+          "Noise adding with different weights"
+        ],
+        "train_test_split": "8:2 rate",
+        "computational_load": "Approximately 6 hours for a single network on Intel Core i5-6300HQ CPU, 8 GB RAM, NVIDIA GeForce GTX 960M GPU"
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Soft-max pixel-wise classifier",
+      "output_channels": "3 channels (skin, melanoma, unknown object) based on maximum probability at each pixel"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "SegNet",
+    "VGG-16",
+    "13-convolutional layers encoder-decoder network (based on VGG-16)",
+    "4-convolutional layers encoder-decoder network",
+    "4-layers (2 classes)",
+    "4-layers (3 classes)",
+    "4-layers* (3 classes with data augmentation)",
+    "13-layers (3 classes)",
+    "FCN (Fully Convolutional Network)",
+    "FCRN (Fully Convolutional Residual Network)",
+    "ASML (Unsupervised algorithm)"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation during training: vertical and horizontal image flipping",
+    "Data augmentation during training: image denoising using Non-local Means Denoising",
+    "Data augmentation during training: image blurring",
+    "Data augmentation during training: noise adding with different weights",
+    "Semi-automatic annotation tool using graph-cut approach for generating ground-truth masks",
+    "Manual segmentation by expert dermatologists for ground truth generation (PH2 dataset)",
+    "Masking of unknown objects/artifacts (hairs, air/oil bubbles, band-aids) as separate classes or excluded from lesion mask"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Vertical and horizontal image flipping",
+      "details": "Applied to the ISIC 2017 training dataset to increase the number of training samples from 2000 to 14,000."
+    },
+    {
+      "technique": "Image denoising",
+      "details": "Used Non-local Means Denoising on the training images."
+    },
+    {
+      "technique": "Image blurring",
+      "details": "Applied to the training images as part of the augmentation procedure."
+    },
+    {
+      "technique": "Noise adding",
+      "details": "Added noise with different weights to each image in the training set."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep convolutional encoder-decoder architecture achieves accurate skin lesion segmentation, with an overall segmentation accuracy of more than 90% on specific lesion types (dysplastic nevi and common nevi) from the PH2 database.",
+    "The method demonstrates robustness to common artifacts such as hair and air/oil bubbles, maintaining high performance even in the presence of these elements.",
+    "The approach generalizes well across different data sources, as demonstrated by training on the ISIC database and testing on the independent PH2 database.",
+    "The supervised 4-layer network with data augmentation (4-layers*) outperforms the unsupervised ASML method, particularly for melanoma segmentation where it significantly improves sensitivity (0.83 vs 0.54) and F-measure (0.82 vs 0.65).",
+    "The 13-layer VGG-16-based network performed poorly due to overfitting, highlighting the importance of using a simpler architecture or pre-trained models for this task with limited training samples.",
+    "Data augmentation (flipping, denoising, blurring, noise adding) plays a crucial role in generalizing network features and overcoming overfitting, increasing the effective training set size from 2,000 to 14,000 images.",
+    "A key limitation of the method is its reduced accuracy when segmenting images containing colored band-aids, which are difficult to distinguish from skin lesions due to color differences.",
+    "The study contributes a semi-automatic GUI tool for generating ground-truth masks, which facilitates the creation of more training data and helps handle unknown objects/artifacts by allowing them to be annotated as separate classes."
+  ],
+  "important_remarks": [
+    "The study demonstrates generalizability by training on the ISIC 2017 database and testing on the independent PH2 database, avoiding data leakage between training and testing sets.",
+    "The 13-layer VGG-16-based network suffered from severe overfitting (accuracy 0.36 on PH2) due to limited training samples, highlighting the risk of using complex architectures without sufficient data or pre-training.",
+    "The proposed method shows reduced accuracy when segmenting images containing colored band-aids, as their color can be confused with skin lesions; the authors suggest creating a specific class for band-aid artifacts as a mitigation.",
+    "The 4-layer network with data augmentation (4-layers*) outperformed the unsupervised ASML method, particularly for melanoma segmentation (sensitivity 0.83 vs 0.54), but the comparison is limited to one unsupervised baseline.",
+    "No formal statistical hypothesis testing (e.g., p-values) was reported; performance comparisons are based on descriptive metrics (sensitivity, specificity, accuracy, F-measure).",
+    "The PH2 dataset used for testing is small (200 images) and has a class imbalance (40 melanomas vs. 80 common/dysplastic nevi), which may limit the robustness of the melanoma segmentation results.",
+    "The PH2 dataset includes only Fitzpatrick skin types II and III, limiting the external validity of the results to lighter skin tones.",
+    "The networks were trained from scratch without fine-tuning or transfer learning, which may not reflect best practices for deep learning in medical imaging where pre-trained models are common.",
+    "Computational load was high for a single network (approx. 6 hours on a specific laptop configuration), which may impact deployment feasibility in resource-constrained settings."
+  ]
+}

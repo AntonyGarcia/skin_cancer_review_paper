@@ -1,0 +1,284 @@
+{
+  "file_name": "shihadeh_2018_deep_learning_based_image_classification_for_remote_medical_diagno.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used Convolutional Neural Networks (specifically AlexNet and GoogleNet) to classify skin cancer images (melanoma) as benign or malignant using the ISIC dataset, achieving accuracy rates up to 74%."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work using Convolutional Neural Networks (AlexNet and GoogleNet) to classify skin cancer images from the ISIC dataset. It details specific methodology (transfer learning, finetuning), hardware used (NVIDIA Jetson TX2), and reports new results (accuracy up to 74.59%), rather than summarizing prior literature."
+  },
+  "title": "Deep Learning Based Image Classification for Remote Medical Diagnosis",
+  "authors": [
+    "Juliana Shihadeh",
+    "Anaam Ansari",
+    "Tokunbo Ogunfunmi"
+  ],
+  "doi": null,
+  "journal": null,
+  "year": 2018,
+  "article_type": "Conference paper",
+  "brief_summary": "This study investigates the use of Convolutional Neural Networks, specifically AlexNet and GoogleNet, to classify skin cancer images as benign or malignant for remote medical diagnosis. The researchers utilized the International Skin Imaging Collaboration (ISIC) dataset and performed transfer learning by finetuning the models on an NVIDIA Jetson TX2 embedded GPU. The primary evaluation metric was classification accuracy, with the team testing various hyperparameters such as learning rates and iteration counts. The results demonstrated that AlexNet outperformed GoogleNet, achieving a maximum accuracy of 74.59%. The authors conclude that these promising results support the potential of using deep learning for accessible, low-cost skin cancer detection in underdeveloped regions.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "skin cancer",
+        "moles",
+        "cancerous"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on classifying skin cancer images, specifically melanoma, as benign or malignant using the ISIC dataset. The dataset contained images of cancers on light skin only. The final filtered dataset consisted of 13,025 images labeled as 'benign' or 'malignant'."
+    },
+    {
+      "lesion_type": "Benign lesion / Non-melanoma",
+      "paper_terms": [
+        "Benign",
+        "non-cancer moles",
+        "benign moles",
+        "negative"
+      ],
+      "role": "Target class",
+      "details": "Used as the negative class in the binary classification task (Benign vs. Malignant). The paper mentions classifying 'non-cancer moles' with 75.7% accuracy in the context of related work, but the primary experiment used the binary benign/malignant labels from the ISIC dataset."
+    },
+    {
+      "lesion_type": "Malignant lesion / Melanoma",
+      "paper_terms": [
+        "Malignant",
+        "malignant melanomas",
+        "malignant moles",
+        "positive"
+      ],
+      "role": "Target class",
+      "details": "Used as the positive class in the binary classification task. The paper notes that the ISIC dataset only included images of cancers on light skin."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin cancer images into 'benign' or 'malignant' classes.",
+        "primary": true,
+        "details": "The paper explicitly states the research focuses on 'classifying skin cancer images as Benign or Malignant'. The model (AlexNet and GoogleNet) was finetuned to reduce output classes to 2. The target labels were extracted from ISIC dataset metadata as 'benign' or 'malignant'. Evaluation was based on classification accuracy (up to 74.59%)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "International Skin Imaging Collaboration (ISIC)",
+      "description": "A public database of skin cancer images provided by the International Skin Imaging Collaboration. The study used images from this database, specifically filtering for those with metadata labels of 'benign' or 'malignant'. The dataset contained images of cancers on light skin only.",
+      "classes_used": [
+        "benign",
+        "malignant"
+      ],
+      "counts": {
+        "total": 13025,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the AlexNet and GoogleNet models via transfer learning/finetuning. Specific splits mentioned in results include 10,703 images for training in some runs and 11,791 images for training in others.",
+        "validation": "Used for validation during the finetuning process (e.g., reaching maximum 100 percent validation accuracy during training runs).",
+        "testing": "Used for testing the final models. Specific test set sizes mentioned include 861 images and 617 images.",
+        "other": "The initial raw dataset contained 23,906 images, which were filtered down to 13,025 images with valid benign/malignant labels. Pretrained weights from ImageNet (Caffe weights) were also used as a starting point for transfer learning."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Results were evaluated using classification accuracy metrics."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC (International Skin Imaging Collaboration)": {
+      "AlexNet": {
+        "experiment_1_layer_variation": {
+          "description": "Impact of number of finetuned layers on accuracy",
+          "results": [
+            {
+              "finetuned_layers": "8",
+              "accuracy": "63%"
+            },
+            {
+              "finetuned_layers": "6, 7, and 8",
+              "accuracy": "68.9%"
+            },
+            {
+              "finetuned_layers": "5, 6, 7, and 8",
+              "accuracy": "59%"
+            }
+          ]
+        },
+        "experiment_2_learning_rate_variation": {
+          "description": "Impact of learning rate (gamma) on accuracy with 10,703 training images",
+          "results": [
+            {
+              "training_images": 10703,
+              "testing_images": 861,
+              "gamma": 0.1,
+              "iterations": 20000,
+              "accuracy": "71.43%"
+            },
+            {
+              "training_images": 10703,
+              "testing_images": 861,
+              "gamma": 0.01,
+              "iterations": 20000,
+              "accuracy": "72.94%"
+            }
+          ]
+        },
+        "experiment_3_dataset_size_variation": {
+          "description": "Impact of training dataset size on accuracy",
+          "results": [
+            {
+              "training_images": 10703,
+              "testing_images": 861,
+              "gamma": 0.1,
+              "iterations": 20000,
+              "accuracy": "71.43%"
+            },
+            {
+              "training_images": 11791,
+              "testing_images": 617,
+              "gamma": 0.1,
+              "iterations": 20000,
+              "accuracy": "74.59%"
+            }
+          ]
+        },
+        "best_overall_accuracy": "74.59%",
+        "notes": "AlexNet outperformed GoogleNet. The highest accuracy was achieved with 11,791 training images and 617 testing images."
+      },
+      "GoogleNet": {
+        "experiment_1_iteration_variation": {
+          "description": "Impact of iteration count on accuracy with 10,703 training images",
+          "results": [
+            {
+              "training_images": 10703,
+              "testing_images": 861,
+              "gamma": 0.1,
+              "iterations": 4000,
+              "accuracy": "65.85%"
+            },
+            {
+              "training_images": 10703,
+              "testing_images": 861,
+              "gamma": 0.1,
+              "iterations": 10000,
+              "accuracy": "65.85%"
+            },
+            {
+              "training_images": 10703,
+              "testing_images": 861,
+              "gamma": 0.1,
+              "iterations": 20000,
+              "accuracy": "65.85%"
+            }
+          ]
+        },
+        "notes": "Accuracy did not increase proportionally with the number of iterations. GoogleNet accuracy was lower than AlexNet's."
+      },
+      "comparison_to_baselines": {
+        "stanford_research_team": {
+          "accuracy": "72.1 ± 0.9 percent",
+          "source": "Reference [10] in paper"
+        },
+        "software_engineers_cnn_study": {
+          "accuracy": "85 percent",
+          "source": "Reference [9] in paper"
+        },
+        "dermatologists": {
+          "accuracy": "Not explicitly quantified, but mentioned as being outperformed by other algorithms in related work [7]"
+        }
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "AlexNet and GoogleNet (Inception Model)",
+    "pretraining": "Pretrained weights from ImageNet (Caffe weights) used for transfer learning/finetuning.",
+    "input_size": null,
+    "architecture_details": {
+      "AlexNet": {
+        "description": "Comprised of 5 Convolutional Neural Network layers, 3 Fully Connected layers, and a softmax layer. The architecture was originally designed to be processed on two GPUs.",
+        "layers": "Layers 1-5 are Convolutional layers; Layers 6-8 are fully connected layers."
+      },
+      "GoogleNet": {
+        "description": "Relies heavily on non-linearity. Designed to maximize space within layers. Contains 22 parameterized layers but effectively 100 layers in total.",
+        "layers": "Finetuning targeted the last full layer, Inception Layer 5 (including layers 5a - 5b)."
+      }
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": {
+        "learning_rate_gamma": [
+          0.1,
+          0.01
+        ],
+        "iterations": [
+          4000,
+          10000,
+          20000
+        ],
+        "finetuned_layers": [
+          "8",
+          "6, 7, and 8",
+          "5, 6, 7, and 8"
+        ]
+      },
+      "training_schedule": "Transfer learning via finetuning. Fully connected layer names were changed to create new weights. Validation tests were run during training."
+    },
+    "classification_or_output_head": {
+      "type": "Softmax",
+      "details": "Originally a 1000-way softmax. Modified to reduce output classes to 2 (Benign/Malignant) for the skin cancer classification task."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "AlexNet",
+    "GoogleNet",
+    "GoogleNet Inception Model",
+    "Convolutional Neural Networks",
+    "CNN"
+  ],
+  "preprocessing_techniques": [
+    "Filtering images based on metadata labels to retain only those labeled as 'benign' or 'malignant'",
+    "Resizing images",
+    "Converting non-JPG images (e.g., PNG) to JPG format"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The study concludes that Convolutional Neural Networks (specifically AlexNet and GoogleNet) can be effectively used for remote medical diagnosis of skin cancer, achieving promising accuracy rates up to 74.59%.",
+    "AlexNet outperformed GoogleNet in classifying melanoma images as benign or malignant, despite GoogleNet having more layers.",
+    "The accuracy of the neural network is positively correlated with the size of the training dataset; using a larger set of images (11,791 training images) resulted in higher accuracy (74.59%) compared to smaller sets.",
+    "The results obtained by the authors (74.59% accuracy) are comparable to those of a Stanford research team (72.1 ± 0.9% accuracy) and support the potential for accessible, low-cost skin cancer detection in underdeveloped regions.",
+    "The authors acknowledge that their accuracy is lower than that achieved by software engineers using CNNs (85%), indicating that further work is needed to improve accuracy.",
+    "The study identifies that the number of finetuned layers and the learning rate are critical hyperparameters affecting accuracy, with a 'sweet spot' required for optimal performance.",
+    "The authors note technical limitations regarding the time constraints of running tests on the NVIDIA Jetson TX2 GPU, which limited the extent of variable manipulation (such as testing learning rates above 0.1).",
+    "The research supports the feasibility of integrating deep learning algorithms into accessible platforms (such as apps on devices available in third-world countries) to bridge the gap in healthcare access."
+  ],
+  "important_remarks": [
+    "The ISIC dataset used in this study contained images of cancers on light skin only, introducing a significant population bias regarding skin tone diversity.",
+    "The study did not report formal statistical significance tests, p-values, or confidence intervals; results were evaluated solely using classification accuracy.",
+    "The highest accuracy of 74.59% was achieved on a small test set of only 617 images, which limits the reliability and generalizability of the result.",
+    "The authors acknowledge that their accuracy (74.59%) is lower than that reported by other researchers using CNNs (85%), indicating room for improvement.",
+    "Technical constraints of the NVIDIA Jetson TX2 hardware and time limitations prevented the testing of learning rates above 0.1, potentially missing optimal hyperparameters.",
+    "The paper relies on transfer learning from ImageNet (Caffe weights) rather than training from scratch, which may limit the model's ability to learn domain-specific features unique to skin cancer.",
+    "No external validation was performed; the model was trained and tested on the same dataset source (ISIC) without mention of independent external cohorts.",
+    "The study focuses exclusively on binary classification (benign vs. malignant) and does not address multi-class skin lesion classification or other dermatological conditions."
+  ]
+}

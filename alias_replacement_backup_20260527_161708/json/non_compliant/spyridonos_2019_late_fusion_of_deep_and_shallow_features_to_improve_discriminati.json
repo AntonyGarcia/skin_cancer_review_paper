@@ -1,0 +1,261 @@
+{
+  "file_name": "spyridonos_2019_late_fusion_of_deep_and_shallow_features_to_improve_discriminati.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning (pre-trained convolutional neural networks: AlexNet, VGG-16, VGG-19, GoogleNet) and machine learning (Support Vector Machine classifiers with shallow color-texture features) to classify actinic keratosis from normal skin using clinical photography."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as an 'ORIGINAL ARTICLE' and presents original experimental results. It details a specific methodology involving late fusion of deep and shallow features using pre-trained CNNs (AlexNet, VGG-16, VGG-19, GoogleNet) and SVM classifiers on a dataset of 22 patients. It reports new quantitative findings, including sensitivity (87%) and specificity (86%), and compares these against baseline models, which characterizes it as a primary research study rather than a review."
+  },
+  "title": "Late fusion of deep and shallow features to improve discrimination of actinic keratosis from normal skin using clinical photography",
+  "authors": [
+    "Panagiota Spyridonos",
+    "Georgios Gaitanis",
+    "Aristidis Likas",
+    "Ioannis D. Bassukas"
+  ],
+  "doi": "10.1111/srt.12684",
+  "journal": "Skin Research and Technology",
+  "year": 2019,
+  "article_type": "Original research article",
+  "brief_summary": "This study aimed to improve the discrimination of actinic keratosis (AK) from normal skin using clinical photography by fusing deep and shallow features. The researchers utilized a dataset of 6,010 AK and 13,915 healthy skin regions of interest from 22 patients, processed with a sliding window approach. They extracted shallow color-texture features using Local Binary Patterns and deep features from pre-trained convolutional neural networks (AlexNet, VGG-16, VGG-19, and GoogleNet). These features were classified using Support Vector Machines, with late fusion applied at the decision level using a max rule. The late fusion model achieved a sensitivity of 87% and specificity of 86%, representing a significant 6% improvement over single classifier performances. The results demonstrate the potential of this system for evaluating AK burden in future clinical studies.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic keratosis",
+      "paper_terms": [
+        "actinic keratosis",
+        "AK"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for the binary classification task (AK vs. healthy skin). The dataset comprised 6,010 regions of interest (ROI) of AK from 22 patients."
+    },
+    {
+      "lesion_type": "Normal skin",
+      "paper_terms": [
+        "healthy skin",
+        "normal skin"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class for the binary classification task. The dataset comprised 13,915 regions of interest (ROI) of healthy/normal skin from 22 patients."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin regions of interest (ROI) into 'actinic keratosis' (AK) or 'healthy/normal skin' classes.",
+        "primary": true,
+        "details": "The study performs binary classification using Support Vector Machine (SVM) classifiers on shallow (LBP) and deep (CNN) features. The system assigns each 50x50 pixel window region to either the AK or healthy skin class based on posterior probabilities. Performance is evaluated using sensitivity (87%) and specificity (86%)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "University of Ioannina Clinical Photography Dataset",
+      "description": "A private dataset comprising clinical photographs from 22 patients with actinic keratosis. The images were processed using a sliding window approach to extract regions of interest (ROIs).",
+      "classes_used": [
+        "Actinic Keratosis (AK)",
+        "Healthy/Normal Skin"
+      ],
+      "counts": {
+        "total": 19925,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Actinic Keratosis": 6010,
+          "Healthy/Normal Skin": 13915
+        }
+      },
+      "use": {
+        "training": "Used for system implementation and classifier training (SVM models with shallow and deep features).",
+        "validation": "Used for parameter optimization via 5-fold cross-validation on a subset of ~1000 samples per class drawn from all patients.",
+        "testing": "Used for evaluation of the ROI classifier using a leave-one-patient-out scheme.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "sensitivity",
+    "specificity",
+    "classification accuracy",
+    "McNemar test",
+    "Yule's Q-statistic",
+    "Q diversity"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Leave-one-patient-out cross-validation",
+      "purpose": "Evaluation of the ROI classifier performance on the test set.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "Optimal parameter selection for SVM models based on deep features by minimizing cross-validation loss.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Bayesian optimization",
+      "purpose": "To minimize the cross-validation loss for selecting optimal parameters for SVM models based on deep features.",
+      "type": "Optimization method"
+    },
+    {
+      "method": "Mid-p McNemar test",
+      "purpose": "To statistically compare the classification performance of late fusion models against single classifiers (shallow/deep features) and assess significance of improvement.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Yule's Q-statistic",
+      "purpose": "To compare the error independence (diversity) of fused classifiers.",
+      "type": "Agreement/Diversity metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Mid-p McNemar test",
+    "null_hypothesis": "There is no significant difference in classification performance (sensitivity and specificity) between the late fusion model and the single classifiers (shallow or deep features).",
+    "alternative_hypothesis": "There is a significant difference in classification performance, specifically that the late fusion model provides a significant improvement over the single classifiers.",
+    "alpha": 0.05,
+    "interpretation": "The late fusion approach yielded a significant improvement (6%) in both sensitivity and specificity compared to single classifier performance, with statistical significance confirmed by the mid-p McNemar test (P < 0.05)."
+  },
+  "results_obtained_in_each_dataset": {
+    "University of Ioannina Clinical Photography Dataset": {
+      "description": "Dataset comprising 6,010 AK and 13,915 healthy skin ROIs from 22 patients, evaluated using leave-one-patient-out cross-validation.",
+      "metrics": [
+        "Sensitivity",
+        "Specificity"
+      ],
+      "models": {
+        "LBP (Shallow)": {
+          "Sensitivity": "80%",
+          "Specificity": "81%"
+        },
+        "AlexNet (Deep)": {
+          "Sensitivity": "81%",
+          "Specificity": "81%"
+        },
+        "VGG-19 (Deep)": {
+          "Sensitivity": "84%",
+          "Specificity": "82%"
+        },
+        "VGG-16 (Deep)": {
+          "Sensitivity": "79%",
+          "Specificity": "84%"
+        },
+        "GoogleNet (Deep)": {
+          "Sensitivity": "75%",
+          "Specificity": "78%"
+        },
+        "LBP-AlexNet (Late Fusion)": {
+          "Sensitivity": "87%",
+          "Specificity": "86%"
+        },
+        "LBP-VGG-19 (Late Fusion)": {
+          "Sensitivity": "86%",
+          "Specificity": "87%"
+        },
+        "LBP-VGG-16 (Late Fusion)": {
+          "Sensitivity": "83%",
+          "Specificity": "87%"
+        },
+        "LBP-GoogleNet (Late Fusion)": {
+          "Sensitivity": "82%",
+          "Specificity": "84%"
+        }
+      },
+      "notes": "Late fusion yielded a significant improvement (6%) in both sensitivity and specificity compared to single classifier performance (P < 0.05 via mid-p McNemar test). The LBP-AlexNet fusion model resulted in improved accuracies in 14 out of 22 patients compared to the LBP classifier alone. GoogleNet deep features were inferior to LBP features."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Late fusion of Support Vector Machine (SVM) classifiers using shallow (Local Binary Patterns) and deep features from pre-trained Convolutional Neural Networks (CNNs)",
+    "pretraining": "Pre-trained CNNs: AlexNet, VGG-16, VGG-19, and GoogleNet",
+    "input_size": "Original ROI: 50 × 50 pixels; Resized for CNN input: 227 × 227 pixels (AlexNet) or 224 × 224 pixels (VGG/GoogleNet)",
+    "architecture_details": {
+      "shallow_features": "Local Binary Patterns (LBP) in YIQ color space",
+      "deep_features": {
+        "AlexNet": "Features from second fully connected layer (fc7), 4096-dimensional vector",
+        "VGG-16": "Features from second fully connected layer (fc7), 4096-dimensional vector",
+        "VGG-19": "Features from second fully connected layer (fc7), 4096-dimensional vector",
+        "GoogleNet": "Features from pool5-drop_7x7_s1 (last layer before final fully connected layer), 1024-dimensional vector"
+      },
+      "fusion_method": "Late fusion at decision level using max rule on posterior probabilities"
+    },
+    "training_details": {
+      "optimizer": "Support Vector Machine (SVM)",
+      "kernel": {
+        "shallow_features": "RBF kernel",
+        "deep_features": "Linear kernel"
+      },
+      "hyperparameters": {
+        "shallow_features": {
+          "gamma": 10,
+          "box_constraint_C": 1
+        },
+        "deep_features": {
+          "AlexNet": {
+            "box_constraint_C": 0.017
+          },
+          "VGG-16": {
+            "box_constraint_C": 0.017
+          },
+          "VGG-19": {
+            "box_constraint_C": 0.017
+          },
+          "GoogleNet": {
+            "box_constraint_C": 0.01
+          }
+        }
+      },
+      "parameter_selection": "Bayesian optimization to minimize cross-validation loss",
+      "validation_scheme": "5-fold cross-validation on a subset of ~1000 samples per class for parameter selection; Leave-one-patient-out scheme for final evaluation"
+    },
+    "classification_or_output_head": {
+      "type": "SVM Classifier",
+      "output": "Posterior probabilities in range [0, 1]",
+      "decision_rule": "Maximum probability rule for late fusion"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Support Vector Machine (SVM) with Local Binary Patterns (LBP) features",
+    "Support Vector Machine (SVM) with AlexNet deep features",
+    "Support Vector Machine (SVM) with VGG-16 deep features",
+    "Support Vector Machine (SVM) with VGG-19 deep features",
+    "Support Vector Machine (SVM) with GoogleNet deep features",
+    "Late fusion of SVM classifiers (LBP-AlexNet)",
+    "Late fusion of SVM classifiers (LBP-VGG-19)",
+    "Late fusion of SVM classifiers (LBP-VGG-16)",
+    "Late fusion of SVM classifiers (LBP-GoogleNet)",
+    "AlexNet",
+    "VGG-16",
+    "VGG-19",
+    "GoogleNet"
+  ],
+  "preprocessing_techniques": [
+    "Sliding rectangular window approach (50 × 50 pixels) with 10 pixels overlapping in each translocation to extract regions of interest (ROIs) from clinical photographs.",
+    "Resizing of original 50 × 50 pixel ROIs to 227 × 227 pixels for AlexNet input.",
+    "Resizing of original 50 × 50 pixel ROIs to 224 × 224 pixels for VGG-16, VGG-19, and GoogleNet input.",
+    "Conversion of SVM outputs to posterior probabilities in the range [0, 1] for late fusion."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "Late fusion of deep and shallow features significantly improved the discrimination of actinic keratosis (AK) from normal skin compared to single classifiers, yielding a 6% improvement in both sensitivity (87%) and specificity (86%).",
+    "The parallel improvement of sensitivity and specificity demonstrates the potential use of the proposed system for evaluating AK burden in future clinical studies.",
+    "The late fusion approach may be valuable for the direct comparison of field-directed treatment interventions in future clinical settings.",
+    "Deep features extracted from pre-trained CNNs (AlexNet, VGG-16, VGG-19) and shallow color-texture features (LBP) exhibit complementary discriminatory abilities, with GoogleNet deep features performing inferiorly to LBP features.",
+    "The LBP-AlexNet late fusion model resulted in improved accuracies in 14 out of 22 patients compared to the LBP classifier alone."
+  ],
+  "important_remarks": [
+    "The study relies on a small, single-center dataset of only 22 patients, which limits the generalizability of the results and raises concerns about external validation.",
+    "The dataset was constructed by cropping 6,010 AK and 13,915 healthy skin regions of interest (ROIs) from the 22 patients using a sliding window approach, creating a large number of non-independent samples from a small number of subjects.",
+    "Parameter optimization for deep feature SVMs used a subset of ~1,000 samples per class drawn randomly from all patients, while final evaluation used leave-one-patient-out cross-validation; this separation of optimization and evaluation data is noted but the small patient count remains a constraint.",
+    "GoogleNet deep features performed inferiorly to shallow LBP features (Sensitivity 75% vs 80%), indicating that not all pre-trained CNN architectures are equally suitable for this specific task without further tuning or different feature layers.",
+    "The improvement in sensitivity and specificity (6%) was statistically significant (P < 0.05 via mid-p McNemar test), but the absolute performance levels (87% sensitivity, 86% specificity) may be insufficient for standalone clinical diagnostic use without human oversight.",
+    "The system was tested on clinical photography from conventional user-grade digital cameras, which may introduce variability in lighting and image quality not accounted for in the controlled dataset.",
+    "The study focuses on binary classification (AK vs. healthy skin) rather than multi-class differential diagnosis, limiting its applicability to complex clinical scenarios involving other skin lesions."
+  ]
+}

@@ -1,0 +1,454 @@
+{
+  "file_name": "shah_2023_deep_learning_segmentation_of_invasive_melanoma.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning, specifically a two-stage system employing HRNet+OCR, UNet, and HookNet architectures, to perform semantic segmentation of invasive melanoma and epidermis in whole slide images (WSIs) of skin cancer specimens."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, specifically proposing and validating a novel two-stage deep learning method for segmenting invasive melanoma. It details a specific dataset of 57 patient WSIs, describes the methodology (HRNet+OCR, HookNet, UNet architectures), and reports quantitative results (mIoU, F1 scores) comparing the proposed method against state-of-the-art baselines. The abstract and introduction explicitly state the development and verification of new results rather than summarizing prior literature."
+  },
+  "title": "Deep learning segmentation of invasive melanoma",
+  "authors": [
+    "Aman Shah",
+    "Amal Mehta",
+    "Michael Wang",
+    "Neil Neumann",
+    "Avideh Zakhra",
+    "Timothy McCalmont"
+  ],
+  "doi": "10.1117/12.2654672",
+  "journal": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a novel two-stage deep learning method to segment invasive melanoma in whole slide images of skin cancer specimens, addressing the challenge of distinguishing it from in-situ melanoma. The system utilizes HRNet+OCR, HookNet, and UNet architectures to first segment tumor versus non-tumor and epidermis versus dermis, then intersects these maps to isolate invasive melanoma in the dermis. The dataset comprised 57 hematoxylin and eosin-stained whole slide images from 57 UCSF patients, annotated by board-certified dermatopathologists. Evaluation on an independent test set demonstrated that the proposed two-stage approach using HRNet+OCR with downscaling significantly outperformed state-of-the-art one-stage methods. Specifically, the method achieved a marked improvement in F1 score (0.44) and mean Intersection over Union (0.64) compared to previous baselines. These results indicate that the two-stage strategy effectively reduces false positives caused by in-situ melanoma, offering a more accurate assessment of invasive tumor burden.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Invasive Melanoma",
+      "paper_terms": [
+        "invasive melanoma",
+        "IM"
+      ],
+      "role": "Target class",
+      "details": "Primary target for segmentation in the dermis. The dataset included 57 patients with IM (stages T1 to T4). The IM label includes mass forming tumors, infiltrative strands, individual cells, fine blood vessels, stroma, lymphocytes, and necrosis within the tumor border."
+    },
+    {
+      "lesion_type": "In-situ Melanoma",
+      "paper_terms": [
+        "in-situ melanoma"
+      ],
+      "role": "Comparator class / Exclusion target",
+      "details": "Melanoma within the epidermis, considered harmless and not causing death. The study aims to distinguish invasive melanoma from in-situ melanoma to avoid false positives. It is part of the total melanoma (TM) concept but excluded from the primary IM segmentation target."
+    },
+    {
+      "lesion_type": "Total Melanoma",
+      "paper_terms": [
+        "total melanoma",
+        "TM",
+        "IM ∪ E"
+      ],
+      "role": "Proxy target class",
+      "details": "Defined as the union of invasive melanoma (IM) and epidermis (E). Used as a proxy for total melanoma in training tumor segmentation models because it is easier to annotate than TM alone. The union of IM and epidermis was used as a target class in some experiments (e.g., HRNet+OCR (IM ∪ E))."
+    },
+    {
+      "lesion_type": "Epidermis",
+      "paper_terms": [
+        "epidermis"
+      ],
+      "role": "Segmentation target / Anatomical structure",
+      "details": "The first layer of the skin. Segmented in Stage 1 to distinguish it from the dermis. Skin appendages were labeled as epidermis. Used to exclude in-situ melanoma predictions from the final invasive melanoma output."
+    },
+    {
+      "lesion_type": "Dermis",
+      "paper_terms": [
+        "dermis",
+        "non-melanoma dermis"
+      ],
+      "role": "Segmentation target / Anatomical structure",
+      "details": "The layer below the epidermis where invasive melanoma resides. Segmented in Stage 1. Non-melanoma dermis includes fibrosis, inflammation, and normal dermis."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevi"
+      ],
+      "role": "Exclusion/mentioned only",
+      "details": "The study explicitly excluded cases of melanomas co-existing with nevi from the dataset of 57 patients."
+    },
+    {
+      "lesion_type": "Desmoplastic Melanoma",
+      "paper_terms": [
+        "desmoplastic melanomas"
+      ],
+      "role": "Exclusion/mentioned only",
+      "details": "The study explicitly excluded desmoplastic melanomas from the dataset of 57 patients."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Invasive melanoma (IM), epidermis, dermis, and tumor vs non-tumor regions in whole slide images.",
+        "primary": true,
+        "details": "The paper proposes a two-stage deep learning system for semantic segmentation. Stage 1 performs binary semantic segmentation for 'tumor vs non-tumor' and 'epidermis vs dermis'. Stage 2 intersects these maps to produce final invasive melanoma segmentation masks. The task is explicitly defined as 'semantic segmentation' and 'segmentation of invasive melanoma'. Metrics reported include mean Intersection over Union (mIoU) and F1 score, which are standard for segmentation tasks."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "UCSF Invasive Melanoma Dataset",
+      "description": "A private dataset of 57 hematoxylin and eosin (H&E) stained whole slide images (WSIs) from 57 University of California, San Francisco (UCSF) patients with invasive melanoma (stages T1 to T4), diagnosed between 2004 and 2014. Cases with melanomas co-existing with nevi or desmoplastic melanomas were excluded. Slides were digitized at 40x magnification using a Leica Aperio whole slide scanner. Annotations were performed by two board-certified dermatopathologists using QuPath.",
+      "classes_used": [
+        "Invasive Melanoma (IM)",
+        "Epidermis",
+        "Non-melanoma dermis",
+        "Negative space (air, stratum corneum)",
+        "Total Melanoma (TM) / IM ∪ E (proxy for TM)"
+      ],
+      "counts": {
+        "total": 57,
+        "training": 79,
+        "validation": null,
+        "testing": 20,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training segmentation models. Split into 36 WSIs for epidermis vs. dermis segmentation training and 43 WSIs for tumor (IM or IM ∪ E) segmentation training. 20% of the training data was allocated for a validation set.",
+        "validation": "20% of the training data was allocated for a validation set.",
+        "testing": "Used for independent testing. 7 WSIs were separated into an independent epidermis testing set, and the remaining WSIs (13 total, derived from the 43 tumor training WSIs minus those used in epidermis split or overlapping) were separated into an independent melanoma testing set.",
+        "other": "The HRNet+OCR model was initialized with weights pretrained on the Cityscapes dataset (public dataset)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "mIoU",
+    "fwIoU",
+    "F1 Score",
+    "Sensitivity",
+    "Specificity"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Weighted cross-entropy loss",
+      "purpose": "Used for training models, with weights calculated as the inverse square root or inverse of class frequency to handle class imbalance.",
+      "type": "Loss function"
+    },
+    {
+      "method": "Adam optimizer",
+      "purpose": "Used to update model weights during training with a learning rate of 0.001 and beta parameters of 0.99 and 0.999.",
+      "type": "Optimization algorithm"
+    },
+    {
+      "method": "Otsu’s thresholding",
+      "purpose": "Used to remove artifacts such as adhesive stains from input images before training.",
+      "type": "Preprocessing technique"
+    },
+    {
+      "method": "Sampling techniques (undersampling and oversampling)",
+      "purpose": "Used to overcome data imbalance in the training set by altering pixel distribution between epidermis and negative class, and between melanoma and negative class.",
+      "type": "Data augmentation/Handling"
+    },
+    {
+      "method": "Downscaling",
+      "purpose": "Used to increase information passed to the model and improve accuracy by processing patches at multiple resolutions (e.g., downscaled from 3152x3152 to 788x788).",
+      "type": "Data augmentation/Handling"
+    },
+    {
+      "method": "Flips and rotations",
+      "purpose": "Applied as data augmentation techniques in multiples of 90 degrees.",
+      "type": "Data augmentation/Handling"
+    },
+    {
+      "method": "Power analysis",
+      "purpose": "Used to determine sample size requirements for future work, specifically to test the cross-section area hypothesis as a predictor of cancer stage with 80% power at 5% significance level.",
+      "type": "Sample size calculation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing for the reported segmentation results. It mentions a power analysis for future work to test a cross-section area hypothesis with 80% power at a 5% significance level, but no such test was performed or reported in this study."
+  },
+  "results_obtained_in_each_dataset": {
+    "UCSF Invasive Melanoma Dataset (Epidermis Segmentation)": {
+      "description": "Stage 1 epidermis segmentation results on an independent test set of 7 WSIs.",
+      "models": {
+        "3-Branched HookNet": {
+          "input_patch_size": "800x800",
+          "mIoU": 0.76,
+          "fwIoU": 0.97,
+          "F1_Score": 0.69,
+          "Sensitivity": 0.91,
+          "Specificity": 0.98
+        },
+        "HRNet+OCR": {
+          "input_patch_size": "3152x3152",
+          "mIoU": 0.77,
+          "fwIoU": 0.97,
+          "F1_Score": 0.72,
+          "Sensitivity": 0.95,
+          "Specificity": 0.98
+        },
+        "UNet": {
+          "input_patch_size": "1600x1600",
+          "mIoU": 0.75,
+          "fwIoU": 0.96,
+          "F1_Score": 0.69,
+          "Sensitivity": 0.98,
+          "Specificity": 0.98
+        }
+      },
+      "notes": "The highest mIoU (0.79) and F1 score (0.74) were achieved by HRNet+OCR with 1576x1576 patches downscaled to 788x788. This model attained sensitivity and specificity of 0.89 and 0.99, compared to 0.90 and 0.98 in Ref. 9."
+    },
+    "UCSF Invasive Melanoma Dataset (One-Stage Invasive Melanoma Segmentation)": {
+      "description": "Stage 1 tumor segmentation results on an independent test set of 13 WSIs.",
+      "models": {
+        "HRNet+OCR": {
+          "input_patch_size": "788x788",
+          "target": "Invasive Melanoma",
+          "mIoU": 0.5,
+          "fwIoU": 0.94,
+          "F1_Score": 0.1,
+          "Sensitivity": 0.49
+        },
+        "2-Branched HookNet": {
+          "input_patch_size": "800x800",
+          "target": "Invasive Melanoma",
+          "mIoU": 0.51,
+          "fwIoU": 0.97,
+          "F1_Score": 0.08,
+          "Sensitivity": 0.06
+        },
+        "3-Branched HookNet": {
+          "input_patch_size": "800x800",
+          "target": "Invasive Melanoma",
+          "mIoU": 0.57,
+          "fwIoU": 0.97,
+          "F1_Score": 0.27,
+          "Sensitivity": 0.36
+        },
+        "UNet": {
+          "input_patch_size": "788x788",
+          "target": "Invasive Melanoma",
+          "mIoU": 0.43,
+          "fwIoU": 0.8,
+          "F1_Score": 0.08,
+          "Sensitivity": 0.78
+        },
+        "Ref. 9 (FCN variant)": {
+          "input_patch_size": "788x788",
+          "target": "Invasive Melanoma",
+          "mIoU": 0.53,
+          "fwIoU": 0.97,
+          "F1_Score": 0.14,
+          "Sensitivity": 0.13
+        }
+      },
+      "notes": "Ref. 9 represents the current state-of-the-art one-stage method with an F1 score of 0.14 and mIoU of 0.53."
+    },
+    "UCSF Invasive Melanoma Dataset (Two-Stage Invasive Melanoma Segmentation)": {
+      "description": "Stage 2 results combining epidermis and tumor segmentation maps on the independent test set of 13 WSIs.",
+      "models": {
+        "HRNet+OCR (Epidermis 1576) + HRNet+OCR (IM)": {
+          "mIoU": 0.58,
+          "fwIoU": 0.97,
+          "F1_Score": 0.29,
+          "Sensitivity": 0.28
+        },
+        "HRNet+OCR (Epidermis 1576) + 3-Branched HookNet (IM)": {
+          "mIoU": 0.6,
+          "fwIoU": 0.97,
+          "F1_Score": 0.35,
+          "Sensitivity": 0.36
+        },
+        "HRNet+OCR (Epidermis 1576) + UNet (IM)": {
+          "mIoU": 0.47,
+          "fwIoU": 0.86,
+          "F1_Score": 0.13,
+          "Sensitivity": 0.74
+        },
+        "HRNet+OCR (Epidermis 1576) + Ref. 9 (IM)": {
+          "mIoU": 0.55,
+          "fwIoU": 0.98,
+          "F1_Score": 0.2,
+          "Sensitivity": 0.13
+        },
+        "HRNet+OCR (Epidermis 1576) + HRNet+OCR (IM ∪ E)": {
+          "mIoU": 0.61,
+          "fwIoU": 0.97,
+          "F1_Score": 0.39,
+          "Sensitivity": 0.42
+        },
+        "HRNet+OCR (Epidermis 1576) + 3-Branched HookNet (IM ∪ E)": {
+          "mIoU": 0.58,
+          "fwIoU": 0.97,
+          "F1_Score": 0.32,
+          "Sensitivity": 0.5
+        },
+        "HRNet+OCR (Epidermis 1576) + UNet (IM ∪ E)": {
+          "mIoU": 0.58,
+          "fwIoU": 0.96,
+          "F1_Score": 0.31,
+          "Sensitivity": 0.56
+        },
+        "HRNet+OCR (Epidermis 3152) + HRNet+OCR (IM)": {
+          "mIoU": 0.56,
+          "fwIoU": 0.97,
+          "F1_Score": 0.24,
+          "Sensitivity": 0.22
+        },
+        "HRNet+OCR (Epidermis 3152) + 3-Branched HookNet (IM)": {
+          "mIoU": 0.62,
+          "fwIoU": 0.98,
+          "F1_Score": 0.41,
+          "Sensitivity": 0.37
+        },
+        "HRNet+OCR (Epidermis 3152) + UNet (IM)": {
+          "mIoU": 0.49,
+          "fwIoU": 0.89,
+          "F1_Score": 0.15,
+          "Sensitivity": 0.18
+        },
+        "HRNet+OCR (Epidermis 3152) + Ref. 9 (IM)": {
+          "mIoU": 0.56,
+          "fwIoU": 0.98,
+          "F1_Score": 0.22,
+          "Sensitivity": 0.14
+        },
+        "HRNet+OCR (Epidermis 3152) + HRNet+OCR (IM ∪ E)": {
+          "mIoU": 0.64,
+          "fwIoU": 0.98,
+          "F1_Score": 0.44,
+          "Sensitivity": 0.39
+        },
+        "HRNet+OCR (Epidermis 3152) + 3-Branched HookNet (IM ∪ E)": {
+          "mIoU": 0.62,
+          "fwIoU": 0.97,
+          "F1_Score": 0.41,
+          "Sensitivity": 0.37
+        },
+        "HRNet+OCR (Epidermis 3152) + UNet (IM ∪ E)": {
+          "mIoU": 0.6,
+          "fwIoU": 0.97,
+          "F1_Score": 0.37,
+          "Sensitivity": 0.53
+        },
+        "UNet (Epidermis) + UNet (IM)": {
+          "mIoU": 0.47,
+          "fwIoU": 0.86,
+          "F1_Score": 0.13,
+          "Sensitivity": 0.74
+        },
+        "UNet (Epidermis) + UNet (IM ∪ E)": {
+          "mIoU": 0.57,
+          "fwIoU": 0.97,
+          "F1_Score": 0.27,
+          "Sensitivity": 0.29
+        }
+      },
+      "notes": "The best result (row 12) used HRNet+OCR for epidermis segmentation (downscaling 3152x3152 patches to 788x788) combined with HRNet+OCR trained on IM ∪ E targets, achieving an F1 score of 0.44 and mIoU of 0.64. This represents a 450% F1 score improvement over Ref. 9 (0.14) and a 214% improvement over UNet. Using IM ∪ E as targets generally improved mIoU and F1 scores compared to using IM alone. Downsampling from 3152x3152 yielded higher metrics than 1576x1576 in 6 out of 7 cases."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two-stage system utilizing HRNet+OCR, UNet, and HookNet (2-branched and 3-branched) architectures.",
+    "pretraining": "HRNet+OCR was initialized with weights pretrained on the Cityscapes dataset.",
+    "input_size": "Variable patch sizes: 800x800, 1600x1600, 3152x3152, and 1576x1576 (downscaled to 788x788).",
+    "architecture_details": {
+      "HookNet": "Multi-resolution network with encoder-decoder branches. 2-branched HookNet uses 40x and 10x magnification. 3-branched HookNet uses 40x, 10x, and 5x magnification.",
+      "HRNet+OCR": "Segmentation model maintaining high-resolution representations. Uses an auxiliary layer for intermediate predictions.",
+      "UNet": "Standard U-Net architecture.",
+      "FCN": "FCN variant designed by Ref. 9."
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "beta_parameters": [
+        0.99,
+        0.999
+      ],
+      "loss_function": "Weighted cross-entropy loss (weights: inverse square root or inverse of class frequency). HookNet used weighted sum of branch losses (weights: 0.6, 0.4, 0.3 for 40x, 10x, 5x branches). HRNet+OCR used weighted loss between auxiliary and final layer outputs (weights: 0.4, 0.6).",
+      "epochs": {
+        "HookNet": 150,
+        "UNet": 150,
+        "FCN": 150,
+        "HRNet+OCR": 100
+      },
+      "validation_split": "20% of training data"
+    },
+    "classification_or_output_head": {
+      "epidermis_segmentation": "Binary segmentation (epidermis vs non-epidermis).",
+      "tumor_segmentation": "Binary segmentation (Invasive Melanoma vs non-tumor OR Total Melanoma (IM U E) vs non-tumor).",
+      "final_output": "Intersection of negative epidermis prediction and positive tumor prediction to isolate invasive melanoma in the dermis."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "HRNet+OCR",
+    "UNet",
+    "2-Branched HookNet",
+    "3-Branched HookNet",
+    "FCN variant (Ref. 9)"
+  ],
+  "preprocessing_techniques": [
+    "Otsu’s thresholding to remove artifacts such as adhesive stains from input images before training",
+    "Removal of uninformative patches containing less than 2% of cellular tissue",
+    "Undersampling of patches corresponding to dermal regions to increase the proportion of epidermis",
+    "Oversampling of patches with large areas of epidermis",
+    "Downscaling of patches (e.g., from 3152x3152 to 788x788) to increase information passed to the model",
+    "Flips and rotations in multiples of 90 degrees"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Patch Filtering",
+      "details": "Removal of uninformative patches containing less than 2% of cellular tissue."
+    },
+    {
+      "technique": "Undersampling",
+      "details": "Undersampling of patches corresponding to dermal regions to increase the proportion of epidermis, resulting in a pixel distribution of 3:7 between epidermis and negative class."
+    },
+    {
+      "technique": "Oversampling",
+      "details": "Oversampling of patches with large areas of epidermis."
+    },
+    {
+      "technique": "Downscaling",
+      "details": "Downscaling of patches (e.g., from 3152x3152 to 788x788) to increase information passed to the model."
+    },
+    {
+      "technique": "Geometric Transforms",
+      "details": "Application of flips and rotations in multiples of 90 degrees."
+    },
+    {
+      "technique": "Artifact Removal",
+      "details": "Removal of artifacts such as adhesive stains using Otsu’s thresholding technique on input images before training."
+    }
+  ],
+  "conclusions": [
+    "The proposed two-stage deep learning method, which intersects tumor and epidermis segmentation maps, significantly outperforms classical one-stage methods for segmenting invasive melanoma in whole slide images.",
+    "The best-performing configuration used an HRNet+OCR model for both epidermis and melanoma segmentation with downscaling (3152x3152 patches downscaled to 788x788), achieving an F1 score of 0.44 and mIoU of 0.64.",
+    "The two-stage approach resulted in a 450% improvement in F1 score compared to the state-of-the-art one-stage method (Ref. 9, F1=0.14) and a 214% improvement over UNet.",
+    "Using the union of invasive melanoma and epidermis (IM ∪ E) as the training target improved mIoU and F1 scores compared to using invasive melanoma alone, likely because it leverages the visual similarity between invasive and in-situ melanoma.",
+    "The two-stage approach effectively reduces false positive predictions caused by in-situ melanoma in the epidermis, thereby isolating invasive melanoma in the dermis more accurately.",
+    "Downscaling patches from 3152x3152 to 788x788 yielded higher performance metrics than 1576x1576 patches in the majority of cases, indicating that information from larger neighborhoods is beneficial for the epidermis model.",
+    "HRNet+OCR performed best in the two-stage system due to its transformer-based architecture and attention mechanism, which generate strong high-level representations of pixel-object relationships.",
+    "A current limitation of the system is the detection of small melanoma clusters that are obfuscated by high background inflammation or fibrosis.",
+    "The method mitigates inter-observer variability inherent in manual segmentation and offers a reproducible, efficient alternative for assessing invasive melanoma tumor burden."
+  ],
+  "important_remarks": [
+    "The study relies on a small, single-institution dataset of only 57 patients from UCSF, limiting generalizability and raising concerns about population bias.",
+    "No external validation was performed; the model was tested on an independent test set drawn from the same institution, which does not assess performance across different scanners, staining protocols, or demographics.",
+    "The dataset explicitly excluded melanomas co-existing with nevi and desmoplastic melanomas, creating a selection bias that may limit the model's applicability to complex clinical cases.",
+    "A significant limitation is the model's inability to detect small melanoma clusters obfuscated by high background inflammation or fibrosis.",
+    "The model struggles with specific epidermal presentations, such as epidermis surrounding hair follicles, indicating a need for more adnexal structures in training data.",
+    "The use of 'Total Melanoma' (IM ∪ E) as a proxy target improved performance by leveraging visual similarities between invasive and in-situ melanoma, but this approach may mask distinct pathological features of pure invasive melanoma.",
+    "The study does not report statistical significance tests (e.g., p-values) for the reported performance improvements, relying instead on percentage improvements (e.g., 450% F1 score increase).",
+    "The dataset spans diagnoses from 2004 to 2014, which may not reflect current diagnostic criteria or staining practices, potentially affecting clinical relevance.",
+    "The proposed method is a research prototype; clinical deployment concerns include the need for end-to-end processing tools and validation against manual Breslow thickness measurements."
+  ]
+}

@@ -1,0 +1,463 @@
+{
+  "file_name": "li_2025_hyperfusionnet_combines_vision_transformer_for_early_melanoma_detection.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed HyperFusionNet, a hybrid deep learning architecture combining a Multi-Path Vision Transformer (MPViT) and an attention U-Net, to perform melanoma classification and lesion segmentation on dermoscopic images from ISIC datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper introduces a novel hybrid deep learning architecture called HyperFusionNet, describes its methodology (combining MPViT and attention U-Net), details the experimental setup using four ISIC datasets, and reports original quantitative results (e.g., accuracy 93.24%, Dice coefficient 0.945) and ablation studies. It is not a review or survey of prior literature."
+  },
+  "title": "HyperFusionNet combines vision transformer for early melanoma detection and precise lesion segmentation",
+  "authors": [
+    "Min Li",
+    "Yinping Jiang",
+    "Ge Cao",
+    "Tao Xu",
+    "Ruiqiang Guo"
+  ],
+  "doi": "10.1038/s41598-025-30184-1",
+  "journal": "Scientific Reports",
+  "year": 2025,
+  "article_type": "Research article",
+  "brief_summary": "This study introduces HyperFusionNet, a hybrid deep learning architecture that combines a Multi-Path Vision Transformer (MPViT) with an attention U-Net to simultaneously perform melanoma classification and lesion segmentation on dermoscopic images. The model was trained and evaluated using four public ISIC datasets (2018, 2019, 2020, and 2024) containing over 60,000 images, with preprocessing steps including hair removal and normalization. Experimental results demonstrate that HyperFusionNet outperforms state-of-the-art models such as U-Net, DeepLabV3+, TransUNet, and Swin-UNet. Specifically, the model achieved an accuracy of 93.24% and an AUC of 95.80% for classification, along with a Dice coefficient of 0.945 for segmentation on the ISIC 2024 dataset. Ablation studies confirmed the effectiveness of the multi-path design and fusion strategy in enhancing diagnostic performance while maintaining computational efficiency. The findings indicate that HyperFusionNet offers strong generalizability and superior performance for early melanoma detection and precise lesion segmentation.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "Primary target for classification (malignant class) and detection. The study focuses on early melanoma detection using binary classification (benign vs. malignant) across ISIC 2018, 2019, 2020, and 2024 datasets."
+    },
+    {
+      "lesion_type": "Benign Lesions",
+      "paper_terms": [
+        "benign",
+        "benign illnesses",
+        "non-melanoma"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class in binary classification tasks. The paper notes that melanoma lesions frequently resemble benign illnesses such as basal cell carcinoma or actinic keratosis, but the experimental setup uses a binary benign vs. malignant label rather than specific benign subtypes."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as a benign illness that melanoma lesions may resemble, leading to potential misdiagnosis. Not explicitly listed as a distinct experimental class in the results."
+    },
+    {
+      "lesion_type": "Actinic Keratosis",
+      "paper_terms": [
+        "actinic keratosis"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as a benign illness that melanoma lesions may resemble. Not explicitly listed as a distinct experimental class in the results."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnosis of melanoma (benign vs. malignant)",
+        "primary": true,
+        "details": "The model performs binary classification to predict whether a dermoscopic image contains a malignant melanoma or a benign lesion. It outputs a probability score between 0 and 1 for malignancy, using a threshold (e.g., 0.5) to determine the final class. Performance was evaluated using accuracy, sensitivity, specificity, and AUC."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion boundary delineation (binary mask)",
+        "primary": false,
+        "details": "The model simultaneously performs pixel-wise segmentation to generate binary masks distinguishing the lesion from the background. Performance was evaluated using the Dice coefficient and Jaccard index (IoU)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A public benchmark dataset from the International Skin Imaging Collaboration containing dermoscopic images with ground-truth segmentation masks and binary classification labels.",
+      "classes_used": [
+        "benign",
+        "malignant"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 1200,
+        "validation": 85,
+        "testing": 85,
+        "per_class": {
+          "training": {
+            "benign": 750,
+            "malignant": 450
+          },
+          "validation": {
+            "benign": 43,
+            "malignant": 42
+          },
+          "testing": {
+            "benign": 43,
+            "malignant": 42
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the HyperFusionNet model (1200 images).",
+        "validation": "Used for validation (85 images).",
+        "testing": "Used for testing and evaluation (85 images).",
+        "other": "Provided ground-truth segmentation masks for segmentation tasks."
+      }
+    },
+    {
+      "name": "ISIC 2019",
+      "description": "A public benchmark dataset from the International Skin Imaging Collaboration containing dermoscopic images across seven diagnostic categories, used here for binary classification of melanoma vs. non-melanoma.",
+      "classes_used": [
+        "benign",
+        "malignant"
+      ],
+      "counts": {
+        "total": 25331,
+        "training": 1200,
+        "validation": 85,
+        "testing": 85,
+        "per_class": {
+          "training": {
+            "benign": 750,
+            "malignant": 450
+          },
+          "validation": {
+            "benign": 43,
+            "malignant": 42
+          },
+          "testing": {
+            "benign": 43,
+            "malignant": 42
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the HyperFusionNet model (1200 images).",
+        "validation": "Used for validation (85 images).",
+        "testing": "Used for testing and evaluation (85 images).",
+        "other": "Used to assess generalizability across datasets with different lesion types."
+      }
+    },
+    {
+      "name": "ISIC 2020",
+      "description": "A public benchmark dataset from the International Skin Imaging Collaboration containing dermoscopic images tagged for binary classification, without pixel-wise segmentation masks.",
+      "classes_used": [
+        "benign",
+        "malignant"
+      ],
+      "counts": {
+        "total": 33126,
+        "training": 1200,
+        "validation": 150,
+        "testing": 150,
+        "per_class": {
+          "training": {
+            "benign": 750,
+            "malignant": 450
+          },
+          "validation": {
+            "benign": 90,
+            "malignant": 60
+          },
+          "testing": {
+            "benign": 90,
+            "malignant": 60
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the HyperFusionNet model (1200 images).",
+        "validation": "Used for validation (150 images).",
+        "testing": "Used for testing and evaluation (150 images).",
+        "other": "Used as the primary benchmark for main experiments including hyperparameter tuning, classification, and segmentation evaluation due to its balanced nature."
+      }
+    },
+    {
+      "name": "ISIC 2024",
+      "description": "The latest and most extensive public benchmark dataset from the International Skin Imaging Collaboration, encompassing over 45,000 images with increased variation in lesion characteristics, acquisition conditions, and patient demographics.",
+      "classes_used": [
+        "benign",
+        "malignant"
+      ],
+      "counts": {
+        "total": null,
+        "training": 1200,
+        "validation": 150,
+        "testing": 150,
+        "per_class": {
+          "training": {
+            "benign": 750,
+            "malignant": 450
+          },
+          "validation": {
+            "benign": 90,
+            "malignant": 60
+          },
+          "testing": {
+            "benign": 90,
+            "malignant": 60
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the HyperFusionNet model (1200 images).",
+        "validation": "Used for validation (150 images).",
+        "testing": "Used for testing and evaluation (150 images).",
+        "other": "Used to demonstrate strong generalizability and superior performance on the most recent dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "Area under the receiver operating characteristic curve (AUC)",
+    "ROC-AUC",
+    "Dice coefficient",
+    "Jaccard index",
+    "IoU",
+    "Precision",
+    "Recall",
+    "F1-score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Threshold-based classification",
+      "purpose": "To transform probability scores into binary classifications (benign or malignant) for evaluation.",
+      "type": "Classification strategy"
+    },
+    {
+      "method": "Ablation study",
+      "purpose": "To evaluate the contribution of specific components (cross-attention fusion block, attention gates, multi-path ViT) to the model's performance.",
+      "type": "Experimental design"
+    },
+    {
+      "method": "Comparative analysis",
+      "purpose": "To compare HyperFusionNet against state-of-the-art models (U-Net, DeepLabV3+, TransUNet, Swin-UNet, etc.) using performance metrics.",
+      "type": "Performance evaluation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were based on direct metric values (e.g., accuracy, AUC, Dice coefficient) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2020": {
+      "classification": {
+        "HyperFusion-Net (Full)": {
+          "accuracy": 0.9667,
+          "sensitivity": 0.9733,
+          "specificity": 0.9467,
+          "ROC-AUC": 0.9701,
+          "threshold": 0.5
+        },
+        "HyperFusion-Net w/o Fusion Block": {
+          "accuracy": 0.9333,
+          "ROC-AUC": 0.935
+        },
+        "HyperFusion-Net w/o Attention Gates": {
+          "accuracy": 0.9467,
+          "ROC-AUC": 0.948
+        },
+        "HyperFusion-Net w/ Single-Path ViT": {
+          "accuracy": 0.94,
+          "ROC-AUC": 0.9412
+        }
+      },
+      "segmentation": {
+        "HyperFusion-Net (Full)": {
+          "Dice Coefficient": 0.911,
+          "Jaccard Index": 0.854
+        },
+        "HyperFusion-Net w/o Fusion Block": {
+          "Dice Coefficient": 0.88,
+          "Jaccard Index": 0.82
+        },
+        "HyperFusion-Net w/o Attention Gates": {
+          "Dice Coefficient": 0.895,
+          "Jaccard Index": 0.835
+        },
+        "HyperFusion-Net w/ Single-Path ViT": {
+          "Dice Coefficient": 0.885,
+          "Jaccard Index": 0.825
+        }
+      },
+      "notes": "Main experiments and hyperparameter tuning were conducted on this dataset. The best classification threshold was determined to be 0.5."
+    },
+    "ISIC 2018": {
+      "classification": {
+        "HyperFusion-Net": {
+          "accuracy": 0.9324,
+          "sensitivity": 0.9241,
+          "specificity": 0.9415
+        }
+      },
+      "segmentation": {
+        "HyperFusion-Net": {
+          "Dice Coefficient": 0.932,
+          "Jaccard Index": 0.881,
+          "Precision": 0.942,
+          "Recall": 0.924,
+          "F1 Score": 0.933
+        }
+      },
+      "notes": "AUC values were reported as above 0.95 across all datasets."
+    },
+    "ISIC 2019": {
+      "classification": {
+        "HyperFusion-Net": {
+          "AUC": "above 0.95"
+        }
+      },
+      "segmentation": {
+        "HyperFusion-Net": {
+          "Dice Coefficient": 0.927,
+          "Jaccard Index": 0.872,
+          "Precision": 0.935,
+          "Recall": 0.918,
+          "F1 Score": 0.926
+        }
+      },
+      "notes": "Dataset is significantly uneven with seven diagnostic categories."
+    },
+    "ISIC 2024": {
+      "classification": {
+        "HyperFusion-Net": {
+          "accuracy": 0.9478,
+          "sensitivity": 0.9623,
+          "AUC": "above 0.95"
+        }
+      },
+      "segmentation": {
+        "HyperFusion-Net": {
+          "Dice Coefficient": 0.945,
+          "Jaccard Index": 0.896,
+          "Precision": 0.95,
+          "Recall": 0.94,
+          "F1 Score": 0.945
+        }
+      },
+      "notes": "Abstract reports accuracy of 93.24% and AUC of 95.80% for classification and Dice coefficient of 0.945 for segmentation on ISIC 2024. Section 4.2 reports accuracy of 94.78% and sensitivity of 96.23% for ISIC 2024. Table 4 reports Dice 0.945 and Jaccard 0.896 for ISIC 2024."
+    }
+  },
+  "architecture_used": {
+    "main_model": "HyperFusionNet",
+    "pretraining": "null",
+    "input_size": "224 × 224 × 3",
+    "architecture_details": {
+      "backbone": "Multi-Path Vision Transformer (MPViT) combined with Attention U-Net",
+      "mpvit_config": {
+        "paths": 3,
+        "scales": [
+          "small",
+          "medium",
+          "large"
+        ],
+        "patch_size": "16 × 16",
+        "embedding_dimension": 768,
+        "heads": 8,
+        "depth_per_path": 4,
+        "mlp_hidden_dimension": 2048,
+        "dropout_rate": 0.1
+      },
+      "unet_config": {
+        "decoder_depth": 4,
+        "attention_gate_channels": 128
+      },
+      "fusion_module": "Cross-Attention Fusion Block",
+      "stem_block": "Conv2D(64) @3×3 + BatchNorm + ReLU + MaxPooling2D @2×2 &2",
+      "classifier_head": "Global Average Pooling + Dense(128) + Dropout(0.5) + Dense(1) + Sigmoid"
+    },
+    "training_details": {
+      "optimizer": "AdamW",
+      "loss_function": "Dice Loss + Binary Cross-Entropy",
+      "learning_rate": 0.0001,
+      "weight_decay": 1e-05,
+      "batch_size": 16,
+      "epochs": 100,
+      "early_stopping_patience": 10,
+      "data_augmentation": [
+        "Flip",
+        "rotation",
+        "scaling",
+        "brightness"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Multi-layer perceptron",
+      "layers": "2 Fully connected layers",
+      "output": "Binary classification (benign or malignant)"
+    },
+    "approximate_parameters": 3150000
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "HyperFusionNet",
+    "HyperFusion-Net (Full)",
+    "HyperFusion-Net w/o Fusion Block",
+    "HyperFusion-Net w/o Attention Gates",
+    "HyperFusion-Net w/ Single-Path ViT",
+    "U-Net",
+    "Attention U-Net",
+    "DeepLabV3+",
+    "DeepLabV3",
+    "TransUNet",
+    "Swin-UNet",
+    "Early-Stage Melanoma",
+    "Metadata + Image Fusion",
+    "Pyramid-CNN",
+    "Boundary-Aware Transformer (BAT)",
+    "Swin Transformer Model",
+    "Inception-ResNet-V2"
+  ],
+  "preprocessing_techniques": [
+    "Scaling images to 224 × 224 pixels",
+    "Normalization to the range [0, 1]",
+    "Hair removal using DullRazor morphology-based approach and morphological procedures with pixel interpolation",
+    "Lesion-centered segmentation/cropping using GrabCut and active contour models",
+    "Data augmentation including random rotation, scaling, and brightness correction"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random rotation",
+      "details": "Applied during training to enhance diversity and mitigate class imbalance."
+    },
+    {
+      "technique": "Scaling",
+      "details": "Applied during training to enhance diversity and mitigate class imbalance."
+    },
+    {
+      "technique": "Brightness correction",
+      "details": "Applied during training to enhance diversity and mitigate class imbalance."
+    }
+  ],
+  "conclusions": [
+    "HyperFusionNet, a hybrid architecture combining Multi-Path Vision Transformer (MPViT) and attention U-Net, effectively performs simultaneous melanoma classification and lesion segmentation on dermoscopic images.",
+    "The model outperforms state-of-the-art methods including U-Net, DeepLabV3+, TransUNet, and Swin-UNet in both classification and segmentation tasks.",
+    "On the ISIC 2024 dataset, HyperFusionNet achieved a classification accuracy of 94.78% (with sensitivity >96%) and a segmentation Dice coefficient of 0.945.",
+    "On the ISIC 2018 dataset, the model achieved an accuracy of 93.24%, sensitivity of 92.41%, specificity of 94.15%, and a Dice coefficient of 0.932.",
+    "Ablation studies confirm that the cross-attention fusion block is critical for integrating semantic and spatial features, while the multi-path ViT design enhances multi-scale contextual encoding.",
+    "The model demonstrates strong generalizability across diverse datasets (ISIC 2018, 2019, 2020, and 2024) with varying lesion types, class distributions, and imaging conditions without re-training.",
+    "HyperFusionNet maintains computational efficiency with approximately 3.15 million parameters while achieving high diagnostic performance."
+  ],
+  "important_remarks": [
+    "The manuscript is an unedited 'Article in Press' version; the authors explicitly warn that errors may be present and content may change before final publication.",
+    "The study relies exclusively on four public ISIC datasets (2018, 2019, 2020, 2024) and does not report external validation on independent clinical datasets or non-dermoscopic imaging modalities, limiting evidence of real-world generalizability.",
+    "The model lacks explicit interpretability techniques (e.g., Grad-CAM, SHAP), which the authors acknowledge restricts the ability to explain decision-making and may reduce clinical trust.",
+    "The computational complexity (3.15 million parameters) and resource requirements may limit deployment in resource-constrained environments such as mobile or edge devices.",
+    "Performance may be impacted by variations in image acquisition protocols (lighting, resolution) across datasets, as the model was not tested on less standardized real-world data.",
+    "The authors declare no funding and no competing interests, and the study uses anonymized, open-access public data exempt from IRB approval.",
+    "All code and implementation details are available only upon reasonable request from the corresponding author, not via a public repository."
+  ]
+}

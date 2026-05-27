@@ -1,0 +1,221 @@
+{
+  "file_name": "kwasigroch_2020_neural_architecture_search_for_skin_lesion_classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Neural Architecture Search (NAS), a deep learning method, to automatically design convolutional neural network architectures for the dermatology task of skin lesion classification (specifically distinguishing between benign and malignant melanoma) using dermoscopic images from the ISIC dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work using Neural Architecture Search (NAS) to solve the medical task of malignant melanoma detection. It describes a specific methodology (hill-climbing search strategy with network morphism), implementation details (using the ISIC dataset, specific preprocessing, and training parameters), and reports new results comparing the automatically discovered architectures against manually designed ones."
+  },
+  "title": "Neural Architecture Search for Skin Lesion Classification",
+  "authors": [
+    "Arkadiusz Kwasigroch",
+    "Michał Grochowski",
+    "Agnieszka Mikołajczyk"
+  ],
+  "doi": "10.1109/ACCESS.2020.2964424",
+  "journal": "IEEE Access",
+  "year": 2020,
+  "article_type": "Journal article",
+  "brief_summary": "This study applies Neural Architecture Search (NAS) to automate the design of convolutional neural networks for the medical task of malignant melanoma detection using dermoscopic images from the ISIC dataset. The authors employed a hill-climbing search strategy combined with network morphism operations to efficiently explore the architecture space and reduce computational costs. The automatically discovered architectures were evaluated against six manually designed VGG-based baseline networks using a single-fold validation scheme on a highly imbalanced dataset. The results demonstrated that the NAS-generated structures achieved performance comparable to manually designed architectures while utilizing approximately 20 times fewer parameters. Furthermore, the search process was highly efficient, requiring an average of only 18 hours on a single GPU. The study concludes that NAS offers a viable, resource-efficient alternative to manual architecture design for practical, non-benchmark medical imaging tasks.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Malignant melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for the classification task, distinguished from benign lesions. The dataset contained approximately 1100 malignant instances."
+    },
+    {
+      "lesion_type": "Benign melanoma (or benign skin lesions)",
+      "paper_terms": [
+        "benign",
+        "benign moles",
+        "benign skin lesions"
+      ],
+      "role": "Target class",
+      "details": "The comparator class for the binary classification task. The dataset contained approximately 12,500 benign instances."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into benign or malignant categories",
+        "primary": true,
+        "details": "The paper explicitly states the task is 'skin lesion classification' involving 'distinguishing between benign and malignant skin lesions' using dermoscopic images from the ISIC dataset. The model predicts discrete diagnostic categories (benign vs. malignant) rather than continuous values."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Dataset (International Skin Imaging Collaboration)",
+      "description": "A publicly available dataset of high-quality dermoscopic images collected from clinics across Europe, Australia, and the United States, acquired from patients of various age and sex. The images are annotated by high-skilled experts.",
+      "classes_used": [
+        "benign",
+        "malignant"
+      ],
+      "counts": {
+        "total": 13600,
+        "training": 13200,
+        "validation": 200,
+        "testing": 200,
+        "per_class": {
+          "benign": 12500,
+          "malignant": 1100
+        }
+      },
+      "use": {
+        "training": "Used for training the initial network and the search process (on one-third of the dataset) and final training (on the full dataset). Upsampling was applied to equalize class numbers in the training set.",
+        "validation": "Used for validation (200 examples, 100 per class) to guide the hill-climbing search algorithm based on validation loss.",
+        "testing": "Used for testing (200 examples, 100 per class) to evaluate the final performance of the generated architectures.",
+        "other": "None"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (ACC)",
+    "Validation loss",
+    "Validation error",
+    "AUC (Area Under Curve)",
+    "Number of parameters"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Single-fold validation",
+      "purpose": "To evaluate the performance of the NAS-generated architectures and compare them against manually designed baseline networks.",
+      "type": "Validation scheme"
+    },
+    {
+      "method": "One-third dataset training",
+      "purpose": "To reduce computational demands during the initial network training and search process by using lower fidelity estimates.",
+      "type": "Training strategy"
+    },
+    {
+      "method": "Upsampling",
+      "purpose": "To equalize the number of examples of each class in the training set, addressing class imbalance.",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "Online data augmentation",
+      "purpose": "To improve the training process by applying modifications such as rotation, width and height shift, horizontal and vertical flip, and zooming.",
+      "type": "Data preprocessing"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using validation loss and accuracy metrics without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC Dataset (Skin Lesion Classification)": {
+      "evaluation_setting": "Single-fold validation (one-fold) on a highly imbalanced dataset (12,500 benign, 1,100 malignant instances). Training performed on one-third of the dataset for search, full dataset for final evaluation. Network ensemble of 4 runs.",
+      "metrics": [
+        "Accuracy (ACC)",
+        "AUC (Area Under Curve)",
+        "Number of parameters",
+        "Search runtime"
+      ],
+      "models": {
+        "NAS-generated architectures (Hill-climbing with network morphism)": {
+          "Accuracy": "Comparable to manually designed architectures (specific mean not reported for single runs, but ensemble achieved 77%)",
+          "AUC": "Comparable to manually designed architectures (ensemble achieved 0.843)",
+          "Parameters": "Approximately 20 times fewer than manually designed architectures",
+          "Search Runtime": "Average 18 hours on a single GPU"
+        },
+        "NAS-generated architectures (Ensemble of 4 runs)": {
+          "Accuracy": "77%",
+          "AUC": "0.843"
+        },
+        "Manually designed baselines (VGG family: VGG8, VGG11, VGG16 with transfer learning, dropout, batch normalization)": {
+          "Accuracy": "Comparable to NAS-generated architectures",
+          "AUC": "Comparable to NAS-generated architectures",
+          "Parameters": "Significantly higher than NAS-generated architectures (exact number not reported in text, but noted as 'far less' for NAS ensemble)"
+        }
+      },
+      "notes": "The paper states that architectures generated by the NAS algorithm have similar performance to those designed manually. The search based on validation loss led to higher performance than search based on accuracy. The search process using the whole dataset yielded the same result as using one-third of the dataset. No statistical significance tests (p-values) were reported."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Neural Architecture Search (NAS) generated Convolutional Neural Networks (CNNs) using a hill-climbing search strategy with network morphism operations; compared against manually designed VGG-based baselines (VGG8, VGG11, VGG16).",
+    "pretraining": "Transfer learning was applied to the manually designed baseline networks (VGG family). The NAS search process utilized network morphism to reuse weights from previously trained networks (incremental expansion).",
+    "input_size": "224 × 224 × 3",
+    "architecture_details": {
+      "search_strategy": "Hill-climbing algorithm (greedy) with network morphism operations (inserting layers, adding filters, adding add/concatenation/skip merge schemes).",
+      "initial_network_structure": "Plain, chain-structured feedforward architecture: Input -> 5 * [Conv128 - MaxPool] -> Conv128 -> Sigmoid. Conv layers followed by Batch Normalization and ReLU.",
+      "baseline_architectures": "VGG8, VGG11, VGG16 with regularization methods (dropout, batch normalization).",
+      "ensemble": "Ensemble of 4 NAS-generated networks."
+    },
+    "training_details": {
+      "optimizer": "Stochastic Gradient Descent with Warm Restarts (SGDR) [cosine decay of learning rate with restarts].",
+      "batch_size": 8,
+      "training_data_fraction": "Initial network training and search process performed on one-third of the dataset; final training performed on the full dataset.",
+      "epochs_initial": "50 epochs (for initial network on CIFAR10 in related work context, but specific epoch count for ISIC initial network not explicitly stated, though search iterations are described).",
+      "data_augmentation": "Online data augmentation: rotation, width and height shift, horizontal and vertical flip, zooming.",
+      "class_imbalance_handling": "Upsampling of the minority class (malignant) in the training set to equalize class numbers.",
+      "hardware": "Single GPU.",
+      "search_runtime": "Average 18 hours."
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (benign vs. malignant)",
+      "output_activation": "Sigmoid (in initial network structure); likely softmax or sigmoid for final binary classification in baselines and NAS models.",
+      "loss_function": "Validation loss (used for search metric); specific loss function (e.g., Cross-Entropy) not explicitly named but implied by classification task."
+    },
+    "approximate_parameters": "NAS-generated architectures used approximately 20 times fewer parameters than manually designed baselines. Specific parameter counts for NAS models were not reported in the text, only the relative reduction."
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Neural Architecture Search (NAS) generated Convolutional Neural Networks (CNNs)",
+    "VGG8",
+    "VGG11",
+    "VGG16",
+    "Ensemble of 4 NAS-generated networks"
+  ],
+  "preprocessing_techniques": [
+    "Lesion extraction from images using provided masks",
+    "Normalization to zero mean and unit variance",
+    "Resizing images to 224 × 224 pixels",
+    "Padding to preserve output feature map size in convolutional layers",
+    "Online data augmentation including rotation, width and height shift, horizontal and vertical flip, and zooming",
+    "Upsampling of the minority class (malignant) in the training set to equalize class numbers"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Online data augmentation",
+      "details": "Applied during training before passing images to the neural network input. Techniques included rotation, width and height shift, horizontal and vertical flip, and zooming."
+    },
+    {
+      "technique": "Upsampling",
+      "details": "Applied to the minority class (malignant) in the training set to equalize the number of examples between classes (class balancing)."
+    }
+  ],
+  "conclusions": [
+    "The proposed Neural Architecture Search (NAS) approach using hill-climbing search and network morphism produces architectures that achieve performance comparable to manually designed structures for skin lesion classification.",
+    "The NAS-generated architectures utilize approximately 20 times fewer parameters than manually designed architectures.",
+    "The architecture search process is computationally efficient, requiring an average of only 18 hours on a single GPU.",
+    "Searching based on validation loss leads to higher performance and more robust classifiers compared to searching based on validation accuracy, which can result in higher validation loss and lower AUC scores.",
+    "Using one-third of the dataset for the search process yields the same results as using the whole dataset, confirming the efficiency of the low-fidelity performance estimation.",
+    "Ensembling the generated networks yields even better classification results than individual networks.",
+    "The study demonstrates that NAS is a viable, resource-efficient alternative to manual architecture design for practical, non-benchmark medical imaging tasks with small, imbalanced datasets."
+  ],
+  "important_remarks": [
+    "The study relies on a single-fold validation scheme rather than cross-validation, which may limit the robustness of performance estimates.",
+    "The dataset is highly imbalanced (12,500 benign vs. 1,100 malignant instances), requiring upsampling to equalize class numbers in the training set.",
+    "No statistical significance testing (e.g., p-values) was performed; comparisons between NAS and manual architectures were based on metric values alone.",
+    "The search process utilized low-fidelity performance estimation (training on only one-third of the dataset) to reduce computational cost, though results were comparable to full-dataset search.",
+    "Searching based on validation loss yielded better performance and more robust classifiers than searching based on validation accuracy, which led to higher validation loss and lower AUC.",
+    "The task involves distinguishing between benign and malignant lesions with high intra-class variance and high inter-class similarity, making it more difficult than standard benchmark tasks.",
+    "The NAS-generated architectures achieved comparable accuracy and AUC to manually designed VGG-based baselines while using approximately 20 times fewer parameters.",
+    "The search runtime was efficient, averaging only 18 hours on a single GPU, attributed to the hill-climbing strategy and network morphism operations.",
+    "Ensembling four NAS-generated networks improved classification results compared to individual networks.",
+    "The study focuses on a non-benchmark, practical medical problem with real-world characteristics (unbalanced classes, noisy labels, varying image quality) rather than standardized benchmarks."
+  ]
+}

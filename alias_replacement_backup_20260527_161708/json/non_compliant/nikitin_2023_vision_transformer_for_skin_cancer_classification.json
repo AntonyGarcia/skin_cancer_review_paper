@@ -1,0 +1,356 @@
+{
+  "file_name": "nikitin_2023_vision_transformer_for_skin_cancer_classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Vision Transformers (ViT), specifically base_vit, cross_vit, and merge_vit architectures, along with a CNN for comparison, to classify skin cancer images. The task involves skin cancer classification using datasets synthesized from PH2, MED-NODE, HAM10000, and ISIC."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental results, including the proposal of novel ViT architectures (base_vit, cross_vit, merge_vit), training on synthesized datasets (PH2, MED-NODE, HAM10000, ISIC), and comparative performance metrics against CNNs. Although published in conference proceedings, it reports new technical findings and validation rather than summarizing prior literature."
+  },
+  "title": "Vision transformer for skin cancer classification",
+  "authors": [
+    "Nikitin Vladyslav",
+    "Shapoval Nataliia"
+  ],
+  "doi": "10.51582/interconf.19-20.05.2023.039",
+  "journal": "Proceedings of the 1st International Scientific and Practical Conference «Modern Knowledge: Research No and Discoveries»",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study investigates the application of Vision Transformers (ViT) for skin cancer classification, comparing them against convolutional neural networks (CNNs). The authors synthesized a dataset from PH2, MED-NODE, HAM10000, and ISIC sources to train three ViT architectures: base_vit, cross_vit, and merge_vit. Evaluation focused on accuracy and error types across varying dataset sizes, revealing that merge_vit_12 achieved the highest accuracy of 81.14% on the full dataset. While CNNs performed better on smaller subsets, ViT models demonstrated superior scalability and performance as dataset size increased. The results suggest that ViT architectures, particularly merge_vit, have significant potential to outperform traditional CNNs in skin cancer diagnosis tasks with sufficient data.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin Cancer (Binary Classification: Cancer vs. Not Cancer)",
+      "paper_terms": [
+        "skin cancer",
+        "Cancer",
+        "Not Cancer",
+        "melanoma",
+        "basal cell carcinoma",
+        "squamous cell carcinoma"
+      ],
+      "role": "Target class",
+      "details": "The study performs a binary classification task distinguishing 'Cancer' from 'Not Cancer'. The paper explicitly mentions basal cell carcinoma, squamous cell carcinoma, and melanoma as main types of skin cancer in the introduction. The dataset was synthesized from PH2, MED-NODE, HAM10000, and ISIC to create a 'balanced skin cancer dataset'. Table 2 and Table 3 report metrics for 'Cancer' and 'Not Cancer' classes. The paper notes that a 'second kind error' involves classifying melanoma as a nevus, implying these are the underlying clinical entities, but the experimental labels are binary."
+    },
+    {
+      "lesion_type": "Nevus (Benign)",
+      "paper_terms": [
+        "nevus",
+        "Not Cancer"
+      ],
+      "role": "Comparator class",
+      "details": "The 'Not Cancer' class serves as the comparator to the 'Cancer' class. The paper mentions 'nevus' specifically in the context of error analysis ('misclassified nevus as cancer'), indicating it is a class present in the dataset or relevant to the 'Not Cancer' category."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic label: 'Cancer' vs. 'Not Cancer'",
+        "primary": true,
+        "details": "The paper explicitly states the task is 'skin cancer classification' and performs a binary classification distinguishing 'Cancer' from 'Not Cancer'. Metrics reported include accuracy, precision, recall, f1-score, and errors of the first and second kind (e.g., misclassifying a nevus as cancer or melanoma as a nevus). The target classes are discrete categories."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Synthesized Skin Cancer Dataset",
+      "description": "A balanced skin cancer dataset synthesized from four public sources: PH2, MED-NODE, HAM10000, and ISIC. Images were scaled to 100x100 pixels, and augmentation (horizontal flipping and scaling) was applied to increase dataset size.",
+      "classes_used": [
+        "Cancer",
+        "Not Cancer"
+      ],
+      "counts": {
+        "total": 3307,
+        "training": null,
+        "validation": null,
+        "testing": 334,
+        "per_class": {
+          "Not Cancer": 202,
+          "Cancer": 132
+        }
+      },
+      "use": {
+        "training": "Used for training ViT (base_vit, cross_vit, merge_vit) and CNN models. The full dataset size was 3005 images for training comparisons, with subsets of 100, 200, 500, and 1500 used to evaluate performance dependence on dataset size.",
+        "validation": "null",
+        "testing": "Used for testing model accuracy and error metrics. The test set consisted of 334 images (202 'Not Cancer', 132 'Cancer').",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "errors of the first kind",
+    "errors of the second kind",
+    "precision",
+    "recall",
+    "f1-score",
+    "support"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Accuracy",
+      "purpose": "To monitor model performance during training and determine the best model by calculating the percentage of correctly classified images in the test set.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Errors of the first and second kind",
+      "purpose": "To compare model performance, specifically evaluating false positives (misclassifying nevus as cancer) and false negatives (misclassifying melanoma as nevus), with a focus on the clinical severity of these errors.",
+      "type": "Error analysis"
+    },
+    {
+      "method": "Precision, Recall, F1-score, Support",
+      "purpose": "To provide extended classification metrics for the most effective models (base_vit_12 and merge_vit_12) to evaluate performance per class.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Single train-test split",
+      "purpose": "To divide the sample into training and testing sets once, independently of model training, ensuring all models were evaluated on the same test set for valid comparison of absolute error values.",
+      "type": "Data splitting strategy"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "No hypothesis testing was reported; the paper relies on accuracy and error counts for model comparison."
+  },
+  "results_obtained_in_each_dataset": {
+    "Synthesized Skin Cancer Dataset (Full, 3005 images)": {
+      "metric": "accuracy, errors of the first kind, errors of the second kind",
+      "models": {
+        "base_vit_12": {
+          "accuracy": "78.14%",
+          "errors_type_1": 45,
+          "errors_type_2": 28
+        },
+        "merge_vit_12": {
+          "accuracy": "81.14%",
+          "errors_type_1": 33,
+          "errors_type_2": 30
+        },
+        "cnn": {
+          "accuracy": "68.26%",
+          "errors_type_1": 90,
+          "errors_type_2": 16
+        }
+      },
+      "notes": "merge_vit_12 achieved the highest accuracy. base_vit_12 outperformed the CNN model. The CNN model had fewer second-kind errors (false negatives) than the ViT models."
+    },
+    "Synthesized Skin Cancer Dataset (Subset, 1500 images)": {
+      "metric": "accuracy, errors of the first kind, errors of the second kind",
+      "models": {
+        "base_vit_12": {
+          "accuracy": "68.34%",
+          "errors_type_1": 73,
+          "errors_type_2": 33
+        },
+        "merge_vit_12": {
+          "accuracy": "76.35%",
+          "errors_type_1": 32,
+          "errors_type_2": 47
+        },
+        "cnn": {
+          "accuracy": "64.37%",
+          "errors_type_1": 88,
+          "errors_type_2": 31
+        }
+      },
+      "notes": "merge_vit_12 showed superior performance compared to base_vit_12 and CNN on this subset size."
+    },
+    "Synthesized Skin Cancer Dataset (Subset, 500 images)": {
+      "metric": "accuracy, errors of the first kind, errors of the second kind",
+      "models": {
+        "base_vit_12": {
+          "accuracy": "60.48%",
+          "errors_type_1": 132,
+          "errors_type_2": 0
+        },
+        "merge_vit_12": {
+          "accuracy": "68.34%",
+          "errors_type_1": 93,
+          "errors_type_2": 13
+        },
+        "cnn": {
+          "accuracy": "45.51%",
+          "errors_type_1": 80,
+          "errors_type_2": 102
+        }
+      },
+      "notes": "base_vit_12 and cnn had identical accuracy and error counts on this subset. merge_vit_12 performed best."
+    },
+    "Synthesized Skin Cancer Dataset (Subset, 200 images)": {
+      "metric": "accuracy, errors of the first kind, errors of the second kind",
+      "models": {
+        "base_vit_12": {
+          "accuracy": "60.48%",
+          "errors_type_1": 132,
+          "errors_type_2": 0
+        },
+        "merge_vit_12": {
+          "accuracy": "60.48%",
+          "errors_type_1": 132,
+          "errors_type_2": 0
+        },
+        "cnn": {
+          "accuracy": "60.48%",
+          "errors_type_1": 132,
+          "errors_type_2": 0
+        }
+      },
+      "notes": "All models performed identically on this small subset."
+    },
+    "Synthesized Skin Cancer Dataset (Subset, 100 images)": {
+      "metric": "accuracy, errors of the first kind, errors of the second kind",
+      "models": {
+        "base_vit_12": {
+          "accuracy": "60.48%",
+          "errors_type_1": 132,
+          "errors_type_2": 0
+        },
+        "merge_vit_12": {
+          "accuracy": "60.48%",
+          "errors_type_1": 132,
+          "errors_type_2": 0
+        },
+        "cnn": {
+          "accuracy": "60.48%",
+          "errors_type_1": 132,
+          "errors_type_2": 0
+        }
+      },
+      "notes": "All models performed identically on this small subset."
+    },
+    "base_vit_12 Extended Metrics (Full Dataset)": {
+      "metric": "precision, recall, f1-score, support",
+      "models": {
+        "base_vit_12": {
+          "Not Cancer": {
+            "precision": 0.79,
+            "recall": 0.86,
+            "f1-score": 0.83,
+            "support": 202
+          },
+          "Cancer": {
+            "precision": 0.76,
+            "recall": 0.66,
+            "f1-score": 0.7,
+            "support": 132
+          }
+        }
+      },
+      "notes": "Extended classification metrics for the base_vit_12 model."
+    },
+    "merge_vit_12 Extended Metrics (Full Dataset)": {
+      "metric": "precision, recall, f1-score, support",
+      "models": {
+        "merge_vit_12": {
+          "Not Cancer": {
+            "precision": 0.84,
+            "recall": 0.85,
+            "f1-score": 0.85,
+            "support": 202
+          },
+          "Cancer": {
+            "precision": 0.77,
+            "recall": 0.75,
+            "f1-score": 0.76,
+            "support": 132
+          }
+        }
+      },
+      "notes": "Extended classification metrics for the merge_vit_12 model."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Vision Transformer (ViT) variants: base_vit, cross_vit, merge_vit; compared against a CNN",
+    "pretraining": "null",
+    "input_size": "100x100 pixels (3-channel RGB)",
+    "architecture_details": {
+      "base_vit": {
+        "description": "Standard ViT with input layer, patching, patch encoding with position embeddings, transformer layers, and classification head.",
+        "patching": "Image divided into square patches of size 'patch_size'. Patches flattened and encoded.",
+        "attention": "Multi-head attention applied to patches.",
+        "parameters": {
+          "img_size": "100",
+          "patch_size": "Variable (e.g., 10 for base_vit_12)",
+          "tfrm_layers": "Variable (e.g., 12 for base_vit_12)",
+          "proj_dim": "Variable (e.g., 12 for base_vit_12)",
+          "att_heads": "Variable (e.g., 6 for base_vit_12)"
+        }
+      },
+      "cross_vit": {
+        "description": "Based on CrossViT [10], using cross-attention to focus on specific areas.",
+        "patching": "Uses two types of patches: smaller and larger. Patch size specified as (x, y).",
+        "attention": "Cross-attention mechanism between patch scales."
+      },
+      "merge_vit": {
+        "description": "Modified ViT addressing uneven lesion distribution by using larger patches to increase attention value of surrounding smaller patches.",
+        "patching": "Two patch sizes: smaller and larger. Patch size specified as (x, y).",
+        "attention": "Parallel attention for both patch sizes. Larger patch attention values projected onto smaller patches, added, and normalized before next layer.",
+        "parameters": {
+          "img_size": "Variable (e.g., 12 for merge_vit_12)",
+          "patch_size": "Variable (e.g., (1, 3) for merge_vit_12)",
+          "tfrm_layers": "Variable (e.g., 8 for merge_vit_12)",
+          "proj_dim": "Variable (e.g., 3 for merge_vit_12)",
+          "att_heads": "Variable (e.g., 3 for merge_vit_12)"
+        }
+      }
+    },
+    "training_details": {
+      "optimizer": "AdamW (from tensorflow-addon)",
+      "augmentation": "Horizontal flipping and scaling",
+      "dataset_splits": "Single train-test split. Training subsets: 100, 200, 500, 1500, 3005 images. Test set: 334 images."
+    },
+    "classification_or_output_head": {
+      "type": "Classification head",
+      "output_classes": "2 (Cancer, Not Cancer)",
+      "metrics_reported": "Accuracy, Precision, Recall, F1-score, Support"
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "base_vit",
+    "cross_vit",
+    "merge_vit",
+    "cnn"
+  ],
+  "preprocessing_techniques": [
+    "Scaling images to 100x100 pixels",
+    "Consideration of image contrast enhancement and conversion to single channel (black and white), though original colors were used for training",
+    "Data augmentation via horizontal flipping",
+    "Data augmentation via scaling"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied to images to increase the size of the dataset."
+    },
+    {
+      "technique": "Scaling",
+      "details": "Applied to images to increase the size of the dataset. Images were scaled to 100x100 pixels."
+    }
+  ],
+  "conclusions": [
+    "Vision Transformer (ViT) models have the potential to outperform convolutional neural network (CNN) models in skin cancer classification tasks, particularly when larger datasets are available.",
+    "The proposed 'merge_vit' architecture, which uses larger patches to increase attention values for surrounding smaller patches, achieved the highest accuracy of 81.14% on the full dataset of 3005 images.",
+    "The accuracy of ViT models improves more rapidly with increasing dataset size compared to CNNs; while CNNs performed better on smaller subsets (100-500 images), ViT models demonstrated superior scalability and performance as the dataset size increased to 1500 and 3005 images.",
+    "The 'base_vit' model achieved an accuracy of 78.14% on the full dataset, outperforming the CNN baseline of 68.26%.",
+    "ViT architectures show significant potential for improving the accuracy of skin cancer diagnosis, which could help in early detection and potentially save lives, though further research is needed to fully explore their capabilities."
+  ],
+  "important_remarks": [
+    "The study uses a synthesized dataset of only 3,005 images created by combining PH2, MED-NODE, HAM10000, and ISIC, which limits the generalizability and scale of the findings compared to large-scale clinical trials.",
+    "The dataset is described as 'balanced,' but the test set contains significantly more 'Not Cancer' (202) than 'Cancer' (132) samples, potentially biasing accuracy metrics.",
+    "No external validation was performed; the model was evaluated solely on a single train-test split of the synthesized dataset, raising concerns about overfitting to specific image distributions.",
+    "The CNN baseline was not trained from scratch but taken from an existing GitHub repository [11], making the comparison potentially unfair due to differences in preprocessing, augmentation, or hyperparameter tuning.",
+    "Hardware limitations prevented the use of identical hyperparameters across all architectures, which may confound the performance comparison between ViT variants and the CNN.",
+    "The paper does not report standard deviation or confidence intervals for the accuracy metrics, relying only on single-run point estimates.",
+    "The clinical relevance is limited by the binary classification task (Cancer vs. Not Cancer), which does not distinguish between specific skin cancer types (e.g., melanoma vs. basal cell carcinoma) critical for treatment planning.",
+    "The study acknowledges that ViT models require larger datasets to outperform CNNs, as ViT models performed worse or identically to CNNs on small subsets (100-500 images)."
+  ]
+}

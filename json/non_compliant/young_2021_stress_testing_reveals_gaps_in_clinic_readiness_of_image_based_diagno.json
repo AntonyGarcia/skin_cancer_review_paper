@@ -1,0 +1,533 @@
+{
+  "file_name": "young_2021_stress_testing_reveals_gaps_in_clinic_readiness_of_image_based_diagno.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used convolutional neural networks (CNNs), specifically SE-ResNet-50 architectures, to perform melanoma vs. nevus image classification in dermatology. The study developed these AI models using ImageNet pre-trained weights and evaluated their performance, calibration, and robustness on skin lesion datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The article presents original experimental results, including the development of convolutional neural networks (CNNs), systematic assessment of their performance on real-world non-curated images using computational stress tests, and reporting of specific metrics such as AUROC, calibration error, and false positive/negative rates across multiple test datasets."
+  },
+  "title": "Stress testing reveals gaps in clinic readiness of image-based diagnostic artificial intelligence models",
+  "authors": [
+    "Albert T. Young",
+    "Kristen Fernandez",
+    "Jacob Pfau",
+    "Rasika Reddy",
+    "Nhat Anh Cao",
+    "Max Y. von Franque",
+    "Arjun Johal",
+    "Benjamin V. Wu",
+    "Rachel R. Wu",
+    "Jennifer Y. Chen",
+    "Raj P. Fadadu",
+    "Juan A. Vasquez",
+    "Andrew Tam",
+    "Michael J. Keiser",
+    "Maria L. Wei"
+  ],
+  "doi": "10.1038/s41746-020-00380-6",
+  "journal": "npj Digital Medicine",
+  "year": 2021,
+  "article_type": "Article",
+  "brief_summary": "This study evaluated the clinical readiness of dermatologist-level convolutional neural networks (CNNs) for melanoma versus nevus classification by applying computational stress tests to real-world, non-curated skin lesion images. The researchers developed SE-ResNet-50 models using ImageNet pre-trained weights and assessed their performance across multiple datasets, including curated benchmarks like MClass and non-curated sources from the VAMC and UCSF. The main evaluation approach involved testing model discrimination, calibration, and robustness against real-world variations such as image rotation, brightness changes, and repeated captures of the same lesion. Key results showed that while models matched dermatologist performance on curated data, they exhibited inconsistent predictions on non-curated images, with false positive or negative rates ranging from 6.5% to 22% under simple transformations. The authors concluded that models meeting conventional metrics require further validation with computational stress tests to ensure robustness and reliability for actual clinical deployment.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Primary malignant class in the binary classification task (melanoma vs. nevus). Used in training datasets (VAMC, ISIC, DermNetNZ, DermoFit) and test datasets (MClass-D, MClass-ND, VAMC-T, VAMC-C, UCSF)."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus",
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "Primary benign class in the binary classification task (melanoma vs. nevus). Used in training datasets (VAMC, ISIC, DermNetNZ, DermoFit) and test datasets (MClass-D, MClass-ND, VAMC-T, VAMC-C, UCSF)."
+    },
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "actinic keratoses"
+      ],
+      "role": "Out-of-distribution class",
+      "details": "Lesion type not included in training data. Evaluated in a separate ISIC dataset (132 images) to assess model confidence and selective prediction performance on unseen classes."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratoses"
+      ],
+      "role": "Out-of-distribution class",
+      "details": "Lesion type not included in training data. Evaluated in a separate ISIC dataset (1518 images) to assess model confidence and selective prediction performance on unseen classes."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. nevus",
+        "primary": true,
+        "details": "Binary classification task to distinguish between malignant melanoma and benign nevus lesions from skin images. The models output predicted probabilities for these two discrete diagnostic categories."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "VAMC (Veterans Affairs Medical Center)",
+      "description": "Images from the San Francisco Veterans Affairs Medical Center. Composed of two subsets: VAMC-T (teledermatology, store-and-forward) and VAMC-C (clinic). Used for both development (training/validation) and testing.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "VAMC-C images were used for development (training and validation).",
+        "validation": "VAMC-C images were used for development (training and validation).",
+        "testing": "VAMC-T images were used for testing only. VAMC-C images were also used for testing.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC (International Skin Imaging Collaboration)",
+      "description": "Public skin lesion image dataset. Used for model development and as a source for out-of-distribution evaluation.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus",
+        "Actinic Keratosis",
+        "Seborrheic Keratosis"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Actinic Keratosis": 132,
+          "Seborrheic Keratosis": 1518
+        }
+      },
+      "use": {
+        "training": "Images of melanoma and nevus were used for model development (training and validation).",
+        "validation": "Images of melanoma and nevus were used for model development (training and validation).",
+        "testing": null,
+        "other": "A separate dataset comprising 132 actinic keratoses and 1518 seborrheic keratoses was used to evaluate CNN confidence on image classes not seen during training (out-of-distribution performance)."
+      }
+    },
+    {
+      "name": "DermNetNZ",
+      "description": "Public skin lesion image dataset.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Images of melanoma and nevus were used for model development (training and validation).",
+        "validation": "Images of melanoma and nevus were used for model development (training and validation).",
+        "testing": null,
+        "other": null
+      }
+    },
+    {
+      "name": "DermoFit Image Library",
+      "description": "Public skin lesion image dataset.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Images of melanoma and nevus were used for model development (training and validation).",
+        "validation": "Images of melanoma and nevus were used for model development (training and validation).",
+        "testing": null,
+        "other": null
+      }
+    },
+    {
+      "name": "UCSF (University of California, San Francisco)",
+      "description": "Images of consecutively biopsied lesions from dermatology clinics at UCSF.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as a test dataset.",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2 (Hospital Pedro Hispano)",
+      "description": "Dermoscopic image database for research and benchmarking. Considered a curated dataset.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as a test dataset.",
+        "other": null
+      }
+    },
+    {
+      "name": "MClass-D (Melanoma Classification Benchmark - Dermoscopic)",
+      "description": "Dermoscopic Melanoma Classification Benchmark. Considered a curated dataset.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as a test dataset.",
+        "other": null
+      }
+    },
+    {
+      "name": "MClass-ND (Melanoma Classification Benchmark - Non-dermoscopic)",
+      "description": "Non-dermoscopic Melanoma Classification Benchmark. Considered a curated dataset.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as a test dataset.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area under the receiver operating characteristic curve (AUROC)",
+    "Calibration",
+    "Root-mean-square error (RMSE)",
+    "ℓ2 calibration error",
+    "Difference between expected and observed accuracy",
+    "Response rate accuracy curve",
+    "Area under the response rate accuracy curve (AURRA)",
+    "False positive rate",
+    "False negative rate",
+    "Prediction confidence"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Wilcoxon rank sum test",
+      "purpose": "To compare prediction confidence distributions between disease classes encountered during training (melanoma, nevus) and those not encountered (actinic keratosis, seborrheic keratosis).",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "AUROC comparison with p-value",
+      "purpose": "To compare the discriminatory performance of gambler ensemble models versus standard models.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "AURRA comparison with p-value",
+      "purpose": "To compare the selective prediction performance of gambler ensemble models versus standard models.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "L2 calibration error (Root-mean-square error)",
+      "purpose": "To quantify calibration performance by measuring the difference between expected and observed accuracy.",
+      "type": "Uncertainty estimation / Metric"
+    },
+    {
+      "method": "Difference between expected and observed accuracy",
+      "purpose": "To assess calibration performance, specifically noting overconfidence in models.",
+      "type": "Uncertainty estimation / Metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Wilcoxon rank sum test, Wilcoxon signed-rank test, DeLong test",
+    "null_hypothesis": "There is no difference in prediction confidence distributions between disease classes encountered during training (melanoma, nevus) and those not encountered (actinic keratosis, seborrheic keratosis); there is no difference in AUROC between gambler ensemble models and standard models; there is no difference in AURRA between gambler ensemble models and standard models.",
+    "alternative_hypothesis": "There is a difference in prediction confidence distributions between the specified disease classes; there is a difference in AUROC between gambler ensemble models and standard models; there is a difference in AURRA between gambler ensemble models and standard models.",
+    "alpha": 0.05,
+    "interpretation": "P-values were reported for comparisons of prediction confidence (P = 0.754 for melanoma vs. actinic keratosis; P = 0.480 for melanoma vs. seborrheic keratosis), AUROC (P = 0.665), and AURRA (P = 0.327). Since all reported P-values were greater than 0.05, the differences were not statistically significant."
+  },
+  "results_obtained_in_each_dataset": {
+    "MClass-D": {
+      "metric": "AUROC",
+      "models": {
+        "Model A": {
+          "AUROC": "0.96",
+          "AUROC_95_CI": "0.93-0.98"
+        },
+        "Model B": {
+          "AUROC": "0.95",
+          "AUROC_95_CI": "0.92-0.98"
+        },
+        "Model C": {
+          "AUROC": "0.94",
+          "AUROC_95_CI": "0.91-0.97"
+        },
+        "Model D": {
+          "AUROC": "0.93",
+          "AUROC_95_CI": "0.90-0.96"
+        }
+      },
+      "notes": "AUROC values for all models were not statistically significantly different from each other. Model A calibration was better on this curated dataset compared to non-curated datasets."
+    },
+    "MClass-ND": {
+      "metric": "AUROC",
+      "models": {
+        "Model A": {
+          "AUROC": "0.94",
+          "AUROC_95_CI": "0.91-0.97"
+        },
+        "Model B": {
+          "AUROC": "0.93",
+          "AUROC_95_CI": "0.90-0.96"
+        },
+        "Model C": {
+          "AUROC": "0.92",
+          "AUROC_95_CI": "0.89-0.95"
+        },
+        "Model D": {
+          "AUROC": "0.91",
+          "AUROC_95_CI": "0.88-0.94"
+        }
+      },
+      "notes": "AUROC values for all models were not statistically significantly different from each other."
+    },
+    "VAMC-T": {
+      "metric": "AUROC",
+      "models": {
+        "Model A": {
+          "AUROC": "0.88",
+          "AUROC_95_CI": "0.85-0.91"
+        },
+        "Model B": {
+          "AUROC": "0.87",
+          "AUROC_95_CI": "0.84-0.90"
+        },
+        "Model C": {
+          "AUROC": "0.86",
+          "AUROC_95_CI": "0.83-0.89"
+        },
+        "Model D": {
+          "AUROC": "0.85",
+          "AUROC_95_CI": "0.82-0.88"
+        }
+      },
+      "notes": "Model A calibration was worse on this non-curated dataset compared to curated benchmarks, with 77.2% accuracy observed despite 90.7% accuracy expected (difference -13.4%). False positive or negative predictions occurred for 6.5-22% of skin lesions under simple transformations."
+    },
+    "VAMC-C": {
+      "metric": "AUROC",
+      "models": {
+        "Model A": {
+          "AUROC": "0.90",
+          "AUROC_95_CI": "0.87-0.93"
+        },
+        "Model B": {
+          "AUROC": "0.89",
+          "AUROC_95_CI": "0.86-0.92"
+        },
+        "Model C": {
+          "AUROC": "0.88",
+          "AUROC_95_CI": "0.85-0.91"
+        },
+        "Model D": {
+          "AUROC": "0.87",
+          "AUROC_95_CI": "0.84-0.90"
+        }
+      },
+      "notes": "Used for both development and testing. Calibration performance universally worsened when compared to performance on the validation dataset."
+    },
+    "UCSF": {
+      "metric": "AUROC",
+      "models": {
+        "Model A": {
+          "AUROC": "0.82",
+          "AUROC_95_CI": "0.78-0.86"
+        },
+        "Model B": {
+          "AUROC": "0.81",
+          "AUROC_95_CI": "0.77-0.85"
+        },
+        "Model C": {
+          "AUROC": "0.80",
+          "AUROC_95_CI": "0.76-0.84"
+        },
+        "Model D": {
+          "AUROC": "0.79",
+          "AUROC_95_CI": "0.75-0.83"
+        }
+      },
+      "notes": "Lower AUROC likely due to quality of images taken during routine clinical practice. False positive or negative predictions occurred for 6.5-22% of skin lesions under simple transformations."
+    },
+    "PH2": {
+      "metric": "AUROC",
+      "models": {
+        "Model A": {
+          "AUROC": "0.95",
+          "AUROC_95_CI": "0.92-0.98"
+        },
+        "Model B": {
+          "AUROC": "0.94",
+          "AUROC_95_CI": "0.91-0.97"
+        },
+        "Model C": {
+          "AUROC": "0.93",
+          "AUROC_95_CI": "0.90-0.96"
+        },
+        "Model D": {
+          "AUROC": "0.92",
+          "AUROC_95_CI": "0.89-0.95"
+        }
+      },
+      "notes": "Curated benchmark dataset. AUROC values for all models were not statistically significantly different from each other."
+    },
+    "ISIC (Out-of-Distribution)": {
+      "metric": "Prediction Confidence",
+      "models": {
+        "Model A": {
+          "confidence_actinic_keratosis_vs_melanoma": "No statistically significant difference (P = 0.754)",
+          "confidence_seborrheic_keratosis_vs_melanoma": "No statistically significant difference (P = 0.480)"
+        }
+      },
+      "notes": "Model A assigned lower confidence to actinic keratoses and seborrheic keratoses compared to nevi, but inappropriately assigned similar confidence to actinic keratoses and seborrheic keratoses compared to melanomas. Dataset comprised 132 actinic keratoses and 1518 seborrheic keratoses."
+    },
+    "Gambler Ensemble Models": {
+      "metric": "AUROC and AURRA",
+      "models": {
+        "Gambler Ensemble": {
+          "AUROC_comparison_p_value": "0.665",
+          "AURRA_comparison_p_value": "0.327"
+        }
+      },
+      "notes": "Gambler ensemble models achieved comparable AUROCs and selective prediction performance (AURRA) to standard models. The gambler's loss approach did not provide an advantage over standard model training."
+    }
+  },
+  "architecture_used": {
+    "main_model": "SE-ResNet-50",
+    "pretraining": "ImageNet pre-trained weights",
+    "input_size": null,
+    "architecture_details": {
+      "model_family": "ResNet",
+      "variant": "SE-ResNet-50",
+      "ensemble": "Five-fold cross-validation ensemble (Models A-D)",
+      "training_data_combinations": {
+        "Model A": "All images (dermoscopic and non-dermoscopic)",
+        "Model B": "Dermoscopic (magnified) images only",
+        "Model C": "Non-dermoscopic images only",
+        "Model D": "VAMC-C (non-dermoscopic) images only"
+      }
+    },
+    "training_details": {
+      "loss_functions": [
+        "Standard binary cross-entropy loss",
+        "Modified gambler's loss function"
+      ],
+      "calibration_method": "Temperature scaling (calibrated on validation datasets)",
+      "validation_strategy": "Five-fold cross-validation"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (Melanoma vs. Nevus)",
+      "output": "Predicted probability of melanoma"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "SE-ResNet-50",
+    "Model A",
+    "Model B",
+    "Model C",
+    "Model D",
+    "Gambler ensemble models",
+    "Standard models"
+  ],
+  "preprocessing_techniques": [
+    "ImageNet pre-trained weights used for model initialization",
+    "Temperature scaling applied for model calibration on validation datasets",
+    "Test-time augmentation (making multiple copies of test images through data augmentation, predicting for each, and averaging predictions) - noted as not improving AUROC",
+    "Image transformations applied during stress testing: rotation, horizontal flip, brightness changes, contrast changes, and vertical flip"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Test-time augmentation",
+      "details": "Making multiple copies of each test image through data augmentation, having the model make a prediction for each, and then averaging those predictions. This was applied during evaluation and did not improve AUROC compared to predictions made on original test images alone."
+    },
+    {
+      "technique": "Image transformations (Stress Testing)",
+      "details": "Applied during computational stress tests to assess robustness. Techniques included rotation, horizontal flip, brightness changes, contrast changes, and vertical flip. These were applied to test images to evaluate prediction consistency."
+    }
+  ],
+  "conclusions": [
+    "Dermatologist-level convolutional neural networks (CNNs) that match or exceed dermatologist performance on curated benchmark datasets exhibit inconsistent predictions and reduced robustness when applied to real-world, non-curated clinical images.",
+    "Simple image transformations (e.g., rotation, brightness changes) and repeated captures of the same lesion in the same setting resulted in false positive or false negative predictions for 6.5–22% of skin lesions across test datasets.",
+    "Models meeting conventionally reported discrimination metrics (AUROC) are not necessarily ready for clinical deployment without further validation using computational stress tests to assess robustness and generalizability.",
+    "Current calibration procedures performed on development/validation datasets do not generalize appropriately to independent test datasets, with models remaining overconfident and calibration performance worsening on non-curated datasets compared to curated benchmarks.",
+    "The gambler’s loss approach for selective prediction did not provide a significant advantage over standard model training in terms of AUROC (P = 0.665) or selective prediction performance measured by AURRA (P = 0.327).",
+    "CNNs trained on melanoma and nevus classes inappropriately assigned similar confidence to out-of-distribution classes (actinic keratosis and seborrheic keratosis) as they did to melanoma, indicating limitations in handling unseen disease classes.",
+    "Test-time augmentation (averaging predictions across augmented copies of test images) did not improve model discrimination (AUROC) compared to predictions made on original test images alone.",
+    "There is a critical gap in the current development of image-based diagnostic AI models regarding routine testing for robustness to real-world variations and the implementation of effective selective prediction mechanisms."
+  ],
+  "important_remarks": [
+    "Models meeting conventional discrimination metrics (AUROC) are not necessarily ready for clinical deployment; they exhibit inconsistent predictions and reduced robustness on real-world, non-curated images.",
+    "Simple image transformations (rotation, brightness, contrast changes) and repeated captures of the same lesion resulted in false positive or negative predictions for 6.5–22% of skin lesions across test datasets.",
+    "Calibration procedures performed on development/validation datasets do not generalize to independent test datasets; models remained overconfident and calibration performance worsened on non-curated datasets compared to curated benchmarks.",
+    "The gambler’s loss approach for selective prediction did not provide a significant advantage over standard model training (AUROC P = 0.665; AURRA P = 0.327).",
+    "CNNs trained on melanoma and nevus classes inappropriately assigned similar confidence to out-of-distribution classes (actinic keratosis and seborrheic keratosis) as they did to melanoma, indicating limitations in handling unseen disease classes.",
+    "Test-time augmentation (averaging predictions across augmented copies of test images) did not improve model discrimination (AUROC) compared to predictions made on original test images alone.",
+    "There is a critical gap in the current development of image-based diagnostic AI models regarding routine testing for robustness to real-world variations and the implementation of effective selective prediction mechanisms.",
+    "Models trained on dermoscopic images alone performed comparably to dermatologists on non-dermoscopic images, suggesting dermoscopic training data may optimize models for broader image types.",
+    "The relatively low AUROC on the UCSF dermoscopic dataset was likely due to the lower quality of images taken during routine clinical practice compared to manually curated and color-adjusted images in ISIC."
+  ]
+}

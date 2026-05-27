@@ -1,0 +1,273 @@
+{
+  "file_name": "sadri_2017_wn_based_approach_to_melanoma_diagnosis_from_dermoscopy_images.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes a computer-aided diagnosis (CAD) system for melanoma detection from dermoscopy images using a fixed grid wavelet network (FGWN). The system utilizes the FGWN for image enhancement, segmentation, and classification tasks, employing the D-optimality orthogonal matching pursuit (DOOMP) algorithm for network construction and ReliefF for feature selection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as a 'Research Article' in the header. It presents a novel computer-aided diagnosis (CAD) system using a fixed grid wavelet network (FGWN) for melanoma detection. The study details original experimental methods including image enhancement, segmentation, feature extraction (441 features reduced to 10), and classification, and reports original results (91.82% accuracy, 0.944 AUC) on a dataset of 1039 dermoscopy images."
+  },
+  "title": "WN-based approach to melanoma diagnosis from dermoscopy images",
+  "authors": [
+    "Amir Reza Sadri",
+    "Sepideh Azarianpour",
+    "Maryam Zekri",
+    "Mehmet Emre Celebi",
+    "Saeid Sadri"
+  ],
+  "doi": "10.1049/iet-ipr.2016.0681",
+  "journal": "IET Image Processing",
+  "year": 2017,
+  "article_type": "Research Article",
+  "brief_summary": "This study proposes a novel computer-aided diagnosis system for detecting malignant melanoma from dermoscopy images using a fixed grid wavelet network (FGWN). The system utilizes a D-optimality orthogonal matching pursuit (DOOMP) algorithm for network construction and performs image enhancement, segmentation, and classification. From a dataset of 1039 dermoscopy images, 441 features characterizing color, texture, and shape were extracted and reduced to 10 using the ReliefF feature selector. The proposed CAD system achieved an accuracy of 91.82%, sensitivity of 92.61%, specificity of 91%, and an area under the curve of 0.944. The results demonstrate that the FGWN-based approach offers high reliability and computational efficiency for automatic melanoma diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Malignant Melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "MM",
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for the CAD system. The study focuses on detecting malignant melanoma from dermoscopy images. The dataset consists of 1039 dermoscopy images, and the classification task distinguishes between melanoma and non-melanoma (normal/benign) lesions."
+    },
+    {
+      "lesion_type": "Non-Melanoma / Normal Skin",
+      "paper_terms": [
+        "non-melanoma",
+        "normal",
+        "normal skin"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary classification task. The system decides whether a lesion is 'cancerous or normal'. The dataset includes images of non-melanoma lesions to serve as the comparator to melanoma."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic label (malignant melanoma vs. non-melanoma/normal)",
+        "primary": true,
+        "details": "The paper describes a computer-aided diagnosis (CAD) system for melanoma detection. The final stage involves classifying dermoscopy images into discrete categories: 'cancerous or normal' (malignant melanoma vs. non-melanoma). The model predicts discrete diagnostic labels using a Fixed Grid Wavelet Network (FGWN) trained on 10 selected features. Performance is evaluated using classification metrics such as accuracy (91.82%), sensitivity (92.61%), specificity (91%), and AUC (0.944)."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion boundary mask",
+        "primary": false,
+        "details": "The CAD system includes an intermediate segmentation stage where an FGWN is used to specify the boundary of the skin lesion from dermoscopy images. This is a binary segmentation task (lesion vs. background) performed prior to feature extraction."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Custom Dermoscopy Dataset",
+      "description": "A collection of 1039 true-colour dermoscopy images taken under the same imaging conditions with polarised light from patients suspected of having melanoma. The images are 24-bit RGB with a spatial resolution of 485 × 716 pixels. Ground truth was established via histopathological examination and biopsy, with lesion border segmentation performed by an experienced team of dermatologists, neuroradiologists, and pathologists.",
+      "classes_used": [
+        "Malignant Melanoma (MM)",
+        "Non-Melanoma"
+      ],
+      "counts": {
+        "total": 1039,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Malignant Melanoma": 528,
+          "Non-Melanoma": 511
+        }
+      },
+      "use": {
+        "training": "The full dataset was used for the development of the CAD system. A subset of 200 images (100 MM, 100 non-MM) was used for feature selection experiments, split into 60% training and 40% testing for that specific stage. The remaining images were used for the final classification evaluation.",
+        "validation": "null",
+        "testing": "The dataset was used to evaluate the final CAD system performance, achieving 91.82% accuracy, 92.61% sensitivity, 91% specificity, and 0.944 AUC.",
+        "other": "A subset of 54 images with dark hair occlusion was specifically used to test and optimize the hair removal algorithm."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "Precision",
+    "Area Under the Curve (AUC)",
+    "Computational Time"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Ten-fold cross-validation",
+      "purpose": "To evaluate the classification performance (sensitivity, specificity, accuracy, precision) of different classifiers (MLP, k-NN, AWN, SVM, FGWN) on the dataset.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) analysis",
+      "purpose": "To compute the Area Under the Curve (AUC) for comparing the discriminatory ability of the classifiers.",
+      "type": "Uncertainty estimation / Performance metric"
+    },
+    {
+      "method": "D-optimality orthogonal matching pursuit (DOOMP)",
+      "purpose": "Used as a regressor selection technique to optimize the network model approximation ability, improve model adequacy and robustness, and select effective wavelets for the Fixed Grid Wavelet Network (FGWN).",
+      "type": "Feature/Regressor Selection"
+    },
+    {
+      "method": "ReliefF",
+      "purpose": "Used for feature selection to reduce the dimensionality of the extracted features (from 441 to 10) by ranking them based on their relevance to the class labels.",
+      "type": "Feature Selection"
+    },
+    {
+      "method": "k-Nearest Neighbors (k-NN)",
+      "purpose": "Used as a classifier to estimate classification performances for selected features during the feature selection experiments (with k=12 determined via extensive experiments).",
+      "type": "Classifier"
+    },
+    {
+      "method": "Support Vector Machine (SVM)",
+      "purpose": "Used as a classifier with a Gaussian radial basis function kernel for comparison against the proposed FGWN method.",
+      "type": "Classifier"
+    },
+    {
+      "method": "Multilayer Perceptron (MLP)",
+      "purpose": "Used as a classifier for comparison against the proposed FGWN method.",
+      "type": "Classifier"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using accuracy, sensitivity, specificity, precision, and AUC via ten-fold cross-validation, but no statistical significance comparisons between classifiers were reported."
+  },
+  "results_obtained_in_each_dataset": {
+    "Custom Dermoscopy Dataset (1039 images)": {
+      "metric": "Ten-fold cross-validation classification performance",
+      "models": {
+        "MLP": {
+          "Sensitivity": "86.17%",
+          "Specificity": "87.08%",
+          "Accuracy": "86.62%",
+          "Precision": "87.33%"
+        },
+        "k-NN": {
+          "Sensitivity": "88.07%",
+          "Specificity": "87.28%",
+          "Accuracy": "87.68%",
+          "Precision": "87.74%"
+        },
+        "AWN": {
+          "Sensitivity": "90.91%",
+          "Specificity": "89.24%",
+          "Accuracy": "90.09%",
+          "Precision": "89.72%"
+        },
+        "SVM": {
+          "Sensitivity": "92.22%",
+          "Specificity": "90.41%",
+          "Accuracy": "91.34%",
+          "Precision": "90.86%"
+        },
+        "FGWN (Proposed)": {
+          "Sensitivity": "92.61%",
+          "Specificity": "91.00%",
+          "Accuracy": "91.82%",
+          "Precision": "91.40%",
+          "AUC": "0.944"
+        }
+      },
+      "notes": "The proposed FGWN achieved the highest accuracy (91.82%), sensitivity (92.61%), specificity (91%), and AUC (0.944) among all evaluated classifiers. The paper notes that SVM performs better than FGWN in higher dimensions, but feature selection reduced dimensionality, improving FGWN's performance. Computational time for the proposed FGWN was lower than AWN, FGWN [16], and FGWN [4] across hair removal, segmentation, and classification stages."
+    },
+    "Feature Selection Subset (200 images)": {
+      "metric": "Accuracy of feature selectors",
+      "models": {
+        "ReliefF": {
+          "Mean Accuracy": "87.14%",
+          "RR": "78.8"
+        },
+        "FCBF": {
+          "Mean Accuracy": "85.79%",
+          "RR": "82.7"
+        },
+        "FS": {
+          "Mean Accuracy": "85.78%",
+          "RR": "80.2"
+        },
+        "mRMR": {
+          "Mean Accuracy": "86.97%",
+          "RR": "80.1"
+        },
+        "Chi-square": {
+          "Mean Accuracy": "85.79%",
+          "RR": "81.1"
+        }
+      },
+      "notes": "A subset of 200 images (100 MM, 100 non-MM) was split into 60% training and 40% testing for feature selection experiments. ReliefF was selected as the best feature selector, reducing 441 features to 10. k-NN with K=12 was used to estimate classification performance during this stage."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Fixed Grid Wavelet Network (FGWN)",
+    "pretraining": "null",
+    "input_size": "10 features (selected via ReliefF from 441 extracted features)",
+    "architecture_details": {
+      "model_type": "Wavelet Network (WN)",
+      "structure": "Three-layer network (d inputs, one hidden layer, c outputs)",
+      "hidden_layer_size": "18-21 wavelons (wavelet neurons)",
+      "wavelet_function": "Mexican hat (multidimensional single-scaling radial-wavelet frame)",
+      "construction_algorithm": "D-optimality orthogonal matching pursuit (DOOMP)",
+      "normalization": "Linear map normalization of input data",
+      "comparison_models": [
+        "Multilayer Perceptron (MLP)",
+        "k-Nearest Neighbors (k-NN)",
+        "Adaptive Wavelet Network (AWN)",
+        "Support Vector Machine (SVM)"
+      ]
+    },
+    "training_details": {
+      "optimizer": "DOOMP algorithm (regressor selection technique)",
+      "training_method": "Non-gradient based; DOOMP optimizes network weights and structure",
+      "validation_method": "Ten-fold cross-validation",
+      "feature_selection": "ReliefF (reduced 441 features to 10)",
+      "implementation": "MATLAB 7.12"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (Malignant Melanoma vs. Non-Melanoma)",
+      "output": "Single output node (binary label)",
+      "metrics": "Accuracy, Sensitivity, Specificity, Precision, AUC"
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Fixed Grid Wavelet Network (FGWN)",
+    "Multilayer Perceptron (MLP)",
+    "k-Nearest Neighbors (k-NN)",
+    "Adaptive Wavelet Network (AWN)",
+    "Support Vector Machine (SVM)"
+  ],
+  "preprocessing_techniques": [
+    "Linear map normalization of input data for the Fixed Grid Wavelet Network (FGWN)",
+    "Two-level hair removal algorithm using FGWN for images with dark hair occlusion (54 images), where hair pixels are detected and replaced by the median value of adjacent local non-hair pixels in a 3x3 square block",
+    "Comparison of hair removal performance with the Dull-Razor algorithm"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed computer-aided diagnosis (CAD) system based on a fixed grid wavelet network (FGWN) achieved an accuracy of 91.82%, sensitivity of 92.61%, specificity of 91%, and an area under the curve (AUC) of 0.944 on a dataset of 1039 dermoscopy images.",
+    "The FGWN-based approach outperformed other classifiers, including Multilayer Perceptron (MLP), k-Nearest Neighbors (k-NN), Adaptive Wavelet Network (AWN), and Support Vector Machine (SVM), in terms of accuracy, sensitivity, specificity, and AUC.",
+    "The use of the D-optimality orthogonal matching pursuit (DOOMP) algorithm for FGWN construction enhances the integrity, reliability, and computational efficiency of the system compared to gradient-type algorithms or orthogonal least squares (OLS) methods.",
+    "Feature selection using the ReliefF algorithm effectively reduced the dimensionality of the feature space from 441 features to 10, which improved classification accuracy and reduced computational time.",
+    "The proposed hair removal algorithm based on FGWN demonstrated high performance in handling dark hair occlusion, achieving better results than the Dull-Razor algorithm.",
+    "The segmentation stage using FGWN with the DOOMP algorithm is faster than the OLS method while maintaining identical accuracy.",
+    "The proposed CAD system offers high reliability and computational efficiency for automatic melanoma diagnosis, making it suitable for clinical applications."
+  ],
+  "important_remarks": [
+    "The study uses a custom dataset of 1039 dermoscopy images from patients suspected of having melanoma, rather than a standard public benchmark (e.g., ISIC or PH2), which limits direct comparability with other studies.",
+    "No external validation was performed; the system was evaluated solely on the internal dataset using ten-fold cross-validation.",
+    "The paper does not report any statistical significance tests (e.g., p-values) to compare the proposed FGWN against baseline classifiers (MLP, k-NN, AWN, SVM).",
+    "Ground truth was established via histopathological examination and biopsy, and lesion borders were segmented by an experienced team, which is a strength regarding label quality.",
+    "The feature selection process (ReliefF) was performed on a subset of 200 images (100 MM, 100 non-MM) split into 60% training and 40% testing, which may introduce bias if this subset is not representative of the full 1039-image dataset.",
+    "The paper claims the FGWN does not require gradient-type algorithms, but the DOOMP algorithm is used for regressor selection, which is a specific optimization technique rather than a purely fixed grid without optimization.",
+    "Computational efficiency is highlighted as a key advantage, with the proposed method showing lower average processing time per image compared to AWN and previous FGWN variants, but no real-time deployment metrics are provided.",
+    "The dataset includes images with dark hair occlusion (54 images specifically used for hair removal testing), indicating the system was designed to handle common dermoscopy artifacts, but the overall impact of hair on final classification accuracy is not explicitly quantified."
+  ]
+}

@@ -1,0 +1,325 @@
+{
+  "file_name": "soto_2024_an_automatic_approach_to_detect_skin_cancer_utilizing_active_infrared.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a U-Net convolutional neural network (CNN) for automated lesion segmentation and a support-vector machine (SVM) classifier for detecting skin cancer malignancy using active infrared thermography features."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'Research article' in the header. It presents original experimental work, including the development of a novel automatic detection system using active infrared thermography, the implementation of a U-Net CNN for segmentation, and the evaluation of a support-vector machine classifier. The paper reports specific results, such as a 17% improvement in the Jaccard index and comparative accuracy metrics against expert dermatologists and ResNet152V2, which are characteristic of original research rather than a review."
+  },
+  "title": "An automatic approach to detect skin cancer utilizing active infrared thermography",
+  "authors": [
+    "Ricardo F. Soto",
+    "Sebastián E. Godoy"
+  ],
+  "doi": "10.1016/j.heliyon.2024.e40608",
+  "journal": "Heliyon",
+  "year": 2024,
+  "article_type": "Research article",
+  "brief_summary": "This study proposes an automatic skin cancer detection system utilizing active infrared thermography to distinguish between malignant and benign lesions. The approach automates lesion segmentation using a U-Net convolutional neural network trained on the HAM10000 dataset and extracts novel spatial-temporal features for classification via a support-vector machine. The system was evaluated on a private clinical dataset (UdeC) containing low-quality images captured with a smartphone camera. Results showed that the U-Net segmentation achieved a Jaccard index of 0.60, performing comparably to non-expert dermatologist segmentation. The detection algorithm achieved an accuracy of 75.29% using U-Net segmentation, outperforming the original manual-selection algorithm and demonstrating a 3% higher accuracy than the ResNet152V2 network on low-quality clinical images.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Malignant Melanoma",
+      "paper_terms": [
+        "Malignant Melanoma",
+        "MM"
+      ],
+      "role": "Target class",
+      "details": "Included in both HAM10000 (1113 images) and UdeC (7 images) datasets. Used in the classification task to distinguish malignant from benign lesions."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "Basal Cell Carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "Included in both HAM10000 (514 images) and UdeC (41 images) datasets. Used in the classification task to distinguish malignant from benign lesions."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma",
+      "paper_terms": [
+        "Squamous Cell Carcinoma",
+        "SCC"
+      ],
+      "role": "Target class",
+      "details": "Included in UdeC dataset (9 images). Not present in the subset of HAM10000 used for training/validation (0 images). Used in the classification task to distinguish malignant from benign lesions."
+    },
+    {
+      "lesion_type": "Benign Lesions",
+      "paper_terms": [
+        "benign",
+        "BN"
+      ],
+      "role": "Target class",
+      "details": "Included in both HAM10000 (1700 images) and UdeC (87 images) datasets. Used as the comparator class to malignant lesions in the binary classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Malignancy status (malignant vs. benign) of skin lesions",
+        "primary": true,
+        "details": "The study uses a Support Vector Machine (SVM) classifier to detect malignancy based on spatial-temporal features extracted from active infrared thermography. The task is binary classification distinguishing between malignant (MM, BCC, SCC) and benign lesions. The paper also mentions a U-Net CNN for lesion segmentation, but the primary diagnostic prediction task is classification."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion area mask",
+        "primary": false,
+        "details": "A U-Net convolutional neural network is used to automatically segment the lesion area from the visible image to automate the lesion selection process, replacing manual selection."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000",
+      "description": "A public dataset of dermoscopic images available on the Harvard Dataverse website, protected by a Creative Commons Attribution-NonCommercial International Public License 4.0. It contains images of common skin cancer categories.",
+      "classes_used": [
+        "Malignant Melanoma (MM)",
+        "Basal Cell Carcinoma (BCC)",
+        "Benign (BN)"
+      ],
+      "counts": {
+        "total": 3327,
+        "training": 2329,
+        "validation": null,
+        "testing": 998,
+        "per_class": {
+          "MM": 1113,
+          "BCC": 514,
+          "SCC": 0,
+          "BN": 1700
+        }
+      },
+      "use": {
+        "training": "Used to train the U-Net convolutional neural network for lesion segmentation. 70% of the data was allocated for training and validation.",
+        "validation": "Used for validating the U-Net segmentation algorithm. 70% of the data was allocated for training and validation combined.",
+        "testing": "30% of the data was used for testing the U-Net segmentation algorithm.",
+        "other": null
+      }
+    },
+    {
+      "name": "UdeC",
+      "description": "A private dataset acquired by one of the authors during his doctoral research with support from the University of New Mexico Dermatology Clinic staff. It consists of low-quality, poorly illuminated images captured in clinical trials using a smartphone camera and active infrared thermography. The data includes image cubes with visible images and IR images corresponding to thermal recovery after cold excitation. Captured under protocol code 10-304 approved by the Human Research Review Committee of the University of New Mexico.",
+      "classes_used": [
+        "Malignant Melanoma (MM)",
+        "Basal Cell Carcinoma (BCC)",
+        "Squamous Cell Carcinoma (SCC)",
+        "Benign (BN)"
+      ],
+      "counts": {
+        "total": 144,
+        "training": null,
+        "validation": null,
+        "testing": 144,
+        "per_class": {
+          "MM": 7,
+          "BCC": 41,
+          "SCC": 9,
+          "BN": 87
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as the final test set to evaluate the performance of the U-Net segmentation algorithm on visible images and to evaluate the detection algorithm's accuracy on low-quality clinical images.",
+        "other": "Used to evaluate the detection algorithm's performance compared to expert dermatologist segmentation and other methods."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Jaccard index",
+    "Accuracy",
+    "Sensitivity",
+    "True Positive Rate (TPR)",
+    "Specificity",
+    "True Negative Rate (TNR)",
+    "Precision",
+    "Positive Predictive Value (PPV)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Non-linear least-squares fitting",
+      "purpose": "To model representative thermal recovery curves (TRCs) using a double exponential function and estimate initial temperatures.",
+      "type": "Curve fitting"
+    },
+    {
+      "method": "Principal Component Analysis (PCA)",
+      "purpose": "To reduce the dimensionality of the difference vector of exponential model parameters (from five components to three principal components) for feature extraction.",
+      "type": "Dimensionality reduction"
+    },
+    {
+      "method": "Correlation coefficient calculation",
+      "purpose": "To measure the similarity between modeled TRCs and arbitrary TRCs by computing covariance and standard deviations.",
+      "type": "Similarity metric"
+    },
+    {
+      "method": "Mean and Standard Deviation calculation",
+      "purpose": "To aggregate projection, correlation, and distance features calculated over a set of at least 10 TRCs.",
+      "type": "Descriptive statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics such as accuracy, sensitivity, specificity, and Jaccard index without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "segmentation": {
+        "U-Net": {
+          "Accuracy": 0.93,
+          "Sensitivity (TPR)": 0.85,
+          "Specificity (TNR)": 0.96,
+          "Precision (PPV)": 0.89,
+          "Jaccard Index": 0.79
+        }
+      },
+      "notes": "The U-Net segmentation algorithm was trained on 70% of this dataset and tested on the remaining 30% (987 samples). The dataset contained 3,327 images of Malignant Melanoma (1,113), Basal Cell Carcinoma (514), and Benign lesions (1,700)."
+    },
+    "UdeC": {
+      "segmentation": {
+        "U-Net": {
+          "Accuracy": 0.98,
+          "Sensitivity (TPR)": 0.82,
+          "Specificity (TNR)": 0.99,
+          "Precision (PPV)": 0.74,
+          "Jaccard Index": 0.6
+        },
+        "Non-expert Manual": {
+          "Jaccard Index": 0.67,
+          "Accuracy": 0.9826,
+          "Sensitivity (TPR)": 0.7771
+        },
+        "Díaz Algorithm (Semi-automatic)": {
+          "Jaccard Index": "Worst performance (value not explicitly stated, but lower than U-Net)",
+          "Accuracy": 0.9737,
+          "Sensitivity (TPR)": 0.4858
+        },
+        "Expert Manual": {
+          "Specificity": 0.8762
+        }
+      },
+      "detection": {
+        "Proposed Automatic System (SVM with U-Net segmentation)": {
+          "Accuracy": "75.29%",
+          "Comparison": "3% higher accuracy than ResNet152V2 on low-quality clinical images"
+        },
+        "Expert Segmentation Baseline": {
+          "Specificity": 0.8762,
+          "Note": "At an 85% sensitivity threshold"
+        },
+        "Non-expert Segmentation Baseline": {
+          "Specificity": 0.6963,
+          "Note": "At an 85% sensitivity threshold"
+        },
+        "U-Net Segmentation Baseline": {
+          "Specificity": 0.688,
+          "Note": "At an 85% sensitivity threshold"
+        },
+        "Semi-automatic Segmentation Baseline": {
+          "Specificity": 0.6445,
+          "Note": "At an 85% sensitivity threshold"
+        }
+      },
+      "notes": "The UdeC dataset contained 144 image cubes (7 MM, 41 BCC, 9 SCC, 87 BN). The U-Net segmentation performance showed a reduction in Jaccard index by 0.19 points and precision by 15% compared to HAM10000 results due to lower image quality and different mask criteria. The detection algorithm's accuracy of 75.29% was achieved using the U-Net segmentation."
+    }
+  },
+  "architecture_used": {
+    "main_model": "U-Net convolutional neural network (CNN) variant proposed by Bisla et al.",
+    "pretraining": "null",
+    "input_size": "380x380 pixels (RGB image concatenated with HSV and L*a*b transformations, resulting in a 380x380x7 tensor)",
+    "architecture_details": {
+      "backbone": "U-Net variant with modifications including up-sample stages and dilation kernels of size 2x2 and 4x4",
+      "layers": "21 convolutional layers",
+      "blocks": "9 blocks",
+      "post_processing": "Morphological dilation and erosion filters (scrubbing) and connected components analysis"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "loss_function": "Binary Cross-Entropy (BCE)",
+      "learning_rate": 0.0001,
+      "max_iterations": 100,
+      "best_iteration": 33,
+      "data_augmentation": "Vertical and horizontal flip (50% probability), brightness adjustments (±50%), saturation adjustments (±20%), contrast adjustments (±50%), and Gaussian blur (kernel size 5x5, std dev 0.1-20)",
+      "training_samples": 2340,
+      "validation_samples": "Included in the 70% training/validation split of HAM10000",
+      "testing_samples": 987
+    },
+    "classification_or_output_head": {
+      "type": "Semantic segmentation mask",
+      "output_resolution": "Same spatial resolution as input (380x380)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net convolutional neural network (CNN)",
+    "Support-vector machine (SVM) classifier",
+    "ResNet152V2 network",
+    "XGBoost",
+    "Random Forest",
+    "Nasnet Mobile",
+    "MobileNetV2",
+    "DenseNet-121",
+    "Multi-layer perceptron (MLP)",
+    "Euclidean classifier"
+  ],
+  "preprocessing_techniques": [
+    "Color normalization using the Shades of Gray algorithm to standardize color conditions affected by illumination and setup variations",
+    "Image resizing to 380x380 pixels to meet U-Net input requirements",
+    "Color space transformation: Concatenating RGB image with HSV and L*a*b transformations to create a 380x380x7 input tensor",
+    "Data augmentation during training: Vertical and horizontal flips (50% probability), brightness adjustments (±50%), saturation adjustments (±20%), contrast adjustments (±50%), and Gaussian blur (kernel size 5x5, standard deviation 0.1-20)",
+    "Post-segmentation morphological filtering (scrubbing): Application of dilation and erosion filters to smooth segmented areas and fill holes",
+    "Connected components analysis to select the largest segmentation area if multiple segments are detected",
+    "Inverse resizing of the output mask to match the original input image dimensions"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Vertical and horizontal flip",
+      "details": "Applied with a 50% probability of being flipped."
+    },
+    {
+      "technique": "Brightness adjustment",
+      "details": "Adjustments of ±50% shuffled brightness."
+    },
+    {
+      "technique": "Saturation adjustment",
+      "details": "Adjustments of ±20% shuffled saturation."
+    },
+    {
+      "technique": "Contrast adjustment",
+      "details": "Adjustments of ±50% shuffled contrast."
+    },
+    {
+      "technique": "Gaussian blur",
+      "details": "Added using a Gaussian kernel filter of size 5x5 with a variable standard deviation randomly selected between 0.1 and 20."
+    }
+  ],
+  "conclusions": [
+    "The proposed automatic detection system, which combines U-Net-based lesion segmentation with a support-vector machine (SVM) classifier using novel spatial-temporal features from active infrared thermography, achieves an accuracy of 75.29% on low-quality clinical images.",
+    "The automated system achieves 3% higher accuracy than the ResNet152V2 deep learning network when processing low-quality images obtained in a clinical setting.",
+    "The U-Net convolutional neural network automates lesion segmentation, achieving a Jaccard index of 0.60 on the private UdeC dataset, which represents a 17% improvement over the semi-automatic Díaz algorithm and performs comparably to non-expert dermatologist segmentation.",
+    "At an 85% sensitivity threshold, expert manual segmentation provided the highest specificity (87.62%), while non-expert and U-Net segmentations achieved comparable specificities of 69.63% and 68.80%, respectively, outperforming semi-automatic segmentation (64.45%).",
+    "The system addresses the limitation of manual lesion selection by providing a standardized and efficient automated solution that performs comparably to high-accuracy expert methods.",
+    "The performance of the segmentation algorithm decreased significantly (Jaccard index reduced by 0.19 points and precision by 15%) when applied to the UdeC dataset compared to the HAM10000 dataset due to lower image quality and different mask creation criteria.",
+    "The selection of the thermal recovery curve (TRC) area is crucial for detection performance, with expert knowledge yielding the best results, indicating that automated segmentation is a necessary compromise for efficiency when expert selection is not feasible."
+  ],
+  "important_remarks": [
+    "The study relies on a small, private clinical dataset (UdeC, n=144) with low-quality smartphone images, limiting generalizability and external validation.",
+    "The U-Net segmentation model was trained on high-quality dermoscopic images (HAM10000) and tested on low-quality clinical images, causing a significant performance drop (Jaccard index from 0.79 to 0.60) due to domain shift.",
+    "The UdeC dataset has a severe class imbalance, particularly for Malignant Melanoma (7 cases) and Squamous Cell Carcinoma (9 cases), which may bias the classifier.",
+    "No formal statistical hypothesis testing (e.g., p-values) was reported; performance comparisons rely on descriptive metrics.",
+    "The system's accuracy (75.29%) is substantially lower than deep learning models on dermoscopy (often >90%), attributed to the difficulty of distinguishing benign from malignant lesions using active thermography on low-quality images.",
+    "The segmentation ground truth for the UdeC dataset was defined by an expert considering lesion nature rather than just pigmentation, creating a potential mismatch with the HAM10000 training masks which were based on pigmented areas.",
+    "The detection algorithm's performance is highly dependent on the accuracy of the lesion segmentation; incorrect segmentation leads to significant performance degradation.",
+    "The study addresses a binary classification problem (malignant vs. benign) including all cancer types, which is clinically more challenging than melanoma-only classification tasks common in literature."
+  ]
+}

@@ -1,0 +1,314 @@
+{
+  "file_name": "liu_2021_learning_melanocytic_proliferation_segmentation_in_histopathology_image.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a Mask R-CNN-based deep learning framework for the segmentation of melanocytic proliferations in histopathology images to aid in melanoma diagnosis. The model was trained on sparse and noisy annotations to identify singly dispersed intraepidermal melanocytes and nested melanocytes, achieving a Dice score of 0.719 and mIOU of 0.740."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a Mask R-CNN-based deep learning framework for segmenting melanocytic proliferations in histopathology images. It includes a specific dataset of 227 ROI images, a methodology for sparse annotation, quantitative results (Dice score 0.719, mIOU 0.740), and ablation studies, which are characteristic of a research study rather than a review. Although published in the CVPR Workshops, it reports new technical results."
+  },
+  "title": "Learning Melanocytic Proliferation Segmentation in Histopathology Images from Imperfect Annotations",
+  "authors": [
+    "Kechun Liu",
+    "Mojgan Mokhtari",
+    "Beibin Li",
+    "Shima Nofallah",
+    "Caitlin May",
+    "Oliver Chang",
+    "Stevan Knezevich",
+    "Joann Elmore",
+    "Linda Shapiro"
+  ],
+  "doi": "10.1109/CVPRW53098.2021.00417",
+  "journal": "2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops",
+  "year": 2021,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of melanoma diagnosis by developing a Mask R-CNN-based deep learning framework to segment melanocytic proliferations in histopathology images. To reduce annotation costs, the authors utilized a sparse and noisy annotation pipeline on a dataset of 227 H&E-stained skin biopsy region-of-interest images. The model was trained to identify singly dispersed intraepidermal melanocytes and nested melanocytes, achieving state-of-the-art performance with a Dice score of 0.719, mIOU of 0.740, and pixel accuracy of 0.927. Evaluation against ground truth labels from expert pathologists demonstrated that the proposed method outperforms previous autoencoder-based approaches. The results indicate that this weakly-supervised approach can effectively aid pathologists by highlighting critical histological clues for melanoma diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma in situ",
+      "paper_terms": [
+        "melanoma in situ"
+      ],
+      "role": "Target class (dataset label)",
+      "details": "Class 3 in the dataset, comprising 67 samples of H&E-stained skin biopsy ROIs."
+    },
+    {
+      "lesion_type": "Invasive melanoma",
+      "paper_terms": [
+        "invasive melanoma stage T1a",
+        "invasive melanoma stage ≥ T1b"
+      ],
+      "role": "Target class (dataset label)",
+      "details": "Class 4 (50 samples) and Class 5 (32 samples) in the dataset. The paper also mentions thin melanomas (depth < 1 mm) in the introduction."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "moderately dysplastic nevi",
+        "benign"
+      ],
+      "role": "Target class (dataset label)",
+      "details": "Class 2 (49 samples) and Class 1 (29 samples, labeled as benign) in the dataset. The paper focuses on melanocytic proliferations which include these entities."
+    },
+    {
+      "lesion_type": "Melanocytic proliferation",
+      "paper_terms": [
+        "melanocytic proliferations",
+        "singly dispersed intraepidermal melanocytes",
+        "nested melanocytes"
+      ],
+      "role": "Segmentation target",
+      "details": "The primary object of segmentation in the study, defined as singly dispersed intraepidermal melanocytes and nested melanocytes at the dermal-epidermal junction."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Melanocytic proliferations (singly dispersed intraepidermal melanocytes and nested melanocytes)",
+        "primary": true,
+        "details": "The paper uses a Mask R-CNN-based framework for instance segmentation of melanocytic proliferations in histopathology images. The model produces segmentation masks and bounding boxes, evaluated using Dice score (0.719), mIOU (0.740), and pixel accuracy (0.927)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Custom Melanocytic Proliferation Dataset",
+      "description": "A private dataset consisting of 227 region of interest (ROI) images extracted from hematoxylin and eosin (H&E) stained slides of skin biopsies at 10x magnification. The images were selected by three expert pathologists who agreed on the consensus diagnosis. The dataset includes sparse and noisy annotations created using the Sedeen Viewer to mark singly dispersed intraepidermal melanocytes and nested melanocytes.",
+      "classes_used": [
+        "Class 1: Benign (29 samples)",
+        "Class 2: Moderately dysplastic nevi (49 samples)",
+        "Class 3: Melanoma in situ (67 samples)",
+        "Class 4: Invasive melanoma stage T1a (50 samples)",
+        "Class 5: Invasive melanoma stage ≥ T1b (32 samples)"
+      ],
+      "counts": {
+        "total": 227,
+        "training": 174,
+        "validation": 19,
+        "testing": 34,
+        "per_class": {
+          "benign": 29,
+          "moderately_dysplastic_nevi": 49,
+          "melanoma_in_situ": 67,
+          "invasive_melanoma_T1a": 50,
+          "invasive_melanoma_ge_T1b": 32
+        }
+      },
+      "use": {
+        "training": "Used for training the Mask R-CNN model with sparse and noisy annotations.",
+        "validation": "Used to choose the model and parameters.",
+        "testing": "Used to evaluate the model's performance (Dice score 0.719, mIOU 0.740, pixel accuracy 0.927).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice Score",
+    "mean Intersection Over Union (mIOU)",
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "pixel accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Repeated runs with randomization",
+      "purpose": "To achieve stable measurement and report mean and standard deviation for all metrics.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Standard deviation (STD)",
+      "purpose": "To quantify the variability of performance metrics (Dice score, mIOU, Accuracy, Sensitivity, Specificity) across 10 runs with different randomization seeds.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Comparison with State-of-the-Art (SOTA) autoencoder",
+      "purpose": "To evaluate the proposed Mask R-CNN method against a previous method using pixel-level metrics (Dice, mIOU, Accuracy, Sensitivity, Specificity).",
+      "type": "Comparison"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance comparisons between the proposed Mask R-CNN method and the state-of-the-art autoencoder were based on mean metrics (Dice score, mIOU, etc.) and standard deviations derived from 10 runs with different randomization seeds, without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Custom Melanocytic Proliferation Dataset (Testing Set)": {
+      "description": "Fully labeled test set consisting of 34 ROI images, evaluated against ground truth labels provided by expert pathologists.",
+      "metrics": [
+        "Dice Score",
+        "mIOU",
+        "Accuracy",
+        "Sensitivity",
+        "Specificity"
+      ],
+      "models": {
+        "Autoencoder [21] (SOTA baseline)": {
+          "Dice Score": "0.679",
+          "mIOU": "0.705",
+          "Accuracy": "0.905",
+          "Sensitivity": "0.814",
+          "Specificity": "0.918"
+        },
+        "Mask R-CNN with CE loss": {
+          "Dice Score": "0.685",
+          "mIOU": "0.715",
+          "Accuracy": "0.917",
+          "Sensitivity": "0.726",
+          "Specificity": "0.944"
+        },
+        "Mask R-CNN with WCE loss (w=2)": {
+          "Dice Score": "0.705",
+          "mIOU": "0.726",
+          "Accuracy": "0.917",
+          "Sensitivity": "0.792",
+          "Specificity": "0.935"
+        },
+        "Mask R-CNN with FL loss (w=8)": {
+          "Dice Score": "0.719",
+          "mIOU": "0.740",
+          "Accuracy": "0.927",
+          "Sensitivity": "0.751",
+          "Specificity": "0.952"
+        }
+      },
+      "ablation_study_results": {
+        "Weighted Cross Entropy (WCE) Loss": {
+          "w=1": {
+            "Dice Score": "0.685 (0.013)",
+            "mIOU": "0.715 (0.008)",
+            "Accuracy": "0.917 (0.002)",
+            "Sensitivity": "0.726 (0.041)",
+            "Specificity": "0.944 (0.006)"
+          },
+          "w=2": {
+            "Dice Score": "0.705 (0.003)",
+            "mIOU": "0.726 (0.003)",
+            "Accuracy": "0.917 (0.003)",
+            "Sensitivity": "0.792 (0.027)",
+            "Specificity": "0.935 (0.007)"
+          },
+          "w=3": {
+            "Dice Score": "0.701 (0.009)",
+            "mIOU": "0.723 (0.006)",
+            "Accuracy": "0.915 (0.003)",
+            "Sensitivity": "0.792 (0.021)",
+            "Specificity": "0.933 (0.005)"
+          },
+          "w=5": {
+            "Dice Score": "0.701 (0.008)",
+            "mIOU": "0.722 (0.006)",
+            "Accuracy": "0.914 (0.002)",
+            "Sensitivity": "0.813 (0.028)",
+            "Specificity": "0.928 (0.005)"
+          },
+          "w=8": {
+            "Dice Score": "0.700 (0.007)",
+            "mIOU": "0.718 (0.007)",
+            "Accuracy": "0.909 (0.005)",
+            "Sensitivity": "0.850 (0.022)",
+            "Specificity": "0.918 (0.008)"
+          },
+          "w=12": {
+            "Dice Score": "0.700 (0.005)",
+            "mIOU": "0.716 (0.003)",
+            "Accuracy": "0.908 (0.002)",
+            "Sensitivity": "0.847 (0.021)",
+            "Specificity": "0.917 (0.005)"
+          }
+        },
+        "Focal Loss (FL)": {
+          "w=1": {
+            "Dice Score": "0.717 (0.018)",
+            "mIOU": "0.740 (0.011)",
+            "Accuracy": "0.928 (0.002)",
+            "Sensitivity": "0.740 (0.053)",
+            "Specificity": "0.954 (0.007)"
+          },
+          "w=2": {
+            "Dice Score": "0.703 (0.022)",
+            "mIOU": "0.731 (0.014)",
+            "Accuracy": "0.926 (0.003)",
+            "Sensitivity": "0.710 (0.053)",
+            "Specificity": "0.956 (0.006)"
+          },
+          "w=3": {
+            "Dice Score": "0.702 (0.021)",
+            "mIOU": "0.730 (0.014)",
+            "Accuracy": "0.926 (0.003)",
+            "Sensitivity": "0.705 (0.045)",
+            "Specificity": "0.957 (0.004)"
+          },
+          "w=5": {
+            "Dice Score": "0.711 (0.014)",
+            "mIOU": "0.735 (0.008)",
+            "Accuracy": "0.926 (0.002)",
+            "Sensitivity": "0.730 (0.044)",
+            "Specificity": "0.954 (0.006)"
+          },
+          "w=8": {
+            "Dice Score": "0.719 (0.011)",
+            "mIOU": "0.740 (0.007)",
+            "Accuracy": "0.927 (0.003)",
+            "Sensitivity": "0.751 (0.027)",
+            "Specificity": "0.952 (0.005)"
+          },
+          "w=12": {
+            "Dice Score": "0.710 (0.023)",
+            "mIOU": "0.734 (0.015)",
+            "Accuracy": "0.925 (0.004)",
+            "Sensitivity": "0.742 (0.056)",
+            "Specificity": "0.951 (0.007)"
+          }
+        }
+      },
+      "notes": "The Mask R-CNN with Focal Loss (w=8) achieved the best performance. The Autoencoder baseline had higher sensitivity but lower accuracy and mIOU. Standard deviations are reported in parentheses for ablation studies, derived from 10 runs with different randomization seeds."
+    }
+  },
+  "architecture_used": {
+    "extraction_error": "Expecting ',' delimiter: line 31 column 18 (char 1554)",
+    "answer": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Mask R-CNN",
+    "Convolutional Autoencoder",
+    "FCN",
+    "U-Net"
+  ],
+  "preprocessing_techniques": [
+    "ROI extraction from whole slide images (WSIs)",
+    "Downscaling ROI images from 10x to 5x magnification (down-sampling to half resolution)",
+    "Patch extraction: splitting images into 1000x1000 patches with 50% overlap",
+    "Resizing patches so the shortest edge is around 800 pixels",
+    "Image compression in TIFF format"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed Mask R-CNN-based framework achieves state-of-the-art performance in segmenting melanocytic proliferations (singly dispersed intraepidermal melanocytes and nested melanocytes) using sparse and noisy annotations, with a Dice score of 0.719, mIOU of 0.740, and pixel accuracy of 0.927.",
+    "The method outperforms the previous state-of-the-art autoencoder baseline in Dice score, mIOU, accuracy, and specificity, although the autoencoder exhibited higher sensitivity due to a tendency for overprediction.",
+    "Training with weakly-supervised sparse and noisy annotations significantly alleviates the annotation workload for pathologists while maintaining solid segmentation performance.",
+    "Focal Loss with a weight of 8 yielded the best segmentation performance among the tested loss functions and weights, whereas Weighted Cross Entropy performed best at a weight of 2.",
+    "Mask R-CNN is robust to annotation noise and irrelevant background entities due to its anchor boxes and non-maximum suppression, whereas the autoencoder baseline mispredicted small and irrelevant entities as melanocytic proliferations.",
+    "The identified melanocytic proliferations provide potential histological clues that can help pathologists focus on important regions and reduce their workload, and may assist inexperienced students in understanding the diagnosis process.",
+    "The model shows great potential as the first step in an automated diagnosis pipeline, though diagnosis in practice requires additional features such as confluent growth, mitotic figures, and melanocyte maturation which are not captured by this segmentation task alone."
+  ],
+  "important_remarks": [
+    "The study relies on a small, private dataset of only 227 ROI images, which limits the generalizability and statistical power of the findings.",
+    "The annotations are explicitly described as 'silver standard' rather than 'gold standard' due to sparse labeling, noisy boundaries (polygons instead of precise circles), and human error, introducing significant label noise.",
+    "There is no external validation; the model was trained and tested on data from the same source (University of Washington/VA Puget Sound), raising concerns about dataset bias and overfitting to specific institutional characteristics.",
+    "The paper does not report formal statistical hypothesis testing (e.g., p-values) to compare the proposed method against the baseline, relying instead on mean metrics and standard deviations from 10 runs.",
+    "The segmentation task focuses only on singly dispersed intraepidermal melanocytes and nested melanocytes, which the authors acknowledge are insufficient for a complete melanoma diagnosis that requires assessing confluent growth, mitotic figures, and maturation.",
+    "The model was evaluated on a test set of only 34 images, which is a very small sample size for robust performance evaluation.",
+    "The dataset class distribution is imbalanced, with 'Melanoma in situ' (67 samples) being the largest class, while 'Benign' (29 samples) is the smallest, potentially biasing the model towards melanoma classes.",
+    "The paper acknowledges that the autoencoder baseline had higher sensitivity but lower specificity/accuracy, suggesting a trade-off where the proposed Mask R-CNN may miss some true positives that the baseline catches, or vice versa, without a detailed error analysis of clinical impact."
+  ]
+}

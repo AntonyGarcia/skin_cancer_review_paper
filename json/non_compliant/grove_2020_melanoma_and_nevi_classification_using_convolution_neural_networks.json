@@ -1,0 +1,290 @@
+{
+  "file_name": "grove_2020_melanoma_and_nevi_classification_using_convolution_neural_networks.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a Convolutional Neural Network (CNN) based on the ResNet50 architecture with transfer learning to classify dermoscopic images into melanoma and benign nevi. The model was trained on datasets from the ISIC Archive and tested on images from Dermnet NZ and clinical cases, achieving an 86% test accuracy."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel method using a ResNet50 CNN with transfer learning to classify melanoma and nevi. It details original experimental work including dataset selection (ISIC Archive, Dermnet NZ), model training (20 epochs, Adam optimizer), and validation/testing results (86% test accuracy). It presents new empirical findings rather than summarizing prior literature."
+  },
+  "title": "Melanoma and Nevi Classification using Convolution Neural Networks",
+  "authors": [
+    "Robert Grove",
+    "Richard Green"
+  ],
+  "doi": null,
+  "journal": null,
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a method to classify dermoscopic images into melanoma and benign nevi using a ResNet50 convolutional neural network with transfer learning. The model was trained on datasets from the ISIC Archive, specifically the UDA and MSK databases, and validated using images from Dermnet NZ and clinical cases. The primary evaluation approach involved testing the network's ability to generalize to real-world cases without requiring consistent image scaling or pre-processing for scale presence. The proposed method achieved a test accuracy of 86.0% on the training-derived dataset and 86.7% on the external Dermnet NZ and clinical dataset. These results were comparable to prior studies while requiring significantly less pre-processing and leveraging all image information rather than just geometric features.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant skin lesions",
+        "malignant skin cancer"
+      ],
+      "role": "Target class",
+      "details": "Primary malignant class studied. Used in training (591 cases from ISIC UDA/MSK datasets) and testing (27 samples from Dermnet NZ/clinical cases, 81.4% accuracy). The paper notes that the method is unable to identify basal cell carcinomas and squamous cell carcinomas."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevi",
+        "benign nevi",
+        "benign dermal nevus",
+        "dysplastic nevus"
+      ],
+      "role": "Target class / Comparator class",
+      "details": "Primary benign class studied. Used in training (2361 cases from ISIC UDA/MSK datasets) and testing (50 samples from Dermnet NZ/clinical cases, 92% accuracy). Includes specific mention of 'severely dysplastic nevus' which was misidentified as melanoma."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "Basal cell carcinomas"
+      ],
+      "role": "Mentioned only (Exclusion)",
+      "details": "Mentioned in the Future Research section as a common malignant lesion that would not be identifiable using the current binary classification method."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma (SCC)",
+      "paper_terms": [
+        "squamous cell carcinomas"
+      ],
+      "role": "Mentioned only (Exclusion)",
+      "details": "Mentioned in the Future Research section as a common malignant lesion that would not be identifiable using the current binary classification method."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of dermoscopic images into melanoma or benign nevi",
+        "primary": true,
+        "details": "The paper explicitly states the solution aims to 'classify images into melanomas and benign nevi' using a ResNet50 CNN with a final layer resized to output two classifier categories. The model predicts discrete diagnostic categories (melanoma vs. benign nevus) and reports accuracy metrics (86.0% on training-derived dataset, 86.7% on external dataset) and per-class accuracy (81.4% for melanoma, 92% for nevi)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Archive (UDA and MSK subsets)",
+      "description": "Public dataset from the ISIC Archive containing annotated dermoscopic images. Specifically, the UDA1, UDA2, MSK-2, MSK-3, and MSK-4 databases were selected for containing only dermoscopic images from different sources. Other ISIC databases (SoNIC, MSK-1) were excluded.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus (Benign)"
+      ],
+      "counts": {
+        "total": 2952,
+        "training": 2361,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 591,
+          "Nevus": 2361
+        }
+      },
+      "use": {
+        "training": "Used for training the ResNet50 CNN (80% of the selected subset) and validation (20% of the selected subset, split randomly before each epoch).",
+        "validation": "Used for validation (20% of the selected subset).",
+        "testing": "A 10% subset of this dataset was used for internal testing.",
+        "other": "Pretrained on ImageNet dataset."
+      }
+    },
+    {
+      "name": "Dermnet NZ and Clinical Cases",
+      "description": "External dataset comprising images taken from the Dermnet NZ website and recent clinical cases awaiting histological results. Used to test the network's ability to generalize to real-world cases.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus (Benign)"
+      ],
+      "counts": {
+        "total": 77,
+        "training": null,
+        "validation": null,
+        "testing": 77,
+        "per_class": {
+          "Melanoma": 27,
+          "Nevus": 50
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for external testing to evaluate generalization. Achieved 86.7% accuracy on this set.",
+        "other": null
+      }
+    },
+    {
+      "name": "HAM10000",
+      "description": "Public dataset mentioned as part of the custom database used for testing the trained network.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus (Benign)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Included in the custom database used for testing.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Test accuracy",
+    "Training accuracy",
+    "Verification accuracy",
+    "Average test accuracy",
+    "Percent certainty",
+    "Confidence"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Accuracy",
+      "purpose": "To evaluate the classification performance of the ResNet50 CNN on training, validation, and external testing datasets.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Random split",
+      "purpose": "To divide the ISIC Archive dataset into training (80%) and validation (20%) sets before each epoch.",
+      "type": "Data splitting method"
+    },
+    {
+      "method": "Percent certainty",
+      "purpose": "To display the model's confidence level for each prediction on the external test set.",
+      "type": "Uncertainty estimation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Results were reported as accuracy percentages (e.g., 86.0% test accuracy) and compared qualitatively to prior studies."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC Archive (Training/Validation/Test Split)": {
+      "metric": "Accuracy",
+      "models": {
+        "ResNet50 CNN (Transfer Learning)": {
+          "training_accuracy": "84.4%",
+          "verification_accuracy": "83.1%",
+          "average_test_accuracy": "86.0%"
+        }
+      },
+      "notes": "The dataset consisted of 2361 nevi and 591 melanomas from UDA1, UDA2, MSK-2, MSK-3, and MSK-4 databases. Training was performed over 20 epochs with an 80/20 random split for training and validation before each epoch. A separate 10% subset was used for internal testing."
+    },
+    "Dermnet NZ and Clinical Cases (External Test Set)": {
+      "metric": "Accuracy",
+      "models": {
+        "ResNet50 CNN (Transfer Learning)": {
+          "overall_accuracy": "86.7%",
+          "melanoma_accuracy": "81.4%",
+          "nevus_accuracy": "92.0%"
+        }
+      },
+      "notes": "This dataset contained 77 samples total: 27 melanomas and 50 nevi. The overall accuracy was 86.7%. One severely dysplastic nevus was misidentified as a melanoma. The method was noted to be less accurate than Cueva et al.'s geometric method (97.5%) but required less pre-processing."
+    },
+    "HAM10000": {
+      "metric": null,
+      "models": {},
+      "notes": "Included in the custom database used for testing the trained network, but specific quantitative results for this subset were not reported separately from the combined Dermnet NZ/Clinical/HAM10000 test set."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet50 Convolutional Neural Network (CNN)",
+    "pretraining": "Pretrained on the ImageNet dataset for recognizing common objects and animals; transfer learning was used by freezing all but the final layer of the network parameters.",
+    "input_size": "224 x 224 pixels",
+    "architecture_details": {
+      "backbone": "ResNet50",
+      "transfer_learning": "Implemented by freezing the majority of the layers and training only the final output layer.",
+      "final_layer_modification": "The final layer was resized to output two classifier categories (melanoma and benign nevi).",
+      "implementation_framework": "PyTorch 1.4.0"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "loss_function": "Negative Loss Likelihood (NLL)",
+      "epochs": "20 epochs (Note: Results section mentions verification over 50 epochs, but Methods section specifies 20 epochs for training)",
+      "batch_size": "32 images",
+      "data_split": "80% training, 20% validation (randomly split before each epoch), 10% testing subset from ISIC Archive.",
+      "preprocessing": [
+        "Resized to 224x224 pixels",
+        "Random rotation and horizontal/vertical mirroring",
+        "Median filter with 3x3 kernel",
+        "Sharpening",
+        "Conversion to tensor objects and normalization"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Fully connected layer (implied by 'final layer resized')",
+      "output_classes": 2,
+      "classes": [
+        "Melanoma",
+        "Benign Nevus"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet50 Convolutional Neural Network (CNN)",
+    "DenseNet-169",
+    "Cueva et al. geometric method"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 224 x 224 pixels to match ImageNet training image format",
+    "Random rotation of training images",
+    "Horizontal and vertical mirroring (flipping) of training images",
+    "Application of a median filter with a 3x3 kernel to blur images",
+    "Sharpening of images after filtering",
+    "Conversion of images to tensor objects",
+    "Normalization of tensor objects"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random Rotation",
+      "details": "Training images were randomly rotated to prevent the network from repeatedly seeing the same image."
+    },
+    {
+      "technique": "Horizontal and Vertical Mirroring",
+      "details": "Training images were mirrored horizontally and vertically to augment the dataset."
+    },
+    {
+      "technique": "Median Filtering",
+      "details": "A median filter with a 3x3 kernel was applied to blur images and remove noise, followed by sharpening."
+    }
+  ],
+  "conclusions": [
+    "The proposed ResNet50 CNN with transfer learning achieved a test accuracy of 86.0% on the training-derived dataset and 86.7% on an external dataset comprising images from Dermnet NZ and clinical cases.",
+    "The method's accuracy was comparable to prior studies, such as Aryan Mobiny's ResNet-50 implementation (80% accuracy) and Cueva et al.'s geometric method (97.5% accuracy).",
+    "The proposed method required significantly less pre-processing than prior geometric-based methods and was not dependent on consistent image scaling or the presence of a scale bar in the image.",
+    "The method improved upon past research by utilizing all information present in the image rather than focusing independently on geometric and color-space based aspects.",
+    "The network was unable to identify basal cell carcinomas and squamous cell carcinomas, limiting its scope to binary classification of melanoma versus benign nevi.",
+    "The method is unable to highlight the specific indicative features of a lesion that resulted in the classification, which limits its practical application as a decision-support tool for general practitioners who may disagree with the diagnosis.",
+    "The network was unreliable in classifying melanomas that lacked dramatic colors, often resulting in low confidence scores that were insufficient for positive identification.",
+    "A severely dysplastic nevus was misidentified as a melanoma, a outcome attributed to the high irregularity of such nevi which presents indicators similar to melanomas on dermoscopy."
+  ],
+  "important_remarks": [
+    "The study is limited to binary classification of melanoma versus benign nevi; it explicitly cannot identify basal cell carcinomas or squamous cell carcinomas, which are common malignant lesions.",
+    "The external test set is very small (n=77: 27 melanomas, 50 nevi), which limits the statistical power and generalizability of the reported 86.7% accuracy.",
+    "The method lacks explainability (black-box nature); it cannot highlight specific indicative features of the lesion, limiting its utility as a decision-support tool for general practitioners who may disagree with the diagnosis.",
+    "The model was unreliable for classifying melanomas lacking dramatic colors, often resulting in low confidence scores insufficient for positive identification.",
+    "A severely dysplastic nevus was misidentified as a melanoma, highlighting the difficulty in distinguishing highly irregular nevi from melanomas based on dermoscopic features alone.",
+    "The training dataset had a significant class imbalance (2361 nevi vs. 591 melanomas), though the authors noted this was not necessary to mitigate due to the large number of nevi.",
+    "The external validation dataset included images from Dermnet NZ, clinical cases, and HAM10000, but specific performance metrics for HAM10000 were not reported separately.",
+    "The positive predictive value for melanoma diagnosis in general practice is noted to be low (as low as 8%), suggesting that even with high accuracy, the clinical utility depends heavily on prevalence and pre-test probability.",
+    "The study did not perform formal hypothesis testing or report p-values; results were compared qualitatively to prior studies."
+  ]
+}

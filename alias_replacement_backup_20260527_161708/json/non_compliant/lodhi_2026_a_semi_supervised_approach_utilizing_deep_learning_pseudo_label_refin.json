@@ -1,0 +1,294 @@
+{
+  "file_name": "lodhi_2026_a_semi_supervised_approach_utilizing_deep_learning_pseudo_label_refin.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a semi-supervised deep learning framework involving Teacher-Student U-Net architectures, pseudo-label refinement, uncertainty filtering, and Conditional Random Field (CRF) post-processing to perform skin lesion segmentation on the HAM10000 and ISIC 2018 dermatology datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new semi-supervised deep learning framework for skin lesion segmentation. It details specific methods (Teacher-Student U-Net, pseudo-label refinement, CRF), implementation details (PyTorch, HAM10000/ISIC 2018 datasets), and reports quantitative results (IoU 0.64, Dice 0.74) and ablation studies, which are characteristic of a primary research study rather than a review."
+  },
+  "title": "A Semi-Supervised Approach utilizing Deep Learning Pseudo-Label Refinement and Confidence Filtering for Enhanced Image Segmentation: An application towards Skin Lesion Analysis",
+  "authors": [
+    "Saad Rehman Lodhi",
+    "Sobia Arshad",
+    "Junaid Ali Khan",
+    "Saad Rehman"
+  ],
+  "doi": "10.22581/muet1982.0742",
+  "journal": "Mehran University Research Journal of Engineering and Technology",
+  "year": 2026,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes a semi-supervised deep learning framework for skin lesion segmentation to address the scarcity of annotated medical images. The method utilizes a Teacher-Student U-Net architecture where the Teacher network generates pseudo-labels for unlabelled data, which are refined through entropy-based uncertainty filtering and Conditional Random Field (CRF) post-processing. The model was evaluated on the HAM10000 and ISIC 2018 dermatology datasets using only 10 percent of labelled data for training. Quantitative results demonstrated an Intersection over Union (IoU) of 0.64 and a Dice Coefficient of 0.74, with improvements of 11 percent in IoU and 10.5 percent in Dice score over a supervised baseline. The approach achieved performance comparable to fully supervised models trained on 100 percent of the annotations. These findings indicate that pseudo-label refinement effectively mitigates annotation costs while maintaining high segmentation accuracy and boundary precision.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "dermoscopic images"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the segmentation of skin lesions in general, using the HAM10000 and ISIC 2018 datasets. It does not perform classification into specific histological subtypes but treats 'lesion' as the binary target for segmentation against the background."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Mentioned only (dataset composition)",
+      "details": "Mentioned as one of the lesion types present in the ISIC 2018 dataset used for experiments, but not isolated as a specific study class."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus"
+      ],
+      "role": "Mentioned only (dataset composition)",
+      "details": "Mentioned as one of the lesion types present in the ISIC 2018 dataset used for experiments, but not isolated as a specific study class."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratosis"
+      ],
+      "role": "Mentioned only (dataset composition)",
+      "details": "Mentioned as one of the lesion types present in the ISIC 2018 dataset used for experiments, but not isolated as a specific study class."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise binary mask delineating skin lesions against the background in dermoscopic images.",
+        "primary": true,
+        "details": "The paper explicitly focuses on 'skin lesion segmentation' using a semi-supervised Teacher-Student U-Net framework. The model predicts pixel-wise masks (pseudo-labels refined by uncertainty filtering and CRF) to segment lesions from background. Metrics reported are IoU (0.64) and Dice Coefficient (0.74), which are standard for segmentation tasks. While the introduction mentions classification as a downstream goal, the actual AI task performed and evaluated in this study is segmentation."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018 Task 1–2 Dataset",
+      "description": "A publicly available dermoscopic dataset consisting of 2,594 images with associated lesion masks. It features various types of skin lesions including seborrheic keratosis, nevus, and melanoma.",
+      "classes_used": [
+        "seborrheic keratosis",
+        "nevus",
+        "melanoma",
+        "skin lesion (segmentation target)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as the primary dataset for the semi-supervised framework. 10% of the dataset was used as the labelled subset for supervised training of the Teacher network, and 90% was used as unlabelled data for pseudo-label generation and Student network learning.",
+        "validation": "A 20% validation set was kept for performance evaluation.",
+        "testing": "Used for evaluation of the final model performance (IoU, Dice, HD95).",
+        "other": "Used for quantitative and qualitative analysis."
+      }
+    },
+    {
+      "name": "HAM10000 (Human Against Machine with 10,000 training images)",
+      "description": "A publicly available dermoscopic dataset containing 10,015 images of seven categories of diagnosis. Lesion masks were built through expert annotations from previous research.",
+      "classes_used": [
+        "seven categories of diagnosis (specific classes not listed in detail, but generally include melanoma, nevus, seborrheic keratosis, etc.)",
+        "skin lesion (segmentation target)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Mentioned as one of the datasets used for experiments in the study.",
+        "validation": "Mentioned as one of the datasets used for experiments in the study.",
+        "testing": "Mentioned as one of the datasets used for experiments in the study.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice Coefficient (DICE)",
+    "Intersection over Union (IoU)",
+    "95th Percentile Hausdorff Distance (HD95)",
+    "Receiver Operating Characteristic (ROC)",
+    "Area Under the Curve (AUC)",
+    "Dice vs. Threshold",
+    "IoU vs. Threshold",
+    "paired t-test (p-value)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Paired t-test",
+      "purpose": "Verification of statistical significance between the proposed semi-supervised model and the supervised baseline.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Significance threshold (p < 0.05)",
+      "purpose": "Determination of statistical significance for the paired t-test results.",
+      "type": "Significance threshold"
+    },
+    {
+      "method": "Mean and Standard Deviation",
+      "purpose": "Reporting of performance metrics (Dice, IoU, HD95) across all test samples to summarize central tendency and variability.",
+      "type": "Descriptive statistics"
+    },
+    {
+      "method": "Repetition of experiments (3 times)",
+      "purpose": "Ensuring reproducibility and robustness of the results.",
+      "type": "Experimental protocol"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Paired t-test",
+    "null_hypothesis": "There is no significant difference in the segmentation performance (e.g., Dice score, IoU) between the proposed semi-supervised model and the supervised baseline model.",
+    "alternative_hypothesis": "There is a significant difference in the segmentation performance between the proposed semi-supervised model and the supervised baseline model.",
+    "alpha": 0.05,
+    "interpretation": "Statistical significance was verified using a paired t-test with a significance threshold of p < 0.05 to confirm that the improvements in metrics (such as the 21% increment in IoU and 10.5% improvement in Dice score) were statistically significant compared to the supervised baseline."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018": {
+      "metric": "Dice Coefficient, Intersection over Union (IoU), 95th Percentile Hausdorff Distance (HD95)",
+      "models": {
+        "Proposed Semi-Supervised Model (Teacher-Student with Uncertainty Filtering and CRF Refinement)": {
+          "Dice": "0.74",
+          "IoU": "0.64",
+          "HD95": "Reduced by 33% compared to supervised baseline"
+        },
+        "Supervised U-Net Baseline (10% labelled data)": {
+          "Dice": "0.635 (inferred from ablation 'Teacher only' as baseline reference for 10% label context in ablation table, though text states 10.5% improvement over baseline)",
+          "IoU": "0.530 (inferred from ablation 'Teacher only' as baseline reference)",
+          "notes": "The paper states the proposed model achieved a 10.5% improvement in Dice and 21% increment in IoU over this baseline. The ablation study lists 'Teacher only (no SSL)' with Dice 0.635 and IoU 0.530. The text explicitly compares the final semi-supervised results to a 'supervised baseline' trained on the same limited data."
+        },
+        "Fully Supervised Model (100% labelled data)": {
+          "notes": "Performance described as 'comparable' to the proposed semi-supervised model (IoU 0.64, Dice 0.74)."
+        }
+      },
+      "notes": "The model was trained on 10% of the labelled data and 90% unlabelled data. Experiments were repeated 3 times. Statistical significance was verified using a paired t-test (p < 0.05)."
+    },
+    "HAM10000": {
+      "metric": "Dice Coefficient",
+      "models": {
+        "Proposed Semi-Supervised Model (Trained on ISIC 2018, Tested on HAM10000 without fine-tuning)": {
+          "Dice": "0.712"
+        }
+      },
+      "notes": "This result demonstrates cross-dataset generalization. The Dice score reduced marginally from 0.740 (on ISIC 2018) to 0.712 on HAM10000."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Teacher-Student U-Net framework",
+    "pretraining": "ResNet34 backbone pretrained on ImageNet",
+    "input_size": "256 x 256 pixels",
+    "architecture_details": {
+      "encoder": "ResNet34 backbone",
+      "decoder": "Mimics encoder with transposed convolutions for concatenation and unsampling",
+      "components": [
+        "Skip connections",
+        "ReLU activation",
+        "Batch Normalisation",
+        "Dropout (p=0.2)"
+      ],
+      "post_processing": "Dense Conditional Random Fields (CRF) for boundary refinement",
+      "uncertainty_filtering": "Entropy-based uncertainty estimation with threshold τ=0.2 to discard low-confidence pixels"
+    },
+    "training_details": {
+      "framework": "PyTorch 2.0",
+      "hardware": "NVIDIA A100 GPU with 40 GB memory",
+      "optimizer": "Adam (lr = 1×10⁻⁴, weight decay = 1×10⁻⁵)",
+      "epochs": 60,
+      "batch_size": 8,
+      "learning_rate_schedule": "Cosine annealing",
+      "early_stopping": "Based on validation Dice score",
+      "loss_function": "Hybrid loss linking Dice Loss and Binary Cross-Entropy (BCE) with α=0.5",
+      "data_augmentation": [
+        "Elastic deformations",
+        "Color jitter",
+        "Rotations",
+        "Random flips",
+        "Hair removal filters",
+        "Histogram equalization"
+      ],
+      "repetitions": 3
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "details": "Pixel-wise binary mask delineating skin lesions against the background; no specific classification head reported for the segmentation task"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Teacher-Student U-Net framework",
+    "Teacher U-Net model",
+    "Student U-Net model",
+    "U-Net",
+    "U-Net++",
+    "Attention U-Net",
+    "ResNet34",
+    "FixMatch",
+    "Mean Teacher",
+    "MixMatch",
+    "Vision Transformer",
+    "EfficientNet-B0"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 256 x 256 pixels for uniform resolution",
+    "Normalization of pixel values to the range [0,1]",
+    "Data augmentation using albumentations transformations including elastic deformations, color jitter, rotations, and random flips",
+    "Hair removal filters",
+    "Histogram equalization for contrast normalization and noise reduction"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Elastic deformations",
+      "details": "Applied via albumentations transformations to improve generalization under limited labelled data conditions."
+    },
+    {
+      "technique": "Color jitter",
+      "details": "Applied via albumentations transformations to improve generalization under limited labelled data conditions."
+    },
+    {
+      "technique": "Rotations",
+      "details": "Applied via albumentations transformations to improve generalization under limited labelled data conditions."
+    },
+    {
+      "technique": "Random flips",
+      "details": "Applied via albumentations transformations to improve generalization under limited labelled data conditions."
+    },
+    {
+      "technique": "Hair removal filters",
+      "details": "Integrated for contrast normalization and noise reduction."
+    },
+    {
+      "technique": "Histogram equalization",
+      "details": "Integrated for contrast normalization and noise reduction."
+    }
+  ],
+  "conclusions": [
+    "The proposed semi-supervised framework, utilizing a Teacher-Student U-Net architecture with entropy-based uncertainty filtering and Conditional Random Field (CRF) refinement, effectively addresses the scarcity of annotated medical images by leveraging unlabelled data.",
+    "The model achieved an Intersection over Union (IoU) of 0.64 and a Dice Coefficient of 0.74 on the ISIC 2018 dataset using only 10 percent of labelled data for training.",
+    "Performance with 10 percent labelled data was comparable to fully supervised training models trained on 100 percent of the annotations.",
+    "The inclusion of uncertainty filtering and CRF refinement provided significant incremental gains, with CRF refinement contributing the largest improvement (over 2.1 Dice score increase) by ensuring anatomically plausible and smoother lesion boundaries.",
+    "The approach demonstrated strong cross-dataset generalization, maintaining a high Dice score of 0.712 on the HAM10000 dataset without fine-tuning, indicating robust transferability.",
+    "Uncertainty filtering successfully decreased the impact of low-confidence pseudo-labels, preventing error reinforcement, while CRF post-processing sharpened lesion boundaries and corrected local inconsistencies.",
+    "The method offers a cost-effective solution to annotation limitations, permitting near-supervised accuracy with minimal manual labeling effort while maintaining diagnostic reliability."
+  ],
+  "important_remarks": [
+    "The study relies on a very small fraction of labelled data (10%) for training, which limits the direct comparison to fully supervised models trained on 100% of the data, although the authors claim comparable performance.",
+    "The HAM10000 dataset used for cross-dataset validation lacks ground truth segmentation masks; masks were constructed from expert annotations in previous research, which may introduce annotation inconsistencies or biases compared to the ISIC 2018 dataset.",
+    "The paper does not report standard deviations or confidence intervals for the primary metrics (IoU 0.64, Dice 0.74), limiting the assessment of result variability despite mentioning experiments were repeated 3 times.",
+    "The proposed method's performance is evaluated primarily on the ISIC 2018 dataset; while cross-dataset generalization is tested on HAM10000, the lack of fine-tuning on the target domain may overestimate real-world clinical robustness where domain shifts are common.",
+    "The study focuses on binary segmentation of 'skin lesions' generally rather than specific histological subtypes (e.g., melanoma vs. nevus), which may mask performance disparities across lesion classes with different visual characteristics.",
+    "The use of Conditional Random Field (CRF) post-processing adds computational complexity and inference time, which is not quantified in the paper but is a relevant consideration for clinical deployment efficiency.",
+    "The paper acknowledges that pseudo-labels from the Teacher network can be noisy due to low inter-class contrast and high intra-class variability in dermoscopic images, relying on entropy-based filtering to mitigate this, but the effectiveness depends heavily on the threshold (τ=0.2) selection.",
+    "The dataset split is described as random, which may not account for patient-level independence, potentially leading to data leakage if images from the same patient appear in both training and validation/test sets."
+  ]
+}

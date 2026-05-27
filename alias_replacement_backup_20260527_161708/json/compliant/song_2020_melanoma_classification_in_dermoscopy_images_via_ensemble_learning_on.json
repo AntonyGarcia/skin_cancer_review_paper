@@ -1,0 +1,458 @@
+{
+  "file_name": "song_2020_melanoma_classification_in_dermoscopy_images_via_ensemble_learning_on.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning methods, specifically an ensemble of five state-of-the-art Deep Convolutional Neural Networks (DCNNs) including Inception-v3, DenseNet169, ResNet50, Inception-ResNet-v2, and Xception, combined with a U-net segmentation network and Squeeze-Excitation blocks, to perform melanoma classification on dermoscopy images from the ISIC 2017 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel neural network integration model for melanoma classification using an ensemble of five DCNNs (Inception-v3, DenseNet169, ResNet50, Inception-ResNet-v2, Xception) and a U-net segmentation network. It details specific methods, implementation parameters (e.g., Adam optimizer, 100 epochs), and reports new performance results on the ISIC 2017 dataset, comparing them against existing methods. Although published in a conference proceedings (IEEE BIBM), it contains original research results rather than summarizing prior literature."
+  },
+  "title": "Melanoma Classification in Dermoscopy Images via Ensemble Learning on Deep Neural Network",
+  "authors": [
+    "Jie Song",
+    "Jiawei Li",
+    "Shiqiang Ma",
+    "Jijun Tang",
+    "Fei Guo"
+  ],
+  "doi": "10.1109/BIBM49941.2020.9313451",
+  "journal": "2020 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)",
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of automatic melanoma classification in dermoscopy images by proposing a novel ensemble learning model. The method utilizes a U-net segmentation network to crop lesions from original images, followed by feature extraction using five state-of-the-art Deep Convolutional Neural Networks (Inception-v3, DenseNet169, ResNet50, Inception-ResNet-v2, and Xception) enhanced with Squeeze-Excitation blocks. These features are integrated via a new neural network with local connections to maximize the advantages of different networks for each class. The model was evaluated on the ISIC 2017 challenge dataset, which contains 2750 dermoscopy images classified into benign nevi, seborrheic keratosis, and melanoma. The proposed ensemble method achieved an accuracy of 0.909 and an AUC of 0.911, outperforming individual networks and traditional ensemble methods. The results demonstrate that the proposed approach achieves performance comparable to the top-ranked methods in the ISIC 2017 challenge without using external training data.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "MM"
+      ],
+      "role": "Target class",
+      "details": "Primary target class for classification; malignant melanoma. Part of the ISIC 2017 dataset with 374 training, 30 validation, and 600 test images (total 1004 in dataset context, though paper states 2750 total images split into 2000/150/600 subsets)."
+    },
+    {
+      "lesion_type": "Benign Nevus",
+      "paper_terms": [
+        "benign nevi",
+        "BN",
+        "benign nevis"
+      ],
+      "role": "Target class",
+      "details": "Benign comparator class. Part of the ISIC 2017 dataset with 1372 training, 78 validation, and 600 test images (total 2050 in dataset context, though paper states 2750 total images split into 2000/150/600 subsets)."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "SK"
+      ],
+      "role": "Target class",
+      "details": "Benign comparator class. Part of the ISIC 2017 dataset with 254 training, 42 validation, and 600 test images (total 896 in dataset context, though paper states 2750 total images split into 2000/150/600 subsets)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories (benign nevi, seborrheic keratosis, melanoma)",
+        "primary": true,
+        "details": "The paper performs multi-class classification of dermoscopy images into three classes: benign nevi, seborrheic keratosis, and melanoma. It also addresses binary classification subtasks (melanoma vs. others, seborrheic keratosis vs. others) from the ISIC 2017 challenge. The model uses a softmax classifier to obtain prediction probabilities for class assignment."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017 Challenge Dataset",
+      "description": "A public dataset provided by the International Society for Digital Imaging of the Skin (ISIC) for the 2017 challenge. It contains dermoscopy images with ground-truth segmentation masks (binary masks) and diagnostic labels. The study utilized this dataset for multi-class classification (benign nevi, seborrheic keratosis, melanoma) and binary classification subtasks (melanoma vs. others, seborrheic keratosis vs. others).",
+      "classes_used": [
+        "Melanoma (MM)",
+        "Seborrheic Keratosis (SK)",
+        "Benign Nevi (BN)"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "Melanoma": {
+            "training": 374,
+            "validation": 30,
+            "testing": 117
+          },
+          "Seborrheic Keratosis": {
+            "training": 254,
+            "validation": 42,
+            "testing": 90
+          },
+          "Benign Nevi": {
+            "training": 1372,
+            "validation": 78,
+            "testing": 393
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the U-net segmentation network and the five base DCNNs (Inception-v3, DenseNet169, ResNet50, Inception-ResNet-v2, Xception) with data augmentation (rotation, flip, translation).",
+        "validation": "Used for validation during model development.",
+        "testing": "Used for final evaluation of the ensemble model's performance (accuracy, precision, recall, F1 score, AUC).",
+        "other": "Used for binary classification subtasks (melanoma vs. others, seborrheic keratosis vs. others) and comparison with top-ranked methods from the ISIC 2017 challenge."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy (ACC)",
+    "precision",
+    "recall",
+    "f1 score",
+    "area under curve (ROC) (AUC)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Early stopping",
+      "purpose": "To prevent overfitting during model training.",
+      "type": "Regularization technique"
+    },
+    {
+      "method": "Data augmentation",
+      "purpose": "To increase training data diversity and prevent overfitting.",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "Averaging ensemble",
+      "purpose": "To combine results from multiple networks for comparison against the proposed method.",
+      "type": "Ensemble method"
+    },
+    {
+      "method": "Comparison with machine learning classifiers (SVC, Random Forest, ExtraTree, KNN, GBDT)",
+      "purpose": "To evaluate the performance of the proposed deep learning ensemble method against traditional machine learning methods.",
+      "type": "Baseline comparison"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics (accuracy, precision, recall, F1 score, AUC) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017 Challenge Dataset": {
+      "multi_class_classification": {
+        "metrics": [
+          "ACC",
+          "precision",
+          "recall",
+          "f1 score",
+          "AUC"
+        ],
+        "models": {
+          "inception-v3": {
+            "ACC": "0.792",
+            "precision": "0.634",
+            "recall": "0.688",
+            "f1 score": "0.659",
+            "AUC": "0.883"
+          },
+          "densenet169": {
+            "ACC": "0.8",
+            "precision": "0.739",
+            "recall": "0.727",
+            "f1 score": "0.722",
+            "AUC": "0.881"
+          },
+          "resnet50": {
+            "ACC": "0.762",
+            "precision": "0.676",
+            "recall": "0.678",
+            "f1 score": "0.672",
+            "AUC": "0.864"
+          },
+          "inception-resnet-v2": {
+            "ACC": "0.8",
+            "precision": "0.736",
+            "recall": "0.726",
+            "f1 score": "0.725",
+            "AUC": "0.873"
+          },
+          "xception": {
+            "ACC": "0.81",
+            "precision": "0.75",
+            "recall": "0.748",
+            "f1 score": "0.748",
+            "AUC": "0.896"
+          },
+          "Average Ensemble": {
+            "ACC": "0.793",
+            "precision": "0.724",
+            "recall": "0.724",
+            "f1 score": "0.719",
+            "AUC": "0.880"
+          },
+          "Proposed Ensemble (Local Connection)": {
+            "ACC": "0.851",
+            "precision": "0.769",
+            "recall": "0.715",
+            "f1 score": "0.741",
+            "AUC": "0.913"
+          },
+          "Without Segmentation (inception-v3 baseline)": {
+            "ACC": "0.698",
+            "precision": "0.598",
+            "recall": "0.622",
+            "f1 score": "0.592",
+            "AUC": "0.781"
+          },
+          "With Segmentation (inception-v3 baseline)": {
+            "ACC": "0.791",
+            "precision": "0.634",
+            "recall": "0.688",
+            "f1 score": "0.659",
+            "AUC": "0.883"
+          }
+        },
+        "notes": "The proposed ensemble method achieved a 2 percent improvement over the best single network. Segmentation improved performance compared to using original images directly."
+      },
+      "binary_classification": {
+        "metrics": [
+          "ACC",
+          "precision",
+          "recall",
+          "f1 score",
+          "AUC"
+        ],
+        "models": {
+          "inception-v3": {
+            "ACC": "0.885",
+            "precision": "0.806",
+            "recall": "0.781",
+            "f1 score": "0.791",
+            "AUC": "0.883"
+          },
+          "densenet169": {
+            "ACC": "0.893",
+            "precision": "0.827",
+            "recall": "0.783",
+            "f1 score": "0.802",
+            "AUC": "0.882"
+          },
+          "resnet50": {
+            "ACC": "0.88",
+            "precision": "0.792",
+            "recall": "0.788",
+            "f1 score": "0.789",
+            "AUC": "0.882"
+          },
+          "inception-resnet-v2": {
+            "ACC": "0.89",
+            "precision": "0.807",
+            "recall": "0.814",
+            "f1 score": "0.809",
+            "AUC": "0.894"
+          },
+          "xception": {
+            "ACC": "0.891",
+            "precision": "0.814",
+            "recall": "0.811",
+            "f1 score": "0.812",
+            "AUC": "0.896"
+          },
+          "SVC": {
+            "ACC": "0.911",
+            "precision": "0.798",
+            "recall": "0.66",
+            "f1 score": "0.719",
+            "AUC": "0.813"
+          },
+          "Random forest": {
+            "ACC": "0.912",
+            "precision": "0.802",
+            "recall": "0.664",
+            "f1 score": "0.721",
+            "AUC": "0.816"
+          },
+          "Extree": {
+            "ACC": "0.911",
+            "precision": "0.805",
+            "recall": "0.65",
+            "f1 score": "0.716",
+            "AUC": "0.809"
+          },
+          "KNN": {
+            "ACC": "0.908",
+            "precision": "0.782",
+            "recall": "0.657",
+            "f1 score": "0.709",
+            "AUC": "0.81"
+          },
+          "GBDT": {
+            "ACC": "0.91",
+            "precision": "0.808",
+            "recall": "0.644",
+            "f1 score": "0.71",
+            "AUC": "0.807"
+          },
+          "Proposed Ensemble": {
+            "ACC": "0.909",
+            "precision": "0.859",
+            "recall": "0.808",
+            "f1 score": "0.828",
+            "AUC": "0.911"
+          }
+        },
+        "notes": "The proposed ensemble method's AUC metric was 1 percent better than the best network. Other metrics were significantly better than traditional machine learning methods (SVC, Random Forest, etc.)."
+      },
+      "comparison_with_top_isic2017_methods": {
+        "metrics": [
+          "ACC",
+          "precision",
+          "recall",
+          "f1 score",
+          "AUC"
+        ],
+        "models": {
+          "Top1": {
+            "ACC": "0.816",
+            "precision": "0.748",
+            "recall": "0.856",
+            "f1 score": "0.851",
+            "AUC": "0.911"
+          },
+          "Top2": {
+            "ACC": "0.849",
+            "precision": "0.747",
+            "recall": "0.140",
+            "f1 score": "0.236",
+            "AUC": "0.910"
+          },
+          "Top3": {
+            "ACC": "0.883",
+            "precision": "0.752",
+            "recall": "0.451",
+            "f1 score": "0.564",
+            "AUC": "0.908"
+          },
+          "Top4": {
+            "ACC": "0.888",
+            "precision": "0.732",
+            "recall": "0.508",
+            "f1 score": "0.600",
+            "AUC": "0.896"
+          },
+          "Top5": {
+            "ACC": "0.873",
+            "precision": "0.665",
+            "recall": "0.568",
+            "f1 score": "0.613",
+            "AUC": "0.886"
+          },
+          "Ours": {
+            "ACC": "0.909",
+            "precision": "0.859",
+            "recall": "0.808",
+            "f1 score": "0.828",
+            "AUC": "0.911"
+          }
+        },
+        "notes": "The proposed method achieved the same AUC as the champion (Top1) and the highest ACC and precision without using external training data."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Ensemble of five Deep Convolutional Neural Networks (Inception-v3, DenseNet169, ResNet50, Inception-ResNet-v2, Xception) with Squeeze-Excitation (SE) blocks, integrated via a neural network with local connected layers and a softmax classifier. Preceded by a U-net segmentation network for lesion cropping.",
+    "pretraining": "The five DCNNs were pre-trained on ImageNet.",
+    "input_size": "224x224 pixels (images resized after segmentation).",
+    "architecture_details": {
+      "segmentation_network": "U-net (end-to-end deep network with contraction and expansive paths, 3x3 convolution layers, ReLU, max-pooling, deconvolution, and 1x1 convolution).",
+      "base_models": [
+        "Inception-v3",
+        "DenseNet169",
+        "ResNet50",
+        "Inception-ResNet-v2",
+        "Xception"
+      ],
+      "feature_extraction_modifications": "Squeeze-Excitation (SE) block added after each base network to standardize features, followed by a 128-dimension fully connected layer to generate the final feature vector.",
+      "integration_network": "Neural network consisting of two local connected layers and a softmax layer. Local connected layers act on different patches of the input to extract features for each class separately."
+    },
+    "training_details": {
+      "framework": "Keras",
+      "hardware": "GTX2080 GPU",
+      "optimizer": "Adam",
+      "learning_rate": 0.0001,
+      "epochs": 100,
+      "regularization": "Early stopping with patience of 10 epochs",
+      "data_augmentation": "Rotation, flip, translation"
+    },
+    "classification_or_output_head": {
+      "type": "Softmax classifier",
+      "details": "Used to obtain prediction probabilities for class assignment (benign nevi, seborrheic keratosis, melanoma)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-net segmentation network",
+    "Inception-v3",
+    "DenseNet169",
+    "ResNet50",
+    "Inception-ResNet-v2",
+    "Xception",
+    "Proposed Ensemble (Local Connection)",
+    "Average Ensemble",
+    "SVC",
+    "Random Forest",
+    "ExtraTree",
+    "KNN",
+    "GBDT",
+    "Top1 (ISIC 2017 Challenge)",
+    "Top2 (ISIC 2017 Challenge)",
+    "Top3 (ISIC 2017 Challenge)",
+    "Top4 (ISIC 2017 Challenge)",
+    "Top5 (ISIC 2017 Challenge)"
+  ],
+  "preprocessing_techniques": [
+    "U-net segmentation network used to generate binary masks for skin lesion segmentation",
+    "Cropping of original dermoscopy images using generated segmentation masks to isolate lesions",
+    "Resizing of cropped images to a fixed size of 224x224 pixels",
+    "Data augmentation including rotation (180 degrees), horizontal and vertical flipping, and translation (moving image height and width by 0.1)",
+    "Removal of interference factors such as artificial rulers via segmentation"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Rotation transform with 180 degrees."
+    },
+    {
+      "technique": "Flip",
+      "details": "Horizontal and vertical flipping of images."
+    },
+    {
+      "technique": "Translation",
+      "details": "Moving the image height and width direction by 0.1."
+    },
+    {
+      "technique": "Sample Generation",
+      "details": "Each original image generates five new samples using the above augmentation methods."
+    }
+  ],
+  "conclusions": [
+    "The proposed ensemble learning model, which integrates five state-of-the-art Deep Convolutional Neural Networks (Inception-v3, DenseNet169, ResNet50, Inception-ResNet-v2, and Xception) with Squeeze-Excitation blocks and a local connection integration network, achieves superior performance in melanoma classification compared to individual networks and traditional averaging ensemble methods.",
+    "The use of a U-net segmentation network to crop lesions from original dermoscopy images significantly improves classification performance by removing interference factors such as artificial rulers and normal skin, compared to using original images directly.",
+    "The proposed method achieved an accuracy of 0.909 and an AUC of 0.911 on the ISIC 2017 challenge dataset, outperforming traditional machine learning classifiers (SVC, Random Forest, ExtraTree, KNN, GBDT) in metrics such as precision, recall, and F1 score.",
+    "The proposed ensemble method achieved performance comparable to the top-ranked methods in the ISIC 2017 challenge, including matching the champion's AUC score, without using external training data.",
+    "Local connected layers in the integration network allow for class-specific feature extraction, maximizing the advantages of different base networks for various classes, which leads to better integration results than simple averaging."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC 2017 dataset for both training and evaluation, with no external validation on independent datasets, limiting generalizability assessment.",
+    "The model achieved performance comparable to top ISIC 2017 challenge methods without using external training data, which is a notable strength given the typical reliance on large external datasets in this field.",
+    "The paper does not report any statistical significance testing (e.g., p-values) for performance comparisons, relying solely on descriptive metrics.",
+    "The dataset exhibits class imbalance, particularly with Benign Nevi (1372 training images) significantly outnumbering Melanoma (374 training images) and Seborrheic Keratosis (254 training images).",
+    "The method uses ground-truth segmentation masks provided by the ISIC 2017 challenge for cropping; performance may be overestimated if real-world deployment requires automated segmentation rather than ground-truth masks.",
+    "The paper is a conference proceeding (IEEE BIBM 2020) rather than a peer-reviewed journal article, which may imply less rigorous scrutiny compared to journal publications.",
+    "The model was trained on a single GPU (GTX2080) for 100 epochs; computational efficiency and scalability are not discussed."
+  ]
+}

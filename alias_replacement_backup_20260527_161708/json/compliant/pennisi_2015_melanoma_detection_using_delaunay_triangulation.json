@@ -1,0 +1,302 @@
+{
+  "file_name": "pennisi_2015_melanoma_detection_using_delaunay_triangulation.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a fully-automatic algorithm for skin lesion segmentation in dermoscopic images and employs four machine learning classifiers (Adaboost, Naive Bayes, K-Nearest Neighbors, and Random Trees) to classify melanoma images based on geometrical and color features extracted from the segmentation masks."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, including a fully-automatic algorithm for skin lesion segmentation using Delaunay triangulation and the application of machine learning classifiers (Adaboost, Naive Bayes, KNN) on the PH2 database. It reports quantitative results (sensitivity, specificity, accuracy) and new findings regarding segmentation performance on benign versus malignant lesions, rather than summarizing prior literature."
+  },
+  "title": "Melanoma Detection Using Delaunay Triangulation",
+  "authors": [
+    "A. Pennisi",
+    "D. D. Bloisi",
+    "D. Nardi",
+    "A. R. Giampetruzzi",
+    "C. Mondino",
+    "A. Facchiano"
+  ],
+  "doi": "10.1109/ICTAI.2015.117",
+  "journal": "2015 IEEE 27th International Conference on Tools with Artificial Intelligence",
+  "year": 2015,
+  "article_type": "Conference paper",
+  "brief_summary": "This study presents a fully-automatic algorithm for skin lesion segmentation in dermoscopic images using Delaunay triangulation and edge detection to generate binary masks. The method was evaluated on the publicly available PH2 database, which contains 200 images of benign (common and atypical nevi) and malignant (melanoma) lesions. The segmentation results demonstrated high accuracy for benign lesions but significantly decreased performance when processing melanoma images. To leverage this differential behavior, the authors extracted geometrical and color features from the segmentation masks and applied machine learning classifiers, including Naive Bayes, K-Nearest Neighbors, and Random Trees. The Naive Bayes classifier achieved promising preliminary results with 89.0% sensitivity and 89.7% specificity for melanoma detection. The findings suggest that the proposed segmentation approach can serve as a suitable tool for developing computer-aided diagnosis systems for melanoma.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant lesions",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "Malignant lesions studied in the PH2 database (40 images). The paper focuses on detecting melanoma using segmentation accuracy differences and machine learning classifiers."
+    },
+    {
+      "lesion_type": "Common Nevus",
+      "paper_terms": [
+        "common nevi",
+        "benign lesions"
+      ],
+      "role": "Comparator class",
+      "details": "Benign lesions studied in the PH2 database (80 images). Used as a comparator to demonstrate higher segmentation accuracy compared to melanoma."
+    },
+    {
+      "lesion_type": "Atypical Nevus",
+      "paper_terms": [
+        "atypical moles",
+        "atypical nevi",
+        "dysplastic nevi",
+        "dysplastic"
+      ],
+      "role": "Comparator class",
+      "details": "Benign lesions studied in the PH2 database (80 images). Grouped with common nevi as benign lesions for segmentation and classification analysis."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (Melanoma vs. Benign lesions)",
+        "primary": true,
+        "details": "The paper employs machine learning classifiers (Adaboost, Naive Bayes, K-Nearest Neighbors, and Random Trees) to classify dermoscopic images as either melanoma (malignant) or benign (common and atypical nevi) based on geometrical and color features extracted from segmentation masks. The task is binary classification, evaluated using sensitivity, specificity, precision, and F-measure."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2 database",
+      "description": "A publicly available dermoscopic image database created by Universidade do Porto, Tecnico Lisboa in collaboration with Hospital Pedro Hispano in Matosinhos, Portugal. It contains 200 RGB dermoscopic images (768x574 pixels, 20x magnification) with ground truth annotations including binary masks, clinical/histological diagnosis, and dermoscopic criteria.",
+      "classes_used": [
+        "Common nevi (benign)",
+        "Atypical nevi / Dysplastic nevi (benign)",
+        "Melanoma (malignant)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Common nevi": 80,
+          "Atypical nevi": 80,
+          "Melanoma": 40
+        }
+      },
+      "use": {
+        "training": "Used for training machine learning classifiers (Adaboost, Naive Bayes, KNN, Random Trees) via a leave-one-out approach where all images except one were used for training.",
+        "validation": null,
+        "testing": "Used for testing the segmentation algorithm and the machine learning classifiers via a leave-one-out approach where one image was held out for testing in each iteration.",
+        "other": "Used for quantitative experimental validation of the segmentation method and classification performance."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Accuracy",
+    "F-measure",
+    "Precision"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Leave-one-out cross-validation",
+      "purpose": "To train and test the machine learning classifiers (Adaboost, Naive Bayes, KNN, Random Trees) for melanoma detection, ensuring each image in the PH2 database was used exactly once as a test instance.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Automatic parameter selection via cross-validation",
+      "purpose": "To determine the optimal value for the parameter K in the K-Nearest Neighbors (KNN) classifier by maximizing performance metrics.",
+      "type": "Hyperparameter tuning"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It reported descriptive statistics (sensitivity, specificity, accuracy, F-measure) and qualitative observations of performance differences (e.g., 'significantly decreases', 'strong decrease') without statistical validation."
+  },
+  "results_obtained_in_each_dataset": {
+    "PH2_database": {
+      "segmentation_results": {
+        "metric": "Sensitivity, Specificity, Accuracy, F-measure",
+        "models": {
+          "Proposed Segmentation Algorithm (All Images)": {
+            "Sensitivity": "0.8024",
+            "Specificity": "0.9722",
+            "Accuracy": "0.8966",
+            "F-measure": "0.8257"
+          },
+          "Proposed Segmentation Algorithm (Common Nevi Only)": {
+            "Sensitivity": "0.8717",
+            "Specificity": "0.9760",
+            "Accuracy": "0.9477",
+            "F-measure": "0.8690"
+          },
+          "Proposed Segmentation Algorithm (Atypical Moles Only)": {
+            "Sensitivity": "0.8640",
+            "Specificity": "0.9733",
+            "Accuracy": "0.9271",
+            "F-measure": "0.8689"
+          },
+          "Proposed Segmentation Algorithm (Melanomas Only)": {
+            "Sensitivity": "0.5404",
+            "Specificity": "0.9597",
+            "Accuracy": "0.6615",
+            "F-measure": "0.6524"
+          }
+        },
+        "notes": "The segmentation accuracy is extremely high for benign lesions (common and atypical nevi) but significantly decreases for malignant lesions (melanoma)."
+      },
+      "classification_results": {
+        "metric": "Sensitivity, Specificity, Precision, F-measure",
+        "models": {
+          "Adaboost": {
+            "Nevus_Sensitivity": "0.963",
+            "Nevus_Specificity": "0.825",
+            "Nevus_Precision": "0.963",
+            "Nevus_F-Measure": "0.960",
+            "Melanoma_Sensitivity": "0.825",
+            "Melanoma_Specificity": "0.962",
+            "Melanoma_Precision": "0.846",
+            "Melanoma_F-Measure": "0.835",
+            "Weighted_Avg_Sensitivity": "0.935",
+            "Weighted_Avg_Specificity": "0.852",
+            "Weighted_Avg_Precision": "0.934",
+            "Weighted_Avg_F-Measure": "0.935"
+          },
+          "Naive_Bayes": {
+            "Nevus_Sensitivity": "0.888",
+            "Nevus_Specificity": "0.900",
+            "Nevus_Precision": "0.973",
+            "Nevus_F-Measure": "0.928",
+            "Melanoma_Sensitivity": "0.900",
+            "Melanoma_Specificity": "0.887",
+            "Melanoma_Precision": "0.667",
+            "Melanoma_F-Measure": "0.766",
+            "Weighted_Avg_Sensitivity": "0.890",
+            "Weighted_Avg_Specificity": "0.897",
+            "Weighted_Avg_Precision": "0.911",
+            "Weighted_Avg_F-Measure": "0.896"
+          },
+          "KNN": {
+            "Nevus_Sensitivity": "0.938",
+            "Nevus_Specificity": "0.650",
+            "Nevus_Precision": "0.915",
+            "Nevus_F-Measure": "0.926",
+            "Melanoma_Sensitivity": "0.650",
+            "Melanoma_Specificity": "0.937",
+            "Melanoma_Precision": "0.722",
+            "Melanoma_F-Measure": "0.684",
+            "Weighted_Avg_Sensitivity": "0.880",
+            "Weighted_Avg_Specificity": "0.707",
+            "Weighted_Avg_Precision": "0.876",
+            "Weighted_Avg_F-Measure": "0.878"
+          },
+          "Random_Trees": {
+            "Nevus_Sensitivity": "0.913",
+            "Nevus_Specificity": "0.675",
+            "Nevus_Precision": "0.918",
+            "Nevus_F-Measure": "0.915",
+            "Melanoma_Sensitivity": "0.675",
+            "Melanoma_Specificity": "0.912",
+            "Melanoma_Precision": "0.659",
+            "Melanoma_F-Measure": "0.667",
+            "Weighted_Avg_Sensitivity": "0.865",
+            "Weighted_Avg_Specificity": "0.722",
+            "Weighted_Avg_Precision": "0.866",
+            "Weighted_Avg_F-Measure": "0.866"
+          }
+        },
+        "notes": "Classifiers were trained using geometrical features (Convex Area, Filled Area, Solidity) and color histograms (H, S, V). KNN parameter K was selected via cross-validation. Naive Bayes achieved 89.0% sensitivity and 89.7% specificity for melanoma detection."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Four machine learning classifiers: Adaboost, Naive Bayes, K-Nearest Neighbors (KNN), and Random Trees (RT). Implemented using the Weka library.",
+    "pretraining": "null",
+    "input_size": "null (Input consists of geometrical features extracted from binary masks and color histograms)",
+    "architecture_details": {
+      "segmentation_method": "Fully-automatic algorithm using Delaunay triangulation and edge detection to generate binary masks. Skin detection and lesion segmentation processes are merged using probabilistic Hough transform (OpenCV HoughCircles function).",
+      "feature_extraction": {
+        "geometrical_features": [
+          "Convex Area",
+          "Filled Area",
+          "Solidity"
+        ],
+        "color_features": [
+          "Normalized Hue (H) histogram (255 bins)",
+          "Value (V) histogram (255 bins)",
+          "Saturation (S) histogram (255 bins)"
+        ]
+      },
+      "classifier_implementation": "Weka machine learning library (University of Waikato)",
+      "classifier_parameters": {
+        "KNN": {
+          "parameter_K": "Automatically selected via cross-validation to maximize performance"
+        }
+      }
+    },
+    "training_details": {
+      "training_strategy": "Leave-one-out cross-validation",
+      "optimizer": "null",
+      "loss_function": "null",
+      "hyperparameters": "K for KNN (selected via cross-validation)",
+      "training_schedule": "null"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (Melanoma vs. Benign lesions)",
+      "output_metrics": [
+        "Sensitivity",
+        "Specificity",
+        "Precision",
+        "F-measure"
+      ]
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Adaboost",
+    "Naive Bayes",
+    "K-Nearest Neighbors (KNN)",
+    "Random Trees (RT)"
+  ],
+  "preprocessing_techniques": [
+    "Artifact removal: Morphological closing with an 11x11 kernel (elements eij = 1) to remove outlier pixels and hair.",
+    "Image equalization: Application of OpenCV equalizeHist function on the Y channel to highlight lesion borders.",
+    "Noise removal: Morphological closing for noise removal prior to segmentation.",
+    "Color space conversion: Conversion to YCrCb color space for skin detection thresholding; conversion to HSV color space for normalization and further thresholding.",
+    "Smoothing: Gaussian blur filter with kernel size σ = 5 applied to the equalized RGB image.",
+    "Grayscale conversion: Conversion of the smoothed RGB image to grayscale for edge detection.",
+    "Edge detection: Canny edge extraction with min parameter 0.03 and max parameter 2.0.",
+    "Vectorization: Conversion of detected edges into connected line segments.",
+    "Binary mask generation: Creation of binary masks (SB and LB) by assigning value 255 to pixels with HSV values different from <0, 0, 0>.",
+    "Merging: Pixel-wise logical AND of skin detection (SB) and lesion segmentation (LB) masks, with fallback logic using probabilistic Hough transform (HoughCircles) if one mask fails to detect a circle."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed fully-automatic segmentation algorithm based on Delaunay triangulation achieves high accuracy for benign lesions (common and atypical nevi) but significantly decreases in precision and accuracy when processing malignant lesions (melanoma).",
+    "The differential segmentation behavior, specifically the under-segmentation of melanoma images, can be leveraged as a feature for classification purposes.",
+    "Machine learning classifiers (Adaboost, Naive Bayes, K-Nearest Neighbors, and Random Trees) trained on geometrical and color features extracted from the segmentation masks demonstrated promising preliminary results for melanoma detection.",
+    "The Naive Bayes classifier achieved a sensitivity of 89.0% and a specificity of 89.7% for melanoma detection.",
+    "The Adaboost classifier achieved a weighted average sensitivity of 93.5% and specificity of 85.2%.",
+    "The K-Nearest Neighbors (KNN) and Random Trees (RT) classifiers performed comparably but were influenced by feature distribution, yielding lower weighted average sensitivities (88.0% and 86.5%, respectively) compared to Adaboost and Naive Bayes.",
+    "The study concludes that the described method is a suitable tool for the development of computer-aided diagnosis (CAD) support systems for melanoma detection."
+  ],
+  "important_remarks": [
+    "The study is limited to a single, small dataset (PH2 database with only 200 images), which raises concerns about generalizability and potential dataset bias.",
+    "The segmentation algorithm exhibits a significant performance bias: it achieves high accuracy on benign lesions (common and atypical nevi) but significantly under-segments malignant lesions (melanoma), with accuracy dropping to 0.6615.",
+    "The classification method leverages this segmentation failure (under-segmentation of melanomas) as a feature, rather than correcting it, which is a novel but potentially fragile approach dependent on consistent segmentation errors.",
+    "No external validation was performed; results are confined to the PH2 database, limiting the assessment of clinical relevance or robustness across different imaging devices or populations.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals, relying instead on descriptive metrics and qualitative observations of performance differences.",
+    "The study is labeled as 'preliminary results' and explicitly states the method is 'not suitable for diagnostic applications' in its current form, indicating weak evidence for immediate clinical deployment.",
+    "Data leakage risks are mitigated by the use of leave-one-out cross-validation, but the small sample size (40 melanoma images) makes the performance estimates (e.g., Naive Bayes sensitivity of 90.0%) potentially unstable.",
+    "The feature set is minimal, using only three geometrical features (Convex Area, Filled Area, Solidity) and three color histograms, which may limit the classifier's ability to capture complex lesion characteristics compared to more advanced deep learning approaches."
+  ]
+}

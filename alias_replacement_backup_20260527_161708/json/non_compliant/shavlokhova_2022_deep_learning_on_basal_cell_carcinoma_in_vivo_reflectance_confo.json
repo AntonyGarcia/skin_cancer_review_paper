@@ -1,0 +1,238 @@
+{
+  "file_name": "shavlokhova_2022_deep_learning_on_basal_cell_carcinoma_in_vivo_reflectance_confo.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a deep learning algorithm, specifically a MobileNet convolutional neural network, to detect and classify basal cell carcinoma (BCC) regions in in vivo reflectance confocal microscopy (RCM) images. The model was trained on annotated images to perform pixel-level tissue classification for automated wound margin assessment."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving a preliminary feasibility study where a deep learning algorithm (MobileNet) was trained and validated on in vivo reflectance confocal microscopy images from 62 patients with basal cell carcinoma. It includes specific sections for Patients and Methods, Results (reporting sensitivity and specificity metrics), and Conclusion, indicating it is an original research study rather than a review."
+  },
+  "title": "Deep Learning on Basal Cell Carcinoma In Vivo Reflectance Confocal Microscopy Data",
+  "authors": [
+    "Veronika Shavlokhova",
+    "Michael Vollmer",
+    "Patrick Gholam",
+    "Babak Saravi",
+    "Andreas Vollmer",
+    "Jürgen Hoffmann",
+    "Michael Engel",
+    "Christian Freudlsperger"
+  ],
+  "doi": "10.3390/jpm12091471",
+  "journal": "Journal of Personalized Medicine",
+  "year": 2022,
+  "article_type": "Article",
+  "brief_summary": "This study investigated the feasibility of using a MobileNet convolutional neural network to detect basal cell carcinoma (BCC) regions in in vivo reflectance confocal microscopy (RCM) images for intraoperative wound margin assessment. The research included 62 patients with histologically confirmed BCC in the head and neck region, utilizing approximately 382 annotated images for model training and validation. The deep learning model was evaluated using 14-fold cross-validation to classify pixel-level tissue structures as cancerous or noncancerous. The primary results demonstrated a specificity of 85% and a sensitivity of 46% in detecting BCC regions. The authors concluded that while the automated detection shows potential, the limited sensitivity and small dataset size highlight the need for larger multicenter studies to improve predictability.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC",
+        "malignant areas",
+        "cancerous regions",
+        "tumor cells",
+        "malignant pixels"
+      ],
+      "role": "Target class",
+      "details": "The primary target of the study. The dataset consisted of 62 patients with histologically confirmed BCC. Subtypes included nodular BCC (69%), superficial/plaque/trunk skin BCC (22%), sclerosing/morpheaform/infiltrative BCC (4%), infundibulocystic BCC (3%), and pigmented BCC (1%). The model was trained to detect BCC regions at the pixel level."
+    },
+    {
+      "lesion_type": "Noncancerous tissue / Healthy skin",
+      "paper_terms": [
+        "noncancerous",
+        "non-SCC",
+        "healthy noncancerous regions",
+        "healthy tissue",
+        "stromal tissue",
+        "normal ... skin lesions"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class (class 0) in the binary classification task to distinguish from cancerous regions. The model achieved a specificity of 85% in detecting these regions."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanomas"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the Introduction as a condition that shares clinical appearance with nodular lesions and is distinguished from BCC and dermal naevi. Not included in the study's dataset or experiments."
+    },
+    {
+      "lesion_type": "Dermal naevi",
+      "paper_terms": [
+        "dermal naevi"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the Introduction as a condition that shares clinical appearance with nodular lesions and is distinguished from BCC and melanoma. Not included in the study's dataset or experiments."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma",
+      "paper_terms": [
+        "SCC"
+      ],
+      "role": "Mentioned only / Potential error in figure captions",
+      "details": "The term 'SCC' appears in the captions for Figures 6, 7, and 8 (e.g., 'former represents SCC and the latter, non-SCC'). However, the study explicitly states it investigated BCC, and the patient cohort consisted of BCC patients. This appears to be a labeling inconsistency in the figure captions rather than a studied class, as the text consistently refers to BCC and cancerous/noncancerous regions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Pixel-level tissue classification (malignant vs. noncancerous/healthy)",
+        "primary": true,
+        "details": "The study performed binary classification of 256x256 pixel patches from in vivo RCM images as malignant (cancerous) or healthy (noncancerous). The model (MobileNet) was trained to classify patches based on whether more than 50% of the area was annotated as cancer. The primary evaluation metrics were sensitivity (46%) and specificity (85%) for detecting BCC regions. Additionally, an expanded architecture was used to predict heatmaps which were converted into segmentation masks for pixel-wise comparison with ground truth labels, but the core task defined by the metrics and patch-level processing is classification."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Heidelberg University Hospital BCC RCM Dataset",
+      "description": "A private, single-institution dataset collected from patients with histologically confirmed basal cell carcinoma (BCC) in the head and neck region at the Department of Oral and Maxillofacial Surgery, University Hospital Heidelberg, between September 2019 and November 2020. Data was acquired using the RCM Vivascope 3000 device. The dataset consists of 37 stacks containing 385 slices from 62 patients, which were manually annotated to generate 24,448 image patches (256x256 pixels) for model training and testing.",
+      "classes_used": [
+        "Cancerous (BCC)",
+        "Noncancerous (Healthy/Normal)"
+      ],
+      "counts": {
+        "total": 24448,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Cancerous": 5849,
+          "Noncancerous": 18599
+        }
+      },
+      "use": {
+        "training": "Used for training the MobileNet convolutional neural network via 14-fold cross-validation (13 folds used for training in each iteration).",
+        "validation": "Used for validation via 14-fold cross-validation (1 fold used for validation in each iteration).",
+        "testing": "Used for testing via 14-fold cross-validation (the validation fold in each iteration served as the test set for that fold).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "sensitivity",
+    "specificity",
+    "normalized confusion matrix"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "k-fold cross-validation",
+      "purpose": "To split the dataset into training and testing sets for model evaluation, specifically using 14 folds where 13 were used for training and 1 for validation/testing in each iteration.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Confusion matrix",
+      "purpose": "To compute sensitivity and specificity metrics at the pixel level by calculating true positives, false positives, true negatives, and false negatives.",
+      "type": "Metric calculation"
+    },
+    {
+      "method": "Sensitivity and Specificity",
+      "purpose": "To evaluate the model's performance in detecting malignant pixels (sensitivity) and healthy pixels (specificity) against ground truth labels.",
+      "type": "Performance metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using sensitivity (46%) and specificity (85%) derived from a confusion matrix via 14-fold cross-validation."
+  },
+  "results_obtained_in_each_dataset": {
+    "Heidelberg University Hospital BCC RCM Dataset": {
+      "metric": [
+        "sensitivity",
+        "specificity"
+      ],
+      "models": {
+        "MobileNet": {
+          "sensitivity": "46%",
+          "specificity": "85%"
+        }
+      },
+      "notes": "The study utilized a 14-fold cross-validation approach. The model was trained on 24,448 image patches (256x256 pixels) derived from 62 patients. The primary quantitative results reported in the abstract and results section are a sensitivity of 46% and a specificity of 85% for detecting BCC regions. The paper notes that these results reveal the potential and limitations of automated detection and highlights the need for larger studies to improve predictability. Visual examples in Figures 5-8 describe specific cases as 'average-performing' or 'better-performing' where lesions were predicted correctly, although not always in their entirety, but no specific per-fold or per-case numerical metrics are provided beyond the aggregate sensitivity and specificity."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MobileNet",
+    "pretraining": null,
+    "input_size": "256x256 pixels",
+    "architecture_details": {
+      "backbone": "MobileNet convolutional neural network",
+      "key_feature": "Depthwise separated convolutions",
+      "expanded_architecture": "Output after convolutional layers (32x32x512) processed with average pooling (7.7 kernel, 1.1 stride, same padding), followed by a fully connected layer transformed to a convolutional layer with softmax activation (two filters of size 512). The resulting image was upsampled by a factor of 32.",
+      "evaluation_method": "Sliding window manner on entire in vivo RCM images (1000x1000 pixels)"
+    },
+    "training_details": {
+      "optimizer": "Adam (adaptive moment estimation)",
+      "loss_function": "Cross-entropy loss",
+      "epochs": 20,
+      "learning_rate": "1x10^-5",
+      "data_augmentation": [
+        "Rotation of ±30 degrees",
+        "Zooming (80–120%)",
+        "Horizontal flipping"
+      ],
+      "validation_strategy": "14-fold cross-validation (13 folds for training, 1 fold for validation/testing per iteration)",
+      "software": "Tensorflow and Scikit-Learn (Python)"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (malignant vs. noncancerous/healthy)",
+      "activation": "Softmax activation with two filters",
+      "patch_labeling_rule": "Patch considered malignant if >50% of the 256x256-pixel area was annotated as cancer"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MobileNet"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation applied as additional preprocessing steps: rotation of ±30 degrees, zooming (80–120%), and horizontal flipping.",
+    "Image resizing to 256x256 pixels for input patches.",
+    "Sliding window application on entire in vivo RCM images (1000x1000 pixels) during evaluation.",
+    "Image size expansion by mirroring 24 pixels along the entire edge to fit the expanded model.",
+    "Gaussian filtering to improve the visual appearance of the heatmap.",
+    "Thresholding: transforming pixels with probability less than 0.5 to 0 and the rest to 1.",
+    "Erosion to remove isolated pixels.",
+    "Dilation to restore mask thickness after erosion."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "±30 degrees"
+    },
+    {
+      "technique": "Zooming",
+      "details": "80–120%"
+    },
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied as an additional preprocessing step to combat overfitting"
+    }
+  ],
+  "conclusions": [
+    "The study demonstrated the feasibility of using a MobileNet deep learning algorithm to detect basal cell carcinoma (BCC) regions in in vivo reflectance confocal microscopy (RCM) images, achieving a specificity of 85% and a sensitivity of 46%.",
+    "The automated detection of BCC using in vivo RCM shows potential for intraoperative wound margin assessment but is currently limited by low sensitivity.",
+    "The preliminary results highlight the limitations of the current approach, specifically the need for larger multicenter studies with more cases to improve predictability and performance."
+  ],
+  "important_remarks": [
+    "The study is a preliminary feasibility study with a small, single-institution dataset (62 patients, 24,448 patches), limiting generalizability and increasing the risk of overfitting.",
+    "The model exhibited low sensitivity (46%), likely due to the architectural heterogeneity of BCC lesions, varying image quality, and limited case numbers.",
+    "High specificity (85%) was achieved, indicating the model is better at identifying healthy tissue than cancerous regions.",
+    "The dataset lacks diversity as it comes from a single institutional cohort, which does not represent the true diversity of BCC histological entities.",
+    "The study employed binary prediction modeling, which simplifies the actual clinical situation by ignoring tumor gradings and other characterization variables.",
+    "Confocal laser microscopy has a low penetration depth, making it impossible to adequately measure the depth and thickness of extensive BCC lesions or image deeper dermal changes.",
+    "The technology is error-prone and dependent on the user's detailed knowledge and experience in handling and interpreting confocal microscopy images.",
+    "Figure captions contain labeling inconsistencies, referring to 'SCC' (squamous cell carcinoma) and 'non-SCC' despite the study focusing exclusively on Basal Cell Carcinoma (BCC).",
+    "No external validation was performed; the model was validated using 14-fold cross-validation on the same single-institution dataset.",
+    "The authors note that imaging databases containing RCM cancer images for deep learning are not readily available, highlighting a need for multicenter studies or online research databases."
+  ]
+}

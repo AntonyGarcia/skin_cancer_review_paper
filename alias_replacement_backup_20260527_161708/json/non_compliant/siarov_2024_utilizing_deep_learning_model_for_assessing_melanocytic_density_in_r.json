@@ -1,0 +1,213 @@
+{
+  "file_name": "siarov_2024_utilizing_deep_learning_model_for_assessing_melanocytic_density_in_r.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed and utilized a deep learning model (specifically a CNN) to detect melanocytes and assess melanocytic density in resection margins of lentigo maligna (a dermatological condition). The AI model was trained on 3,973 manual pixel-wise annotations of whole slide images and its performance (AUC 0.84) was compared against dermatopathologists for predicting recurrence risk."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled 'RESEARCH' in the header and presents original experimental work. It details the development and validation of a deep learning model for assessing melanocytic density in lentigo maligna, including specific methods (353 whole slide images, 3,973 annotations), results (AUC 0.84 for AI vs. pathologists), and statistical analysis, which are characteristic of an original research study rather than a review."
+  },
+  "title": "Utilizing deep learning model for assessing melanocytic density in resection margins of lentigo maligna",
+  "authors": [
+    "Jan Siarov",
+    "Darshan Kumar",
+    "John Paoli",
+    "Johan Mölne",
+    "Martin Gillstedt",
+    "Noora Neittaanmäki"
+  ],
+  "doi": "10.1186/s13000-024-01532-y",
+  "journal": "Diagnostic Pathology",
+  "year": 2024,
+  "article_type": "Research article",
+  "brief_summary": "This study developed a deep learning model using a convolutional neural network to assess melanocytic density in resection margins of lentigo maligna, a precursor to invasive melanoma. The algorithm was trained on 3,973 manual pixel-wise annotations derived from 295 whole slide images and validated against SOX10 immunohistochemistry as the reference standard. The AI model's performance in discriminating high versus low recurrence risk was evaluated against five pathologists (three dermatopathologists and two residents) in a blinded comparison. The AI achieved an area under the receiver operating characteristic curve (AUC) of 0.84, outperforming the junior dermatopathologist and one resident in the initial round. Furthermore, the integration of AI assistance significantly improved the diagnostic performance of two pathologists, demonstrating its potential as a pre-screening tool for margin assessment.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Lentigo maligna",
+      "paper_terms": [
+        "lentigo maligna",
+        "LM"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on assessing melanocytic density in resection margins of lentigo maligna (LM), a precursor to invasive melanoma. The dataset consisted of 353 H&E-stained whole slide images of LM excised from patients."
+    },
+    {
+      "lesion_type": "Lentigo maligna melanoma",
+      "paper_terms": [
+        "lentigo maligna melanoma",
+        "LMM"
+      ],
+      "role": "Mentioned only",
+      "details": "LMM is mentioned as the invasive variant/progression of lentigo maligna in the background section, but it was not the target of the experimental analysis or dataset."
+    },
+    {
+      "lesion_type": "Sun-induced melanocytic hyperplasia",
+      "paper_terms": [
+        "sun-induced melanocytic hyperplasia",
+        "melanocytic hyperplasia"
+      ],
+      "role": "Comparator class",
+      "details": "Mentioned in the background as a differential diagnosis for LM where distinguishing features can be challenging, but not included in the study's dataset or experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of resection margins into low-risk versus high-risk of recurrence based on melanocytic density.",
+        "primary": true,
+        "details": "The AI model was trained to detect melanocytes and subsequently classify regions as low-risk (≤ 25 melanocytes in 0.5 mm) or high-risk (> 25 melanocytes in 0.5 mm) for lentigo maligna recurrence. Performance was evaluated using AUC, sensitivity, and specificity for this binary diagnostic category."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise detection of melanocytes.",
+        "primary": false,
+        "details": "The model utilized a fully supervised pixel-level input for segmentation to detect individual melanocytes, which served as the basis for the subsequent density-based classification. The paper mentions 'pixel-level segmentation outcome' and 'detect melanocytes according to the annotations'."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Lentigo Maligna Resection Margin Dataset (Sahlgrenska University Hospital)",
+      "description": "A private, single-center dataset of H&E-stained whole slide images (WSIs) of lentigo maligna (LM) excised from patients at the Department of Pathology, Sahlgrenska University Hospital, Gothenburg, Sweden, between January 1, 2020, and May 10, 2023. The dataset includes 353 WSIs. Ground truth was established using SOX10 immunohistochemistry on serial sections for 123 cases (65 in training, 58 in validation/testing).",
+      "classes_used": [
+        "Low-risk resection margin (≤ 25 melanocytes in 0.5 mm)",
+        "High-risk resection margin (> 25 melanocytes in 0.5 mm)",
+        "Melanocyte (foreground) vs. Background (semantic segmentation classes)"
+      ],
+      "counts": {
+        "total": 353,
+        "training": 295,
+        "validation": 58,
+        "testing": 58,
+        "per_class": {}
+      },
+      "use": {
+        "training": "295 WSIs were used to train the deep learning model. These included 729 manually annotated regions (3,973 melanocyte annotations) and 65 cases with available SOX10 slides to facilitate annotations.",
+        "validation": "58 WSIs were used for validation. Specifically, 33 regions from these WSIs were manually drawn and used for pixel-wise validation against a dermatopathologist and SOX10 ground truth. These regions were unique and not used in training or testing.",
+        "testing": "58 WSIs were used for testing. 58 regions from these WSIs were used to evaluate the AI model's performance against five pathologists and SOX10 ground truth for binary classification of recurrence risk.",
+        "other": "SOX10-stained slides from 65 training cases and all 58 validation/testing cases served as the reference standard (ground truth) for melanocytic density."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area under the receiver operating characteristic curve (AUC)",
+    "Sensitivity",
+    "Specificity",
+    "F1 Score",
+    "DeLong’s paired test (p-values)",
+    "Fleiss kappa"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "DeLong’s paired test",
+      "purpose": "To compare the area under the receiver operating characteristic curve (AUC) of the AI model against individual pathologists and to compare pathologist performance with and without AI assistance.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Fleiss kappa",
+      "purpose": "To compare inter-pathologist agreement (inter-observer variability) in the first round (without AI) and second round (with AI).",
+      "type": "Inter-reader agreement"
+    },
+    {
+      "method": "95% Confidence Intervals",
+      "purpose": "To estimate uncertainty for AUCs, sensitivities, specificities, and Fleiss kappa coefficients.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Two-sided statistical tests",
+      "purpose": "General framework for hypothesis testing, with a significance threshold of P < 0.05.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "DeLong’s paired test",
+    "null_hypothesis": "There is no difference in the area under the receiver operating characteristic curve (AUC) between the compared groups (e.g., AI model vs. pathologist, or pathologist with AI vs. pathologist without AI).",
+    "alternative_hypothesis": "There is a statistically significant difference in the AUC between the compared groups.",
+    "alpha": 0.05,
+    "interpretation": "Statistical significance was defined as P < 0.05. The AI model significantly outperformed the junior dermatopathologist (p = 0.004) and one resident (p = 0.01) in the first round. In the second round, the performance of the junior dermatopathologist (p = 0.029) and one resident (p = 0.0057) significantly improved with AI assistance. Additionally, two senior dermatopathologists performed significantly better than the AI model (p = 0.042 and p = 0.033 respectively)."
+  },
+  "results_obtained_in_each_dataset": {
+    "Lentigo Maligna Resection Margin Dataset (Sahlgrenska University Hospital)": {
+      "split": "Test Set (58 regions)",
+      "experiment": "Inter-observer Agreement (Fleiss Kappa)",
+      "metric": "Fleiss Kappa",
+      "models": {
+        "Round 1 (No AI)": {
+          "Kappa": "0.62",
+          "95_CI": "0.54–0.70"
+        },
+        "Round 2 (With AI)": {
+          "Kappa": "0.69",
+          "95_CI": "0.60–0.77"
+        }
+      },
+      "notes": "Agreement increased from 0.62 to 0.69, though the change was not statistically significant (p = 0.63). Round 1 agreement is interpreted as 'substantial agreement'."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Convolutional Neural Network (CNN)",
+    "pretraining": "Not reported (trained from scratch on 3,973 manual pixel-wise annotations)",
+    "input_size": "Not explicitly reported (patches extracted from image pyramid at a level dependent on field of view or object size)",
+    "architecture_details": {
+      "framework": "Aiforia Create Version 5.3 (Aiforia Technologies Plc)",
+      "task_type": "Semantic segmentation (pixel-level classification of foreground vs. background)",
+      "training_sessions": "11 training sessions performed",
+      "final_training_iterations": "7,000 iterations (4,452 executed in final round)",
+      "final_training_loss": "0.71",
+      "early_stopping": "Programmed to prematurely terminate if learning curve was not steep enough",
+      "gain_parameter": "Used to regulate CNN sensitivity; ROC curve generated using cutoff of 26 melanocytes for true label and gain settings"
+    },
+    "training_details": {
+      "dataset_size": "729 training regions from 295 WSIs",
+      "annotations": "3,973 manually annotated melanocytes (diameter 10 μm)",
+      "ground_truth_source": "SOX10 immunohistochemistry (available for 65 training cases)",
+      "error_rate": "8.6% error (F1 Score 95.6%)",
+      "software": "Aiforia Hub for WSI analysis"
+    },
+    "classification_or_output_head": {
+      "type": "Semantic segmentation mask",
+      "post_processing": "Pixel-level segmentation outcomes extrapolated to patch/slide level via aggregation",
+      "density_calculation": "Count of detected foreground pixels/objects within 0.5 mm regions",
+      "risk_classification": "Binary: Low-risk (≤ 25 melanocytes) vs. High-risk (> 25 melanocytes)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Convolutional Neural Network (CNN)",
+    "Deep learning model (semantic segmentation)",
+    "Aiforia Create Version 5.3 (commercial AI platform)"
+  ],
+  "preprocessing_techniques": [
+    "Digital scanning of H&E-stained glass slides using a NanoZoomer S210 Digital Slide Scanner at 40x magnification (0.23 µm/pixel resolution)",
+    "Exclusion of 2 WSIs due to poor image quality",
+    "Anonymization of glass slides prior to scanning",
+    "Extraction of smaller regions/patches from whole slide images for model training and testing",
+    "Use of SOX10 immunohistochemistry on serial sections as a reference standard for ground truth annotations"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The deep learning model demonstrated notable accuracy in detecting resection margins of lentigo maligna with high versus low risk of recurrence, achieving an AUC of 0.84.",
+    "The AI model outperformed the junior dermatopathologist (p = 0.004) and one pathology resident (p = 0.01) in the initial assessment without AI assistance.",
+    "The use of AI assistance significantly improved the diagnostic performance of two pathologists (the junior dermatopathologist and one resident) in the second round.",
+    "The integration of AI assistance increased the inter-observer agreement among pathologists from a Fleiss kappa of 0.62 to 0.69, although this change was not statistically significant (p = 0.63).",
+    "Two senior dermatopathologists performed significantly better than the AI model (p = 0.042 and p = 0.033 respectively).",
+    "The automated AI tool has the potential to aid pathologists in the assessment or pre-screening of lentigo maligna margins, potentially reducing interobserver variability and time to diagnosis."
+  ],
+  "important_remarks": [
+    "Single-center dataset from Sahlgrenska University Hospital (Sweden) limits generalizability and introduces potential population bias.",
+    "No power analysis was performed to predetermine sample size due to lack of prior data.",
+    "Ground truth relied on SOX10 immunohistochemistry, which may overestimate melanocytic density compared to H&E alone.",
+    "AI model outperformed only the junior dermatopathologist and one resident; two senior dermatopathologists performed significantly better than the AI.",
+    "Integration of AI significantly improved performance for only 2 out of 5 pathologists.",
+    "Inter-observer agreement increased from 0.62 to 0.69 with AI assistance, but this change was not statistically significant (p = 0.63).",
+    "Model trained on 3,973 manual annotations from 295 WSIs; external validation on independent cohorts is lacking.",
+    "Two WSIs excluded due to poor image quality, potentially introducing selection bias.",
+    "Study focuses on binary risk classification (≤25 vs >25 melanocytes), ignoring intermediate risk categories."
+  ]
+}

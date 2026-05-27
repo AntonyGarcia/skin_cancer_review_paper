@@ -1,0 +1,266 @@
+{
+  "file_name": "collenne_2024_reset_a_residual_set_transformer_approach_to_tackle_the_ugly_duckl.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning framework called ReSeT (Residual Set-Transformer) for melanoma detection in dermatology. It employs an encoder (ResNet-50) with supervised or self-supervised learning (e.g., MoCo, SimSiam) to generate image embeddings, which are then processed by a Set-Transformer to compare skin lesions within patients based on the Ugly-Duckling Sign. The study evaluates this AI model on the ISIC 2020 dataset of skin lesion images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work introducing a new deep learning framework called ReSeT (Residual Set-Transformer) for melanoma detection. It details specific methods (encoder architectures, self-supervised learning, dataset splitting on ISIC 2020), reports quantitative results (AUC, sensitivity, specificity) in tables, and compares performance against baseline models. Although published in a conference proceedings (IEEE ICIP), it contains original research results rather than summarizing prior literature."
+  },
+  "title": "RESET: A RESIDUAL SET-TRANSFORMER APPROACH TO TACKLE THE UGLY-DUCKLING SIGN IN MELANOMA DETECTION",
+  "authors": [
+    "Jules Collenne",
+    "Rabah Iguernaissi",
+    "Severine Dubuisson",
+    "Djamal Merad"
+  ],
+  "doi": "10.1109/ICIP51287.2024.10647287",
+  "journal": "2024 IEEE International Conference on Image Processing (ICIP)",
+  "year": 2024,
+  "article_type": "Conference paper",
+  "brief_summary": "This study introduces ReSeT (Residual Set-Transformer), a deep learning framework designed to leverage the Ugly-Duckling Sign for melanoma detection by comparing skin lesions within the same patient. The architecture employs a ResNet-50 encoder, trained via supervised or self-supervised methods (such as MoCo and SimSiam), to generate image embeddings that are processed by a Set-Transformer with residual connections. The model was evaluated on the patient-centric ISIC 2020 dataset, which contains over 33,000 annotated skin lesion images. Evaluation metrics included the Area Under the ROC Curve (AUC), with the supervised ReSeT model achieving an AUC of 0.924, significantly outperforming both standard ConvNets and a classical Set-Transformer without residuals. The results demonstrate that self-supervised encoders can produce embeddings of comparable quality to supervised ones for this comparison task, highlighting the potential of patient-level contextual analysis in dermatological diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for detection. In the ISIC 2020 dataset, melanoma images constitute approximately 2% of the total data (409 in train, 105 in val, 70 in test). The study focuses on distinguishing melanoma from nevi using the Ugly-Duckling Sign."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi"
+      ],
+      "role": "Comparator class",
+      "details": "The primary comparator class (benign lesions). In the ISIC 2020 dataset, nevus images constitute over 98% of the total data (23,081 in train, 5,093 in val, 4,368 in test). The binary classification task distinguishes between melanoma and nevus."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic labels (melanoma vs. nevus) for individual skin lesion images.",
+        "primary": true,
+        "details": "The paper explicitly states the focus is on the 'classification task in order to detect melanomas' and distinguishes between 'melanoma' and 'nevus' classes. The model outputs probabilities used to generate binary predictions (melanoma or nevus) for each image within a patient set. Evaluation metrics include AUC, balanced accuracy, sensitivity, and specificity, which are standard for binary classification."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2020",
+      "description": "A patient-centric dataset of skin lesion images and metadata for identifying melanomas using clinical context. It contains images from multiple dermatology departments acquired through epiluminescence microscopy, uniquely including patient identifiers to link lesions from the same patient.",
+      "classes_used": [
+        "Nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 33000,
+        "training": 23490,
+        "validation": 5198,
+        "testing": 4438,
+        "per_class": {
+          "Nevus": {
+            "total": 32542,
+            "training": 23081,
+            "validation": 5093,
+            "testing": 4368
+          },
+          "Melanoma": {
+            "total": 584,
+            "training": 409,
+            "validation": 105,
+            "testing": 70
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the encoder (ResNet-50) in supervised or self-supervised modes and for training the Set-Transformer classification model.",
+        "validation": "Used for model selection based on AUC during encoder training and for evaluating the Set-Transformer.",
+        "testing": "Used for final evaluation of the model's performance (AUC, sensitivity, specificity).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area Under the ROC Curve (AUC)",
+    "Balanced accuracy",
+    "Sensitivity",
+    "Specificity"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Grid search for threshold optimization",
+      "purpose": "To find the optimal classification threshold on the validation set for computing balanced accuracy, sensitivity, and specificity.",
+      "type": "Hyperparameter tuning"
+    },
+    {
+      "method": "Averaging and standard deviation calculation",
+      "purpose": "To evaluate the stability and average performance of architectures by training five distinct Set-Transformers for each architecture and computing the mean and standard deviation of metrics.",
+      "type": "Uncertainty estimation / Stability analysis"
+    },
+    {
+      "method": "Weighted loss function",
+      "purpose": "To handle class imbalance in the supervised models, assigning a weight of 0.98 to melanoma and 0.02 to the nevus class.",
+      "type": "Class imbalance handling"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance comparisons were made using mean and standard deviation of metrics (AUC, balanced accuracy, sensitivity, specificity) across five distinct model runs, but no statistical significance testing was employed."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2020": {
+      "split": "Test Set",
+      "experiment": "Self-Supervised Encoder Architectures",
+      "metric": "AUC, Balanced Accuracy, Sensitivity, Specificity",
+      "models": {
+        "BYOL": {
+          "AUC": "0.681 ± 0.01",
+          "Balanced accuracy": "0.635 ± 0.02",
+          "Sensitivity": "0.694 ± 0.04",
+          "Specificity": "0.576 ± 0.04"
+        },
+        "MoCo": {
+          "AUC": "0.768 ± 0.02",
+          "Balanced accuracy": "0.708 ± 0.02",
+          "Sensitivity": "0.730 ± 0.09",
+          "Specificity": "0.686 ± 0.06"
+        },
+        "SimCLR": {
+          "AUC": "0.764 ± 0.01",
+          "Balanced accuracy": "0.683 ± 0.02",
+          "Sensitivity": "0.780 ± 0.02",
+          "Specificity": "0.587 ± 0.02"
+        },
+        "SimSiam": {
+          "AUC": "0.748 ± 0.01",
+          "Balanced accuracy": "0.702 ± 0.01",
+          "Sensitivity": "0.849 ± 0.01",
+          "Specificity": "0.555 ± 0.02"
+        },
+        "SwaV": {
+          "AUC": "0.617 ± 0.01",
+          "Balanced accuracy": "0.569 ± 0.03",
+          "Sensitivity": "0.602 ± 0.16",
+          "Specificity": "0.536 ± 0.12"
+        }
+      },
+      "notes": "MoCo consistently outperformed other self-supervised architectures with an AUC of 0.768. Self-supervised encoders achieved lower performance than supervised ones but demonstrated robustness without ground truth labels during embedding generation."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ReSeT (Residual Set-Transformer)",
+    "pretraining": "Two modes: Supervised (binary classification of melanoma vs. nevus) and Self-Supervised (BYOL, MoCo, SimCLR, SwaV, SimSiam). Self-supervised models were initialized randomly without ImageNet weights.",
+    "input_size": "300 x 300 pixels",
+    "architecture_details": {
+      "encoder": {
+        "backbone": "ResNet-50",
+        "embedding_layer": "Dense layer with output size of 200",
+        "embedding_size": 200
+      },
+      "set_transformer": {
+        "structure": "Encoder-decoder structure with residual connections",
+        "encoder_blocks": "Two ISAB (Induced Set-Attention Block) blocks",
+        "decoder_components": "PMA (Pooling by Multihead Attention) layer, two SAB (Set-Attention Block) blocks, final dense layer",
+        "hidden_dimension": 128,
+        "attention_heads": 8,
+        "contextual_output_size": 20,
+        "residual_connection": "Concatenation of Set-Transformer outputs with original input vectors before the final prediction layer"
+      },
+      "classification_head": "Single dense layer"
+    },
+    "training_details": {
+      "encoder_training": {
+        "supervised": {
+          "optimizer": "Adam",
+          "learning_rate": 0.001,
+          "batch_size": 64,
+          "epochs": 200,
+          "loss_function": "Weighted cross-entropy (weights: 0.98 for melanoma, 0.02 for nevus)"
+        },
+        "self_supervised": {
+          "epochs": 200,
+          "batch_size": 128,
+          "learning_rate": "Default from related papers",
+          "output_size": 200
+        }
+      },
+      "set_transformer_training": {
+        "optimizer": "SGD",
+        "learning_rate": 0.001,
+        "loss_function": "Cross-entropy",
+        "epochs": 200,
+        "patience": 15,
+        "batch_size_patients": 64,
+        "vectors_per_patient": 20,
+        "padding": "Zero vectors for patients with fewer than 20 lesions"
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Single dense layer",
+      "input": "Concatenation of Set-Transformer contextual outputs (size 20) and original input embeddings (size 200)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ReSeT (Residual Set-Transformer)",
+    "ResNet-50",
+    "Classification CNN",
+    "Set-Transformer (without residual)",
+    "BYOL",
+    "MoCo",
+    "SimCLR",
+    "SimSiam",
+    "SwAV"
+  ],
+  "preprocessing_techniques": [
+    "Resizing all images to a uniform size of 300 × 300 pixels",
+    "Data normalization to ensure consistent image quality and format",
+    "Data augmentation (specific techniques varied by architecture: default techniques for self-supervised models; random resized crops and random flips for the CNN)",
+    "Padding with zero vectors for patients with fewer than 20 lesions to standardize input sets for the Set-Transformer"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Default augmentation for self-supervised models",
+      "details": "The paper states that default augmentation techniques provided by the respective self-supervised learning frameworks (BYOL, MoCo, SimCLR, SwaV, SimSiam) were used. Specific details for these defaults are not reported in the text, noting they are defined in the related papers."
+    },
+    {
+      "technique": "Random resized crops",
+      "details": "Used as a basic transformation for the supervised Classification CNN encoder."
+    },
+    {
+      "technique": "Random flips",
+      "details": "Used as a basic transformation for the supervised Classification CNN encoder."
+    }
+  ],
+  "conclusions": [
+    "The proposed ReSeT (Residual Set-Transformer) framework significantly enhances melanoma detection performance compared to standard ConvNets and classical Set-Transformers without residual connections, achieving an AUC of 0.924 on the ISIC 2020 test set.",
+    "Residual connections are necessary in the context of multi-output Transformers to ensure the model assimilates both original image embeddings and contextual information from the patient's lesion set, preventing performance degradation seen in classical Set-Transformers (AUC 0.801).",
+    "Self-supervised encoders (specifically MoCo, SimCLR, SimSiam, BYOL, and SwaV) are capable of generating embeddings of comparable quality to supervised models for image comparison tasks, demonstrating robustness without requiring ground truth labels during embedding generation.",
+    "Among self-supervised architectures, MoCo consistently outperformed other models (BYOL, SimCLR, SimSiam, SwaV) in the melanoma detection task, achieving an AUC of 0.768.",
+    "The use of self-supervised learning allows for the extraction of unbiased embeddings that represent features not necessarily learned by supervised models, potentially enhancing prediction interpretability and latent space visualization for clinical insights.",
+    "The patient-centric approach leveraging the Ugly-Duckling Sign addresses the limitation of conventional ConvNets that lack the capacity to compare images together, offering a promising direction for integrating dermatological concepts into automated diagnostic models.",
+    "The framework exhibits broad applicability beyond dermatology to other medical scenarios requiring the comparison of multiple instances where obtaining annotations is challenging or prone to noise."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC 2020 dataset, which exhibits severe class imbalance (melanoma constitutes only 2% of images), potentially limiting generalizability to other populations or datasets.",
+    "No external validation was performed; results are confined to the internal test set of the ISIC 2020 dataset, raising concerns about external validity.",
+    "The paper does not report formal statistical hypothesis testing (e.g., p-values) for performance comparisons, relying instead on mean and standard deviation across five runs.",
+    "Self-supervised encoders (MoCo, SimCLR, etc.) were initialized randomly without ImageNet weights, which may affect the robustness and comparability of the embeddings compared to models pretrained on large-scale datasets.",
+    "The framework requires patient-level data (multiple lesions per patient) to function, which may limit applicability in clinical settings where patients present with only a single lesion.",
+    "The dataset splitting was performed at the patient level to prevent data leakage, but the specific method of patient identifier handling or potential overlap with other public benchmarks is not detailed.",
+    "The supervised model used a weighted loss function (0.98 for melanoma, 0.02 for nevus) to handle imbalance, which may bias the model towards the minority class but could affect specificity.",
+    "The paper acknowledges that self-supervised encoders achieved lower performance (AUC ~0.768) compared to supervised encoders (AUC 0.924), indicating a significant performance gap when ground truth labels are unavailable during embedding generation."
+  ]
+}

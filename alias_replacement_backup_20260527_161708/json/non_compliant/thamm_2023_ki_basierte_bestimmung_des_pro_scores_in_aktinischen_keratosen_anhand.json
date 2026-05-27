@@ -1,0 +1,267 @@
+{
+  "file_name": "thamm_2023_ki_basierte_bestimmung_des_pro_scores_in_aktinischen_keratosen_anhand.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used Convolutional Neural Networks (CNNs) to automatically segment LC-OCT images of actinic keratoses and healthy skin, and to quantify the PRO-score (grading dermal-epidermal junction undulation and basal proliferation) for dermatological diagnosis and follow-up."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is labeled 'ORIGINALARBEIT' (Original Work) and presents original experimental results from training Convolutional Neural Networks on LC-OCT datasets to quantify the PRO-score in actinic keratoses. It includes specific sections for 'Patients and Methods' (describing dataset sizes, CNN training, and validation protocols) and 'Results' (reporting agreement rates of 75% and correlation metrics), indicating it is an original diagnostic accuracy/validation study rather than a review."
+  },
+  "title": "KI-basierte Bestimmung des PRO-Scores in aktinischen Keratosen anhand von LC-OCT-Bilddatensätzen",
+  "authors": [
+    "Janis R. Thamm",
+    "Fabia Daxenberger",
+    "Théo Viel",
+    "Charlotte Gust",
+    "Quirine Eijkenboom",
+    "Lars E. French",
+    "Julia Welzel",
+    "Elke C. Sattler",
+    "Sandra Schuh"
+  ],
+  "doi": "10.1111/ddg.15194_g",
+  "journal": "Journal der Deutschen Dermatologischen Gesellschaft",
+  "year": 2023,
+  "article_type": "Original research article",
+  "brief_summary": "This study developed Convolutional Neural Networks (CNNs) to automatically quantify the histological PRO-score, which assesses the malignant potential of actinic keratoses (AK), using non-invasive Line-Field Confocal Optical Coherence Tomography (LC-OCT) images. The CNN models were trained on a subset of 237 LC-OCT images from 41 patients and validated against a test set of 76 images by comparing AI-computed scores with the visual consensus of imaging experts. The results demonstrated significant agreement between the AI and expert assessments in 75% of cases (57/76), with the highest correlation observed for PRO II (84.8%) compared to PRO III (69.2%) and PRO I (66.6%). Misinterpretations occurred in 25% of cases, primarily due to shadowing of the dermo-epidermal junction and disruptive features like hair follicles. The findings suggest that CNNs are a helpful tool for the automated, non-invasive assessment of proliferation risk in AK, potentially aiding in diagnosis and follow-up.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic keratosis",
+      "paper_terms": [
+        "aktinischen Keratosen",
+        "AK",
+        "Actinic keratoses"
+      ],
+      "role": "Target class",
+      "details": "Primary target of the study; PRO-score quantification was performed on LC-OCT images of AK lesions (subset of 237 images for training, 76 for testing)."
+    },
+    {
+      "lesion_type": "Healthy skin",
+      "paper_terms": [
+        "gesunder Haut",
+        "GH",
+        "healthy skin"
+      ],
+      "role": "Comparator class",
+      "details": "Used as a control/comparator group for segmentation model training (GH dataset: 3701 images from 142 persons) and baseline comparison of DEJ undulation metrics."
+    },
+    {
+      "lesion_type": "Cutaneous squamous cell carcinoma",
+      "paper_terms": [
+        "kutane Plattenepithelkarzinom",
+        "PEK",
+        "invasives PEK",
+        "keratinocyte skin cancer"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as the malignant progression endpoint of actinic keratoses and in references, but not studied or included in the experimental dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "PRO-Score (I, II, III)",
+        "primary": true,
+        "details": "The CNN models were trained to classify the PRO-score into discrete histological categories (PRO I, PRO II, PRO III) based on LC-OCT images. The study reports agreement rates for these specific classes (e.g., 84.8% for PRO II, 69.2% for PRO III) and uses Cohen's kappa to evaluate classification performance against expert visual consensus."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Dermo-epidermal junction (DEJ) and epidermal layers",
+        "primary": false,
+        "details": "CNNs were also trained to segment LC-OCT images of healthy skin and AK to identify the DEJ contour, which served as an intermediate step for deriving the PRO-score metrics (undulation index and protrusion depth)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "GH Dataset (Healthy Skin)",
+      "description": "A dataset of LC-OCT images of healthy skin collected from volunteers with skin types II or less (face and upper arm) and skin type VI (face and upper arm). Images were acquired using the deepLive™ LC-OCT device (DAMAE Medical).",
+      "classes_used": [
+        "Healthy Skin"
+      ],
+      "counts": {
+        "total": 3701,
+        "training": 3701,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Healthy Skin": 3701
+        }
+      },
+      "use": {
+        "training": "Used to train the initial CNN models for epidermal layer segmentation.",
+        "validation": null,
+        "testing": null,
+        "other": "Used as a baseline for comparing DEJ undulation metrics."
+      }
+    },
+    {
+      "name": "AK Dataset (Actinic Keratoses)",
+      "description": "A dataset of LC-OCT images of actinic keratoses collected from patients at the University Hospital of the Ludwig-Maximilians-Universität (LMU) Munich between December 2019 and December 2021. The dataset was split into training and testing cohorts. Diagnosis was histopathologically confirmed in 56 cases and clinically/dermatoscopically in others.",
+      "classes_used": [
+        "Actinic Keratosis PRO I",
+        "Actinic Keratosis PRO II",
+        "Actinic Keratosis PRO III"
+      ],
+      "counts": {
+        "total": 534,
+        "training": 458,
+        "validation": null,
+        "testing": 76,
+        "per_class": {
+          "Actinic Keratosis PRO I": 30,
+          "Actinic Keratosis PRO II": 33,
+          "Actinic Keratosis PRO III": 13
+        }
+      },
+      "use": {
+        "training": "A subset of 237 images from 41 patients (derived from the 458-image training cohort) was used to train the PRO-score classification models.",
+        "validation": "Thresholds for the PRO-score decision tree were learned using validation data (implied within the training process, specific count not reported separately from the 237).",
+        "testing": "76 images from 25 patients were used as the test set to evaluate the AI-computed PRO-score against the visual consensus of imaging experts.",
+        "other": "The remaining images from the AK dataset (458 total in training cohort minus 237 used for PRO model training) were used for fine-tuning the segmentation models initially trained on the GH dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Agreement rate (Übereinstimmung)",
+    "Correlation (Korrelation)",
+    "Intersection over Union (IoU)",
+    "Mean absolute distance (durchschnittlicher absoluter Abstand)",
+    "Spearman correlation coefficient (Spearman-Korrelationskoeffizient)",
+    "Linear weighted Cohen's kappa coefficient (linear gewichteter Cohen-Kappa-Koeffizient)",
+    "95% Confidence Interval (95%-Konfidenzintervall)",
+    "p-value (Signifikanzniveau)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "t-test",
+      "purpose": "Analysis of numerical data with normal distribution.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Mann-Whitney-Wilcoxon test",
+      "purpose": "Analysis of numerical data with non-normal distribution.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Spearman correlation coefficient",
+      "purpose": "Measuring correlation between segmentation model results (DEJ undulation and maximum protrusion depth) and the PRO-score.",
+      "type": "Correlation metric"
+    },
+    {
+      "method": "Linear weighted Cohen's kappa coefficient",
+      "purpose": "Evaluating agreement between visual grading and predicted PRO-score.",
+      "type": "Inter-reader agreement"
+    },
+    {
+      "method": "95% Confidence Interval",
+      "purpose": "Providing uncertainty estimation for the Cohen's kappa coefficient.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Significance threshold of p < 0.05",
+      "purpose": "Determining statistical significance for all conducted statistical analyses.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "t-test (for normally distributed data) and Mann-Whitney-Wilcoxon test (for non-normally distributed data); Spearman correlation coefficient; Linear weighted Cohen's kappa coefficient with 95% Confidence Interval.",
+    "null_hypothesis": "There is no significant difference between the compared groups (e.g., healthy skin vs. AK PRO I, PRO II, PRO III) or no correlation between the segmentation model results and the PRO-score.",
+    "alternative_hypothesis": "There is a significant difference between the compared groups or a significant correlation between the segmentation model results and the PRO-score.",
+    "alpha": 0.05,
+    "interpretation": "Statistical significance was determined using a significance threshold of p < 0.05. Significant differences were found in DEJ undulation and maximum protrusion depth across PRO scores and between healthy skin and AK groups (p < 0.001 or p < 0.05). The agreement between AI and expert visual consensus was statistically significant (p = 6 x 10^-8 < 0.001), allowing the exclusion of random agreement."
+  },
+  "results_obtained_in_each_dataset": {
+    "GH Dataset (Healthy Skin)": {
+      "metric": "Segmentation Performance (IoU and Mean Absolute Distance)",
+      "models": {
+        "CNN (UNet with SEResNeXt-50 backbone)": {
+          "IoU": "0.979 ± 0.016",
+          "Mean Absolute Distance (μm)": "6.0 ± 3.8"
+        }
+      },
+      "notes": "The model was trained on 3701 images from 142 persons. The mean absolute distance between the true DEJ contour and the model prediction was significantly lower than in AK datasets (p < 0.001)."
+    },
+    "AK Dataset (Actinic Keratoses)": {
+      "metric": "Segmentation Performance (IoU and Mean Absolute Distance)",
+      "models": {
+        "CNN (UNet with SEResNeXt-50 backbone)": {
+          "IoU": "0.968 ± 0.028",
+          "Mean Absolute Distance (μm)": "7.8 ± 6.5"
+        }
+      },
+      "notes": "The model was fine-tuned on 458 images from 59 patients. The mean absolute distance increased from PRO I to PRO II (4.7 ± 4.6 μm vs. 8.0 ± 7.3 μm, p < 0.001) and from PRO II to PRO III (8.0 ± 7.3 μm vs. 12.0 ± 6.8 μm, p = 0.021)."
+    },
+    "AK Test Set (76 images from 25 patients)": {
+      "metric": "PRO-Score Classification Agreement",
+      "models": {
+        "CNN-based PRO-Score Model": {
+          "Overall Agreement Rate": "75% (57/76)",
+          "Weighted Cohen's Kappa": "0.60 (95% CI: [0.43, 0.77], p = 6 x 10^-8)",
+          "PRO I Agreement": "66.7% (20/30 correctly identified)",
+          "PRO II Agreement": "84.8% (28/33 correctly identified)",
+          "PRO III Agreement": "69.2% (9/13 correctly identified)"
+        }
+      },
+      "notes": "Misinterpretations occurred in 25% of cases. The AI overestimated protrusions in 14.5% (11/76) of cases and underestimated them in 10.5% (8/76) of cases. Specifically for PRO I, 10/30 were falsely overestimated as PRO II. For PRO II, 4/33 were underestimated as PRO I and 1/33 assigned to PRO III. For PRO III, 3/13 were falsely underestimated as PRO I and 1/13 as PRO II. The learned thresholds were τ1 = 1.09, τ2 = 1.3, and τd = 64."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Convolutional Neural Network (CNN)",
+    "pretraining": "ImageNet",
+    "input_size": "1.2 x 0.5 mm² (lateral and axial resolution: 1.1 x 1.3 μm)",
+    "architecture_details": {
+      "backbone": "SEResNeXt-50",
+      "base_architecture": "U-Net",
+      "architecture_type": "Semantic 2D segmentation"
+    },
+    "training_details": {
+      "training_data_size": "237 LC-OCT AK images (subset of 458 images from 59 patients)",
+      "validation_data": "Validation data used to learn thresholds for the decision tree classifier",
+      "fine_tuning_data": "458 images from 59 patients (AK dataset) after initial training on 3701 images from 142 persons (GH dataset)"
+    },
+    "classification_or_output_head": {
+      "type": "Decision tree classifier",
+      "features": [
+        "DEJ undulation index (σ)",
+        "Maximum protrusion depth (d)"
+      ],
+      "learned_thresholds": {
+        "tau1": 1.09,
+        "tau2": 1.3,
+        "tau_d": 64
+      }
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Convolutional Neural Networks (CNN)",
+    "UNet with SEResNeXt-50 backbone",
+    "Decision tree classifier"
+  ],
+  "preprocessing_techniques": [],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "Convolutional Neural Networks (CNNs) are helpful for the automated quantification of the PRO-score in LC-OCT images.",
+    "The AI-computed PRO-score showed significant agreement with the visual consensus of imaging experts in 75% of cases (57/76).",
+    "The AI-based PRO-score assessment correlated best with the visual score for PRO II (84.8%) compared to PRO III (69.2%) and PRO I (66.6%).",
+    "Misinterpretations occurred in 25% of cases, primarily due to shadowing of the dermo-epidermal junction (DEJ) and disruptive features such as hair follicles.",
+    "The CNN-based approach may provide clinicians with a feasible tool for the non-invasive assessment of proliferation risk in the diagnosis and follow-up of actinic keratoses.",
+    "The algorithm's performance is expected to improve with a larger training dataset encompassing various skin types and AK lesions."
+  ],
+  "important_remarks": [
+    "The study is limited by a small test set (76 images from 25 patients) and a training subset of only 237 images, which may affect the generalizability of the CNN model.",
+    "The dataset exhibits population bias, as the healthy skin cohort was predominantly composed of individuals with Fitzpatrick skin types II or less, with limited representation of darker skin types.",
+    "The algorithm's performance is significantly impacted by image artifacts, specifically shadowing of the dermo-epidermal junction (DEJ) and disruptive features like hair follicles, which caused misinterpretations in 25% of cases.",
+    "There is a notable discrepancy in classification accuracy across PRO-score classes, with high agreement for PRO II (84.8%) but lower agreement for PRO I (66.7%) and PRO III (69.2%), suggesting difficulty in distinguishing low and high proliferation risks.",
+    "The PRO-score models were trained on a subset of 237 images from 41 patients, while the segmentation models were fine-tuned on a larger AK dataset (458 images from 59 patients), indicating a potential data leakage or overlap in the underlying image pool if not strictly separated.",
+    "The study relies on visual consensus of imaging experts as the ground truth for the test set, which introduces potential inter-observer variability compared to the histopathological gold standard used for model development.",
+    "The CNN architecture (UNet with SEResNeXt-50 backbone) was pre-trained on ImageNet, which may not be optimally suited for the specific texture and resolution characteristics of LC-OCT medical imaging without extensive domain adaptation."
+  ]
+}

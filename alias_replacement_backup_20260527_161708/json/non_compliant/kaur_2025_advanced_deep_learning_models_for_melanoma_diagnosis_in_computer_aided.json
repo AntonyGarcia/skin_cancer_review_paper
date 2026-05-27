@@ -1,0 +1,375 @@
+{
+  "file_name": "kaur_2025_advanced_deep_learning_models_for_melanoma_diagnosis_in_computer_aided.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning models for melanoma diagnosis in computer-aided skin cancer detection. Specifically, it employed a hybrid method with morphological operations and context aggregation-based deep neural networks for preprocessing (hairline removal and contrast enhancement), a deep learning-based image segmentation network for lesion extraction, and a novel deep convolutional neural network (N-DCNN) for classifying melanoma versus benign lesions. The study achieved a classification accuracy of 93.40% using the ISIC 2020 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development of a novel deep convolutional neural network (N-DCNN) and a hybrid preprocessing method for melanoma diagnosis. It details specific methodology (preprocessing, segmentation, classification), uses the ISIC 2020 dataset, and reports original results including a classification accuracy of 93.40% and specific performance metrics (AUC, precision, recall, etc.). The abstract and introduction explicitly state the aim to develop efficient approaches and evaluate them, rather than summarizing prior literature."
+  },
+  "title": "Advanced Deep Learning Models for Melanoma Diagnosis in Computer-Aided Skin Cancer Detection",
+  "authors": [
+    "Ranpreet Kaur",
+    "Hamid GholamHosseini",
+    "Maria Lindén"
+  ],
+  "doi": "10.3390/s25030594",
+  "journal": "Sensors",
+  "year": 2025,
+  "article_type": "Article",
+  "brief_summary": "This study developed a computer-aided diagnosis system for melanoma using a pipeline of preprocessing, segmentation, and classification. The authors proposed a hybrid preprocessing method with hairline removal and contrast enhancement, a deep learning segmentation network for lesion extraction, and a novel deep convolutional neural network (N-DCNN) for binary classification. The models were evaluated on the ISIC 2020 dataset, comparing performance on raw images versus preprocessed and segmented data. The results demonstrated that incorporating preprocessing and segmentation significantly improved classification accuracy, achieving 93.40% with a test time of 1.3 seconds per image. The N-DCNN model outperformed baseline CNNs and other state-of-the-art methods in terms of accuracy, AUC, and computational efficiency.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "Primary target class for binary classification against benign lesions. Used in the ISIC 2020 dataset with 5,789 total samples (4,052 training, 579 validation, 1,158 test) after duplicate removal."
+    },
+    {
+      "lesion_type": "Benign lesions",
+      "paper_terms": [
+        "benign",
+        "BEN",
+        "benign cancer"
+      ],
+      "role": "Comparator class",
+      "details": "Comparator class for binary classification against melanoma. Used in the ISIC 2020 dataset with 7,093 total samples (4,965 training, 709 validation, 1,419 test) after duplicate removal. The paper notes that the dataset was highly skewed between MEL and BEN."
+    },
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as one of the five main types of skin cancer and shown in Figure 1, but not used as a class in the experimental classification task."
+    },
+    {
+      "lesion_type": "Benign keratosis-like lesions",
+      "paper_terms": [
+        "benign keratosis-like conditions",
+        "BKL"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as one of the five main types of skin cancer and shown in Figure 1, but not used as a class in the experimental classification task."
+    },
+    {
+      "lesion_type": "Congenital melanocytic nevus",
+      "paper_terms": [
+        "congenital melanocytic nevus",
+        "CMN"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as one of the five main types of skin cancer and shown in Figure 1, but not used as a class in the experimental classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into melanoma (malignant) and benign classes.",
+        "primary": true,
+        "details": "The study developed a novel deep convolutional neural network (N-DCNN) to distinguish melanoma from benign lesions. The task is explicitly defined as binary classification using the ISIC 2020 dataset. Performance was evaluated using accuracy (93.40% on preprocessed data), AUC (0.9642), precision, recall, specificity, and F1 score. The model predicts discrete diagnostic categories (MEL vs BEN)."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion segmentation masks (regions of interest) extracted from dermoscopic images.",
+        "primary": false,
+        "details": "A deep learning-based image segmentation network (DilatedSkinNet) was used to extract lesion regions and remove background/hairlines. This was a preprocessing step to support the primary classification task, not the final diagnostic output."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2020",
+      "description": "A public benchmark dataset from the International Skin Imaging Collaboration containing dermoscopic images of skin lesions. The original dataset contained 33,126 samples from 2,056 patients. For this study, duplicate images (correlation coefficient > 0.99) were removed, resulting in a cleaned dataset of 12,882 unique samples. The dataset includes samples from men and women, with challenges such as dark skin tones, older populations, and noisy conditions.",
+      "classes_used": [
+        "Melanoma (MEL)",
+        "Benign (BEN)"
+      ],
+      "counts": {
+        "total": 12882,
+        "training": 9017,
+        "validation": 1288,
+        "testing": 2577,
+        "per_class": {
+          "MEL": {
+            "total": 5789,
+            "training": 4052,
+            "validation": 579,
+            "testing": 1158
+          },
+          "BEN": {
+            "total": 7093,
+            "training": 4965,
+            "validation": 709,
+            "testing": 1419
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the N-DCNN model. Data augmentation (rotation, scaling, translation) and random oversampling were applied to the training set to handle class imbalance and prevent overfitting.",
+        "validation": "Used for validation during the training process. Original data distribution was used without alteration.",
+        "testing": "Used for final evaluation of the model's performance (accuracy, AUC, etc.). Original data distribution was used without alteration.",
+        "other": "The dataset was preprocessed by removing duplicates to eliminate bias. It was also used to compare the proposed N-DCNN against other state-of-the-art methods and baseline CNNs (ResNet18, Inceptionv3, Xception)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (ACC)",
+    "Precision (PRE)",
+    "Recall (REC)",
+    "Specificity (SPE)",
+    "F1 Score",
+    "Area Under the Curve (AUC)",
+    "Learnable Parameters",
+    "Test Time",
+    "Execution Time",
+    "Loss"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Random oversampling",
+      "purpose": "To handle class imbalance by generating synthetic samples for classes with fewer images (MEL) during training.",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "Correlation coefficient thresholding",
+      "purpose": "To identify and remove duplicate images from the dataset to prevent bias and overfitting (threshold > 0.99).",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "Confusion Matrix Analysis",
+      "purpose": "To evaluate model performance by counting True Positives (TP), True Negatives (TN), False Positives (FP), and False Negatives (FN) on the test set.",
+      "type": "Evaluation metric calculation"
+    },
+    {
+      "method": "Area Under the Curve (AUC)",
+      "purpose": "To illustrate the trade-off between sensitivity and specificity achieved by the model for the MEL class.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Sensitivity vs. Specificity Curves (ROC)",
+      "purpose": "To visualize the performance of the classification network across different thresholds.",
+      "type": "Visualization/Evaluation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics such as accuracy, precision, recall, specificity, F1 score, and AUC, without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2020": {
+      "experiment_1_raw_images": {
+        "models": {
+          "N-DCNN": {
+            "Accuracy": "90.92%",
+            "Precision": "92.11%",
+            "Recall": "92.29%",
+            "Specificity": "89.29%",
+            "F1 Score": "91.70%",
+            "Parameters": "3.32 M",
+            "Test Time (Total)": "76 s",
+            "Test Time (Per Image)": "1.8 s"
+          },
+          "ResNet18": {
+            "Accuracy": "85.32%",
+            "Precision": "84.86%",
+            "Recall": "88.54%",
+            "Specificity": "81.54%",
+            "F1 Score": "86.66%",
+            "Parameters": "11 M",
+            "Test Time": "171 s"
+          },
+          "Inceptionv3": {
+            "Accuracy": "90.50%",
+            "Precision": "92.82%",
+            "Recall": "90.52%",
+            "Specificity": "90.48%",
+            "F1 Score": "91.66%",
+            "Parameters": "24 M",
+            "Test Time": "260 s"
+          },
+          "Xception": {
+            "Accuracy": "82.7%",
+            "Precision": "80.0%",
+            "Recall": "79.8%",
+            "Specificity": "81.9%",
+            "F1 Score": "82.1%",
+            "Parameters": "22.8 M",
+            "Test Time": "202 s"
+          }
+        },
+        "notes": "Comparison with other state-of-the-art methods from literature: S. Nasiri (ACC 75.00%), M.R. Hasan (ACC 93.18%), T.J. Brinker (PRE 74.10%, REC 87.50%, SPE 60.00%), Kwasigroch (ACC 77.00%). N-DCNN achieved the highest AUC (0.9642) among methods that removed duplicates."
+      },
+      "experiment_2_preprocessed_and_segmented_images": {
+        "models": {
+          "N-DCNN": {
+            "Accuracy": "93.40%",
+            "Precision": "93.45%",
+            "Recall": "94.51%",
+            "Specificity": "92.08%",
+            "F1 Score": "93.98%",
+            "Parameters": "3.32 M",
+            "Test Time (Total)": "17 s",
+            "Test Time (Per Image)": "1.3 s"
+          }
+        },
+        "notes": "Preprocessing included hairline removal (IA-HR), contrast enhancement (MCACNN), and segmentation (DilatedSkinNet). The model outperformed the raw image experiment in all metrics and reduced test time."
+      },
+      "comparison_with_duplicate_removal": {
+        "models": {
+          "N-DCNN (Duplicates Removed)": {
+            "AUC": "96.42%"
+          },
+          "S. Karki [54] (Duplicates Not Removed)": {
+            "AUC": "94.11%"
+          },
+          "Q. Ha [55] (Duplicates Not Removed)": {
+            "AUC": "94.90%"
+          },
+          "M. O’Brien [56] (Duplicates Not Removed)": {
+            "AUC": "59.1%"
+          }
+        },
+        "notes": "N-DCNN achieved the highest AUC score among considered methods, partly due to the removal of duplicate images (correlation coefficient > 0.99) which was not done in the compared studies."
+      },
+      "confusion_matrix_details": {
+        "models": {
+          "N-DCNN (Test Set)": {
+            "True Positives": "1293",
+            "True Negatives": "1050",
+            "False Negatives": "108",
+            "False Positives": "126"
+          }
+        },
+        "notes": "Results on the ISIC test dataset."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "N-DCNN (Novel Deep Convolutional Neural Network)",
+    "pretraining": "Not reported (trained from scratch on ISIC 2020 dataset)",
+    "input_size": "128 × 128 pixels (RGB)",
+    "architecture_details": {
+      "structure": "11 blocks arranged in a sequence of 2, 4, and 2 repetitions",
+      "layers": [
+        {
+          "type": "Convolutional",
+          "details": "8 kernels of size 3x3 applied to input"
+        },
+        {
+          "type": "Batch Normalization",
+          "details": "Applied after convolutional layers"
+        },
+        {
+          "type": "Activation",
+          "details": "Leaky ReLU (slope s=0.3 for negative values)"
+        },
+        {
+          "type": "Pooling",
+          "details": "Max-pooling to reduce feature map size"
+        }
+      ],
+      "parameter_count_formula": "Sum of parameters from convolutional, fully connected, and batch normalization layers; pooling layer parameters excluded"
+    },
+    "training_details": {
+      "optimizer": "SGDM (Stochastic Gradient Descent with Momentum)",
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "epochs": 100,
+      "momentum": 0.99,
+      "regularization": 0.0005,
+      "data_augmentation": [
+        "Random oversampling",
+        "Rotation (-300 to +300)",
+        "Translation (-5 and +5 in Y direction)",
+        "Scaling (0.8 in X direction)"
+      ],
+      "hardware": "GeForce GTX 1080 Ti"
+    },
+    "classification_or_output_head": {
+      "type": "Fully Connected Layer",
+      "details": "Binary classification output for Melanoma (MEL) vs Benign (BEN)"
+    },
+    "approximate_parameters": "3.32 M"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "N-DCNN (Novel Deep Convolutional Neural Network)",
+    "ResNet18",
+    "Inceptionv3",
+    "Xception",
+    "AlexNet",
+    "VGG16",
+    "ResNet50",
+    "ResNet-Inception",
+    "SegNet",
+    "UNet",
+    "DilatedSkinNet",
+    "MCACNN",
+    "ACNN",
+    "K-nearest neighbors (KNN)",
+    "Support Vector Machine (SVM)",
+    "Artificial Neural Network (ANN)",
+    "Ensemble Nets",
+    "Efficient-Net",
+    "DNN"
+  ],
+  "preprocessing_techniques": [
+    "Hairline removal using morphological operations (closing with dilation and erosion) and subtraction to detect and mask hair pixels",
+    "Hairline removal using binarization with a threshold of T=25 to create hair masks",
+    "Hairline removal using dilation to repair boundaries and bridge gaps in the hair mask",
+    "Hairline removal using intensity remapping and replacement of hair pixels with neighboring pixel intensities",
+    "Color space conversion from RGB to grayscale for hair detection",
+    "Contrast enhancement using a multiscale context aggregation network (MCAN) to restore contrast and smoothness lost during hair removal",
+    "Image patching for contrast enhancement (dividing images into 256 × 256 patches)",
+    "Data normalization to eliminate duplicate images (correlation coefficient > 0.99)",
+    "Random oversampling to handle class imbalance by generating synthetic samples for the minority class (Melanoma)",
+    "Rescaling and standardization of images to fit training models"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random oversampling",
+      "details": "Used to handle class imbalance by generating synthetic samples for the minority class (Melanoma) during training."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Applied with a range of -300 to +300 degrees."
+    },
+    {
+      "technique": "Translation",
+      "details": "Applied with a range of -5 and +5 in the Y direction."
+    },
+    {
+      "technique": "Scaling",
+      "details": "Applied with a factor of 0.8 in the X direction."
+    }
+  ],
+  "conclusions": [
+    "Incorporating preprocessing (hairline removal and contrast enhancement) and segmentation (lesion extraction) into the classification pipeline significantly improves diagnostic accuracy compared to using raw images.",
+    "The proposed N-DCNN model achieved a classification accuracy of 93.40% on preprocessed and segmented ISIC 2020 data, outperforming baseline CNNs (ResNet18, Inceptionv3, Xception) and other state-of-the-art methods.",
+    "The N-DCNN model demonstrated superior computational efficiency with a test time of 1.3 seconds per image and fewer learnable parameters (3.32 M) compared to baseline models.",
+    "Removing duplicate images from the dataset (correlation coefficient > 0.99) is critical for accurate performance evaluation, as the proposed method achieved the highest AUC (0.9642) among considered methods, partly due to this data cleaning step.",
+    "The study highlights the challenge of class imbalance in the ISIC 2020 dataset and the necessity of data augmentation techniques like random oversampling to handle the disparity between melanoma and benign lesion samples."
+  ],
+  "important_remarks": [
+    "The study addresses a critical data leakage risk by removing duplicate images (correlation coefficient > 0.99) from the ISIC 2020 dataset, noting that previous comparative studies failed to do so, which likely inflated their reported performance.",
+    "The dataset exhibits significant class imbalance (7,093 Benign vs. 5,789 Melanoma), which was mitigated using random oversampling on the training set only; however, the paper does not report statistical significance testing (p-values) for performance comparisons.",
+    "The model was trained and evaluated on a single public dataset (ISIC 2020) without external validation, limiting the generalizability of the 93.40% accuracy claim to other populations or imaging devices.",
+    "The study focuses exclusively on binary classification (Melanoma vs. Benign), ignoring other skin cancer types (BCC, BKL, CMN) present in the dataset, which limits its clinical utility for comprehensive skin cancer screening.",
+    "The dataset contains samples from dark-skinned individuals and older populations, but the paper does not provide stratified performance metrics by skin tone or age, raising potential bias concerns regarding equity in diagnosis.",
+    "The preprocessing pipeline (hair removal, contrast enhancement, segmentation) significantly improved accuracy (from 90.92% to 93.40%) and reduced test time, but introduces complexity and potential failure points if preprocessing steps fail on noisy clinical images.",
+    "The N-DCNN model was trained from scratch without reported pretraining, which may impact performance compared to models using transfer learning on larger datasets."
+  ]
+}

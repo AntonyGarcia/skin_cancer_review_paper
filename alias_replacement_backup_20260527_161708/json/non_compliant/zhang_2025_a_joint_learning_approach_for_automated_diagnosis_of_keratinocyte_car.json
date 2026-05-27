@@ -1,0 +1,320 @@
+{
+  "file_name": "zhang_2025_a_joint_learning_approach_for_automated_diagnosis_of_keratinocyte_car.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a joint learning approach combining a ResNet34 network for 2D OAC image structural analysis and a custom multilayer fully connected network for 1D probability density function (PDF) features to classify keratinocyte carcinoma (AK, BCC) and normal skin. The model achieved over 80% accuracy on 2D data and nearly 100% on 3D data."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel joint learning approach for automated diagnosis of keratinocyte carcinoma. It details the development of a machine learning model (ResNet34 and custom FC network) using a dataset of 14,501 images, reports specific training parameters (200 epochs, batch size 25), and provides quantitative results including accuracy, sensitivity, precision, and AUC values for classifying AK, BCC, and normal skin."
+  },
+  "title": "A joint learning approach for automated diagnosis of keratinocyte carcinoma using optical attenuation coefficients",
+  "authors": [
+    "Lei Zhang",
+    "Xiaoran Li",
+    "Wen Chen",
+    "Yuanjie Gu",
+    "Hao Wu",
+    "Zhong Lu",
+    "Biqin Dong"
+  ],
+  "doi": "10.1038/s41746-025-01634-x",
+  "journal": "npj Digital Medicine",
+  "year": 2025,
+  "article_type": "Article",
+  "brief_summary": "This study proposes a joint learning approach for the automated diagnosis of keratinocyte carcinoma, specifically distinguishing between actinic keratosis (AK), basal cell carcinoma (BCC), and normal skin. The method integrates two-dimensional optical attenuation coefficient (OAC) images with one-dimensional probability density function (PDF) features using a ResNet34 network and a custom fully connected network. The model was trained and evaluated on a dataset of 14,501 images comprising 6,137 AK, 4,547 BCC, and 3,817 normal skin samples. Evaluation results showed that the joint learning model achieved an overall accuracy of 78.8% and an AUC of 0.870 for AK, outperforming a baseline 2D-OAC model. Furthermore, incorporating three-dimensional OAC data enhanced robustness, pushing the automated diagnosis accuracy towards 100% at the volumetric level.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic Keratosis",
+      "paper_terms": [
+        "AK",
+        "Actinic Keratosis"
+      ],
+      "role": "Target class",
+      "details": "Studied as a precursor to SCC and a type of keratinocyte carcinoma. Included in the dataset of 14,501 images (6,137 samples) and classified by the joint learning model."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "BCC",
+        "Basal Cell Carcinoma"
+      ],
+      "role": "Target class",
+      "details": "Studied as a malignant skin tumor and a type of keratinocyte carcinoma. Included in the dataset of 14,501 images (4,547 samples) and classified by the joint learning model."
+    },
+    {
+      "lesion_type": "Normal Skin",
+      "paper_terms": [
+        "normal skin",
+        "normal tissue",
+        "normal cases"
+      ],
+      "role": "Target class",
+      "details": "Used as the control/comparator class in the classification task. Included in the dataset of 14,501 images (3,817 samples)."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma",
+      "paper_terms": [
+        "SCC",
+        "Squamous Cell Carcinoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned as a condition that AK can transform into and as a keratinocyte carcinoma type, but not included in the current study's dataset or classification task. The authors note plans to incorporate SCC in future work."
+    },
+    {
+      "lesion_type": "Bowen's Disease",
+      "paper_terms": [
+        "Bowen's disease"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned as a condition the authors plan to incorporate in future dataset expansion, but not studied in this paper."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Diagnostic categories: Actinic Keratosis (AK), Basal Cell Carcinoma (BCC), and Normal Skin",
+        "primary": true,
+        "details": "The paper performs a three-class classification task to distinguish between AK, BCC, and normal skin tissues using optical attenuation coefficient (OAC) images and probability density function (PDF) features. The model outputs softmax probabilities for these discrete classes. Evaluation metrics include accuracy, sensitivity, precision, specificity, and AUC for each class. The study also reports volumetric-level classification accuracy (approaching 100%) by using majority label voting from 3D OAC data."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Primary Clinical Dataset",
+      "description": "A dataset of Optical Attenuation Coefficient (OAC) images and corresponding Probability Density Function (PDF) features extracted from Optical Coherence Tomography (OCT) data. The data was collected from patients diagnosed with Actinic Keratosis (AK) or Basal Cell Carcinoma (BCC) via clinical examination between January 2022 and January 2024 at Huashan Hospital, Fudan University. The study was approved by the Huashan Institutional Review Board (HIRB).",
+      "classes_used": [
+        "Actinic Keratosis (AK)",
+        "Basal Cell Carcinoma (BCC)",
+        "Normal Skin"
+      ],
+      "counts": {
+        "total": 14501,
+        "training": 14501,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "AK": 6137,
+          "BCC": 4547,
+          "Normal Skin": 3817
+        }
+      },
+      "use": {
+        "training": "Used for training the joint learning model (ResNet34 and custom FC network) for 200 epochs with a batch size of 25.",
+        "validation": "Used for validation during training (reported validation accuracy of ~80%).",
+        "testing": "The test set consisted entirely of samples from different patients to ensure generalizability. Specific counts for the test set are not explicitly reported, but it is a subset of the 14,501 images.",
+        "other": "Six untrained datasets (volumetric data from different patients) were used for external prediction to assess overfitting and volumetric-level accuracy."
+      }
+    },
+    {
+      "name": "Untrained Volumetric Datasets",
+      "description": "Six unseen volumetric datasets of AK, BCC, and normal skin tissues used for prediction to assess network overfitting and evaluate the robustness of the 3D OAC data approach.",
+      "classes_used": [
+        "Actinic Keratosis (AK)",
+        "Basal Cell Carcinoma (BCC)",
+        "Normal Skin"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for external prediction/evaluation of the trained model on unseen data.",
+        "other": "Used to demonstrate that majority label voting on volumetric data could achieve 100% prediction accuracy at the volumetric level."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Precision",
+    "Specificity",
+    "Area Under the Curve (AUC)",
+    "Overall Accuracy",
+    "Overall Sensitivity",
+    "Overall Precision",
+    "Confusion Matrix",
+    "ROC curves",
+    "p-value",
+    "Z-score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Z-score test",
+      "purpose": "To compare the Area Under the Curve (AUC) between the joint learning model and the 2D-OAC model for AK and BCC classification.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "p-value",
+      "purpose": "To determine the statistical significance of the difference in AUC between the joint learning model and the 2D-OAC model.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Z-score test",
+    "null_hypothesis": "There is no significant difference in the Area Under the Curve (AUC) between the joint learning model and the 2D-OAC model.",
+    "alternative_hypothesis": "There is a significant difference in the AUC between the joint learning model and the 2D-OAC model.",
+    "alpha": 0.05,
+    "interpretation": "The difference in AUC for AK classification (0.870 vs 0.805) was statistically significant (Z-score: -5.1461, p-value: 2.66E-07). The difference in AUC for BCC classification (0.855 vs 0.716) was also statistically significant (Z-score: -9.9721, p-value: 2.02E-23), indicating the joint learning model significantly outperformed the 2D-OAC model."
+  },
+  "results_obtained_in_each_dataset": {
+    "Primary Clinical Dataset (Training/Validation/Test)": {
+      "description": "Dataset of 14,501 images (6,137 AK, 4,547 BCC, 3,817 Normal) from Huashan Hospital. Training accuracy was ~95% and validation accuracy ~80%. Test set consisted of samples from different patients.",
+      "models": {
+        "2D-OAC Model": {
+          "Normal": {
+            "Accuracy": 0.999,
+            "Sensitivity": 1.0,
+            "Precision": 0.994,
+            "Specificity": 0.999,
+            "AUC": 1.0
+          },
+          "AK": {
+            "Accuracy": 0.752,
+            "Sensitivity": 0.731,
+            "Precision": 0.659,
+            "Specificity": 0.765,
+            "AUC": 0.805
+          },
+          "BCC": {
+            "Accuracy": 0.751,
+            "Sensitivity": 0.685,
+            "Precision": 0.755,
+            "Specificity": 0.808,
+            "AUC": 0.716
+          },
+          "Overall": {
+            "Accuracy": 0.751,
+            "Sensitivity": 0.805,
+            "Precision": 0.751
+          }
+        },
+        "Joint Learning Model": {
+          "Normal": {
+            "Accuracy": 0.996,
+            "Sensitivity": 0.991,
+            "Precision": 0.985,
+            "Specificity": 0.997,
+            "AUC": 1.0
+          },
+          "AK": {
+            "Accuracy": 0.791,
+            "Sensitivity": 0.783,
+            "Precision": 0.704,
+            "Specificity": 0.795,
+            "AUC": 0.87
+          },
+          "BCC": {
+            "Accuracy": 0.79,
+            "Sensitivity": 0.726,
+            "Precision": 0.802,
+            "Specificity": 0.845,
+            "AUC": 0.855
+          },
+          "Overall": {
+            "Accuracy": 0.788,
+            "Sensitivity": 0.833,
+            "Precision": 0.788
+          }
+        }
+      },
+      "statistical_comparisons": {
+        "AK_AUC_difference": {
+          "Joint_Learning_AUC": 0.87,
+          "2D_OAC_AUC": 0.805,
+          "Z_score": -5.1461,
+          "p_value": "2.66E-07"
+        },
+        "BCC_AUC_difference": {
+          "Joint_Learning_AUC": 0.855,
+          "2D_OAC_AUC": 0.716,
+          "Z_score": -9.9721,
+          "p_value": "2.02E-23"
+        }
+      },
+      "notes": "The joint learning model achieved a 3.9% higher accuracy and 4.5% improvement in precision for AK compared to the 2D-OAC model. For BCC, it showed superior sensitivity and precision. The difference in AUC for both AK and BCC was statistically significant (p < 0.05)."
+    },
+    "Untrained Volumetric Datasets": {
+      "description": "Six unseen volumetric datasets of AK, BCC, and normal skin tissues used for external prediction to assess overfitting and volumetric-level accuracy.",
+      "models": {
+        "Joint Learning Model (Volumetric Majority Voting)": {
+          "Prediction_Accuracy": "100%"
+        }
+      },
+      "notes": "By incorporating 3D OAC data and using majority label voting from the entire volumetric dataset, the model achieved 100% prediction accuracy at the volumetric level. On the test set (individual images), the joint learning method achieved a 5% increase in accuracy compared to the 2D-OAC model, reaching 80.2% for BCC and 70.6% for AK."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Joint learning approach combining a ResNet34 network for 2D OAC image structural analysis and a custom multilayer fully connected (FC) network for 1D PDF features.",
+    "pretraining": "Not reported.",
+    "input_size": "400×1000 pixels (for OAC images). PDF features are 1-dimensional.",
+    "architecture_details": {
+      "backbone_1": "ResNet34",
+      "backbone_1_input": "2D OAC images",
+      "backbone_2": "Custom multilayer fully connected network",
+      "backbone_2_input": "1D probability density function (PDF) features",
+      "fusion_method": "Outputs from both networks are merged and passed into the classification layer."
+    },
+    "training_details": {
+      "optimizer": "Not reported (learning rate specified, but optimizer type not explicitly named in context).",
+      "loss_function": "Not reported (Softmax probability output implies Cross-Entropy, but not explicitly stated).",
+      "epochs": 200,
+      "batch_size": 25,
+      "learning_rate": 1e-05
+    },
+    "classification_or_output_head": {
+      "type": "Softmax probability",
+      "classes": [
+        "Normal",
+        "AK",
+        "BCC"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet34",
+    "Custom multilayer fully connected network",
+    "Joint learning model",
+    "2D-OAC model"
+  ],
+  "preprocessing_techniques": [
+    "Extraction of Optical Attenuation Coefficient (OAC) images from Optical Coherence Tomography (OCT) data",
+    "Baseline noise removal and signal decay correction to restore final OCT intensity",
+    "Unsupervised 3D deep learning denoising using a 3D-Unet network to remove high-intensity noise points from 3D OAC data",
+    "Isolation of fixed-size regions of interest (ROI) in OAC images",
+    "Computation of Probability Density Function (PDF) features within the isolated ROI",
+    "Flattening of OAC images and PDF data for network input",
+    "Cropping of OAC images (mentioned in Figure 1 caption as 'flattening, cropping, and other post-processing steps')"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed joint learning approach, which integrates two-dimensional optical attenuation coefficient (OAC) images with one-dimensional probability density function (PDF) features using a ResNet34 network and a custom fully connected network, significantly improves the automated diagnosis of keratinocyte carcinoma compared to a baseline 2D-OAC model.",
+    "The joint learning model achieved an overall accuracy of 78.8% and an overall sensitivity of 83.3% for classifying normal skin, actinic keratosis (AK), and basal cell carcinoma (BCC), outperforming the 2D-OAC model's overall accuracy of 75.1%.",
+    "Incorporating PDF information led to statistically significant improvements in classification performance, with the joint learning model achieving an AUC of 0.870 for AK (vs. 0.805 for 2D-OAC, p = 2.66E-07) and 0.855 for BCC (vs. 0.716 for 2D-OAC, p = 2.02E-23).",
+    "The joint learning model demonstrated superior precision and sensitivity for diseased tissues (AK and BCC) compared to the 2D-OAC model, with a 3.9% higher accuracy and 4.5% improvement in precision for AK cases.",
+    "Utilizing three-dimensional OAC data and majority label voting enhanced robustness, pushing the automated diagnosis accuracy towards 100% at the volumetric level.",
+    "The study highlights the potential of OAC-based analysis combined with PDF features for automated, intelligent diagnosis of early-stage non-melanoma skin cancers, reducing reliance on physician experience.",
+    "Limitations acknowledged include the current focus on distinguishing AK and BCC due to dataset constraints, with plans to expand the dataset to include squamous cell carcinoma (SCC) and Bowen's disease, as well as the need for multicenter validation."
+  ],
+  "important_remarks": [
+    "The study is limited to a single-center dataset from Huashan Hospital, Fudan University, lacking external multicenter validation which is acknowledged as a necessary future step.",
+    "The dataset exhibits class imbalance with significantly fewer normal skin samples (3,817) compared to AK (6,137) and BCC (4,547), although the authors argue this had limited impact due to the stable optical properties of normal tissue.",
+    "Squamous Cell Carcinoma (SCC) and Bowen's disease were not included in the current study's classification task; the model is specifically designed for distinguishing AK, BCC, and normal skin.",
+    "The test set consisted entirely of samples from different patients to ensure generalizability, but specific counts for the test set were not explicitly reported.",
+    "The claim of 'approaching 100%' accuracy is based on six untrained volumetric datasets using majority label voting, rather than individual image classification accuracy.",
+    "The study does not report data augmentation techniques, relying instead on the size of the primary dataset (14,501 images) for training.",
+    "The model's performance for AK (AUC 0.870) and BCC (AUC 0.855) is statistically significantly better than the baseline 2D-OAC model (p < 0.05), but absolute accuracy for diseased tissues remains moderate (~79-80%).",
+    "The paper acknowledges that manual diagnosis is challenging due to the variability in lesion severity and skin condition, which can cause PDF distributions to deviate from expected patterns."
+  ]
+}

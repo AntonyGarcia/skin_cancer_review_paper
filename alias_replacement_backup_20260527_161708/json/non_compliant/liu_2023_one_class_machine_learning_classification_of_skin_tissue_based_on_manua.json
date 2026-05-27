@@ -1,0 +1,356 @@
+{
+  "file_name": "liu_2023_one_class_machine_learning_classification_of_skin_tissue_based_on_manua.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a deep convolutional neural network (CNN) with a U-Net architecture for automatic skin segmentation and feature extraction, combined with a one-class support vector machine (SVM) classifier for anomaly detection to identify abnormal skin tissues (basal cell carcinoma and squamous cell carcinoma) from optical coherence tomography (OCT) images in the context of Mohs micrographic surgery."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper describes original experimental work, including the development of a manually scanned single fiber OCT instrument, the training of a deep convolutional neural network (U-Net) and one-class SVM classifier, validation using computer-synthesized and experimental data, and a pilot study on a patient with basal cell carcinoma. It presents new results and methods rather than summarizing prior literature."
+  },
+  "title": "One‑class machine learning classification of skin tissue based on manually scanned optical coherence tomography imaging",
+  "authors": [
+    "Xuan Liu",
+    "Samantha Ouellette",
+    "Marielle Jamgochian",
+    "Yuwei Liu",
+    "Babar Rao"
+  ],
+  "doi": "10.1038/s41598-023-28155-5",
+  "journal": "Scientific Reports",
+  "year": 2023,
+  "article_type": "Research Article",
+  "brief_summary": "This study developed a one-class machine learning method to automatically identify abnormal skin tissues, specifically basal cell carcinoma and squamous cell carcinoma, using optical coherence tomography (OCT) imaging for Mohs micrographic surgery. The approach utilized a manually scanned single-fiber OCT instrument to acquire in vivo images and a deep convolutional neural network with U-Net architecture for automatic skin segmentation and feature extraction. These features were then used to train a one-class support vector machine classifier to detect anomalies without requiring labeled abnormal tissue data for training. The algorithm's effectiveness was validated using computer-synthesized data, experimental data, and a pilot study on a patient with biopsy-confirmed basal cell carcinoma. Results demonstrated that the one-class classifier accurately detected abnormal tissues and correlated well with histological ground truth, suggesting potential for improving tumor boundary assessment during surgery.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC",
+        "skin tumor",
+        "abnormal skin tissue"
+      ],
+      "role": "Target class (abnormal/anomaly)",
+      "details": "Studied as the primary abnormal tissue class. Included in computer-synthesized experimental data (simulated by reducing OCT signal magnitude) and validated in a pilot study on a patient with biopsy-confirmed nodular BCC."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma",
+        "SCC"
+      ],
+      "role": "Target class (abnormal/anomaly)",
+      "details": "Included in computer-synthesized experimental data (simulated by enhancing signal magnitude to create discrete bright regions). Used to demonstrate the one-class classifier's ability to detect anomalies regardless of cancer type."
+    },
+    {
+      "lesion_type": "Normal skin",
+      "paper_terms": [
+        "normal skin",
+        "healthy skin",
+        "normal tissue"
+      ],
+      "role": "Comparator class (normal/control)",
+      "details": "Used as the 'normal' class for one-class SVM training (using data from healthy subjects) and validation. Also included in the experimental dataset alongside synthesized abnormal images."
+    },
+    {
+      "lesion_type": "Nail plate",
+      "paper_terms": [
+        "nail plate",
+        "nail"
+      ],
+      "role": "Comparator class (abnormal/anomaly for boundary detection)",
+      "details": "Used in a spatially resolved tissue classification experiment on a healthy subject to demonstrate boundary detection between normal skin and non-skin tissue (considered abnormal in this context)."
+    },
+    {
+      "lesion_type": "Disrupted dermis-epidermis junction",
+      "paper_terms": [
+        "DEJ disruption",
+        "disrupted dermis-epidermis junction"
+      ],
+      "role": "Target class (abnormal/anomaly)",
+      "details": "Included in computer-synthesized experimental data to test the classifier's sensitivity to structural abnormalities."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin tissue status (normal vs. abnormal/anomaly).",
+        "primary": true,
+        "details": "The paper employs a one-class support vector machine (SVM) classifier to distinguish between normal skin tissue and abnormal tissue (including basal cell carcinoma, squamous cell carcinoma, and disrupted dermis-epidermis junction). The model outputs a prediction score where a positive score indicates normal tissue and a negative score indicates abnormal tissue. Validation was performed using computer-synthesized data and a pilot study on a patient with biopsy-confirmed basal cell carcinoma, comparing classification results against histological ground truth."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Healthy Subject OCT Dataset",
+      "description": "In vivo OCT images acquired from 9 healthy subjects using a manually scanned single-fiber OCT instrument. Images were obtained from the right forearm, left forearm, forehead, neck, and palm. Subjects ranged in age from 24 to 59, with skin types II to IV, and included both males and females. Images were manually labeled for air, stratum corneum, epidermis, and dermis.",
+      "classes_used": [
+        "Normal skin",
+        "Air",
+        "Stratum corneum",
+        "Epidermis",
+        "Dermis"
+      ],
+      "counts": {
+        "total": null,
+        "training": 2232,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the U-Net for automatic skin segmentation (2232 image patches) and to train the one-class SVM classifier (using features from normal skin patches).",
+        "validation": "Used for validation of the one-class classifier (as the 'normal' class) and for spatially resolved tissue classification experiments (scanning from skin to nail plate on a healthy subject's thumb).",
+        "testing": null,
+        "other": "Used to establish the baseline for 'normal' tissue features."
+      }
+    },
+    {
+      "name": "Computer-Synthesized Abnormal OCT Dataset",
+      "description": "Synthetic OCT images generated by modifying normal OCT data to simulate pathological features. BCC was simulated by reducing OCT signal magnitude to 75% from a random depth in the dermis. SCC was simulated by enhancing signal magnitude by 25% in a randomly selected region below the surface. DEJ disruption was simulated by normalizing individual Ascans within an image using an averaged depth profile.",
+      "classes_used": [
+        "Synthesized Basal Cell Carcinoma (BCC)",
+        "Synthesized Squamous Cell Carcinoma (SCC)",
+        "Synthesized Disrupted Dermis-Epidermis Junction (DEJ)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": "Used to validate the effectiveness of the one-class classification method by serving as the 'abnormal' class against the normal skin data.",
+        "testing": "Used to assess classification performance (ROC curves and accuracy) in Table 1.",
+        "other": null
+      }
+    },
+    {
+      "name": "Pilot Patient BCC Dataset",
+      "description": "In vivo OCT images from a single 72-year-old male patient with biopsy-confirmed nodular basal cell carcinoma (BCC) located on the left jaw. The dataset includes scans of normal skin (forearm), the tumor, and the margins adjacent to the tumor. Results were correlated with histological ground truth.",
+      "classes_used": [
+        "Normal skin",
+        "Basal Cell Carcinoma (BCC)",
+        "Positive Margin (Abnormal)",
+        "Negative Margin (Normal)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": 8,
+        "per_class": {
+          "Normal": 2,
+          "Abnormal": 6
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for clinical validation of the algorithm in a pilot study. The 8 scans (forearm normal, tumor, and 6 margin scans) were classified and compared to histology.",
+        "other": "Clinical pilot study."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area Under Curve (AUC) of ROC",
+    "Accuracy",
+    "ROC curve",
+    "Prediction score",
+    "Histological ground truth correlation"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "One-class Support Vector Machine (SVM)",
+      "purpose": "To classify skin tissue as normal or abnormal (anomaly detection) without requiring labeled abnormal training data.",
+      "type": "Classification algorithm"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) curve analysis",
+      "purpose": "To evaluate and compare the performance of different SVM classifiers trained with different feature vectors on computer-synthesized data.",
+      "type": "Performance evaluation metric"
+    },
+    {
+      "method": "Area Under Curve (AUC) of ROC",
+      "purpose": "To quantify the classification performance of the one-class SVM models on synthesized abnormal data.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Prediction Accuracy",
+      "purpose": "To assess the correctness of the classifier predictions against ground truth labels for synthesized data and to validate the pilot study results against histology.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Outlier ratio parameterization",
+      "purpose": "To tune the one-class SVM classifier by training it with a specific percentage of abnormal data (8%) to define the boundary of the normal class.",
+      "type": "Model hyperparameter"
+    },
+    {
+      "method": "Histological correlation",
+      "purpose": "To validate the clinical accuracy of the one-class SVM classification results in the pilot patient study by comparing them with biopsy-confirmed histology.",
+      "type": "Validation method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using classification accuracy, Area Under the Curve (AUC) of ROC, and correlation with histological ground truth."
+  },
+  "results_obtained_in_each_dataset": {
+    "Computer-Synthesized Abnormal OCT Dataset": {
+      "experiment": "Feature selection and classifier performance on synthesized data (BCC, SCC, DEJ disruption) vs Normal skin",
+      "models": {
+        "SVMe&d": {
+          "AUC of ROC": 0.91,
+          "Accuracy": 0.69
+        },
+        "SVMe": {
+          "AUC of ROC": 0.79,
+          "Accuracy": 0.55
+        },
+        "SVMd": {
+          "AUC of ROC": 0.88,
+          "Accuracy": 0.68
+        },
+        "SVMall": {
+          "AUC of ROC": 0.88,
+          "Accuracy": 0.65
+        }
+      },
+      "notes": "Classifiers were trained with an outlier ratio of 8%. The feature vector Xe&d (concatenated epidermis and dermis features) outperformed other feature vectors. Classification accuracy was validated against ground truth labels for normal and synthesized abnormal images."
+    },
+    "Healthy Subject Nail Plate Dataset": {
+      "experiment": "Spatially resolved tissue classification (Skin vs Nail Plate)",
+      "models": {
+        "SVMe&d": {
+          "Result": "Successfully identified boundary between normal skin and abnormal tissue (nail plate) using SVM prediction scores and first order difference of filtered scores."
+        }
+      },
+      "notes": "The nail plate was considered abnormal. The method allowed spatial resolved tissue classification and tissue boundary detection."
+    },
+    "Pilot Patient BCC Dataset": {
+      "experiment": "Clinical validation on a 72-year-old male with biopsy-confirmed nodular BCC",
+      "models": {
+        "One-class SVM": {
+          "Normal skin (forearm site 1)": {
+            "SVM Score": 4.2,
+            "Classification": "Normal"
+          },
+          "Normal skin (forearm site 2)": {
+            "SVM Score": 2.1,
+            "Classification": "Normal"
+          },
+          "Tumor (scan 1)": {
+            "SVM Score": -5.3,
+            "Classification": "Abnormal"
+          },
+          "Tumor (scan 2)": {
+            "SVM Score": -3.2,
+            "Classification": "Abnormal"
+          },
+          "Tumor (scan 3)": {
+            "SVM Score": -5.3,
+            "Classification": "Abnormal"
+          },
+          "Tumor (scan 4)": {
+            "SVM Score": -5.3,
+            "Classification": "Abnormal"
+          },
+          "Margin (scan 5)": {
+            "SVM Score": -2.3,
+            "Classification": "Abnormal (positive margin)"
+          },
+          "Margin (scan 6)": {
+            "SVM Score": -4.8,
+            "Classification": "Abnormal (positive margin)"
+          },
+          "Margin (scan 7)": {
+            "SVM Score": 2.9,
+            "Classification": "Normal (negative margin)"
+          },
+          "Margin (scan 8)": {
+            "SVM Score": 6.5,
+            "Classification": "Normal (negative margin)"
+          }
+        }
+      },
+      "notes": "Classification results correlated with histological ground truth. Histology confirmed positive margins for scans 5 and 6, and negative margins for scans 7 and 8, consistent with SVM predictions."
+    }
+  },
+  "architecture_used": {
+    "main_model": "U-Net (Deep Convolutional Neural Network) for feature extraction; One-class Support Vector Machine (SVM) for classification",
+    "pretraining": "Pre-trained on manually labeled OCT images from healthy subjects for automatic skin segmentation (air, stratum corneum, epidermis, dermis). Trained in Matlab 2019b on GPU-GTX1070 for 10 epochs with ADAM solver, mini-batch size 40, initial learning rate 10^-3, and cross-entropy loss.",
+    "input_size": "256 (axial/z) × 32 (lateral/x) pixels per image patch (consisting of 32 Ascans)",
+    "architecture_details": {
+      "u_net_structure": "Contracting encoder branch and expanding decoder branch. Encoder has 5 stages; Decoder has 5 stages. Each encoder stage has 5 layers (3x3 conv, ReLU, 3x3 conv, ReLU, max pooling). Each decoder stage has 7 layers (up-convolution, up-ReLU, concatenation, 3x3 conv, ReLU, 3x3 conv, ReLU).",
+      "feature_extraction_layer": "Layer prior to the segmentation layer (last ReLU layer of the last decoder stage). This layer has 16 neurons (N=16) per pixel. Features are averaged within specific pixel groups (epidermis, dermis, or both) to create feature vectors X_all, X_e, X_d, or X_e&d.",
+      "svm_configuration": "One-class SVM using radial basis function (rbf) kernel with automatic kernel scale. Trained using SVM tools in Matlab. Outlier ratio parameter set to 8% for validation experiments."
+    },
+    "training_details": {
+      "u_net_training": {
+        "optimizer": "ADAM (Adaptive Moment Estimation)",
+        "epochs": 10,
+        "batch_size": 40,
+        "learning_rate": "10^-3",
+        "loss_function": "Cross-entropy",
+        "hardware": "GPU-GTX1070",
+        "software": "Matlab 2019b"
+      },
+      "svm_training": {
+        "kernel": "Radial Basis Function (rbf)",
+        "outlier_ratio": "8% (for validation experiments)",
+        "software": "Matlab SVM tools"
+      }
+    },
+    "classification_or_output_head": {
+      "type": "One-class SVM prediction score",
+      "description": "Maps feature vector to a prediction score. Positive score indicates normal tissue; negative score indicates abnormal tissue/anomaly."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Deep Convolutional Neural Network (CNN) with U-Net architecture",
+    "One-class Support Vector Machine (SVM)",
+    "SVMall",
+    "SVMe",
+    "SVMd",
+    "SVMe&d"
+  ],
+  "preprocessing_techniques": [
+    "Speckle decorrelation analysis to correct distortion artifacts in manually scanned OCT images",
+    "Computer-synthesized data generation for validation: reducing OCT signal magnitude to 75% to simulate Basal Cell Carcinoma (BCC)",
+    "Computer-synthesized data generation: enhancing signal magnitude by 25% to simulate Squamous Cell Carcinoma (SCC)",
+    "Computer-synthesized data generation: normalizing individual Ascans using an averaged depth profile to simulate disrupted dermis-epidermis junction (DEJ)",
+    "Thresholding in wavelet domain applied to SVM prediction scores to filter spatially resolved data",
+    "First order difference calculation of filtered SVM prediction scores to identify tissue boundaries"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed one-class machine learning method, combining a U-Net-based feature extractor and a one-class support vector machine (SVM), successfully identifies abnormal skin tissues (basal cell carcinoma, squamous cell carcinoma, and disrupted dermis-epidermis junction) without requiring labeled abnormal training data.",
+    "Using a pre-trained deep convolutional neural network (U-Net) as a feature extractor eliminates the need for manual feature engineering and leverages automatically extracted features that provide a more objective characterization of tissue than manually engineered features.",
+    "The one-class classification strategy effectively overcomes the limitation of scarce abnormal tissue data in training sets, as the classifier is trained solely on normal skin data.",
+    "The feature vector concatenating epidermis and dermis features (Xe&d) outperformed other feature vectors, achieving an Area Under the Curve (AUC) of 0.91 and an accuracy of 0.69 on computer-synthesized abnormal data.",
+    "The algorithm demonstrated clinical utility in a pilot study on a patient with biopsy-confirmed basal cell carcinoma, where SVM classification results correlated with histological ground truth for tumor detection and margin assessment.",
+    "The method enables spatially resolved tissue classification and accurate detection of tissue boundaries, such as the interface between normal skin and the nail plate.",
+    "The manually scanned single-fiber OCT instrument coupled with this AI analysis has the potential to improve tumor boundary assessment in Mohs micrographic surgery, potentially reducing surgery time and improving excision accuracy.",
+    "The system is computationally efficient, requiring approximately 0.1 seconds for feature extraction and 0.01 seconds for SVM prediction per image patch."
+  ],
+  "important_remarks": [
+    "The study relies on a single pilot patient (72-year-old male) for clinical validation, limiting the generalizability of the results to a broader population.",
+    "Abnormal tissue classes (BCC, SCC, DEJ disruption) were validated using computer-synthesized data rather than real pathological OCT images, which may not fully capture the heterogeneity of actual skin cancers.",
+    "The training dataset for the one-class SVM consisted exclusively of normal skin from 9 healthy subjects (skin types II-IV, ages 24-59), potentially introducing bias against other skin types or age groups.",
+    "The OCT instrument is manually scanned, which introduces potential variability in image quality and alignment compared to automated scanning systems.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals for the classification performance metrics.",
+    "The algorithm was tested on a MacBook Pro (Apple M1 CPU) for computational efficiency, but deployment on clinical hardware was not evaluated.",
+    "The study addresses the limitation of scarce abnormal training data by using a one-class classification approach, but this assumes that normal skin features are well-represented and stable across the target population."
+  ]
+}

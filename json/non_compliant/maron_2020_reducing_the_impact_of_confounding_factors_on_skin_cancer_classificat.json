@@ -1,0 +1,328 @@
+{
+  "file_name": "maron_2020_reducing_the_impact_of_confounding_factors_on_skin_cancer_classificat.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The study used deep learning convolutional neural networks (CNNs) to train binary skin lesion classifiers (nevus vs melanoma) on dermoscopic images. The AI models were trained on the HAM and ISIC datasets and evaluated on a multi-source test set to assess the impact of image segmentation on classification performance."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as an 'Original Paper' and a 'Technical Model Study'. It describes original experimental work involving the training and evaluation of deep learning convolutional neural networks (CNNs) on the HAM and ISIC datasets to compare segmented versus unsegmented image classification workflows. It presents new results, including specific performance metrics (balanced accuracy, AUROC) and statistical analyses (P-values), rather than summarizing prior literature."
+  },
+  "title": "Reducing the Impact of Confounding Factors on Skin Cancer Classification via Image Segmentation: Technical Model Study",
+  "authors": [
+    "Roman C Maron",
+    "Achim Hekler",
+    "Eva Krieghoff-Henning",
+    "Max Schmitt",
+    "Justin G Schlager",
+    "Jochen S Utikal",
+    "Titus J Brinker"
+  ],
+  "doi": "10.2196/21695",
+  "journal": "Journal of Medical Internet Research",
+  "year": 2021,
+  "article_type": "Original Paper",
+  "brief_summary": "This study evaluated whether image segmentation reduces the impact of confounding factors on deep learning-based skin cancer classification. Binary classifiers (nevus vs melanoma) were trained on segmented and unsegmented dermoscopic images from the HAM and ISIC datasets using ResNet50 architectures. Performance was assessed on a multi-source test set of 688 images, including holdout and external components from PH2 and proprietary sources. Classifiers trained on HAM data showed significantly higher balanced accuracy when using segmented images (75.6%) compared to unsegmented images (66.7%). The authors concluded that segmentation is a viable method to remove lesion-adjacent artifacts without generally decreasing performance, though it may introduce new pitfalls depending on segmentation quality.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Binary classifier target class; HAM training set contained 514 unique melanoma lesions."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi"
+      ],
+      "role": "Target class",
+      "details": "Binary classifier target class; classifiers were trained to distinguish nevus vs melanoma."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (nevus vs melanoma)",
+        "primary": true,
+        "details": "The study trained binary skin lesion classifiers to distinguish between nevus and melanoma classes using dermoscopic images. Performance was evaluated using balanced accuracy and AUROC. The task is explicitly defined as binary classification in the abstract, methods, and results sections."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018 Challenge Task 1",
+      "description": "Dermoscopic lesion images with binary image masks (ground truth) partitioning images into background and foreground. Used for developing the segmentation model (U-Net).",
+      "classes_used": [
+        "Lesion (foreground)",
+        "Background (surrounding skin)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the U-Net segmentation model.",
+        "validation": "Used to validate the segmentation model.",
+        "testing": "Used to test the segmentation model.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2017 Challenge Part 3",
+      "description": "Dermoscopic images used as one of the two sources for developing skin lesion classifiers. Mutually exclusive with the HAM dataset.",
+      "classes_used": [
+        "Nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as a source for the ISIC training dataset for binary skin lesion classifiers.",
+        "validation": "Used as a source for the ISIC validation dataset.",
+        "testing": "Used as a holdout component of the multi-source test set for evaluating classifiers.",
+        "other": null
+      }
+    },
+    {
+      "name": "HAM (Human Against Machine) Dataset",
+      "description": "Dermoscopic images used as the second source for developing skin lesion classifiers. Contains considerably fewer artifacts than the ISIC dataset. Duplicated images were removed prior to splitting.",
+      "classes_used": [
+        "Nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as a source for the HAM training dataset for binary skin lesion classifiers.",
+        "validation": "Used as a source for the HAM validation dataset.",
+        "testing": "Used as a holdout component of the multi-source test set for evaluating classifiers.",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2 (Hospital Pedro Hispano) Dataset",
+      "description": "Publicly available dataset containing dermoscopic images acquired at the Dermatology Service of Hospital Pedro Hispano, Matosinhos, Portugal. Contains binary image masks from dermatologists.",
+      "classes_used": [
+        "Nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as an external component of the multi-source test set for evaluating classifiers. Also used for evaluating the segmentation model.",
+        "other": "Used for additional analysis of cropped images to investigate performance drops due to black corners."
+      }
+    },
+    {
+      "name": "PROP (Proprietary) Dataset",
+      "description": "Proprietary dataset containing dermoscopic images acquired from the Department of Dermatology and Allergy, University Hospital, LMU Munich, and the Department of Dermatology, Heidelberg University, Mannheim.",
+      "classes_used": [
+        "Nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as an external component of the multi-source test set for evaluating classifiers.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "balanced accuracy",
+    "area under the receiver operating characteristic curve (AUROC)",
+    "sensitivity",
+    "specificity",
+    "thresholded mean Jaccard index"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Two-sided McNemar test",
+      "purpose": "To evaluate statistical significance of performance comparisons between segmented and unsegmented classifiers for the primary endpoint (balanced accuracy).",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Bonferroni correction",
+      "purpose": "To account for multiple testing when comparing individual segmented/unsegmented classifiers across 5 runs.",
+      "type": "Significance threshold adjustment"
+    },
+    {
+      "method": "Mean and Standard Deviation (SD)",
+      "purpose": "To report performance metrics (balanced accuracy, AUROC) averaged over 5 repeated training and evaluation runs.",
+      "type": "Descriptive statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Two-sided McNemar test",
+    "null_hypothesis": "There is no difference in balanced accuracy between classifiers trained on segmented images and classifiers trained on unsegmented images.",
+    "alternative_hypothesis": "There is a difference in balanced accuracy between classifiers trained on segmented images and classifiers trained on unsegmented images.",
+    "alpha": 0.005,
+    "interpretation": "Statistical significance was evaluated for the primary endpoint (balanced accuracy) using a two-sided McNemar test. The threshold was adjusted to P<.005 using a Bonferroni correction by a factor of 10 to account for multiple testing across 5 runs. For HAM-trained classifiers, the difference was significant in 4 out of 5 runs (P<.001). For ISIC-trained classifiers, the difference was significant in 1 out of 5 runs (P=.004)."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM_Trained_Classifiers": {
+      "metric": "Balanced Accuracy",
+      "models": {
+        "HAM Segmented": {
+          "Overall": "75.6% (SD 1.1%)",
+          "Holdout": "87.6% (SD 1.4%)",
+          "External": "69.9% (SD 1.3%)",
+          "External_PH2": "84.4% (SD 2.9%)",
+          "External_PROP": "71.1% (SD 1.8%)",
+          "External_HAM_ISIC": "61.0% (SD 1.3%)"
+        },
+        "HAM Unsegmented": {
+          "Overall": "66.7% (SD 3.2%)",
+          "Holdout": "89.4% (SD 0.9%)",
+          "External": "57.6% (SD 4.1%)",
+          "External_PH2": "63.2% (SD 7.1%)",
+          "External_PROP": "75.7% (SD 4.2%)",
+          "External_HAM_ISIC": "58.9% (SD 3.1%)"
+        }
+      },
+      "notes": "Segmented HAM classifiers showed significantly higher balanced accuracy than unsegmented in 4 out of 5 runs (P<.001). Unsegmented HAM classifiers had high sensitivity (95.5% [SD 1.9%]) but low specificity (30.9% [SD 13.6%]) on PH2. Cropping black corners from unsegmented PH2 images improved specificity to 65.8% (SD 8.3%) and balanced accuracy to 79.6% (SD 3.8%)."
+    },
+    "ISIC_Trained_Classifiers": {
+      "metric": "Balanced Accuracy",
+      "models": {
+        "ISIC Segmented": {
+          "Overall": "77.4% (SD 1.5%)",
+          "Holdout": "77.1% (SD 1.5%)",
+          "External": "78.2% (SD 1.6%)",
+          "External_PH2": "86.4% (SD 1.3%)",
+          "External_PROP": "68.7% (SD 1.6%)",
+          "External_ISIC_HAM": "74.1% (SD 3.6%)"
+        },
+        "ISIC Unsegmented": {
+          "Overall": "78.3% (SD 1.8%)",
+          "Holdout": "80.0% (SD 2.6%)",
+          "External": "77.6% (SD 1.7%)",
+          "External_PH2": "83.7% (SD 0.8%)",
+          "External_PROP": "74.6% (SD 2.8%)",
+          "External_ISIC_HAM": "76.5% (SD 1.8%)"
+        }
+      },
+      "notes": "Unsegmented ISIC classifiers showed numerically higher balanced accuracy than segmented. The difference was significant in 1 out of 5 runs (P=.004). When evaluated on PH2 images segmented with ground truth masks, balanced accuracy dropped to 76.1% (SD 2.9%) for segmented ISIC classifiers."
+    },
+    "Segmentation_Model_Performance": {
+      "metric": "Thresholded Mean Jaccard Index",
+      "models": {
+        "ISIC Holdout Test Set": "0.75",
+        "PH2 External Test Set": "0.81"
+      },
+      "notes": "Threshold set to 0.65 based on ISIC 2018 challenge. Performance increased after mask postprocessing (noise removal, hole closing)."
+    },
+    "AUROC_Results": {
+      "HAM_Segmented": {
+        "Overall": "0.841 (SD 0.008)",
+        "Holdout": "0.95 (SD 0.006)",
+        "External": "0.765 (SD 0.011)"
+      },
+      "HAM_Unsegmented": {
+        "Overall": "0.763 (SD 0.02)",
+        "Holdout": "0.964 (SD 0.002)",
+        "External": "0.647 (SD 0.025)"
+      },
+      "ISIC_Segmented": {
+        "Overall": "0.856 (SD 0.005)",
+        "Holdout": "0.839 (SD 0.008)",
+        "External": "0.874 (SD 0.005)"
+      },
+      "ISIC_Unsegmented": {
+        "Overall": "0.862 (SD 0.014)",
+        "Holdout": "0.89 (SD 0.1)",
+        "External": "0.851 (SD 0.018)"
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet50",
+    "pretraining": "Pretrained on ImageNet",
+    "input_size": null,
+    "architecture_details": {
+      "backbone": "ResNet50",
+      "segmentation_model": "U-Net",
+      "segmentation_model_details": "Used for image segmentation; raw output binary image mask processed by removing noise, closing holes, and replacing empty masks"
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": null,
+      "hyperparameters": null,
+      "training_schedule": "Each classifier training and evaluation step repeated 5 times"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classifier",
+      "task": "Nevus vs Melanoma classification"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net",
+    "ResNet50",
+    "deep learning convolutional neural networks (CNNs)"
+  ],
+  "preprocessing_techniques": [
+    "Image segmentation using a U-Net model to partition dermoscopic images into foreground (lesion) and background (surrounding skin) regions",
+    "Postprocessing of segmentation masks including noise removal and hole closing",
+    "Replacement of empty masks",
+    "Manual cropping of unsegmented images to remove black corners (specifically applied to PH2 dataset images)",
+    "Removal of duplicated images prior to dataset splitting"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "Image segmentation does not result in an overall decrease in classification performance for deep learning models in dermatology.",
+    "Segmentation effectively removes lesion-adjacent confounding factors (such as skin markings and artifacts), which can otherwise lead to false diagnoses.",
+    "Segmentation is a viable method to address the negative impact of confounding factors on deep learning models.",
+    "The segmentation step may introduce new pitfalls, such as performance drops when using imperfect segmentation masks or when cropping images, which require further investigation.",
+    "Classifiers trained on the HAM dataset showed significantly higher balanced accuracy when using segmented images (75.6%) compared to unsegmented images (66.7%).",
+    "Classifiers trained on the ISIC dataset showed numerically higher balanced accuracy for unsegmented images (78.3%) compared to segmented images (77.4%), though the difference was significant in only 1 out of 5 runs.",
+    "Deep learning models can distinguish melanoma from nevus images based largely on the lesion itself without requiring the surrounding skin area for additional information."
+  ],
+  "important_remarks": [
+    "Classifiers trained on the HAM dataset showed significantly higher balanced accuracy with segmented images (75.6%) compared to unsegmented images (66.7%), with statistical significance in 4 out of 5 runs (P<.001).",
+    "Classifiers trained on the ISIC dataset showed numerically higher balanced accuracy with unsegmented images (78.3%) compared to segmented images (77.4%), with statistical significance in only 1 out of 5 runs (P=.004).",
+    "Unsegmented HAM classifiers exhibited poor performance on the external PH2 dataset, characterized by high sensitivity (95.5%) but very low specificity (30.9%), suggesting reliance on confounding artifacts such as black image corners.",
+    "Manually cropping black corners from unsegmented PH2 images improved the balanced accuracy of HAM classifiers to 79.6% and specificity to 65.8%, confirming that artifacts significantly influenced the unsegmented model's decision-making.",
+    "When PH2 images were segmented using ground truth masks from dermatologists, balanced accuracy dropped for both HAM and ISIC classifiers (to 82% and 76.1%, respectively) compared to using the model-generated segmentation masks, indicating that imperfect segmentation can negatively impact performance.",
+    "The study utilized a multi-source test set (n=688) comprising holdout and external components from PH2 and proprietary sources, providing a more robust evaluation of generalizability than single-dataset tests.",
+    "Statistical significance was evaluated using a two-sided McNemar test with a Bonferroni-corrected threshold of P<.005 to account for multiple testing across 5 repeated runs.",
+    "The segmentation model achieved a thresholded mean Jaccard index of 0.75 on the ISIC holdout set and 0.81 on the external PH2 set, indicating adequate generalization for segmentation tasks.",
+    "Classifiers trained on segmented images performed worse on the proprietary (PROP) dataset, potentially due to insufficient segmentation masks in that dataset, highlighting the risk that segmentation quality directly dictates classifier performance.",
+    "The study demonstrates that deep learning models can distinguish melanoma from nevus based largely on lesion features without requiring surrounding skin area, as segmentation removes confounding factors without generally decreasing performance."
+  ]
+}

@@ -1,0 +1,350 @@
+{
+  "file_name": "thandiackal_2018_a_structure_aware_convolutional_neural_network_for_skin_lesion.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning, specifically Convolutional Neural Networks (CNNs), to perform skin lesion classification. The methodology involved a two-stage AI approach: first, a U-Net segmentation network was used to detect pigment networks in dermoscopic images, and second, ResNet18 and ResNet50 classifiers were trained to classify skin lesions (melanoma, nevus, etc.) using the segmented pigment networks as an additional input channel. The study utilized datasets from the ISBI 2017 and ISIC 2018 challenges."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and evaluation of a novel two-stage deep learning architecture (U-Net segmentation and ResNet classification) for skin lesion classification. It details specific methodologies, datasets (ISBI 2017, ISIC 2018), implementation details (TensorFlow, image augmentation), and reports quantitative results (recall, F1-score, ROC AUC) from new experiments, rather than summarizing prior literature."
+  },
+  "title": "A Structure-Aware Convolutional Neural Network for Skin Lesion Classification",
+  "authors": [
+    "Kevin Thandiackal",
+    "Orcun Goksel"
+  ],
+  "doi": "10.1007/978-3-030-01201-4_34",
+  "journal": "Lecture Notes in Computer Science",
+  "year": 2018,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a structure-aware convolutional neural network for skin lesion classification by integrating prior medical knowledge in the form of pigment network segmentations as an additional input channel. The methodology employs a two-stage approach using a U-Net segmentation network to detect pigment networks and ResNet18 or ResNet50 classifiers for disease diagnosis. The models were trained and evaluated on datasets from the ISBI 2017 and ISIC 2018 challenges, utilizing a disjoint split for segmentation and classification tasks respectively. The main evaluation focused on classification performance metrics, particularly recall and F1-score for malignant melanoma, alongside attention measures to interpret model focus. Key results demonstrated that adding the pigment network channel to the ResNet18 classifier significantly improved the recall for melanoma from 0.213 to 0.400. The authors conclude that incorporating such domain-specific structural information can enhance classifier performance and provide interpretability regarding which features influence the prediction.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant melanoma",
+        "ME"
+      ],
+      "role": "Target class",
+      "details": "Primary focus of the study; recall improved from 0.213 to 0.400 for ResNet18 with pigment network input. Present in both DS2017 (segmentation dataset) and DS2018 (classification dataset)."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus",
+        "melanocytic nevus",
+        "MN"
+      ],
+      "role": "Target class",
+      "details": "Present in both DS2017 (segmentation dataset) and DS2018 (classification dataset). Used for attention analysis alongside melanoma."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "BK"
+      ],
+      "role": "Target class",
+      "details": "Present in DS2017 (segmentation dataset) and DS2018 (classification dataset). Mentioned in related work as a class detected by other methods."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "Present in DS2018 (classification dataset). Evaluated via ROC AUC metrics."
+    },
+    {
+      "lesion_type": "Actinic Keratosis",
+      "paper_terms": [
+        "actinic keratosis",
+        "AK"
+      ],
+      "role": "Target class",
+      "details": "Present in DS2018 (classification dataset). Evaluated via ROC AUC metrics."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "dermatofibroma",
+        "DF"
+      ],
+      "role": "Target class",
+      "details": "Present in DS2018 (classification dataset). Evaluated via ROC AUC metrics."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "vascular lesion",
+        "VL"
+      ],
+      "role": "Target class",
+      "details": "Present in DS2018 (classification dataset). Evaluated via ROC AUC metrics."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories of skin lesions (melanoma, melanocytic nevus, basal cell carcinoma, actinic keratosis, benign keratosis, dermatofibroma, vascular lesion).",
+        "primary": true,
+        "details": "The paper focuses on skin lesion classification using ResNet18 and ResNet50 classifiers. The task involves predicting discrete disease labels from dermoscopic images. Performance was evaluated using metrics such as ROC AUC, recall, precision, and F1-score for specific classes like melanoma. Although a U-Net segmentation network was used as a preprocessing step to detect pigment networks, the primary AI task reported for the final diagnostic system is classification."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Pigment network structures in dermoscopic images.",
+        "primary": false,
+        "details": "A U-Net segmentation network was employed to detect pigment networks as a prior knowledge input. This was formulated as a pixel-wise binary segmentation problem (foreground/background) to generate probability maps used as an additional input channel for the classifier."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "DS2017 (ISBI 2017 Challenge Dataset)",
+      "description": "Dataset provided by the ISBI 2017 'Skin Lesion Analysis Towards Melanoma Detection' challenge. It contains dermoscopic images with superpixel level annotations of dermoscopic structures, specifically used for training the segmentation network (SN) to detect pigment networks.",
+      "classes_used": [
+        "Melanoma",
+        "nevus",
+        "seborrheic keratosis"
+      ],
+      "counts": {
+        "total": 2600,
+        "training": 2000,
+        "validation": null,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the U-Net segmentation network (SN) for pigment network detection. The training set was reduced to a subset containing only images with annotated pigment networks.",
+        "validation": null,
+        "testing": "Used to test the segmentation network performance.",
+        "other": null
+      }
+    },
+    {
+      "name": "DS2018 (ISIC 2018 Challenge Dataset / HAM10000)",
+      "description": "Dataset released for the 'ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection' challenge. It comprises dermoscopic images belonging to seven classes of skin lesions. Referenced in the text as HAM10000 in the references.",
+      "classes_used": [
+        "melanoma",
+        "melanocytic nevus",
+        "basal cell carcinoma",
+        "actinic keratosis",
+        "benign keratosis",
+        "dermatofibroma",
+        "vascular lesion"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 8012,
+        "validation": 1001,
+        "testing": 1002,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the classifier networks (ResNet18 and ResNet50). The dataset was split into 80% training, 10% validation, and 10% testing.",
+        "validation": "Used for validation during the training of the classifier networks.",
+        "testing": "Used for testing the classifier networks to evaluate performance metrics (ROC AUC, recall, F1-score).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "ROC AUC",
+    "Accuracy",
+    "Recall",
+    "Specificity",
+    "Precision",
+    "F1-score",
+    "Channel-wise attention",
+    "Location-wise attention",
+    "Sørensen-Dice coefficient"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Sørensen-Dice coefficient",
+      "purpose": "Used as a loss function for the U-Net segmentation network to handle class imbalance between foreground (pigment network) and background pixels.",
+      "type": "Loss function / Metric"
+    },
+    {
+      "method": "ROC AUC",
+      "purpose": "Used to evaluate and compare the classification performance of ResNet18 and ResNet50 models with and without the pigment network input channel.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Recall, Precision, F1-score",
+      "purpose": "Used to evaluate classification performance, specifically highlighting the improvement in melanoma detection recall when using the pigment network channel with ResNet18.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Attribution methods (Input × Partial Derivative)",
+      "purpose": "Used to quantify channel-wise and location-wise attention, measuring the contribution of input pixels to the network's output to interpret model focus.",
+      "type": "Interpretability / Uncertainty Estimation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance improvements were described qualitatively (e.g., 'clear improvement', 'not as accurate but comparable') without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "DS2017 (ISBI 2017 Challenge Dataset)": {
+      "task": "Pigment Network Segmentation",
+      "models": {
+        "U-Net": {
+          "ROC AUC": "0.914",
+          "Accuracy": "0.901",
+          "Recall": "0.786",
+          "Specificity": "0.904"
+        },
+        "Kawahara and Hamarneh [12] (Baseline)": {
+          "ROC AUC": "0.945",
+          "Accuracy": "0.951",
+          "Recall": "0.803",
+          "Specificity": "0.956"
+        }
+      },
+      "notes": "The U-Net segmentation results are described as 'not as accurate but comparable' to the state-of-the-art results by Kawahara & Hamarneh. The goal was not to perfect the segmentation but to investigate its utility for classification."
+    },
+    "DS2018 (ISIC 2018 Challenge Dataset / HAM10000)": {
+      "task": "Skin Lesion Classification",
+      "split": "80% training, 10% validation, 10% testing",
+      "models": {
+        "ResNet18 (raw images)": {
+          "ROC AUC_ME": "0.893",
+          "ROC AUC_MN": "0.927",
+          "ROC AUC_BCC": "0.940",
+          "ROC AUC_AK": "0.929",
+          "ROC AUC_BK": "0.877",
+          "ROC AUC_DF": "0.840",
+          "ROC AUC_VL": "0.986",
+          "Recall_ME": "0.213",
+          "Precision_ME": "0.629",
+          "F1_ME": "0.318"
+        },
+        "ResNet18 (raw images + pigment networks)": {
+          "ROC AUC_ME": "0.866",
+          "ROC AUC_MN": "0.917",
+          "ROC AUC_BCC": "0.929",
+          "ROC AUC_AK": "0.921",
+          "ROC AUC_BK": "0.847",
+          "ROC AUC_DF": "0.851",
+          "ROC AUC_VL": "0.966",
+          "Recall_ME": "0.400",
+          "Precision_ME": "0.428",
+          "F1_ME": "0.414"
+        },
+        "ResNet50 (raw images)": {
+          "ROC AUC_ME": "0.896",
+          "ROC AUC_MN": "0.954",
+          "ROC AUC_BCC": "0.969",
+          "ROC AUC_AK": "0.968",
+          "ROC AUC_BK": "0.930",
+          "ROC AUC_DF": "0.932",
+          "ROC AUC_VL": "0.992",
+          "Recall_ME": "0.353",
+          "Precision_ME": "0.633",
+          "F1_ME": "0.454"
+        },
+        "ResNet50 (raw images + pigment networks)": {
+          "ROC AUC_ME": "0.855",
+          "ROC AUC_MN": "0.913",
+          "ROC AUC_BCC": "0.918",
+          "ROC AUC_AK": "0.923",
+          "ROC AUC_BK": "0.854",
+          "ROC AUC_DF": "0.896",
+          "ROC AUC_VL": "0.964",
+          "Recall_ME": "0.193",
+          "Precision_ME": "0.579",
+          "F1_ME": "0.289"
+        }
+      },
+      "notes": "For ResNet18, adding the pigment network channel improved melanoma recall from 0.213 to 0.400 and F1-score from 0.318 to 0.414, despite a slight decrease in overall ROC AUC. For ResNet50, adding the pigment network channel led to lower ROC AUC, recall, and F1-scores. Channel-wise and location-wise attention measures were higher for ResNet18 than ResNet50, suggesting ResNet50 did not focus as much on the pigment network channel."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two-stage system: U-Net segmentation network (SN) followed by ResNet18 or ResNet50 classifier networks (CN).",
+    "pretraining": "ResNet50 was pre-trained with images from the 2014 ImageNet Large Scale Visual Recognition Challenge. ResNet18 was trained from scratch. For the pigment network channel input to ResNet50, only the weights of the first convolutional layer and the final fully-connected layer were learned, while all weights in-between were pre-trained and frozen.",
+    "input_size": "224 x 224 pixels.",
+    "architecture_details": {
+      "segmentation_network": {
+        "model": "Shallow U-Net",
+        "task": "Pixel-wise binary segmentation of pigment networks (foreground/background)",
+        "loss_function": "Sørensen-Dice coefficient"
+      },
+      "classifier_networks": [
+        {
+          "model": "ResNet18",
+          "layers": 18,
+          "training_mode": "Trained from scratch"
+        },
+        {
+          "model": "ResNet50",
+          "layers": 50,
+          "training_mode": "Pre-trained on ImageNet; fine-tuned with frozen intermediate layers for the pigment network channel experiment"
+        }
+      ],
+      "input_channels": "4 channels (3 RGB channels + 1 pigment network probability map channel)",
+      "implementation": "TensorFlow"
+    },
+    "training_details": {
+      "augmentation": "Random rotations (90, 180, 270 degrees) and vertical/horizontal flips",
+      "data_split_classification": "80% training, 10% validation, 10% testing",
+      "optimizer": "Not explicitly reported",
+      "hyperparameters": "Not explicitly reported"
+    },
+    "classification_or_output_head": {
+      "type": "Fully-connected layer",
+      "classes": "7 classes (melanoma, melanocytic nevus, basal cell carcinoma, actinic keratosis, benign keratosis, dermatofibroma, vascular lesion)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net",
+    "ResNet18",
+    "ResNet50",
+    "Kawahara and Hamarneh [12]"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 224 x 224 pixels",
+    "Data augmentation via random rotations (90, 180, 270 degrees) and vertical/horizontal flips",
+    "Segmentation of pigment networks using a U-Net network to generate probability maps",
+    "Stacking pigment network probability maps as an additional channel to RGB images (creating 4-channel input)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random Rotations",
+      "details": "Rotations of 90, 180, and 270 degrees applied to both DS2017 and DS2018 datasets."
+    },
+    {
+      "technique": "Flips",
+      "details": "Vertical and horizontal flips applied to both DS2017 and DS2018 datasets."
+    }
+  ],
+  "conclusions": [
+    "Incorporating prior medical knowledge in the form of pigment network segmentations as an additional input channel improved the recall for malignant melanoma detection from 0.213 to 0.400 when using a ResNet18 classifier.",
+    "The improved melanoma recall achieved by ResNet18 with the pigment network channel was higher than that of the more complex ResNet50 classifier (0.353).",
+    "Adding the pigment network channel to a pre-trained ResNet50 classifier resulted in lower ROC AUC, recall, and F1-scores compared to using raw images alone, suggesting that the pre-trained features did not effectively utilize the additional channel without more sophisticated fine-tuning.",
+    "Channel-wise and location-wise attention measures were significantly higher for ResNet18 than for ResNet50, indicating that ResNet18 focused more on the medically relevant pigment network structures, whereas ResNet50 did not.",
+    "The proposed two-stage approach allows for the integration of domain-specific structural information into deep networks, potentially enabling better performance with fewer parameters and annotations, as well as providing interpretability regarding which features influence the prediction.",
+    "Future work could involve integrating other dermoscopic structures, such as streaks and dots, to further improve classifiers, particularly for non-melanocytic lesions."
+  ],
+  "important_remarks": [
+    "The segmentation network was trained on a biased subset of images containing only annotated pigment networks, potentially causing the segmenter to always detect a pigment network even when absent.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed; performance improvements were described qualitatively.",
+    "Adding the pigment network channel to ResNet50 resulted in decreased performance (lower ROC AUC, recall, and F1-score) compared to using raw images alone, suggesting pre-trained ImageNet features may not effectively utilize additional dermoscopic channels without sophisticated fine-tuning.",
+    "ResNet18, trained from scratch, showed higher channel-wise and location-wise attention to the pigment network than ResNet50, indicating better focus on medically relevant structures despite lower overall complexity.",
+    "The study relies on disjoint datasets for segmentation (ISBI 2017) and classification (ISIC 2018/HAM10000), limiting the ability to evaluate end-to-end learning on a single unified distribution.",
+    "The segmentation performance (U-Net) was comparable but not superior to state-of-the-art methods (Kawahara & Hamarneh), indicating the approach prioritizes classification utility over segmentation perfection.",
+    "The method was evaluated only on dermoscopic images from public challenge datasets; external validation on independent clinical datasets was not reported.",
+    "Interpretability was assessed using attribution methods (input × partial derivative), but the paper notes that saliency maps in prior work provided limited interpretable information compared to their channel-wise attention measures."
+  ]
+}

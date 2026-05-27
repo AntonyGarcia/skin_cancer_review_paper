@@ -1,0 +1,505 @@
+{
+  "file_name": "elshahawy_2023_early_melanoma_detection_based_on_a_hybrid_yolov5_and_resnet_tech.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a hybrid deep learning model combining YOLOv5 and ResNet50 for melanoma detection and classification of dermatoscopic images from the HAM10000 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a hybrid YOLOv5 and ResNet50 model for melanoma detection. It details specific methodologies, including the use of the HAM10000 dataset, training configurations (epochs, batch size, learning rates), and reports quantitative performance metrics (precision, recall, DSC, accuracy, MAP) from two experimental runs, rather than summarizing prior literature."
+  },
+  "title": "Early Melanoma Detection Based on a Hybrid YOLOv5 and ResNet Technique",
+  "authors": [
+    "Manar Elshahawy",
+    "Ahmed Elnemr",
+    "Mihai Oproescu",
+    "Adriana-Gabriela Schiopu",
+    "Ahmed Elgarayhi",
+    "Mohammed M. Elmogy",
+    "Mohammed Sallah"
+  ],
+  "doi": "10.3390/diagnostics13172804",
+  "journal": "Diagnostics",
+  "year": 2023,
+  "article_type": "Article",
+  "brief_summary": "This study proposes a hybrid deep learning model combining YOLOv5 and ResNet50 for the early detection and classification of melanoma and other skin lesions using dermatoscopic images from the HAM10000 dataset. The approach integrates gradient change feature maps to reduce hyperparameters and improve inference speed, achieving a real-time processing time of 0.4 milliseconds per image for non-maximum suppression. The model was evaluated on seven categories of skin lesions, including typical lesions with pigmented skin, to address challenges like class similarity and low contrast. Performance metrics demonstrated high efficacy, with average precision, recall, and Dice similarity coefficient reaching 99.0%, 98.6%, and 98.8%, respectively. Additionally, mean average precision scores were 98.3% for IoU thresholds of 0.0 to 0.5 and 98.7% for 0.5 to 0.95. The authors conclude that the proposed method is more efficient in utilizing deep features compared to current melanoma detection approaches, though future work aims to incorporate individualized patient data.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "melanoma skin cancer",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "Primary target for detection and classification; identified as a serious health issue arising from melanocytes."
+    },
+    {
+      "lesion_type": "Benign Keratosis",
+      "paper_terms": [
+        "Benign Keratosis",
+        "seborrheic keratosis"
+      ],
+      "role": "Comparator class",
+      "details": "One of the seven categories in the HAM10000 dataset used for classification; mentioned in Figure 1 and related work context."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "Vascular lesion"
+      ],
+      "role": "Comparator class",
+      "details": "One of the seven categories in the HAM10000 dataset used for classification; listed in Figure 1."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "Melanocytic Nevus",
+        "nevus",
+        "typical nevus"
+      ],
+      "role": "Comparator class",
+      "details": "One of the seven categories in the HAM10000 dataset; distinguished from melanoma in the ABCD examination context."
+    },
+    {
+      "lesion_type": "Actinic Keratosis",
+      "paper_terms": [
+        "Actinic keratosis"
+      ],
+      "role": "Comparator class",
+      "details": "One of the seven categories in the HAM10000 dataset; listed in Figure 1."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "Basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Comparator class",
+      "details": "One of the seven categories in the HAM10000 dataset; listed in Figure 1 and mentioned in related work regarding confusion with SK."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma",
+      "paper_terms": [
+        "Squamous cell carcinoma",
+        "SCC"
+      ],
+      "role": "Comparator class",
+      "details": "One of the seven categories in the HAM10000 dataset; listed in Figure 1 and mentioned in related work."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "Dermatofibroma"
+      ],
+      "role": "Comparator class",
+      "details": "One of the seven categories in the HAM10000 dataset; listed in Figure 1."
+    },
+    {
+      "lesion_type": "Cutaneous Lymphoma",
+      "paper_terms": [
+        "Cutaneous (skin) lymphoma"
+      ],
+      "role": "Comparator class",
+      "details": "One of the seven categories in the HAM10000 dataset; listed in Figure 1."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Detection",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Detection",
+        "target": "Bounding boxes and class labels for skin lesions (including melanoma) in dermatoscopic images.",
+        "primary": true,
+        "details": "The paper uses a hybrid YOLOv5 and ResNet50 model for melanoma detection. YOLOv5 is an object detection algorithm that predicts bounding boxes and class probabilities. The study reports Mean Average Precision (MAP) at IoU thresholds of 0.0-0.5 and 0.5-0.95, which are standard metrics for object detection. The model identifies seven classes of skin lesions (BKL, AKIEC, VASC, BCC, DF, NV, MEL) and provides coordinates for detection."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Class labels for skin lesions.",
+        "primary": false,
+        "details": "While the model performs classification as part of the detection process (assigning a class to the detected bounding box), the primary task defined by the architecture (YOLOv5) and evaluation metrics (MAP, bounding box coordinates) is detection. The paper also mentions 'skin cancer classification' in keywords, but the core contribution is the detection framework."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000",
+      "description": "A public dermatoscopic image collection from the ISIC (International Skin Imaging Collaboration) dataset, containing 10,015 images used for melanoma detection and classification of seven skin lesion categories.",
+      "classes_used": [
+        "Benign Keratosis (BKL)",
+        "Melanoma (MEL)",
+        "Vascular Lesion (VASC)",
+        "Basal Cell Carcinoma (BCC)",
+        "Actinic Keratosis (AKIEC)",
+        "Dermatofibroma (DF)",
+        "Melanocytic Nevus (NV)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 8012,
+        "validation": null,
+        "testing": 2003,
+        "per_class": {
+          "VASC": {
+            "total": 142,
+            "training": 115,
+            "testing": 27
+          },
+          "NV": {
+            "total": 6705,
+            "training": 5360,
+            "testing": 1345
+          },
+          "MEL": {
+            "total": 1113,
+            "training": 891,
+            "testing": 222
+          },
+          "DF": {
+            "total": 115,
+            "training": 92,
+            "testing": 23
+          },
+          "BKL": {
+            "total": 1099,
+            "training": 879,
+            "testing": 220
+          },
+          "BCC": {
+            "total": 514,
+            "training": 300,
+            "testing": 214
+          },
+          "AKIEC": {
+            "total": 327,
+            "training": 262,
+            "testing": 65
+          }
+        }
+      },
+      "use": {
+        "training": "Used to train the hybrid YOLOv5 and ResNet50 model for detecting and classifying skin lesions. The dataset was split into 80% training and 20% testing sets.",
+        "validation": null,
+        "testing": "Used to evaluate the model's performance metrics (precision, recall, DSC, accuracy, MAP) on a held-out test set comprising 20% of the data.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Precision",
+    "Recall",
+    "Dice Similarity Coefficient (DSC)",
+    "Specificity",
+    "Accuracy",
+    "Mean Average Precision (MAP)",
+    "Intersection over Union (IoU)",
+    "Generalized Intersection over Union (GIOU)",
+    "F1 Score",
+    "Confidence Score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Mean Average Precision (MAP)",
+      "purpose": "To assess the efficiency of the skin lesion model and compare various models regardless of the confidence level, calculated at IoU thresholds of 0.0 to 0.5 and 0.5 to 0.95.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Precision-Recall Curve Analysis",
+      "purpose": "To evaluate the effectiveness of melanoma detection and determine the confidence level that maximizes F1 across all classes.",
+      "type": "Visualization/Analysis method"
+    },
+    {
+      "method": "Confidence Score Thresholding",
+      "purpose": "To determine the optimal confidence level (70.8%) that maximizes the F1 score for detection.",
+      "type": "Thresholding method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics such as precision, recall, Dice similarity coefficient, accuracy, and mean average precision (MAP)."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "experiment_1": {
+        "description": "First run using YOLOv5s with 300 epochs, batch size 16, initial learning rate 0.001.",
+        "metrics": {
+          "Precision": 98.1,
+          "Recall": 97.5,
+          "DSC": 97.7,
+          "Specificity": 98.9,
+          "Accuracy": 97.5,
+          "MAP_0.0_to_0.5": 97.1,
+          "MAP_0.5_to_0.95": 96.3
+        },
+        "per_class_results": {
+          "AKIEC": {
+            "Precision": 99.1,
+            "Recall": 94.9,
+            "DSC": 96.9,
+            "MAP_0.0_to_0.5": 99.7,
+            "MAP_0.5_to_0.95": 95.2,
+            "Accuracy": 95.2
+          },
+          "BKL": {
+            "Precision": 95.3,
+            "Recall": 96.8,
+            "DSC": 96.0,
+            "MAP_0.0_to_0.5": 95.3,
+            "MAP_0.5_to_0.95": 94.5,
+            "Accuracy": 96.1
+          },
+          "VASC": {
+            "Precision": 97.0,
+            "Recall": 95.6,
+            "DSC": 96.2,
+            "MAP_0.0_to_0.5": 98.7,
+            "MAP_0.5_to_0.95": 95.5,
+            "Accuracy": 97.2
+          },
+          "BCC": {
+            "Precision": 97.1,
+            "Recall": 97.6,
+            "DSC": 97.3,
+            "MAP_0.0_to_0.5": 97.5,
+            "MAP_0.5_to_0.95": 96.4,
+            "Accuracy": 97.3
+          },
+          "DF": {
+            "Precision": 98.7,
+            "Recall": 99.5,
+            "DSC": 99.0,
+            "MAP_0.0_to_0.5": 94.3,
+            "MAP_0.5_to_0.95": 94.8,
+            "Accuracy": 98.8
+          },
+          "NV": {
+            "Precision": 100.0,
+            "Recall": 98.6,
+            "DSC": 99.2,
+            "MAP_0.0_to_0.5": 96.4,
+            "MAP_0.5_to_0.95": 99.5,
+            "Accuracy": 98.1
+          },
+          "MEL": {
+            "Precision": 98.8,
+            "Recall": 100.0,
+            "DSC": 99.3,
+            "MAP_0.0_to_0.5": 98.2,
+            "MAP_0.5_to_0.95": 98.6,
+            "Accuracy": 100.0
+          }
+        }
+      },
+      "experiment_2": {
+        "description": "Second run using YOLOv5s with 100 epochs, batch size 32, initial learning rate 0.001, final learning rate 0.0001. Best results achieved.",
+        "metrics": {
+          "Precision": 99.0,
+          "Recall": 98.6,
+          "DSC": 98.8,
+          "Accuracy": 99.5,
+          "Specificity": 99.8,
+          "MAP_0.0_to_0.5": 98.3,
+          "MAP_0.5_to_0.95": 98.7
+        },
+        "per_class_results": {
+          "AKIEC": {
+            "Precision": 100.0,
+            "Recall": 96.7,
+            "DSC": 98.3,
+            "MAP_0.0_to_0.5": 98.9,
+            "MAP_0.5_to_0.95": 99.7,
+            "Accuracy": 98.8
+          },
+          "BKL": {
+            "Precision": 98.2,
+            "Recall": 98.2,
+            "DSC": 98.2,
+            "MAP_0.0_to_0.5": 97.6,
+            "MAP_0.5_to_0.95": 94.9,
+            "Accuracy": 98.9
+          },
+          "VASC": {
+            "Precision": 98.8,
+            "Recall": 99.6,
+            "DSC": 99.1,
+            "MAP_0.0_to_0.5": 97.9,
+            "MAP_0.5_to_0.95": 97.9,
+            "Accuracy": 99.4
+          },
+          "BCC": {
+            "Precision": 97.1,
+            "Recall": 96.9,
+            "DSC": 96.9,
+            "MAP_0.0_to_0.5": 99.5,
+            "MAP_0.5_to_0.95": 99.1,
+            "Accuracy": 99.7
+          },
+          "DF": {
+            "Precision": 99.6,
+            "Recall": 98.9,
+            "DSC": 99.2,
+            "MAP_0.0_to_0.5": 98.6,
+            "MAP_0.5_to_0.95": 96.2,
+            "Accuracy": 100.0
+          },
+          "NV": {
+            "Precision": 100.0,
+            "Recall": 100.0,
+            "DSC": 100.0,
+            "MAP_0.0_to_0.5": 96.2,
+            "MAP_0.5_to_0.95": 98.6,
+            "Accuracy": 100.0
+          },
+          "MEL": {
+            "Precision": 99.9,
+            "Recall": 100.0,
+            "DSC": 100.0,
+            "MAP_0.0_to_0.5": 99.8,
+            "MAP_0.5_to_0.95": 96.2,
+            "Accuracy": 99.8
+          }
+        }
+      },
+      "comparison_with_baselines": {
+        "Ali_et_al_2021_CNN": {
+          "Dataset": "HAM10000",
+          "Precision": 96.5,
+          "Recall": 93.6,
+          "DSC": 95.0,
+          "Accuracy": 91.9
+        },
+        "Khaledyan_et_al_2021_Ensemble_Bayesian_Networks": {
+          "Dataset": "HAM10000",
+          "Precision": 88.6,
+          "Recall": 73.4,
+          "DSC": 90.7,
+          "Accuracy": 83.6
+        },
+        "Chaturvedi_et_al_2020_Mobile_Net": {
+          "Dataset": "HAM10000",
+          "Precision": 83.0,
+          "Recall": 83.0,
+          "DSC": 89.0,
+          "Accuracy": 83.1
+        }
+      },
+      "notes": "The second run (100 epochs, batch size 32) yielded superior performance compared to the first run. The model achieved a real-time processing speed of 0.4 ms per image for non-maximum suppression. The optimal confidence score for maximizing F1 across all classes was determined to be 70.8%, resulting in a precision of 96.0% and recall of 91.0%."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Hybrid YOLOv5 (specifically YOLOv5s) and ResNet50",
+    "pretraining": "ResNet50 backbone used for feature extraction; YOLOv5s used as the detection architecture. The paper mentions MobileNet was pre-trained on ~1,280,000 images in the context of comparing with Chaturvedi et al., but does not explicitly state pretraining sources for the proposed YOLOv5/ResNet50 hybrid beyond standard implementations.",
+    "input_size": "640x640 pixels",
+    "architecture_details": {
+      "backbone": "ResNet50 integrated to prevent gradient explosion and extract deep features; YOLOv5 backbone uses Cross-Stage Partial network (CSP) with interlaced splicing sampling to reduce hyperparameters and FLOPS.",
+      "neck": "Gradient change feature maps incorporated into feature maps to speed up inference and improve accuracy.",
+      "heads": "Bounding box regression and classification heads for 7 classes (BKL, AKIEC, VASC, BCC, DF, NV, MEL).",
+      "loss_functions": [
+        "Box loss gain (0.05)",
+        "Class loss gain (Cls BCELoss, positive_weight 1.0)",
+        "Obj loss gain (Obj BCELoss, positive_weight 1.0)"
+      ],
+      "optimizers": "SGD (Stochastic Gradient Descent) with momentum 0.937; Adam mentioned as alternative in comments (beta1 0.937).",
+      "hyperparameters": {
+        "epochs": "300 (Run 1), 100 (Run 2)",
+        "batch_size": "16 (Run 1), 32 (Run 2)",
+        "initial_learning_rate": "0.001",
+        "final_learning_rate": "0.0001 (Run 2)",
+        "weight_decay": "0.0005",
+        "warmup_epochs": "3.0",
+        "warmup_momentum": "0.8",
+        "warmup_bias_lr": "0.1",
+        "anchor_t": "4.0",
+        "iou_t": "0.20",
+        "scale": "0.5",
+        "shear": "0.0",
+        "perspective": "0.0"
+      },
+      "training_schedule": "OneCycleLR policy with warmup. Confidence threshold of 70.8% used for inference to maximize F1 score.",
+      "activation_functions": "Leaky Rectified Linear Unit (Leaky ReLU)"
+    },
+    "training_details": {
+      "platform": "Google Colab (Linux, 12 GB RAM)",
+      "data_augmentation": "Auto-mosaic data augmentation",
+      "epochs_run_1": 300,
+      "epochs_run_2": 100,
+      "batch_size_run_1": 16,
+      "batch_size_run_2": 32,
+      "learning_rate_run_1": 0.001,
+      "learning_rate_run_2": 0.0001
+    },
+    "classification_or_output_head": {
+      "type": "Bounding box regression and multi-class classification",
+      "classes": 7,
+      "class_labels": [
+        "Benign Keratosis (BKL)",
+        "Actinic Keratosis (AKIEC)",
+        "Vascular Lesion (VASC)",
+        "Basal Cell Carcinoma (BCC)",
+        "Dermatofibroma (DF)",
+        "Melanocytic Nevus (NV)",
+        "Melanoma (MEL)"
+      ],
+      "confidence_threshold": "70.8%"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "YOLOv5",
+    "YOLOv5s",
+    "ResNet50",
+    "Hybrid YOLOv5 and ResNet50",
+    "CNN (19-layer)",
+    "CNN and SoftMax",
+    "YOLOv5 (hyperspectral imaging context)",
+    "MobileNet",
+    "Ensemble Bayesian Networks"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation to increase sample size for imbalanced classes",
+    "Scaling and smoothing of images",
+    "Normalization of image pixels from [0, 255] to [0, 1] range",
+    "Image resizing to (224, 224, 3) using ImageDataGenerator",
+    "Auto-mosaic data augmentation",
+    "Noise reduction for uneven lighting, skin surface light reflection, and hair"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Auto-mosaic data augmentation",
+      "details": "Used during training to increase the sample size for imbalanced classes and prevent biased predictions. This technique is part of the YOLOv5 algorithm optimization."
+    },
+    {
+      "technique": "Image Scaling and Smoothing",
+      "details": "Images were scaled and smoothed to reduce noise from uneven lighting, skin surface light reflection, and hair. Images were scaled to (224, 224, 3) using the ImageDataGenerator class."
+    },
+    {
+      "technique": "Pixel Normalization",
+      "details": "Image pixels were normalized from the [0, 255] range to the [0, 1] range to standardize image samples and speed up detection."
+    }
+  ],
+  "conclusions": [
+    "The proposed hybrid YOLOv5 and ResNet50 model is more efficient in utilizing deep features compared to current melanoma detection approaches.",
+    "The integration of gradient change feature maps into the model allows for rapid inference, boosts precision, and reduces the number of hyperparameters, making the model smaller.",
+    "The model achieves a real-time processing speed of 0.4 milliseconds per image for non-maximum suppression (NMS).",
+    "The suggested YOLOv5 model is reliable for melanoma detection in real-time photos gathered from the HAM10000 dataset.",
+    "The proposed approach improves melanoma detection with high performance metrics: 99.0% precision, 98.6% recall, 98.8% Dice similarity coefficient (DSC), 99.5% accuracy, 98.3% mean average precision (MAP) for IoU 0.0-0.5, and 98.7% MAP for IoU 0.5-0.95.",
+    "The model effectively detects melanoma using adequate coordinates, including bounding boxes, despite similarities between classes.",
+    "Future work aims to incorporate individualized patient data to further enhance the detection capabilities."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the HAM10000 dataset, which is known for class imbalance (e.g., 6705 Melanocytic Nevi vs. 142 Vascular Lesions) and potential demographic bias, limiting generalizability to diverse skin types or populations.",
+    "No external validation was performed; the model was only evaluated on a held-out 20% split of the HAM10000 dataset, raising concerns about overfitting to this specific dataset's distribution.",
+    "The paper does not report formal statistical significance tests (e.g., p-values) or confidence intervals for the reported performance metrics (Precision, Recall, DSC, Accuracy, MAP).",
+    "Performance metrics are reported as aggregate averages across seven classes; while per-class results are provided, the high accuracy on the dominant class (NV) may mask performance issues on rare classes like VASC (142 total images) or DF (115 total images).",
+    "The model was trained on Google Colab using a Tesla K80 GPU, which may not reflect performance on modern hardware or clinical deployment environments.",
+    "The paper acknowledges that benign lesions are more prevalent than malignant ones, which can lead to overly cautious algorithms, but does not detail specific mitigation strategies beyond data augmentation.",
+    "Future work is noted to incorporate individualized patient data, indicating that the current model lacks integration of clinical context (e.g., patient history, lesion evolution) which is crucial for accurate diagnosis.",
+    "The study compares the proposed method against older baselines (e.g., Ali et al. 2021, Khaledyan et al. 2021) rather than state-of-the-art contemporary models, potentially overstating the relative improvement."
+  ]
+}

@@ -1,0 +1,266 @@
+{
+  "file_name": "abhari_2023_mitigating_racial_biases_for_machine_learning_based_skin_cancer_dete.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used machine learning and deep learning methods, specifically CycleGANs for domain adaptation (style transfer) and Inception V3 convolutional neural networks (CNNs) for skin cancer classification, to mitigate racial biases in skin cancer detection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and evaluation of a machine learning pipeline using CycleGANs for domain adaptation and Inception V3 for classification to mitigate racial bias in skin cancer detection. It reports specific empirical results (e.g., improving accuracy from 50% to 79% on minority skin tones), describes a methodology involving the PAD-UFES-20 and ISIC 2020 datasets, and demonstrates a proof-of-concept smartphone application. It is published as a full paper (6 pages) in the proceedings of the MobiHoc '23 conference."
+  },
+  "title": "Mitigating Racial Biases for Machine Learning Based Skin Cancer Detection",
+  "authors": [
+    "Julian Abhari",
+    "Ashwin Ashok"
+  ],
+  "doi": "10.1145/3565287.3617639",
+  "journal": "The Twenty-fourth International Symposium on Theory, Algorithmic Foundations, and Protocol Design for Mobile Networks and Mobile Computing (MobiHoc '23)",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses racial biases in machine learning-based skin cancer detection by employing CycleGANs for domain adaptation to mitigate disparities between lighter and darker skin tones. The authors utilized the ISIC 2020 dataset as the majority source and the PAD-UFES-20 dataset for minority darker skin tones, training an Inception V3 convolutional neural network for classification. By adapting minority images to appear as majority images, the pipeline augmented the minority dataset to improve model generalization. The main evaluation demonstrated that this approach increased the accuracy of skin cancer classification on minority skin tones from 50% to 79%, with F1 scores of 0.71 for benign and 0.83 for malignant classes. Additionally, the researchers developed a proof-of-concept smartphone application using CoreML to deploy the augmented classification model for real-time detection.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Benign moles",
+      "paper_terms": [
+        "benign moles",
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "Used as a classification target in the Inception V3 CNN model. The paper reports counts of benign samples from ISIC 2020 (5,747) and PAD-UFES-20 (1,209) datasets, and F1 scores for benign classification (0.71 with augmentation, 0.83 without)."
+    },
+    {
+      "lesion_type": "Malignant moles",
+      "paper_terms": [
+        "malignant moles",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "Used as a classification target in the Inception V3 CNN model. The paper reports counts of malignant samples from ISIC 2020 (5,714) and PAD-UFES-20 (1,089) datasets, and F1 scores for malignant classification (0.83 with augmentation, 0.79 without)."
+    },
+    {
+      "lesion_type": "Skin cancer",
+      "paper_terms": [
+        "skin cancer",
+        "cancers"
+      ],
+      "role": "General disease category",
+      "details": "The general condition being detected. The paper notes that skin cancer is lethal for people of color and that the study aims to improve early detection tools. It mentions melanoma specifically in the context of tracking moles over time in the smartphone app feature description."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the context of the smartphone app's ability to track moles over time, noting that cancers such as melanoma can develop quickly (within 6 weeks). Not explicitly listed as a distinct classification label in the quantitative results tables, which focus on benign vs. malignant moles."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Benign vs. Malignant moles (skin cancer detection)",
+        "primary": true,
+        "details": "The paper uses an Inception V3 convolutional neural network (CNN) for binary classification of skin lesions into benign and malignant categories. The primary task is image classification to detect skin cancer. Metrics reported include accuracy, precision, recall, and F1 score for the benign and malignant classes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2020 Vienna Challenge Dataset",
+      "description": "A public dataset from the International Skin Imaging Collaboration (ISIC) 2020 Vienna challenge, used as the majority source dataset representing lighter skin tones.",
+      "classes_used": [
+        "benign moles",
+        "malignant moles"
+      ],
+      "counts": {
+        "total": 11461,
+        "training": 2089,
+        "validation": 592,
+        "testing": 592,
+        "per_class": {
+          "benign": 5747,
+          "malignant": 5714
+        }
+      },
+      "use": {
+        "training": "Used for domain adaptation training (10,869 images of majority data samples) and image classification training (1,000 raw majority samples).",
+        "validation": "Used for domain adaptation validation (592 images of majority data samples) and image classification validation (88.8% validation accuracy reported).",
+        "testing": "Used for image classification testing (592 images omitted from the dataset) to establish baseline accuracy (85%).",
+        "other": "Served as the 'majority' domain (Domain A) for CycleGAN style transfer to lighter skin tones."
+      }
+    },
+    {
+      "name": "PAD-UFES-20 Dataset",
+      "description": "A public dataset containing clinical images of skin lesions taken with smartphones, specifically noted for containing darker skin tone Fitzpatrick types (3 through 6).",
+      "classes_used": [
+        "benign moles",
+        "malignant moles"
+      ],
+      "counts": {
+        "total": 2298,
+        "training": 821,
+        "validation": 92,
+        "testing": 221,
+        "per_class": {
+          "benign": 1209,
+          "malignant": 1089
+        }
+      },
+      "use": {
+        "training": "Used for domain adaptation training (821 images of minority data samples) and image classification training (1,089 adapted minority samples).",
+        "validation": "Used for domain adaptation validation (92 images of minority data samples).",
+        "testing": "Used for image classification testing (221 images: 109 from minority, 112 from majority) to evaluate performance on darker skin tones (50% baseline accuracy, 79% post-augmentation accuracy).",
+        "other": "Served as the 'minority' domain (Domain B) for CycleGAN style transfer to darker skin tones."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "F1 Score"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It reported empirical accuracy improvements (from 50% to 79%) and F1 scores without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC_2020_Vienna_Challenge_Dataset": {
+      "experiment": "Inception V3 CNN with CycleGAN Domain Adaptation (5-Epoch CycleGAN)",
+      "split": "Testing (Majority lighter skin tones)",
+      "models": {
+        "Inception V3 CNN": {
+          "Accuracy": "81%",
+          "Precision": {
+            "Benign": "0.76",
+            "Malignant": "0.90"
+          },
+          "Recall": {
+            "Benign": "0.92",
+            "Malignant": "0.71"
+          },
+          "F1 Score": {
+            "Benign": "0.83",
+            "Malignant": "0.79"
+          }
+        }
+      },
+      "notes": "Model maintained high performance on majority data while improving minority performance."
+    },
+    "PAD_UFES_20_Dataset": {
+      "experiment": "Inception V3 CNN with CycleGAN Domain Adaptation (5-Epoch CycleGAN)",
+      "split": "Testing (Minority darker skin tones)",
+      "models": {
+        "Inception V3 CNN": {
+          "Accuracy": "79%",
+          "Precision": {
+            "Benign": "0.67",
+            "Malignant": "0.86"
+          },
+          "Recall": {
+            "Benign": "0.75",
+            "Malignant": "0.81"
+          },
+          "F1 Score": {
+            "Benign": "0.71",
+            "Malignant": "0.83"
+          }
+        }
+      },
+      "notes": "Best results achieved using the 5th epoch CycleGAN generator for augmentation. This represents an improvement from the 50% baseline accuracy."
+    }
+  },
+  "architecture_used": {
+    "main_model": "CycleGAN (for domain adaptation/style transfer) and Inception V3 (for image classification)",
+    "pretraining": "Inception V3 was trained on the ISIC 2020 Vienna challenge dataset; specific pretraining weights (e.g., ImageNet) are not explicitly stated, but Inception V3 is a standard pre-trained architecture. CycleGAN was trained from scratch on the ISIC 2020 and PAD-UFES-20 datasets.",
+    "input_size": "Not explicitly reported in the provided text.",
+    "architecture_details": {
+      "CycleGAN": {
+        "type": "Generative Adversarial Network (GAN) for unpaired image-to-image translation",
+        "components": "Two pairs of discriminators and generators (one for Domain A/lighter skin, one for Domain B/darker skin)",
+        "loss_functions": "Cycle consistency loss (forward and backward) and identity loss",
+        "normalization": "Instance normalization",
+        "training_epochs": "10 epochs (with generator instances saved after each epoch; best results reported from 5th epoch for augmentation)",
+        "discriminator_update": "Updated using a history of the previous 50 generated images to prevent model oscillation"
+      },
+      "Inception V3": {
+        "type": "Deep Convolutional Neural Network (CNN)",
+        "task": "Binary classification (Benign vs. Malignant)",
+        "training_accuracy": "89.7%",
+        "validation_accuracy": "88.8%"
+      }
+    },
+    "training_details": {
+      "CycleGAN": {
+        "batch_size": 1,
+        "datasets": {
+          "Domain A (Majority/Lighter)": "ISIC 2020 (10,869 training images, 592 validation images)",
+          "Domain B (Minority/Darker)": "PAD-UFES-20 (821 training images, 92 validation images)"
+        }
+      },
+      "Inception V3": {
+        "training_data": "1,000 raw majority samples + 1,089 adapted minority samples (total 2,089 benign and 2,089 malignant)",
+        "testing_data": "221 benign and 221 malignant samples (109 from minority, 112 from majority)",
+        "baseline_accuracy_minority": "50%",
+        "post_augmentation_accuracy_minority": "79%"
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Binary Classification Head",
+      "classes": [
+        "Benign",
+        "Malignant"
+      ],
+      "deployment": "Exported to CoreML format for iOS mobile application"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "CycleGAN",
+    "Inception V3",
+    "Convolutional Neural Network (CNN)",
+    "Deep Convolutional Neural Network",
+    "Generative Adversarial Network (GAN)",
+    "CoreML"
+  ],
+  "preprocessing_techniques": [
+    "CycleGAN-based domain adaptation (style transfer) to adapt minority darker skin tone images to appear as majority lighter skin tone images",
+    "Instance normalization within the CycleGAN architecture",
+    "Augmentation of the PAD-UFES-20 minority dataset using the trained CycleGAN generator to create synthetic images resembling the ISIC 2020 majority domain"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "CycleGAN Domain Adaptation (Style Transfer)",
+      "details": "Used to augment the minority PAD-UFES-20 dataset (darker skin tones) to appear as the majority ISIC 2020 dataset (lighter skin tones). The CycleGAN was trained for 10 epochs with a batch size of 1 and instance normalization. Discriminators were updated using a history of the previous 50 generated images to prevent oscillation. The generator from the 5th epoch was selected for augmentation as it yielded the best classification results (79% accuracy vs 50% baseline). This technique effectively synthesized minority images to match the distribution of the majority domain."
+    }
+  ],
+  "conclusions": [
+    "The study demonstrates that using CycleGANs for domain adaptation can effectively mitigate racial biases in machine learning-based skin cancer detection by adapting minority darker skin tone images to resemble majority lighter skin tone images.",
+    "Augmenting the minority PAD-UFES-20 dataset with CycleGAN-generated images improved the classification accuracy on darker skin tones from a baseline of 50% to 79%.",
+    "The proposed method achieved an F1 score of 0.71 for benign classification and 0.83 for malignant classification on the minority darker skin tone dataset.",
+    "The approach allows for the creation of inclusive machine learning models by augmenting missing skin tone data from underrepresented racial and ethnic groups, thereby reducing health disparities.",
+    "The trained classification model was successfully deployed in a proof-of-concept smartphone application using CoreML, demonstrating the feasibility of real-time, mobile-based skin cancer detection.",
+    "The study acknowledges that training CycleGANs requires significant computing power, which serves as a limitation for the training process, although the generator can be exported for efficient mobile inference."
+  ],
+  "important_remarks": [
+    "The study relies on a proof-of-concept smartphone application using CoreML for iOS deployment; clinical validation on real-world diverse populations is not reported.",
+    "The approach uses CycleGAN for domain adaptation to synthesize minority (darker skin tone) images to resemble majority (lighter skin tone) images, which may introduce generative artifacts or unrealistic features not present in real clinical data.",
+    "The baseline accuracy for minority skin tones was only 50%, indicating severe initial bias, but the improved accuracy of 79% was achieved on a small test set (221 samples: 109 minority, 112 majority).",
+    "The PAD-UFES-20 dataset, used for minority darker skin tones, contains only Fitzpatrick types 3 through 6, limiting the generalizability to other skin types or demographics not represented in this specific dataset.",
+    "The ISIC 2020 dataset, used as the majority source, is heavily biased towards lighter skin tones, and the study acknowledges that publicly available skin cancer datasets generally lack diverse racial and ethnic representation.",
+    "The paper does not report formal statistical significance testing (e.g., p-values) for the improvement in accuracy from 50% to 79%; results are presented as empirical observations.",
+    "The CycleGAN training required significant computing power, which is noted as a limitation for the training process, although the generator can be exported for efficient mobile inference.",
+    "The study addresses binary classification (benign vs. malignant) rather than specific cancer subtypes like melanoma, although melanoma is mentioned in the context of the app's tracking feature.",
+    "The dataset split for image classification training used 1,000 raw majority samples and 1,089 adapted minority samples, creating a balanced training set that may not reflect real-world prevalence rates.",
+    "The authors note that previous approaches using synthetic data failed to test on real images of darker skin tones, whereas this study evaluates performance on real minority test samples from PAD-UFES-20."
+  ]
+}

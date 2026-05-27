@@ -1,0 +1,381 @@
+{
+  "file_name": "Zhang et al. - 2025 - Multi-task contrastive learning for skin lesion classification and segmentation.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a multi-task convolutional neural network (CNN) named CA Y-Net, which integrates contrastive learning (MuCo loss) and attention mechanisms (CBAMs), to perform skin lesion classification and segmentation on dermoscopic images from the ISIC 2017 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel multi-task convolutional neural network (CA Y-Net) with a new MuCo loss function. It details specific methods, implementation details (PyTorch, NVIDIA RTX 3090), and reports quantitative results (AUC 92.8%, Jaccard Index 79.6%) on the ISIC 2017 dataset, comparing them against state-of-the-art methods."
+  },
+  "title": "Multi-Task Contrastive Learning for Skin Lesion Classification and Segmentation",
+  "authors": [
+    "Wenxu Zhang",
+    "Zhaozheng Chen",
+    "Albert Kai-Sun Wong",
+    "Bernard Chiu"
+  ],
+  "doi": "10.1109/ACCESS.2025.3636044",
+  "journal": "IEEE Access",
+  "year": 2025,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes CA Y-Net, a multi-task convolutional neural network for skin lesion classification and segmentation using dermoscopic images from the ISIC 2017 dataset. The architecture employs a shared encoder with separate branches for classification and segmentation, enhanced by convolutional block attention modules (CBAMs) and deep supervision. A novel multi-task contrastive (MuCo) loss function is introduced to contrast global lesion representations with local background representations, optimizing both tasks jointly. The model was evaluated against state-of-the-art methods on the ISIC 2017 challenge dataset. CA Y-Net achieved the highest mean area under the receiver operating characteristic curve (AUC) of 92.8% for melanoma and seborrheic keratosis classification and the highest Jaccard Index of 79.6% for lesion segmentation. These results demonstrate that the proposed method outperforms existing approaches in both diagnostic accuracy and segmentation precision.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the two primary classes for classification evaluation on the ISIC 2017 dataset; also mentioned as the deadliest form of skin cancer in the introduction."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratosis"
+      ],
+      "role": "Target class",
+      "details": "One of the two primary classes for classification evaluation on the ISIC 2017 dataset; the other class for which mean AUC was reported (92.8%)."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus"
+      ],
+      "role": "Target class",
+      "details": "One of the three lesion types present in the ISIC 2017 dataset used for evaluation; included in the dataset description (160 nevus lesions in the sample subset mentioned) but not the primary focus of the reported classification metrics (which focused on melanoma and seborrheic keratosis)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Lesion type (Melanoma, Seborrheic Keratosis, Nevus)",
+        "primary": true,
+        "details": "The model predicts discrete diagnostic categories for skin lesions. Specifically, it classifies lesions into classes such as melanoma and seborrheic keratosis (binary/multiclass) on the ISIC 2017 dataset, and melanoma vs. nevus on the PH2 dataset. Performance is measured using AUC (Area Under the Curve) and accuracy."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion boundary mask",
+        "primary": true,
+        "details": "The model produces pixel-level segmentation masks for skin lesions. Performance is measured using Jaccard Index (JA) and Dice Similarity Coefficient (DSC)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017 Challenge Dataset",
+      "description": "The primary dataset used for evaluation, consisting of dermoscopic images from the ISIC 2017 challenge. It includes manual skin lesion segmentation masks and lesion type labels. The study also utilized an additional set of 1036 images from the ISIC archive (previously unsegmented for the challenge) to augment the training data.",
+      "classes_used": [
+        "Nevus",
+        "Melanoma",
+        "Seborrheic Keratosis"
+      ],
+      "counts": {
+        "total": null,
+        "training": 4138,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "training": {
+            "Nevus": 1372,
+            "Melanoma": 1496,
+            "Seborrheic Keratosis": 1270
+          },
+          "validation": null,
+          "testing": null
+        }
+      },
+      "use": {
+        "training": "Used for training the CA Y-Net model. The original training set (2000 images) was augmented with 1036 additional images from the ISIC archive (segmented by Bonechi) to improve inter-class balance, resulting in 4138 training images. Images were augmented via rotation, gamma correction, zooming, cropping, and flipping.",
+        "validation": "Used for validation to select the model checkpoint with the highest mean Jaccard Index (JA) and mean AUC. The validation set contained 150 images.",
+        "testing": "Used for final evaluation of classification (AUC) and segmentation (Jaccard Index) performance. The test set contained 600 images.",
+        "other": "The additional 1036 images from the ISIC archive were used specifically to augment the training set."
+      }
+    },
+    {
+      "name": "PH2 Dataset",
+      "description": "A secondary dataset used for evaluation, acquired at the Dermatology Service of Hospital Pedro Hispano, Portugal. It contains dermoscopic images with manual segmentation masks and lesion type labels from an expert dermatologist.",
+      "classes_used": [
+        "Nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {
+          "Nevus": 160,
+          "Melanoma": 40
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for external evaluation of the CA Y-Net model's performance on a different dataset.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Jaccard Index (JA)",
+    "Dice Similarity Coefficient (DSC)",
+    "Accuracy (AC)",
+    "Sensitivity (SE)",
+    "Specificity (SP)",
+    "Area Under the Receiver Operating Characteristic Curve (AUC)",
+    "Mean AUC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Tukey’s Honestly Significant Difference (HSD) test",
+      "purpose": "To compare the Jaccard Index (JA) attained by different segmentation models and determine if differences were statistically significant.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Significance threshold (p < 0.05)",
+      "purpose": "To determine statistical significance for the HSD test, where the probability of making a type I error was required to be less than 5%.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Tukey’s Honestly Significant Difference (HSD) test",
+    "null_hypothesis": "There is no statistically significant difference in the Jaccard Index (JA) attained by different segmentation models.",
+    "alternative_hypothesis": "There is a statistically significant difference in the Jaccard Index (JA) attained by different segmentation models.",
+    "alpha": 0.05,
+    "interpretation": "The difference was considered statistically significant if the probability of making a type I error was less than 5% (p < 0.05). The study reported specific p-values (e.g., p = 0.03, p = 0.04, 0.006 ≤ p ≤ 0.03) to indicate significant improvements in JA for the proposed model compared to baseline models, particularly in subsets of hard-to-segment lesions."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017 Challenge Dataset": {
+      "classification": {
+        "metric": "Mean AUC (Melanoma and Seborrheic Keratosis)",
+        "models": {
+          "CA Y-Net (Proposed)": {
+            "Mean AUC": "92.8%"
+          },
+          "Model #5 (ISIC 2017 Leaderboard)": {
+            "Mean AUC": "null"
+          },
+          "ARL-CNN": {
+            "Mean AUC": "null"
+          },
+          "SSAC": {
+            "Mean AUC": "null"
+          },
+          "SDL": {
+            "Mean AUC": "null"
+          }
+        },
+        "notes": "CA Y-Net achieved the highest mean AUC among the compared state-of-the-art methods. Specific per-class AUC, Accuracy, Sensitivity, and Specificity values for CA Y-Net were not explicitly reported in the provided text, though the mean AUC was highlighted as the top-performing metric."
+      },
+      "segmentation": {
+        "metric": "Jaccard Index (JA) and Dice Similarity Coefficient (DSC)",
+        "models": {
+          "CA Y-Net (Proposed)": {
+            "Jaccard Index": "79.6%",
+            "Dice Similarity Coefficient": "null"
+          },
+          "SLSDeep": {
+            "Jaccard Index": "null",
+            "Dice Similarity Coefficient": "highest (value not reported)"
+          },
+          "MDNN-FPM": {
+            "Jaccard Index": "null",
+            "Dice Similarity Coefficient": "null"
+          },
+          "MsRED": {
+            "Jaccard Index": "null",
+            "Dice Similarity Coefficient": "null"
+          },
+          "NCR-Net": {
+            "Jaccard Index": "null",
+            "Dice Similarity Coefficient": "null"
+          },
+          "DAGAN": {
+            "Jaccard Index": "null",
+            "Dice Similarity Coefficient": "null"
+          },
+          "HR-CNN": {
+            "Jaccard Index": "null",
+            "Dice Similarity Coefficient": "null"
+          },
+          "CDNN": {
+            "Jaccard Index": "null",
+            "Dice Similarity Coefficient": "null"
+          },
+          "DDN": {
+            "Jaccard Index": "null",
+            "Dice Similarity Coefficient": "null"
+          },
+          "FCN+SSP": {
+            "Jaccard Index": "null",
+            "Dice Similarity Coefficient": "null"
+          }
+        },
+        "notes": "CA Y-Net attained the highest JA (79.6%). While SLSDeep attained the highest DSC, CA Y-Net's JA was 1.4% higher than SLSDeep's, suggesting more precise segmentation. CA Y-Net's JA was statistically significantly higher than Models III-V (0.006 ≤ p ≤ 0.03) in ablation studies, but not Models VI and VII (p = 0.06 and p = 0.41). In hard-to-segment subsets (JA < 70%), CA Y-Net showed statistically significant improvements over Model VI (p = 0.03) and Model VII (p = 0.04)."
+      },
+      "ablation_study_models": {
+        "Model I (Classification Baseline)": {
+          "Mean AUC": "null",
+          "Jaccard Index": "null"
+        },
+        "Model II (Classification with Attention)": {
+          "Mean AUC": "null",
+          "Jaccard Index": "null"
+        },
+        "Model III (Segmentation Baseline)": {
+          "Jaccard Index": "null",
+          "Dice Similarity Coefficient": "null"
+        },
+        "Model IV (Segmentation with CBAM)": {
+          "Jaccard Index": "null",
+          "Dice Similarity Coefficient": "null"
+        },
+        "Model V (Segmentation with Shortcut/Deep Supervision)": {
+          "Jaccard Index": "null",
+          "Dice Similarity Coefficient": "null"
+        },
+        "Model VI (Complete Segmentation)": {
+          "Jaccard Index": "null",
+          "Dice Similarity Coefficient": "null"
+        },
+        "Model VII (Multi-task without MuCo)": {
+          "Mean AUC": "null",
+          "Jaccard Index": "null",
+          "Dice Similarity Coefficient": "null"
+        },
+        "Full CA Y-Net (Multi-task with MuCo)": {
+          "Mean AUC": "92.8%",
+          "Jaccard Index": "79.6%"
+        }
+      }
+    },
+    "PH2 Dataset": {
+      "classification": {
+        "metric": "Accuracy, Sensitivity, Specificity, AUC (Melanoma vs Nevus)",
+        "models": {
+          "CA Y-Net (Proposed)": {
+            "Accuracy": "null",
+            "Sensitivity": "null",
+            "Specificity": "null",
+            "AUC": "null"
+          }
+        },
+        "notes": "The paper states that CA Y-Net was evaluated on the PH2 dataset for external validation. Table 4 is referenced as containing these results, but the specific numerical values for accuracy, sensitivity, specificity, and AUC are not present in the provided text chunks."
+      },
+      "segmentation": {
+        "metric": "Jaccard Index, Dice Similarity Coefficient",
+        "models": {
+          "CA Y-Net (Proposed)": {
+            "Jaccard Index": "null",
+            "Dice Similarity Coefficient": "null"
+          }
+        },
+        "notes": "Specific segmentation metrics for the PH2 dataset are not reported in the provided text chunks, though Table 4 is referenced."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "CA Y-Net (Convolutional Attention Y-Net)",
+    "pretraining": "ResNet-34 shared encoder initialized with ImageNet pre-trained weights",
+    "input_size": "288 x 288 pixels",
+    "architecture_details": {
+      "backbone": "ResNet-34 (modified)",
+      "encoder": "Shared encoder generating feature maps e1-e5 at five scales; e1 from ReLU layer after 7x7 conv, e2-e5 from stacked residual blocks",
+      "classification_decoder": "Classification attention block (bottleneck residual block, 1x1 conv, batch normalization, CBAM), global average pooling to 512-dim vector, two fully connected layers to 128-dim vector, dropout, final FC layer for 3-class probability",
+      "segmentation_decoder": "Five CBAM blocks for features e1-e5, shortcut pathways for deep supervision, transposed convolutions for upsampling, concatenation with skip connections, 1x1 convolutions for dimension reduction (192 to 128 to 1 channel)",
+      "attention_mechanism": "Convolutional Block Attention Modules (CBAMs) in both decoders",
+      "loss_functions": [
+        "Cross-entropy loss (LCE)",
+        "Dice loss (LSeg)",
+        "Multi-task contrastive (MuCo) loss"
+      ],
+      "training_framework": "Student-Teacher framework with Mean Teacher model updated via Exponential Moving Average (EMA)"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": "1e-4 (constant)",
+      "weight_decay": "5e-4",
+      "batch_size": "16",
+      "iterations": "8000 (hyperparameter tuning/ablation), 12000 (comparison with existing methods)",
+      "hardware": "NVIDIA RTX 3090 GPU",
+      "software": "PyTorch 1.7.1",
+      "augmentation": "Rotation, gamma correction, random zooming, random cropping, horizontal flipping, resizing to 288x288 with zero padding, normalization to zero mean and unit variance",
+      "test_time_augmentation": "12 variations (3 sizes: 256x256, 288x288, 320x320; 4 orientations: -90, 0, 90, 180 degrees)"
+    },
+    "classification_or_output_head": {
+      "type": "Multi-task",
+      "classification_output": "3-channel vector representing probabilities for nevus, melanoma, and seborrheic keratosis",
+      "segmentation_output": "Single-channel lesion probability map"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "CA Y-Net (Proposed)",
+    "Model I (Classification Baseline)",
+    "Model II (Classification with Attention)",
+    "Model III (Segmentation Baseline)",
+    "Model IV (Segmentation with CBAM)",
+    "Model V (Segmentation with Shortcut/Deep Supervision)",
+    "Model VI (Complete Segmentation)",
+    "Model VII (Multi-task without MuCo)",
+    "Model #5 (ISIC 2017 Leaderboard)",
+    "ARL-CNN",
+    "SSAC",
+    "SDL",
+    "SLSDeep",
+    "MDNN-FPM",
+    "MsRED",
+    "NCR-Net",
+    "DAGAN",
+    "HR-CNN",
+    "CDNN",
+    "DDN",
+    "FCN+SSP",
+    "FAT-Net",
+    "ResNet-34"
+  ],
+  "preprocessing_techniques": [
+    "Training data augmentation: random rotation (angles: -90°, -60°, -45°, 0°, 45°, 60°, 90°), gamma correction (range [0.8, 1.2]), random zooming (down to 0.8), random cropping (minimum scale 0.5), and horizontal flipping.",
+    "Resizing: All images resized to 288 × 288 pixels with zero padding to maintain aspect ratio.",
+    "Normalization: Images normalized to zero mean and unit variance by each channel.",
+    "Test-time augmentation (TTA): Resampling original images using bicubic interpolation with zero padding to produce three sizes (256 × 256, 288 × 288, 320 × 320 pixels); applying three rotation angles (-90°, 90°, 180°) plus original (0°) orientation; averaging 12 aligned probability maps pixel-by-pixel."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Training Data Augmentation",
+      "details": "Random selection from: rotation (angles: -90°, -60°, -45°, 0°, 45°, 60°, 90°), gamma correction (range [0.8, 1.2]), random zooming (down to 0.8), random cropping (minimum scale 0.5), and horizontal flipping. Images were resized to 288x288 pixels with zero padding and normalized to zero mean and unit variance."
+    },
+    {
+      "technique": "Class Balancing Augmentation",
+      "details": "Duplication of images in minority classes (melanoma and seborrheic keratosis) in the original and additional training sets to improve inter-class balance, resulting in 4138 training images (1372 nevus, 1496 melanoma, 1270 seborrheic keratosis) from the original set and 2040 images from the additional set."
+    },
+    {
+      "technique": "Test-Time Augmentation (TTA)",
+      "details": "12 variations generated per test image: resampling to three sizes (256x256, 288x288, 320x320 pixels) using bicubic interpolation with zero padding, followed by rotation at three angles (-90°, 90°, 180°) plus original (0°). Predicted probability maps were aligned to 288x288 and averaged pixel-by-pixel."
+    }
+  ],
+  "conclusions": [
+    "The proposed CA Y-Net model, which integrates multi-task contrastive (MuCo) learning and convolutional block attention modules (CBAMs), achieved state-of-the-art performance on the ISIC 2017 dataset, with a mean AUC of 92.8% for melanoma and seborrheic keratosis classification and a Jaccard Index of 79.6% for lesion segmentation.",
+    "The MuCo loss function, which contrasts global lesion representations from the classification branch with local background representations from the segmentation branch, significantly improved both classification and segmentation performance by helping the model focus on salient lesion features.",
+    "Multi-task learning provided inductive biases that enhanced generalizability, allowing the classification and segmentation branches to mutually benefit from shared feature representations compared to single-task baselines.",
+    "CBAMs and deep supervision independently contributed to improved performance, with CBAMs enhancing feature focus and deep supervision aiding hierarchical feature fusion in the segmentation decoder.",
+    "The proposed method demonstrated superior performance on hard-to-segment lesions (those with Jaccard Index < 70%), showing statistically significant improvements in segmentation accuracy over baseline models in these challenging subsets.",
+    "The high diagnostic accuracy and segmentation precision of CA Y-Net suggest potential for clinical applications in accurate diagnosis and quantitative monitoring of skin lesions."
+  ],
+  "important_remarks": [
+    "The study relies on the ISIC 2017 dataset, which suffers from inter-class imbalance (melanoma and seborrheic keratosis accounted for only 18.7% and 12.7% of the original training set, respectively), necessitating data duplication for class balancing.",
+    "The model requires manual annotations for both lesion segmentation and diagnosis; images in the ISIC archive without segmented contours could not be used, limiting the potential training data pool.",
+    "The proposed CA Y-Net requires substantially longer training time compared to baselines due to the MuCo loss framework, although inference times are nearly identical to the baseline, mitigating clinical deployment latency concerns.",
+    "External validation was performed on the PH2 dataset, but specific numerical performance metrics (accuracy, sensitivity, specificity, AUC, Jaccard Index) for this dataset were not reported in the provided text, only referenced as being in Table 4.",
+    "The study notes that patient consent was not explicitly stated for the PH2 dataset, though it is described as publicly available for benchmarking.",
+    "While the full model showed statistically significant improvements in segmentation for hard-to-segment lesions (JA < 70%), the overall improvement over Models VI and VII on the whole test set was not statistically significant (p = 0.06 and p = 0.41).",
+    "Some competing methods (Model #5, ARL-CNN, SSAC, SDL, MDNN-FPM) were trained with additional datasets outside the ISIC 2017 challenge samples, which may affect the fairness of direct performance comparisons.",
+    "The classification branch focuses on global lesion representations while the segmentation branch focuses on local background representations; the MuCo loss contrasts these to enhance focus on salient lesion features."
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "file_name": "andrade_2020_deep_learning_models_for_segmentation_of_mobile_acquired_dermatolog.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning models, specifically U-Net and DeepLab architectures with MobileNetV2 feature extractors, to perform semantic segmentation of skin lesions in macroscopic and dermoscopic images. It also employed transfer learning to adapt models trained on dermoscopic databases to macroscopic images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the design, training, and evaluation of deep learning models (U-Net and DeepLab) for skin lesion segmentation. It describes specific methodologies, datasets (DermoFit, SMARTSKINS, ISIC), hyperparameters, and reports new quantitative results (e.g., Jaccard coefficients) from two distinct experiments, rather than summarizing prior literature."
+  },
+  "title": "Deep Learning Models for Segmentation of Mobile-Acquired Dermatological Images",
+  "authors": [
+    "Catarina Andrade",
+    "Luı́s F. Teixeira",
+    "Maria João M. Vasconcelos",
+    "Luı́s Rosado"
+  ],
+  "doi": "10.1007/978-3-030-50516-5_20",
+  "journal": "ICIAR 2020",
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of segmenting skin lesions in mobile-acquired macroscopic images by leveraging deep learning models and transfer learning from dermoscopic data. The authors conducted two experiments using U-Net and DeepLab architectures with MobileNetV2 feature extractors on the DermoFit and SMARTSKINS macroscopic datasets, as well as ISIC and PH2 dermoscopic datasets. The best performing model in the first experiment was a reduced DeepLab with a MobileNetV2 backbone (width multiplier 0.35) optimized with soft Dice loss, achieving thresholded Jaccard coefficients of 72.97% on DermoFit and 78.51% on SMARTSKINS. In the second experiment, transfer learning was applied by retraining the model on dermoscopic images and fine-tuning it on macroscopic images, which improved performance on DermoFit to 75.46% but slightly decreased it on SMARTSKINS to 78.04%. The results demonstrate that lightweight models can achieve expert-level accuracy and that knowledge transfer from dermoscopic to macroscopic domains offers potential improvements for mobile-based skin cancer detection.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "cutaneous skin lesions",
+        "pigmented skin lesions",
+        "non-pigmented lesions",
+        "lesion"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the semantic segmentation of skin lesions in general, without distinguishing specific histopathological classes (e.g., melanoma vs. nevus). The datasets used (ISIC, PH2, DermoFit, SMARTSKINS) contain various types of skin lesions, including pigmented and non-pigmented ones, but the task is binary segmentation (lesion vs. background) rather than multi-class classification."
+    },
+    {
+      "lesion_type": "Malignant melanoma",
+      "paper_terms": [
+        "malignant melanoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the Introduction as the most lethal skin cancer to provide clinical context for the importance of timely detection, but not a specific target class for the segmentation experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary segmentation mask of skin lesions (lesion vs. background)",
+        "primary": true,
+        "details": "The paper performs semantic segmentation of skin lesions in macroscopic and dermoscopic images. The models (U-Net and DeepLab) output probability maps which are binarized using a threshold to produce segmentation masks. Performance is evaluated using metrics such as Jaccard Index (JA), Dice Index (DI), and thresholded Jaccard (TJA), which are standard for segmentation tasks."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "DermoFit Image Library",
+      "description": "A macroscopic image database acquired with a digital camera (MD). Used as part of the macroscopic dataset (Set M).",
+      "classes_used": [
+        "Skin lesions (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 1300,
+        "training": 1036,
+        "validation": null,
+        "testing": 264,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training in Experiment 1 (combined with SMARTSKINS for the macroscopic set M). In Experiment 2, the model was fine-tuned on this dataset.",
+        "validation": "Included in the 80/20 split for training/validation within the DermoFit subset.",
+        "testing": "Used for testing in both Experiment 1 and Experiment 2.",
+        "other": null
+      }
+    },
+    {
+      "name": "SMARTSKINS",
+      "description": "A macroscopic image database acquired with a mobile phone (MP). Used as part of the macroscopic dataset (Set M).",
+      "classes_used": [
+        "Skin lesions (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 80,
+        "training": 39,
+        "validation": null,
+        "testing": 41,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training in Experiment 1 (combined with DermoFit for the macroscopic set M). In Experiment 2, the model was fine-tuned on this dataset.",
+        "validation": "Included in the 50/50 split for training/validation within the SMARTSKINS subset.",
+        "testing": "Used for testing in both Experiment 1 and Experiment 2.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC Challenges (2016, 2017, 2018)",
+      "description": "A combined dermoscopic dataset (Set D) constituted by images from the ISIC 2016, 2017, and 2018 challenges. Duplicates across years were removed. The training datasets of ISIC 2016, 2017, and 2018 and the validation of ISIC 2017 were combined. The test dataset of ISIC 2017 was reserved as a test subset.",
+      "classes_used": [
+        "Skin lesions (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 1994,
+        "validation": null,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for pre-training/retraining in Experiment 2 (Set D).",
+        "validation": null,
+        "testing": "Used for testing in Experiment 2 (as part of Set D).",
+        "other": "Used for transfer learning from dermoscopic to macroscopic domain."
+      }
+    },
+    {
+      "name": "PH2 Database",
+      "description": "A dermoscopic image database. Combined with ISIC datasets to form the dermoscopic dataset (Set D).",
+      "classes_used": [
+        "Skin lesions (binary segmentation: lesion vs. background)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": 160,
+        "validation": null,
+        "testing": 40,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for pre-training/retraining in Experiment 2 (Set D).",
+        "validation": null,
+        "testing": "Used for testing in Experiment 2 (as part of Set D).",
+        "other": "Used for transfer learning from dermoscopic to macroscopic domain."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "thresholded Jaccard coefficient (TJA)",
+    "Jaccard Index (JA)",
+    "Dice Index (DI)",
+    "accuracy (AC)",
+    "sensitivity (SE)",
+    "specificity (SP)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Threshold optimization via Jaccard Index analysis",
+      "purpose": "To determine the optimal binarization threshold for segmentation masks by evaluating the Jaccard Index across 50 thresholds within the [0.5, 1] range on the validation subset to maximize the resultant JA.",
+      "type": "Threshold selection"
+    },
+    {
+      "method": "Comparative performance analysis",
+      "purpose": "To compare the performance of different model architectures (U-Net vs. DeepLab) and configurations (with/without attention gates, recurrent units, different encoders) based on metrics including thresholded Jaccard coefficient (TJA), Jaccard Index (JA), Dice Index (DI), accuracy (AC), sensitivity (SE), and specificity (SP).",
+      "type": "Model comparison"
+    },
+    {
+      "method": "Transfer learning evaluation",
+      "purpose": "To assess the impact of retraining on dermoscopic images and fine-tuning on macroscopic images by comparing performance metrics (TJA, JA, DI, AC, SE, SP) between Experiment 1 (macroscopic only) and Experiment 2 (transfer learning) on the test subsets of DermoFit and SMARTSKINS.",
+      "type": "Domain adaptation assessment"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons between models and experiments were based on descriptive metrics (e.g., thresholded Jaccard coefficient, Jaccard Index) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Set M (Macroscopic - Validation Subset)": {
+      "description": "Performance metrics for best configurations of U-Net and DeepLab models evaluated on the validation subset of Set M (DermoFit and SMARTSKINS combined).",
+      "models": {
+        "U-Net (1-JA, ifC=32)": {
+          "TJA": "78.44",
+          "JA": "80.80",
+          "DI": "89.24",
+          "AC": "93.16",
+          "SE": "90.42",
+          "SP": "94.65",
+          "Parameters": "8M",
+          "Threshold": "0.52"
+        },
+        "AttU-Net (1-DI, ifC=64)": {
+          "TJA": "76.55",
+          "JA": "78.78",
+          "DI": "87.91",
+          "AC": "93.27",
+          "SE": "88.27",
+          "SP": "95.69",
+          "Parameters": "32M",
+          "Threshold": "0.50"
+        },
+        "R2U-Net (1-JA, ifC=16)": {
+          "TJA": "83.02",
+          "JA": "83.02",
+          "DI": "90.60",
+          "AC": "94.39",
+          "SE": "90.05",
+          "SP": "96.48",
+          "Parameters": "6M",
+          "Threshold": "0.50"
+        },
+        "AttR2U-Net (CE-logJA, ifC=64)": {
+          "TJA": "82.08",
+          "JA": "82.08",
+          "DI": "90.00",
+          "AC": "93.98",
+          "SE": "89.38",
+          "SP": "96.18",
+          "Parameters": "96M",
+          "Threshold": "0.50"
+        },
+        "DeepLab (Xception, OS=16, Pascal Pretrain, 1-JA)": {
+          "TJA": "85.37",
+          "JA": "85.37",
+          "DI": "92.00",
+          "AC": "95.54",
+          "SE": "91.46",
+          "SP": "97.05",
+          "Parameters": "41M",
+          "Threshold": "0.50"
+        },
+        "DeepLab (MobileNetV2, alpha=1.0, Pascal Pretrain, 1-JA)": {
+          "TJA": "84.80",
+          "JA": "84.80",
+          "DI": "91.70",
+          "AC": "95.18",
+          "SE": "91.60",
+          "SP": "96.55",
+          "Parameters": "2M",
+          "Threshold": "0.55"
+        },
+        "DeepLab (MobileNetV2, alpha=0.35, None Pretrain, 1-DI)": {
+          "TJA": "82.85",
+          "JA": "82.85",
+          "DI": "90.52",
+          "AC": "94.65",
+          "SE": "88.31",
+          "SP": "97.27",
+          "Parameters": "0.4M",
+          "Threshold": "0.50"
+        }
+      },
+      "notes": "The reduced Mobile DeepLab with alpha=0.35 and soft DI loss was selected for the second experiment due to the balance between performance and complexity (0.4M parameters)."
+    },
+    "SMARTSKINS (Test Subset)": {
+      "description": "Performance metrics for the reduced Mobile DeepLab model evaluated on the SMARTSKINS test subset in Experiment 1 and Experiment 2.",
+      "models": {
+        "Reduced Mobile DeepLab (Exp 1)": {
+          "TJA": "78.51",
+          "JA": "82.64",
+          "DI": "90.14",
+          "AC": "98.96",
+          "SE": "95.40",
+          "SP": "99.15",
+          "Threshold": "0.50"
+        },
+        "Reduced Mobile DeepLab (Exp 2)": {
+          "TJA": "78.04",
+          "JA": "82.21",
+          "DI": "89.89",
+          "AC": "98.90",
+          "SE": "96.05",
+          "SP": "99.09",
+          "Threshold": "0.56"
+        }
+      },
+      "notes": "Experiment 2 (transfer learning) resulted in a slight decrease of less than 0.48% in TJA compared to Experiment 1. The performance sets a new state-of-the-art for SMARTSKINS (previously 81.58% JA, 83.36% DI, 97.38% AC)."
+    },
+    "DermoFit (Test Subset)": {
+      "description": "Performance metrics for the reduced Mobile DeepLab model evaluated on the DermoFit test subset in Experiment 1 and Experiment 2.",
+      "models": {
+        "Reduced Mobile DeepLab (Exp 1)": {
+          "TJA": "72.97",
+          "JA": "80.26",
+          "DI": "88.26",
+          "AC": "93.51",
+          "SE": "87.56",
+          "SP": "96.86",
+          "Threshold": "0.50"
+        },
+        "Reduced Mobile DeepLab (Exp 2)": {
+          "TJA": "75.46",
+          "JA": "81.03",
+          "DI": "88.79",
+          "AC": "93.78",
+          "SE": "89.68",
+          "SP": "96.13",
+          "Threshold": "0.56"
+        }
+      },
+      "notes": "Experiment 2 (transfer learning) resulted in a 2.49% TJA improvement compared to Experiment 1. The improvement is attributed to the variety of skin lesion classes in DermoFit, including non-pigmented lesions."
+    }
+  },
+  "architecture_used": {
+    "main_model": "DeepLabv3+ with MobileNetV2 encoder (reduced width multiplier alpha=0.35)",
+    "pretraining": "None (randomly initialized weights) for the final selected model; Pascal VOC 2012 pre-trained weights were used for other DeepLab configurations in the first experiment.",
+    "input_size": "512 x 512 pixels",
+    "architecture_details": {
+      "backbone": "MobileNetV2",
+      "encoder_hyperparameters": "Width multiplier (alpha) = 0.35",
+      "loss_function": "Soft Dice coefficient (DI) loss (1 - DI)",
+      "optimizer": "Adam",
+      "learning_rate_schedule": "Cyclic Learning Rate (CLR) with cosine annealing variation and periodic restarts",
+      "batch_size": 4,
+      "training_validation_split": "90/10",
+      "implementation_framework": "TensorFlow API r1.15",
+      "hardware": "Three NVIDIA Tesla V100 PCIe GPU modules (two 16GB, one 32GB)",
+      "preprocessing": "Standard image resizing to 512x512 and standardization"
+    },
+    "training_details": {
+      "experiment_1_training_data": "Set M (DermoFit and SMARTSKINS macroscopic images)",
+      "experiment_2_training_data": "Retrained on Set D (ISIC 2016-2018 and PH2 dermoscopic images) then fine-tuned on Set M",
+      "early_stopping": true,
+      "model_checkpointing": true
+    },
+    "classification_or_output_head": {
+      "type": "Semantic Segmentation",
+      "output_activation": "Sigmoid",
+      "binarization_threshold": "Optimized via Jaccard Index analysis on validation subset (thresholds within [0.5, 1] range)"
+    },
+    "approximate_parameters": "0.4 million"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net",
+    "Attention U-Net (AttU-Net)",
+    "R2U-Net",
+    "AttR2U-Net",
+    "DeepLabv3+",
+    "DeepLab with Aligned Xception encoder",
+    "DeepLab with MobileNetV2 encoder"
+  ],
+  "preprocessing_techniques": [
+    "Standard image resizing to 512 x 512 pixels",
+    "Standardization"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "A lightweight deep learning model (reduced DeepLab with MobileNetV2 encoder, 0.4 million parameters) achieved expert-level accuracy for segmenting skin lesions in mobile-acquired macroscopic images, with thresholded Jaccard coefficients of 72.97% on DermoFit and 78.51% on SMARTSKINS.",
+    "Transfer learning from dermoscopic to macroscopic domains improved segmentation performance on the DermoFit dataset (TJA increased from 72.97% to 75.46%) but resulted in a slight decrease in performance on the SMARTSKINS dataset (TJA decreased from 78.51% to 78.04%).",
+    "The proposed reduced Mobile DeepLab model set a new state-of-the-art performance on the SMARTSKINS database, surpassing previous benchmarks in Jaccard Index (82.64% vs 81.58%), Dice Index (90.14% vs 83.36%), and Accuracy (99.15% vs 97.38%).",
+    "The use of soft Dice or soft Jaccard loss functions effectively reduced class imbalance issues compared to standard cross-entropy loss, leading to improved segmentation performance across model architectures.",
+    "Attention gates (AG) in U-Net architectures were found to be disadvantageous for this task, leading to underperforming results and requiring higher initial feature channels without improving performance compared to classical U-Net.",
+    "The model demonstrated robustness in segmenting pigmented lesions with high contrast against the skin but showed underperformance in cases involving red regions, vascularizations near lesion borders, and lesions with dysplastic forms or uneven pigmentation.",
+    "DeepLab architectures with MobileNetV2 encoders offered a significant reduction in model complexity (approximately 19 times fewer parameters than Xception-based DeepLab) with minimal loss in performance metrics, making them suitable for mobile integration."
+  ],
+  "important_remarks": [
+    "The study addresses a critical data scarcity issue: there is a lack of labeled macroscopic images acquired with mobile devices, necessitating the use of transfer learning from dermoscopic domains.",
+    "Transfer learning from dermoscopic to macroscopic domains yielded mixed results: it significantly improved performance on the DermoFit dataset (TJA 72.97% to 75.46%) but slightly decreased performance on the SMARTSKINS dataset (TJA 78.51% to 78.04%).",
+    "The SMARTSKINS dataset is very small (80 images total), with a 50/50 train/validation split, which limits the robustness of the validation process and makes comparisons with other literature potentially inequitable.",
+    "The DermoFit dataset contains a variety of skin lesion classes, including non-pigmented lesions, which likely contributed to the positive impact of transfer learning on this specific dataset compared to SMARTSKINS.",
+    "Attention gates (AG) in U-Net architectures were found to be disadvantageous for this task, leading to underperforming results and requiring higher initial feature channels without improving performance.",
+    "The model underperforms in specific challenging cases: lesions with red regions amidst normal skin, vascularizations near lesion borders, dysplastic forms, and uneven pigmentation.",
+    "The study does not report formal statistical significance testing (p-values); performance comparisons are based on descriptive metrics (TJA, JA, DI, etc.).",
+    "The best model (reduced Mobile DeepLab) achieved expert-level accuracy with only 0.4 million parameters, demonstrating that lightweight models are suitable for mobile integration while maintaining high performance.",
+    "The binarization threshold for segmentation masks was optimized on the validation subset to maximize the Jaccard Index, rather than using a fixed threshold like 0.5.",
+    "The study highlights the paradoxical characteristics between macroscopic and dermoscopic domains (e.g., surface glare vs. polarized light, visual depth vs. flat aspect), which complicates direct inference between the two."
+  ]
+}

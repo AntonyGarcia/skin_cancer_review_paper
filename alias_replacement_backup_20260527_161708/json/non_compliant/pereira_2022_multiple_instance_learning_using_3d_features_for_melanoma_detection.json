@@ -1,0 +1,267 @@
+{
+  "file_name": "pereira_2022_multiple_instance_learning_using_3d_features_for_melanoma_detection.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Deep Learning (DL) and Multiple Instance Learning (MIL) for melanoma detection and skin lesion classification. Specifically, it employs a DL model for RGB data classification and MIL for 3D feature extraction from dense light-field data, combined via an uncertainty-aware decision function to classify melanoma versus nevus and other lesion types."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel ensemble model combining Deep Learning and Multiple Instance Learning for melanoma detection. It describes specific methods (using SKINL2 dataset, light-field imagery, uncertainty-aware decision functions), reports new quantitative results (84.00% and 90.82% accuracy), and includes sections on Introduction, Methods, Results, and Conclusion, indicating it is an original research study rather than a review."
+  },
+  "title": "Multiple Instance Learning Using 3D Features for Melanoma Detection",
+  "authors": [
+    "Pedro M. M. Pereira",
+    "Lucas A. Thomaz",
+    "Luís M. N. Tavora",
+    "Pedro A. A. Assunção",
+    "Rui Fonseca-Pinto",
+    "Rui Pedro Paiva",
+    "Sergio M. M. Faria"
+  ],
+  "doi": "10.1109/ACCESS.2022.3192444",
+  "journal": "IEEE Access",
+  "year": 2022,
+  "article_type": "Research article",
+  "brief_summary": "This study proposes an ensemble model combining Deep Learning (DL) and Multiple Instance Learning (MIL) to improve melanoma detection by leveraging both 2D RGB and 3D surface depth features from light-field imagery. The DL component classifies RGB data, while the MIL component extracts and selects significant 3D features, with an uncertainty-aware decision function determining when to utilize the 3D data. The approach was evaluated on the publicly available SKINL2 dataset using cross-validation to address class imbalance and limited sample sizes. The model achieved a cross-validated accuracy of 84.00% for distinguishing melanoma from nevus lesions and 90.82% for discriminating melanoma from all other lesion types. These results demonstrate that incorporating 3D surface information provides redeeming classification performance when 2D color characteristics are insufficient. The findings suggest that existing skin lesion classification methods can benefit from exploring unexploited 3D dimensions beyond standard dermoscopic images.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for detection and classification in both experimental setups ('M vs Nevus' and 'M vs All')."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the comparator class in the 'M vs Nevus' binary classification experiment. Also included in the 'M vs All' experiment as one of the 'other lesion types'."
+    },
+    {
+      "lesion_type": "Other skin lesions",
+      "paper_terms": [
+        "all other skin lesion types",
+        "all present lesion types",
+        "other lesion types"
+      ],
+      "role": "Comparator class",
+      "details": "In the 'M vs All' experiment, melanoma was discriminated against all other lesion types present in the SKINL2 dataset, which includes nevus and potentially others, though specific non-nevus lesion types are not explicitly named in the provided text."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. Nevus (binary) and Melanoma vs. All other skin lesion types (multiclass)",
+        "primary": true,
+        "details": "The paper performs binary classification (melanoma vs. nevus) and multiclass classification (melanoma vs. all other lesion types) using an ensemble of Deep Learning (RGB data) and Multiple Instance Learning (3D depth features). The model outputs discrete diagnostic labels (melanoma or benign/other) based on classification certainty thresholds and SVM decision functions."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "SKINL2 (Skin Lesion Light-fields)",
+      "description": "A publicly available dataset comprising light-field imagery of skin lesions acquired using a Raytrix R42 camera at Centro Hospitalar de Leiria, Portugal. The dataset includes RGB channels (3858 × 2682 resolution) and relative depth information for each pixel. Both the second and third versions of the dataset were used in this study.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus",
+        "Other skin lesions"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the ensemble model (combining Deep Learning for RGB data and Multiple Instance Learning for 3D features) via 10-fold cross-validation.",
+        "validation": "Used for validation via 10-fold cross-validation.",
+        "testing": "Used for testing via 10-fold cross-validation.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "sensitivity",
+    "cross-validated accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10-fold cross-validation",
+      "purpose": "Used to evaluate the performance of the ensemble model and for hyperparameter tuning (e.g., SVM parameter fine-tuning and NCA model creation) to address class imbalance and limited sample sizes.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Uncertainty-aware decision function",
+      "purpose": "Used to determine when to utilize 3D data (MIL process) versus 2D data (DL process) based on classification certainty thresholds (specifically >50% certainty for high confidence).",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Mean-square-error uncertainty-infused function (UIF)",
+      "purpose": "Used in the DL training stage to regularize the predictive distribution by penalizing predictions that diverge from desired uncertainty, incorporating Kullback-Leibler divergence.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Kullback-Leibler (KL) divergence",
+      "purpose": "Used as a term in the UIF to regularize the predictive distribution during DL model training.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Bayesian search",
+      "purpose": "Used to find the optimal lambda value for the Nearest Component Analysis (NCA) model during feature selection.",
+      "type": "Hyperparameter optimization"
+    },
+    {
+      "method": "SVM parameter fine-tuning with predefined parameters",
+      "purpose": "Used to select the best SVM model for keypoint-level classification by evaluating different kernel functions (linear, polynomial, Gaussian) and box constraints.",
+      "type": "Hyperparameter optimization"
+    },
+    {
+      "method": "Custom cost matrix ([0 1; 2 0])",
+      "purpose": "Used in SVM models to enforce a double penalty when misclassifying the melanoma class, addressing class imbalance.",
+      "type": "Class weighting"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using cross-validated accuracy and sensitivity without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "SKINL2 (M vs Nevus)": {
+      "description": "Binary classification of melanoma vs. nevus lesions. Dataset includes 14 melanoma and 36 nevus samples.",
+      "models": {
+        "Proposed Ensemble Model (DL + MIL with uncertainty-aware decision)": {
+          "accuracy": "84.00%",
+          "note": "Cross-validated accuracy."
+        },
+        "TL-naive (2D-only DL baseline)": {
+          "accuracy": "68.00%",
+          "sensitivity": "null",
+          "specificity": "null",
+          "note": "Identified 31 out of 36 nevus samples correctly. Incorrectly classified 16 samples in testing stage."
+        },
+        "MIL (3D-only classifier)": {
+          "accuracy": "72.00%",
+          "sensitivity": "78.57%",
+          "note": "Used to correct misclassifications from the TL process when uncertainty is high."
+        }
+      },
+      "notes": "The ensemble model corrects misclassifications from the TL process. Specifically, MIL corrects 10 out of 11 misclassifications identified by the TL process as uncertain (5 of which were melanomas)."
+    },
+    "SKINL2 (M vs All)": {
+      "description": "Multiclass classification of melanoma vs. all other lesion types. Dataset includes 14 melanoma and 84 non-melanoma samples (16 angiomas, 6 basal cell carcinomas, 1 dermatofibroma, 24 seborrheic keratoses, 1 verruca).",
+      "models": {
+        "Proposed Ensemble Model (DL + MIL with uncertainty-aware decision)": {
+          "accuracy": "90.82%",
+          "note": "Cross-validated accuracy."
+        },
+        "TL-naive (2D-only DL baseline)": {
+          "accuracy": "73.47%",
+          "sensitivity": "null",
+          "specificity": "null",
+          "note": "Sensitivity decreased by 7.14 percentage points compared to M vs Nevus experiment. Identified 70 out of 84 non-melanoma lesions correctly."
+        },
+        "MIL (3D-only classifier)": {
+          "accuracy": "null",
+          "sensitivity": "null",
+          "note": "Specific metrics for MIL in this experiment not explicitly reported as standalone values, but used for correction."
+        }
+      },
+      "notes": "The ensemble model achieves higher accuracy than the TL-naive baseline. MIL corrects 10 out of 11 misclassifications identified by the TL process as uncertain (5 of which were melanomas)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Ensemble model combining Deep Learning (DL) for 2D RGB classification and Multiple Instance Learning (MIL) for 3D depth feature classification.",
+    "pretraining": "The DL component uses an AlexNet model pre-trained on the ILSVRC (ImageNet Large Scale Visual Recognition Challenge) dataset.",
+    "input_size": "RGB images with resolution 3858 × 2682 pixels; 3D depth maps derived from light-field data.",
+    "architecture_details": {
+      "DL_component": {
+        "backbone": "AlexNet",
+        "input_processing": "Segmentation masks applied to remove non-lesion skin (colored black); online rotation data augmentation.",
+        "uncertainty_mechanism": "Mean-square-error uncertainty-infused function (UIF) incorporating Kullback-Leibler (KL) divergence to regularize predictive distribution and estimate classification certainty.",
+        "layers": "Standard AlexNet architecture with the final classification layer replaced by a Softmax layer for binary or ternary classification."
+      },
+      "MIL_component": {
+        "feature_extraction": "NARF (Normal Aligned Radial Feature) keypoint detector on 3D surface data; RGB channels zeroed out.",
+        "feature_selection": "Nearest Component Analysis (NCA) model with optimal lambda found via Bayesian search over 6-fold cross-validation.",
+        "keypoint_classifier": "Support Vector Machine (SVM) with linear, polynomial, or Gaussian kernels and custom cost matrix ([0 1; 2 0]) to penalize melanoma misclassification.",
+        "image_classifier": "Linear SVM with ISDA solver and box constraint set to 1, operating on normalized sums of keypoint labels."
+      },
+      "ensemble_logic": "Uncertainty-aware decision function: If DL classification certainty > 50%, use DL output; otherwise, use MIL output."
+    },
+    "training_details": {
+      "DL_training": {
+        "epochs": 32,
+        "batch_size": 10,
+        "learning_rate": 0.001,
+        "optimizer": "Not explicitly named, but standard DL training implied with learning rate decay based on convergence tolerance of step size 0.000005.",
+        "loss_function": "Mean-square-error uncertainty-infused function (UIF) with KL divergence term."
+      },
+      "MIL_training": {
+        "feature_selection_method": "Bayesian search for NCA lambda parameter.",
+        "keypoint_svm_tuning": "1-out-of-9 folds cross-validation for SVM hyperparameter selection.",
+        "image_svm_solver": "ISDA solver."
+      },
+      "validation_scheme": "10-fold cross-validation."
+    },
+    "classification_or_output_head": {
+      "DL_head": "Softmax layer providing class probabilities and uncertainty estimates.",
+      "MIL_head": "Linear SVM with ISDA solver producing image-level classification labels from keypoint label bags."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Deep Learning (DL) model (Transfer Learning approach using AlexNet)",
+    "Multiple Instance Learning (MIL) model",
+    "Support Vector Machine (SVM) (used for keypoint-level classification and image-level classification)",
+    "Nearest Component Analysis (NCA) model",
+    "NARF (Normal Aligned Radial Feature) keypoint detector",
+    "Ensemble model (combining DL and MIL with uncertainty-aware decision function)"
+  ],
+  "preprocessing_techniques": [
+    "Segmentation masks generated via modified Lazy Snapping algorithm with SLIC superpixel over-segmentation to remove non-lesion skin (colored black) for DL input.",
+    "RGB channels zeroed out for 3D depth data in MIL process to ensure only depth features are used.",
+    "Lesion mask dilation by 25 pixels for MIL keypoint extraction to exclude keypoints outside the lesion region.",
+    "Data normalization with zero mean and unit standard deviation for NCA model input.",
+    "Online rotation data augmentation for DL training.",
+    "Feature extraction using NARF (Normal Aligned Radial Feature) keypoint detector on 3D surface data.",
+    "Feature selection using Nearest Component Analysis (NCA) model."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Online rotation",
+      "details": "Applied during Deep Learning (DL) training for the 2D RGB data. The specific rotation parameters or probabilities are not explicitly detailed in the provided text, but it is noted as being performed 'online' and references prior work [5] for implementation details."
+    }
+  ],
+  "conclusions": [
+    "The proposed ensemble model, which combines Deep Learning (DL) for 2D RGB classification and Multiple Instance Learning (MIL) for 3D feature extraction using an uncertainty-aware decision function, achieves a cross-validated accuracy of 84.00% for distinguishing melanoma from nevus lesions.",
+    "The ensemble model achieves a cross-validated accuracy of 90.82% for discriminating melanoma from all other present skin lesion types.",
+    "In the absence of discriminative 2D characteristics, 3D surface depth information provides redeeming classification results, demonstrating that existing skin lesion classification methods can benefit from exploring unexploited 3D dimensions beyond standard 2D image characteristics.",
+    "The use of an uncertainty-aware decision function allows the system to resort to 3D surface data when the initial 2D color classification is uncertain, thereby improving overall performance.",
+    "The MIL component corrects misclassifications identified by the DL model as uncertain; specifically, it corrected 10 out of 11 misclassifications in the M vs Nevus experiment, five of which were melanomas.",
+    "The study acknowledges limitations related to large class imbalance and limited data samples, noting that the results were obtained on a small dataset (SKINL2) and that future work should focus on enlarging datasets and acquisition modalities."
+  ],
+  "important_remarks": [
+    "The study is limited by a very small dataset size (SKINL2), containing only 14 melanoma and 36 nevus samples for the binary task, and 14 melanoma and 84 non-melanoma samples for the multiclass task, which limits statistical power and generalizability.",
+    "The dataset exhibits significant class imbalance, particularly in the 'M vs All' experiment where melanoma samples are vastly outnumbered by other lesion types, although a custom cost matrix was used to mitigate this.",
+    "There is a lack of external validation; the model was evaluated solely on the SKINL2 dataset using 10-fold cross-validation, raising concerns about overfitting and performance on unseen populations or devices.",
+    "The light-field data was acquired using a specific Raytrix R42 camera at a single institution (Centro Hospitalar de Leiria, Portugal), introducing potential device-specific and geographic bias that may not generalize to other clinical settings or imaging modalities.",
+    "The paper does not report formal statistical significance testing (e.g., p-values) to compare the proposed ensemble model against baselines, relying instead on accuracy improvements.",
+    "The uncertainty-aware decision function relies on a fixed threshold (>50% certainty) to switch between 2D and 3D classification, which may not be optimal across different lesion types or image qualities.",
+    "The 3D depth information is derived from light-field data, which is a less common modality in standard dermatology practice compared to 2D dermoscopy, potentially hindering immediate clinical deployment without specialized hardware.",
+    "The paper acknowledges that current systems have not yet achieved satisfactory sensitivity performances for melanoma detection, and this study's results, while improved, are still based on a limited sample size."
+  ]
+}

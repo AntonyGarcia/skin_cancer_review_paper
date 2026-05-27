@@ -1,0 +1,325 @@
+{
+  "file_name": "phillips_2019_assessment_of_accuracy_of_an_artificial_intelligence_algorithm_to.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The study used the Deep Ensemble for Recognition of Malignancy, a deterministic artificial intelligence algorithm trained using deep learning techniques, to analyze dermoscopic images of skin lesions and detect melanoma. The algorithm's performance (AUROC, sensitivity, specificity) was evaluated and compared against specialist clinical assessments."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is labeled as an 'Original Investigation' and describes a 'prospective, multicenter, single-arm, masked diagnostic trial' conducted to evaluate the accuracy of an artificial intelligence algorithm. It presents original data from 514 patients, including methods, results (AUROC, sensitivity, specificity), and conclusions, rather than summarizing prior literature."
+  },
+  "title": "Assessment of Accuracy of an Artificial Intelligence Algorithm to Detect Melanoma in Images of Skin Lesions",
+  "authors": [
+    "Michael Phillips",
+    "Helen Marsden",
+    "Wayne Jaffe",
+    "Rubeta N. Matin",
+    "Gorav N. Wali",
+    "Jack Greenhalgh",
+    "Emily McGrath",
+    "Rob James",
+    "Evmorfia Ladoyanni",
+    "Anthony Bewley",
+    "Giuseppe Argenziano",
+    "Ioulios Palamaras"
+  ],
+  "doi": "10.1001/jamanetworkopen.2019.13436",
+  "journal": "JAMA Network Open",
+  "year": 2019,
+  "article_type": "Original Investigation",
+  "brief_summary": "This prospective, multicenter, masked diagnostic trial evaluated the accuracy of the Deep Ensemble for Recognition of Malignancy, an artificial intelligence algorithm using deep learning, in detecting melanoma from dermoscopic images. The study analyzed images of suspicious and control skin lesions from 514 patients captured via iPhone 6s, Galaxy S6, and DSLR cameras in UK dermatology clinics. The algorithm's performance was assessed against histopathological diagnosis as the criterion standard and compared with specialist clinical assessments. The retrained algorithm achieved an area under the receiver operating characteristic curve (AUROC) of 90.1% for biopsied lesions and 95.8% for all lesions using iPhone 6s images. At 100% sensitivity, the algorithm demonstrated a specificity of 64.8%, which was comparable to the 69.9% specificity achieved by specialists. The study concluded that the AI algorithm identified melanoma with accuracy similar to that of specialists, suggesting its potential utility in reducing pressure on secondary care services.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "melanoma in situ"
+      ],
+      "role": "Target class",
+      "details": "Primary target of the AI algorithm and clinical assessment; 125 biopsied lesions diagnosed as melanoma (including 39 melanoma in situ/lentigo maligna and 67 superficial spreading); 77 used in primary analysis."
+    },
+    {
+      "lesion_type": "Dysplastic Nevus",
+      "paper_terms": [
+        "dysplastic nevi"
+      ],
+      "role": "Comparator class",
+      "details": "Benign/malignant borderline lesions; 148 biopsied lesions diagnosed as dysplastic nevi."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma"
+      ],
+      "role": "Mentioned only (in subset audit)",
+      "details": "Found in poststudy audit of 119 biopsied lesions categorized as 'other'; 3 (7.5%) of 40 lesions categorized as 'other' were diagnosed as basal cell carcinoma."
+    },
+    {
+      "lesion_type": "Benign Skin Lesions",
+      "paper_terms": [
+        "benign skin lesions",
+        "control lesions",
+        "nonmelanoma lesions",
+        "other diagnoses",
+        "benign"
+      ],
+      "role": "Comparator class",
+      "details": "Control lesions (999 total) and nonmelanoma biopsied lesions (278 biopsied with 'other' diagnoses, mostly benign); included in training set as 'control lesions' and 'nonmelanoma lesions'."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs non-melanoma (benign)",
+        "primary": true,
+        "details": "The algorithm predicts the likelihood of melanoma (binary classification: malignant vs benign) from dermoscopic images. Performance was evaluated using AUROC, sensitivity, and specificity against histopathological diagnosis. The algorithm outputs a numerical confidence score from 0 to 1, but this is used for binary classification via a decision threshold."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Prospective Multicenter Clinical Cohort (UK Hospitals)",
+      "description": "A prospective, multicenter, single-arm, masked diagnostic trial dataset collected from dermatology and plastic surgery clinics in 7 UK hospitals between January 2017 and July 2018. It consists of dermoscopic images of suspicious and control skin lesions from 514 patients, captured using iPhone 6s, Galaxy S6, and Nikon D5500 DSLR cameras.",
+      "classes_used": [
+        "Melanoma",
+        "Melanoma in situ",
+        "Dysplastic nevi",
+        "Benign skin lesions (Control lesions)",
+        "Other diagnoses (mostly benign, some basal cell carcinoma)"
+      ],
+      "counts": {
+        "total": 1550,
+        "training": 286,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "biopsied_melanoma": 125,
+          "biopsied_dysplastic_nevi": 148,
+          "biopsied_other": 278,
+          "control_lesions": 999
+        }
+      },
+      "use": {
+        "training": "A subset of 286 lesions (858 images) from this study was extracted and used to further train the algorithm (36 confirmed melanoma, 67 nonmelanoma, 186 control lesions). Additionally, a retrained version of the algorithm was trained on images from DSLR and Galaxy S6 cameras within this dataset.",
+        "validation": "The retrained algorithm was validated using 10-fold cross-validation on a limited dataset of 731 lesions (images from all 3 cameras) combined with a historical dataset.",
+        "testing": "The algorithm was tested on the remaining images from the study. Specifically, for the retrained model, images taken by the iPhone 6s were used as a naive device test set, and images from DSLR and Galaxy S6 were also tested. The primary analysis included 77 biopsied lesions used for the primary analysis of the initial algorithm.",
+        "other": "Used for comparison against specialist clinical assessments and histopathological diagnosis as the criterion standard."
+      }
+    },
+    {
+      "name": "Historical Dataset",
+      "description": "A historical dataset of published dermoscopic images used in conjunction with the prospective clinical cohort data for retraining and validation.",
+      "classes_used": [
+        "Melanoma",
+        "Benign lesions"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Combined with the prospective clinical dataset (shuffled) for retraining the algorithm using 10-fold cross-validation.",
+        "validation": "Used in 10-fold cross-validation alongside the clinical dataset.",
+        "testing": null,
+        "other": "Used to ensure the algorithm could generalize for different cameras."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Area under the receiver operating characteristic curve (AUROC)",
+    "Sensitivity",
+    "Specificity",
+    "Predictive values",
+    "False-positive rates",
+    "False-negative rates",
+    "Number needed to biopsy",
+    "Negative predictive value",
+    "Positive predictive value"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Nonparametric receiver operating characteristic (ROC) curves with bootstrapped estimation of uncertainty",
+      "purpose": "To examine the association of the algorithm’s confidence scale with the criterion-standard, histopathology-confirmed diagnosis for each camera and for clinical assessment, and to estimate uncertainty for AUROC.",
+      "type": "Uncertainty estimation / ROC analysis"
+    },
+    {
+      "method": "10-fold cross-validation",
+      "purpose": "To validate the retrained algorithm using a combined dataset of prospective clinical images and a historical dataset.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Chi-squared (χ2) test of equality",
+      "purpose": "To compare the area under the receiver operating characteristic curve (AUROC) between the algorithmic and clinical assessments.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Little missing completely at random (MCAR) test",
+      "purpose": "To assess the potential consequences of missing values (from missing or poor-quality images) and determine if data were missing completely at random.",
+      "type": "Missing data analysis"
+    },
+    {
+      "method": "Selection model correction (Cook and Rajbhandari)",
+      "purpose": "To correct receiver operating characteristic curve estimates for bias introduced by missing image-based assessments.",
+      "type": "Bias correction"
+    },
+    {
+      "method": "Heckman analysis",
+      "purpose": "To evaluate the bias introduced by missing image-based assessments by comparing empirical AUROC with Heckman AUROC.",
+      "type": "Bias correction / Sensitivity analysis"
+    },
+    {
+      "method": "95% Confidence Intervals (CIs)",
+      "purpose": "To report statistical estimates of accuracy (AUROC, sensitivity, specificity) for algorithmic and clinical assessments.",
+      "type": "Confidence interval"
+    },
+    {
+      "method": "Two-tailed hypothesis testing",
+      "purpose": "To determine statistical significance for all tests conducted.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Significance threshold (P < .05)",
+      "purpose": "To define statistical significance for the study's analyses.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Chi-squared (χ2) test of equality",
+    "null_hypothesis": "There is no difference in the area under the receiver operating characteristic curve (AUROC) between the artificial intelligence algorithmic assessment and the clinical assessment.",
+    "alternative_hypothesis": "There is a difference in the area under the receiver operating characteristic curve (AUROC) between the artificial intelligence algorithmic assessment and the clinical assessment.",
+    "alpha": 0.05,
+    "interpretation": "A P value of less than .05 was regarded as statistically significant. The study found a statistically significant difference between the AUROCs (χ2 = 22.6; P < .001), indicating that the algorithmic assessment (specifically using iPhone 6s images) had a significantly different (higher) AUROC compared to the clinical assessment."
+  },
+  "results_obtained_in_each_dataset": {
+    "Prospective Multicenter Clinical Cohort (Biopsied Lesions)": {
+      "metric": "AUROC (95% CI)",
+      "models": {
+        "Algorithm (Initial, trained on published images)": {
+          "iPhone 6s": "87.9% (82.8%-89.9%)",
+          "Galaxy S6": "82.3% (76.9%-87.2%)",
+          "DSLR": "85.0% (77.3%-90.9%)"
+        },
+        "Algorithm (Retrained, trained on study images)": {
+          "iPhone 6s": "90.1% (86.3%-94.0%)",
+          "Galaxy S6": "85.8% (81.0%-90.7%)",
+          "DSLR": "86.9% (80.8%-93.0%)"
+        },
+        "Algorithm (Third round of training)": {
+          "iPhone 6s": "94.0% (91.3%-96.7%)",
+          "Galaxy S6": "92.6% (89.6%-95.5%)",
+          "DSLR": "92.2% (88.6%-95.7%)"
+        },
+        "Clinicians": {
+          "AUROC": "77.8% (72.5%-81.9%)"
+        }
+      },
+      "notes": "The algorithmic assessment using iPhone 6s images had a significantly higher AUROC compared to clinical assessment (χ2 = 22.6; P < .001). Age was a significant covariate for all methods; clinician accuracy increased by 0.73% for each decreasing year of age, while algorithm accuracy increased with age (iPhone 6s: 0.76%, Galaxy S6: 1.9%, DSLR: 4.3% per increasing year). Fitzpatrick skin type was significant for clinicians (AUROC increased by 10% for each level of skin sensitivity above type IV)."
+    },
+    "Prospective Multicenter Clinical Cohort (All Lesions)": {
+      "metric": "AUROC (95% CI)",
+      "models": {
+        "Algorithm (Retrained, trained on study images)": {
+          "iPhone 6s": "95.8% (94.1%-97.6%)",
+          "Galaxy S6": "93.8% (91.4%-96.2%)",
+          "DSLR": "91.8% (87.5%-96.1%)"
+        },
+        "Clinicians": {
+          "AUROC": "90.8% (88.0%-93.6%)"
+        }
+      },
+      "notes": "Assuming none of the control lesions were melanoma, all methods showed improved accuracy when assessing all lesions compared to biopsied lesions alone. The AUROC for all devices showed an improvement of 2% after the third round of training (from 90.1% to 92.3%)."
+    },
+    "Prospective Multicenter Clinical Cohort (Sensitivity/Specificity at 100% Sensitivity)": {
+      "metric": "Specificity",
+      "models": {
+        "Algorithm (Retrained, iPhone 6s)": "64.8%",
+        "Clinicians": "69.9%"
+      },
+      "notes": "At 100% sensitivity, the algorithm achieved a specificity of 64.8% with iPhone 6s images, while clinicians achieved a specificity of 69.9%."
+    },
+    "Prospective Multicenter Clinical Cohort (Sensitivity/Specificity at 95% Sensitivity)": {
+      "metric": "Specificity (Biopsied / All Lesions)",
+      "models": {
+        "Algorithm (iPhone 6s)": "50.6% / 78.1%",
+        "Algorithm (Galaxy S6)": "46.9% / 75.6%",
+        "Algorithm (DSLR)": "27.6% / 45.5%",
+        "Clinicians": "69.9% (on all lesions)"
+      },
+      "notes": "Number needed to biopsy at 95% sensitivity: Algorithm (iPhone 6s) 3.04 (biopsied) / 4.00 (all); Algorithm (Galaxy S6) 3.22 / 4.39; Algorithm (DSLR) 4.23 / 9.02; Clinicians 4.92."
+    },
+    "Prospective Multicenter Clinical Cohort (Negative Predictive Value 100%)": {
+      "metric": "Positive Predictive Value",
+      "models": {
+        "Clinicians": "20.3%",
+        "Algorithm (iPhone 6s)": "17.9%",
+        "Algorithm (Galaxy S6)": "13.4%",
+        "Algorithm (DSLR)": "9.5%"
+      },
+      "notes": "When the negative predictive value was fixed at 100%, the positive predictive values are listed above."
+    },
+    "Retrained Algorithm Validation (10-fold Cross-Validation)": {
+      "metric": "AUROC",
+      "models": {
+        "Algorithm (Retrained on combined prospective and historical data)": "90.1% (95% CI, 85.8%-93.2%) for all devices"
+      },
+      "notes": "The model was trained on images taken by DSLR and Galaxy S6, then tested using images taken by iPhone 6s as the naive device as well as images taken by DSLR and Galaxy S6 cameras. The dataset included 731 lesions (260 biopsied, 51 melanoma) combined with a historical dataset."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Deep Ensemble for Recognition of Malignancy",
+    "pretraining": "Trained on published dermoscopic images prior to the study; further trained using a subset of 286 lesions (858 images) from the prospective study (36 confirmed melanoma, 67 nonmelanoma, 186 control lesions). A retrained version was validated using 10-fold cross-validation on a combined dataset of prospective clinical images and a historical dataset.",
+    "input_size": null,
+    "architecture_details": {
+      "model_type": "Deterministic artificial intelligence algorithm trained using deep learning techniques",
+      "output": "Numerical response from 0 to 1 reflecting confidence that the lesion is melanoma (0 indicates certainly benign, 1 indicates certainly malignant melanoma)"
+    },
+    "training_details": {
+      "training_data_source": "Published dermoscopic images; subset of 286 lesions (858 images) from the study; combined with a historical dataset for retraining",
+      "validation_method": "10-fold cross-validation (for retrained model)",
+      "overfitting_prevention": "No single patient had lesions in both training and test splits; lesions from each patient kept together in the same fold during cross-validation",
+      "hyperparameters": null,
+      "optimizer": null,
+      "loss_function": null
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (Melanoma vs Non-melanoma)",
+      "threshold": "Decision threshold defined the point above which a lesion is classed as melanoma"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Deep Ensemble for Recognition of Malignancy"
+  ],
+  "preprocessing_techniques": [
+    "Image quality screening: Images that were blurred or otherwise flawed were removed from the dataset.",
+    "Quality control: Low-quality images were excluded from the training set.",
+    "Data splitting: No single patient had lesions appearing in both training and test splits to prevent overfitting; lesions from each patient were kept together in the same fold during cross-validation."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The artificial intelligence algorithm demonstrated an ability to identify melanoma from dermoscopic images of selected lesions with an accuracy similar to that of specialists.",
+    "The algorithm achieved an area under the receiver operating characteristic curve (AUROC) of 91.8% when analyzing images from all lesions.",
+    "At 100% sensitivity, the algorithm achieved a specificity of 64.8%, while clinicians achieved a specificity of 69.9%.",
+    "The algorithm could play a role in detecting thin or early-stage melanomas, as more than half of the melanoma diagnoses were either in situ or less than 1 mm deep.",
+    "The algorithm maintains a high specificity when control (benign) lesions are assessed.",
+    "Artificial intelligence technology could play a role in identifying lesions with a high likelihood of melanoma, potentially reducing pressure on secondary care and pathology services."
+  ],
+  "important_remarks": [
+    "The study population was predominantly white (96.8%), limiting the generalizability of the algorithm's performance to non-white populations.",
+    "A significant portion of data was excluded from analysis: 849 images (54.8%) were missing or unsuitable, raising potential concerns about selection bias despite statistical corrections.",
+    "The algorithm was retrained using a subset of the study's own data (286 lesions), which constitutes internal validation rather than purely external validation for the final reported metrics.",
+    "The algorithm's accuracy improved with patient age, whereas clinician accuracy decreased with age, suggesting the algorithm may be less susceptible to experience-related variability but potentially biased by age-related skin changes.",
+    "The algorithm's accuracy was influenced by Fitzpatrick skin type for clinicians (AUROC increased for skin types above IV), indicating potential disparities in clinical assessment that the AI did not replicate in the same manner.",
+    "Heckman analysis indicated that missing image-based assessments introduced some bias, although the difference between empirical and corrected AUROC was minimal.",
+    "The study included a high proportion of control (benign) lesions (64.4%), which may inflate specificity metrics compared to a real-world clinical setting with a higher prevalence of suspicious lesions.",
+    "No adverse events were recorded, but the study was a diagnostic accuracy trial, not a clinical outcome trial, so patient management impact was not directly measured."
+  ]
+}

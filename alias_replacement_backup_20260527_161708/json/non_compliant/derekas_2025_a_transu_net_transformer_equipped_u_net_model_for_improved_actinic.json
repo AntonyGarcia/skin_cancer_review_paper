@@ -1,0 +1,300 @@
+{
+  "file_name": "derekas_2025_a_transu_net_transformer_equipped_u_net_model_for_improved_actinic.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed and evaluated AKTransU-Net, a hybrid deep learning model combining U-Net, Transformer blocks (ViT), and ConvLSTM modules, to perform semantic segmentation and detection of actinic keratosis lesions in clinical photography. The model was trained and tested on a dataset of 569 clinical photographs from 115 patients to achieve lesion segmentation with a median Dice score of 65.13%."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new hybrid deep learning architecture (AKTransU-Net) for actinic keratosis detection. It details the model's design (incorporating Transformer blocks and ConvLSTM modules), describes the training and evaluation on a proprietary dataset of 569 clinical photographs, and reports quantitative results (median Dice score of 65.13%) with statistical comparisons against baseline models."
+  },
+  "title": "AKtransU-Net: Transformer-Equipped U-Net Model for Improved Actinic Keratosis Detection in Clinical Photography",
+  "authors": [
+    "Panagiotis Derekas",
+    "Charalampos Theodoridis",
+    "Aristidis Likas",
+    "Ioannis Bassukas",
+    "Georgios Gaitanis",
+    "Athanasia Zampeta",
+    "Despina Exadaktylou",
+    "Panagiota Spyridonos"
+  ],
+  "doi": "10.3390/diagnostics15141752",
+  "journal": "Diagnostics",
+  "year": 2025,
+  "article_type": "Article",
+  "brief_summary": "This study proposes AKTransU-Net, a hybrid deep learning architecture combining U-Net, Vision Transformer blocks, and ConvLSTM modules, to perform semantic segmentation of actinic keratosis lesions in clinical photography. The model was trained and evaluated on a proprietary dataset of 569 annotated clinical photographs from 115 patients, utilizing 512x512 pixel crops extracted via translation-based bounding boxes. Evaluation involved comparative analysis against state-of-the-art segmentation models, including HmsU-Net, using a median Dice score as the primary metric. The proposed model achieved a median Dice score of 65.13%, demonstrating superior context awareness and robustness in whole-image assessments compared to baselines. The results indicate that Transformer-driven context modeling significantly improves the detection of subtle, ill-defined AK lesions amidst surrounding photodamage. This approach supports more accurate, objective monitoring of skin field cancerization in clinical settings.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic Keratosis",
+      "paper_terms": [
+        "Actinic Keratosis",
+        "AK",
+        "AKs"
+      ],
+      "role": "Target class",
+      "details": "The primary target for semantic segmentation and detection. The study focused on facial AK lesions in 115 patients. The dataset consisted of 569 clinical photographs annotated for AK regions."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Exclusion/mentioned only",
+      "details": "Mentioned as an exclusion criterion for the study dataset. Patients with biopsy-confirmed basal cell carcinoma were excluded from the 115 patients included in the analysis."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma",
+        "SCC"
+      ],
+      "role": "Exclusion/mentioned only",
+      "details": "Mentioned as an exclusion criterion for the study dataset. Patients with biopsy-confirmed squamous cell carcinoma were excluded. Also mentioned in the introduction as a potential progression from AK."
+    },
+    {
+      "lesion_type": "Normal Skin / Healthy Skin",
+      "paper_terms": [
+        "healthy skin",
+        "normal skin"
+      ],
+      "role": "Background/Comparator class",
+      "details": "Referenced in the context of discriminating AK from healthy/normal skin in previous works and as the background class in the segmentation task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise binary mask of Actinic Keratosis (AK) lesions",
+        "primary": true,
+        "details": "The paper focuses on semantic segmentation of AK lesions in clinical photography. The model predicts pixel-wise masks (binary masks) for AK regions. Evaluation metrics include the Dice coefficient and Jaccard index (IoU), which are standard for segmentation tasks. The output is a segmentation map reconstructed from overlapping tiles, thresholded to produce a binary mask."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Proprietary Clinical Photography Dataset (University Hospital of Ioannina)",
+      "description": "A proprietary dataset of high-resolution clinical photographs of facial actinic keratosis lesions, acquired from patients attending the Dermato-Oncology Clinic of the Dermatology Department at the University Hospital of Ioannina. Images were captured using a Nikon D610 with polarizing filters. The dataset was approved by the Human Investigation Committee (IRB) of the University Hospital of Ioannina (Approval No.: 3/17-2-2015).",
+      "classes_used": [
+        "Actinic Keratosis (AK)",
+        "Normal Skin / Background"
+      ],
+      "counts": {
+        "total": 569,
+        "training": 410,
+        "validation": 100,
+        "testing": 59,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the AKTransU-Net model. 410 images from 83 patients were used, from which 13,190 translation-augmented crops were extracted.",
+        "validation": "Used for model validation during training. 100 images from 15 patients were reserved, yielding 3,298 translation-augmented crops.",
+        "testing": "Used for final performance evaluation. An independent set of 59 images from 17 patients was used, yielding 403 central lesion crops without translation augmentation.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient",
+    "Jaccard index",
+    "Intersection over Union (IoU)",
+    "Precision",
+    "Sensitivity",
+    "Specificity",
+    "Accuracy",
+    "F1-score",
+    "Median Dice score",
+    "p-values"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Friedman test",
+      "purpose": "To determine whether performance differences existed across all models in pairwise comparisons.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Wilcoxon signed-rank test",
+      "purpose": "To perform post hoc pairwise comparisons between models and to compare scanning strategies (e.g., Gaussian-weighted vs. block processing).",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Bonferroni correction",
+      "purpose": "To adjust significance thresholds for multiple comparisons (15 pairwise model comparisons), resulting in an adjusted alpha of approximately 0.0033.",
+      "type": "Significance threshold adjustment"
+    },
+    {
+      "method": "Median Dice coefficient",
+      "purpose": "Used as the primary metric for comparing segmentation performance across models and scanning strategies.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "p-values",
+      "purpose": "To report statistical significance of differences between models and methods (e.g., p < 0.001, p < 0.05, p > 0.05).",
+      "type": "Significance metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Friedman test for overall differences; Wilcoxon signed-rank test for pairwise comparisons with Bonferroni correction.",
+    "null_hypothesis": "There is no difference in segmentation performance (median Dice coefficient) between the compared models or scanning strategies.",
+    "alternative_hypothesis": "There is a statistically significant difference in segmentation performance (median Dice coefficient) between the compared models or scanning strategies.",
+    "alpha": 0.0033,
+    "interpretation": "The Friedman test was used to determine if performance differences existed across all models. Post hoc pairwise comparisons used the Wilcoxon signed-rank test with a Bonferroni-corrected alpha threshold of approximately 0.0033 (0.05/15). Results indicated that HmsU-net significantly outperformed the baseline AKU-net (p < 0.001), while improvements by TransU-net and AKU-net5 were not statistically significant after correction. For whole-image scanning, AKtransU-net (256x256 stride) performed significantly better than HmsU-net (256x256 stride) (p < 0.05), while differences with HmsU-net (128x128 stride) and YOLOSegV8 were not significant (p > 0.05)."
+  },
+  "results_obtained_in_each_dataset": {
+    "Proprietary Clinical Photography Dataset (Crop Level Evaluation)": {
+      "description": "Evaluation on 403 central lesion crops from the test set (59 images from 17 patients) without translation augmentation. Metrics reported are Median Dice Coefficient (%). Statistical comparisons against baseline AKU-net used Wilcoxon signed-rank test with Bonferroni correction (alpha ≈ 0.0033).",
+      "models": {
+        "AKU-net (baseline)": {
+          "Median Dice (%)": 57.21
+        },
+        "AKU-net5": {
+          "Median Dice (%)": 63.16,
+          "p-value_vs_baseline": "< 0.01 (nominal, not significant after Bonferroni)"
+        },
+        "DeepLabv3+": {
+          "Median Dice (%)": 60.24,
+          "p-value_vs_baseline": "Not significant"
+        },
+        "TransU-net": {
+          "Median Dice (%)": 61.7,
+          "p-value_vs_baseline": "< 0.01 (nominal, not significant after Bonferroni)"
+        },
+        "HmsU-net": {
+          "Median Dice (%)": 75.68,
+          "p-value_vs_baseline": "< 0.001 (highly significant)"
+        },
+        "AKtransU-net": {
+          "Median Dice (%)": 65.1,
+          "p-value_vs_baseline": "< 0.001 (highly significant)"
+        }
+      },
+      "notes": "HmsU-net significantly outperformed all other models. AKtransU-net showed highly significant improvement over baseline. Improvements by TransU-net and AKU-net5 were not statistically significant after Bonferroni correction."
+    },
+    "Proprietary Clinical Photography Dataset (Whole-Image Inference - Scanning Strategies)": {
+      "description": "Evaluation of AKtransU-net using different scanning strategies on whole images. Baseline is Gaussian-weighted stride (256x256). Metrics reported are Median Dice Coefficient (%).",
+      "models": {
+        "AKtransU-net (Gaussian-weighted stride 256x256)": {
+          "Median Dice (%)": 65.13,
+          "role": "Baseline"
+        },
+        "AKtransU-net (Gaussian-weighted stride 128x128)": {
+          "Median Dice (%)": 64.7,
+          "p-value_vs_baseline": "> 0.05"
+        },
+        "AKtransU-net (Average overlapping stride 256x256)": {
+          "Median Dice (%)": 48.11,
+          "p-value_vs_baseline": "< 0.01"
+        },
+        "AKtransU-net (Non-overlapping block processing)": {
+          "Median Dice (%)": 45.74,
+          "p-value_vs_baseline": "< 0.01"
+        }
+      },
+      "notes": "Gaussian-weighted stride achieved the highest accuracy. Decreasing stride from 256 to 128 did not significantly improve accuracy but increased computation. Both alternative strategies performed significantly worse than the Gaussian-stride baseline."
+    },
+    "Proprietary Clinical Photography Dataset (Whole-Image Inference - Model Comparison)": {
+      "description": "Comparison of AKtransU-net (stride 256x256) against HmsU-net and YOLOSegV8 on whole images. Baseline is AKtransU-net. Metrics reported are Median Dice Coefficient (%).",
+      "models": {
+        "AKtransU-net (stride 256x256)": {
+          "Median Dice (%)": 65.13,
+          "role": "Baseline"
+        },
+        "HmsU-net (stride 256x256)": {
+          "Median Dice (%)": 52.39,
+          "p-value_vs_baseline": "< 0.05"
+        },
+        "HmsU-net (stride 128x128)": {
+          "Median Dice (%)": 61.21,
+          "p-value_vs_baseline": "> 0.05"
+        },
+        "YOLOSegV8": {
+          "Median Dice (%)": 61.44,
+          "p-value_vs_baseline": "> 0.05"
+        }
+      },
+      "notes": "AKtransU-net performed significantly better than HmsU-net at 256x256 stride. No significant difference was found between AKtransU-net and HmsU-net at 128x128 stride or YOLOSegV8."
+    }
+  },
+  "architecture_used": {
+    "main_model": "AKTransU-Net",
+    "pretraining": "null",
+    "input_size": "256x256 pixels (downscaled from 512x512 crops); 1120x1120 pixels for YOLOSegV8 and whole-image tasks",
+    "architecture_details": {
+      "backbone": "Hybrid U-Net with CNN encoder and decoder, integrated with Vision Transformer (ViT) blocks and ConvLSTM modules",
+      "encoder": "Four stages with progressive down-sampling using convolutional and pooling layers",
+      "transformer_integration": "Three Transformer encoder blocks integrated at progressively down-sampled scales in the encoding path; each block follows standard ViT configuration with 16 attention heads (h=16) and embedded token size D=1024 (key dimension dk=64)",
+      "skip_connections": "ConvLSTM modules embedded within skip connections to process CNN encoder output, Transformer features, and up-sampled decoder output sequentially",
+      "decoder": "Up-sampling stages with ConvLSTM-enhanced skip connections",
+      "layers": "Four hierarchical levels in base AKU-net; AKTransU-Net uses three Transformer blocks at different scales",
+      "heads": "16 attention heads in Transformer blocks",
+      "patch_size": "Not explicitly reported (standard ViT 16x16 implied by reference [15])",
+      "classifier_head": "Pixel-wise binary mask output via thresholding of reconstructed full-size prediction map"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "loss_function": "Binary Cross-Entropy",
+      "learning_rate": "0.001 (initial)",
+      "weight_decay": "1e-6",
+      "batch_size": "32",
+      "epochs": "100",
+      "framework": "TensorFlow 2.15 or PyTorch 1.11",
+      "hardware": "NVIDIA A100 GPU, 100 GB RAM"
+    },
+    "classification_or_output_head": {
+      "type": "Semantic segmentation mask",
+      "output_format": "Binary mask reconstructed from overlapping tiles using Gaussian-weighted averaging and thresholding"
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "AKTransU-Net",
+    "AKU-net",
+    "AKU-net5",
+    "DeepLabv3+",
+    "TransU-net",
+    "HmsU-net",
+    "YOLOSegV8"
+  ],
+  "preprocessing_techniques": [
+    "Downscaling images by a factor of 0.5 to reduce spatial size and fit memory constraints",
+    "Extraction of 512 × 512 pixel rectangular crops (tiles) using translation-based lesion bounding boxes",
+    "Translation-based data augmentation to vary lesion position and capture perilesional context",
+    "Downscaling of image crops by a factor of 0.5 to achieve a final resolution of 256 × 256 pixels for model input",
+    "Rescaling of images to 1120 × 1120 pixels for YOLOSegV8 and whole-image AK segmentation tasks",
+    "Application of linear polarizing filters (90° angle between lens and flash) to minimize surface reflections and enhance lesion visibility during image acquisition",
+    "Gaussian-weighted blending of overlapping tile predictions to mitigate boundary effects and artifacts during whole-image reconstruction",
+    "Normalization of the final full-size prediction map by dividing by the cumulative weight map to produce a weighted average",
+    "Thresholding of the reconstructed full-size prediction map to produce a binary segmentation mask"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Translation-based augmentation",
+      "details": "Used to extract 512x512 pixel crops from downscaled (factor 0.5) high-resolution images using translation-based lesion bounding boxes. This ensured lesions appeared in varied positions and captured different perilesional contexts. Applied to training (13,190 crops) and validation (3,298 crops) sets. Not applied to the test set (403 central lesion crops)."
+    }
+  ],
+  "conclusions": [
+    "Transformer-driven context modeling offers a promising approach for robust actinic keratosis (AK) lesion monitoring, supporting its application in real-world clinical settings where accurate, context-aware analysis is crucial for managing skin field cancerization.",
+    "The proposed AKTransU-Net model, which integrates Transformer blocks and ConvLSTM modules within a U-Net architecture, demonstrated robust context awareness and achieved a median Dice score of 65.13% in whole-image assessments.",
+    "Gaussian-weighted overlapping inference significantly improved segmentation consistency and accuracy in large, high-resolution photographs compared to alternative strategies such as block processing or uniform averaging of overlapping patches.",
+    "AKTransU-Net with a 256x256 stride performed significantly better than HmsU-net with the same stride in whole-image inference, while showing no significant difference compared to HmsU-net with a 128x128 stride or YOLOSegV8.",
+    "Decreasing the stride from 256x256 to 128x128 pixels did not significantly improve segmentation accuracy for AKTransU-Net but required approximately four times more inference computations.",
+    "While hybrid CNN + ViT architectures (AKTransU-Net and HmsU-net) showed superior upper-bound segmentation performance under optimal lesion-centered conditions, standard whole-image scanning experiments revealed that AKTransU-Net maintained more consistent accuracy and was less sensitive to scanning configuration variability than HmsU-net.",
+    "Evaluating models solely under optimal conditions may underestimate their variability and robustness during deployment, highlighting the crucial role of scanning methodology in real-world segmentation applications."
+  ],
+  "important_remarks": [
+    "The study relies on a single-center, proprietary dataset of 569 clinical photographs from 115 patients, limiting external generalizability and introducing potential population bias.",
+    "The primary metric, median Dice score of 65.13%, indicates moderate segmentation performance, suggesting the model may struggle with subtle or ill-defined lesions amidst photodamage.",
+    "Whole-image inference performance (65.13%) was significantly lower than crop-level performance (e.g., 73.34% for AKTransU-Net in some comparisons), highlighting sensitivity to scanning methodology and boundary artifacts.",
+    "The model exhibits high computational complexity due to multi-scale Transformer blocks, which may hinder deployment on resource-constrained devices without compression or lightweight variants.",
+    "Data leakage risk exists as translation-based augmentation was applied to training and validation sets but not the test set, potentially inflating perceived robustness compared to real-world variability.",
+    "The dataset excludes patients with biopsy-confirmed basal cell or squamous cell carcinoma, limiting the model's applicability to differential diagnosis in complex clinical presentations.",
+    "No external validation was performed; results are confined to the internal test set, raising concerns about overfitting to the specific imaging protocol (Nikon D610, polarizing filters) and patient demographics.",
+    "The study acknowledges that evaluating models solely under optimal (crop-level) conditions underestimates their variability and robustness during real-world deployment."
+  ]
+}

@@ -1,0 +1,299 @@
+{
+  "file_name": "li_2025_photographic_quantification_of_actinic_keratoses_using_human_and_artific.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The study utilized an AI model named AKU-Net for the pixelwise segmentation of actinic keratoses (AKs) on clinical photographs. The AI's performance was evaluated using the Dice similarity coefficient (DSC) and compared against human raters to assess the reliability of photographic assessment for quantifying AK burden."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The article is titled 'Photographic Quantification of Actinic Keratoses Using Human- and Artificial Intelligence-Based Assessment: A Pilot Study' and is labeled 'TO THE EDITOR'. It presents original experimental data, including a retrospective study design, inter-rater and intrarater reliability assessments using Linear-Weighted Gwet’s AC, pixelwise segmentation using the AKU-Net AI model, and bias analysis comparing nonexpert and expert scores. The paper reports specific results, methods, and conclusions derived from primary data collection and analysis, rather than summarizing prior literature."
+  },
+  "title": "Photographic Quantification of Actinic Keratoses Using Human- and Artificial Intelligence-Based Assessment: A Pilot Study",
+  "authors": [
+    "Yingjoy Li",
+    "Viviane Liao",
+    "Ian R. Nykaza",
+    "Michael M. Ong",
+    "Kivanc Kose",
+    "Nicholas R. Kurtansky",
+    "Allan C. Halpern",
+    "Mackenzie R. Wehner",
+    "Veronica Rotemberg"
+  ],
+  "doi": "10.1016/j.jid.2025.08.015",
+  "journal": "Journal of Investigative Dermatology",
+  "year": 2026,
+  "article_type": "Letter",
+  "brief_summary": "This pilot study evaluated the reliability of human- and artificial intelligence-based photographic assessment for quantifying actinic keratoses (AKs) and field cancerization. Using clinical photographs from Memorial Sloan Kettering Cancer Center, nonexpert raters performed MASCK scoring and pixelwise segmentation, which were compared against an expert rater and the AKU-Net AI model. Inter-rater agreement for MASCK scoring was substantial among nonexperts but decreased when compared to the expert, particularly for area and Skin Field Cancerization Index scores. Pixelwise segmentation showed moderate agreement among nonexperts (median DSC 0.56–0.57) and lower overlap with expert segmentations (median DSC 0.40–0.44). The AKU-Net model demonstrated limited overlap with both nonexpert and expert segmentations (median DSC 0.26–0.28). The findings suggest that while photographic assessment shows promise, it faces challenges in reproducibility and requires further refinement for robust AI training and clinical use.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic keratosis",
+      "paper_terms": [
+        "actinic keratoses",
+        "AKs",
+        "AK"
+      ],
+      "role": "Target class",
+      "details": "The primary lesion type studied for quantification, segmentation, and scoring using the MASCK system and AKU-Net AI model."
+    },
+    {
+      "lesion_type": "Field cancerization",
+      "paper_terms": [
+        "field cancerization",
+        "Skin Field Cancerization Index",
+        "SFCIndex"
+      ],
+      "role": "Target class",
+      "details": "A clinical entity related to the extent of actinic keratosis burden, assessed via photographic scoring."
+    },
+    {
+      "lesion_type": "Nonmelanoma skin cancers",
+      "paper_terms": [
+        "nonmelanoma skin cancers"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the context of training data for the AKU-Net model to help recognize common misdiagnoses, but not the primary target of this study's experiments."
+    },
+    {
+      "lesion_type": "Inflammatory skin diseases",
+      "paper_terms": [
+        "inflammatory skin diseases"
+      ],
+      "role": "Exclusion/mentioned only",
+      "details": "Listed as an exclusion criterion because they may confuse scorers during actinic keratosis assessment."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixelwise segmentation of actinic keratoses (AKs) on clinical photographs",
+        "primary": true,
+        "details": "The study utilized the AKU-Net AI model for pixelwise segmentation of AKs. The model generated probability maps which were binarized using a threshold of 0.5 to create binary masks (value = 1 for AK, value = 0 for background). Performance was evaluated using the Dice similarity coefficient (DSC)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Memorial Sloan Kettering Cancer Center (MSKCC) Clinical Photography Cohort",
+      "description": "A retrospective, single-institution observational cohort of patients who underwent photodynamic therapy for actinic keratoses at MSKCC between January 1, 2000, and August 1, 2024. Images were stored in the center's Vectra image database. The study included 4 nonexpert raters (medical student dermatology research fellows) and 1 expert rater (board-certified dermatologist). The specific number of images or patients in this cohort is not explicitly reported in the text, though it is described as a pilot study.",
+      "classes_used": [
+        "Actinic keratosis (AK)",
+        "Background (non-AK skin)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "null",
+        "validation": "null",
+        "testing": "Used for human annotation (pixelwise segmentation and MASCK scoring) and for evaluating the performance of the AKU-Net AI model (inference).",
+        "other": "Used for inter-rater and intrarater reliability assessment of human raters."
+      }
+    },
+    {
+      "name": "AKU-Net Training and Testing Dataset (Derekas et al., 2023)",
+      "description": "The dataset used to develop and evaluate the AKU-Net model, as described in the referenced study by Derekas et al. (2023). It consisted of 569 expert-annotated clinical overview photographs from 115 patients. Data augmentation was applied to generate training crops.",
+      "classes_used": [
+        "Actinic keratosis (AK)",
+        "Background"
+      ],
+      "counts": {
+        "total": 569,
+        "training": 16488,
+        "validation": null,
+        "testing": 403,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the AKU-Net deep learning model (VGG16 and U-Net architectures).",
+        "validation": "null",
+        "testing": "Used to test the AKU-Net model, yielding a reported mean Dice similarity coefficient of 0.50.",
+        "other": "The AKU-Net model was pre-trained on this dataset and then applied to the MSKCC cohort in the current study."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Linear-Weighted Gwet’s AC (Gwet’s agreement coefficient)",
+    "Dice similarity coefficient (DSC)",
+    "Bias (mean difference between nonexpert and expert scores)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Linear-Weighted Gwet’s Agreement Coefficient (Gwet’s AC)",
+      "purpose": "To assess inter-rater and intrarater reliability/agreement for MASCK scoring categories (AK count, thickness, area, SFCIndex, global assessment, cancer in zone) among nonexpert raters and between nonexperts and the expert rater.",
+      "type": "Inter-rater agreement metric"
+    },
+    {
+      "method": "Dice Similarity Coefficient (DSC)",
+      "purpose": "To evaluate spatial overlap and agreement for pixelwise segmentation of actinic keratoses between nonexpert raters, between nonexperts and the expert, and between human annotations and the AKU-Net AI model.",
+      "type": "Segmentation overlap metric"
+    },
+    {
+      "method": "Bias Analysis (Mean Difference)",
+      "purpose": "To quantify the systematic overestimation or underestimation of MASCK scores by nonexpert raters compared to the expert rater (e.g., bias for AK count, area score, SFCIndex, thickness).",
+      "type": "Bias estimation"
+    },
+    {
+      "method": "Paired 2-sided Wilcoxon signed-rank tests",
+      "purpose": "To evaluate whether the mean differences (bias) between nonexpert and expert MASCK scores significantly differed from zero.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Shapiro-Wilk normality assessment",
+      "purpose": "To evaluate the suitability of parametric testing for the bias analysis data.",
+      "type": "Normality test"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Paired 2-sided Wilcoxon signed-rank tests",
+    "null_hypothesis": "The mean difference (bias) between nonexpert and expert MASCK scores is zero (i.e., no systematic overestimation or underestimation).",
+    "alternative_hypothesis": "The mean difference (bias) between nonexpert and expert MASCK scores is not zero (i.e., there is a significant systematic overestimation or underestimation).",
+    "alpha": 0.05,
+    "interpretation": "Significance was determined by p-values from the Wilcoxon signed-rank tests. Nonexpert scores differed significantly from expert scores for AK number (p=0.002), AK thickness (p=0.001), area score (p<0.001), and SFCIndex (p=0.007), indicating significant bias. No significant difference was found for global assessment score (p=0.277) or cancer in zone (p=0.570). The Shapiro-Wilk test was used to assess normality to justify the use of this non-parametric test."
+  },
+  "results_obtained_in_each_dataset": {
+    "Memorial Sloan Kettering Cancer Center (MSKCC) Clinical Photography Cohort": {
+      "description": "Retrospective single-center pilot study of 23 patients who underwent photodynamic therapy for AKs. 4 nonexpert raters (medical students) and 1 expert rater (board-certified dermatologist) performed MASCK scoring and pixelwise segmentation.",
+      "metrics": {
+        "MASCK Scoring Inter-Rater Agreement (Nonexperts Only)": {
+          "Round 1 Mean Gwet's AC (Range)": {
+            "AK count": "0.67 (0.50—0.76)",
+            "AK thickness": "0.84 (0.67—0.80)",
+            "Area score": "0.64 (0.26—0.73)",
+            "SFCIndex": "0.61 (0.37—0.63)",
+            "Global assessment score": "0.69 (0.55—0.78)",
+            "Cancer in zone": "0.58 (0.31—0.70)"
+          },
+          "Round 2 Mean Gwet's AC (Range)": {
+            "AK count": "0.81",
+            "AK thickness": "0.83",
+            "Area score": "0.84",
+            "SFCIndex": "0.76",
+            "Global assessment score": "0.70",
+            "Cancer in zone": "0.73"
+          }
+        },
+        "MASCK Scoring Inter-Rater Agreement (Nonexperts Versus Expert)": {
+          "Mean Gwet's AC (Range)": {
+            "AK count": "0.61 (0.50—0.76)",
+            "AK thickness": "0.71",
+            "Area score": "0.47 (0.26—0.73)",
+            "SFCIndex": "0.50 (0.37—0.63)",
+            "Global assessment score": "0.68",
+            "Cancer in zone": "0.59 (0.31—0.70)"
+          }
+        },
+        "MASCK Scoring Intrarater Agreement (Round 1 vs Round 2)": {
+          "Mean Gwet's AC (Range)": {
+            "AK count": "0.83 (0.77—0.88)",
+            "AK thickness": "0.88 (0.78—0.96)",
+            "Area score": "0.84 (0.71—0.90)",
+            "SFCIndex": "0.78 (0.69—0.83)",
+            "Global assessment score": "0.87 (0.84—0.89)",
+            "Cancer in zone": "0.86 (0.49—1.00)"
+          }
+        },
+        "Bias Analysis (Nonexperts vs Expert)": {
+          "AK count bias": "+0.46 (P < .01)",
+          "Area score bias": "+1.04 (P < .01)",
+          "SFCIndex bias": "+2.94 (P < .01)",
+          "Thickness bias": "-0.42 (P < .01)",
+          "Global assessment score bias": "Not significant (P = 0.277)",
+          "Cancer in zone bias": "Not significant (P = 0.570)"
+        },
+        "Pixelwise Segmentation Agreement (Dice Similarity Coefficient)": {
+          "Nonexperts Inter-rater (Round 1)": {
+            "Median pairwise DSC": "0.56—0.57"
+          },
+          "Nonexperts Intrarater": {
+            "Median DSC": "0.60"
+          },
+          "Nonexperts Versus Expert": {
+            "Median pairwise DSC": "0.40—0.44"
+          },
+          "AKU-Net Versus Nonexperts": {
+            "Median pairwise DSC": "0.26—0.28"
+          },
+          "AKU-Net Versus Expert": {
+            "Median pairwise DSC": "0.27"
+          }
+        }
+      },
+      "notes": "Inter-rater agreement for MASCK scoring was substantial among nonexperts but decreased when compared to the expert, particularly for area score and SFCIndex. Nonexperts tended to overestimate AK count, area score, and SFCIndex, while underestimating thickness. Pixelwise segmentation showed moderate agreement among nonexperts and lower overlap with expert segmentations. The AKU-Net model demonstrated limited overlap with both nonexpert and expert segmentations."
+    },
+    "AKU-Net Training and Testing Dataset (Derekas et al., 2023)": {
+      "description": "Dataset used to develop and evaluate the AKU-Net model. Consisted of 569 expert-annotated clinical overview photographs from 115 patients. Data augmentation yielded 16,488 training crops. Model tested on 403 crops.",
+      "metrics": {
+        "AKU-Net Performance": {
+          "Mean Dice Similarity Coefficient": "0.50"
+        }
+      },
+      "notes": "This dataset was used to train the AKU-Net model (VGG16 and U-Net architectures). The model was subsequently applied to the MSKCC cohort in the current study."
+    }
+  },
+  "architecture_used": {
+    "main_model": "AKU-Net",
+    "pretraining": "Trained on 569 expert-annotated clinical overview photographs from 115 patients (Derekas et al, 2023). Data augmentation yielded 16,488 training crops. Tested on 403 crops with a reported mean Dice similarity coefficient of 0.50.",
+    "input_size": "Resized to match AKU-Net's input dimensions (specific pixel dimensions not explicitly stated in the text, but images were resized prior to inference).",
+    "architecture_details": {
+      "backbone": "Combines VGG16 and U-Net architectures",
+      "type": "Deep learning model for semantic segmentation",
+      "output": "Generates probability maps with values ranging from 0 to 1 representing the predicted likelihood of actinic keratosis (AK)"
+    },
+    "training_details": {
+      "dataset_source": "Derekas et al, 2023",
+      "training_samples": "16,488 training crops (generated via data augmentation from 569 images)",
+      "testing_samples": "403 crops",
+      "performance_metric": "Mean Dice similarity coefficient of 0.50"
+    },
+    "classification_or_output_head": {
+      "type": "Semantic segmentation mask",
+      "post_processing": "Probability maps were binarized using a threshold of 0.5 to create binary masks (value = 1 for AK, value = 0 for background). Nonzero pixel values were converted to 1."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "AKU-Net"
+  ],
+  "preprocessing_techniques": [
+    "Digital overlay of a black border using Microsoft Paint to delineate the region of interest",
+    "Resizing of study images to match AKU-Net's input dimensions prior to inference",
+    "Export of pixelwise segmentation maps from Label Studio as 2-dimensional NumPy arrays with dimensions matching the original image",
+    "Binarization of segmentation masks by converting all nonzero pixel values to 1 (indicating AK presence) and zero values to 0 (indicating unaffected skin)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Data augmentation for training crop generation",
+      "details": "Applied to the AKU-Net training dataset (Derekas et al., 2023) consisting of 569 expert-annotated clinical overview photographs from 115 patients. This process yielded 16,488 training crops used to train the model."
+    }
+  ],
+  "conclusions": [
+    "Nonexpert raters achieved substantial inter-rater agreement for MASCK scoring within their own group, but agreement decreased when compared to an expert rater, particularly for area score and Skin Field Cancerization Index (SFCIndex).",
+    "Nonexpert raters systematically overestimated AK count (bias: +0.46), area score (bias: +1.04), and SFCIndex (bias: +2.94), while underestimating AK thickness (bias: -0.42) compared to the expert.",
+    "Pixelwise segmentation by nonexpert raters showed moderate inter-rater agreement (median pairwise DSC 0.56–0.57) and lower overlap with expert segmentations (median pairwise DSC 0.40–0.44).",
+    "The AKU-Net AI model demonstrated limited overlap with both nonexpert segmentations (median pairwise DSC 0.26–0.28) and expert segmentations (median pairwise DSC 0.27).",
+    "The study highlights challenges in reproducibility for both human and AI-based photographic assessment of actinic keratoses and field cancerization.",
+    "The findings suggest that further research is needed to develop high-quality annotations (preferably with expert consensus), improve image standardization, and refine assessment methods to support robust AI training and clinical use."
+  ],
+  "important_remarks": [
+    "The study is a single-center pilot with a small sample size (23 patients), limiting generalizability.",
+    "The retrospective design precluded direct in-person evaluation, which is considered a more robust benchmark for reliability than image-based ratings.",
+    "MASCK scoring was primarily performed by medical students rather than dermatologists, potentially introducing variability due to limited clinical experience.",
+    "The AKU-Net model demonstrated limited overlap with both nonexpert (median pairwise DSC 0.26–0.28) and expert (median pairwise DSC 0.27) segmentations.",
+    "Nonexpert raters systematically overestimated AK count (+0.46), area score (+1.04), and SFCIndex (+2.94), while underestimating thickness (-0.42) compared to the expert.",
+    "Pixelwise segmentation by nonexperts showed moderate inter-rater agreement (median pairwise DSC 0.56–0.57) but lower overlap with expert segmentations (median pairwise DSC 0.40–0.44).",
+    "Image-based assessment lacks tactile feedback and is susceptible to glare, poor image quality, lack of color calibration, and visual obstructions like hair or erythema.",
+    "The study dataset comprises images acquired using various imaging devices, which may limit AI assessment performance.",
+    "Data is not publicly available to protect patient privacy, though federated access may be discussed with interested researchers.",
+    "The AKU-Net model was trained on a separate dataset (Derekas et al., 2023) and applied to the MSKCC cohort, rather than being trained on the current study's data."
+  ]
+}

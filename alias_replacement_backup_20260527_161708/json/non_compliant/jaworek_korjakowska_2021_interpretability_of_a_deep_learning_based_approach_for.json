@@ -1,0 +1,478 @@
+{
+  "file_name": "jaworek_korjakowska_2021_interpretability_of_a_deep_learning_based_approach_for.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning, specifically pretrained convolutional neural networks (VGG19, ResNet50, Xception, DenseNet121, and EfficientNetB0) with transfer learning, to classify dermoscopic images of skin lesions into main anatomic body sites (face, trunk, extremities, and acral). The study achieved 91.45% overall accuracy using the EfficientNetB0 architecture."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a deep learning framework to classify skin lesions into anatomic body sites. It details specific methods including the use of pretrained CNNs (VGG19, ResNet50, Xception, DenseNet121, EfficientNetB0) on the HAM10000 dataset, describes data augmentation strategies, and reports new experimental results such as 91.45% overall accuracy. The structure includes standard research sections like Introduction, Database Specification, Methods, Results, and Conclusion, rather than summarizing prior literature."
+  },
+  "title": "Interpretability of a Deep Learning Based Approach for the Classification of Skin Lesions into Main Anatomic Body Sites",
+  "authors": [
+    "Joanna Jaworek-Korjakowska",
+    "Andrzej Brodzicki",
+    "Bill Cassidy",
+    "Connah Kendrick",
+    "Moi Hoon Yap"
+  ],
+  "doi": "10.3390/cancers13236048",
+  "journal": "Cancers",
+  "year": 2021,
+  "article_type": "Article",
+  "brief_summary": "This study addresses the need to classify skin lesions into specific anatomic body sites (face, trunk/extremities, and acral) to improve melanoma diagnosis criteria. The authors proposed a deep learning framework using pretrained convolutional neural networks, including VGG19, ResNet50, Xception, DenseNet121, and EfficientNetB0, on the HAM10000 dataset. To handle class imbalance, the researchers augmented the acral and face lesion images through rotation, shear, and zoom transformations. The models were evaluated for their ability to distinguish between these anatomical sites, with the EfficientNetB0 architecture achieving a state-of-the-art overall accuracy of 91.45%. Additionally, the study employed Grad-CAM heatmaps compared against segmentation ground-truths to analyze model interpretability and feature importance relative to domain knowledge.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general category)",
+      "paper_terms": [
+        "skin lesions",
+        "skin moles",
+        "pigmented skin lesions"
+      ],
+      "role": "Target class",
+      "details": "The study classifies general skin lesions into three main anatomic body sites: face, trunk/extremities, and acral (palms and soles). The dataset used is HAM10000, which contains various histopathological diagnoses, but the experimental task is anatomical site classification, not specific disease diagnosis."
+    },
+    {
+      "lesion_type": "Malignant melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "melanoma"
+      ],
+      "role": "Contextual/Referenced class",
+      "details": "Mentioned as the primary clinical motivation for the study (early diagnosis depends on anatomic site) and in references to other works (e.g., Yu et al. [6] used acral melanoma), but not the direct target label for the classification task in this paper's experiments."
+    },
+    {
+      "lesion_type": "Benign nevi",
+      "paper_terms": [
+        "benign nevi"
+      ],
+      "role": "Referenced class",
+      "details": "Mentioned in the context of previous work by Yu et al. [6] using acral melanoma and benign nevi, but not a specific target class for the current study's anatomical classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Anatomic body site of skin lesions (face, trunk/extremities, and acral)",
+        "primary": true,
+        "details": "The paper explicitly states the task is to 'classify skin lesions into the three most important anatomic sites' (face, trunk and extremities, and acral). It uses pretrained CNNs (VGG19, ResNet50, Xception, DenseNet121, EfficientNetB0) for multi-class classification of dermoscopic images from the HAM10000 dataset. The primary metric reported is overall accuracy (91.45% for EfficientNetB0)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000 (Human Against Machine with 10000 training images)",
+      "description": "A subset of the ISIC 2019 dataset containing dermoscopic images of skin lesions with metadata indicating anatomical site. It was used as the primary dataset for training and evaluating the deep learning models to classify lesions into three anatomic sites.",
+      "classes_used": [
+        "Trunk/extremities",
+        "Face/head",
+        "Acral (palms and soles)"
+      ],
+      "counts": {
+        "total": 7222,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Trunk/extremities": 6225,
+          "Face/head": 702,
+          "Acral": 295
+        }
+      },
+      "use": {
+        "training": "Used for training the deep learning models (VGG19, ResNet50, Xception, DenseNet121, EfficientNetB0) after data augmentation was applied to the imbalanced classes (acral and face).",
+        "validation": "Used for validation (specific counts not reported, but data was split into train, validation, and test subsets).",
+        "testing": "Used for testing the models (specific counts not reported, but data was split into train, validation, and test subsets).",
+        "other": "Used for statistical analysis of dataset distribution (UMAP, t-SNE) and separability analysis."
+      }
+    },
+    {
+      "name": "ISIC 2019 Dataset",
+      "description": "The fourth ISIC dataset released by the International Skin Imaging Collaboration, which contains the HAM10000 dataset as a subset. It includes 33,569 dermoscopic images with patient metadata.",
+      "classes_used": [
+        "Various skin lesions (HAM10000 subset focuses on anatomical site)"
+      ],
+      "counts": {
+        "total": 33569,
+        "training": 22700,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Referenced as the source of the HAM10000 dataset; the HAM10000 subset was used for the study's experiments.",
+        "validation": null,
+        "testing": null,
+        "other": "Contextual reference for dataset provenance."
+      }
+    },
+    {
+      "name": "Yu et al. Dataset",
+      "description": "A small dataset of dermoscopic images of hands and feet used in a referenced study by Yu et al. [6].",
+      "classes_used": [
+        "Acral melanoma",
+        "Benign nevi"
+      ],
+      "counts": {
+        "total": 724,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Acral melanoma": 350,
+          "Benign nevi": 374
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Referenced in the introduction to discuss prior work on acral lesion classification."
+      }
+    },
+    {
+      "name": "González-Cruz et al. Dataset",
+      "description": "A dataset of high-quality dermoscopic images of skin tumors analyzed by González-Cruz et al. [11] to determine suitability for machine learning analysis.",
+      "classes_used": [
+        "Skin tumors (malignant and benign)"
+      ],
+      "counts": {
+        "total": 2849,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Referenced in the introduction to discuss limitations of datasets regarding exclusion criteria."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (ACC)",
+    "Precision (PPV)",
+    "Recall (SE, Sensitivity)",
+    "F1-score",
+    "Intra-class distance (IntraC)",
+    "Inter-class distance (InterC)",
+    "Silhouette Coefficient (Silh.)",
+    "Calinski–Harabasz index (CH)",
+    "Davies–Bouldin index (DB)",
+    "Heatmapindex"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "UMAP (Uniform Manifold Approximation and Projection)",
+      "purpose": "Dimensionality reduction to visualize the distribution of the HAM10000 dataset and analyze separability of anatomic sites.",
+      "type": "Dimensionality reduction"
+    },
+    {
+      "method": "t-SNE (t-distributed Stochastic Neighbor Embedding)",
+      "purpose": "Unsupervised dimensionality reduction to map similarities between high-dimensional data into a probability distribution for visualizing dataset distribution and cluster separability.",
+      "type": "Dimensionality reduction"
+    },
+    {
+      "method": "Intra-class distance (IntraC)",
+      "purpose": "Statistical metric to measure the average distance between samples within the same class (cluster dispersion) to assess intra-class variability.",
+      "type": "Cluster validity metric"
+    },
+    {
+      "method": "Inter-class distance (InterC)",
+      "purpose": "Statistical metric to measure the distance between different classes (clusters) to assess inter-class separability.",
+      "type": "Cluster validity metric"
+    },
+    {
+      "method": "Silhouette Coefficient (Silh.)",
+      "purpose": "Statistical metric to evaluate the quality of clustering by comparing the mean distance between a sample and all other points in the same class (a) to the mean distance to the next nearest cluster (b).",
+      "type": "Cluster validity metric"
+    },
+    {
+      "method": "Calinski–Harabasz index (CH)",
+      "purpose": "Statistical metric (Variance Ratio Criterion) representing the ratio of between-cluster dispersion to within-cluster dispersion to evaluate cluster separation.",
+      "type": "Cluster validity metric"
+    },
+    {
+      "method": "Davies–Bouldin index (DB)",
+      "purpose": "Statistical metric to signify the average similarity between clusters by comparing the distance between clusters with the size of the clusters themselves.",
+      "type": "Cluster validity metric"
+    },
+    {
+      "method": "Heatmapindex",
+      "purpose": "Proposed overlapping index to quantify the extent to which classification is based on the skin lesion area by comparing heatmap intensity within segmentation ground-truth areas to the total heatmap intensity.",
+      "type": "Interpretability metric"
+    },
+    {
+      "method": "Five-fold repetition and averaging",
+      "purpose": "Method to calculate test results (accuracy, precision, recall, F1-score) five times and average them to evaluate model performance and reduce variance.",
+      "type": "Evaluation protocol"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). It reported descriptive statistics (Intra-class distance, Inter-class distance, Silhouette Coefficient, Calinski–Harabasz index, Davies–Bouldin index) for dataset separability analysis and performance metrics (accuracy, precision, recall, F1-score) for model evaluation, but did not perform inferential statistical hypothesis testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "dataset_description": "Dermoscopic images of skin lesions originating from three anatomic sites: trunk/extremities (6225 images), face/head (702 images), and acral (295 images). Data was split into train, validation, and test subsets. Acral and face lesions were augmented (21x and 9x respectively) to handle class imbalance.",
+      "experiment": "Classification of skin lesions into anatomic body sites using pretrained CNNs with optimized hyperparameters.",
+      "evaluation_setting": "Five-fold repetition and averaging of test results. Input images resized to 224x224.",
+      "models": {
+        "VGG19": {
+          "optimizer": "SGD",
+          "batch_size": 64,
+          "epochs": 25,
+          "Accuracy": 0.883,
+          "Precision": 0.89,
+          "Recall": 0.89,
+          "F1": 0.89
+        },
+        "ResNet50": {
+          "optimizer": "SGD",
+          "batch_size": 32,
+          "epochs": 50,
+          "Accuracy": 0.898,
+          "Precision": 0.9,
+          "Recall": 0.9,
+          "F1": 0.9
+        },
+        "Xception": {
+          "optimizer": "Adadelta",
+          "batch_size": 128,
+          "epochs": 35,
+          "Accuracy": 0.867,
+          "Precision": 0.87,
+          "Recall": 0.87,
+          "F1": 0.86
+        },
+        "DenseNet121": {
+          "optimizer": "Adam",
+          "batch_size": 64,
+          "epochs": 25,
+          "Accuracy": 0.902,
+          "Precision": 0.9,
+          "Recall": 0.9,
+          "F1": 0.9
+        },
+        "EfficientNetB0": {
+          "optimizer": "Adamax",
+          "batch_size": 128,
+          "epochs": 45,
+          "Accuracy": 0.9145,
+          "Precision": 0.915,
+          "Recall": 0.915,
+          "F1": 0.915
+        }
+      },
+      "notes": "EfficientNetB0 achieved the highest accuracy (91.45%) and F1-score (0.915). DenseNet121 was the only other architecture to exceed 90% accuracy. The study notes that acral lesions were mostly classified based on background skin patterns, while trunk and face lesions were classified based on the lesion area itself."
+    },
+    "HAM10000_Separability_Analysis": {
+      "dataset_description": "HAM10000 dataset analyzed for cluster separability using UMAP visualization on deep learning feature distributions.",
+      "experiment": "Analysis of intra-class and inter-class distances and cluster validity indices for different feature extractors.",
+      "evaluation_setting": "Statistical metrics calculated on feature distributions extracted by various networks.",
+      "models": {
+        "Input (Raw)": {
+          "Intra (Trunk)": 4.2582,
+          "Intra (Acral)": 4.2815,
+          "Intra (Head)": 3.3802,
+          "Inter-Class": 4.5036,
+          "Silhouette": -0.0016,
+          "CH": 251.8074,
+          "DB": 3.8125
+        },
+        "VGG19": {
+          "Intra (Trunk)": 7.0763,
+          "Intra (Acral)": 3.4522,
+          "Intra (Head)": 3.7104,
+          "Inter-Class": 7.5375,
+          "Silhouette": 0.0658,
+          "CH": 822.4723,
+          "DB": 1.5865
+        },
+        "ResNet50": {
+          "Intra (Trunk)": 3.9671,
+          "Intra (Acral)": 1.4387,
+          "Intra (Head)": 1.7728,
+          "Inter-Class": 9.9075,
+          "Silhouette": 0.4192,
+          "CH": 3463.3257,
+          "DB": 0.5819
+        },
+        "Xception": {
+          "Intra (Trunk)": 3.0442,
+          "Intra (Acral)": 3.6002,
+          "Intra (Head)": 3.0653,
+          "Inter-Class": 17.6211,
+          "Silhouette": 0.8052,
+          "CH": 15137.367,
+          "DB": 0.3198
+        },
+        "DenseNet121": {
+          "Intra (Trunk)": 4.2608,
+          "Intra (Acral)": 1.9341,
+          "Intra (Head)": 1.7729,
+          "Inter-Class": 6.577,
+          "Silhouette": 0.3685,
+          "CH": 1919.5011,
+          "DB": 0.7422
+        },
+        "EfficientNetB0": {
+          "Intra (Trunk)": 4.4417,
+          "Intra (Acral)": 2.2625,
+          "Intra (Head)": 2.0617,
+          "Inter-Class": 9.1643,
+          "Silhouette": 0.5488,
+          "CH": 3458.344,
+          "DB": 0.6102
+        }
+      },
+      "notes": "Xception achieved the highest Silhouette coefficient (0.8052) and Calinski-Harabasz index (15,137.3670), indicating strong cluster separation in feature space. All pretrained networks showed high CH index values compared to raw input."
+    },
+    "HAM10000_Dataset_Statistics": {
+      "dataset_description": "Statistical analysis of the entire HAM10000 dataset and subsets regarding malignant/benign lesions and anatomical distribution.",
+      "experiment": "Calculation of intra-class distance (IntraC), inter-class distance (InterC), Silhouette Coefficient (Silh), Calinski-Harabasz index (CH), and Davies-Bouldin index (DB).",
+      "evaluation_setting": "Metrics computed on the full dataset and specific anatomic subsets.",
+      "models": {
+        "Acral lesions": {
+          "Total Nb": 295,
+          "Melanoma Cases": 16,
+          "IntraC": 331.3,
+          "InterC": 360.62,
+          "Silh": 0.12,
+          "CH": 3.87,
+          "DB": 3.96
+        },
+        "Face/head": {
+          "Total Nb": 702,
+          "Melanoma Cases": 102,
+          "IntraC": 317.65,
+          "InterC": 324.655,
+          "Silh": 0.03,
+          "CH": 6.75,
+          "DB": 6.84
+        },
+        "Trunk/extremities": {
+          "Total Nb": 6225,
+          "Melanoma Cases": 490,
+          "IntraC": 338.26,
+          "InterC": 356.12,
+          "Silh": 0.12,
+          "CH": 90.27,
+          "DB": 4.57
+        },
+        "HAM10000 (Total)": {
+          "Total Nb": 7222,
+          "Melanoma Cases": 608,
+          "IntraC": 338.4,
+          "InterC": 353.92,
+          "Silh": 0.1,
+          "CH": 95.21,
+          "DB": 4.88
+        }
+      },
+      "notes": "The dataset exhibits high complexity with high intra-class distances. The Silhouette and DB values indicate better partition between trunk/extremities and the entire dataset compared to other subsets."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Pretrained Convolutional Neural Networks (VGG19, ResNet50, Xception, DenseNet121, EfficientNetB0)",
+    "pretraining": "Pretrained on ImageNet dataset",
+    "input_size": "224x224",
+    "architecture_details": {
+      "base_architecture": "Transfer learning approach using pretrained CNN bases (VGG19, ResNet50, Xception, DenseNet121, EfficientNetB0) for feature extraction",
+      "efficientnet_details": "EfficientNetB0 uses inverted bottleneck residual blocks of MobileNetV2 and squeeze-and-excitation blocks with compound scaling method (scaling width, depth, resolution). Uses Swish activation function (Swish(x) = x * sigmoid(x))",
+      "classifier_structure": "Adjusted fully connected classifier consisting of: 1) Dense layer with 256 neurons and ReLU activation, 2) Dropout layer with rate 0.7, 3) Output dense layer with neurons corresponding to number of classes (3) and Softmax activation"
+    },
+    "training_details": {
+      "optimization_method": "RandomizedSearchCV followed by Grid Search for hyperparameter optimization, then empirical tuning on validation set",
+      "cross_validation": "3-fold cross-validation for hyperparameter search; 5-fold repetition and averaging for final evaluation",
+      "hyperparameters_by_model": {
+        "VGG19": {
+          "optimizer": "SGD",
+          "batch_size": 64,
+          "epochs": 25
+        },
+        "ResNet50": {
+          "optimizer": "SGD",
+          "batch_size": 32,
+          "epochs": 50
+        },
+        "Xception": {
+          "optimizer": "Adadelta",
+          "batch_size": 128,
+          "epochs": 35
+        },
+        "DenseNet121": {
+          "optimizer": "Adam",
+          "batch_size": 64,
+          "epochs": 25
+        },
+        "EfficientNetB0": {
+          "optimizer": "Adamax",
+          "batch_size": 128,
+          "epochs": 45
+        }
+      },
+      "learning_rate": "Default for respective optimizers",
+      "data_augmentation": "Rotation, shear, and zoom transformations applied to acral (21x) and face (9x) classes to handle imbalance"
+    },
+    "classification_or_output_head": {
+      "type": "Fully connected classifier",
+      "layers": [
+        "Dense(256, activation='relu')",
+        "Dropout(rate=0.7)",
+        "Dense(3, activation='softmax')"
+      ],
+      "activation_function": "Softmax"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "VGG19",
+    "ResNet50",
+    "Xception",
+    "DenseNet121",
+    "EfficientNetB0"
+  ],
+  "preprocessing_techniques": [
+    "Data splitting into train, validation, and test subsets",
+    "Data augmentation applied after splitting to avoid information leakage: rotation, shear, and zoom transformations",
+    "Class balancing via augmentation: acral images augmented 21 times, face images augmented 9 times",
+    "Input image resizing to 224x224 pixels",
+    "Dimensionality reduction using UMAP (Uniform Manifold Approximation and Projection) for data visualization",
+    "Dimensionality reduction using t-SNE (t-distributed Stochastic Neighbor Embedding) for data visualization"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms (Rotation, Shear, Zoom)",
+      "details": "Applied to acral and face lesion images to handle class imbalance. Each acral image was augmented 21 times, and each face image was augmented 9 times, creating 6195 and 6318 artificial images respectively. Augmentation was performed after splitting data into train, validation, and test subsets to avoid information leakage."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep learning framework using pretrained convolutional neural networks (VGG19, ResNet50, Xception, DenseNet121, and EfficientNetB0) is effective for classifying skin lesions into three main anatomic body sites (face, trunk/extremities, and acral).",
+    "The EfficientNetB0 architecture achieved state-of-the-art performance with 91.45% overall accuracy, 91.5% precision, recall, and F1-score, outperforming other tested architectures.",
+    "DenseNet121 was the only other architecture to exceed 90% accuracy (90.2%), while VGG19, ResNet50, and Xception performed slightly worse.",
+    "Interpretability analysis using Grad-CAM heatmaps revealed that EfficientNetB0 and DenseNet121 primarily focused on the skin lesion area for classification, whereas VGG19 and ResNet50 relied more on the surrounding background skin.",
+    "EfficientNetB0 tends to consider very large areas of the input image rather than focusing on a single specific region, which correlates with its high Softmax scores (close to one) indicating confidence in lesion-based classification.",
+    "The HAM10000 dataset exhibits high complexity with significant intra-class variability, but pretrained networks demonstrate strong potential for feature separation as indicated by high Calinski–Harabasz index values.",
+    "Data augmentation (rotation, shear, zoom) was necessary to handle the class imbalance in the dataset, particularly for the underrepresented acral and face lesion classes."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the HAM10000 dataset, which is known to have significant class imbalance (e.g., 6225 trunk/extremities vs. 295 acral lesions) and potential selection bias, limiting the generalizability of the findings to other populations or datasets.",
+    "Data augmentation (rotation, shear, zoom) was applied to underrepresented classes (acral and face) to handle imbalance; while performed after splitting to avoid leakage, this synthetic data may not fully capture the true variance of rare anatomical sites.",
+    "The paper does not report external validation on independent datasets, relying solely on internal cross-validation (5-fold repetition) on the HAM10000 dataset, which raises concerns about overfitting to this specific collection.",
+    "Interpretability analysis using Grad-CAM revealed that EfficientNetB0 and DenseNet121 focused on the lesion area, whereas VGG19 and ResNet50 relied more on background skin patterns, suggesting that model interpretability varies significantly by architecture and may reflect dataset artifacts rather than purely clinical features.",
+    "The study addresses anatomical site classification rather than direct melanoma diagnosis; thus, clinical relevance is indirect, serving as a preprocessing step for melanoma detection criteria which vary by site.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed to compare model performances; results are reported as descriptive metrics (accuracy, F1-score) without confidence intervals or significance tests.",
+    "The HAM10000 dataset exhibits high intra-class variability and complexity, as indicated by cluster validity indices, which may limit the upper bound of achievable performance for any single model."
+  ]
+}

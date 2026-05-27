@@ -1,0 +1,502 @@
+{
+  "file_name": "hao_2023_gsceu_net_an_end_to_end_lightweight_skin_lesion_segmentation_model_with.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes GSCEU-Net, a lightweight deep learning model based on U-Net enhancements (including SConv, Ghost SConv, and ECA modules) for skin lesion segmentation. The model was trained and evaluated on dermatology datasets (ISIC2018, PH2, and a private dataset) to segment skin lesions for early skin cancer diagnosis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel lightweight deep learning model named GSCEU-Net for skin lesion segmentation. It details the architecture (SConv, Ghost SConv, ECA modules), describes experimental methods using public (ISIC2018, PH2) and private datasets, and presents original quantitative results comparing its performance against other models. This constitutes an original technical study producing new results."
+  },
+  "title": "GSCEU-Net: An End-to-End Lightweight Skin Lesion Segmentation Model with Feature Fusion Based on U-Net Enhancements",
+  "authors": [
+    "Shengnan Hao",
+    "Haotian Wu",
+    "Yanyan Jiang",
+    "Zhanlin Ji",
+    "Li Zhao",
+    "Linyun Liu",
+    "Ivan Ganchev"
+  ],
+  "doi": "10.3390/info14090486",
+  "journal": "Information",
+  "year": 2023,
+  "article_type": "Article",
+  "brief_summary": "This study proposes GSCEU-Net, a lightweight deep learning model for skin lesion segmentation to facilitate early skin cancer diagnosis. The architecture enhances the U-Net framework by integrating SConv, Ghost SConv (GSC), and Efficient Channel Attention (ECA) modules to reduce computational complexity while maintaining performance. The model was evaluated on the ISIC2018, PH2, and a private dataset using Intersection over Union (IoU) and Dice Similarity Coefficient (DSC) metrics. Results demonstrated that GSCEU-Net achieved superior segmentation performance compared to U-Net, with IoU and DSC improvements of 0.0261 and 0.0164 points, respectively. Additionally, the model reduced the parameter count by 190 times and computational complexity by 170 times relative to U-Net. The authors conclude that GSCEU-Net offers an advanced balance between efficiency and accuracy, making it suitable for deployment in clinical environments with limited resources.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "lesions"
+      ],
+      "role": "Segmentation target",
+      "details": "The study focuses on the segmentation of skin lesions in general, using datasets (ISIC2018, PH2, and a private dataset) that contain images of various skin conditions. The paper does not perform classification into specific histological types (e.g., melanoma vs. nevus) but rather segments the lesion area from the surrounding skin."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Mentioned only (Context/Dataset Description)",
+      "details": "Mentioned in the context of the ISIC2018 dataset being targeted at melanoma detection and as a deadly form of skin cancer in the introduction. Not a specific class label used in the segmentation experiments."
+    },
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "Basal cell carcinoma"
+      ],
+      "role": "Mentioned only (Context)",
+      "details": "Mentioned in the introduction as the most common type of non-melanoma skin cancer. Not a specific class label used in the segmentation experiments."
+    },
+    {
+      "lesion_type": "Acne",
+      "paper_terms": [
+        "acne"
+      ],
+      "role": "Mentioned only (Dataset Description)",
+      "details": "Mentioned as a condition portrayed in the private dataset originating from Peking Union Medical College Hospital."
+    },
+    {
+      "lesion_type": "Lupus erythematosus",
+      "paper_terms": [
+        "lupus erythematosus"
+      ],
+      "role": "Mentioned only (Dataset Description)",
+      "details": "Mentioned as a condition portrayed in the private dataset originating from Peking Union Medical College Hospital."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks",
+        "primary": true,
+        "details": "The paper proposes GSCEU-Net for skin lesion segmentation, predicting pixel-wise masks to delineate lesion areas from normal skin. Performance was evaluated using Intersection over Union (IoU) and Dice Similarity Coefficient (DSC) metrics on the ISIC2018, PH2, and private datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC2018",
+      "description": "The International Skin Imaging Collaboration Challenge public dataset, described as the world's most extensive collection of skin lesion images with meticulously annotated digital images, targeting melanoma and various other forms of skin cancer.",
+      "classes_used": [
+        "skin lesions"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 1816,
+        "validation": 259,
+        "testing": 519,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Primary dataset for training the GSCEU-Net model; partitioned into training, validation, and test subsets using a 7:1:2 ratio. Data augmentation (flipping, brightness adjustment, Gaussian blur, mean smoothing, hue saturation, random body hair simulation) was applied to the training subset.",
+        "validation": "Used for validation during the training process on the ISIC2018 subset.",
+        "testing": "Used for testing and evaluating segmentation performance (IoU, DSC, Acc, Sen) on the ISIC2018 subset.",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A public dataset collaboratively gathered by Pedro Hispano Hospital in Matosinhos, Portugal, and the dermatology department at the University of Porto. It consists of dermoscopy images.",
+      "classes_used": [
+        "skin lesions"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Not used for training; the model was trained on ISIC2018.",
+        "validation": null,
+        "testing": "Used to assess the segmentation ability, generalization, and robustness of the model trained on ISIC2018. The training process was extended across 500 epochs to evaluate performance on this dataset.",
+        "other": "Used as an auxiliary testing set to validate generalization capabilities."
+      }
+    },
+    {
+      "name": "Private Dataset",
+      "description": "A private dataset originating from Peking Union Medical College Hospital, encompassing skin lesion images portraying conditions such as acne and lupus erythematosus.",
+      "classes_used": [
+        "acne",
+        "lupus erythematosus"
+      ],
+      "counts": {
+        "total": 1010,
+        "training": 808,
+        "validation": 101,
+        "testing": 101,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Randomly partitioned into training, validation, and test subsets using an 8:1:1 ratio for experimentation purposes.",
+        "validation": "Used for validation during experimentation on this private dataset.",
+        "testing": "Used for testing segmentation performance on this private dataset.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Intersection over Union (IoU)",
+    "Dice Similarity Coefficient (DSC)",
+    "Accuracy (Acc)",
+    "Sensitivity (Sen)",
+    "Parameter count (Million)",
+    "Computational complexity (GFLOPS)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons between GSCEU-Net and other models were based on direct metric values (IoU, DSC, Accuracy, Sensitivity) without statistical significance analysis."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC2018": {
+      "metric": [
+        "Parameters (Million)",
+        "GFLOPS",
+        "IoU",
+        "DSC",
+        "Acc",
+        "Sen"
+      ],
+      "models": {
+        "U-Net": {
+          "Parameters": 7.77,
+          "GFLOPS": 13.78,
+          "IoU": 0.7887,
+          "DSC": 0.8784,
+          "Acc": 0.9508,
+          "Sen": 0.876
+        },
+        "U-Net++": {
+          "Parameters": 9.16,
+          "GFLOPS": 34.9,
+          "IoU": 0.7952,
+          "DSC": 0.8824,
+          "Acc": 0.9528,
+          "Sen": 0.8732
+        },
+        "Attention-UNet": {
+          "Parameters": 8.73,
+          "GFLOPS": 16.74,
+          "IoU": 0.7967,
+          "DSC": 0.8833,
+          "Acc": 0.9533,
+          "Sen": 0.8591
+        },
+        "UNeXt_S": {
+          "Parameters": 0.3,
+          "GFLOPS": 0.1,
+          "IoU": 0.8057,
+          "DSC": 0.8895,
+          "Acc": 0.9557,
+          "Sen": 0.8586
+        },
+        "MALUNet": {
+          "Parameters": 0.175,
+          "GFLOPS": 0.083,
+          "IoU": 0.812,
+          "DSC": 0.8924,
+          "Acc": 0.9532,
+          "Sen": 0.8875
+        },
+        "GSCEU-Net (proposed)": {
+          "Parameters": 0.041,
+          "GFLOPS": 0.081,
+          "IoU": 0.8145,
+          "DSC": 0.8948,
+          "Acc": 0.9571,
+          "Sen": 0.8743
+        }
+      },
+      "notes": "GSCEU-Net achieved the highest IoU, DSC, and Accuracy. Its sensitivity was lower than MALUNet by 0.0132 points. Parameter count was more than 4 times smaller than MALUNet."
+    },
+    "PH2": {
+      "metric": [
+        "Parameters (Million)",
+        "GFLOPS",
+        "IoU",
+        "DSC",
+        "Acc",
+        "Sen"
+      ],
+      "models": {
+        "U-Net": {
+          "Parameters": 7.77,
+          "GFLOPS": 13.78,
+          "IoU": 0.8062,
+          "DSC": 0.8916,
+          "Acc": 0.9276,
+          "Sen": 0.9224
+        },
+        "U-Net++": {
+          "Parameters": 9.16,
+          "GFLOPS": 34.9,
+          "IoU": 0.7929,
+          "DSC": 0.8831,
+          "Acc": 0.9238,
+          "Sen": 0.8909
+        },
+        "Attention-UNet": {
+          "Parameters": 8.73,
+          "GFLOPS": 16.74,
+          "IoU": 0.7458,
+          "DSC": 0.8505,
+          "Acc": 0.909,
+          "Sen": 0.8241
+        },
+        "UNeXt_S": {
+          "Parameters": 0.3,
+          "GFLOPS": 0.1,
+          "IoU": 0.8077,
+          "DSC": 0.89,
+          "Acc": 0.9277,
+          "Sen": 0.8874
+        },
+        "MALUNet": {
+          "Parameters": 0.175,
+          "GFLOPS": 0.083,
+          "IoU": 0.8278,
+          "DSC": 0.9048,
+          "Acc": 0.9351,
+          "Sen": 0.9484
+        },
+        "GSCEU-Net (proposed)": {
+          "Parameters": 0.041,
+          "GFLOPS": 0.081,
+          "IoU": 0.8441,
+          "DSC": 0.914,
+          "Acc": 0.9434,
+          "Sen": 0.9473
+        }
+      },
+      "notes": "GSCEU-Net outperformed all mainstream models. Scores were 0.0163, 0.0092, and 0.0083 points higher than MALUNet (first runner-up) in IoU, DSC, and Accuracy, respectively. Sensitivity was 0.0011 points behind MALUNet."
+    },
+    "Private Dataset": {
+      "metric": [
+        "Parameters (Million)",
+        "GFLOPS",
+        "IoU",
+        "DSC",
+        "Acc",
+        "Sen"
+      ],
+      "models": {
+        "U-Net": {
+          "Parameters": 7.77,
+          "GFLOPS": 13.78,
+          "IoU": 0.6254,
+          "DSC": 0.7635,
+          "Acc": 0.9119,
+          "Sen": 0.7868
+        },
+        "U-Net++": {
+          "Parameters": 9.16,
+          "GFLOPS": 34.9,
+          "IoU": 0.6283,
+          "DSC": 0.7664,
+          "Acc": 0.9171,
+          "Sen": 0.7479
+        },
+        "Attention-UNet": {
+          "Parameters": 8.73,
+          "GFLOPS": 16.74,
+          "IoU": 0.6308,
+          "DSC": 0.7695,
+          "Acc": 0.9109,
+          "Sen": 0.816
+        },
+        "UNeXt_S": {
+          "Parameters": 0.3,
+          "GFLOPS": 0.1,
+          "IoU": 0.6397,
+          "DSC": 0.7766,
+          "Acc": 0.9143,
+          "Sen": 0.7934
+        },
+        "MALUNet": {
+          "Parameters": 0.175,
+          "GFLOPS": 0.083,
+          "IoU": 0.6301,
+          "DSC": 0.7698,
+          "Acc": 0.915,
+          "Sen": 0.7797
+        },
+        "GSCEU-Net (proposed)": {
+          "Parameters": 0.041,
+          "GFLOPS": 0.081,
+          "IoU": 0.645,
+          "DSC": 0.7804,
+          "Acc": 0.9213,
+          "Sen": 0.7731
+        }
+      },
+      "notes": "GSCEU-Net demonstrated superiority on IoU and DSC, with scores 0.0053 and 0.0038 points higher than UNeXt_S (first runner-up). It also surpassed all mainstream models in Accuracy, leaving U-Net++ in second place (0.0042 points behind). It ranked fifth in Sensitivity."
+    },
+    "Ablation Study (ISIC2018)": {
+      "metric": [
+        "Parameters (Million)",
+        "GFLOPS",
+        "IoU",
+        "DSC",
+        "Acc",
+        "Sen"
+      ],
+      "models": {
+        "U-Net": {
+          "Parameters": 0.12,
+          "GFLOPS": 0.22,
+          "IoU": 0.7868,
+          "DSC": 0.8758,
+          "Acc": 0.9503,
+          "Sen": 0.8692
+        },
+        "U-Net + SConv": {
+          "Parameters": 0.01,
+          "GFLOPS": 0.024,
+          "IoU": 0.7744,
+          "DSC": 0.8681,
+          "Acc": 0.9463,
+          "Sen": 0.8653
+        },
+        "U-Net + GSC": {
+          "Parameters": 0.04,
+          "GFLOPS": 0.081,
+          "IoU": 0.7858,
+          "DSC": 0.8763,
+          "Acc": 0.9504,
+          "Sen": 0.8586
+        },
+        "U-Net + GSC + ECA (GSCEU-Net)": {
+          "Parameters": 0.04,
+          "GFLOPS": 0.081,
+          "IoU": 0.8145,
+          "DSC": 0.8948,
+          "Acc": 0.9571,
+          "Sen": 0.8743
+        }
+      },
+      "notes": "The final GSCEU-Net model outperformed the 'U-Net + SConv' combination by 0.0401 and 0.0267 points on IoU and DSC, respectively."
+    }
+  },
+  "architecture_used": {
+    "main_model": "GSCEU-Net",
+    "pretraining": "null",
+    "input_size": "RGB skin lesion images (specific dimensions not reported)",
+    "architecture_details": {
+      "base_architecture": "U-Net",
+      "encoder_modules": [
+        "Ghost SConv (GSC) module"
+      ],
+      "decoder_modules": [
+        "Efficient Channel Attention (ECA) mechanism"
+      ],
+      "output_layer": "1x1 convolution to map feature results with four channels to a single-channel predicted image",
+      "key_components": {
+        "SConv": "Modified Partial Convolution (PConv) from FasterNet to enable channel segmentation paths of different scales",
+        "GSC": "Ghost SConv module combining Separate Convolution (SConv), Multi-Layer Perceptron (MLP), and Ghost module output path residuals",
+        "ECA": "Efficient Channel Attention mechanism incorporated at different levels in the decoding part"
+      }
+    },
+    "training_details": {
+      "optimizer": "SGD",
+      "learning_rate": "1e-2 (initial)",
+      "learning_rate_schedule": "Gradually decaying",
+      "weight_decay": "1e-4",
+      "momentum": "0.9",
+      "batch_size": "8",
+      "epochs": "500",
+      "hardware": "NVIDIA GeForce RTX 3060 with 12 GB VRAM"
+    },
+    "classification_or_output_head": {
+      "type": "Segmentation mask",
+      "output_description": "Single-channel black-and-white predicted lesion image",
+      "final_layer": "1x1 convolution"
+    },
+    "approximate_parameters": "0.041 Million"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "GSCEU-Net",
+    "U-Net",
+    "U-Net++",
+    "Attention-UNet",
+    "UNeXt_S",
+    "MALUNet",
+    "V-Net",
+    "Recurrent Residual U-Net (R2U-Net)",
+    "U-Net + SConv",
+    "U-Net + GSC",
+    "U-Net + GSC + ECA"
+  ],
+  "preprocessing_techniques": [
+    "Dataset partitioning into training, validation, and test subsets (ISIC2018: 7:1:2 ratio; Private dataset: 8:1:1 ratio)",
+    "Random body hair simulation on one-third of ISIC2018 training images",
+    "Horizontal flipping",
+    "Vertical flipping",
+    "Random brightness adjustment",
+    "Gaussian blurring",
+    "Mean smoothing filtering",
+    "Random hue and saturation adjustment",
+    "Image resizing to 256 × 256 pixels"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random body hair simulation",
+      "details": "Applied to one-third of the ISIC2018 training images by programmatically simulating additional random body hair."
+    },
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied to the ISIC2018 training subset during the training phase."
+    },
+    {
+      "technique": "Vertical flipping",
+      "details": "Applied to the ISIC2018 training subset during the training phase."
+    },
+    {
+      "technique": "Random brightness adjustment",
+      "details": "Applied to the ISIC2018 training subset during the training phase."
+    },
+    {
+      "technique": "Gaussian blurring",
+      "details": "Applied to the ISIC2018 training subset during the training phase."
+    },
+    {
+      "technique": "Mean smoothing filtering",
+      "details": "Applied to the ISIC2018 training subset during the training phase."
+    },
+    {
+      "technique": "Random hue and saturation adjustment",
+      "details": "Applied to the ISIC2018 training subset during the training phase."
+    }
+  ],
+  "conclusions": [
+    "The proposed GSCEU-Net model achieves superior skin lesion segmentation performance compared to U-Net, with an IoU improvement of 0.0261 points and a DSC improvement of 0.0164 points.",
+    "GSCEU-Net significantly reduces computational cost, reducing the parameter count by 190 times and computational complexity by 170 times relative to U-Net.",
+    "The model demonstrates an advanced balance between the number of parameters, complexity, and segmentation performance compared to other existing segmentation models.",
+    "On the ISIC2018 dataset, GSCEU-Net achieved the highest IoU, DSC, and accuracy, while its parameter count was more than 4 times smaller than the second-best model (MALUNet).",
+    "On the PH2 dataset, GSCEU-Net outperformed all mainstream models, with scores 0.0163, 0.0092, and 0.0083 points higher than the first runner-up (MALUNet) in IoU, DSC, and accuracy, respectively, demonstrating commendable generalization capabilities.",
+    "On the private dataset, GSCEU-Net demonstrated superiority on IoU and DSC metrics, with scores 0.0053 and 0.0038 points higher than the first runner-up (UNeXt_S), and surpassed all mainstream models in accuracy.",
+    "Ablation studies confirmed that the incorporation of the Ghost SConv (GSC) and Efficient Channel Attention (ECA) modules effectively enhances segmentation performance, with the final GSCEU-Net model outperforming the 'U-Net + SConv' combination by 0.0401 and 0.0267 points on IoU and DSC, respectively.",
+    "The ECA attention module made a significant contribution to the model's segmentation performance with almost no increase in parameters and floating-point operations.",
+    "GSCEU-Net is capable of predicting the entire lesion more comprehensively and accurately segmenting lesion edges, particularly excelling in segmenting larger lesions compared to models like U-Net."
+  ],
+  "important_remarks": [
+    "The study relies on a private dataset from Peking Union Medical College Hospital containing only 1010 images (808 training, 101 validation, 101 testing), which limits the generalizability of results to external populations and introduces potential dataset bias.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed; performance comparisons are based solely on point estimates of metrics (IoU, DSC, etc.), making it impossible to assess statistical significance of improvements.",
+    "The model's sensitivity was lower than the second-best model (MALUNet) on the ISIC2018 dataset by 0.0132 points and ranked fifth on the private dataset, indicating a potential trade-off where high accuracy/IoU may come at the cost of missing some lesion pixels (false negatives).",
+    "The authors explicitly acknowledge that the model's training convergence speed is low and that floating-point operations have not reached the fastest level, suggesting that further optimization is needed for real-time clinical deployment.",
+    "Data augmentation (flipping, brightness, blur, etc.) was applied exclusively to the ISIC2018 training subset; the PH2 and private datasets were used for validation/testing without augmentation, which may affect the robustness assessment if the model overfits to augmented features.",
+    "The PH2 dataset is very small (200 images total), which may lead to high variance in performance metrics and limits the statistical power of the generalization evaluation on this external dataset.",
+    "The paper claims the model is suitable for 'micro devices' and 'limited resources' due to reduced parameters (0.041M) and complexity (0.081 GFLOPS), but does not provide empirical evidence of inference speed or memory usage on actual edge hardware, only theoretical FLOPS."
+  ]
+}

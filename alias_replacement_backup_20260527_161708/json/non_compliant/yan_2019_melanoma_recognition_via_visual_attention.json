@@ -1,0 +1,384 @@
+{
+  "file_name": "yan_2019_melanoma_recognition_via_visual_attention.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning approach for melanoma recognition (a dermatology task). Specifically, it proposes an end-to-end trainable attention-based network using a VGG-16 backbone with custom attention modules to estimate spatial attention maps. The model is trained using focal loss and regularized with regions of interest (lesion segmentation or dermoscopic features) to improve classification performance on public dermoscopy datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel end-to-end trainable attention-based network for melanoma recognition, detailing specific architectural components (VGG-16 backbone, attention modules), training methods (focal loss, regularization with ROIs), and presents original quantitative and qualitative experimental results on public datasets (ISIC 2016/2017) to validate the proposed method."
+  },
+  "title": "Melanoma Recognition via Visual Attention",
+  "authors": [
+    "Yiqi Yan",
+    "Jeremy Kawahara",
+    "Ghassan Hamarneh"
+  ],
+  "doi": "10.1007/978-3-030-20351-1_62",
+  "journal": "IPMI 2019",
+  "year": 2019,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes an end-to-end trainable attention-based network for melanoma recognition using a VGG-16 backbone with custom attention modules to estimate spatial attention maps. The model is trained on the ISIC 2016 and ISIC 2017 public dermoscopy datasets using focal loss and regularized with regions of interest, such as lesion segmentation or dermoscopic features. Evaluation metrics include average precision (AP) and area under the ROC curve (AUC) on the official test sets. The proposed method, AttnMel-CNN, achieves state-of-the-art performance on ISIC 2016 with an AP of 0.693 and AUC of 0.852 without using model ensembles or external data. When regularized with lesion segmentation, the model further improves to an AUC of 0.883 on the ISIC 2017 dataset. The results demonstrate that the learned attention maps provide interpretable insights and enhance classification performance by focusing on relevant image regions.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Primary target for binary classification (melanoma vs others) in ISIC 2016 and ISIC 2017 datasets. The paper focuses on melanoma recognition as the harder task."
+    },
+    {
+      "lesion_type": "Benign lesions",
+      "paper_terms": [
+        "benign"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class in the binary classification task on the ISIC 2016 dataset (304 benign vs 75 malignant samples in training set)."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus"
+      ],
+      "role": "Comparator class",
+      "details": "One of the three classes in the ISIC 2017 dataset, grouped with seborrheic keratosis as 'others' for the melanoma vs others binary classification task."
+    },
+    {
+      "lesion_type": "Seborrheic keratosis",
+      "paper_terms": [
+        "seborrheic keratosis"
+      ],
+      "role": "Comparator class",
+      "details": "One of the three classes in the ISIC 2017 dataset, grouped with nevus as 'others' for the melanoma vs others binary classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. others (binary classification)",
+        "primary": true,
+        "details": "The paper performs binary classification to distinguish melanoma from other skin lesions (benign, nevus, seborrheic keratosis) using the ISIC 2016 and ISIC 2017 datasets. The model outputs class labels via a softmax classification layer, optimized with focal loss. Evaluation metrics include Average Precision (AP) and Area Under the ROC Curve (AUC)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2016",
+      "description": "A public dermoscopy image dataset from the International Skin Imaging Collaboration (ISIC) 2016 challenge, containing images of skin lesions with binary labels for benign and malignant (melanoma) classes.",
+      "classes_used": [
+        "benign",
+        "malignant (melanoma)"
+      ],
+      "counts": {
+        "total": null,
+        "training": 379,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "training": {
+            "benign": 304,
+            "malignant": 75
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the AttnMel-CNN model with focal loss and data oversampling to handle class imbalance.",
+        "validation": "Used to select the best epoch based on AUC.",
+        "testing": "Used for final evaluation of classification performance (AP and AUC).",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2017",
+      "description": "A public dermoscopy image dataset from the ISIC 2017 challenge, containing images of skin lesions with three classes: melanoma, nevus, and seborrheic keratosis.",
+      "classes_used": [
+        "melanoma",
+        "nevus",
+        "seborrheic keratosis"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the AttnMel-CNN model and its variants (AttnMel-CNN-Dermo, AttnMel-CNN-Lesion) using focal loss.",
+        "validation": "Used to select the best epoch based on AUC.",
+        "testing": "Used for final evaluation of classification performance (AP and AUC) and for visual interpretability analysis (attention maps).",
+        "other": "Used to provide prior information in the form of dermoscopic features (union of four features) and lesion segmentation masks for regularization."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "average precision (AP)",
+    "area under the ROC curve (AUC)",
+    "Jaccard index"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Average Precision (AP)",
+      "purpose": "Evaluation metric for classification performance on the ISIC 2016 and ISIC 2017 test sets.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Area Under the ROC Curve (AUC)",
+      "purpose": "Evaluation metric for classification performance on the ISIC 2016 and ISIC 2017 test sets; used to select the best model epoch during training.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Sørensen-Dice-F1 loss",
+      "purpose": "Regularization term used to guide attention maps by minimizing the difference between learned attention maps and reference regions of interest (ROIs).",
+      "type": "Loss Function"
+    },
+    {
+      "method": "Focal Loss",
+      "purpose": "Classification loss function used to handle class imbalance in the training data.",
+      "type": "Loss Function"
+    },
+    {
+      "method": "Data Oversampling",
+      "purpose": "Technique applied to the training set to address class imbalance between benign and malignant samples.",
+      "type": "Data Preprocessing"
+    },
+    {
+      "method": "Ablation Studies",
+      "purpose": "Experimental method used to examine the effectiveness of attention modules and the influence of different regularization priors (lesion segmentation, dermoscopic features, background) on model performance.",
+      "type": "Experimental Design"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using quantitative metrics (Average Precision and Area Under the ROC Curve) and ablation studies without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2016": {
+      "split": "Test Set",
+      "task": "Melanoma vs. Others (Binary Classification)",
+      "metrics": [
+        "Average Precision (AP)",
+        "Area Under the ROC Curve (AUC)"
+      ],
+      "models": {
+        "AttnMel-CNN": {
+          "AP": "0.693",
+          "AUC": "0.852"
+        },
+        "AttnMel-CNN (Baseline Comparison - Yu et al. [25, 26])": {
+          "AP": "0.685",
+          "AUC": "0.852"
+        },
+        "Mel-CNN": {
+          "AP": "0.664",
+          "AUC": "0.844"
+        },
+        "VGG-16-GAP": {
+          "AP": "0.635",
+          "AUC": "0.815"
+        },
+        "VGG-16": {
+          "AP": "0.602",
+          "AUC": "0.806"
+        },
+        "Codella et al. [4]": {
+          "AP": "0.596",
+          "AUC": "0.808"
+        },
+        "Yu et al. [24]": {
+          "AP": "0.637",
+          "AUC": "0.804"
+        }
+      },
+      "notes": "AttnMel-CNN achieved state-of-the-art performance without using model ensembles or ground truth segmentations. It outperformed the second-ranked method (Yu et al. [25, 26]) in AP while matching its AUC."
+    },
+    "ISIC 2017": {
+      "split": "Test Set",
+      "task": "Melanoma vs. Others (Binary Classification)",
+      "metrics": [
+        "Average Precision (AP)",
+        "Area Under the ROC Curve (AUC)"
+      ],
+      "models": {
+        "AttnMel-CNN-Lesion": {
+          "AP": "0.672",
+          "AUC": "0.883"
+        },
+        "AttnMel-CNN": {
+          "AP": "0.655",
+          "AUC": "0.872"
+        },
+        "AttnMel-CNN-Dermo": {
+          "AP": "0.665",
+          "AUC": "0.864"
+        },
+        "AttnMel-CNN-Bkg": {
+          "AP": "0.647",
+          "AUC": "0.849"
+        },
+        "Mel-CNN": {
+          "AP": "0.653",
+          "AUC": "0.854"
+        },
+        "VGG-16-GAP": {
+          "AP": "0.627",
+          "AUC": "0.834"
+        },
+        "VGG-16": {
+          "AP": "0.600",
+          "AUC": "0.824"
+        },
+        "Mahbod et al. [14]": {
+          "AUC": "0.873"
+        },
+        "ISIC 2017 Winner 3 [16]": {
+          "AUC": "0.874"
+        },
+        "ISIC 2017 Winner 1 [15]": {
+          "AUC": "0.868"
+        },
+        "ISIC 2017 Winner 2 [5]": {
+          "AUC": "0.856"
+        },
+        "Harangi et al. [8]": {
+          "AUC": "0.836"
+        }
+      },
+      "notes": "AttnMel-CNN achieved comparable performance to top methods without external data or ensembles. Regularization with lesion segmentation (AttnMel-CNN-Lesion) improved performance to an AUC of 0.883. Regularization with dermoscopic features (AttnMel-CNN-Dermo) yielded an AUC of 0.864. Using background as a prior (AttnMel-CNN-Bkg) harmed performance. AttnMel-CNN-Lesion outperformed the ISIC 2017 Winner 3 (0.883 vs 0.874 AUC)."
+    },
+    "Attention Map Quality (ISIC 2017)": {
+      "split": "Test Set",
+      "task": "Quantitative Analysis of Attention Maps",
+      "metrics": [
+        "Jaccard Index (overlap with ground truth lesion segmentation)"
+      ],
+      "models": {
+        "AttnMel-CNN-Lesion (pool4)": {
+          "Jaccard Index": "0.6560"
+        },
+        "AttnMel-CNN-Lesion (pool3)": {
+          "Jaccard Index": "0.5533"
+        },
+        "AttnMel-CNN-Dermo (pool4)": {
+          "Jaccard Index": "0.4767"
+        },
+        "AttnMel-CNN-Dermo (pool3)": {
+          "Jaccard Index": "0.3621"
+        },
+        "AttnMel-CNN (pool4)": {
+          "Jaccard Index": "0.3186"
+        },
+        "AttnMel-CNN (pool3)": {
+          "Jaccard Index": "0.3105"
+        },
+        "VGG-16-GAP (CAM)": {
+          "Jaccard Index": "0.2825"
+        }
+      },
+      "notes": "The deeper layer (pool-4) consistently yielded higher Jaccard indices than the shallower layer (pool-3). The proposed learnable attention module highlighted relevant regions better than post-processing-based CAM. Regularization encouraged attention maps to concentrate more on relevant ROIs."
+    }
+  },
+  "architecture_used": {
+    "main_model": "AttnMel-CNN (End-to-end trainable attention-based network)",
+    "pretraining": "VGG-16 backbone initialized with weights pre-trained on ImageNet; attention modules initialized using He’s initialization",
+    "input_size": "256 x 256 pixels (images center-cropped to 0.8x min(Height, Width) then resized)",
+    "architecture_details": {
+      "backbone": "VGG-16 (convolutional layers only, all dense layers removed)",
+      "attention_modules": "Two custom attention modules applied to intermediate feature maps (pool-3 and pool-4) to estimate spatial attention maps. Modules use bilinear interpolation for upsampling if sizes differ, element-wise sum, and pixel-wise multiplication with Sigmoid activation.",
+      "feature_aggregation": "Global average pooling applied to original and attention-weighted features from pool-3 and pool-4; resulting feature vectors concatenated to form final feature vector",
+      "parameter_count_note": "Approximately 100M fewer parameters than standard VGG-16 due to removal of dense layers"
+    },
+    "training_details": {
+      "framework": "PyTorch",
+      "optimizer": "Stochastic Gradient Descent (SGD) with momentum",
+      "loss_function": "Focal Loss (classification); Sørensen-Dice-F1 loss (regularization for attention maps using ROIs)",
+      "hyperparameters": {
+        "epochs": 50,
+        "initial_learning_rate": 0.01,
+        "learning_rate_decay": "Decayed by 0.1 every 10 epochs",
+        "regularization_weights": "λ1 = 0.001, λ2 = 0.01"
+      },
+      "data_augmentation": "Run-time random cropping, rotation, and flipping",
+      "class_imbalance_handling": "Data oversampling and Focal Loss"
+    },
+    "classification_or_output_head": {
+      "type": "Fully connected layer (implied by 'classification layer' inputting concatenated feature vector)",
+      "output": "Binary classification (Melanoma vs. Others)",
+      "activation": "Softmax (implied by standard classification task description)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "AttnMel-CNN",
+    "AttnMel-CNN-Lesion",
+    "AttnMel-CNN-Dermo",
+    "AttnMel-CNN-Bkg",
+    "VGG-16",
+    "VGG-16-GAP",
+    "Mel-CNN",
+    "Yu et al. [24]",
+    "Codella et al. [4]",
+    "Yu et al. [25, 26]",
+    "Harangi et al. [8]",
+    "Mahbod et al. [14]",
+    "ISIC 2017 Winner 1 [15]",
+    "ISIC 2017 Winner 2 [5]",
+    "ISIC 2017 Winner 3 [16]",
+    "AlexNet",
+    "VGGNet",
+    "GoogLeNet",
+    "SVM",
+    "Yang et al. [1]",
+    "Chen et al. [23]",
+    "Van Molle et al. [21]",
+    "Kawahara et al. [12]",
+    "Wu et al. [22]",
+    "Ge et al. [6]",
+    "Jetley et al. [10]",
+    "Schlemper et al. [18]"
+  ],
+  "preprocessing_techniques": [
+    "Center-cropping images to a squared size with side length equal to 0.8 × min(Height, Width)",
+    "Resizing cropped images to 256 × 256 pixels",
+    "Data oversampling to handle class imbalance",
+    "Run-time data augmentation including random cropping, rotation, and flipping"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Run-time data augmentation",
+      "details": "Applied via PyTorch transform modules during training; includes random cropping, rotation, and flipping."
+    },
+    {
+      "technique": "Data oversampling",
+      "details": "Applied to the training set to handle class imbalance between benign and malignant samples in the ISIC 2016 dataset."
+    }
+  ],
+  "conclusions": [
+    "The proposed end-to-end trainable attention-based network (AttnMel-CNN) achieves state-of-the-art performance on the ISIC 2016 dataset (AP: 0.693, AUC: 0.852) without using model ensembles or external data.",
+    "Regularizing attention maps with regions of interest (ROIs), such as lesion segmentation or dermoscopic features, further improves classification performance and refines attention maps.",
+    "On the ISIC 2017 dataset, regularizing with lesion segmentation (AttnMel-CNN-Lesion) yielded an AUC of 0.883, outperforming the ISIC 2017 Winner 3 (AUC: 0.874).",
+    "Regularizing with dermoscopic features (AttnMel-CNN-Dermo) improved performance to an AUC of 0.864 on the ISIC 2017 dataset.",
+    "Using image background as a prior for regularization impedes performance, confirming that the model correctly deems the background less relevant than the lesion or dermoscopic features.",
+    "The learned attention maps provide interpretable insights by highlighting relevant image regions, which correlates with higher classification performance.",
+    "Attention maps from deeper network layers (pool-4) are more discriminative and yield higher Jaccard indices with ground truth segmentations compared to shallower layers (pool-3).",
+    "The proposed learnable attention module highlights relevant regions more effectively than post-processing-based Class Activation Maps (CAM).",
+    "The model achieves better performance than baseline VGG-16 and Mel-CNN despite having approximately 100 million fewer parameters due to the removal of dense layers."
+  ],
+  "important_remarks": [
+    "The study is limited to a binary classification task (melanoma vs. others) and does not address multi-class skin lesion classification.",
+    "The model relies on public ISIC 2016 and ISIC 2017 datasets; no external validation on independent clinical datasets is reported.",
+    "Performance improvements from regularization (e.g., lesion segmentation) depend on the availability of prior information (ROIs), which may not always be available in clinical settings.",
+    "The paper does not report statistical significance testing (e.g., p-values) for performance comparisons; results are based on point estimates of AP and AUC.",
+    "The method avoids complex model ensembles and external training data, which is a strength for deployment simplicity but may limit peak performance compared to ensemble-based solutions.",
+    "Regularization using image background as a prior was shown to impede performance, confirming the model's ability to distinguish relevant lesion regions from irrelevant background."
+  ]
+}

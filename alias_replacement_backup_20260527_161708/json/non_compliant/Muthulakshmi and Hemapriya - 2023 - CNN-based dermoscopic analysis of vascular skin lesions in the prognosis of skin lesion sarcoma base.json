@@ -1,0 +1,562 @@
+{
+  "file_name": "Muthulakshmi and Hemapriya - 2023 - CNN-based dermoscopic analysis of vascular skin lesions in the prognosis of skin lesion sarcoma base.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning and ensemble learning methods, specifically fine-tuned ResNet50 and VGG16 convolutional neural networks (CNNs), to classify Kaposi sarcoma and other vascular skin lesions using dermoscopic images from the HAM10000 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and evaluation of a CNN-based ensemble learning model (fine-tuned ResNet50 and VGG16) for classifying Kaposi sarcoma using the HAM10000 dataset. It includes specific methodology sections (Methodology, Model training, Model evaluation), reports original quantitative results (97.86% accuracy, 95.02% IoU), and proposes a new framework rather than summarizing prior literature."
+  },
+  "title": "CNN-based dermoscopic analysis of vascular skin lesions in the prognosis of skin lesion sarcoma based on ensemble learning",
+  "authors": [
+    "V. Muthulakshmi",
+    "N. Hemapriya"
+  ],
+  "doi": "10.3233/JIFS-230426",
+  "journal": "Journal of Intelligent & Fuzzy Systems",
+  "year": 2023,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes a CNN-based ensemble learning framework for the dermoscopic analysis and prognosis of Kaposi sarcoma, a vascular skin lesion prevalent in AIDS patients. The authors fine-tuned pre-built ResNet50 and VGG16 models and combined their outputs using an ensemble approach to classify skin lesions as benign or malignant. The model was trained and evaluated on a custom dataset derived from the HAM10000 and ISIC Challenge datasets. Evaluation metrics included accuracy, intersection over union (IoU), Dice score, precision, recall, sensitivity, and specificity. The proposed ensemble model achieved a classification accuracy of 97.86% and an IoU of 95.02%, outperforming traditional models like SVM and individual CNNs. These results suggest the framework can effectively assist radiologists in detecting and classifying Kaposi sarcoma and related skin lesions.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Kaposi sarcoma",
+      "paper_terms": [
+        "Kaposi sarcoma",
+        "KS",
+        "vascular skin lesion",
+        "sarcoma"
+      ],
+      "role": "Target class",
+      "details": "Primary target of the study; classified as malignant vascular skin lesion prevalent in AIDS patients. The model aims to detect and classify this specific lesion type using dermoscopic images from the HAM10000 and ISIC Challenge datasets."
+    },
+    {
+      "lesion_type": "Benign skin lesions",
+      "paper_terms": [
+        "benign",
+        "benign skin sarcoma",
+        "bkl",
+        "Non-cancerous",
+        "Nv"
+      ],
+      "role": "Comparator class",
+      "details": "Used as the negative class for binary classification (benign vs. malignant). Table 10 mentions 'bkl- benign skin sarcoma' and 'Nv – Non-cancerous' as categories present in the dataset analysis, though the primary focus is on Kaposi sarcoma."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "mel"
+      ],
+      "role": "Mentioned only / Dataset class",
+      "details": "Listed in Table 10 as a category ('mel- melanoma') within the dataset analysis/graphical interpretation, but not the primary target of the proposed ensemble model which focuses on Kaposi sarcoma."
+    },
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal skin sarcoma",
+        "bcc"
+      ],
+      "role": "Mentioned only / Dataset class",
+      "details": "Listed in Table 10 as 'bcc – basal skin sarcoma' within the dataset analysis, but not the primary target of the proposed model."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "derma fibrous skin cancer",
+        "df"
+      ],
+      "role": "Mentioned only / Dataset class",
+      "details": "Listed in Table 10 as 'df – derma fibrous skin cancer' within the dataset analysis, but not the primary target of the proposed model."
+    },
+    {
+      "lesion_type": "Vascular skin lesions",
+      "paper_terms": [
+        "vascular skin lesions",
+        "vascular skin sarcoma lesions",
+        "vasc"
+      ],
+      "role": "Target class / Category",
+      "details": "Broad category encompassing Kaposi sarcoma. Table 10 lists 'vasc – vascular skin sarcoma lesions' as a specific class in the dataset analysis."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Benign vs. Malignant skin lesions (specifically Kaposi sarcoma)",
+        "primary": true,
+        "details": "The model classifies dermoscopic images as benign or malignant. The abstract states the work serves the purpose of 'classification of skin lesion images'. Section 3.6 mentions classifying images as 'benign or malignant'. Table 12 shows a confusion matrix with classes 'Benign' and 'Malignant'. The primary target is Kaposi sarcoma (malignant) versus other benign lesions."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Masked images of skin lesions",
+        "primary": false,
+        "details": "The ensemble model generates 'masked outputs' and 'segmented images' as part of the workflow. Section 3 mentions the meta-model takes in masked output to 'segment the masked images and classify the images'. Table 4 reports IoU (Intersection over Union) and Dice score, which are segmentation metrics, indicating segmentation is performed alongside classification."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000 (Human Against Machine with 10,000 training images)",
+      "description": "A public dermoscopic image dataset used to support the findings of the study. It contains 10,015 dermatoscopic images. The paper notes it aids in the segmentation of pigmented vascular lesions.",
+      "classes_used": [
+        "Nv (Non-cancerous)",
+        "mel (melanoma)",
+        "bkl (benign skin sarcoma)",
+        "bcc (basal skin sarcoma)",
+        "vasc (vascular skin sarcoma lesions)",
+        "df (derma fibrous skin cancer)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as part of the custom dataset for training the ensemble model.",
+        "validation": "Used for validation (e.g., Table 9 reports validation accuracy on HAM10000 data).",
+        "testing": "Used for testing/evaluation (e.g., Table 8 reports performance on HAM10000).",
+        "other": "Source of primary data for the custom dataset."
+      }
+    },
+    {
+      "name": "ISIC Challenge Archive (Lesion Dataset)",
+      "description": "A dataset obtained from the ISIC Challenge Archive containing lesion images and corresponding super-pixel masks. It was used to form the custom dataset alongside HAM10000.",
+      "classes_used": [
+        "Lesion images (specific classes not explicitly enumerated for this subset, but used for segmentation and classification)"
+      ],
+      "counts": {
+        "total": 1142,
+        "training": 807,
+        "validation": null,
+        "testing": 335,
+        "per_class": {}
+      },
+      "use": {
+        "training": "807 images with super-pixel masks were used as training data.",
+        "validation": "Not explicitly reported for this specific subset.",
+        "testing": "335 images with super-pixel masks were held as test data.",
+        "other": "Used to form the custom dataset."
+      }
+    },
+    {
+      "name": "Custom Dataset",
+      "description": "A custom dataset formed by combining the HAM10000 dataset and the ISIC Challenge Archive lesion dataset. It was used for the primary experiments in the study.",
+      "classes_used": [
+        "Benign",
+        "Malignant (specifically Kaposi sarcoma)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the fine-tuned ResNet50 and VGG16 models and the ensemble model.",
+        "validation": "Used for validation (e.g., Table 9 reports validation accuracy on 'Curated Custom data').",
+        "testing": "Used for testing (e.g., Table 8 and Table 4 report performance on the custom dataset).",
+        "other": "Primary dataset for the proposed framework."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Intersection over Union (IoU)",
+    "Jaccard Index",
+    "Dice Score",
+    "Precision",
+    "Recall",
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "F1 Score",
+    "Loss"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Chi-square test",
+      "purpose": "Statistical analysis to compare the proposed ensemble model against traditional models (SVM, CNN, VGG16, ResNET50).",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "McNemar’s test",
+      "purpose": "Statistical analysis to compare the proposed ensemble model against traditional models (SVM, CNN, VGG16, ResNET50).",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Confusion matrix analysis",
+      "purpose": "To assess classification performance by counting True Positives, False Positives, True Negatives, and False Negatives, and deriving metrics like accuracy, precision, recall, sensitivity, and specificity.",
+      "type": "Evaluation metric calculation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "McNemar’s test",
+    "null_hypothesis": "There is no significant difference in the classification performance between the proposed ensemble model and the traditional models (SVM, CNN, VGG16, ResNet50).",
+    "alternative_hypothesis": "There is a significant difference in the classification performance between the proposed ensemble model and the traditional models.",
+    "alpha": null,
+    "interpretation": "The paper states that McNemar’s test was used for non-parametric examination of paired nominal data to compare the proposed ensemble model against traditional models. It notes that a lower 'p' value is preferred to denote significance, but does not report specific p-values, alpha thresholds, or the final statistical conclusion (e.g., rejection of null hypothesis) in the provided text."
+  },
+  "results_obtained_in_each_dataset": {
+    "Custom Dataset (Ensemble Model Performance)": {
+      "metric": "Primary evaluation metrics for the proposed ensemble model",
+      "models": {
+        "Ensemble Model (Best Hyperparameters)": {
+          "Accuracy": "97.86%",
+          "IoU (Intersection over Union)": "95.02%",
+          "Dice Score": "96.35%",
+          "Precision": "97.31%",
+          "Recall": "97.67%",
+          "Sensitivity": "96.17%",
+          "Specificity": "96.97%",
+          "Loss": "1.12%",
+          "F1 Score": "97.51%",
+          "ROC Curve": "97.512"
+        },
+        "Ensemble Model (Hyperparameter Variations)": {
+          "Epochs_25_LR_0.001_Batch_32_Factor_0.3": {
+            "Accuracy": "85.88%",
+            "Loss": "3.42%"
+          },
+          "Epochs_15_LR_0.0001_Batch_64_Factor_0.3": {
+            "Accuracy": "95.65%",
+            "Loss": "1.24%"
+          },
+          "Epochs_10_LR_0.00001_Batch_64_Factor_0.3": {
+            "Accuracy": "97.67%",
+            "Loss": "1.21%"
+          },
+          "Epochs_10_LR_0.00001_Batch_32_Factor_0.35": {
+            "Accuracy": "97.86%",
+            "Loss": "1.12%"
+          }
+        },
+        "Ensemble Model (Confusion Matrix on 2000 samples)": {
+          "TP": 98,
+          "FP": 3,
+          "TN": 96,
+          "FN": 2,
+          "Precision": "97.31%",
+          "Recall": "97.67%",
+          "F1 Score": "97.51%"
+        },
+        "Ensemble Model (Accuracy Breakdown)": {
+          "MAX ACC": "97.86%",
+          "ML ACC (Malignant)": "96.87%",
+          "BN ACC (Benign)": "97.32%",
+          "AVG ACC": "96.45%"
+        }
+      },
+      "notes": "The ensemble model outperformed traditional models. The best performance was achieved with 10 epochs, learning rate 0.00001, batch size 32, and training factor 0.35."
+    },
+    "Custom Dataset (Baseline Models Performance)": {
+      "metric": "Comparison metrics for baseline models on the custom dataset",
+      "models": {
+        "SVM": {
+          "IOU": "85.23%",
+          "Dice Score": "84.98%",
+          "Precision": "83.34%",
+          "Recall": "85.43%",
+          "Accuracy": "86.67%",
+          "Loss": "24.56%",
+          "Sensitivity": "85.20%",
+          "Specificity": "86.87%",
+          "F1 Score": "87.17%"
+        },
+        "Traditional CNN": {
+          "IOU": "86.78%",
+          "Dice Score": "87.45%",
+          "Precision": "87.32%",
+          "Recall": "87.43%",
+          "Accuracy": "88.98%",
+          "Loss": "25.43%",
+          "Sensitivity": "87.43%",
+          "Specificity": "88.29%",
+          "F1 Score": "88.32%"
+        },
+        "VGG16": {
+          "IOU": "87.20%",
+          "Dice Score": "81.10%",
+          "Precision": "83.20%",
+          "Recall": "84.20%",
+          "Accuracy": "85.01%",
+          "Loss": "20.03%",
+          "Sensitivity": "85.23%",
+          "Specificity": "86.78%",
+          "F1 Score": "87.75%"
+        },
+        "ResNet50": {
+          "IOU": "89.05%",
+          "Dice Score": "90.12%",
+          "Precision": "87.90%",
+          "Recall": "88.50%",
+          "Accuracy": "89.90%",
+          "Loss": "18.20%",
+          "Sensitivity": "87.86%",
+          "Specificity": "88.54%",
+          "F1 Score": "89.34%"
+        }
+      },
+      "notes": "Baseline models were evaluated on the same custom dataset. ResNet50 performed best among baselines, but the Ensemble model significantly outperformed all."
+    },
+    "HAM10000 Dataset (Traditional Models)": {
+      "metric": "Performance of traditional models on HAM10000",
+      "models": {
+        "SVM": {
+          "Accuracy": "81%",
+          "F1-Score": "82.3%",
+          "ROC curve": "0.79"
+        },
+        "CNN": {
+          "Accuracy": "82%",
+          "F1-Score": "87.3%",
+          "ROC curve": "0.78"
+        },
+        "VGG16": {
+          "Accuracy": "84%",
+          "F1-Score": "85.4%",
+          "ROC curve": "0.79"
+        },
+        "ResNet50": {
+          "Accuracy": "87%",
+          "F1-Score": "88.1%",
+          "ROC curve": "0.85"
+        }
+      },
+      "notes": "Results from Table 8. These models were not the primary focus of the ensemble framework but were evaluated on this dataset."
+    },
+    "ISIC 2019 Archive Dataset (Traditional Models)": {
+      "metric": "Performance of traditional models on ISIC 2019 Archive",
+      "models": {
+        "SVM": {
+          "Accuracy": "82%",
+          "F1-Score": "82.3%",
+          "ROC curve": "0.75"
+        },
+        "CNN": {
+          "Accuracy": "81%",
+          "F1-Score": "83.1%",
+          "ROC curve": "0.76"
+        },
+        "VGG16": {
+          "Accuracy": "83%",
+          "F1-Score": "84.4%",
+          "ROC curve": "0.84"
+        },
+        "ResNet50": {
+          "Accuracy": "88%",
+          "F1-Score": "87.2%",
+          "ROC curve": "0.83"
+        }
+      },
+      "notes": "Results from Table 8."
+    },
+    "Optimizer Comparison (Custom Dataset)": {
+      "metric": "Performance of different optimizers on various data splits",
+      "models": {
+        "RMSProp": {
+          "ISIC Benign T Acc": "81%",
+          "ISIC Benign V Acc": "81.2%",
+          "ISIC Malignant T Acc": "82.4%",
+          "ISIC Malignant V Acc": "82.4%",
+          "HAM10000 T Acc": "88.4%",
+          "HAM10000 V Acc": "88.90%",
+          "Curated Custom T Acc": "92.88%",
+          "Curated Custom V Acc": "95.90%"
+        },
+        "Adam": {
+          "ISIC Benign T Acc": "82%",
+          "ISIC Benign V Acc": "81.8%",
+          "ISIC Malignant T Acc": "83.5%",
+          "ISIC Malignant V Acc": "83.5%",
+          "HAM10000 T Acc": "87.5%",
+          "HAM10000 V Acc": "88.5%",
+          "Curated Custom T Acc": "93.5%",
+          "Curated Custom V Acc": "94.42%"
+        },
+        "SGD": {
+          "ISIC Benign T Acc": "84%",
+          "ISIC Benign V Acc": "83.9%",
+          "ISIC Malignant T Acc": "85.5%",
+          "ISIC Malignant V Acc": "85.5%",
+          "HAM10000 T Acc": "89.6%",
+          "HAM10000 V Acc": "90.52%",
+          "Curated Custom T Acc": "94.62%",
+          "Curated Custom V Acc": "96.45%"
+        },
+        "Adamax": {
+          "ISIC Benign T Acc": "87%",
+          "ISIC Benign V Acc": "86.7%",
+          "ISIC Malignant T Acc": "88.76%",
+          "ISIC Malignant V Acc": "88.76%",
+          "HAM10000 T Acc": "90.43%",
+          "HAM10000 V Acc": "91.90%",
+          "Curated Custom T Acc": "93.67%",
+          "Curated Custom V Acc": "97.23%"
+        }
+      },
+      "notes": "Results from Table 9. All used LR 0.001. Adamax showed highest validation accuracy on Curated Custom data (97.23%)."
+    },
+    "Statistical Analysis (Chi-Square and McNemar)": {
+      "metric": "P-values for statistical significance testing",
+      "models": {
+        "SVM": {
+          "Chi-square p-value": "4.320E-05",
+          "McNemar’s p-value": "1.610E-05"
+        },
+        "CNN": {
+          "Chi-square p-value": "4.230E-06",
+          "McNemar’s p-value": "4.081E-03"
+        },
+        "VGG16": {
+          "Chi-square p-value": "6.542E-03",
+          "McNemar’s p-value": "1.790E-04"
+        },
+        "ResNET50": {
+          "Chi-square p-value": "1.352E-04",
+          "McNemar’s p-value": "4.132E-07"
+        },
+        "Ensemble CNN": {
+          "Chi-square p-value": "3.651E-05",
+          "McNemar’s p-value": "2.181E-04"
+        }
+      },
+      "notes": "Results from Table 11. Lower p-values indicate significant difference from the null hypothesis."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Ensemble CNN (Stacking) combining fine-tuned VGG16 and ResNet50",
+    "pretraining": "Pre-built (pre-trained) VGG16 and ResNet50 models imported from Keras library",
+    "input_size": "224x224 RGB",
+    "architecture_details": {
+      "base_models": [
+        "VGG16",
+        "ResNet50"
+      ],
+      "ensemble_method": "Stacked generalization (Stacking)",
+      "vgg16_details": {
+        "input_convolution": "1x1 filters for linear transformation of input channels",
+        "convolution_layer": "3x3 field of reception, stride 1, spatial padding 1",
+        "pooling": "5 max pooling layers, 2x2 window, stride 2",
+        "fully_connected_layers": "3 stacked layers",
+        "activation": "ReLU for hidden layers, Softmax for output",
+        "fine_tuning": "First 249 layers frozen, top 2 layers unfrozen and fine-tuned",
+        "additional_layers": "Global spatial average-pooling layer, dropout layer, logistic layer added to top layers"
+      },
+      "resnet50_details": {
+        "fine_tuning": "Trained normally (specific layer freezing details not explicitly detailed beyond 'normally')",
+        "activation": "Softmax activation function",
+        "optimizer": "Adam"
+      },
+      "meta_model": "Ensemble CNN (Meta-learner) combining predictions from VGG16 and ResNet50"
+    },
+    "training_details": {
+      "framework": "Keras (TensorFlow extension)",
+      "optimizer": "Adam (Best performing), also tested RMSProp, SGD, Adamax",
+      "loss_function": "Cross-categorical entropy (for VGG16 base model)",
+      "hyperparameters": {
+        "best_config": {
+          "epochs": 10,
+          "learning_rate": 1e-05,
+          "batch_size": 32,
+          "training_factor": 0.35
+        },
+        "other_configs_tested": [
+          {
+            "epochs": 25,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "factor": 0.3
+          },
+          {
+            "epochs": 15,
+            "learning_rate": 0.0001,
+            "batch_size": 64,
+            "factor": 0.3
+          },
+          {
+            "epochs": 10,
+            "learning_rate": 1e-05,
+            "batch_size": 64,
+            "factor": 0.3
+          }
+        ]
+      },
+      "data_split": "70% training, 30% testing and validation",
+      "early_stopping": "Established to prevent overfitting/underfitting"
+    },
+    "classification_or_output_head": {
+      "type": "Softmax layer (for VGG16/ResNet50 base models)",
+      "ensemble_output": "Segmented images classified as benign or malignant via meta-model"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet50",
+    "VGG16",
+    "Ensemble CNN (Stacking ensemble of VGG16 and ResNet50)",
+    "SVM (Support Vector Machine)",
+    "Traditional CNN"
+  ],
+  "preprocessing_techniques": [
+    "Image scaling to small squares (fixed input size of 224x224 RGB)",
+    "Per-channel pixel mean normalization (subtracting training dataset mean)",
+    "Grayscale conversion",
+    "Adaptive thresholding for segmentation (Sklansky method)",
+    "Binary image conversion",
+    "Contrast enhancement using local and global stretching",
+    "Denoising (removal of high-frequency and low-amount pixels)",
+    "Image rotation (random angles 0-180 degrees)",
+    "Random zoom",
+    "Horizontal and vertical image shifts",
+    "Data up-sampling for minority classes and down-sampling for majority classes",
+    "Removal of null/missing values",
+    "Mask generation (super-pixel masks from ISIC dataset used for segmentation)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Image Rotation",
+      "details": "Random rotation of images between an angle of 0 to 180 degrees."
+    },
+    {
+      "technique": "Random Zoom",
+      "details": "Random zooming applied to images."
+    },
+    {
+      "technique": "Image Shifting",
+      "details": "Horizontal and vertical image shifts."
+    },
+    {
+      "technique": "Class Balancing via Sampling",
+      "details": "Up-sampling of minority classes and down-sampling of majority classes to balance the dataset."
+    },
+    {
+      "technique": "K-Fold Cross Validation",
+      "details": "Used for training base models, splitting training set Ti into Ti-train and Ti-val in each iteration."
+    }
+  ],
+  "conclusions": [
+    "The proposed CNN-based ensemble learning framework, which combines fine-tuned ResNet50 and VGG16 models, effectively detects and classifies Kaposi sarcoma and other vascular skin lesions.",
+    "Layer-by-layer fine-tuning of the pre-built CNN models improves the performance of middle and deep layers, leading to enhanced classification efficiency.",
+    "The ensemble model achieved a classification accuracy of 97.86% and an Intersection over Union (IoU) of 95.02%, outperforming traditional models such as SVM, traditional CNN, VGG16, and ResNet50.",
+    "The proposed assisted framework has the potential to be deployed to assist radiologists in the prognosis and classification of Kaposi sarcoma and related skin lesion diseases.",
+    "The model demonstrates high performance metrics including a Dice score of 96.35%, precision of 97.31%, recall of 97.67%, sensitivity of 96.17%, and specificity of 96.97%.",
+    "The ensemble approach provides a robust solution for medical image fusion and deep feature learning in the context of sarcoma prognosis."
+  ],
+  "important_remarks": [
+    "The study relies on a custom dataset formed by combining the HAM10000 dataset and the ISIC Challenge Archive, but does not report the total size or class distribution of this combined custom dataset, limiting reproducibility.",
+    "The paper acknowledges that the ISIC dataset has a 'small size and lack of variety,' which may limit the generalizability of the model to diverse dermatoscopic populations.",
+    "External validation is limited; while models were tested on HAM10000 and ISIC 2019 Archive, these tests were performed on traditional baseline models (SVM, CNN, VGG16, ResNet50) rather than the proposed ensemble model, leaving the ensemble's performance on external data unreported.",
+    "The primary target is Kaposi sarcoma (vascular skin lesions), but the dataset includes multiple other classes (melanoma, BCC, etc.) without clear stratification of the ensemble model's performance specifically for KS versus other benign/malignant classes in the custom dataset.",
+    "Statistical significance was assessed using McNemar’s test and Chi-square test, but specific p-values for the ensemble model's superiority over baselines are not explicitly reported in the main text, only in Table 11 for individual models.",
+    "The paper mentions 'error of omission' and 'error of commission' rates but does not provide a detailed breakdown of false positives/negatives for the specific class of Kaposi sarcoma in the custom dataset evaluation.",
+    "The model achieves high accuracy (97.86%) on the custom dataset, but the lack of a held-out external test set for the ensemble model raises concerns about potential overfitting to the specific composition of the curated data."
+  ]
+}

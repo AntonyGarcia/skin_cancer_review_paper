@@ -1,0 +1,242 @@
+{
+  "file_name": "zhang_2020_short_term_lesion_change_detection_for_melanoma_screening_with_novel.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a novel Siamese deep learning network with a Tensorial Regression Process (TRL) and a segmentation loss (SegLoss) to automatically detect short-term lesion changes in dermoscopy images for melanoma screening."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, including the development of a novel Siamese neural network with a Tensorial Regression Process and SegLoss, the construction of a new dataset of 1,000 paired dermoscopy images, and extensive experimental results evaluating the model's performance against baselines."
+  },
+  "title": "Short-Term Lesion Change Detection for Melanoma Screening With Novel Siamese Neural Network",
+  "authors": [
+    "Boyan Zhang",
+    "Zhiyong Wang",
+    "Junbin Gao",
+    "Chantal Rutjes",
+    "Kaitlin Nufer",
+    "Dacheng Tao",
+    "David Dagan Feng",
+    "Scott W. Menzies"
+  ],
+  "doi": "10.1109/TMI.2020.3037761",
+  "journal": "IEEE Transactions on Medical Imaging",
+  "year": 2020,
+  "article_type": "Research paper",
+  "brief_summary": "This study addresses the challenge of short-term melanoma screening by developing a novel deep learning method to automatically detect changes in dermoscopy images taken within a three-month interval. The authors formulated lesion change detection as a similarity measurement task and proposed a Siamese neural network incorporating a Tensorial Regression Process (TRL) and a segmentation loss (SegLoss) to extract global features and mimic clinician focus. To evaluate the model, the researchers constructed a first-of-a-kind in-house dataset comprising 1,000 pairs of sequential dermoscopy images from the Sydney Melanoma Diagnostic Centre. Experimental results demonstrated that the proposed model achieved a best accuracy of 74.1% and a sensitivity of 87.1% when using the TRL with SegLoss. The findings indicate that deep learning approaches are promising for objective melanoma screening, although further algorithmic improvements are needed for clinical deployment.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on detecting short-term changes in melanocytic lesions to screen for melanoma. The dataset consists of paired dermoscopy images from the Sydney Melanoma Diagnostic Centre, where changed lesions were excised and labeled with histological diagnosis of melanoma versus benign."
+    },
+    {
+      "lesion_type": "Benign Nevus (Mole)",
+      "paper_terms": [
+        "benign nevi",
+        "moles",
+        "atypical benign moles",
+        "benign"
+      ],
+      "role": "Comparator class",
+      "details": "The study compares melanoma against benign lesions. Specifically, it mentions 'atypical benign moles' which have a lower rate of change (16%) compared to melanoma (94%). The dataset includes benign lesions labeled via histological diagnosis to contrast with melanoma."
+    },
+    {
+      "lesion_type": "Melanocytic Lesion",
+      "paper_terms": [
+        "melanocytic lesion",
+        "pigmented lesions"
+      ],
+      "role": "General category",
+      "details": "The study monitors 'melanocytic lesions' and 'pigmented lesions' in general, as the clinical guideline applies to any significant change in these types of lesions over a three-month interval."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary decision of lesion change (changed vs. unchanged)",
+        "primary": true,
+        "details": "The paper formulates lesion change detection as a similarity measurement task between two sequential dermoscopy images. The model predicts a binary decision: 'changed' (i.e., not similar) or 'unchanged' (i.e., similar enough). The ground truth is a binary label derived from histological diagnosis (melanoma vs. benign) for lesions that changed, or visual observation for those that did not. Performance is evaluated using accuracy and sensitivity for this binary classification task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Sydney Melanoma Diagnostic Centre (SMDC) In-House Dataset",
+      "description": "A first-of-a-kind in-house dataset of paired sequential dermoscopy images collected from the Sydney Melanoma Diagnostic Centre, Royal Prince Alfred Hospital. The dataset consists of 1,000 manually selected pairs of images with a time interval between 3 and 6 months. It was augmented via flipping and cropping to create a larger training set. Images with noise (air bubbles, hair, incomplete capturing) were excluded.",
+      "classes_used": [
+        "Changed lesions (histologically diagnosed as melanoma or benign)",
+        "Unchanged lesions (assessed via visual observation)"
+      ],
+      "counts": {
+        "total": 1000,
+        "training": 9500,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "changed": 3435,
+          "unchanged": 6065
+        }
+      },
+      "use": {
+        "training": "The augmented dataset of 9,500 pairs was used for training the Siamese neural network.",
+        "validation": "null",
+        "testing": "The dataset was used to evaluate the model's performance in detecting short-term lesion changes.",
+        "other": "The ground truth for changed lesions was determined by histological diagnosis (melanoma vs. benign), while unchanged lesions were assessed by visual observation with high inter-observer agreement (>92%)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "AUC (Area Under Curve)",
+    "Cohen's Kappa"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Cohen's Kappa",
+      "purpose": "To assess inter-observer agreement between two independent melanographers, and agreement between the algorithm and human observers/ground truth.",
+      "type": "Inter-reader agreement"
+    },
+    {
+      "method": "95% Confidence Interval (CI)",
+      "purpose": "To estimate the uncertainty of sensitivity and specificity values calculated using a consensus ground truth of three human observers.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Repeated Experiments (5 replicates)",
+      "purpose": "To evaluate model performance stability and determine hyperparameters by repeating the training and testing process multiple times.",
+      "type": "Cross-validation statistics"
+    },
+    {
+      "method": "R programming language",
+      "purpose": "Used to carry out statistical analyses, including the calculation of Cohen's Kappa and confidence intervals.",
+      "type": "Software/Tool"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests for comparing model performance against baselines). It reported Cohen's Kappa for inter-observer agreement and 95% Confidence Intervals for sensitivity and specificity estimates, but no statistical significance tests were used to compare the proposed method with baseline models."
+  },
+  "results_obtained_in_each_dataset": {
+    "Sydney Melanoma Diagnostic Centre (SMDC) In-House Dataset": {
+      "dataset_details": {
+        "total_pairs": 1000,
+        "training_pairs": 800,
+        "test_pairs": 200,
+        "augmentation": "Flipping and cropping resulted in 9,500 training pairs",
+        "repeats": "5 replicates"
+      },
+      "models": {
+        "Proposed Model (TRL + SegLoss + STN in Conv blocks 1,2,3,4,5)": {
+          "accuracy": "74.1%",
+          "sensitivity": "87.1%",
+          "specificity": "66.8%",
+          "auc": "74.8%",
+          "notes": "Best performance achieved with STN in all convolutional blocks and SegLoss. Outperformed baselines significantly."
+        },
+        "Proposed Model (TRL + SegLoss + STN in Conv blocks 1,2,3)": {
+          "accuracy": "72.0%",
+          "sensitivity": "84.1%",
+          "specificity": "65.2%",
+          "auc": "74.1%",
+          "notes": "Performance with STN in blocks 1, 2, and 3."
+        },
+        "Baseline: SIFT": {
+          "accuracy": "~60%",
+          "sensitivity": "Not explicitly reported, but accuracy ~60% noted as slightly better than random guessing",
+          "notes": "Similarity measurement based on keypoint matching threshold."
+        },
+        "Baseline: Conventional ResNet-50": {
+          "accuracy": "~60%",
+          "sensitivity": "Not explicitly reported, but accuracy ~60% noted as slightly better than random guessing",
+          "notes": "Pre-trained on ImageNet, fine-tuned on dataset."
+        },
+        "Baseline: Deep Siamese Convolutional Network (DSCN)": {
+          "sensitivity": "70.4%",
+          "notes": "Used pre-trained model, thresholded generated maps. Trailing almost 17% with best proposed model."
+        },
+        "Baseline: Overlapping Region-based Global Context Descriptor (OR-GCD)": {
+          "sensitivity": "69.0%",
+          "notes": "Applied with best hyperparameters M=4, N=8. Trailing almost 17% with best proposed model."
+        }
+      },
+      "human_observer_agreement": {
+        "observer_1_vs_observer_2": {
+          "agreement_percentage": "73%",
+          "cohens_kappa": "0.58-0.84 (95% CI)",
+          "notes": "Agreement between two independent experienced melanographers."
+        },
+        "ground_truth_vs_observer_1": {
+          "agreement_percentage": "65%",
+          "cohens_kappa": "0.54-0.76 (95% CI)",
+          "notes": "Agreement between ground truth and one independent observer."
+        },
+        "algorithm_vs_human_consensus": {
+          "agreement_level": "Fair",
+          "notes": "Agreement between algorithm and modified consensus ground truth of three human scorers was only fair. Method requires further improvement for clinical use."
+        }
+      },
+      "notes": "The proposed model achieved a best accuracy of 74.1% and sensitivity of 87.1%. The baseline models (SIFT, ResNet-50) had accuracies around 60%. State-of-the-art models DSCN and OR-GCD had sensitivities of 70.4% and 69.0% respectively."
+    }
+  },
+  "architecture_used": {
+    "extraction_error": "Expecting ',' delimiter: line 24 column 23 (char 1190)",
+    "answer": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Proposed Siamese Neural Network with Tensorial Regression Process (TRL) and Segmentation Loss (SegLoss)",
+    "SIFT (Scale-Invariant Feature Transform)",
+    "Conventional ResNet-50",
+    "Deep Siamese Convolutional Network (DSCN)",
+    "Overlapping Region-based Global Context Descriptor (OR-GCD)"
+  ],
+  "preprocessing_techniques": [
+    "Exclusion of images with noise/artifacts (air bubbles, hair, incomplete capturing, unexpected ink)",
+    "Manual selection of pairs with clearly presented lesions and time intervals between 3 and 6 months",
+    "Dataset augmentation via flipping and cropping transformations",
+    "Resizing of all dermoscopy images to a resolution of 224 × 224",
+    "Normalization of feature maps into [-1, 1] before calculating SegLoss"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Flipping and Cropping",
+      "details": "Applied to the original 1,000 pairs of dermoscopy images to increase the number of training samples, resulting in a total of 9,500 augmented pairs (3,435 changed and 6,065 unchanged)."
+    },
+    {
+      "technique": "Spatial Transformer Network (STN)",
+      "details": "Used as a sub-network before convolutional blocks (conv_1 through conv_5) of the ResNet-50 to handle geometric transformations such as scaling, translation, and rotation, thereby improving alignment and feature extraction."
+    }
+  ],
+  "conclusions": [
+    "The proposed novel Siamese neural network incorporating a Tensorial Regression Process (TRL) and segmentation loss (SegLoss) is promising for automatically detecting short-term lesion changes for objective melanoma screening.",
+    "The proposed model achieved a best accuracy of 74.1% and a sensitivity of 87.1%, significantly outperforming baseline models such as SIFT, conventional ResNet-50, Deep Siamese Convolutional Network (DSCN), and Overlapping Region-based Global Context Descriptor (OR-GCD).",
+    "The Tensorial Regression Process (TRL) effectively extracts global features of lesion images, providing a performance boost over standard deep convolutional features.",
+    "The inclusion of Spatial Transformer Networks (STN) in convolutional blocks helps overcome issues caused by different viewing angles during dermoscopy image acquisition, with the best performance achieved when STNs are used in all convolutional blocks.",
+    "Emphasizing L2-norm regularization (Norm-2) is more helpful for improving sensitivity in short-term melanoma image change detection compared to sparsity terms or other high-level regularization factors.",
+    "The segmentation loss (SegLoss) serves as an effective regularization term that mimics the clinician's focus on specific patterns when comparing lesion pairs.",
+    "There was only a fair agreement between the algorithm and two independent experienced melanographers (Cohen's Kappa 0.27-0.32), indicating that the method requires further algorithmic improvement before clinical deployment.",
+    "While the algorithm showed substantial agreement with the ground truth (Cohen's Kappa 0.71-0.79), the gap between algorithmic performance and human expert agreement highlights the challenge of automating this subjective clinical task."
+  ],
+  "important_remarks": [
+    "The study relies on a single, in-house dataset of 1,000 paired images from the Sydney Melanoma Diagnostic Centre, lacking external validation on independent cohorts which limits generalizability.",
+    "The dataset excludes images with common clinical artifacts (air bubbles, hair, incomplete capturing) to ensure quality, which may introduce selection bias and limit real-world applicability where such noise is prevalent.",
+    "The algorithm's agreement with independent human melanographers was only 'fair' (Cohen's Kappa 0.27-0.32), indicating a significant gap between automated detection and expert clinical judgment.",
+    "While the model achieved high sensitivity (87.1%), the overall accuracy (74.1%) and fair agreement with humans suggest the method is not yet ready for direct clinical deployment without further algorithmic improvements.",
+    "The ground truth for 'unchanged' lesions was based on visual observation with high inter-observer agreement (>92%) between two experts, but 'changed' lesions were confirmed by histology, creating a potential asymmetry in label reliability.",
+    "The study did not perform formal hypothesis testing (e.g., p-values) to compare the proposed model against baselines, relying instead on reported performance metrics and Cohen's Kappa for agreement assessment."
+  ]
+}

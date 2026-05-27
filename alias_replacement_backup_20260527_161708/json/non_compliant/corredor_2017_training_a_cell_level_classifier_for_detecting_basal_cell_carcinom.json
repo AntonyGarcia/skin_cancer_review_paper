@@ -1,0 +1,216 @@
+{
+  "file_name": "corredor_2017_training_a_cell_level_classifier_for_detecting_basal_cell_carcinom.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a machine learning approach to detect basal-cell carcinoma (BCC) in dermatology/histopathology. Specifically, it trained a Support Vector Machine (SVM) classifier to predict the presence of cancer on a patch-by-patch basis. The model combined low-level handcrafted features (color, size, spatial distribution of nuclei) with high-level information derived from human visual attention maps (implicit relevance feedback from pathologist navigation) using multilinear regression to determine feature weights."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a computational model (M_im) to detect basal-cell carcinoma. It describes specific methods including the use of a Support Vector Machine classifier, feature extraction from 24 patient cases (17 for training, 7 for evaluation), and reports quantitative results such as accuracy (74.49%) and F-measure (80.31%). The structure includes standard research sections like Abstract, Introduction, Methods, Results, and Conclusion, indicating it is an original study rather than a review."
+  },
+  "title": "Training a cell-level classifier for detecting basal-cell carcinoma by combining human visual attention maps with low-level handcrafted features",
+  "authors": [
+    "Germán Corredor",
+    "Jon Whitney",
+    "Viviana Arias",
+    "Anant Madabhushi",
+    "Eduardo Romero"
+  ],
+  "doi": "10.1117/1.JMI.4.2.021105",
+  "journal": "Journal of Medical Imaging",
+  "year": 2017,
+  "article_type": "Research paper",
+  "brief_summary": "This study developed a computational model to detect basal-cell carcinoma in digital pathology whole slide images by integrating low-level handcrafted features with high-level information derived from pathologist visual attention maps. The dataset consisted of 24 hematoxylin-eosin stained cases, with 17 cases used for training and 7 for evaluation. The model utilized a Support Vector Machine classifier trained on 176 image patches to predict cancer presence, while 98 patches from different patients served as an independent test set. The proposed model achieved an accuracy of 74.49% and an F-measure of 80.31%, outperforming a baseline model that relied solely on manual annotations. These results demonstrate that incorporating implicit expert knowledge through navigation data can enhance the detection of cancerous regions in histopathology.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal-cell carcinoma",
+        "BCC",
+        "cancer",
+        "cancerous"
+      ],
+      "role": "Target class",
+      "details": "The study focused on detecting basal-cell carcinoma (BCC) in whole slide images. The dataset consisted of 24 cases of BCC from 24 patients, including mixed subtypes: superficial, nodular, micronodular, morpheaform, and trabecular. The classifier predicted the presence of cancer (BCC) on a patch-by-patch basis."
+    },
+    {
+      "lesion_type": "Non-cancerous tissue / Normal structures",
+      "paper_terms": [
+        "noncancerous tissue",
+        "not-cancer",
+        "noncancerous",
+        "normal structure",
+        "healthy cells"
+      ],
+      "role": "Comparator class",
+      "details": "The classifier distinguished BCC patches from non-cancerous patches. The text mentions distinguishing the tumor from surrounding noncancerous tissue and includes examples of normal structures like hair follicles for comparison in Figure 1. The dataset included 'not-cancer' labeled fields of view to balance the classes."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Presence of cancer (basal-cell carcinoma) in image patches/fields of view",
+        "primary": true,
+        "details": "The paper trains a Support Vector Machine (SVM) classifier to predict the presence of cancer on a patch-by-patch basis. The task is binary classification, distinguishing between 'cancer' and 'not-cancer' (noncancerous tissue) fields of view (FOVs). The model predicts discrete diagnostic categories (cancer vs. non-cancer) based on low-level handcrafted features and high-level visual attention maps."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Universidad Nacional de Colombia BCC Cohort",
+      "description": "A private dataset of hematoxylin-eosin (H&E) stained whole slide images (WSIs) from patients diagnosed with basal-cell carcinoma (BCC). The samples were collected from the Pathology Department of Universidad Nacional de Colombia between 2009 and 2014. The cases exhibited mixed BCC subtypes: superficial, nodular, micronodular, morpheaform, and trabecular. The slides were digitized at 40x magnification using a CARL ZEISS Axiostar plus microscope coupled to a DXM1200 Nikon color digital camera.",
+      "classes_used": [
+        "Basal-cell carcinoma (cancer)",
+        "Non-cancerous tissue (not-cancer)"
+      ],
+      "counts": {
+        "total": 24,
+        "training": 17,
+        "validation": null,
+        "testing": 7,
+        "per_class": {}
+      },
+      "use": {
+        "training": "17 cases (70% of the cohort) were used to estimate model parameters and train the visual attention map by recording pathologist navigation. Additionally, 176 image patches (FOVs) extracted from 5 of these patients were used to train the Support Vector Machine (SVM) classifier.",
+        "validation": null,
+        "testing": "7 cases (30% of the cohort) comprised the evaluation set. 274 FOVs were extracted from this set, and 98 patches from 2 of these patients were used for independent testing of the SVM classifier.",
+        "other": "The dataset was drawn from a larger pool of 98 patients previously diagnosed with BCC, from which 24 were randomly selected due to time constraints regarding digitization, annotation, and navigation recording."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "F-measure",
+    "Precision",
+    "Recall (sensitivity)",
+    "Specificity",
+    "Area under the receiver operating characteristic (ROC) curve (AUC)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Least squares method",
+      "purpose": "To estimate the weights of visual features by approximating the likelihood of each nucleus being cancerous using the visual attention map.",
+      "type": "Regression"
+    },
+    {
+      "method": "Support Vector Machine (SVM)",
+      "purpose": "To classify image patches as cancer or non-cancer on a patch-by-patch basis.",
+      "type": "Classification"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) analysis",
+      "purpose": "To evaluate the performance of the classifier in identifying cancer in the test set of fields of view (FOVs) by calculating the Area Under the Curve (AUC).",
+      "type": "Performance Evaluation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using accuracy, F-measure, precision, recall, specificity, and AUC, with a qualitative comparison stating that differences between the proposed model and the baseline were 'not meaningful'."
+  },
+  "results_obtained_in_each_dataset": {
+    "Universidad Nacional de Colombia BCC Cohort": {
+      "dataset_description": "24 hematoxylin-eosin stained whole slide images (WSIs) from patients with basal-cell carcinoma (mixed subtypes: superficial, nodular, micronodular, morpheaform, trabecular). 17 cases used for training/learning set, 7 cases used for evaluation/testing set.",
+      "split_details": {
+        "training_set": "17 cases (70%). 176 image patches (FOVs) extracted from 5 patients used to train the SVM classifier.",
+        "testing_set": "7 cases (30%). 274 FOVs extracted; 98 patches from 2 patients used for independent testing."
+      },
+      "models": {
+        "Implicit Model (M_im)": {
+          "description": "Support Vector Machine (SVM) classifier using low-level handcrafted features weighted by visual attention maps derived from pathologist navigation.",
+          "metrics": {
+            "Accuracy": "74.49%",
+            "F-measure": "80.31%",
+            "Precision": "75.00%",
+            "Recall (Sensitivity)": "86.44%",
+            "Specificity": "56.41%",
+            "AUC (ROC)": "0.7771"
+          }
+        },
+        "Baseline Model (M_ex)": {
+          "description": "Support Vector Machine (SVM) classifier using the same visual features but with weights estimated from explicit manual annotations by a pathologist.",
+          "metrics": {
+            "Accuracy": "73.47%",
+            "F-measure": "77.97%",
+            "Precision": "77.97%",
+            "Recall (Sensitivity)": "77.97%",
+            "Specificity": "66.67%",
+            "AUC (ROC)": "0.7750"
+          }
+        }
+      },
+      "notes": "The paper states that the differences in performance between the implicit model (M_im) and the baseline model (M_ex) are 'not meaningful'. The implicit model showed an improvement of 1.02% in accuracy and 2.34% in F-measure over the baseline. The average mean square error for the regression fit used to learn feature weights was 4.88%."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Support Vector Machine (SVM) classifier",
+    "pretraining": null,
+    "input_size": "1024 × 1024 pixels (Field of View/patch size)",
+    "architecture_details": {
+      "feature_extraction": "Low-level handcrafted features computed from nuclei area, color (Mean nuclear Y, U, V), and spatial distribution. High-level information derived from visual attention maps (frequency of pixel visits by pathologists).",
+      "feature_integration": "Multilinear regression model using the least squares method to estimate feature weights based on visual attention maps (Implicit Model M_im) or manual annotations (Baseline Model M_ex).",
+      "classifier_type": "Support Vector Machine (SVM)",
+      "classifier_input": "Weighted combination of low-level visual features (nuclear area, color, spatial distribution) determined by the multilinear regression weights."
+    },
+    "training_details": {
+      "optimizer": "Least squares method (for weight estimation in the multilinear regression component)",
+      "loss_function": null,
+      "hyperparameters": {
+        "svm_parameters": null,
+        "regression_parameters": null
+      },
+      "training_schedule": null,
+      "training_data": "176 image patches (FOVs) extracted from 5 patients (from a total of 17 training cases)",
+      "testing_data": "98 image patches (FOVs) extracted from 2 patients (from a total of 7 evaluation cases)"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification",
+      "output": "Presence of cancer (cancer vs. not-cancer) on a patch-by-patch basis",
+      "metrics_reported": "Accuracy (74.49%), F-measure (80.31%), Precision (75.00%), Recall (86.44%), Specificity (56.41%), AUC (0.7771)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Support Vector Machine (SVM)",
+    "Boosted Bayesian multiresolution classifier",
+    "Texture classifier",
+    "Graph-based model"
+  ],
+  "preprocessing_techniques": [
+    "Digitization of hematoxylin-eosin (H&E) stained whole slide images at 40x magnification using a CARL ZEISS Axiostar plus microscope coupled to a DXM1200 Nikon color digital camera.",
+    "Use of JPEG2000 (J2K) standard for lossless compression and multiresolution decomposition of whole slide images.",
+    "Extraction of image patches (Fields of View/FOVs) with a fixed size of 1024 × 1024 pixels.",
+    "Discarding of FOVs containing no tissue.",
+    "Balancing of cancer and non-cancer classes by randomly removing FOVs from the most represented class."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Class balancing via random removal",
+      "details": "The number of samples within the cancer and non-cancer classes was balanced by randomly removing a set of FOVs from the most represented class."
+    }
+  ],
+  "conclusions": [
+    "The proposed computational model (M_im), which combines low-level handcrafted features with high-level information derived from pathologist visual attention maps, achieved an accuracy of 74.49% and an F-measure of 80.31% in detecting basal-cell carcinoma.",
+    "The implicit model (M_im) slightly outperformed the baseline model (M_ex) that relied on explicit manual annotations, achieving an accuracy of 73.47% and an F-measure of 77.97%.",
+    "The differences in performance between the implicit model and the baseline model were not statistically meaningful, as indicated by similar Area Under the Curve (AUC) values (0.7771 for M_im vs. 0.7750 for M_ex).",
+    "The study demonstrates that incorporating implicit expert knowledge through pathologist navigation data can enhance the detection of cancerous regions in histopathology, suggesting that higher-level understanding complements low-level image features.",
+    "The approach of using visual attention maps to weight nuclear features is applicable to a wide variety of disease types beyond basal-cell carcinoma.",
+    "The study acknowledges limitations related to the small dataset size (24 cases) and the time constraints involved in digitizing, annotating, and recording navigations, which limited the cohort size."
+  ],
+  "important_remarks": [
+    "The study is limited by a very small dataset size (24 cases), which was constrained by the time-intensive requirements of digitizing, manually annotating, and recording navigation paths for four pathologists.",
+    "There is a potential for data leakage or biased validation because the training patches (176 FOVs from 5 patients) and test patches (98 FOVs from 2 patients) were drawn from the same 7 evaluation cases, although the authors ensured no patches from the same patient appeared in both sets.",
+    "The performance difference between the proposed implicit model (M_im) and the baseline explicit model (M_ex) was minimal and described as 'not meaningful' (Accuracy: 74.49% vs 73.47%; AUC: 0.7771 vs 0.7750), suggesting the added complexity of capturing visual attention maps may not yield significant gains over manual annotations in this context.",
+    "The model relies on low-level nuclear features (area, color, spatial distribution) while explicitly ignoring potential diagnostic value from subvisual features such as the stroma.",
+    "The approach may be prone to noise in cases where cancer regions are small and surrounded by many healthy cells, such as in micronodular carcinoma subtypes.",
+    "The dataset consists exclusively of basal-cell carcinoma cases from a single institution (Universidad Nacional de Colombia), limiting generalizability to other populations or scanner types.",
+    "The visual attention maps were derived from only four pathologists with at least 10 years of experience, and the study notes that including more pathologists might improve results, indicating a limitation in the diversity of expert input."
+  ]
+}

@@ -1,0 +1,411 @@
+{
+  "file_name": "wang_2023_a_collaborative_learning_model_for_skin_lesion_segmentation_and_classi.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes a Collaborative Learning Deep Convolutional Neural Networks (CL-DCNN) model for skin lesion segmentation and classification. It utilizes deep learning techniques including teacher-student learning, self-training with pseudo-labels, and class activation maps (CAMs) to perform these tasks on the ISIC 2017 and ISIC Archive dermatology datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel Collaborative Learning Deep Convolutional Neural Networks (CL-DCNN) model for skin lesion segmentation and classification. It details specific methods including teacher-student learning, self-training with pseudo-labels, and class activation maps. The study presents original experimental results on the ISIC 2017 and ISIC Archive datasets, comparing performance metrics (Jaccard, AUC) against existing methods, which characterizes it as an original experimental study rather than a review."
+  },
+  "title": "A Collaborative Learning Model for Skin Lesion Segmentation and Classification",
+  "authors": [
+    "Ying Wang",
+    "Jie Su",
+    "Qiuyu Xu",
+    "Yixin Zhong"
+  ],
+  "doi": "10.3390/diagnostics13050912",
+  "journal": "Diagnostics",
+  "year": 2023,
+  "article_type": "Article",
+  "brief_summary": "This study proposes a Collaborative Learning Deep Convolutional Neural Networks (CL-DCNN) model to address the challenges of skin lesion segmentation and classification under limited annotation data. The model leverages the correlation between tasks by using a teacher-student learning framework with self-training to generate high-quality pseudo-labels for segmentation. Class activation maps are employed to improve the segmentation network's location ability, while lesion masks from segmentation enhance the classification network's recognition ability. Experiments were conducted on the ISIC 2017 and ISIC Archive datasets, evaluating performance using metrics such as Jaccard index and Area Under the Curve (AUC). The CL-DCNN model achieved a Jaccard score of 79.1% for segmentation and an average AUC of 93.7% for classification. These results demonstrate that the proposed method outperforms advanced existing skin lesion segmentation and classification methods.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Gold-standard diagnosis class in ISIC 2017 dataset (2000 training, 150 validation, 600 testing images) and ISIC Archive dataset (466 cases). Used for classification task."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus",
+        "mole"
+      ],
+      "role": "Target class",
+      "details": "Gold-standard diagnosis class in ISIC 2017 dataset (labeled as 'mole') and ISIC Archive dataset (822 cases, labeled as 'nevus'). Used for classification task."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratosis"
+      ],
+      "role": "Target class",
+      "details": "Gold-standard diagnosis class in ISIC 2017 dataset and ISIC Archive dataset (32 cases). Used for classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-level lesion masks/boundaries",
+        "primary": false,
+        "details": "The model performs skin lesion segmentation to detect the location and boundary of the skin lesion area, evaluated using Jaccard index, Dice coefficient, and pixel-wise accuracy/sensitivity/specificity on the ISIC 2017 dataset."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories (melanoma, nevus, seborrheic keratosis)",
+        "primary": true,
+        "details": "The model classifies skin lesions into specific diagnostic categories (melanoma, mole/nevus, seborrheic keratosis) using image-level labels, evaluated using AUC, accuracy, sensitivity, and specificity on the ISIC 2017 and ISIC Archive datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A skin lesion segmentation and classification dataset provided by the International Skin Imaging Collaboration Organization, containing dermoscopic images with pixel-level expert annotations for segmentation and gold-standard diagnoses for classification.",
+      "classes_used": [
+        "melanoma",
+        "mole",
+        "seborrheic keratosis"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the teacher-SN and student-SN for segmentation (pixel-level labeled data) and the disease-CN for classification (image-level labeled data).",
+        "validation": "Used for validation (150 images).",
+        "testing": "Used for testing (600 images) to evaluate segmentation and classification performance.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC Archive",
+      "description": "A skin lesion classification dataset containing image-level annotated dermoscopic images.",
+      "classes_used": [
+        "melanoma",
+        "seborrheic keratosis",
+        "nevus"
+      ],
+      "counts": {
+        "total": 1320,
+        "training": 1320,
+        "validation": 0,
+        "testing": 0,
+        "per_class": {
+          "melanoma": 466,
+          "seborrheic keratosis": 32,
+          "nevus": 822
+        }
+      },
+      "use": {
+        "training": "Used to expand the disease-CN’s training data and served as unlabeled data to generate pseudo-labels for the segmentation network.",
+        "validation": null,
+        "testing": null,
+        "other": "Served as unlabeled data for self-training pseudo-label generation."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Jaccard index (JA)",
+    "Dice coefficient (DI)",
+    "pixel-wise accuracy (pixel-AC)",
+    "pixel-wise sensitivity (pixel-SE)",
+    "pixel-wise specificity (pixel-SP)",
+    "area under receive operation curve (AUC)",
+    "accuracy (AC)",
+    "sensitivity (SE)",
+    "specificity (SP)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using point estimates of metrics (e.g., Jaccard index, AUC) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "segmentation": {
+        "metric": "Jaccard Index (JA), Dice Coefficient (DI), Pixel-wise Accuracy (Pixel-AC), Pixel-wise Sensitivity (Pixel-SE), Pixel-wise Specificity (Pixel-SP)",
+        "models": {
+          "CL-DCNN (Ours)": {
+            "JA": "79.1",
+            "DI": "86.7",
+            "Pixel-AC": "94.1",
+            "Pixel-SE": "86.5",
+            "Pixel-SP": "95.9"
+          },
+          "NCRNet": {
+            "JA": "78.6",
+            "DI": "86.6",
+            "Pixel-AC": "94.0",
+            "Pixel-SE": "86.9",
+            "Pixel-SP": "95.9"
+          },
+          "FCN": {
+            "JA": "75.2",
+            "DI": "84.1",
+            "Pixel-AC": "93.9",
+            "Pixel-SE": "82.2",
+            "Pixel-SP": "97.0"
+          },
+          "U-Net": {
+            "JA": "76.5",
+            "DI": "85.2",
+            "Pixel-AC": "93.3",
+            "Pixel-SE": "84.5",
+            "Pixel-SP": "97.3"
+          },
+          "DAGAN": {
+            "JA": "77.1",
+            "DI": "85.9",
+            "Pixel-AC": "93.5",
+            "Pixel-SE": "83.5",
+            "Pixel-SP": "97.6"
+          },
+          "ENGNet": {
+            "JA": "77.1",
+            "DI": "85.3",
+            "Pixel-AC": "93.2",
+            "Pixel-SE": "82.7",
+            "Pixel-SP": "97.8"
+          },
+          "AG-Net": {
+            "JA": "76.9",
+            "DI": "85.3",
+            "Pixel-AC": "93.5",
+            "Pixel-SE": "83.5",
+            "Pixel-SP": "97.4"
+          },
+          "MultiResUNet": {
+            "JA": "76.8",
+            "DI": "85.2",
+            "Pixel-AC": "93.6",
+            "Pixel-SE": "83.9",
+            "Pixel-SP": "96.8"
+          }
+        },
+        "notes": "CL-DCNN achieved the highest JA, DI, and Pixel-AC among compared segmentation methods. The JA of 79.1% was 0.5% higher than the second-best model NCRNet."
+      },
+      "classification": {
+        "metric": "Accuracy (AC), Sensitivity (SE), Specificity (SP), Area Under Curve (AUC)",
+        "models": {
+          "CL-DCNN (Ours)": {
+            "AC": "90.7",
+            "SE": "70.8",
+            "SP": "94.7",
+            "AUC": "93.7"
+          },
+          "Xception": {
+            "AC": "89.8",
+            "SE": "70.1",
+            "SP": "94.3",
+            "AUC": "92.8"
+          },
+          "ARL-CNN": {
+            "AC": "86.4",
+            "SE": "76.3",
+            "SP": "88.2",
+            "AUC": "91.7"
+          },
+          "SSAC": {
+            "AC": "86.2",
+            "SE": "73.6",
+            "SP": "91.0",
+            "AUC": "91.6"
+          },
+          "SDL": {
+            "AC": "90.6",
+            "SE": "null",
+            "SP": "null",
+            "AUC": "91.3"
+          },
+          "MWNL-CLS": {
+            "AC": "76.3",
+            "SE": "56.4",
+            "SP": "76.0",
+            "AUC": "91.7"
+          },
+          "MBDCNN": {
+            "AC": "90.4",
+            "SE": "78.5",
+            "SP": "93.0",
+            "AUC": "null"
+          }
+        },
+        "notes": "CL-DCNN achieved the highest AC, SP, and AUC. It improved AUC by 0.9%, SP by 0.4%, and AC by 0.1% compared to the best baseline (SDL or MBDCNN depending on metric)."
+      },
+      "ablation_study_segmentation": {
+        "metric": "JA, DI, Pixel-AC, Pixel-SE, Pixel-SP",
+        "models": {
+          "Base Model (No CAMs, No PLs)": {
+            "JA": "78.3",
+            "DI": "86.0",
+            "Pixel-AC": "94.1",
+            "Pixel-SE": "83.9",
+            "Pixel-SP": "97.7"
+          },
+          "With CAMs (No PLs)": {
+            "JA": "78.9",
+            "DI": "86.5",
+            "Pixel-AC": "94.3",
+            "Pixel-SE": "85.0",
+            "Pixel-SP": "96.7"
+          },
+          "CL-DCNN (With CAMs, With PLs)": {
+            "JA": "79.1",
+            "DI": "86.7",
+            "Pixel-AC": "94.1",
+            "Pixel-SE": "86.5",
+            "Pixel-SP": "95.9"
+          }
+        },
+        "notes": "Using CAMs and reliable pseudo-labels improved average JA by 0.8%, DI by 0.7%, and Pixel-SE by 2.6% compared to the base model."
+      },
+      "ablation_study_classification_masks": {
+        "metric": "AC, SE, SP, AUC",
+        "models": {
+          "No Mask": {
+            "AC": "89.8",
+            "SE": "70.1",
+            "SP": "94.3",
+            "AUC": "92.8"
+          },
+          "With Teacher-SN Mask": {
+            "AC": "90.0",
+            "SE": "65.2",
+            "SP": "95.5",
+            "AUC": "93.5"
+          },
+          "With Student-SN Mask": {
+            "AC": "90.7",
+            "SE": "70.8",
+            "SP": "94.7",
+            "AUC": "93.7"
+          }
+        },
+        "notes": "Using masks generated by student-SN improved classification performance by 0.9 of AC, 0.7 of SE, and 0.9 of AUC compared to no mask."
+      }
+    },
+    "ISIC Archive": {
+      "segmentation": {
+        "metric": "null",
+        "models": {},
+        "notes": "The paper did not report quantitative segmentation results for the ISIC Archive dataset. It was used as unlabeled data to generate pseudo-labels for the segmentation network training."
+      },
+      "classification": {
+        "metric": "null",
+        "models": {},
+        "notes": "The paper did not report quantitative classification results specifically for the ISIC Archive dataset. It was used to expand the disease-CN’s training data."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "CL-DCNN (Collaborative Learning Deep Convolutional Neural Networks)",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "components": [
+        "teacher-SN (Segmentation Network)",
+        "student-SN (Segmentation Network)",
+        "quality-CN (Classification Network for pseudo-label screening)",
+        "disease-CN (Classification Network for final diagnosis)"
+      ],
+      "framework": "Teacher-student learning framework with self-training",
+      "mechanisms": [
+        "Class Activation Maps (CAMs) generated by disease-CN to improve segmentation location ability",
+        "Lesion masks from student-SN concatenated with images as input to disease-CN to improve classification recognition ability",
+        "Reliable pseudo-labels generated by teacher-SN and screened by quality-CN for student-SN self-training"
+      ],
+      "disease_CN_structure": "Global average pooling followed by a randomly initialized fully connected layer with three neurons and softmax activation function",
+      "quality_CN_structure": "Roughly the same as disease-CN"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "initial_learning_rate": 0.0001,
+      "max_iterations": 500,
+      "data_augmentation": [
+        "Random affine transformation",
+        "Vertical flip",
+        "Horizontal flip"
+      ],
+      "validation_monitor": "ISIC 2017 validation set used to monitor convergence and terminate if overfitting occurs",
+      "pseudo_label_generation": "Teacher-SN checkpoints (k=5) used to generate pseudo-labels for unlabeled ISIC Archive data; quality-CN screens reliable pseudo-labels based on similarity to ground truth"
+    },
+    "classification_or_output_head": {
+      "segmentation_output": "Pixel-level lesion masks",
+      "classification_output": "Three-class diagnosis (melanoma, mole/nevus, seborrheic keratosis) via softmax"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "CL-DCNN (Collaborative Learning Deep Convolutional Neural Networks)",
+    "teacher-SN (Segmentation Network)",
+    "student-SN (Segmentation Network)",
+    "quality-CN (Classification Network)",
+    "disease-CN (Classification Network)",
+    "FCN",
+    "U-Net",
+    "DAGAN",
+    "ENGNet",
+    "NCRNet",
+    "AG-Net",
+    "MultiResUNet",
+    "Xception",
+    "SSAC",
+    "ARL-CNN",
+    "SDL",
+    "MWNL-CLS",
+    "MBDCNN"
+  ],
+  "preprocessing_techniques": [
+    "Random affine transformation",
+    "Vertical flip",
+    "Horizontal flip",
+    "Concatenation of segmentation masks with images along the channel dimension as input to the classification network"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random affine transformation",
+      "details": "Applied during preprocessing to increase data diversity and prevent overfitting."
+    },
+    {
+      "technique": "Vertical flip",
+      "details": "Applied during preprocessing to increase data diversity and prevent overfitting."
+    },
+    {
+      "technique": "Horizontal flip",
+      "details": "Applied during preprocessing to increase data diversity and prevent overfitting."
+    }
+  ],
+  "conclusions": [
+    "The proposed Collaborative Learning Deep Convolutional Neural Networks (CL-DCNN) model effectively leverages the correlation between segmentation and classification tasks to improve performance under conditions of limited annotation data.",
+    "The CL-DCNN model achieved a Jaccard index of 79.1% for skin lesion segmentation and an average Area Under the Curve (AUC) of 93.7% for skin disease classification on the ISIC 2017 dataset.",
+    "The CL-DCNN model outperformed advanced existing skin lesion segmentation methods (such as NCRNet, U-Net, and FCN) and classification methods (such as Xception, SDL, and MBDCNN) in terms of key performance metrics.",
+    "The integration of Class Activation Maps (CAMs) significantly improved the segmentation network's ability to locate lesion areas, resulting in an average improvement in Jaccard Index (JA) of 0.8%, Dice Index (DI) of 0.7%, and pixel-wise sensitivity (Pixel-SE) of 2.6% compared to the base model.",
+    "The use of reliable pseudo-labels generated via a self-training method and screened by a quality classification network allowed the segmentation network to learn from unlabeled data, reducing the dependency on extensive pixel-level annotations.",
+    "Incorporating lesion segmentation masks into the classification network improved its recognition ability, with masks generated by the student segmentation network improving classification accuracy (AC) by 0.9%, sensitivity (SE) by 0.7%, and AUC by 0.9% compared to using no masks.",
+    "The study demonstrates that accurate segmentation masks are crucial for enhancing classification performance, as they provide essential location and contour information that helps the classification network focus on discriminative lesion features."
+  ],
+  "important_remarks": [
+    "The paper explicitly states that the model's generalization is limited and it is 'challenging to apply to clinical practice' because attempts to apply the model to other data resulted in 'not ideal' results.",
+    "The study lacks external validation on independent datasets beyond ISIC 2017 and ISIC Archive, relying on these specific benchmarks which may introduce dataset bias.",
+    "No statistical hypothesis testing (e.g., p-values) was performed; performance comparisons rely solely on point estimates of metrics like Jaccard index and AUC.",
+    "The classification task suffers from class imbalance, particularly for seborrheic keratosis (32 cases in ISIC Archive), which may affect the robustness of the classification results for this minority class.",
+    "The ISIC Archive dataset was used as unlabeled data for pseudo-label generation without explicit ground-truth segmentation labels, introducing potential noise if the pseudo-labels are incorrect.",
+    "The paper does not report sensitivity and specificity for the SDL baseline in the classification results, making direct comparison for those specific metrics incomplete for that model."
+  ]
+}

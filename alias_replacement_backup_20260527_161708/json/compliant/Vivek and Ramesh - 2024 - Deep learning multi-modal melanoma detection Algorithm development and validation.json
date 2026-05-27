@@ -1,0 +1,248 @@
+{
+  "file_name": "Vivek and Ramesh - 2024 - Deep learning multi-modal melanoma detection Algorithm development and validation.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed and validated a multimodal deep learning algorithm for melanoma detection in dermatology. The methods involved training three deep learning models (ResNet50, InceptionV3, and VGG16) using transfer learning on patient image data, training a deep learning model on patient metadata, and combining these predictions using nonlinear least squares regression. The study achieved 88% accuracy on the HAM10000 dataset for distinguishing melanoma from seborrheic keratosis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as an 'Original Paper' and describes the development and validation of a novel multimodal deep learning algorithm. It details specific methods including training models (ResNet50, InceptionV3, VGG16) on the HAM10000 dataset, using nonlinear least squares regression to combine predictions, and reporting original experimental results such as 88% accuracy."
+  },
+  "title": "Deep Learning Multi-Modal Melanoma Detection: Algorithm Development and Validation",
+  "authors": [
+    "Nithika Vivek",
+    "Karthik Ramesh"
+  ],
+  "doi": "10.2196/66561",
+  "journal": "JMIR AI",
+  "year": 2025,
+  "article_type": "Original Paper",
+  "brief_summary": "This study developed and validated a multimodal deep learning algorithm to distinguish between melanoma and seborrheic keratosis, addressing diagnostic challenges in older patients. The methodology involved training three transfer learning image models (ResNet50, InceptionV3, VGG16) and a metadata model on the HAM10000 dataset, then combining their predictions using nonlinear least squares regression. The combined model achieved an accuracy of 88% (195/221 classified correctly) on the test data. The authors noted that incorporating metadata was key to simultaneously reducing false-negative and false-positive rates compared to image-only models. The results suggest this approach could facilitate earlier melanoma diagnosis through accessible applications.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class (malignant)",
+      "details": "The primary malignant class studied. The model was trained to distinguish melanoma from seborrheic keratosis using the HAM10000 dataset. Predictions >0.5 were classified as melanoma."
+    },
+    {
+      "lesion_type": "Seborrheic keratosis",
+      "paper_terms": [
+        "seborrheic keratosis"
+      ],
+      "role": "Target class (benign/comparator)",
+      "details": "The primary benign class studied, chosen due to its visual similarity to melanoma in older patients. Predictions <0.5 were classified as seborrheic keratosis. The dataset contained 100 images from this class in the cleaned subset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification between melanoma and seborrheic keratosis",
+        "primary": true,
+        "details": "The model predicts discrete diagnostic categories (melanoma vs. seborrheic keratosis) using a cutoff of 0.5 on SoftMax probabilities. Predictions >0.5 are classified as malignant (melanoma) and <0.5 as benign (seborrheic keratosis). The study reports accuracy, sensitivity, specificity, and confusion matrices for this binary classification task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000",
+      "description": "A publicly available, open-source dataset of dermatoscopic images. The data was sourced from the practice of Cliff Rosendahl (2008-2017) and the University of Vienna (1988). The original dataset contained 7756 images from Vienna and images from Rosendahl's practice. For this study, images were deduplicated by lesion ID, filtered for quality (DPI >72, zoom ~600x800px), and restricted to two classes: melanoma and seborrheic keratosis. The final cleaned subset consisted of 2210 images.",
+      "classes_used": [
+        "Melanoma",
+        "Seborrheic keratosis"
+      ],
+      "counts": {
+        "total": 2210,
+        "training": 1547,
+        "validation": 442,
+        "testing": 221,
+        "per_class": {
+          "Melanoma": 1105,
+          "Seborrheic keratosis": 1105
+        }
+      },
+      "use": {
+        "training": "Used to train three transfer learning image models (ResNet50, InceptionV3, VGG16), one author-designed image model, and a metadata model. Data was augmented and normalized.",
+        "validation": "Used to validate the models. The simple author-designed model achieved 83.4% accuracy on validation data.",
+        "testing": "Used to evaluate the final combined model performance. The combined model achieved 88% accuracy (195/221 classified correctly) on the test set.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "True-positive rate",
+    "False-positive rate",
+    "False-negative rate",
+    "Area under the curve (AUC)",
+    "ROC curves",
+    "Confusion matrices"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Nonlinear least squares (NLS) regression",
+      "purpose": "To determine optimal weights for combining predictions from the best-performing image model and the metadata model.",
+      "type": "Regression"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) curves",
+      "purpose": "To determine a cutoff point that optimizes sensitivity and specificity, and to measure accuracy via the Area Under the Curve (AUC).",
+      "type": "Diagnostic test evaluation"
+    },
+    {
+      "method": "Confusion matrices",
+      "purpose": "To report classification performance metrics including sensitivity, specificity, true-positive rate, false-positive rate, and false-negative rate.",
+      "type": "Classification evaluation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Model performance was evaluated using accuracy, sensitivity, specificity, and ROC curves without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "validation_split": {
+        "metric": "Accuracy",
+        "models": {
+          "ResNet50": {
+            "accuracy": "54.29%"
+          },
+          "InceptionV3": {
+            "accuracy": "67.04%"
+          },
+          "VGG16": {
+            "accuracy": "61.13%"
+          },
+          "Self-Built Model (pre-data cleaning)": {
+            "accuracy": "78.62%"
+          },
+          "Self-Built Model (post-data cleaning)": {
+            "accuracy": "83.4%"
+          }
+        },
+        "notes": "The self-built model achieved the highest validation accuracy of 83.4% (369/442 images classified correctly). Transfer learning models showed signs of overfitting with high training accuracy but lower validation accuracy. The self-built model also had the highest AUC of 83% on validation data."
+      },
+      "testing_split": {
+        "metric": "Sensitivity, Specificity, Testing Accuracy",
+        "models": {
+          "Image-based model": {
+            "sensitivity": "0.82",
+            "specificity": "0.84",
+            "testing_accuracy": "0.83"
+          },
+          "Metadata-based model": {
+            "sensitivity": "0.76",
+            "specificity": "0.52",
+            "testing_accuracy": "0.64"
+          },
+          "Combined model": {
+            "sensitivity": "0.875",
+            "specificity": "0.875",
+            "testing_accuracy": "0.875"
+          }
+        },
+        "notes": "The combined model achieved an accuracy of 88% (195/221 classified correctly) in the abstract, while Table 3 reports 0.875 (194/221). The combined model reduced both false-negative and false-positive rates simultaneously compared to image-only or metadata-only models. A cutoff of 0.5 was used for prediction."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multimodal system combining three transfer learning image models (ResNet50, InceptionV3, VGG16), one author-designed convolutional neural network, and a metadata model, combined via nonlinear least squares (NLS) regression.",
+    "pretraining": "Transfer learning models (ResNet50, InceptionV3, VGG16) were pretrained and frozen to keep existing memory; additional trainable layers were added for fine-tuning.",
+    "input_size": "Images filtered for DPI >72 and approximate zoom ~600x800px; metadata standardized using StandardScaler.",
+    "architecture_details": {
+      "author_designed_image_model": {
+        "structure": "3 convolutional layers with max pooling after each, one flatten layer, and 2 dense layers.",
+        "output_layer": "SoftMax layer generating probability of malignant class."
+      },
+      "transfer_learning_models": {
+        "models": [
+          "ResNet50",
+          "InceptionV3",
+          "VGG16"
+        ],
+        "details": "ResNet50 uses residual layers connecting output to input layers; InceptionV3 uses parallel convolutional layers; VGG16 uses smaller kernel strides."
+      },
+      "metadata_model": {
+        "structure": "Simple model with only dense (fully connected) layers."
+      }
+    },
+    "training_details": {
+      "epochs": 500,
+      "regularization": {
+        "dropout_rate": 0.3,
+        "l2_weight": 0.01
+      },
+      "data_augmentation": true,
+      "normalization": true,
+      "optimization_method": "Backpropagation for author-designed model; transfer learning models frozen then fine-tuned."
+    },
+    "classification_or_output_head": {
+      "image_models": "SoftMax layer for binary classification (melanoma vs seborrheic keratosis).",
+      "metadata_model": "Dense layers outputting probability.",
+      "combination_method": "Nonlinear least squares (NLS) regression to determine optimal weights (e.g., 0.75 for image, 0.25 for metadata) for combined prediction."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet50",
+    "InceptionV3",
+    "VGG16",
+    "Author-designed model",
+    "Metadata-based model",
+    "Combined model",
+    "ResNet-50",
+    "VGG",
+    "InceptionV3",
+    "ResNet-50 and Inception V3",
+    "ResNet-50 and VGG",
+    "ID3",
+    "BottleNeckCSP",
+    "ResNet152",
+    "Dual Bayesian ResNet50",
+    "MediTab"
+  ],
+  "preprocessing_techniques": [
+    "Deduplication based on lesion ID to prevent train/test overlap",
+    "Filtering for image quality: DPI > 72 and approximate zoom ~600x800px",
+    "Removal of images not classified as melanoma or seborrheic keratosis",
+    "Data augmentation",
+    "Normalization to ensure equal scaling of pixel values",
+    "Standardization of metadata using StandardScaler",
+    "Manual mapping of categorical metadata columns to numerical values"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Data augmentation",
+      "details": "The paper states that all splits of data (train, test, and validation) were augmented to reduce overfitting. However, it does not report specific geometric transforms, color transforms, sampling methods, or synthetic data generation techniques used."
+    }
+  ],
+  "conclusions": [
+    "The combined multimodal deep learning model achieved an accuracy of 88% (195/221 classified correctly) on test data from the HAM10000 dataset for distinguishing between melanoma and seborrheic keratosis.",
+    "Incorporating patient metadata alongside image data was key to simultaneously reducing both false-negative and false-positive rates, thereby improving overall model accuracy compared to image-only or metadata-only models.",
+    "The author-designed image model outperformed transfer learning models (ResNet50, InceptionV3, VGG16) on validation data, achieving 83.4% accuracy, whereas transfer learning models showed signs of overfitting with high training accuracy but lower validation accuracy.",
+    "The study suggests that this multimodal approach could facilitate earlier melanoma diagnosis through accessible applications, potentially eliminating late diagnosis.",
+    "Future experiments should incorporate text data (subjective patient data) to better reflect real hospital settings and improve model generalizability."
+  ],
+  "important_remarks": [
+    "The study is limited to a binary classification task (melanoma vs. seborrheic keratosis) using only the HAM10000 dataset, lacking external validation on diverse populations or other dermatological datasets.",
+    "The model performs poorly on patients aged 40 and younger and on lesions in unusual anatomical locations (e.g., eyelids) due to a lack of training data from these demographics and areas.",
+    "Transfer learning models (ResNet50, InceptionV3, VGG16) showed signs of overfitting with high training accuracy but lower validation accuracy compared to the author-designed model.",
+    "The paper does not report formal statistical significance testing (p-values); model performance was evaluated using accuracy, sensitivity, specificity, and ROC curves without hypothesis testing.",
+    "There is a discrepancy in the reported test accuracy: the abstract states 88% (195/221), while Table 3 reports 87.5% (194/221).",
+    "The study relies on a small test set (221 images) and does not report out-of-sample testing in real-world clinical settings, limiting generalizability claims.",
+    "The metadata model used only structured data; the authors acknowledge that incorporating subjective text data (e.g., patient anecdotes, pain scale) is necessary to reflect real hospital settings.",
+    "The study was conducted by authors with limited institutional resources (high school and internal medicine resident), and future work acknowledges the need for resource-efficient training approaches for broader deployment."
+  ]
+}

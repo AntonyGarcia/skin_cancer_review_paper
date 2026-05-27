@@ -1,0 +1,314 @@
+{
+  "file_name": "osman_2022_skinformer_robust_vision_transformer_for_automatic_skin_disease_ident.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a Vision Transformer model (SkinFormer) based on the BEiT architecture for automated skin disease classification. It employs deep learning techniques including transfer learning, data augmentation (RandAugment, CutMix, MixUp), and optimization (LAMB, AdamW) to achieve a top-1 accuracy of 84.43% on a combined dataset of 48,322 images from SD-198, Fitzpatrick17k, and ISIC 2019."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work on automated skin disease classification using a Vision Transformer model (SkinFormer). It details a specific methodology including data pooling (SD-198, Fitzpatrick17k, ISIC 2019), model architecture (BEiT), training procedures (optimizers, augmentations), and reports new empirical results (84.43% top-1 accuracy). It is published in the proceedings of the 10th International Japan-Africa Conference on Electronics, Communications, and Computations (JAC-ECC)."
+  },
+  "title": "SkinFormer: Robust Vision Transformer for Automatic Skin Disease Identification",
+  "authors": [
+    "Mohamed Osman",
+    "Mohamed Kamel",
+    "Fatma Mohammed",
+    "Tarek Hussein"
+  ],
+  "doi": "10.1109/JAC-ECC56395.2022.10044005",
+  "journal": "2022 10th International Japan-Africa Conference on Electronics, Communications, and Computations (JAC-ECC)",
+  "year": 2022,
+  "article_type": "Conference paper",
+  "brief_summary": "This study presents SkinFormer, a robust vision transformer model for automated skin disease classification, addressing the challenge of misdiagnosis and limited access to dermatologists. The authors fine-tuned a BEiT architecture using transfer learning on a pooled dataset of 48,322 images from SD-198, Fitzpatrick17k, and ISIC 2019. To ensure generalization despite dataset noise and diversity, the model employed extensive data augmentation techniques like RandAugment, CutMix, and MixUp, along with the LAMB optimizer. The model was evaluated on a validation set, achieving a top-1 accuracy of 84.43% and a top-5 accuracy of 93.89%. Attention map visualizations confirmed that the model effectively focuses on diseased skin regions even in out-of-domain scenarios. The authors conclude that their approach yields excellent accuracy and robustness, publishing the model weights under an open-source license.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Mentioned in the abstract as a serious skin disease that may remain misdiagnosed. Included in the pooled dataset (SD-198, Fitzpatrick17k, ISIC 2019) used for classification."
+    },
+    {
+      "lesion_type": "Actinic Keratosis",
+      "paper_terms": [
+        "actinic keratosis"
+      ],
+      "role": "Target class",
+      "details": "Shown in Figure 3 as an example of an out-of-domain image where the model's attention map effectively segments the diseased region."
+    },
+    {
+      "lesion_type": "Other Skin Lesions/Diseases",
+      "paper_terms": [
+        "skin diseases",
+        "diseased skin regions"
+      ],
+      "role": "Target class",
+      "details": "The study classifies a total of 262 disease classes derived from the pooled datasets (SD-198, Fitzpatrick17k, ISIC 2019) after deduplication and normalization by a professional dermatologist. Specific class names beyond melanoma and actinic keratosis are not listed in the provided text."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Discrete skin disease labels (262 classes)",
+        "primary": true,
+        "details": "The paper performs automated skin disease classification from images. The model predicts one of 262 discrete disease classes derived from pooled datasets (SD-198, Fitzpatrick17k, ISIC 2019). The task is evaluated using top-1 accuracy (84.43%) and top-5 accuracy (93.89%), and optimized using cross-entropy loss for multi-class classification."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Pooled Dataset (SD-198, Fitzpatrick17k, ISIC 2019)",
+      "description": "A combined dataset created by pooling three public skin disease image datasets: SD-198, Fitzpatrick17k, and ISIC 2019 Task 1. The images were deduplicated using cosine similarity on CNN embeddings and normalized by a professional dermatologist to resolve label duplicates. Fitzpatrick17k was noted as scraped from the internet with high noise, while SD-198 contained images from consumer-grade hardware like smartphones.",
+      "classes_used": [
+        "262 distinct skin disease classes"
+      ],
+      "counts": {
+        "total": 48322,
+        "training": 43489.8,
+        "validation": null,
+        "testing": 4832.2,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the SkinFormer model (90% of the pooled data).",
+        "validation": "Not explicitly reported as a separate split; accuracy metrics were calculated on the testing set.",
+        "testing": "Used for final evaluation (10% stratified random split of the pooled data).",
+        "other": "The BEiT model was pre-trained on ImageNet 21k (mentioned as a source for checkpoints), but this was not used as the primary dataset for the skin disease task."
+      }
+    },
+    {
+      "name": "SD-198",
+      "description": "A public dataset of clinical skin disease images, primarily composed of images taken with consumer-grade hardware such as smartphone cameras.",
+      "classes_used": [
+        "Subset of the 262 classes in the pooled dataset"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Included in the pooled dataset for training.",
+        "validation": null,
+        "testing": "Included in the pooled dataset for testing.",
+        "other": null
+      }
+    },
+    {
+      "name": "Fitzpatrick17k",
+      "description": "A public dataset scraped from the internet, noted for having a high amount of dataset noise. It contains diverse ethnic types.",
+      "classes_used": [
+        "Subset of the 262 classes in the pooled dataset"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Included in the pooled dataset for training.",
+        "validation": null,
+        "testing": "Included in the pooled dataset for testing.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2019 Task 1",
+      "description": "A larger version of the ISIC 2018 dataset, part of the International Skin Imaging Collaboration challenge.",
+      "classes_used": [
+        "Subset of the 262 classes in the pooled dataset"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Included in the pooled dataset for training.",
+        "validation": null,
+        "testing": "Included in the pooled dataset for testing.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Top-1 Accuracy",
+    "Top-5 Accuracy",
+    "Recall",
+    "Precision",
+    "F1-score",
+    "Validation Accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Stratified random split",
+      "purpose": "To divide the pooled dataset into training (90%) and testing (10%) sets to ensure representative distribution of classes in both splits.",
+      "type": "Data splitting"
+    },
+    {
+      "method": "Cosine similarity",
+      "purpose": "To perform image deduplication by comparing embeddings extracted from a pretrained CNN model, ensuring no duplicate images remained in the dataset splits.",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "Label smoothing",
+      "purpose": "Used as a regularization technique during training to prevent overfitting and improve generalization, with a value of 0.1.",
+      "type": "Regularization"
+    },
+    {
+      "method": "Weight decay",
+      "purpose": "Used as a regularization technique during optimization, with a value of 0.05.",
+      "type": "Regularization"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Results are reported as point estimates (e.g., accuracy percentages) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Pooled Dataset (SD-198, Fitzpatrick17k, ISIC 2019)": {
+      "split": "Validation/Test (10% stratified random split)",
+      "models": {
+        "SkinFormer (BEiT Large)": {
+          "Top-1 Accuracy": "84.43%",
+          "Top-5 Accuracy": "93.89%",
+          "Average Recall": "76.24%",
+          "Weighted Average Recall": "84.43%",
+          "Average Precision": "77.80%",
+          "Weighted Average Precision": "84.89%",
+          "Average F1-score": "75.34%",
+          "Weighted Average F1-score": "84.15%"
+        }
+      },
+      "notes": "The model was evaluated on a combined dataset of 48,322 images with 262 disease classes. The LAMB optimizer outperformed AdamW by roughly 3% in validation accuracy, which in turn outperformed plain Adam by roughly 5%. RandAugment and Label Smoothing were the most effective augmentations for validation accuracy. CutMix and MixUp did not produce significant contributions to final accuracy. GSAM resulted in faster convergence but no increase in validation accuracy. Comparing BEiT Base (87m parameters) and BEiT Large (304m parameters) showed a consistent drop in performance of around 3% accuracy for the larger model."
+    }
+  },
+  "architecture_used": {
+    "main_model": "SkinFormer (based on BEiT architecture)",
+    "pretraining": "Pre-trained on ImageNet 21k using masked image modeling on discretized image tokens from a discrete VAE; checkpoints were publicly available and fine-tuned via transfer learning.",
+    "input_size": "512x512 (pre-processed via center-cropping and bicubic rescaling); experiments also tested 224, 256, and 386.",
+    "architecture_details": {
+      "backbone": "Vision Transformer (ViT) with patch embedding layer, multi-headed attention, feed-forward layers, LayerScale, and relative positional bias.",
+      "model_variants_tested": [
+        "BEiT Base (87m parameters)",
+        "BEiT Large (304m parameters)"
+      ],
+      "final_model": "BEiT Large"
+    },
+    "training_details": {
+      "optimizer": "LAMB (best performing), also tested AdamW and Adam.",
+      "loss_function": "Cross-entropy loss.",
+      "learning_rate_schedule": "Cosine one cycle schedule (peak learning rate 5e-3); also tested cyclical learning rates and cosine decay.",
+      "batch_size": "64 per device (total batch size 512 across v3-8 TPU-VMs).",
+      "regularization": [
+        "Label smoothing (value 0.1)",
+        "Weight decay (value 0.05)",
+        "RandAugment (n=2, m=9)",
+        "CutOut (probability 25%)",
+        "CutMix (probability 100%)",
+        "MixUp (probability 80%)",
+        "Random blurs (probability 10%)",
+        "Random horizontal and vertical flips"
+      ],
+      "additional_techniques": "Surrogate Gap Sharpness Aware Minimization (GSAM) with rho_max=0.3, rho_min=0.01, alpha=0.02, lr_max=5e-3, lr_min=5e-6."
+    },
+    "classification_or_output_head": {
+      "type": "Standard classification head for 262 disease classes",
+      "details": "Predicts probability distribution over 262 discrete skin disease classes."
+    },
+    "approximate_parameters": "304 million (for the final BEiT Large model); 87 million (for BEiT Base variant)."
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "SkinFormer",
+    "BEiT Large",
+    "BEiT Base",
+    "BEiT",
+    "Vision Transformer",
+    "Transformer",
+    "MobileNet CNN",
+    "Eff2Net",
+    "BERT"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to 512x512 via center-cropping followed by bicubic rescaling",
+    "Label normalization by a professional dermatologist to resolve duplicate labels across datasets",
+    "Image deduplication using cosine similarity on embeddings extracted from a pretrained CNN model",
+    "Stratified random split of data into 90% training and 10% testing sets",
+    "Random patch cropping during training for desired image sizes (e.g., 224, 256, 386, 512)",
+    "Random horizontal and vertical image flips",
+    "Random blurs (applied with 10% probability)",
+    "CutOut (applied with 25% probability, replacing removed portions with random noise)",
+    "CutMix (applied with 100% probability)",
+    "MixUp (applied with 80% probability)",
+    "RandAugment (n=2, m=9)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "RandAugment",
+      "details": "Used with n=2 and m=9 for most experiments; similar results found with n=4 and m=5. Identified as one of the most effective augmentations for validation accuracy."
+    },
+    {
+      "technique": "Label Smoothing",
+      "details": "Applied with a value of 0.1. Identified as one of the most effective augmentations for validation accuracy."
+    },
+    {
+      "technique": "CutOut",
+      "details": "Applied with a probability of 25%, replacing removed portions with random noise."
+    },
+    {
+      "technique": "CutMix",
+      "details": "Applied with a probability of 100%. Did not produce significant contribution to final accuracy."
+    },
+    {
+      "technique": "MixUp",
+      "details": "Applied with a probability of 80%. Did not produce significant contribution to final accuracy."
+    },
+    {
+      "technique": "Random Blurs",
+      "details": "Applied with a probability of 10%."
+    },
+    {
+      "technique": "Random Horizontal and Vertical Flips",
+      "details": "Applied as part of the augmentation pipeline."
+    },
+    {
+      "technique": "Random Patch Cropping",
+      "details": "Performed during all training given a desired image size (e.g., 224, 256, 386, 512)."
+    }
+  ],
+  "conclusions": [
+    "The proposed SkinFormer model, a robust vision transformer based on the BEiT architecture, achieves a top-1 accuracy of 84.43% and a top-5 accuracy of 93.89% on a combined dataset of 48,322 images from SD-198, Fitzpatrick17k, and ISIC 2019.",
+    "The model demonstrates strong generalization capabilities, effectively focusing on diseased skin regions even in out-of-domain scenarios and on data from diverse ethnic types and consumer-grade hardware.",
+    "The choice of optimizer significantly impacts performance, with the LAMB optimizer outperforming AdamW by roughly 3% and plain Adam by roughly 5% in validation accuracy.",
+    "RandAugment and Label Smoothing were identified as the most effective data augmentation techniques for improving validation accuracy, while CutMix and MixUp did not contribute significantly to final accuracy.",
+    "Surrogate Gap Sharpness Aware Minimization (GSAM) resulted in faster convergence but did not increase validation accuracy.",
+    "Contrary to expectations, increasing image size did not improve classification accuracy, likely due to the resulting decrease in batch size caused by limited device memory.",
+    "There was a consistent and strong drop in performance of around 3% accuracy when comparing the BEiT Large model (304m parameters) to the BEiT Base model (87m parameters).",
+    "The authors acknowledge that further work is needed to push skin disease classification performance, suggesting that training on hundreds of thousands of pictures in unsupervised, semi-supervised, or self-supervised settings could yield better results.",
+    "The pre-trained model weights are published under an open-source license to benefit society and future research."
+  ],
+  "important_remarks": [
+    "The study relies on a pooled dataset (SD-198, Fitzpatrick17k, ISIC 2019) where Fitzpatrick17k is noted to have high noise due to being scraped from the internet, and SD-198 contains images from consumer-grade hardware, introducing potential data quality and domain bias.",
+    "Label normalization was performed by a professional dermatologist to resolve duplicate labels across datasets, which is a critical preprocessing step for data integrity but limits reproducibility without access to the specific normalization protocol.",
+    "The model was evaluated on a single stratified random split (10% testing), lacking external validation on independent, unseen datasets, which limits the assessment of true generalization to new clinical environments.",
+    "Contrary to typical expectations, increasing image size did not improve accuracy, likely due to memory constraints reducing the effective batch size, and the larger BEiT Large model (304m parameters) performed worse than the smaller BEiT Base model (87m parameters) by approximately 3%.",
+    "The paper does not report statistical significance testing (p-values or confidence intervals) for the reported accuracy metrics, relying solely on point estimates.",
+    "The authors acknowledge that the current dataset size (48,322 images) is small relative to the model size, suggesting that unsupervised or self-supervised training on hundreds of thousands of images is necessary for further performance gains.",
+    "Data leakage risks are mitigated by deduplication using cosine similarity on CNN embeddings, but the threshold for removal was determined after manual verification, introducing potential subjectivity."
+  ]
+}

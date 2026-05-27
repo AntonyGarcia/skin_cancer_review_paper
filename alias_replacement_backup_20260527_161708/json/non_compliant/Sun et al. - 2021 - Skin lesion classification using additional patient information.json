@@ -1,0 +1,499 @@
+{
+  "file_name": "Sun et al. - 2021 - Skin lesion classification using additional patient information.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses Convolutional Neural Networks (CNNs), specifically EfficientNet architectures, to classify skin lesions (melanoma, nevus, basal cell carcinoma, etc.) from dermoscopic images. The method incorporates additional patient metadata (age, sex, anatomical site) into the deep learning model and utilizes techniques like Test Time Augmentation (TTA) and Grad-CAM for visualization and performance improvement."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'Research Article' and presents original experimental work. It describes a proposed method for skin lesion classification using EfficientNet architectures and patient metadata, details the datasets used (ISIC 2018/2019, MED-NODE, etc.), outlines the CNN training methodology, and reports new performance results (e.g., balanced multiclass accuracy of 88.7% and 89.5%) on challenge test sets."
+  },
+  "title": "Skin Lesion Classification Using Additional Patient Information",
+  "authors": [
+    "Qilin Sun",
+    "Chao Huang",
+    "Minjie Chen",
+    "Hui Xu",
+    "Yali Yang"
+  ],
+  "doi": "10.1155/2021/6673852",
+  "journal": "BioMed Research International",
+  "year": 2021,
+  "article_type": "Research Article",
+  "brief_summary": "This study proposes a simplified deep learning method for skin lesion classification using dermoscopic images and additional patient metadata, including age, sex, and anatomical site. The authors utilize EfficientNet architectures pretrained on ImageNet, integrating patient information and data augmentation features as input to improve classification performance. The model was evaluated on the ISIC 2018 and ISIC 2019 skin lesion classification challenge datasets, which included images from sources such as HAM10000, MED-NODE, and PH2. Key results demonstrated that the proposed single model achieved a balanced multiclass accuracy of 88.7% on the ISIC 2018 test set, while an embedding solution reached 89.5%, ranking as the top algorithm on the live leaderboard. The study also integrated Test Time Augmentation (TTA) and Grad-CAM to enhance inference accuracy and provide visual heat maps to assist clinicians in diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnosis classes presented in the HAM dataset and used in the ISIC 2018/2019 challenge experiments."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "melanocytic nevus",
+        "NV"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnosis classes presented in the HAM dataset and used in the ISIC 2018/2019 challenge experiments."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnosis classes presented in the HAM dataset and used in the ISIC 2018/2019 challenge experiments."
+    },
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma",
+      "paper_terms": [
+        "actinic keratosis",
+        "AK",
+        "AKIEC"
+      ],
+      "role": "Target class",
+      "details": "Listed as 'actinic keratosis (AK)' in the abstract and 'AKIEC' in the metrics tables for ISIC 2018/2019 datasets."
+    },
+    {
+      "lesion_type": "Benign Keratosis",
+      "paper_terms": [
+        "benign keratosis",
+        "BKL"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnosis classes presented in the HAM dataset and used in the ISIC 2018/2019 challenge experiments."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "dermatofibroma",
+        "DF"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnosis classes presented in the HAM dataset and used in the ISIC 2018/2019 challenge experiments."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "vascular lesion",
+        "VASC"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnosis classes presented in the HAM dataset and used in the ISIC 2018/2019 challenge experiments."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma",
+      "paper_terms": [
+        "SCC"
+      ],
+      "role": "Target class",
+      "details": "Included in the metrics tables for ISIC 2019 challenge results (Figure 2c, 2d), though not explicitly listed in the abstract's HAM dataset description."
+    },
+    {
+      "lesion_type": "Unknown",
+      "paper_terms": [
+        "UNK"
+      ],
+      "role": "Target class",
+      "details": "Included in the metrics tables for ISIC 2019 challenge results (Figure 2c, 2d)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories of skin lesions (melanoma, melanocytic nevus, basal cell carcinoma, actinic keratosis, benign keratosis, dermatofibroma, vascular lesion, squamous cell carcinoma, and unknown).",
+        "primary": true,
+        "details": "The paper explicitly states the goal is to 'classify skin lesions based on dermoscopic images to several diagnoses’ classes'. It reports balanced multiclass accuracy (BMCA), sensitivity, specificity, AUC, and average precision for multiple discrete classes. The model outputs predicted probabilities for class prediction (e.g., 'VASC prob = 0.9999'), which is standard for classification tasks."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2019 Challenge Dataset",
+      "description": "The primary dataset used for training, containing 25,331 dermoscopic images with patient metadata (age, anatomical site, sex). It served as the source for the ISIC 2018 challenge test set images.",
+      "classes_used": [
+        "melanoma (MEL)",
+        "melanocytic nevus (NV)",
+        "basal cell carcinoma (BCC)",
+        "actinic keratosis/intraepithelial carcinoma (AK/AKIEC)",
+        "benign keratosis (BKL)",
+        "dermatofibroma (DF)",
+        "vascular lesion (VASC)",
+        "squamous cell carcinoma (SCC)",
+        "unknown (UNK)"
+      ],
+      "counts": {
+        "total": 25331,
+        "training": 25331,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as the main training set. 16,888 images from this dataset were used as the test set for the ISIC 2018 challenge evaluation.",
+        "validation": null,
+        "testing": "16,888 images from this dataset were used as the test set for the ISIC 2018 challenge. The remaining images (25,331 - 16,888 = 8,443) were not explicitly split out for a separate validation set in the text, but the ISIC 2019 test set (1,572 images) was used for ISIC 2019 challenge evaluation.",
+        "other": "Source of images for the ISIC 2018 and ISIC 2019 challenge evaluations."
+      }
+    },
+    {
+      "name": "MED-NODE Dataset",
+      "description": "A public dataset of dermoscopic images used to augment the training data.",
+      "classes_used": [
+        "Not explicitly specified, but part of the multi-class skin lesion classification task"
+      ],
+      "counts": {
+        "total": 170,
+        "training": 170,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as extra training images (170 images).",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    },
+    {
+      "name": "Seven-Point Dataset",
+      "description": "A public dataset of dermoscopic images used to augment the training data.",
+      "classes_used": [
+        "Not explicitly specified, but part of the multi-class skin lesion classification task"
+      ],
+      "counts": {
+        "total": 533,
+        "training": 533,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as extra training images (533 images).",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    },
+    {
+      "name": "PH2 Dataset",
+      "description": "A public dataset of dermoscopic images used to augment the training data.",
+      "classes_used": [
+        "Not explicitly specified, but part of the multi-class skin lesion classification task"
+      ],
+      "counts": {
+        "total": 120,
+        "training": 120,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used as extra training images (120 images).",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2018 Challenge Test Set",
+      "description": "The test set for the ISIC 2018 skin lesion classification challenge, derived from the ISIC 2019 dataset.",
+      "classes_used": [
+        "melanoma (MEL)",
+        "melanocytic nevus (NV)",
+        "basal cell carcinoma (BCC)",
+        "actinic keratosis/intraepithelial carcinoma (AK/AKIEC)",
+        "benign keratosis (BKL)",
+        "dermatofibroma (DF)",
+        "vascular lesion (VASC)"
+      ],
+      "counts": {
+        "total": 16888,
+        "training": null,
+        "validation": null,
+        "testing": 16888,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for final evaluation and leaderboard ranking on the ISIC 2018 challenge.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2019 Challenge Test Set",
+      "description": "The test set for the ISIC 2019 skin lesion classification challenge, consisting of extra images not used in the ISIC 2018 test set.",
+      "classes_used": [
+        "melanoma (MEL)",
+        "melanocytic nevus (NV)",
+        "basal cell carcinoma (BCC)",
+        "actinic keratosis (AK)",
+        "benign keratosis (BKL)",
+        "dermatofibroma (DF)",
+        "vascular lesion (VASC)",
+        "squamous cell carcinoma (SCC)",
+        "unknown (UNK)"
+      ],
+      "counts": {
+        "total": 1572,
+        "training": null,
+        "validation": null,
+        "testing": 1572,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for final evaluation and leaderboard ranking on the ISIC 2019 challenge.",
+        "other": null
+      }
+    },
+    {
+      "name": "ImageNet",
+      "description": "A large-scale image dataset used for pretraining the EfficientNet backbone.",
+      "classes_used": [
+        "1000 ImageNet classes"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for pretraining the EfficientNet CNN architectures before fine-tuning on skin lesion data.",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Balanced Multiclass Accuracy (BMCA)",
+    "Sensitivity",
+    "Specificity",
+    "Area Under the Curve (AUC)",
+    "Average Precision",
+    "Accuracy",
+    "Dice Coefficient",
+    "Positive Predictive Value (PPV)",
+    "Negative Predictive Value (NPV)",
+    "AUC, Sens > 80%"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Balanced Multiclass Accuracy (BMCA)",
+      "purpose": "Primary metric for evaluating and comparing classification performance on the ISIC 2018 and ISIC 2019 challenge test sets.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Sensitivity",
+      "purpose": "Evaluation metric for classification performance, reported per class and as mean values.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Specificity",
+      "purpose": "Evaluation metric for classification performance, reported per class and as mean values.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Area Under the Curve (AUC)",
+      "purpose": "Evaluation metric for classification performance, reported per class and as mean values.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Average Precision",
+      "purpose": "Evaluation metric for classification performance, reported per class and as mean values.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Accuracy",
+      "purpose": "Evaluation metric for classification performance, reported per class and as mean values.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Dice Coefficient",
+      "purpose": "Evaluation metric for classification performance, reported per class and as mean values.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Positive Predictive Value (PPV)",
+      "purpose": "Evaluation metric for classification performance, reported per class and as mean values.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Negative Predictive Value (NPV)",
+      "purpose": "Evaluation metric for classification performance, reported per class and as mean values.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "AUC, Sens > 80%",
+      "purpose": "Evaluation metric for classification performance, reported per class and as mean values.",
+      "type": "Performance Metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using metrics such as Balanced Multiclass Accuracy (BMCA), Sensitivity, Specificity, and AUC, and compared against other methods via leaderboard rankings without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018 Challenge Test Set": {
+      "description": "Test set for the ISIC 2018 skin lesion classification challenge, derived from the ISIC 2019 dataset (16,888 images).",
+      "metrics": [
+        "Balanced Multiclass Accuracy (BMCA)",
+        "Sensitivity",
+        "Specificity",
+        "AUC"
+      ],
+      "models": {
+        "Our single model (FL)": {
+          "BMCA": "88.3%",
+          "Sensitivity": "76.1%",
+          "Specificity": "99.3%",
+          "AUC": "0.974"
+        },
+        "Our single model (CE)": {
+          "BMCA": "88.7%",
+          "Sensitivity": "83.0%",
+          "Specificity": "98.8%",
+          "AUC": "0.981"
+        },
+        "Our ensemble model": {
+          "BMCA": "89.5%",
+          "Sensitivity": "89.5%",
+          "Specificity": "98.1%",
+          "AUC": "0.982"
+        }
+      },
+      "notes": "The single model with cross-entropy loss achieved 88.7% BMCA, and the embedding solution (ensemble) achieved 89.5% BMCA, making it the first-ranked algorithm on the live leaderboard at the time of publication. Table 1(a) in Figure 2 provides per-class metrics for the single model: MEL AUC 0.981, NV AUC 0.946, BCC AUC 0.986, AKIEC AUC 0.999, BKL AUC 0.970, DF AUC 0.978, VASC AUC 0.990. Table 1(b) provides per-class metrics for the embedding model: MEL AUC 0.982, NV AUC 0.951, BCC AUC 0.986, AKIEC AUC 0.998, BKL AUC 0.974, DF AUC 0.977, VASC AUC 1.00."
+    },
+    "ISIC 2019 Challenge Test Set": {
+      "description": "Test set for the ISIC 2019 skin lesion classification challenge (1,572 images).",
+      "metrics": [
+        "Balanced Multiclass Accuracy (BMCA)",
+        "Sensitivity",
+        "Specificity",
+        "AUC"
+      ],
+      "models": {
+        "Our single model (FL)": {
+          "BMCA": "63.9%",
+          "Sensitivity": "48.8%",
+          "Specificity": "97.9%",
+          "AUC": "0.899"
+        },
+        "Our single model (CE)": {
+          "BMCA": "65.0%",
+          "Sensitivity": "55.3%",
+          "Specificity": "97.3%",
+          "AUC": "0.906"
+        },
+        "Our ensemble model": {
+          "BMCA": "66.2%",
+          "Sensitivity": "66.2%",
+          "Specificity": "95.2%",
+          "AUC": "0.915"
+        }
+      },
+      "notes": "Table 2(c) in Figure 2 provides per-class metrics for the single model: MEL AUC 0.906, NV AUC 0.914, BCC AUC 0.954, AK AUC 0.938, BKL AUC 0.915, DF AUC 0.897, VASC AUC 0.987, SCC AUC 0.917, UNK AUC 0.697. Table 2(d) provides per-class metrics for the embedding model: MEL AUC 0.915, NV AUC 0.918, BCC AUC 0.957, AK AUC 0.941, BKL AUC 0.919, DF AUC 0.906, VASC AUC 0.986, SCC AUC 0.959, UNK AUC 0.709. The paper notes that weighted cross-entropy criterion achieves higher BMCA than focal loss."
+    }
+  },
+  "architecture_used": {
+    "main_model": "EfficientNet (specifically EfficientNet-B4 for the single model, and an ensemble of EfficientNet-B3 and B4 for the embedding solution)",
+    "pretraining": "Pretrained on the ImageNet dataset",
+    "input_size": "300x300 for EfficientNet-B3; 380x380 for EfficientNet-B4",
+    "architecture_details": {
+      "backbone": "EfficientNet",
+      "metadata_integration": "Additional patient information (age, sex, anatomical site) and data augmentation metadata (scaling, shifting, color gain) were encoded and fused with the CNN features via dense linear layers with Batch Normalization, ReLU, and Dropout",
+      "model_variants": "EfficientNet-B3 and EfficientNet-B4"
+    },
+    "training_details": {
+      "epochs": 60,
+      "batch_size": 16,
+      "optimizer": "SGD with momentum",
+      "learning_rate": 0.001,
+      "learning_rate_scheduler": "One cycle learning-rate scheduler (PyTorch OneCycleLR with default parameters)",
+      "loss_function": "Weighted cross-entropy loss (for underrepresented classes); Focal loss (gamma=1.5) was also tested but yielded lower accuracy",
+      "hardware": "NVIDIA GTX 1080Ti",
+      "data_augmentation": "Random brightness, contrast, hue, saturation, Gaussian noise, Gaussian blur, random crop, rotation, and flipping; implemented using albumentations"
+    },
+    "classification_or_output_head": {
+      "type": "Dense linear layer",
+      "components": "Batch Normalization, ReLU, Dropout",
+      "output": "Classification output fused with metadata features"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNet-B3",
+    "EfficientNet-B4",
+    "Single model (EfficientNet-B4 with weighted cross-entropy loss)",
+    "Single model (EfficientNet-B4 with focal loss)",
+    "Ensemble model (EfficientNet-B3 and EfficientNet-B4)",
+    "MSM-CNN",
+    "Nozdryn et al. model",
+    "Gassert et al. model",
+    "Cancerless",
+    "ForCure"
+  ],
+  "preprocessing_techniques": [
+    "Resizing: All images resized so the longer side is 1,024 pixels while preserving aspect ratio.",
+    "Color correction: Shades of gray color constancy method (Finlayson and Trezzi) applied as a preprocessing step.",
+    "Metadata encoding: Patient age encoded using 18 features with thresholds from 5-90 (step 5); sex encoded as 1/-1/0; anatomical site encoded via one-hot encoding for features with >100 appearances.",
+    "Data augmentation metadata extraction: Scaling and shifting properties of geometric augmentation recorded as metafeatures.",
+    "Training data augmentation: Random brightness, contrast, hue, saturation, Gaussian noise, Gaussian blur, random crop, rotation, and flipping (implemented using albumentations).",
+    "Test Time Augmentation (TTA): Applied during inference to improve accuracy, involving multicrop and accumulation of heat maps."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Random crop, rotation, and flipping were applied during training. The scaling and shifting properties of these geometric augmentations were recorded as metafeatures for input to the model."
+    },
+    {
+      "technique": "Color/Pixelwise Transforms",
+      "details": "Random brightness, contrast, hue, and saturation adjustments, along with Gaussian noise and Gaussian blur, were applied. These were implemented using the albumentations library."
+    },
+    {
+      "technique": "Test Time Augmentation (TTA)",
+      "details": "Applied during inference to improve accuracy. It involved multicrop evaluation and accumulation of heat maps (via Grad-CAM) over 10 times of inference, costing approximately 0.5 seconds on a GTX 1080Ti."
+    },
+    {
+      "technique": "Class Balancing Augmentation",
+      "details": "A weighted cross-entropy loss function was used where underrepresented classes received higher weights. The coefficient was calculated based on the inverse of the number of images for each lesion ID (sampling strategy) to handle class imbalance."
+    }
+  ],
+  "conclusions": [
+    "Incorporating additional patient metadata (age, sex, anatomical site) and data augmentation metadata into the CNN input improves skin lesion classification performance compared to using images alone.",
+    "The proposed simplified single model using EfficientNet-B4 with weighted cross-entropy loss achieved a balanced multiclass accuracy (BMCA) of 88.7% on the ISIC 2018 test set, ranking as the first-ranked algorithm on the live leaderboard at the time of publication.",
+    "An embedding solution (ensemble of EfficientNet-B3 and B4) achieved a BMCA of 89.5% on the ISIC 2018 test set.",
+    "On the ISIC 2019 test set, the single model achieved a BMCA of 65.0% and the ensemble model achieved 66.2%, demonstrating the method's generalization to a different challenge dataset.",
+    "Weighted cross-entropy loss outperformed focal loss (gamma=1.5) in terms of classification accuracy.",
+    "Test Time Augmentation (TTA) combined with Grad-CAM effectively improves inference accuracy and generates heat maps that assist clinicians in visualizing diagnostic regions.",
+    "The proposed single-model solution is more practical for real-world clinical scenarios than previous high-performing methods that rely on extensive ensembling of multiple models, which incur significant computational costs."
+  ],
+  "important_remarks": [
+    "The study relies on the ISIC 2018 and ISIC 2019 challenge test sets, which are derived from the ISIC 2019 dataset; this creates a potential data leakage risk as the test sets are not fully independent external cohorts but subsets of the same source pool.",
+    "The model was evaluated on a live leaderboard, meaning the results reflect ranking at the time of publication rather than a static, reproducible hold-out test set, which limits long-term reproducibility.",
+    "The paper does not report formal statistical significance testing (e.g., p-values or confidence intervals) for the performance differences between models or against baseline methods.",
+    "The proposed method incorporates patient metadata (age, sex, anatomical site) and data augmentation metadata as inputs; however, the generalizability of this approach is limited to clinical settings where such structured metadata is reliably available.",
+    "The authors tested and rejected semi-supervised learning and advanced augmentation methods (Cutmix, WS-DAN) due to lack of performance improvement, indicating the simplicity of the proposed solution is a deliberate design choice rather than a failure to explore more complex alternatives.",
+    "The ensemble model achieved higher accuracy (89.5% BMCA on ISIC 2018) than the single model (88.7%), but the authors argue the single model is more practical for real-world deployment due to lower computational cost, highlighting a trade-off between performance and clinical utility.",
+    "The dataset includes images from multiple sources (HAM10000, MED-NODE, PH2, and collected data), introducing potential population and dataset bias that may affect generalization to unseen demographics or imaging devices."
+  ]
+}

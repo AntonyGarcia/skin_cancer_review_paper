@@ -1,0 +1,477 @@
+{
+  "file_name": "moon_2025_multimodal_clinical_decision_support_for_melanoma_diagnosis_using_retr.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a multimodal diagnostic framework integrating Vision-Language Models (VLMs) and Retrieval-Augmented Generation (RAG) for melanoma diagnosis. It employs modality-specific encoders for dermoscopic images and patient metadata, a multimodal vector database for retrieval, and structured prompting of VLMs to perform few-shot classification of melanoma without fine-tuning."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel multimodal diagnostic framework using Retrieval-Augmented Generation and Vision-Language Models for melanoma diagnosis. It details a specific methodology (Section 3), describes the construction of a multimodal vector database, and reports empirical results comparing its proposed method against baselines using metrics like F1-score and accuracy on the ISIC 2019 dataset (Table 2). Although published in a conference proceedings (IEEE AVSS), it contains original research results rather than summarizing prior literature."
+  },
+  "title": "Multimodal Clinical Decision Support for Melanoma Diagnosis Using Retrieval-Augmented Generation and Vision-Language Models",
+  "authors": [
+    "Jihyun Moon",
+    "Charmgil Hong"
+  ],
+  "doi": "10.1109/AVSS65446.2025.11149924",
+  "journal": "2025 IEEE International Conference on Advanced Visual and Signal-Based Systems (AVSS)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a multimodal clinical decision support framework for melanoma diagnosis that integrates Vision-Language Models (VLMs) with Retrieval-Augmented Generation (RAG) to combine dermoscopic images and patient metadata. The system encodes both modalities into a multimodal vector database and retrieves semantically similar cases to create structured few-shot prompts for classification without fine-tuning. Evaluated on the ISIC 2019 dataset, the method was compared against image-based CNNs, text-based LLMs, and embedding-fusion baselines. The proposed RAG-VLM framework achieved the highest performance, with an F1-score of 0.6864 and accuracy of 0.8876, significantly outperforming zero-shot VLMs and single-modality models. These results demonstrate that retrieval-augmented prompting effectively mitigates domain mismatch and enhances diagnostic accuracy by leveraging clinical context.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Malignant melanoma",
+      "paper_terms": [
+        "Malignant melanoma",
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Retained from the ISIC 2019 dataset for the binary classification task; described as a lethal form of skin cancer and the primary focus of the diagnostic framework."
+    },
+    {
+      "lesion_type": "Benign lesions",
+      "paper_terms": [
+        "benign",
+        "benign cases"
+      ],
+      "role": "Comparator class",
+      "details": "Retained from the ISIC 2019 dataset to form the binary classification task alongside malignant melanoma; the prompt instructs the model to determine if the lesion is 'Malignant or Benign'."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic label (Malignant melanoma vs. Benign)",
+        "primary": true,
+        "details": "The paper formulates a binary classification task to determine whether a skin lesion is 'Malignant or Benign' using the ISIC 2019 dataset. The model performs few-shot classification without fine-tuning by retrieving semantically similar cases and using them in structured prompts for a Vision-Language Model. Performance is evaluated using accuracy, F1-score, precision, and sensitivity."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2019 Challenge dataset",
+      "description": "A public dataset containing dermoscopic images and associated patient metadata (age, sex, anatomical site) for skin lesion analysis. It presents a moderate class imbalance between malignant melanoma and benign cases.",
+      "classes_used": [
+        "Malignant melanoma",
+        "Benign"
+      ],
+      "counts": {
+        "total": 29923,
+        "training": 20946,
+        "validation": 5237,
+        "testing": 8977,
+        "per_class": {
+          "Malignant melanoma": {
+            "total": 5608,
+            "training": 3137,
+            "validation": 776,
+            "testing": 1695
+          },
+          "Benign": {
+            "total": 24315,
+            "training": 13619,
+            "validation": 3414,
+            "testing": 7282
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training image-based CNNs (EfficientNet, ResNet, ResNeXt) and for constructing the multimodal vector database (16,756 image-text pairs from the training set) for the RAG framework.",
+        "validation": "Used for hyperparameter tuning via Optuna for image-based models and metadata serialization strategies.",
+        "testing": "Used for final evaluation of all models (image-based, text-based, fusion, zero-shot VLM, and RAG-VLM) using metrics like accuracy, F1-score, precision, and sensitivity.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "accuracy",
+    "balanced accuracy",
+    "precision",
+    "sensitivity",
+    "F1-score",
+    "confusion matrix components (true positives, true negatives, false positives, false negatives)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "F1-score",
+      "purpose": "Used as the primary evaluation metric to assess classification performance, particularly to account for class imbalance and reduce false positives and false negatives.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Accuracy",
+      "purpose": "Used to evaluate overall classification performance.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Balanced Accuracy",
+      "purpose": "Used to evaluate classification performance while accounting for class imbalance.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Precision",
+      "purpose": "Used to evaluate the proportion of true positive predictions among all positive predictions.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Sensitivity",
+      "purpose": "Used to evaluate the proportion of true positive predictions among all actual positives.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Confusion Matrix Analysis",
+      "purpose": "Used to report true positives (TP), true negatives (TN), false positives (FP), and false negatives (FN) to provide complementary insights into classification performance.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Optuna",
+      "purpose": "Used for hyperparameter tuning of image-based models and metadata serialization strategies.",
+      "type": "Hyperparameter Optimization"
+    },
+    {
+      "method": "Dot-product similarity",
+      "purpose": "Used during retrieval to match query embeddings with support examples in the multimodal vector database.",
+      "type": "Retrieval Method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics (accuracy, F1-score, precision, sensitivity) and confusion matrix components without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2019 Challenge dataset": {
+      "split": "Testing (8,977 samples: 1,695 Malignant, 7,282 Benign)",
+      "task": "Binary classification (Malignant melanoma vs. Benign)",
+      "models": {
+        "Single-Modality Image-based": {
+          "ResNet-50": {
+            "Accuracy": 0.6307,
+            "Balanced Accuracy": 0.492,
+            "Precision": 0.1801,
+            "Sensitivity": 0.269,
+            "F1-score": 0.2158,
+            "TN": 5206,
+            "TP": 456,
+            "FN": 1239,
+            "FP": 2076
+          },
+          "ResNeXt-50": {
+            "Accuracy": 0.738,
+            "Balanced Accuracy": 0.5054,
+            "Precision": 0.2022,
+            "Sensitivity": 0.1316,
+            "F1-score": 0.1594,
+            "TN": 6402,
+            "TP": 223,
+            "FN": 1472,
+            "FP": 880
+          },
+          "EfficientNet-B0": {
+            "Accuracy": 0.656,
+            "Balanced Accuracy": 0.4913,
+            "Precision": 0.1777,
+            "Sensitivity": 0.2265,
+            "F1-score": 0.1992,
+            "TN": 5505,
+            "TP": 384,
+            "FN": 1311,
+            "FP": 1777
+          },
+          "EfficientNet-V2-S": {
+            "Accuracy": 0.6833,
+            "Balanced Accuracy": 0.4959,
+            "Precision": 0.1825,
+            "Sensitivity": 0.1947,
+            "F1-score": 0.1884,
+            "TN": 5804,
+            "TP": 330,
+            "FN": 1365,
+            "FP": 1478
+          },
+          "EfficientNet-V2-M": {
+            "Accuracy": 0.6954,
+            "Balanced Accuracy": 0.5061,
+            "Precision": 0.1985,
+            "Sensitivity": 0.2018,
+            "F1-score": 0.2001,
+            "TN": 5901,
+            "TP": 342,
+            "FN": 1353,
+            "FP": 1381
+          }
+        },
+        "Single-Modality Text-based": {
+          "Mistral 7B v1.0": {
+            "Metadata Serialization": "html",
+            "Accuracy": 0.5014,
+            "Balanced Accuracy": 0.4885,
+            "Precision": 0.1816,
+            "Sensitivity": 0.4678,
+            "F1-score": 0.2616,
+            "TN": 3708,
+            "TP": 793,
+            "FN": 902,
+            "FP": 3574
+          },
+          "Llama 3 8B Instruct": {
+            "Metadata Serialization": "html",
+            "Accuracy": 0.7906,
+            "Balanced Accuracy": 0.4995,
+            "Precision": 0.1843,
+            "Sensitivity": 0.0319,
+            "F1-score": 0.0543,
+            "TN": 7043,
+            "TP": 54,
+            "FN": 1641,
+            "FP": 239
+          },
+          "Vicuna 7B v1.5": {
+            "Metadata Serialization": "sentence",
+            "Accuracy": 0.6063,
+            "Balanced Accuracy": 0.5152,
+            "Precision": 0.2023,
+            "Sensitivity": 0.3687,
+            "F1-score": 0.2613,
+            "TN": 4818,
+            "TP": 625,
+            "FN": 1070,
+            "FP": 2464
+          }
+        },
+        "Multimodal Embedding-Level Fusion (Early-Fusion)": {
+          "BERT + ResNet-50 (html)": {
+            "Accuracy": 0.6519,
+            "Balanced Accuracy": 0.5,
+            "Precision": 0.1889,
+            "Sensitivity": 0.256,
+            "F1-score": 0.2174,
+            "TN": 5418,
+            "TP": 434,
+            "FN": 1261,
+            "FP": 1864
+          },
+          "BERT + ResNet-50 (markdown)": {
+            "Accuracy": 0.6474,
+            "Balanced Accuracy": 0.4971,
+            "Precision": 0.1854,
+            "Sensitivity": 0.2555,
+            "F1-score": 0.2148,
+            "TN": 5379,
+            "TP": 433,
+            "FN": 1262,
+            "FP": 1903
+          },
+          "BERT + EfficientNet-B0 (attribute-value pair)": {
+            "Accuracy": 0.7083,
+            "Balanced Accuracy": 0.5108,
+            "Precision": 0.2076,
+            "Sensitivity": 0.1935,
+            "F1-score": 0.2003,
+            "TN": 6030,
+            "TP": 328,
+            "FN": 1367,
+            "FP": 1252
+          },
+          "BERT + EfficientNet-B0 (sentence)": {
+            "Accuracy": 0.6891,
+            "Balanced Accuracy": 0.5012,
+            "Precision": 0.1907,
+            "Sensitivity": 0.1994,
+            "F1-score": 0.195,
+            "TN": 5848,
+            "TP": 338,
+            "FN": 1357,
+            "FP": 1434
+          }
+        },
+        "Zero-shot VLM (LLaVA 7B v1.5)": {
+          "LLaVA 7B v1.5 (html)": {
+            "Accuracy": 0.5845,
+            "Balanced Accuracy": 0.6113,
+            "Precision": 0.2608,
+            "Sensitivity": 0.6543,
+            "F1-score": 0.3729,
+            "TN": 4138,
+            "TP": 1109,
+            "FN": 586,
+            "FP": 3144
+          },
+          "LLaVA 7B v1.5 (markdown)": {
+            "Accuracy": 0.6915,
+            "Balanced Accuracy": 0.6003,
+            "Precision": 0.2944,
+            "Sensitivity": 0.4537,
+            "F1-score": 0.3571,
+            "TN": 5439,
+            "TP": 769,
+            "FN": 926,
+            "FP": 1843
+          },
+          "LLaVA 7B v1.5 (attribute-value pair)": {
+            "Accuracy": 0.7126,
+            "Balanced Accuracy": 0.6128,
+            "Precision": 0.3171,
+            "Sensitivity": 0.4525,
+            "F1-score": 0.3729,
+            "TN": 5630,
+            "TP": 767,
+            "FN": 928,
+            "FP": 1652
+          },
+          "LLaVA 7B v1.5 (sentence)": {
+            "Accuracy": 0.561,
+            "Balanced Accuracy": 0.5658,
+            "Precision": 0.232,
+            "Sensitivity": 0.5735,
+            "F1-score": 0.3303,
+            "TN": 4064,
+            "TP": 972,
+            "FN": 723,
+            "FP": 3218
+          }
+        },
+        "Proposed RAG Framework (LLaVA 7B v1.5 + BERT/ResNeXt-50)": {
+          "RAG (K=2, BERT + ResNext-50, html)": {
+            "Accuracy": 0.7459,
+            "Balanced Accuracy": 0.73,
+            "Precision": 0.4015,
+            "Sensitivity": 0.7044,
+            "F1-score": 0.5115,
+            "TN": 5502,
+            "TP": 1194,
+            "FN": 501,
+            "FP": 1780
+          },
+          "RAG (K=2, BERT + ResNext-50, markdown)": {
+            "Accuracy": 0.8268,
+            "Balanced Accuracy": 0.7774,
+            "Precision": 0.5314,
+            "Sensitivity": 0.6979,
+            "F1-score": 0.6034,
+            "TN": 6239,
+            "TP": 1183,
+            "FN": 512,
+            "FP": 1043
+          },
+          "RAG (K=2, BERT + ResNext-50, attribute-value pair)": {
+            "Accuracy": 0.8876,
+            "Balanced Accuracy": 0.797,
+            "Precision": 0.7254,
+            "Sensitivity": 0.6513,
+            "F1-score": 0.6864,
+            "TN": 6864,
+            "TP": 1104,
+            "FN": 591,
+            "FP": 418
+          },
+          "RAG (K=2, BERT + ResNext-50, sentence)": {
+            "Accuracy": 0.881,
+            "Balanced Accuracy": 0.7891,
+            "Precision": 0.7027,
+            "Sensitivity": 0.6413,
+            "F1-score": 0.6706,
+            "TN": 6822,
+            "TP": 1087,
+            "FN": 608,
+            "FP": 460
+          }
+        },
+        "Ablation: Effect of Retrieval Count K (RAG with BERT + ResNeXt-50, attribute-value pair)": {
+          "0-shot": {
+            "F1-score": 0.3729
+          },
+          "1-shot": {
+            "F1-score": 0.6396
+          },
+          "2-shot": {
+            "F1-score": 0.6864
+          },
+          "3-shot": {
+            "F1-score": 0.6648
+          },
+          "4-shot": {
+            "F1-score": 0.6286
+          }
+        }
+      },
+      "notes": "The proposed RAG framework with K=2 retrieved examples using attribute-value pair serialization achieved the highest performance (F1-score: 0.6864, Accuracy: 0.8876). Performance peaked at K=2 and declined with higher K values. Single-modality image-based models had limited performance (max F1: 0.2158). Zero-shot VLMs outperformed single-modality baselines (F1: 0.3729). Early-fusion baselines showed weaker performance than single modalities or VLMs."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Retrieval-Augmented Generation (RAG) framework integrating Vision-Language Models (VLMs) and multimodal vector database. Primary VLM: LLaVA 7B v1.5. Image Encoder: ResNeXt-50 or EfficientNet-B0. Text Encoder: BERT-base-uncased.",
+    "pretraining": "Image encoders (ResNet-50, ResNeXt-50, EfficientNet-B0/V2-S/V2-M) initialized with ImageNet pre-trained weights. Text encoder (BERT) uses base uncased pretraining. VLM (LLaVA 7B v1.5) is a pre-trained model quantized to 4-bit.",
+    "input_size": "Images resized to 224x224 (RGB). Metadata serialized into text formats (HTML, Markdown, Attribute-Value Pair, Sentence).",
+    "architecture_details": {
+      "image_encoder": "CNN backbones including ResNet-50, ResNeXt-50, EfficientNet-B0, EfficientNet-V2-S, and EfficientNet-V2-M.",
+      "text_encoder": "BERT-base-uncased (extracting features from the 11th layer).",
+      "vlm": "LLaVA 7B v1.5 (quantized to 4-bit).",
+      "retrieval_index": "FAISS-based multimodal vector database storing concatenated image and text embeddings.",
+      "fusion_method": "Concatenation of image and text embeddings for storage; dot-product similarity for retrieval. Prompt-based classification using retrieved examples (K=1, 2, 3, 4) without fine-tuning.",
+      "metadata_serialization": [
+        "HTML format",
+        "Markdown format",
+        "Attribute-value pair format",
+        "Sentence format"
+      ]
+    },
+    "training_details": {
+      "fine_tuning": "Image-based CNNs were fine-tuned. VLMs were used in zero-shot and few-shot (RAG) settings without fine-tuning.",
+      "optimizer": "Adam (for image-based CNNs).",
+      "loss_function": "Binary cross-entropy (for image-based CNNs).",
+      "hyperparameter_tuning": "Optuna used for hyperparameter tuning of image-based models and metadata serialization strategies.",
+      "training_schedule": "Two-stage stratified sampling: 70% training, 30% testing. Training set split 80/20 into training and validation subsets."
+    },
+    "classification_or_output_head": {
+      "type": "Structured prompt-based classification",
+      "details": "Prompt instructs model to determine if lesion is 'Malignant or Benign'. Retrieved examples (image, metadata, label) inserted as context. Output parsed to extract predicted class label."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet-50",
+    "ResNeXt-50",
+    "EfficientNet-B0",
+    "EfficientNet-V2-S",
+    "EfficientNet-V2-M",
+    "Mistral 7B v1.0",
+    "Llama 3 8B Instruct",
+    "Vicuna 7B v1.5",
+    "BERT-base-uncased",
+    "LLaVA 7B v1.5"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to 224x224 pixels (RGB)",
+    "Metadata serialization into text formats (HTML, Markdown, Attribute-Value Pair, Sentence)",
+    "Two-stage stratified sampling for dataset splitting (70% training, 30% testing; training set split 80/20 into training and validation subsets)",
+    "Retention of only malignant melanoma and benign cases for binary classification task"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed retrieval-augmented framework integrating Vision-Language Models (VLMs) with a multimodal vector database of dermoscopic images and patient metadata outperforms image-based, text-based, and embedding-fusion baselines in melanoma diagnosis.",
+    "The method achieves an F1-score of 0.6864 and accuracy of 0.8876 on the ISIC 2019 dataset, significantly reducing both false positives and false negatives compared to baselines.",
+    "Retrieval-augmented prompting enables effective few-shot classification without fine-tuning the VLM, demonstrating practical utility under realistic clinical constraints where task-specific tuning may be infeasible.",
+    "Incorporating semantically similar cases into the prompt leads to more informed predictions grounded in clinically relevant context, mitigating the domain mismatch limitations of standard zero-shot VLMs.",
+    "Diagnostic performance peaks when retrieving K=2 examples; increasing the retrieval count beyond K=2 introduces noise and reduces the clarity of relevant diagnostic signals.",
+    "Encoder selection and retrieval configuration are critical design factors, with ResNeXt-50 and EfficientNet-B0 consistently producing stronger results across single and multimodal setups.",
+    "The framework supports retrieval-augmented prompting as a reliable and scalable approach for clinical decision support in high-stakes, multimodal medical applications."
+  ],
+  "important_remarks": [
+    "The study is limited to a binary classification task (malignant melanoma vs. benign) using the ISIC 2019 dataset, excluding other skin lesion types and multi-class scenarios.",
+    "The dataset exhibits significant class imbalance (approx. 81% benign vs. 19% malignant), which may bias performance metrics and limit generalizability to balanced clinical populations.",
+    "No external validation was performed; results are confined to the ISIC 2019 test set, raising concerns about generalizability to other institutions or imaging devices.",
+    "The paper does not report formal statistical significance testing (e.g., p-values) for performance comparisons, relying solely on descriptive metrics.",
+    "The framework relies on pre-trained models (LLaVA, BERT, ResNeXt) without task-specific fine-tuning of the VLM, which limits its ability to adapt to specific clinical nuances compared to fully fine-tuned models.",
+    "Performance is sensitive to the number of retrieved examples (K), with optimal performance at K=2; increasing K beyond this point introduces noise and degrades accuracy.",
+    "The method uses metadata serialization strategies (HTML, Markdown, Attribute-Value Pair, Sentence) that may not fully capture the complexity or nuance of real-world electronic health records.",
+    "The study does not address potential data leakage risks between the retrieval database and the test set, although it uses a strict train/test split.",
+    "Clinical relevance is limited by the lack of prospective clinical trial data or comparison with actual dermatologist performance in a real-world setting.",
+    "The framework's reliance on a multimodal vector database requires significant computational resources for indexing and retrieval, which may impact deployment scalability in resource-constrained environments."
+  ]
+}

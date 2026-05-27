@@ -1,0 +1,358 @@
+{
+  "file_name": "jiang_2019_recognizing_basal_cell_carcinoma_on_smartphone_captured_digital_histo.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning frameworks, specifically deep neural networks (CNNs) and semantic segmentation models, to recognize and segment basal cell carcinoma (BCC) in smartphone-captured digital histopathology images. Two frameworks were developed: a 'cascade' framework combining classification and segmentation, and a direct 'segmentation' framework, to achieve automatic BCC diagnosis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the collection of 8046 smartphone-captured microscopic ocular images (MOIs) and 128 whole-slide images (WSIs). It describes the development and validation of two deep learning frameworks ('cascade' and 'segmentation') for recognizing basal cell carcinoma, including detailed methods on data collection, model architecture (GoogleNet, DeeplabV3), training procedures, and quantitative results (sensitivity, specificity, AUC). The structure includes standard research sections such as Background, Objectives, Methods, Results, and Conclusions."
+  },
+  "title": "Recognizing basal cell carcinoma on smartphone-captured digital histopathology images with a deep neural network",
+  "authors": [
+    "Y.Q. Jiang",
+    "J.H. Xiong",
+    "H.Y. Li",
+    "X.H. Yang",
+    "W.T. Yu",
+    "M. Gao",
+    "X. Zhao",
+    "Y.P. Ma",
+    "W. Zhang",
+    "Y.F. Guan",
+    "H. Gu",
+    "J.F. Sun"
+  ],
+  "doi": "10.1111/bjd.18026",
+  "journal": "British Journal of Dermatology",
+  "year": 2020,
+  "article_type": "Original research article",
+  "brief_summary": "This study developed deep neural network frameworks to recognize basal cell carcinoma (BCC) using smartphone-captured microscopic ocular images (MOIs) as an accessible alternative to whole-slide images (WSIs). The researchers collected 8046 MOIs and 128 WSIs to train and validate two frameworks: a 'cascade' model combining classification and segmentation, and a direct 'segmentation' model using DeeplabV3. Evaluation metrics included sensitivity, specificity, and area under the curve (AUC), with performance compared across datasets. The segmentation framework achieved the highest accuracy with an AUC of 0.987, 0.97 sensitivity, and 0.94 specificity, while the cascade framework offered a faster runtime of 4.1 seconds per image. Both MOI-based models demonstrated comparable diagnostic performance to WSI-based models, indicating that smartphone-captured images are a viable tool for automatic BCC diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "The primary target for recognition and segmentation. The study developed deep neural network frameworks to recognize BCC pathology using smartphone-captured microscopic ocular images (MOIs) and whole-slide images (WSIs). Positive samples were defined as images containing BCC areas."
+    },
+    {
+      "lesion_type": "Normal tissue / Non-BCC",
+      "paper_terms": [
+        "normal tissue",
+        "non-BCC",
+        "negative samples"
+      ],
+      "role": "Comparator class",
+      "details": "Used as negative controls in binary classification. Images of normal tissues without BCC were considered negative samples. The dataset included 6610 MOIs with binary classification labels (BCC/non-BCC) and 128 WSIs where normal tissue was segmented alongside BCC."
+    },
+    {
+      "lesion_type": "Other skin diseases",
+      "paper_terms": [
+        "Other skin diseases"
+      ],
+      "role": "Exclusion/mentioned only",
+      "details": "Explicitly excluded from the dataset. The paper states: 'Other skin diseases were not considered or involved in our dataset.'"
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic label (Basal Cell Carcinoma vs. Normal/Non-BCC tissue)",
+        "primary": true,
+        "details": "The study developed a CNN classification model to identify BCC in smartphone-captured microscopic ocular images (MOIs) and whole-slide images (WSIs). The model predicts discrete binary labels (positive/negative) for the presence of BCC. Performance was evaluated using sensitivity, specificity, and AUC. The cascade framework also uses classification confidence scores to filter 'hard cases'."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise binary mask delineating BCC tissue regions",
+        "primary": false,
+        "details": "A semantic segmentation framework (DeeplabV3) was developed to segment BCC regions from normal tissue at the pixel level. This was used both as a standalone framework and as the in-depth analysis stage of the cascade framework. Performance was evaluated using mean intersection over union (mIoU) and AUC derived from segmentation areas."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Microscopic Ocular Image Classification (MOIC) dataset",
+      "description": "A collection of smartphone-captured microscopic ocular images (MOIs) photographed from microscope eyepieces at 10x resolution. Images were manually labeled by pathologists at the Institute of Dermatology, Peking Union Medical College & Chinese Academy of Medical Sciences. Positive samples contained BCC areas; negative samples contained normal tissues without BCC. Other skin diseases were excluded.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Normal tissue / Non-BCC"
+      ],
+      "counts": {
+        "total": 6610,
+        "training": 6234,
+        "validation": 88,
+        "testing": 5726,
+        "per_class": {
+          "training_positive": 3318,
+          "training_negative": 2916,
+          "validation_positive": null,
+          "validation_negative": null,
+          "testing_positive": null,
+          "testing_negative": null
+        }
+      },
+      "use": {
+        "training": "Used to train the GoogleNet Inception v3 classification model. The original 553 positive and 243 negative samples were augmented (rotation and mirroring) to create a training set of 3318 positive and 2916 negative samples.",
+        "validation": "Used to validate the classification model (88 images).",
+        "testing": "Used to test the classification model (5726 images).",
+        "other": "None"
+      }
+    },
+    {
+      "name": "Microscopic Ocular Image Segmentation (MOIS) dataset",
+      "description": "A subset of smartphone-captured MOIs with pixelwise annotations for BCC regions. Images were labeled by histopathologists. Each image was split into four 512x512 patches for segmentation model training.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Normal tissue"
+      ],
+      "counts": {
+        "total": 1436,
+        "training": 1436,
+        "validation": null,
+        "testing": 1436,
+        "per_class": {
+          "training_patches": 28140,
+          "validation_patches": 2008,
+          "testing_patches": 1714
+        }
+      },
+      "use": {
+        "training": "Used to train the semantic segmentation model (DeeplabV3 with Resnet 101 backbone). 1436 images were split into 5744 patches; 4030 patches were used for training (augmented to 28,140) and 1714 patches for testing.",
+        "validation": "Used to validate the segmentation model (2008 patches derived from the training set via augmentation).",
+        "testing": "Used to test the segmentation model (1714 patches).",
+        "other": "None"
+      }
+    },
+    {
+      "name": "Whole-Slide Image (WSI) dataset",
+      "description": "Whole-slide images obtained from patients at 40x resolution. Images were cut into patches to train and evaluate models for comparison with MOI-based models. Valid tissue areas were extracted using a field of valid picking algorithm.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)",
+        "Normal tissue"
+      ],
+      "counts": {
+        "total": 128,
+        "training": 128,
+        "validation": null,
+        "testing": 128,
+        "per_class": {
+          "training_patches": 16860,
+          "validation_patches": null,
+          "testing_patches": 2125
+        }
+      },
+      "use": {
+        "training": "Used to train a classification model for comparison. 7084 patches were obtained (2789 BCC, 4295 normal). After augmentation and balancing, the training set consisted of 16,860 positive and 16,241 negative samples.",
+        "validation": "Used to validate the WSI classification model (355 patches).",
+        "testing": "Used to test the WSI classification model (2125 patches).",
+        "other": "Used for cross-dataset generalization evaluation against MOI models."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Area under the curve (AUC)",
+    "Mean intersection over union (mIoU)",
+    "Runtime"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Bootstrap sampling",
+      "purpose": "To calculate 95% confidence intervals for the Area Under the Curve (AUC) metrics.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Pairwise Wilcoxon signed-rank test",
+      "purpose": "To compare the AUC values of different models (WSI vs. MOI models) based on 20 repeated random samples of the test set.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Repeated random sampling",
+      "purpose": "To generate 20 AUC values for each model by randomly sampling 80% of the test images, used as the basis for the Wilcoxon signed-rank test.",
+      "type": "Resampling method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Pairwise Wilcoxon signed-rank test",
+    "null_hypothesis": "There is no difference in the Area Under the Curve (AUC) values between the compared models (e.g., MOI-based models vs. WSI-based models).",
+    "alternative_hypothesis": "There is a significant difference in the AUC values between the compared models.",
+    "alpha": 0.05,
+    "interpretation": "The pairwise Wilcoxon signed-rank test revealed a significant difference for both the MOI segmentation model (AUC = 0.987) and the MOI classification model (AUC = 0.976) when compared with the WSI (10x) model (AUC = 0.955), with both P-values < 0.001. This indicates that the MOI models outperformed the WSI (10x) model."
+  },
+  "results_obtained_in_each_dataset": {
+    "MOIC_dataset_classification": {
+      "metric": "AUC (95% CI)",
+      "models": {
+        "MOI classification": {
+          "within_dataset": "0.976 (0.968–0.986)",
+          "across_dataset": "0.885 (0.871–0.899)",
+          "within_dataset_hard_cases": "0.701 (0.608–0.784)"
+        }
+      },
+      "notes": "The MOI classification model achieved an AUC of 0.976 within the training dataset. It was significantly better than the WSI (10x) model (AUC = 0.955, P < 0.001)."
+    },
+    "MOIS_dataset_segmentation": {
+      "metric": "AUC (95% CI) / mIoU",
+      "models": {
+        "MOI segmentation": {
+          "within_dataset": "0.987 (0.984–0.990)",
+          "across_dataset": "0.945 (0.935–0.954)",
+          "within_dataset_hard_cases": "0.933 (0.906–0.959)"
+        }
+      },
+      "notes": "The MOI segmentation framework achieved the highest accuracy with an AUC of 0.987, 0.97 sensitivity, and 0.94 specificity. It achieved a mean intersection over union (mIoU) of 0.863 on testing images. It was significantly better than the WSI (10x) model (AUC = 0.955, P < 0.001)."
+    },
+    "WSI_dataset_classification_40x": {
+      "metric": "AUC (95% CI)",
+      "models": {
+        "WSI (40x)": {
+          "within_dataset": "0.982 (0.969–0.993)",
+          "across_dataset": "0.531 (0.516–0.542)",
+          "within_dataset_hard_cases": "0.871 (0.736–0.980)"
+        }
+      },
+      "notes": "The WSI (40x) classification model achieved an AUC of 0.982 within its dataset."
+    },
+    "WSI_dataset_classification_10x": {
+      "metric": "AUC (95% CI)",
+      "models": {
+        "WSI (10x)": {
+          "within_dataset": "0.955 (0.945–0.964)",
+          "across_dataset": "0.783 (0.771–0.795)",
+          "within_dataset_hard_cases": "0.552 (0.405–0.648)"
+        }
+      },
+      "notes": "The WSI (10x) classification model achieved an AUC of 0.955 within its dataset. The MOI models outperformed this model."
+    },
+    "cascade_framework": {
+      "metric": "Sensitivity / Specificity / Runtime",
+      "models": {
+        "Cascade (GPU)": {
+          "sensitivity": "0.93",
+          "specificity": "0.91",
+          "runtime": "4.1 ± 1.4 s per image (CPU)"
+        },
+        "Cascade (CPU)": {
+          "runtime": "4.1 ± 1.4 s per image"
+        }
+      },
+      "notes": "The cascade framework achieved 0.93 sensitivity and 0.91 specificity. The runtime on CPU was 4.1 ± 1.4 seconds per image. On GPU, the runtime was 127.5 ± 43 ms per image."
+    },
+    "segmentation_framework_runtime": {
+      "metric": "Runtime",
+      "models": {
+        "Segmentation (GPU)": {
+          "runtime": "500.2 ± 163.2 ms per image"
+        },
+        "Segmentation (CPU)": {
+          "runtime": "15.3 ± 3.9 s per image"
+        }
+      },
+      "notes": "The segmentation framework required more computational resources. Runtime on CPU was 15.3 ± 3.9 seconds per image."
+    },
+    "classification_framework_runtime": {
+      "metric": "Runtime",
+      "models": {
+        "Classification (GPU)": {
+          "runtime": "89.3 ± 23.9 ms per image"
+        },
+        "Classification (CPU)": {
+          "runtime": "2.7 ± 0.7 s per image"
+        }
+      },
+      "notes": "The classification model was faster than the segmentation model."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two frameworks: 1) Cascade framework (GoogleNet Inception v3 classification model + DeeplabV3 segmentation model); 2) Direct segmentation framework (DeeplabV3 with Resnet 101 backbone).",
+    "pretraining": "GoogleNet Inception v3 weights pretrained on ImageNet dataset. DeeplabV3 Resnet 101 backbone pretrained on ImageNet.",
+    "input_size": "Classification model: 961x961 pixels. Segmentation model patches: 512x512 pixels. WSI patches: 1024x1024 pixels.",
+    "architecture_details": {
+      "classification_model": {
+        "name": "GoogleNet Inception v3",
+        "framework": "Caffe",
+        "details": "Used for general screening stage. Utilized global average pooling. Weights pretrained on ImageNet and fine-tuned on MOIC and WSI data."
+      },
+      "segmentation_model": {
+        "name": "DeeplabV3",
+        "backbone": "Resnet 101",
+        "framework": "Tensorflow 1.10.1",
+        "details": "Used for in-depth analysis of hard cases and direct segmentation framework. Backbone pretrained on ImageNet and fine-tuned with MOIS dataset."
+      }
+    },
+    "training_details": {
+      "optimizers": "Not explicitly reported.",
+      "loss_functions": "Not explicitly reported.",
+      "hyperparameters": "Not explicitly reported.",
+      "training_schedule": "Not explicitly reported.",
+      "augmentation": "Rotation (30-60 degrees) and mirroring.",
+      "hardware": "NVIDIA Titan X GPU with CUDA version 9.0 and cuDNN 7.0."
+    },
+    "classification_or_output_head": {
+      "classification_head": "Binary classification output with confidence filter strategy (thresholds between 0.1 and 0.9 for hard cases).",
+      "segmentation_head": "Pixel-wise binary mask output. Threshold applied to segmentation area to determine positive/negative status."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "GoogleNet Inception V3",
+    "DeepLab Resnet V3 (DeeplabV3 with Resnet 101 backbone)",
+    "Cascade framework (combining GoogleNet Inception V3 classification and DeeplabV3 segmentation)",
+    "Segmentation framework (DeeplabV3 with Resnet 101 backbone)"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation via rotation (30-60 degrees) and mirroring for MOIC dataset",
+    "Data augmentation via rotation (30 degrees) and mirroring for MOIS dataset patches",
+    "Data augmentation via random mirroring and rotation for WSI patches",
+    "Balancing positive and negative samples via random sampling for WSI dataset",
+    "Splitting MOIS images into 512x512 patches",
+    "Cutting valid WSI tissue areas into 1024x1024 pixel patches",
+    "Extraction of valid tissue areas from WSIs using a field of valid picking algorithm to remove non-tissue regions"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation and Mirroring (MOIC Dataset)",
+      "details": "Used to balance positive and negative samples for the classification model. Positive samples (553) were augmented by rotating images with 60 degrees internal. Negative samples (243) were augmented by rotating images with 30 degrees internal. Input mirroring was also involved during training, resulting in 3318 positive and 2916 negative training samples."
+    },
+    {
+      "technique": "Rotation and Mirroring (MOIS Dataset)",
+      "details": "Used for the segmentation model training patches. Patches were augmented by rotating with 30 degrees internal and mirroring, resulting in 28,140 training patches and 2,008 validation patches from 4,030 original patches."
+    },
+    {
+      "technique": "Random Mirroring and Rotation (WSI Dataset)",
+      "details": "Applied to WSI patches (1024x1024 pixels) similarly to MOI augmentation."
+    },
+    {
+      "technique": "Random Sampling for Class Balancing (WSI Dataset)",
+      "details": "Positive and negative samples in the WSI dataset were balanced via random sampling. The final training set consisted of 16,860 positive and 16,241 negative samples."
+    }
+  ],
+  "conclusions": [
+    "Two deep learning frameworks (a 'cascade' framework combining classification and segmentation, and a direct 'segmentation' framework) were developed to recognize basal cell carcinoma (BCC) using smartphone-captured microscopic ocular images (MOIs).",
+    "The MOI-based models achieved diagnostic performance comparable to whole-slide image (WSI)-based models, with AUCs around 0.95.",
+    "The direct 'segmentation' framework achieved the highest accuracy with an AUC of 0.987, 0.97 sensitivity, and 0.94 specificity, but required more computational resources (15.3 ± 3.9 s per image on CPU).",
+    "The 'cascade' framework achieved 0.93 sensitivity and 0.91 specificity with a faster runtime of 4.1 ± 1.4 s per image on CPU, making it more suitable for devices with limited computational resources.",
+    "The MOI-based models demonstrated good generalization ability, with the segmentation model achieving an across-dataset AUC of 0.945.",
+    "The segmentation model significantly outperformed the classification model in identifying 'hard cases' (images with low prediction confidence), achieving an AUC of 0.933 compared to 0.701 for the classification model.",
+    "Smartphone-captured digital histopathology images are a viable and accessible alternative to WSIs for automatic BCC diagnosis, opening new avenues for clinical application in different scenarios."
+  ],
+  "important_remarks": [
+    "The study explicitly excluded other skin diseases from the dataset, limiting the model's ability to distinguish BCC from other dermatological conditions.",
+    "Data was collected from a single institution (Institute of Dermatology, Peking Union Medical College), raising concerns about population and dataset bias.",
+    "The 'hard cases' subset was defined by low prediction confidence rather than independent clinical criteria, potentially introducing circularity in performance evaluation.",
+    "The WSI dataset was small (128 images) compared to the MOI datasets, which may affect the robustness of the WSI-based comparisons.",
+    "The MOI images were captured at 10x magnification via smartphone, which differs from standard clinical WSI scanning protocols, limiting direct comparability.",
+    "No external validation was performed; generalization was only assessed via cross-dataset testing within the same collection source.",
+    "The segmentation framework required significantly more computational resources (15.3 s/image on CPU) compared to the cascade framework (4.1 s/image), impacting potential real-time deployment on mobile devices.",
+    "The study did not report inter-observer variability for the pathologist annotations used as ground truth."
+  ]
+}

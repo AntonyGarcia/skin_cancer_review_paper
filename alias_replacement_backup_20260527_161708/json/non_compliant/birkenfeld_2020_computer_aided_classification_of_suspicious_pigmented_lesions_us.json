@@ -1,0 +1,275 @@
+{
+  "file_name": "birkenfeld_2020_computer_aided_classification_of_suspicious_pigmented_lesions_us.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a machine learning classifier (specifically a feature-based regression classifier with PCA and logistic regression) to binary classify suspicious pigmented lesions from wide-field images, achieving a sensitivity of 100% for confirmed suspicious lesions and 83.2% for unconfirmed suspicious lesions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the acquisition of a new clinical database of 1759 pigmented lesions from 133 patients, the development and optimization of a machine learning classifier (feature-based regression with PCA and logistic regression), and the reporting of specific performance metrics (sensitivity, specificity, accuracy, AUC) on a test set. It is not a review or summary of prior literature."
+  },
+  "title": "Computer-aided classification of suspicious pigmented lesions using wide-field images",
+  "authors": [
+    "Judith S. Birkenfeld",
+    "Jason M. Tucker-Schwartz",
+    "Luis R. Soenksen",
+    "José A. Avilés-Izquierdo",
+    "Berta Marti-Fuster"
+  ],
+  "doi": "10.1016/j.cmpb.2020.105631",
+  "journal": "Computer Methods and Programs in Biomedicine",
+  "year": 2020,
+  "article_type": "Original research article",
+  "brief_summary": "This study developed a computer-aided classification system to distinguish suspicious from non-suspicious pigmented lesions using wide-field images acquired by a consumer-grade camera. The researchers created a new clinical database comprising 1759 pigmented lesions from 133 high-risk patients, which were evaluated by a board-certified dermatologist. A feature-based regression classifier utilizing PCA and logistic regression was optimized to assign a suspiciousness score to each lesion. The system was evaluated on a test set, achieving a sensitivity of 100% for lesions confirmed as suspicious by dermoscopy and 83.2% for those not confirmed, with an overall accuracy of 75.9%. The results demonstrate that wide-field photography combined with this classification approach can effectively support primary care skin screenings by identifying lesions requiring further examination.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Suspicious Pigmented Lesion (SPL)",
+      "paper_terms": [
+        "suspicious pigmented lesions",
+        "SPL",
+        "SPL_A",
+        "SPL_B"
+      ],
+      "role": "Target class",
+      "details": "Binary classification target. SPL_A: Suspicious clinical features detected by naked eye and confirmed by dermoscopy (n=55 total, 9 biopsied). SPL_B: Suspicious clinical features by naked eye but not confirmed by dermoscopy (n=172 in test set). The study distinguishes SPLs from non-SPLs rather than specific histopathological diagnoses."
+    },
+    {
+      "lesion_type": "Non-Suspicious Pigmented Lesion",
+      "paper_terms": [
+        "non-suspicious",
+        "non-SPL",
+        "nSPL"
+      ],
+      "role": "Comparator class",
+      "details": "Binary classification target. Lesions without suspicious clinical features detected by naked eye examination."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Histopathological diagnosis within target class",
+      "details": "Found in 3 of the 9 biopsied SPL_A lesions. Mentioned as the primary disease context for early identification, but not a direct classification label in the machine learning model."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinomas"
+      ],
+      "role": "Histopathological diagnosis within target class",
+      "details": "Found in 2 of the 9 biopsied SPL_A lesions."
+    },
+    {
+      "lesion_type": "Dysplastic Nevus",
+      "paper_terms": [
+        "dysplastic nevi"
+      ],
+      "role": "Histopathological diagnosis within target class",
+      "details": "Found in 2 of the 9 biopsied SPL_A lesions."
+    },
+    {
+      "lesion_type": "Common Nevus",
+      "paper_terms": [
+        "common nevi"
+      ],
+      "role": "Histopathological diagnosis within target class",
+      "details": "Found in 2 of the 9 biopsied SPL_A lesions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of pigmented lesions into 'suspicious' (SPL) or 'non-suspicious' (non-SPL) categories, with sub-classifications for SPL_A (confirmed suspicious) and SPL_B (unconfirmed suspicious).",
+        "primary": true,
+        "details": "The paper explicitly describes a 'computer-aided classification system' and a 'machine learning classifier' optimized to 'binary classify each lesion using a suspiciousness score'. The model uses logistic regression to predict discrete diagnostic categories (suspicious vs. non-suspicious) based on extracted features. Although a 'suspiciousness score' is generated, it is used as an intermediate value for binary decision-making (thresholding at 0.46) rather than as a continuous regression target. The primary task is distinguishing between predefined classes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "New Clinical Database of Wide-Field Images",
+      "description": "A newly acquired clinical database comprising wide-field images of major body parts (back, torso, legs, arms, other) taken with a consumer-grade Olympus E-420 camera under natural illumination from 133 high-risk patients. Lesions were manually cropped and analyzed. The study distinguishes this from standard dermoscopy datasets by its use of wide-field photography to simulate primary care screening conditions.",
+      "classes_used": [
+        "Suspicious Pigmented Lesion Class A (SPL_A): Suspicious clinical features detected by naked eye and confirmed by dermoscopy/histopathology.",
+        "Suspicious Pigmented Lesion Class B (SPL_B): Suspicious clinical features detected by naked eye but not confirmed by dermoscopy.",
+        "Non-Suspicious Pigmented Lesion (non-SPL): Lesions without suspicious clinical features."
+      ],
+      "counts": {
+        "total": 1759,
+        "training": null,
+        "validation": null,
+        "testing": 572,
+        "per_class": {
+          "SPL_A": 9,
+          "SPL_B": 172,
+          "non-SPL": 391
+        }
+      },
+      "use": {
+        "training": "The dataset was used to develop and optimize the feature-based regression classifier (PCA and logistic regression). The optimization process used cross-validation (leave-one-out) on a subset of the data (1141 non-SPLs and 46 SPLAs mentioned in validation context, though total training split is not explicitly defined as a separate static set distinct from the optimization loop).",
+        "validation": "Used for hyperparameter optimization and threshold selection via leave-one-out cross-validation. The validation set consisted of 1141 non-SPLs and 46 SPLAs.",
+        "testing": "Used to evaluate the final classifier performance. The test set contained 572 lesions (181 SPLs [9 SPL_A, 172 SPL_B] and 391 non-SPLs).",
+        "other": "The dataset was created specifically for this study to address the lack of wide-field image data for computer-aided classification in primary care settings."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Accuracy",
+    "Area Under the Curve (AUC)",
+    "Confidence Interval (95% CI)",
+    "True Positive Rate",
+    "False Positive Rate",
+    "True Positive (TP)",
+    "True Negative (TN)",
+    "False Negative (FN)",
+    "False Positive (FP)",
+    "Suspiciousness Score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10-fold cross-validation",
+      "purpose": "Hyper-parameter optimization for the machine learning classifier.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Leave-one-out cross-validation",
+      "purpose": "Generation of the receiver operating characteristic (ROC) curve and calculation of the Area Under the Curve (AUC) with confidence intervals.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Random search",
+      "purpose": "Hyper-parameter optimization (exploring ranges for k-best reduction, PCA components, and regularization strength).",
+      "type": "Optimization method"
+    },
+    {
+      "method": "Univariate feature selection (ANOVA)",
+      "purpose": "Feature selection to reduce dimensionality by selecting the k highest scoring features.",
+      "type": "Feature selection"
+    },
+    {
+      "method": "Principal Component Analysis (PCA)",
+      "purpose": "Dimensionality reduction of the extracted features.",
+      "type": "Dimensionality reduction"
+    },
+    {
+      "method": "95% Confidence Interval",
+      "purpose": "Uncertainty estimation for the Area Under the Curve (AUC) metric.",
+      "type": "Confidence Interval"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) analysis",
+      "purpose": "Evaluation of classifier performance and determination of the suspiciousness score threshold.",
+      "type": "Performance evaluation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests) for the comparison of classifier performance. It reported performance metrics (sensitivity, specificity, accuracy, AUC) and 95% confidence intervals for the AUC, but no statistical hypothesis tests were described."
+  },
+  "results_obtained_in_each_dataset": {
+    "New Clinical Database of Wide-Field Images (Test Set)": {
+      "metric": [
+        "Sensitivity",
+        "Specificity",
+        "Accuracy",
+        "AUC",
+        "Confusion Matrix Counts"
+      ],
+      "models": {
+        "Feature-based regression classifier (PCA + Logistic Regression)": {
+          "Sensitivity_SPL_A": "100% (9/9)",
+          "Sensitivity_SPL_B": "83.2% (143/172)",
+          "Sensitivity_SPL_Total": "84.0% (152/181)",
+          "Specificity_non-SPL": "72.1% (282/391)",
+          "Accuracy": "75.9%",
+          "AUC": "0.89",
+          "AUC_95%_CI": "0.85–0.92",
+          "Threshold": "0.46",
+          "Confusion_Matrix_TP": 152,
+          "Confusion_Matrix_FP": 109,
+          "Confusion_Matrix_FN": 29,
+          "Confusion_Matrix_TN": 282
+        }
+      },
+      "notes": "The classifier was optimized using 10-fold cross-validation on a training set (1187 lesions: 46 SPL_A, 1141 non-SPL). The final model was evaluated on a separate test set (572 lesions: 181 SPL [9 SPL_A, 172 SPL_B], 391 non-SPL). The AUC was calculated using leave-one-out cross-validation on the training set. There was a statistically significant difference (p < 0.001) between non-SPL and SPL suspiciousness scores."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Feature-based regression classifier using Logistic Regression",
+    "pretraining": null,
+    "input_size": "Lesion images extracted from wide-field photographs (resolution varies, e.g., 3648 × 2736 pixels for a 20.4 × 15.3 cm image); input to classifier is a feature vector of 399 extracted features",
+    "architecture_details": {
+      "feature_extraction": "399 features extracted based on ABCD criteria (Asymmetry: 91, Border: 192, Color: 48, Texture: 66, Pixel size: 1, Lesion area: 1). Features include variations of color (HSV space), border irregularity, asymmetry, and texture (co-occurrence matrices).",
+      "feature_selection": "Univariate feature selection (ANOVA) to select top k features, followed by Principal Component Analysis (PCA) for dimensionality reduction.",
+      "classifier_type": "L2 penalized Logistic Regression with class balancing (implemented in Scikit-learn)",
+      "hyperparameters": {
+        "k_best_features": 4,
+        "n_pca_components": 114,
+        "regularization_strength_C": 0.003
+      },
+      "optimization_method": "Random search with 105 iterations, optimizing for AUC using 10-fold cross-validation"
+    },
+    "training_details": {
+      "training_set_size": 1187,
+      "training_set_composition": "46 SPL_A lesions, 1141 non-SPL lesions",
+      "validation_method": "10-fold cross-validation for hyperparameter optimization; Leave-one-out cross-validation for ROC curve generation",
+      "data_splitting": "75% training, 25% testing",
+      "software": "Scikit-learn Python package",
+      "hardware": "Mac Pro (2 × 2.4 GHz 6-Core Intel Xeon)"
+    },
+    "classification_or_output_head": {
+      "output_type": "Continuous suspiciousness score between 0 and 1",
+      "threshold": 0.46,
+      "decision_rule": "Binary classification: score < 0.46 is non-suspicious, score >= 0.46 is suspicious"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Feature-based regression classifier",
+    "Logistic Regression",
+    "L2 penalized logistic regression with class balancing"
+  ],
+  "preprocessing_techniques": [
+    "Conversion of RAW images to TIFF format using camera-specific software (OLYMPUS Viewer 3)",
+    "Manual cropping of single lesions with diameter > 3 mm from original wide-field images",
+    "Illumination correction using Otsu's method for automatic thresholding of grayscale images",
+    "Lesion border segmentation using an automatic algorithm by Celebi et al. to separate lesion from surrounding skin",
+    "Blob-detection approach to select the centered blob as the lesion",
+    "Morphological opening operation with a disk-shaped structuring element spanning one-fifth of the total lesion image size to remove foreground objects",
+    "Application of Gaussian blur to reduce high-frequency components of the background while maintaining non-uniform illumination information",
+    "Shading attenuation method by Cavalcanti et al. to correct inhomogeneous illumination artifacts",
+    "Subtraction of the lightness value in HSV space of the opened image after Gaussian blurring from the original color image pixel by pixel",
+    "Standardization of feature data by scaling each feature distribution to have zero mean and unit mean before input into the model"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "Wide-field photography combined with computer-aided classification systems can effectively distinguish suspicious from non-suspicious pigmented lesions.",
+    "The proposed system achieved a sensitivity of 100% for suspicious pigmented lesions confirmed by dermoscopy (SPL_A) and 83.2% for those not confirmed (SPL_B), with an overall accuracy of 75.9%.",
+    "The system's suspiciousness score is aligned with common macro-screening (naked eye) practices, potentially aiding in the assessment of lesion severity.",
+    "This approach may be effective for supporting skin screenings at a population level, particularly in primary care settings where wide-field images are acquired under natural illumination.",
+    "The study demonstrates the utility of using consumer-grade cameras and wide-field images for computer-aided diagnosis, overcoming limitations of traditional systems that rely on pre-selected, controlled dermoscopy images.",
+    "Limitations include misclassifications due to segmentation errors (e.g., lesions with excess hair or depigmented halos), suggesting that future improvements could involve incorporating more surrounding non-lesion information."
+  ],
+  "important_remarks": [
+    "The study population consists exclusively of high-risk patients (133 patients with family or personal history of melanoma), limiting generalizability to the general primary care population.",
+    "The dataset is highly imbalanced, with only 9 SPL_A lesions (confirmed suspicious) versus 1141 non-SPL lesions in the training set, potentially biasing the classifier.",
+    "SPL_A lesions were confirmed by dermoscopy/histopathology, while SPL_B lesions were suspicious by naked eye but not confirmed by dermoscopy; the classifier distinguishes clinical suspicion rather than histopathological malignancy directly.",
+    "Only 9 of the 55 SPL_A lesions were biopsied, providing limited histopathological ground truth for the 'confirmed suspicious' class.",
+    "The system relies on manual cropping of lesions from wide-field images, which limits scalability and introduces potential segmentation errors (e.g., lesions with excess hair or depigmented halos were misclassified).",
+    "No external validation was performed; the model was trained and tested on data from the same cohort of high-risk patients.",
+    "The classifier uses a suspiciousness score aligned with macro-screening (naked eye) practices rather than traditional melanoma vs. non-melanoma classification, which may have different clinical utility and interpretation.",
+    "The study acknowledges that patient information (history, age, sex) was not included due to availability, suggesting potential for improved performance with multimodal input.",
+    "The test set included 100% of SPL_B lesions but only approx. 25% of SPL_A and non-SPL lesions, indicating a non-random split that may affect performance estimation.",
+    "The system was designed to work with consumer-grade cameras under natural illumination, enhancing real-world applicability but introducing variability in lighting and image quality."
+  ]
+}

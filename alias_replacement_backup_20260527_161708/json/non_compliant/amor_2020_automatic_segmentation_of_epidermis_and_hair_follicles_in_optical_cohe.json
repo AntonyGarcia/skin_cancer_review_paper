@@ -1,0 +1,268 @@
+{
+  "file_name": "amor_2020_automatic_segmentation_of_epidermis_and_hair_follicles_in_optical_cohe.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a Convolutional Neural Network (CNN) based on the U-Net architecture to automatically segment the epidermis and hair follicles in Optical Coherence Tomography (OCT) images of human skin. This AI method was applied to 270 human skin OCT images to achieve segmentation results, specifically detecting the epidermal layer and pilosebaceous units, which are relevant for dermatological disease monitoring."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a Convolutional Neural Network (U-Net) for automatic segmentation of epidermis and hair follicles in 270 human skin OCT images. It includes specific sections for Methods, Results (with quantitative metrics like Dice score and RMSE), and Discussion, indicating it is an original technical study rather than a review."
+  },
+  "title": "Automatic Segmentation of Epidermis and Hair Follicles in Optical Coherence Tomography Images of Normal Skin by Convolutional Neural Networks",
+  "authors": [
+    "Rocío del Amor",
+    "Sandra Morales",
+    "Adrián Colomer",
+    "Mette Mogensen",
+    "Mikkel Jensen",
+    "Niels M. Israelsen",
+    "Ole Bang",
+    "Valery Naranjo"
+  ],
+  "doi": "10.3389/fmed.2020.00220",
+  "journal": "Frontiers in Medicine",
+  "year": 2020,
+  "article_type": "Research article",
+  "brief_summary": "This study presents an automatic method for segmenting the epidermis and hair follicles in Optical Coherence Tomography (OCT) images of normal human skin to aid in dermatological disease monitoring. The proposed approach utilizes a Convolutional Neural Network based on the U-Net architecture, followed by a post-processing stage involving Savitzky-Golay and Fourier Domain Filtering to define follicular borders. The method was validated on a dataset of 270 OCT images acquired from nine healthy human subjects using an ultrahigh-resolution OCT system. Evaluation results demonstrated an average Dice score of 0.83 ± 0.06 and a thickness error of 10.25 µm, outperforming existing state-of-the-art methods. The algorithm successfully detected the epidermal layer and pilosebaceous units, which are critical for diagnosing conditions such as basal cell carcinoma and lupus erythematosus.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Normal/Healthy Skin",
+      "paper_terms": [
+        "Normal Skin",
+        "healthy human skin",
+        "healthy humans"
+      ],
+      "role": "Target class",
+      "details": "The study focuses exclusively on the segmentation of epidermis and hair follicles in Optical Coherence Tomography (OCT) images of normal/healthy human skin. The dataset consisted of 270 images from nine healthy subjects. While the paper mentions that the method is relevant for monitoring diseases like basal cell carcinoma, lupus erythematosus, folliculitis, and acne, these pathological conditions were not included in the experimental dataset or segmentation task."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned as a skin disorder where follicular structures are important (BCCs arise from basal cells of hair follicles), but not studied or segmented in the experiments."
+    },
+    {
+      "lesion_type": "Lupus Erythematosus",
+      "paper_terms": [
+        "lupus erythematosus",
+        "cutaneous lupus erythematosus",
+        "chronic discoid LE",
+        "CDLE"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned as a disorder related to alterations in hair follicles (specifically chronic discoid LE causing hair loss), but not studied or segmented in the experiments."
+    },
+    {
+      "lesion_type": "Folliculitis",
+      "paper_terms": [
+        "folliculitis"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned as a disorder related to alterations in hair follicles, but not studied or segmented in the experiments."
+    },
+    {
+      "lesion_type": "Acne",
+      "paper_terms": [
+        "acne"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned as a disorder related to alterations in hair follicles (dysmorphic pilosebaceous units), but not studied or segmented in the experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Epidermis layer and hair follicles (pilosebaceous units) in Optical Coherence Tomography (OCT) images",
+        "primary": true,
+        "details": "The paper presents an automatic method for segmenting the epidermis and hair follicles in OCT images. The core algorithm is a Convolutional Neural Network (U-Net architecture) that performs pixel-wise classification into three classes (upper bound, epidermis+follicles, dermis) to produce segmentation masks. The task is explicitly defined as 'segmentation' in the title and abstract, with evaluation metrics including Dice score (0.83 ± 0.06) and thickness error (10.25 µm)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Human Skin OCT Database (Private/Clinical Cohort)",
+      "description": "A dataset of Optical Coherence Tomography (OCT) images acquired from nine healthy human subjects using an ultrahigh-resolution OCT (UHR-OCT) system. The images were manually segmented by an expert to create ground truth masks for the epidermis and hair follicles. The complete database including original images and ground truth is available as Supplementary Material.",
+      "classes_used": [
+        "upper bound",
+        "epidermis+follicles",
+        "dermis"
+      ],
+      "counts": {
+        "total": 270,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the Convolutional Neural Network (U-Net) via patch-wise learning (2,730 patches) and internal leave-one-out cross-validation.",
+        "validation": "Used for validation via internal leave-one-out cross-validation (390 patches) and external K-fold cross-validation (K=9, one fold per patient).",
+        "testing": "Used for testing via external K-fold cross-validation (one fold per patient in each iteration) to evaluate segmentation performance (Dice score, thickness error).",
+        "other": "The dataset was made publicly available as Supplementary Material to facilitate further comparisons."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice score",
+    "Jaccard index",
+    "Relative Success Rate (RSR)",
+    "Epidermal Thickness (ET)",
+    "Root-Mean-Square Error (RMSE)",
+    "Mean Absolute Error (MAE)",
+    "Soft-Dice loss"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Leave-one-out cross-validation",
+      "purpose": "Internal validation of the Convolutional Neural Network model performance.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "K-fold cross-validation (K=9)",
+      "purpose": "External validation of the model, with one fold per patient, to evaluate segmentation performance.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Dice score",
+      "purpose": "Quantitative metric to evaluate segmentation accuracy (reported as mean ± standard deviation).",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Jaccard index",
+      "purpose": "Quantitative metric to evaluate segmentation accuracy (reported as mean ± standard deviation).",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Relative Success Rate (RSR)",
+      "purpose": "Metric to evaluate the accuracy of detected follicles compared to ground truth.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Root-Mean-Square Error (RMSE)",
+      "purpose": "Quantitative metric to evaluate the error in epidermal thickness measurement.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Mean Absolute Error (MAE)",
+      "purpose": "Quantitative metric to evaluate the error in epidermal thickness measurement.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Soft-Dice loss",
+      "purpose": "Loss function used during the training stage to optimize the network weights.",
+      "type": "Loss Function"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance was evaluated using descriptive statistics (mean ± standard deviation) of metrics such as Dice score, Jaccard index, RMSE, and MAE, and by comparing results qualitatively or via metric values against ground truth and other methods without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Human Skin OCT Database (9 Patients, 270 Images)": {
+      "evaluation_setting": "External K-fold cross-validation (K=9) with internal leave-one-out cross-validation for hyperparameter tuning; Results reported after post-processing (Savitzky-Golay and Fourier Domain Filtering)",
+      "models": {
+        "Proposed Method (U-Net FCN + Post-Processing)": {
+          "Dice Score (Epidermis + Follicles)": "0.83 ± 0.06",
+          "Dice Score (Dermis)": "0.96 ± 0.01",
+          "Jaccard Index (Epidermis + Follicles)": "0.71 ± 0.09",
+          "Jaccard Index (Dermis)": "0.93 ± 0.02",
+          "Relative Success Rate (RSR) of Follicles": "0.86 (Mean)",
+          "Epidermal Thickness RMSE": "10.20 µm (Mean)",
+          "Epidermal Thickness MAE": "9.76 µm (Mean)",
+          "Comparison to Baseline (Li et al. [5])": "Proposed Dice (0.83) vs Li et al. Dice (0.74) for epidermis segmentation"
+        }
+      },
+      "notes": "The method outperformed state-of-the-art methods for epidermis segmentation. The post-processing stage improved Dice score from 0.81 to 0.83 and Jaccard from 0.69 to 0.71 for epidermis+follicles. RMSE and MAE values for epidermal thickness were among the lowest compared to semi-automatic methods in literature (8-14 µm range). Specific per-patient metrics are available in Tables 3 and 4 of the paper."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Fully Convolutional Network (FCN) based on U-Net architecture",
+    "pretraining": null,
+    "input_size": "526 × 75 pixels (patches)",
+    "architecture_details": {
+      "type": "Encoder-decoder architecture",
+      "encoder_blocks": "Each encoder block composed of four layers: convolution layer, batch normalization layer, ReLU activation layer, and max-pooling layer. Convolutional layer uses 64 rectangular kernels of 7 × 3 with zero padding.",
+      "decoder_blocks": "Each decoder block consists of five layers: unpooling layer, concatenation layer, convolution layer, batch normalization, and ReLU activation. Unpooling upsamples feature maps to double resolution using pooling indexes from the encoder.",
+      "final_decoder_block": "Convolutional layer with 1 × 1 kernel and softmax activation function for pixel-wise classification into three classes (upper bound, epidermis+follicles, dermis).",
+      "post_processing": "Savitzky-Golay filter (polynomial order d=1, window size 449 pixels) and Fourier Domain Filtering (frequency cutoff fc ≈ 0.007, P=4 descriptors) to smooth follicular contours."
+    },
+    "training_details": {
+      "optimizer": "Stochastic Gradient Descent (SGD)",
+      "loss_function": "Soft-Dice loss",
+      "hyperparameters": {
+        "batch_size": 4,
+        "iterations_per_epoch": 683,
+        "momentum": 0.97,
+        "initial_learning_rate": 0.001,
+        "learning_rate_schedule": "Reduced by one order after every 20 epochs",
+        "total_epochs": 60
+      },
+      "data_augmentation": "Random geometric transformations (rotations, horizontal flips, croppings, translations)",
+      "validation_strategy": "Internal leave-one-out cross-validation for hyperparameter tuning; External K-fold cross-validation (K=9) for testing."
+    },
+    "classification_or_output_head": {
+      "type": "Softmax activation",
+      "classes": 3,
+      "class_labels": [
+        "upper bound",
+        "epidermis+follicles",
+        "dermis"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Convolutional Neural Network (CNN) based on U-Net architecture",
+    "Fully Convolutional Network (FCN) based on U-Net architecture",
+    "Li et al. method (baseline comparison)",
+    "Calderon-Delgado et al. fully convolutional network (FCN) (literature comparison)",
+    "Kepp et al. deep learning algorithm based on U-net architecture with densely connected convolutions (literature comparison)"
+  ],
+  "preprocessing_techniques": [
+    "Rescaling of all OCT images to a uniform dimension of 526 × 975 pixels to accommodate deep learning requirements.",
+    "Patch-wise extraction of training patches with size 526 × 75 pixels (totaling 2,730 patches for training and 390 for validation) to manage memory constraints.",
+    "Data augmentation via random geometric transformations including rotations, horizontal flips, croppings, and translations.",
+    "Post-processing using a Savitzky-Golay filter (polynomial order d=1, window size 449 pixels) to detect the baseline of the dermo-epidermal junction and define hair follicle contours.",
+    "Baseline correction applied to the Savitzky-Golay output to adjust for transient periods and improve follicular structure detection.",
+    "Morphological area opening to remove connected components smaller than a threshold (α = 0.3 × max(Ac)) to isolate true follicular structures.",
+    "Fourier Domain Filtering applied to soften follicular contours, using a frequency cutoff (fc ≈ 0.007) and retaining P=4 descriptors to smooth the object shape."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random geometric transformations",
+      "details": "Applied to sliced training data to avoid overfitting. Specific transforms included rotations, horizontal flips, croppings, and translations. No specific probabilities or ranges were reported."
+    }
+  ],
+  "conclusions": [
+    "The proposed method, a Convolutional Neural Network based on U-Net architecture combined with Savitzky-Golay and Fourier Domain Filtering post-processing, successfully automates the segmentation of the epidermis and hair follicles (pilosebaceous units) in Optical Coherence Tomography (OCT) images of normal human skin.",
+    "The method achieved an average Dice score of 0.83 ± 0.06 and a thickness error (RMSE) of 10.25 µm on 270 OCT images from nine healthy subjects, outperforming existing state-of-the-art methods for epidermis segmentation.",
+    "The post-processing stage significantly improved segmentation accuracy, increasing the Dice score for epidermis+follicles from 0.81 to 0.83 and the Jaccard index from 0.69 to 0.71, while also smoothing follicular contours to better match expert ground truth.",
+    "The algorithm demonstrated a high Relative Success Rate (RSR) of 0.86 for detecting follicular structures, indicating robust detection of the pilosebaceous units.",
+    "This approach is noted as the only epidermis detection algorithm that segments the follicular structures, which is clinically relevant for monitoring skin disorders such as folliculitis, acne, lupus erythematosus, and basal cell carcinoma.",
+    "The study validates the potential of fully automatic OCT analysis to accelerate the diagnosis of dermatological diseases by providing non-invasive, quantitative assessment of skin structures without the need for invasive biopsies.",
+    "The complete dataset, including original OCT images and expert ground truth, was made publicly available to facilitate future research and comparison."
+  ],
+  "important_remarks": [
+    "The study is limited to normal/healthy skin; pathological conditions (e.g., basal cell carcinoma, lupus erythematosus) were mentioned as clinical motivations but were not included in the dataset or segmentation task.",
+    "The dataset consists of only 270 images from 9 healthy subjects (ages 28-72), representing a small and homogeneous population with potential demographic bias.",
+    "Images were acquired using a custom ultrahigh-resolution OCT (UHR-OCT) system with specific lateral (6 µm) and axial (2.2 µm) resolutions, limiting generalizability to commercial OCT systems with different resolutions (10-15 µm lateral, 5-10 µm axial).",
+    "The dataset was split using external K-fold cross-validation (K=9, one fold per patient) to prevent data leakage between training and testing sets, ensuring patient-independent evaluation.",
+    "Internal hyperparameter tuning used leave-one-out cross-validation on training folds, which may introduce bias in performance estimation compared to a held-out validation set.",
+    "The method was compared against state-of-the-art methods (Li et al., Calderon-Delgado et al., Kepp et al.) but direct comparison was limited because most competing methods are not open-source or tested on the same database.",
+    "The epidermal thickness error (RMSE 10.2 µm) was compared indirectly to a semi-automatic method (Taghavikhalilbad et al.) that used a different database and body parts, making the comparison indirect.",
+    "The paper claims to be the 'only' epidermis detection algorithm segmenting follicular structures, which is a strong claim that may not account for all recent or unpublished literature.",
+    "Data augmentation was applied only to training patches (rotations, flips, croppings, translations) without specified probabilities or ranges, which may affect reproducibility.",
+    "The complete dataset (images and ground truth) is available as Supplementary Material, facilitating external validation and comparison."
+  ]
+}

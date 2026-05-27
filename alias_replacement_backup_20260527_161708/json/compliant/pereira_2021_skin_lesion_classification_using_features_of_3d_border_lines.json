@@ -1,0 +1,232 @@
+{
+  "file_name": "pereira_2021_skin_lesion_classification_using_features_of_3d_border_lines.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a quadratic Support Vector Machine (SVM), a machine learning algorithm, to classify skin lesions (melanoma vs. nevus) based on features extracted from the depth information of 3D border lines."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the extraction of features from 3D border lines of skin lesions and their classification using a quadratic Support Vector Machine. It reports specific experimental results, including sensitivity, specificity, and geometric mean metrics, on the SKINL2 dataset, rather than summarizing prior literature."
+  },
+  "title": "Skin lesion classification using features of 3D border lines",
+  "authors": [
+    "Pedro M. M. Pereira",
+    "Lucas A. Thomaz",
+    "Luis M. N. Tavora",
+    "Pedro A. A. Assuncao",
+    "Rui Fonseca-Pinto",
+    "Rui Pedro Paiva",
+    "Sergio M. M. Faria"
+  ],
+  "doi": "10.1109/EMBC46164.2021.9629966",
+  "journal": "2021 43rd Annual International Conference of the IEEE Engineering in Medicine & Biology Society (EMBC)",
+  "year": 2021,
+  "article_type": "Conference paper",
+  "brief_summary": "This study investigates the use of 3D depth information from skin lesion border lines to classify melanoma versus nevus, addressing limitations of traditional 2D dermoscopic images. The authors utilized the publicly available SKINL2 dataset, which contains 4-channel RGB+Z images captured via light-field cameras, focusing specifically on depth features extracted from the lesion perimeter. A quadratic Support Vector Machine was employed for classification, with experiments conducted using Leave-One-Out Cross-Validation on a dataset comprising 9 melanomas and 27 nevi. The proposed method achieved a top geometric mean of 94.87%, with 100.00% sensitivity and 90.00% specificity, demonstrating the potential of 3D surface topology for lesion discrimination. These results indicate that exploiting depth information can provide significant discriminative power and more balanced performance metrics compared to methods relying solely on 2D features.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the binary classification task (melanoma vs. nevus). The dataset SKINL2 contains 9 melanoma images. Classified based on clinician diagnosis according to ICD10 and histopathological analysis."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "Nevus",
+        "nevi"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the binary classification task (melanoma vs. nevus). Described as a benign kind of skin lesion. The dataset SKINL2 contains 27 nevus images."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions into melanoma or nevus categories",
+        "primary": true,
+        "details": "The paper performs binary classification to differentiate between melanoma and nevus using a quadratic Support Vector Machine (SVM) based on features extracted from the depth information of 3D border lines. The task is explicitly defined as classifying pigmented skin lesions, with performance evaluated using sensitivity, specificity, and geometric mean."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "SKINL2 (Skin Lesion Light-fields)",
+      "description": "A publicly available dataset of 4-channel RGB+Z images (dermoscopic images with depth information) captured using a Raytrix R42 light-field camera at Centro Hospitalar de Leiria, Portugal. The dataset was created to enable research on 3D surface information of skin lesions.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": 36,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 9,
+          "Nevus": 27
+        }
+      },
+      "use": {
+        "training": "Used for training the quadratic Support Vector Machine classifier via Leave-One-Out Cross-Validation (effectively 9-fold due to dataset size).",
+        "validation": "Used for validation via Leave-One-Out Cross-Validation (LOOCV).",
+        "testing": "Used for testing via Leave-One-Out Cross-Validation (LOOCV).",
+        "other": "The dataset was also used to evaluate data augmentation techniques (flipping, repetition) and cost matrix adjustments to handle class imbalance."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (Acc.)",
+    "Specificity (SPE)",
+    "Sensitivity (SEN)",
+    "Geometric-Mean (GM)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Leave-One-Out Cross-Validation (LOOCV)",
+      "purpose": "To evaluate the performance of the quadratic Support Vector Machine classifier on the small dataset (9 melanomas, 27 nevi) by iteratively training on all but one sample and testing on the remaining sample.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Average of 10 Executions",
+      "purpose": "To calculate the final performance metrics by averaging the results over 10 independent runs of the cross-validation process to ensure stability.",
+      "type": "Resampling/Averaging"
+    },
+    {
+      "method": "Geometric Mean (GM)",
+      "purpose": "To provide a balanced measure of classification performance that accounts for class imbalance, calculated as the square root of the product of sensitivity and specificity (GM = SEN × SPE).",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Sensitivity (SEN) and Specificity (SPE)",
+      "purpose": "To evaluate the classifier's ability to correctly identify melanomas (SEN) and correctly reject nevi (SPE), providing insight into the balance of the classification results.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Cost Matrix Adjustment",
+      "purpose": "To handle class imbalance during the training phase of the SVM by assigning different misclassification costs to the minority (melanoma) and majority (nevus) classes.",
+      "type": "Class Imbalance Handling"
+    },
+    {
+      "method": "Data Augmentation (Flipping and Balancing Out)",
+      "purpose": "To artificially increase the dataset size and balance class distribution during training, specifically by flipping border lines or repeating samples of the smaller class.",
+      "type": "Data Preprocessing/Augmentation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using sensitivity, specificity, accuracy, and geometric mean metrics via Leave-One-Out Cross-Validation (LOOCV) averaged over 10 executions, without statistical significance testing between methods."
+  },
+  "results_obtained_in_each_dataset": {
+    "extraction_error": "Invalid control character at: line 128 column 17 (char 4713)",
+    "answer": null
+  },
+  "architecture_used": {
+    "main_model": "Quadratic Support Vector Machine (SVM)",
+    "pretraining": null,
+    "input_size": "Variable length 1D signal (border line depth values), normalized to range [-0.5, 0.5]; processed into chunks of 8 equal-sized windows or observed with windows of size 8",
+    "architecture_details": {
+      "model_type": "Support Vector Machine",
+      "kernel": "Polynomial kernel of second order (quadratic)",
+      "solver": "Iterative Single Data Algorithm (ISDA)",
+      "hyperparameters": {
+        "box_constraint": 1,
+        "model_order_AR": 4,
+        "wavelet_packet_level": 4,
+        "wavelet_type": "Daubechies 2 (db2)",
+        "wavelet_levels": 10,
+        "window_size": 8
+      },
+      "feature_extraction": {
+        "method": "Hand-crafted features",
+        "features": [
+          "AutoRegressive (AR) model coefficients of order 4",
+          "Shannon Entropy Values",
+          "Multi-fractal Wavelet Leader Estimates"
+        ],
+        "total_features": 186
+      }
+    },
+    "training_details": {
+      "cross_validation": "Leave-One-Out Cross-Validation (LOOCV) / 9-Fold Cross-Validation",
+      "executions": 10,
+      "class_imbalance_handling": [
+        "Cost matrix adjustments ([0 1; 1 0], [0 1; 2 0], [0 1; 3 0])",
+        "Data augmentation (Flipping, Balancing Out, Flip+Balance Out)"
+      ],
+      "hardware": "Alienware M17xR3 Laptop (Intel Core i7 2670QM octa-core 64-bit CPU at 2.20GHz, 8 GB RAM)"
+    },
+    "classification_or_output_head": {
+      "type": "Binary Classification (Melanoma vs. Nevus)",
+      "output": "Class label based on SVM decision function"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Quadratic Support Vector Machine (SVM)"
+  ],
+  "preprocessing_techniques": [
+    "Segmentation mask generation using RGB channels to identify lesion perimeter pixels",
+    "Extraction of depth (Z) channel values along the segmented border line",
+    "Replacement of Z-values higher than 10mm (arbitrary threshold for light reflection errors) with previously valid values",
+    "Normalization of border line Z-values to the range [-0.5, 0.5]",
+    "Uniform size transformation of border lines via linear interpolation (T3) or cubic interpolation (T4) to match the largest mask perimeter length",
+    "Splitting border line vectors into chunks of eight equal-sized windows or using windows of size 8 for feature extraction",
+    "Data augmentation via flipping/inverting border lines",
+    "Data augmentation via repeating/balancing out samples of the smaller class",
+    "Extraction of supplementary inner border lines by iteratively shrinking the lesion mask by 20 pixels"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Flipping/Inverting Border Lines",
+      "details": "Flipping or inverting all border lines to double the dataset size. Evaluated as 'Flip' augmentation."
+    },
+    {
+      "technique": "Balancing Out (Repetition)",
+      "details": "Repeating data samples to balance-out the smaller class (melanoma) samples. Evaluated as 'BalanceOut' augmentation."
+    },
+    {
+      "technique": "Combined Flipping and Balancing",
+      "details": "Applying both flipping and balancing-out techniques simultaneously. Evaluated as 'Flip+BalanceOut' augmentation."
+    },
+    {
+      "technique": "Supplementary Inner Border Lines",
+      "details": "Extracting additional border lines by iteratively shrinking the lesion mask by 20 pixels to produce 3 inner border lines inside the lesion region, used to compensate for model overfitting and reinforce comprehension of the problem dimension."
+    },
+    {
+      "technique": "Cost Matrix Adjustment",
+      "details": "Adjusting misclassification costs to handle class imbalance during training. Specific matrices used: [0 1; 1 0], [0 1; 2 0], and [0 1; 3 0], where the cost of misclassifying the minority class (melanoma) was increased relative to the majority class (nevus)."
+    }
+  ],
+  "conclusions": [
+    "Exploiting 3D depth information from skin lesion border lines provides significant discriminative power for classifying melanoma versus nevus, offering potential gains over methods relying solely on 2D features.",
+    "The proposed method using features extracted from 3D border lines achieved a top geometric mean of 94.87%, with 100.00% sensitivity and 90.00% specificity, demonstrating the ability to achieve balanced performance metrics despite class imbalance.",
+    "Data augmentation techniques such as balancing out the smaller class (repeating samples) or adjusting the SVM cost matrix effectively helped mitigate the effects of class imbalance in the small dataset.",
+    "Flipping or inverting border lines generally degraded classification performance by inducing homogeneity in the feature space, making it harder for the classifier to find proper separation.",
+    "Using supplementary inner border lines generally degraded results in most experiments, likely due to the small dataset size causing the classifier to fail to find the best hyper-plane separation with added samples of different origin, although improvements were observed in specific interpolation configurations (T4).",
+    "The proposed approach relies on a less invasive technology (light-field cameras) compared to traditional dermatoscopy, which does not require physical contact with the patient.",
+    "Direct comparison with state-of-the-art skin lesion classification algorithms is not possible due to the constraint of using a different data modality (depth vs. RGB) and dataset.",
+    "The method shows promise for ruling in disease due to high Specificity (SPE) values, which indicate a strong ability to correctly reject healthy patients (nevi)."
+  ],
+  "important_remarks": [
+    "The study uses a very small dataset (SKINL2) with only 36 images (9 melanomas, 27 nevi), which limits the statistical power and generalizability of the results.",
+    "The dataset is significantly imbalanced (3:1 ratio of nevi to melanomas), requiring specific handling via cost matrix adjustments and data augmentation.",
+    "Direct comparison with state-of-the-art skin lesion classification algorithms is impossible due to the unique data modality (3D depth vs. standard 2D RGB) and the lack of other works using the SKINL2 dataset.",
+    "Leave-One-Out Cross-Validation (LOOCV) was used, which effectively results in a 9-fold cross-validation due to the small number of melanoma samples, potentially leading to high variance in performance estimates.",
+    "Data augmentation techniques such as flipping border lines degraded performance by inducing homogeneity in the feature space, making separation harder for the classifier.",
+    "Using supplementary inner border lines generally degraded results in most experiments, likely due to the small dataset size preventing the classifier from finding optimal hyper-plane separation with added samples of different origin.",
+    "The method relies on light-field cameras (Raytrix R42) which are less invasive than traditional dermatoscopy (no physical contact), but this specific hardware constraint limits immediate clinical deployment compared to standard dermoscopes.",
+    "No formal statistical hypothesis testing (e.g., p-values) was reported; performance was evaluated using sensitivity, specificity, accuracy, and geometric mean averaged over 10 executions.",
+    "The high specificity (up to 91.30%) suggests the method is useful for ruling in disease (rejecting healthy patients), but the small sample size means these metrics may not reflect true population performance."
+  ]
+}

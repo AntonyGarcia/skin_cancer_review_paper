@@ -1,0 +1,429 @@
+{
+  "file_name": "harits_2025_deep_learning_based_skin_lesion_detection_and_classification_an_impl.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used the YOLOv12 deep learning architecture for skin lesion detection and classification on the HAM10000 dermatoscopic dataset. The study involved training the model with adaptive augmentation strategies (mosaic, mixup, copy-paste) and class weighting to optimize performance metrics such as mAP50, Precision, Recall, and F1-score."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental results from implementing and optimizing a YOLOv12 deep learning model on the HAM10000 dataset. It includes specific methodology (adaptive augmentation, class weighting), quantitative results (mAP50 of 0.8135, Precision 0.825, etc.), and performance analysis, which are characteristic of a research study rather than a review. Although published in a conference proceedings (ICIMCIS), it reports new empirical findings."
+  },
+  "title": "Deep Learning-Based Skin Lesion Detection and Classification: An Implementation of YOLOv12 Architecture",
+  "authors": [
+    "Harits Arkaan Putranto",
+    "Putu Harry Gunawan",
+    "Indwiarti"
+  ],
+  "doi": "10.1109/ICIMCIS68501.2025.11327385",
+  "journal": "2025 International Conference on Informatics, Multimedia, Cyber and Information System (ICIMCIS)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study implements the YOLOv12 deep learning architecture for automated skin lesion detection and classification using the HAM10000 dermatoscopic dataset. The model was optimized through adaptive augmentation strategies, including mosaic, mixup, and copy-paste, along with class weighting to address data imbalance across seven lesion classes. Evaluation metrics included precision, recall, F1-score, mAP@50, and inference time, with the optimized YOLOv12n model achieving an mAP50 of 0.8135 and precision of 0.825. The system demonstrated a high potential for real-time clinical application with an average inference time of 2.5 ms per image. However, performance was lower for minor classes like Dermatofibroma due to limited training samples, highlighting the need for improved representation of minority classes in future work.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic Keratoses and Intraepithelial Carcinoma",
+      "paper_terms": [
+        "Actinic Keratoses and Intraepithelial Carcinoma",
+        "AKIEC"
+      ],
+      "role": "Target class",
+      "details": "Minority class in HAM10000 dataset; 262 training samples, 65 validation samples; lowest mAP@0.5 (0.618) and recall (50.8%)."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "Basal Cell Carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "Major class in HAM10000 dataset; 411 training samples, 103 validation samples; mAP@0.5 of 0.852."
+    },
+    {
+      "lesion_type": "Benign Keratosis-like Lesions",
+      "paper_terms": [
+        "Benign Keratosis-like Lesions",
+        "BKL"
+      ],
+      "role": "Target class",
+      "details": "Major class in HAM10000 dataset; 879 training samples, 220 validation samples; subject to bilateral confusion with NV."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "Dermatofibroma",
+        "DF"
+      ],
+      "role": "Target class",
+      "details": "Minority class in HAM10000 dataset; 92 training samples, 23 validation samples; low performance due to limited samples."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "Major class in HAM10000 dataset; 890 training samples, 223 validation samples; recall of 60.9%; critical error if misclassified as benign."
+    },
+    {
+      "lesion_type": "Melanocytic Nevi",
+      "paper_terms": [
+        "Melanocytic Nevi",
+        "NV"
+      ],
+      "role": "Target class",
+      "details": "Dominant class in HAM10000 dataset; 5364 training samples, 1341 validation samples; highest mAP@0.5 (0.972) and recall (94.8%)."
+    },
+    {
+      "lesion_type": "Vascular Lesions",
+      "paper_terms": [
+        "Vascular Lesions",
+        "VASC"
+      ],
+      "role": "Target class",
+      "details": "Minority class in HAM10000 dataset; 114 training samples, 28 validation samples; mAP@0.5 of 0.924."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Detection",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Detection",
+        "target": "Bounding box localization and class label of skin lesions in dermatoscopic images.",
+        "primary": true,
+        "details": "The paper implements YOLOv12 for 'skin lesion detection and classification'. It reports mAP@0.5 (mean Average Precision at Intersection over Union threshold 0.5), which is a standard metric for object detection tasks involving bounding boxes. The model predicts both the location (bounding box) and the class (one of seven lesion types) simultaneously."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic category of the detected skin lesion.",
+        "primary": false,
+        "details": "The system classifies detected lesions into seven discrete classes (AKIEC, BCC, BKL, DF, MEL, NV, VASC) from the HAM10000 dataset. Performance is evaluated using Precision, Recall, F1-score, and per-class mAP@0.5, indicating multi-class classification is integral to the detection output."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HAM10000",
+      "description": "A large collection of multi-source dermatoscopic images of common pigmented skin lesions, containing 10,015 high-resolution images. The dataset covers seven types of major skin lesions with diagnosis labels based on medical examination. Images were de-identified prior to release following ethical guidelines.",
+      "classes_used": [
+        "Actinic Keratoses and Intraepithelial Carcinoma (AKIEC)",
+        "Basal Cell Carcinoma (BCC)",
+        "Benign Keratosis-like Lesions (BKL)",
+        "Dermatofibroma (DF)",
+        "Melanoma (MEL)",
+        "Melanocytic Nevi (NV)",
+        "Vascular Lesions (VASC)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 8012,
+        "validation": 2003,
+        "testing": null,
+        "per_class": {
+          "AKIEC": {
+            "total": null,
+            "training": 262,
+            "validation": 65,
+            "testing": null
+          },
+          "BCC": {
+            "total": null,
+            "training": 411,
+            "validation": 103,
+            "testing": null
+          },
+          "BKL": {
+            "total": null,
+            "training": 879,
+            "validation": 220,
+            "testing": null
+          },
+          "DF": {
+            "total": null,
+            "training": 92,
+            "validation": 23,
+            "testing": null
+          },
+          "MEL": {
+            "total": null,
+            "training": 890,
+            "validation": 223,
+            "testing": null
+          },
+          "NV": {
+            "total": null,
+            "training": 5364,
+            "validation": 1341,
+            "testing": null
+          },
+          "VASC": {
+            "total": null,
+            "training": 114,
+            "validation": 28,
+            "testing": null
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the YOLOv12 model with adaptive augmentation strategies (mosaic, mixup, copy-paste) and class weighting to address data imbalance. Images were pre-processed (hair removal, bounding box extraction) and normalized to 640x640 pixels.",
+        "validation": "Used for validation during training (20% split, 2,003 images) and for calculating performance metrics (Precision, Recall, F1-score, mAP@50) via confusion matrix analysis and bootstrap resampling.",
+        "testing": "null",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Precision",
+    "Recall",
+    "F1-Score",
+    "mAP@50",
+    "mAP@50-95",
+    "Accuracy",
+    "Inference Time",
+    "mAP@0.50",
+    "mAP@0.50–0.95",
+    "Intersection over Union (IoU)",
+    "Mean Average Precision (mAP)",
+    "Average Precision (AP)",
+    "True Positives (TP)",
+    "False Positives (FP)",
+    "False Negatives (FN)",
+    "Confidence Intervals",
+    "F1-Confidence Curve",
+    "Precision-Recall Curve"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Bootstrap resampling",
+      "purpose": "To quantify metric stability and calculate confidence intervals for Precision, Recall, and F1-score.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Confidence Intervals",
+      "purpose": "To report the range of metric stability (e.g., Precision 0.808–0.840, Recall 0.817–0.847, F1 0.812–0.844) derived from bootstrap resampling.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Confusion Matrix Analysis",
+      "purpose": "To calculate True Positives (TP), False Positives (FP), False Negatives (FN), Precision, Recall, and F1-score for overall and per-class performance evaluation.",
+      "type": "Performance evaluation"
+    },
+    {
+      "method": "Precision-Recall Curve Analysis",
+      "purpose": "To illustrate the trade-off between precision and recall for each class at various thresholds and determine mean Average Precision (mAP).",
+      "type": "Performance evaluation"
+    },
+    {
+      "method": "F1-Confidence Curve Analysis",
+      "purpose": "To determine the optimal confidence threshold (0.511) where the model achieves the best balance between precision and recall.",
+      "type": "Performance evaluation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., t-tests, ANOVA) with p-values. It reported 95% confidence intervals derived from bootstrap resampling to quantify metric stability, but did not perform significance tests comparing groups."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "experiment": "Optimized YOLOv12n vs YOLOv12s (unoptimized)",
+      "split": "Validation (20% of dataset)",
+      "models": {
+        "YOLOv12n (Optimized)": {
+          "mAP@0.50": 0.8135,
+          "mAP@0.50-0.95": 0.627,
+          "Precision": 0.825,
+          "Recall": 0.704,
+          "F1-Score": 0.757,
+          "Accuracy": 0.7404,
+          "Inference Time (ms/img)": 2.5,
+          "Confidence Intervals (95%)": {
+            "Precision": "0.808–0.840",
+            "Recall": "0.817–0.847",
+            "F1-Score": "0.812–0.844"
+          },
+          "Optimal Confidence Threshold": 0.511,
+          "Max F1-Score": 0.76
+        },
+        "YOLOv12s (Unoptimized)": {
+          "Precision": 0.751,
+          "Recall": 0.68,
+          "F1-Score": 0.711,
+          "mAP@0.50": 0.784,
+          "mAP@0.50-0.95": 0.605,
+          "Accuracy": 0.721,
+          "Inference Time (ms/img)": 5.3
+        }
+      },
+      "per_class_metrics": {
+        "NV (Melanocytic Nevi)": {
+          "mAP@0.5": 0.972,
+          "Recall": 0.948,
+          "TP": 1271,
+          "FP": 233,
+          "FN": 70,
+          "N_train": 5364,
+          "N_val": 1341
+        },
+        "VASC (Vascular Lesions)": {
+          "mAP@0.5": 0.924,
+          "TP": 25,
+          "FP": 6,
+          "FN": 3,
+          "N_train": 114,
+          "N_val": 28
+        },
+        "BCC (Basal Cell Carcinoma)": {
+          "mAP@0.5": 0.852,
+          "TP": 74,
+          "FP": 45,
+          "FN": 29,
+          "N_train": 411,
+          "N_val": 103
+        },
+        "MEL (Melanoma)": {
+          "mAP@0.5": 0.729,
+          "Recall": 0.609,
+          "TP": 136,
+          "FP": 143,
+          "FN": 87,
+          "N_train": 890,
+          "N_val": 223
+        },
+        "BKL (Benign Keratosis-like Lesions)": {
+          "TP": 144,
+          "FP": 95,
+          "FN": 76,
+          "N_train": 879,
+          "N_val": 220
+        },
+        "AKIEC (Actinic Keratoses and Intraepithelial Carcinoma)": {
+          "mAP@0.5": 0.618,
+          "Recall": 0.508,
+          "TP": 33,
+          "FP": 38,
+          "FN": 32,
+          "N_train": 262,
+          "N_val": 65
+        },
+        "DF (Dermatofibroma)": {
+          "TP": 17,
+          "FP": 12,
+          "FN": 6,
+          "N_train": 92,
+          "N_val": 23
+        }
+      },
+      "notes": "The model showed strong performance on dominant classes (NV, VASC) but lower performance on minority classes (AKIEC, DF) due to data imbalance. Bilateral confusion was observed between BKL and NV (32 BKL detected as NV, 15 NV detected as BKL). MEL class had a critical recall of 60.9%, with false positives often detected as NV or BKL. The average mAP@0.5 across all classes was 0.813."
+    }
+  },
+  "architecture_used": {
+    "main_model": "YOLOv12n (Nano variant)",
+    "pretraining": "Pre-trained weights 'yolo12n.pt' initialized via transfer learning",
+    "input_size": "640 × 640 pixels",
+    "architecture_details": {
+      "backbone": "Cross-Stage Partial (CSP) design for gradient duplication reduction and efficiency",
+      "neck": "Spatial Pyramid Pooling – Fast (SPPF) module for multi-scale context capture; FPN-based neck",
+      "head": "Decoupled head separating classification and bounding box regression branches",
+      "assignment_mechanism": "Task-Aligned Assigner (TAL)",
+      "model_variant_selection_rationale": "Selected for lowest parameter count, reduced overfitting risk on imbalanced data, and fast inference suitable for real-time clinical applications"
+    },
+    "training_details": {
+      "epochs": 450,
+      "batch_size": 8,
+      "optimizer": "SGD with Momentum 0.937",
+      "learning_rate_scheduler": "Cosine Learning Rate",
+      "augmentation_strategies": [
+        "Mosaic",
+        "MixUp",
+        "CutMix",
+        "Copy-Paste"
+      ],
+      "class_imbalance_handling": "Class weighting",
+      "data_split": "80% training, 20% validation"
+    },
+    "classification_or_output_head": {
+      "task_type": "Multi-class object detection and classification",
+      "classes": [
+        "Actinic Keratoses and Intraepithelial Carcinoma (AKIEC)",
+        "Basal Cell Carcinoma (BCC)",
+        "Benign Keratosis-like Lesions (BKL)",
+        "Dermatofibroma (DF)",
+        "Melanoma (MEL)",
+        "Melanocytic Nevi (NV)",
+        "Vascular Lesions (VASC)"
+      ],
+      "output_metrics": "Bounding box coordinates and class confidence scores"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "YOLOv12n",
+    "YOLOv12s",
+    "YOLOv12",
+    "YOLOv3",
+    "YOLOv5",
+    "YOLOv11",
+    "YOLOv12",
+    "YOLOX",
+    "Convolutional Neural Network (CNN)",
+    "Deep CNN"
+  ],
+  "preprocessing_techniques": [
+    "Hair removal using OpenCV with black-hat morphology (elliptical kernel 7x7) followed by inpainting using the Telea algorithm to eliminate hair artifacts",
+    "Bounding box extraction from binary lesion masks by identifying positive pixel coordinates and determining minimum/maximum boundaries",
+    "Image resizing/normalization to 640 × 640 pixels",
+    "Data augmentation strategies: Mosaic, MixUp, CutMix, and Copy-Paste",
+    "Class weighting to address data imbalance",
+    "De-identification of images prior to release"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Mosaic",
+      "details": "Combines four images into a single canvas to expand the input distribution support and reduce generalization error."
+    },
+    {
+      "technique": "MixUp",
+      "details": "Acts as an explicit regularization method to enforce smoother, Lipschitz-continuous decision functions, reducing overfitting."
+    },
+    {
+      "technique": "CutMix",
+      "details": "Encourages the model to learn discriminative features by replacing image regions with patches from other samples, enhancing detection of small lesions."
+    },
+    {
+      "technique": "Copy-Paste",
+      "details": "Strengthens minority-class representation through object-level oversampling without identical duplication, improving recall for low-sample classes."
+    },
+    {
+      "technique": "Class Weighting",
+      "details": "Applied to address data imbalance between classes during the training process."
+    }
+  ],
+  "conclusions": [
+    "The optimized YOLOv12n model achieved an mAP50 of 0.8135, Precision of 0.825, Recall of 0.704, F1-score of 0.757, and an overall accuracy of 0.7404 on the HAM10000 dataset.",
+    "The model demonstrated high potential for real-time clinical application with an average inference time of 2.5 ms per image.",
+    "Optimization through adaptive augmentation strategies (mosaic, mixup, copy-paste) and class weighting significantly improved performance metrics, particularly mAP50 and F1-score, compared to unoptimized configurations.",
+    "The YOLOv12n variant was selected as the primary architecture due to its balance of efficiency, robustness, and deployability, offering fewer parameters and lower computational requirements than heavier variants, which helps reduce overfitting on imbalanced medical data.",
+    "Performance was significantly lower for minority classes, specifically Actinic Keratoses and Intraepithelial Carcinoma (AKIEC) with an mAP@0.5 of 0.618 and recall of 50.8%, and Dermatofibroma (DF), due to limited training samples.",
+    "Bilateral confusion was observed between Benign Keratosis-like Lesions (BKL) and Melanocytic Nevi (NV) due to visual similarities in pigmentation and texture, though this carries low clinical risk as neither requires aggressive treatment.",
+    "The Melanoma (MEL) class showed moderate performance (mAP 0.729) with a recall of 60.9%, where increasing recall led to a significant decrease in precision, highlighting the critical nature of false negatives in melanoma detection.",
+    "While high-precision localization (mAP@0.50–0.95) was moderate at 0.627, indicating room for improvement in bounding box accuracy, the combination of detection accuracy and computational efficiency supports the model's utility.",
+    "Future work should focus on improving the representation of minor classes, refining annotations, and integrating segmentation modules to achieve a target mAP50-95 above 0.8 and higher clinical accuracy.",
+    "The proposed system functions as a computer-aided diagnostic aid and requires clinical validation, regulatory review, and expert oversight before deployment."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the HAM10000 dataset, which exhibits significant class imbalance (e.g., NV has 5,364 training samples vs. DF's 92), potentially biasing performance toward dominant classes.",
+    "Performance on minority classes is notably weak; Actinic Keratoses and Intraepithelial Carcinoma (AKIEC) achieved a low recall of 50.8% and mAP@0.5 of 0.618 due to limited training data.",
+    "Melanoma (MEL) detection showed a critical recall of only 60.9%, posing a risk of false negatives where malignant lesions might be misclassified as benign (NV or BKL).",
+    "Bilateral confusion was observed between Benign Keratosis-like Lesions (BKL) and Melanocytic Nevi (NV), with 32 BKL cases detected as NV and 15 NV cases detected as BKL.",
+    "The model was evaluated only on a validation split (20% of HAM10000) using bootstrap resampling; there is no external validation on independent datasets to assess generalizability.",
+    "The paper acknowledges that the system is a computer-aided diagnostic aid requiring clinical validation, regulatory review, and expert oversight before deployment, rather than a standalone diagnostic tool.",
+    "High-precision localization performance is moderate (mAP@0.50–0.95 of 0.627), indicating room for improvement in bounding box accuracy despite good detection accuracy (mAP@0.5 of 0.8135).",
+    "The model tends to be conservative in detecting lesions, resulting in a high number of false positives classified as background (313 cases), which could lead to missed detections in clinical settings."
+  ]
+}

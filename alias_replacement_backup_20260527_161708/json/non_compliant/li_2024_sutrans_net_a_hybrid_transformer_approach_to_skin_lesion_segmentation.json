@@ -1,0 +1,532 @@
+{
+  "file_name": "li_2024_sutrans_net_a_hybrid_transformer_approach_to_skin_lesion_segmentation.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes SUTrans-NET, a hybrid deep learning model combining Convolutional Neural Networks (CNN) and Transformer architectures, to perform automated skin lesion segmentation on dermatological datasets (ISIC 2016, ISIC 2017, ISIC 2018, and PH2)."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel hybrid deep learning model (SUTrans-NET) for skin lesion segmentation. It details the architecture design, describes experimental validation on multiple datasets (ISIC 2016, 2017, 2018, PH2), presents ablation studies, and compares performance metrics against existing methods, which are characteristics of original experimental research."
+  },
+  "title": "SUTrans-NET: a hybrid transformer approach to skin lesion segmentation",
+  "authors": [
+    "Yaqin Li",
+    "Tonghe Tian",
+    "Jing Hu",
+    "Cao Yuan"
+  ],
+  "doi": "10.7717/peerj-cs.1935",
+  "journal": "PeerJ Computer Science",
+  "year": 2024,
+  "article_type": "Research article",
+  "brief_summary": "This study proposes SUTrans-NET, a hybrid deep learning model combining Convolutional Neural Networks (CNN) and Transformer architectures, to address the challenges of automated skin lesion segmentation. The architecture features a dual encoder with dynamic interactive fusion, a SpatialGroupAttention module for spatial and texture information, and a decoder with full-scale information fusion. The method was evaluated on four public dermatological datasets: ISIC 2016, ISIC 2017, ISIC 2018, and PH2. Performance was assessed using accuracy, sensitivity, specificity, Intersection over Union (IoU), and Dice coefficient metrics. Experimental results demonstrated that SUTrans-NET achieved superior segmentation accuracy and competitive performance compared to existing state-of-the-art methods across all tested datasets.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesions",
+        "dermoscopic images",
+        "skin mirror images"
+      ],
+      "role": "Segmentation target",
+      "details": "The study focuses on the automated segmentation of skin lesions in general, rather than specific diagnostic classes. The experiments were conducted on public dermatological datasets (ISIC 2016, ISIC 2017, ISIC 2018, and PH2) which contain images of various skin conditions, but the paper does not report specific lesion type labels or disease categories used in the segmentation task."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma"
+      ],
+      "role": "Motivation/Context",
+      "details": "Mentioned in the Introduction and Abstract as a malignant skin tumor and the most deadly type of skin cancer to justify the importance of early detection and segmentation, but not explicitly listed as a specific class label used in the segmentation experiments."
+    },
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma"
+      ],
+      "role": "Context",
+      "details": "Mentioned in the Introduction as one of the three types of skin cancer, but not as a specific target for the segmentation model."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma"
+      ],
+      "role": "Context",
+      "details": "Mentioned in the Introduction as one of the three types of skin cancer, but not as a specific target for the segmentation model."
+    },
+    {
+      "lesion_type": "Benign skin conditions",
+      "paper_terms": [
+        "benign skin conditions",
+        "psoriasis",
+        "eczema"
+      ],
+      "role": "Context/Comparator",
+      "details": "Mentioned in the Introduction as conditions with similar characteristics to early-stage skin cancer, highlighting the need for CAD tools, but not as specific segmentation targets."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion masks in dermoscopic images",
+        "primary": true,
+        "details": "The paper proposes SUTrans-NET for automated skin lesion segmentation. The model predicts pixel-wise masks for skin lesions. Evaluation metrics include Intersection over Union (IoU) and Dice coefficient, which are standard for segmentation tasks. The task is performed on ISIC 2016, ISIC 2017, ISIC 2018, and PH2 datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2016",
+      "description": "A public dermatological lesion dataset collected by the International Skin Imaging Collaboration (ISIC).",
+      "classes_used": [
+        "Skin lesion segmentation mask"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the SUTrans-NET model.",
+        "validation": null,
+        "testing": "Used for testing the SUTrans-NET model.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2017",
+      "description": "A public dermatological lesion dataset collected by the International Skin Imaging Collaboration (ISIC).",
+      "classes_used": [
+        "Skin lesion segmentation mask"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": null,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the SUTrans-NET model.",
+        "validation": null,
+        "testing": "Used for testing the SUTrans-NET model.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A public dermatological lesion dataset collected by the International Skin Imaging Collaboration (ISIC).",
+      "classes_used": [
+        "Skin lesion segmentation mask"
+      ],
+      "counts": {
+        "total": 3594,
+        "training": 2594,
+        "validation": null,
+        "testing": 1000,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the SUTrans-NET model.",
+        "validation": null,
+        "testing": "Used for testing the SUTrans-NET model.",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2",
+      "description": "A dataset containing 8-bit RGB color skin mirror images from the dermatology department of the Pedro Hispano Hospital in the Matosinhos region of Portugal.",
+      "classes_used": [
+        "Skin lesion segmentation mask"
+      ],
+      "counts": {
+        "total": 200,
+        "training": 160,
+        "validation": null,
+        "testing": 40,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the SUTrans-NET model (randomly selected subset).",
+        "validation": null,
+        "testing": "Used for testing the SUTrans-NET model (remaining subset).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy (ACC)",
+    "Sensitivity (SE)",
+    "Specificity (SP)",
+    "Intersection over Union (IoU)",
+    "Dice coefficient (Dice)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons between SUTrans-NET and baseline/competitor models were based on point estimates of metrics (Accuracy, IoU, Dice, etc.) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "metric": "Accuracy (ACC), Intersection over Union (IoU), Dice coefficient (Dice), Sensitivity (SE), Specificity (SP)",
+      "models": {
+        "SUTrans-NET (SUTNet)": {
+          "ACC": "93.90%",
+          "IoU": "78.28%",
+          "Dice": "86.32%",
+          "SE": "86.18%",
+          "SP": "97.56%"
+        },
+        "U-Net": {
+          "ACC": "92.52%",
+          "IoU": "74.64%",
+          "Dice": "83.42%",
+          "SE": "82.28%",
+          "SP": "97.44%"
+        },
+        "DeLabV3+": {
+          "ACC": "92.86%",
+          "IoU": "74.68%",
+          "Dice": "83.35%",
+          "SE": "80.55%",
+          "SP": "97.66%"
+        },
+        "EANet": {
+          "ACC": "93.31%",
+          "IoU": "75.98%",
+          "Dice": "84.33%",
+          "SE": "81.53%",
+          "SP": "97.51%"
+        },
+        "AttUNet": {
+          "ACC": "91.78%",
+          "IoU": "72.43%",
+          "Dice": "81.85%",
+          "SE": "80.98%",
+          "SP": "97.76%"
+        },
+        "FATNet": {
+          "ACC": "93.44%",
+          "IoU": "76.17%",
+          "Dice": "85.39%",
+          "SE": "83.92%",
+          "SP": "94.92%"
+        },
+        "SwinUNet": {
+          "ACC": "93.44%",
+          "IoU": "76.69%",
+          "Dice": "84.88%",
+          "SE": "83.21%",
+          "SP": "97.34%"
+        },
+        "TransUNet": {
+          "ACC": "93.87%",
+          "IoU": "77.36%",
+          "Dice": "85.68%",
+          "SE": "83.11%",
+          "SP": "97.55%"
+        }
+      },
+      "notes": "SUTrans-NET improved SE, SP, ACC, IoU, and Dice by 3.9%, 0.12%, 1.38%, 3.64%, and 2.90% respectively compared to the baseline U-Net."
+    },
+    "ISIC 2016": {
+      "metric": "Accuracy (ACC), Intersection over Union (IoU), Dice coefficient (Dice), Sensitivity (SE), Specificity (SP)",
+      "models": {
+        "SUTrans-NET (SUTNet)": {
+          "ACC": "95.90%",
+          "IoU": "85.48%",
+          "Dice": "91.43%",
+          "SE": "93.66%",
+          "SP": "96.19%"
+        },
+        "U-Net": {
+          "ACC": "92.52%",
+          "IoU": "74.64%",
+          "Dice": "83.42%",
+          "SE": "82.28%",
+          "SP": "97.44%"
+        },
+        "EANet": {
+          "ACC": "95.13%",
+          "IoU": "83.96%",
+          "Dice": "90.45%",
+          "SE": "92.31%",
+          "SP": "95.73%"
+        },
+        "FATNet": {
+          "ACC": "95.48%",
+          "IoU": "84.69%",
+          "Dice": "91.04%",
+          "SE": "90.98%",
+          "SP": "96.23%"
+        },
+        "SwinUNet": {
+          "ACC": "95.78%",
+          "IoU": "85.24%",
+          "Dice": "91.37%",
+          "SE": "91.07%",
+          "SP": "96.61%"
+        },
+        "TransUNet": {
+          "ACC": "95.20%",
+          "IoU": "84.17%",
+          "Dice": "90.55%",
+          "SE": "91.42%",
+          "SP": "95.41%"
+        }
+      },
+      "notes": "SUTrans-NET improved SE, SP, ACC, IoU, and Dice by 1.92%, 0.05%, 0.48%, 1.52%, and 1.06% respectively compared to the baseline U-Net."
+    },
+    "ISIC 2018": {
+      "metric": "Accuracy (ACC), Intersection over Union (IoU), Dice coefficient (Dice), Sensitivity (SE), Specificity (SP)",
+      "models": {
+        "SUTrans-NET (SUTNet)": {
+          "ACC": "93.33%",
+          "IoU": "81.63%",
+          "Dice": "88.58%",
+          "SE": "91.93%",
+          "SP": "94.02%"
+        },
+        "U-Net": {
+          "ACC": "92.08%",
+          "IoU": "79.44%",
+          "Dice": "86.34%",
+          "SE": "88.47%",
+          "SP": "94.68%"
+        },
+        "EANet": {
+          "ACC": "92.50%",
+          "IoU": "79.96%",
+          "Dice": "86.67%",
+          "SE": "87.28%",
+          "SP": "95.73%"
+        },
+        "FATNet": {
+          "ACC": "92.86%",
+          "IoU": "80.90%",
+          "Dice": "87.74%",
+          "SE": "91.48%",
+          "SP": "93.19%"
+        },
+        "SwinUNet": {
+          "ACC": "93.50%",
+          "IoU": "81.08%",
+          "Dice": "88.46%",
+          "SE": "93.96%",
+          "SP": "92.93%"
+        },
+        "TransUNet": {
+          "ACC": "93.12%",
+          "IoU": "81.74%",
+          "Dice": "88.12%",
+          "SE": "88.68%",
+          "SP": "96.03%"
+        }
+      },
+      "notes": "SUTrans-NET improved SE, SP, ACC, IoU, and Dice by 3.46%, 0.44%, 1.25%, 2.19%, and 2.24% respectively compared to the baseline U-Net."
+    },
+    "PH2": {
+      "metric": "Accuracy (ACC), Intersection over Union (IoU), Dice coefficient (Dice), Sensitivity (SE), Specificity (SP)",
+      "models": {
+        "SUTrans-NET (SUTNet)": {
+          "ACC": "94.59%",
+          "IoU": "87.39%",
+          "Dice": "92.56%",
+          "SE": "96.71%",
+          "SP": "91.77%"
+        },
+        "U-Net": {
+          "ACC": "94.90%",
+          "IoU": "85.09%",
+          "Dice": "91.22%",
+          "SE": "94.72%",
+          "SP": "96.03%"
+        },
+        "R2UNet": {
+          "ACC": "94.84%",
+          "IoU": "83.34%",
+          "Dice": "90.37%",
+          "SE": "93.23%",
+          "SP": "96.56%"
+        },
+        "BiONet": {
+          "ACC": "91.83%",
+          "IoU": "78.32%",
+          "Dice": "86.69%",
+          "SE": "90.29%",
+          "SP": "94.75%"
+        },
+        "UNeXt": {
+          "ACC": "94.24%",
+          "IoU": "85.03%",
+          "Dice": "91.29%",
+          "SE": "96.65%",
+          "SP": "91.17%"
+        },
+        "SegNetr": {
+          "ACC": "94.24%",
+          "IoU": "85.38%",
+          "Dice": "91.42%",
+          "SE": "96.74%",
+          "SP": "92.04%"
+        }
+      },
+      "notes": "SUTrans-NET improved SE, IoU, and Dice by 1.9%, 2.3%, and 1.34% respectively compared to the baseline U-Net. Note: The text states SUTrans-NET achieved SE 96.71% and SP 91.77%, while Table 5 lists SE 96.71% and SP 91.77%. The text also mentions improvements over U-Net for SE, IoU, and Dice."
+    },
+    "Ablation Study (ISIC 2017)": {
+      "metric": "Accuracy (ACC), Intersection over Union (IoU), Dice coefficient (Dice), Sensitivity (SE), Specificity (SP)",
+      "models": {
+        "U-Net (Baseline)": {
+          "ACC": "92.52%",
+          "IoU": "74.64%",
+          "Dice": "83.42%",
+          "SE": "82.28%",
+          "SP": "97.44%"
+        },
+        "SUTrans_cnn": {
+          "ACC": "94.09%",
+          "IoU": "77.78%",
+          "Dice": "85.68%",
+          "SE": "84.46%",
+          "SP": "96.32%"
+        },
+        "SUTrans_vit": {
+          "ACC": "92.21%",
+          "IoU": "72.86%",
+          "Dice": "81.23%",
+          "SE": "79.81%",
+          "SP": "97.97%"
+        },
+        "SUTrans_not_SGA": {
+          "ACC": "93.96%",
+          "IoU": "77.60%",
+          "Dice": "85.71%",
+          "SE": "84.55%",
+          "SP": "97.10%"
+        },
+        "SUTrans_not_aspp": {
+          "ACC": "93.35%",
+          "IoU": "76.61%",
+          "Dice": "84.74%",
+          "SE": "82.30%",
+          "SP": "97.81%"
+        },
+        "SUTrans-NET": {
+          "ACC": "93.90%",
+          "IoU": "78.28%",
+          "Dice": "86.32%",
+          "SE": "86.18%",
+          "SP": "97.56%"
+        }
+      },
+      "notes": "SUTrans_cnn increased IoU by 0.58% and Dice by 0.64% over baseline. SUTrans_vit increased IoU by 5.52% and Dice by 5.09% over baseline. Removing SGA decreased IoU by 0.78% and Dice by 0.61% compared to SUTrans-NET. Removing ASPP decreased IoU by 1.77% and Dice by 1.58% compared to SUTrans-NET."
+    }
+  },
+  "architecture_used": {
+    "main_model": "SUTrans-NET",
+    "pretraining": "ResNet50 (pre-trained model used for the CNN branch backbone)",
+    "input_size": "224x224",
+    "architecture_details": {
+      "type": "Hybrid CNN-Transformer dual encoder-decoder",
+      "encoder": "Dual encoder with parallel CNN and Transformer branches performing dynamic interactive fusion in each layer",
+      "cnn_backbone": "ResNet50",
+      "transformer_backbone": "Vision Transformer (ViT) variant",
+      "patch_embedding": "Modified using YOLOv5 Focus mechanism to slice image and expand channels, preserving spatial characteristics without changing resolution",
+      "attention_module": "SpatialGroupAttention (SGA) module used to complement spatial and texture information, replacing standard Multi-Head Attention (MHA) to save memory",
+      "decoder": "Decoder with full-scale information fusion capability to fuse shallow and deep features from different encoder stages",
+      "upsampling": "Atrous Spatial Pyramid Pooling (ASPP) module used for upsampling/sampling"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.0001,
+      "batch_size": 4,
+      "epochs": 100,
+      "hardware": "Single NVIDIA RTX 3090 GPU",
+      "data_augmentation": [
+        "Horizontal flipping",
+        "Vertical flipping",
+        "Row-column flipping",
+        "Linear transformation",
+        "Random rotation"
+      ]
+    },
+    "classification_or_output_head": {
+      "task": "Segmentation",
+      "output": "Pixel-wise skin lesion masks",
+      "loss_function": "Not explicitly reported in context"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "SUTrans-NET",
+    "U-Net",
+    "DeepLabV3+",
+    "EANet",
+    "AttUNet",
+    "FATNet",
+    "SwinUNet",
+    "TransUNet",
+    "R2UNet",
+    "BiONet",
+    "UNeXt",
+    "SegNetr",
+    "SUTrans_cnn",
+    "SUTrans_vit",
+    "SUTrans_not_SGA",
+    "SUTrans_not_aspp"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to 224x224 pixels",
+    "Data augmentation (horizontal flipping, vertical flipping, row-column flipping, linear transformation, random rotation)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal flipping",
+      "details": "Used as part of the data enhancement strategy to ensure sample diversity during training."
+    },
+    {
+      "technique": "Vertical flipping",
+      "details": "Used as part of the data enhancement strategy to ensure sample diversity during training."
+    },
+    {
+      "technique": "Row-column flipping",
+      "details": "Used as part of the data enhancement strategy to ensure sample diversity during training."
+    },
+    {
+      "technique": "Linear transformation",
+      "details": "Used as part of the data enhancement strategy to ensure sample diversity during training."
+    },
+    {
+      "technique": "Random rotation",
+      "details": "Used as part of the data enhancement strategy to ensure sample diversity during training."
+    }
+  ],
+  "conclusions": [
+    "SUTrans-NET, a hybrid CNN-Transformer dual encoder network, demonstrates superior segmentation performance compared to existing state-of-the-art methods (including U-Net, EANet, FATNet, SwinUNet, and TransUNet) across four public dermatological datasets (ISIC 2016, ISIC 2017, ISIC 2018, and PH2).",
+    "The proposed dual encoder architecture effectively combines the local feature extraction capabilities of CNNs with the global contextual modeling of Transformers, addressing the limitations of traditional CNNs in establishing long-term dependencies and Transformers in handling small medical datasets.",
+    "The introduction of the SpatialGroupAttention (SGA) module significantly improves segmentation accuracy by complementing spatial and texture information while reducing memory usage compared to standard Multi-Head Attention.",
+    "The use of the YOLOv5 Focus mechanism for patch embedding helps preserve pixel accuracy and edge details, which is critical for segmenting lesions with low contrast and irregular boundaries.",
+    "Ablation studies confirm that both the dual encoder structure and the specific modules (SGA and ASPP upsampling) contribute positively to the model's performance, with the Transformer branch alone providing substantial gains over the CNN-only baseline.",
+    "SUTrans-NET exhibits robustness in handling challenging cases with complex boundaries, varying scales, and fuzzy edges, achieving the highest scores in most evaluation metrics (Accuracy, IoU, Dice, Sensitivity, Specificity) on the tested datasets."
+  ],
+  "important_remarks": [
+    "The study lacks formal statistical hypothesis testing (e.g., p-values, confidence intervals) to validate the significance of performance improvements over baseline models.",
+    "The PH2 dataset is small (200 images total) and geographically specific (Portugal), limiting the generalizability of results to broader or more diverse populations.",
+    "The model was trained and evaluated on a single NVIDIA RTX 3090 GPU, which may not reflect performance variability across different hardware configurations.",
+    "The paper does not report the loss function used for training, which is a critical detail for reproducibility.",
+    "The PH2 dataset split was performed via random selection (160 training, 40 testing) rather than a standardized protocol, potentially introducing sampling bias.",
+    "Performance comparisons rely on point estimates of metrics (Accuracy, IoU, Dice) without reporting standard deviations or variance across multiple runs or folds.",
+    "The study focuses on general skin lesion segmentation rather than specific diagnostic classes (e.g., melanoma vs. benign), limiting direct clinical diagnostic applicability."
+  ]
+}

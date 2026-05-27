@@ -1,0 +1,264 @@
+{
+  "file_name": "derekas_2023_the_promise_of_semantic_segmentation_in_detecting_actinic_keratosis.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning and semantic segmentation to detect actinic keratosis (AK) in clinical photographs. Specifically, it developed and evaluated a model called AKU-Net, which is based on the U-Net architecture with transfer learning and a recurrent convLSTM process, to monitor AK burden and evaluate skin cancerization fields."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work developing and evaluating a deep learning model (AKU-Net) for semantic segmentation of actinic keratosis. It details a specific methodology using a dataset of 569 clinical photographs from 115 patients, describes the training and testing procedures, and reports experimental results comparing the proposed model against U-Net and U-Net++ architectures."
+  },
+  "title": "The Promise of Semantic Segmentation in Detecting Actinic Keratosis Using Clinical Photography in the Wild",
+  "authors": [
+    "Panagiotis Derekas",
+    "Panagiota Spyridonos",
+    "Aristidis Likas",
+    "Athanasia Zampeta",
+    "Georgios Gaitanis",
+    "Ioannis Bassukas"
+  ],
+  "doi": "10.3390/cancers15194861",
+  "journal": "Cancers",
+  "year": 2023,
+  "article_type": "Article",
+  "brief_summary": "This study addresses the challenge of monitoring actinic keratosis (AK) burden in clinical settings by proposing a deep learning method based on semantic segmentation. The researchers developed AKU-Net, a model utilizing the U-Net architecture with transfer learning and a recurrent convLSTM process to handle low-contrast lesions and ambiguous boundaries. The model was trained and evaluated on a dataset of 569 clinical photographs from 115 patients, using 16,488 translation-augmented crops for training and 403 lesion center crops for testing. AKU-Net was compared against plain U-Net and U-Net++ architectures to demonstrate improvements in detection accuracy and automation. The experimental results highlighted the effectiveness of AKU-Net in improving upon existing approaches for evaluating AK burden. This work paves the way for more reliable, continuous monitoring of condition progression and treatment responses in dermatology.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic Keratosis",
+      "paper_terms": [
+        "actinic keratosis",
+        "AK",
+        "keratosis solaris",
+        "pre-cancerous lesions",
+        "AK lesions"
+      ],
+      "role": "Target class",
+      "details": "The primary target of the semantic segmentation model (AKU-Net). The study focuses on detecting and monitoring the burden of AK in clinical photographs of patients with actinic keratosis."
+    },
+    {
+      "lesion_type": "Cutaneous Squamous Cell Carcinoma",
+      "paper_terms": [
+        "cutaneous squamous cell carcinoma",
+        "CSCC",
+        "keratinocyte skin carcinomas",
+        "KSCs",
+        "invasive CSCC"
+      ],
+      "role": "Comparator class / Differential diagnosis target",
+      "details": "Mentioned as the potential progression of untreated AK and a condition that must be discriminated from AK in clinical settings. The dataset excluded patients with a history of CSCC."
+    },
+    {
+      "lesion_type": "Seborrheic Keratosis",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "benign growths"
+      ],
+      "role": "Confounding class / Differential diagnosis target",
+      "details": "Mentioned as a benign growth frequently encountered within the skin cancerization field that causes confusion in the clinical differential diagnosis of AK. The previous AKCNN model was trained to distinguish AK from seborrheic keratosis."
+    },
+    {
+      "lesion_type": "Solar Lentigo",
+      "paper_terms": [
+        "solar lentigo",
+        "lentigo solaris"
+      ],
+      "role": "Confounding class / Differential diagnosis target",
+      "details": "Mentioned as a benign growth and visual feature of chronic sun damage that can be confused with AK. The previous AKCNN model was trained to distinguish AK from solar lentigo."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the context of existing deep learning research focusing on delineating melanoma lesions in dermoscopic images, contrasting with the current study's focus on AK in clinical photography."
+    },
+    {
+      "lesion_type": "Healthy Skin",
+      "paper_terms": [
+        "healthy skin",
+        "normal skin"
+      ],
+      "role": "Background class",
+      "details": "The background class against which AK lesions are segmented. The model distinguishes AK from the surrounding skin."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise binary mask distinguishing Actinic Keratosis (AK) lesions from healthy skin/background in clinical photographs.",
+        "primary": true,
+        "details": "The paper explicitly states it employs 'semantic segmentation' using the AKU-Net architecture (based on U-Net) to detect and monitor AK burden. The model predicts a segmentation mask for each 512x512 pixel crop. Performance was evaluated using segmentation metrics: Dice coefficient (0.76), IoU (0.62), and aF1 (0.97). The study compares AKU-Net against U-Net and U-Net++ architectures for this segmentation task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "University Hospital of Ioannina Clinical Photography Dataset",
+      "description": "A private dataset of archival facial clinical photographs acquired from patients attending the Dermato-oncology Clinic at the Dermatology Department of the University Hospital of Ioannina. The images were taken using a Nikon D610 camera with specific lighting and polarization settings. The dataset consists of 569 annotated clinical photographs from 115 patients (60 males, 55 females; age range 45-85 years) with facial actinic keratosis. Patients with a history of cutaneous squamous cell carcinoma (CSCC) or those with ambiguous/ungrouped lesions were excluded.",
+      "classes_used": [
+        "Actinic Keratosis (AK)",
+        "Healthy Skin / Background"
+      ],
+      "counts": {
+        "total": 569,
+        "training": 510,
+        "validation": 5,
+        "testing": 59,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the AKU-Net model. From the 510 training photographs, 16,488 translation-augmented 512x512 pixel crops were extracted. Approximately 20% of these crops (3,298 patches) from 5 patients were reserved for validation.",
+        "validation": "Used to validate the model during training. Specifically, 3,298 crops from 5 patients were used for this purpose.",
+        "testing": "Used to evaluate the model's performance. An independent set of 59 photographs from 17 patients was used to generate 403 central lesion crops for testing.",
+        "other": "The dataset was split at the patient level to prevent data leakage. The original high-resolution images (4016x6016 pixels) were rescaled and cropped into 512x512 patches, which were further rescaled to 256x256 pixels for training due to computational limitations."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice coefficient",
+    "Intersection over Union (IoU)",
+    "adapted region-based F1 score (aF1)",
+    "adapted Recall (aRec)",
+    "adapted Precision (aPrec)",
+    "True Positive Counts (TPC)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics (Dice coefficient, IoU, aF1) comparing the proposed AKU-Net model against U-Net and U-Net++ architectures without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "University Hospital of Ioannina Clinical Photography Dataset (Test Set)": {
+      "description": "Evaluation on 403 central lesion crops from 17 patients (59 photographs) to assess segmentation accuracy.",
+      "metrics": [
+        "Dice coefficient",
+        "Intersection over Union (IoU)"
+      ],
+      "models": {
+        "U-Net": {
+          "Dice (Mean)": 0.14,
+          "IoU (Mean)": 0.48
+        },
+        "U-Net++": {
+          "Dice (Mean)": 0.39,
+          "IoU (Mean)": 0.55
+        },
+        "AKU-Net": {
+          "Dice (Mean)": 0.5,
+          "IoU (Mean)": 0.63
+        }
+      },
+      "notes": "AKU-Net demonstrated a statistically significant improvement in AK detection compared to U-Net++ (p < 0.05; Wilcoxon signed-rank test). The standard U-Net model failed to detect AK in 257 out of 403 testing crops (~63%)."
+    },
+    "University Hospital of Ioannina Clinical Photography Dataset (Comparison with AKCNN)": {
+      "description": "Comparison of AKU-Net against the previously developed AKCNN model using 10 random frames at a similar image scale (~7 pixels/mm).",
+      "metrics": [
+        "adapted Precision (aPrec)",
+        "adapted Recall (aRec)",
+        "adapted F1 score (aF1)"
+      ],
+      "models": {
+        "AKCNN": {
+          "Median aPrec": 0.82,
+          "Median aRec": 0.64,
+          "Median aF1": 0.67
+        },
+        "AKU-Net": {
+          "Median aPrec": 0.73,
+          "Median aRec": 0.63,
+          "Median aF1": 0.68
+        }
+      },
+      "notes": "No significant differences in model performance levels between AKU-Net and AKCNN were found for aPrec (p = 0.6), aRec (p = 0.4), and aF1 (p = 0.6; Wilcoxon signed-rank test). AKU-Net does not require manual preselection of scanning areas unlike AKCNN."
+    },
+    "Qualitative Example (Figure 4)": {
+      "description": "Performance metrics for a single patch from a clinical photograph shown in Figure 4.",
+      "models": {
+        "AKU-Net (Single Patch)": {
+          "Dice": 0.76,
+          "IoU": 0.62,
+          "aF1": 0.97
+        }
+      },
+      "notes": "Null"
+    }
+  },
+  "architecture_used": {
+    "main_model": "AKU-Net (based on U-Net architecture)",
+    "pretraining": "VGG16 model pretrained on ImageNet used as the backbone for the encoder",
+    "input_size": "256x256 pixels (patches extracted from 512x512 crops, which were rescaled from original 4016x6016 images)",
+    "architecture_details": {
+      "encoder": "Pretrained VGG16 backbone (four convolution blocks)",
+      "decoder": "Convolutional layers with 3x3 filters and ReLU activations, reducing feature channels to match output shape",
+      "skip_connections": "Incorporated convLSTM processing units to exploit contextual information",
+      "normalization": "Batch Normalization (BN) integrated in the decoding layer",
+      "output_layer": "1x1 convolutional layer producing final segmentation map",
+      "activation": "Sigmoid activation function applied to model output for binary classification"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "weight_decay": 1e-06,
+      "batch_size": 32,
+      "iterations": 100,
+      "loss_function": "Binary cross-entropy (log loss/sigmoid loss)",
+      "framework": "Python 3, Keras API with TensorFlow backend",
+      "hardware": "NVIDIA RTX 3070 GPU (8 GB memory), AMD Ryzen 9 3900X CPU, 64 GB RAM"
+    },
+    "classification_or_output_head": {
+      "type": "Binary semantic segmentation",
+      "output": "Pixel-wise probability map (foreground/background)",
+      "activation": "Sigmoid"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "AKU-Net",
+    "U-Net",
+    "U-Net++",
+    "AKCNN",
+    "VGG16"
+  ],
+  "preprocessing_techniques": [
+    "Cross-polarized photography to enhance vascular visibility and remove epidermal glare",
+    "Rescaling original 4016x6016 pixel images to 512x512 pixel crops",
+    "Rescaling 512x512 pixel crops to 256x256 pixels for training due to computational limitations",
+    "Patch extraction: 512x512 pixel patches extracted using translation lesion boxes",
+    "Translation augmentation to generate 16,488 training crops from 510 training photographs",
+    "Extraction of 403 central lesion crops for testing"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Translation augmentation",
+      "details": "Patches of 512 × 512 pixels were extracted from each photograph using translation lesion boxes that encompassed lesions in various positions and captured different contexts of the perilesional skin. A total of 16,488 (or 16,891 in one section) translation-augmented crops were generated for training."
+    }
+  ],
+  "conclusions": [
+    "The proposed AKU-Net model, which integrates transfer learning and a recurrent convLSTM process into the U-Net architecture, effectively addresses the challenges of low contrast and ambiguous boundaries in actinic keratosis (AK) detection using clinical photography.",
+    "AKU-Net demonstrated statistically significant improvements in segmentation accuracy (Dice coefficient and IoU) compared to plain U-Net and U-Net++ architectures on an independent test set of clinical photographs.",
+    "AKU-Net achieved performance levels comparable to the previously developed AKCNN model in terms of adapted precision, recall, and F1 scores, without requiring the manual preselection of scanning areas, thereby enhancing automation.",
+    "The study highlights the effectiveness of semantic segmentation for improving the automation and precision of AK burden monitoring in clinical settings.",
+    "The proposed method paves the way for more effective and reliable evaluation, continuous monitoring of condition progression, and assessment of treatment responses for actinic keratosis and skin cancerization fields."
+  ],
+  "important_remarks": [
+    "The study relies on a single-center dataset from the University Hospital of Ioannina (115 patients, 569 images), limiting generalizability and raising concerns about population and device bias.",
+    "The dataset is relatively small (569 images), necessitating the use of transfer learning (VGG16) and extensive translation augmentation (16,488 training crops) to prevent overfitting.",
+    "The model was trained on facial clinical photographs; while the text mentions applicability to extra-facial regions, the primary validation is restricted to the face, which may limit performance on other anatomical sites with different lighting or texture characteristics.",
+    "The study excludes patients with a history of cutaneous squamous cell carcinoma (CSCC), which limits the model's applicability to differential diagnosis in high-risk populations where CSCC is prevalent.",
+    "The method relies on visual features from clinical photography and cannot detect the 'sandpaper' sign (tactile feature) of grade I AKs, potentially leading to an underestimation of AK burden for barely visible, flat lesions.",
+    "Performance evaluation was conducted on a test set of 403 central lesion crops from 17 patients; this small test set size may not fully represent the variability of the broader patient population.",
+    "The study did not report external validation on independent multicenter datasets or compare performance against inter-observer variability among human dermatologists, which are critical steps for clinical deployment.",
+    "The AKU-Net model demonstrated statistically significant improvements in Dice coefficient and IoU over U-Net and U-Net++ baselines (p < 0.05), but showed no significant difference in adapted F1 score compared to the previous AKCNN model (p = 0.6).",
+    "The AKU-Net model is tolerant of the selection of the scanning area, allowing for flexible input regions (boxed or wider frame) without significant loss in precision, unlike the previous AKCNN which required manual preselection of scanning areas.",
+    "The study acknowledges that the optimal trade-off between image scale and input crop size remains an open question, suggesting that current performance might be suboptimal compared to potential future configurations."
+  ]
+}

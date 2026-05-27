@@ -1,0 +1,289 @@
+{
+  "file_name": "Serebryakova et al. - 2026 - Multimodal UltrasoundOptical Method for Basal Cell Carcinoma Recognition Using Machine Learning.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used machine learning, specifically gradient boosting algorithms (CatBoost) and fusion algorithms (weighted voting), to classify benign and malignant skin neoplasms (Basal Cell Carcinoma) using multimodal data from OCT, DRS, and HFUS."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving a multimodal approach integrating OCT, DRS, and HFUS data from a cohort of 106 patients. It describes specific methods (gradient boosting, CatBoost, weighted voting), results (96% accuracy, Cohen's Kappa 0.91), and conclusions regarding the diagnostic potential of the developed model, rather than summarizing prior literature."
+  },
+  "title": "Multimodal Ultrasound/Optical Method for Basal Cell Carcinoma Recognition Using Machine Learning",
+  "authors": [
+    "Isabella A. Serebryakova",
+    "Yuriy I. Surkov",
+    "Elina A. Genina",
+    "Yana K. Kuzinova",
+    "Olga M. Konopatskova",
+    "Valery V. Tuchin"
+  ],
+  "doi": "10.1109/JSTQE.2026.3670391",
+  "journal": "IEEE Journal of Selected Topics in Quantum Electronics",
+  "year": 2026,
+  "article_type": "Research paper",
+  "brief_summary": "This study developed a multimodal machine learning method to differentiate benign and malignant skin neoplasms, specifically Basal Cell Carcinoma, by integrating Optical Coherence Tomography (OCT), Diffuse Reflectance Spectroscopy (DRS), and High-Frequency Ultrasound (HFUS) data. The research utilized a cohort of 106 patients, extracting textural features from OCT, spectral parameters from DRS, and shape characteristics from HFUS. These features were processed using Principal Component Analysis and fed into unimodal classifiers trained with gradient boosting (CatBoost). The final diagnosis was determined via an ensemble-based weighted-voting fusion algorithm designed to handle missing modalities. The multimodal model achieved a high accuracy of 96%, with 99% sensitivity and 96% specificity, demonstrating superior diagnostic performance compared to previous iterations and other studies. The results highlight the clinical potential of this robust, non-invasive approach for improving the accuracy and reliability of skin cancer diagnostics.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "Basal Cell Carcinoma",
+        "BCC",
+        "malignant neoplasms",
+        "malignant skin neoplasms"
+      ],
+      "role": "Target class",
+      "details": "n = 71 cases; included subtypes: superficial, nodular, pigmented, morpheaform, and infiltrative-ulcerative."
+    },
+    {
+      "lesion_type": "Benign Skin Neoplasms",
+      "paper_terms": [
+        "benign skin neoplasms",
+        "BN",
+        "benign neoplasms",
+        "benign skin pathologies"
+      ],
+      "role": "Comparator class",
+      "details": "n = 35 cases; included specific types: dermatofibroma, pigmented nevus, and seborrheic keratosis."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnosis of benign versus malignant skin neoplasms (Basal Cell Carcinoma vs. Benign Skin Neoplasms) at the patient level.",
+        "primary": true,
+        "details": "The paper explicitly states the task is 'classification of benign and malignant skin neoplasms'. The model predicts discrete diagnostic categories (benign or malignant) using a weighted voting ensemble of unimodal classifiers (CatBoost). Predictions are converted to binary labels using a probability threshold of 0.5. Performance is evaluated using classification metrics such as Accuracy (96%), Sensitivity (99%), Specificity (96%), F1-score, and Cohen's Kappa (0.91)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Saratov State Medical University Clinical Cohort",
+      "description": "A private clinical cohort of volunteers with clinically confirmed benign and malignant skin neoplasms, collected at Saratov State Medical University. The study included 106 patients (65 volunteers of both genders, aged 20 to 84 years). Data was acquired using multimodal imaging: OCT (GAN930V2-BU), DRS (USB4000-UV-VIS spectrometer), and HFUS (DUB SkinScanner). Not all modalities yielded usable data for every neoplasm.",
+      "classes_used": [
+        "Benign Skin Neoplasms (BN)",
+        "Basal Cell Carcinoma (BCC)"
+      ],
+      "counts": {
+        "total": 106,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign Skin Neoplasms": 35,
+          "Basal Cell Carcinoma": 71
+        }
+      },
+      "use": {
+        "training": "Used to train unimodal classifiers (CatBoost) for each modality (OCT, DRS, HFUS) and the final multimodal weighted-voting fusion model. Features were extracted and projected into principal component space.",
+        "validation": "null",
+        "testing": "Used to evaluate the final multimodal model performance (Accuracy 96%, Sensitivity 99%, Specificity 96%, Cohen's Kappa 0.91).",
+        "other": "The dataset was split by modality availability for analysis: OCT data from 58 neoplasms (19 benign, 39 malignant), DRS data from 98 neoplasms (32 benign, 66 malignant), and HFUS data from 71 neoplasms (29 benign, 42 malignant)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity",
+    "Specificity",
+    "Precision",
+    "Recall",
+    "F1-score",
+    "Cohen’s Kappa coefficient",
+    "Confusion Matrix",
+    "ROC-AUC",
+    "PR-AUC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Leave-One-Patient-Out cross-validation (LOPO-CV)",
+      "purpose": "To evaluate the performance of unimodal classifiers and ensure unbiased evaluation while minimizing overfitting in the limited sample size.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Principal Component Analysis (PCA)",
+      "purpose": "To reduce the dimensionality of the data and extract the most informative features from high-dimensional datasets (OCT, DRS, HFUS) while minimizing information loss.",
+      "type": "Dimensionality reduction"
+    },
+    {
+      "method": "Interquartile Range (IQR) method",
+      "purpose": "To eliminate outliers within observations of each neoplasm prior to PCA.",
+      "type": "Data preprocessing/Outlier removal"
+    },
+    {
+      "method": "StandardScaler",
+      "purpose": "To standardize all data and bring features to a uniform scale prior to PCA.",
+      "type": "Data preprocessing/Normalization"
+    },
+    {
+      "method": "Weighted voting based on ROC-AUC scores",
+      "purpose": "To combine predictions from three unimodal models (OCT, DRS, HFUS) into a multimodal classifier, assigning weights proportional to the individual model's ROC-AUC score.",
+      "type": "Ensemble method"
+    },
+    {
+      "method": "Cohen’s Kappa coefficient",
+      "purpose": "To assess classification performance and agreement beyond chance.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "ROC-AUC and PR-AUC",
+      "purpose": "To compute the area under the Receiver Operating Characteristic and Precision-Recall curves for evaluating classification performance.",
+      "type": "Performance metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance was evaluated using classification metrics (Accuracy, Sensitivity, Specificity, Cohen's Kappa, ROC-AUC) and cross-validation."
+  },
+  "results_obtained_in_each_dataset": {
+    "Saratov State Medical University Clinical Cohort": {
+      "dataset_description": "Cohort of 106 patients (65 volunteers) with clinically confirmed benign skin neoplasms (BN, n=35) and Basal Cell Carcinoma (BCC, n=71). Data acquired via OCT, DRS, and HFUS. Not all modalities available for every neoplasm: OCT (58 neoplasms), DRS (98 neoplasms), HFUS (71 neoplasms).",
+      "evaluation_setting": "Leave-One-Patient-Out cross-validation (LOPO-CV) at the patient level.",
+      "models": {
+        "Unimodal Classifiers (CatBoost)": {
+          "OCT_texture_model": {
+            "performance_ranking": "Highest among unimodal models",
+            "notes": "Provided the most reliable separation; highest recall for Malignant; ROC and PR curves closest to ideal corner."
+          },
+          "HFUS_shape_model": {
+            "performance_ranking": "Second highest among unimodal models",
+            "notes": "Elevated ROC/PR profiles but lower Cohen's Kappa compared to OCT; driven by false positives in benign neoplasms."
+          },
+          "DRS_spectral_model": {
+            "performance_ranking": "Lowest among unimodal models",
+            "notes": "Moderate discrimination; flatter ROC/PR curves; lowest Cohen's Kappa; underperformed in both benign precision and recall."
+          },
+          "ranking_summary": "OCT ≥ HFUS > DRS"
+        },
+        "Multimodal Weighted Voting Model": {
+          "Accuracy": "96%",
+          "Sensitivity": "99%",
+          "Specificity": "96%",
+          "Cohen's Kappa": "0.91",
+          "F1_score_Benign": "0.94",
+          "F1_score_Malignant": "0.97",
+          "Precision_Benign": "0.91",
+          "Recall_Benign": "0.91",
+          "Precision_Malignant": "0.97",
+          "Recall_Malignant": "0.99",
+          "notes": "Weights calculated based on individual unimodal ROC-AUC scores. Threshold for binary prediction: 0.5. Minimal classification errors."
+        }
+      },
+      "comparisons": {
+        "vs_previous_study": {
+          "previous_study_dataset_size": "37 neoplasms",
+          "previous_sensitivity": "89.1%",
+          "previous_specificity": "95.1%",
+          "current_sensitivity": "99%",
+          "current_specificity": "96%",
+          "notes": "Significant improvement in diagnostic performance compared to previous work which did not account for missing modality data."
+        },
+        "vs_other_studies": {
+          "Sendin-Martin_et_al": {
+            "modality": "Ex vivo confocal images",
+            "sensitivity": "96%",
+            "specificity": "89%",
+            "accuracy": "92%"
+          },
+          "Yap_J_et_al": {
+            "modality": "Multimodal deep-learning (dermoscopy, clinical photography, metadata)",
+            "task": "Melanoma vs other neoplasms",
+            "AUC": "0.866",
+            "sensitivity": "Approximately 78%"
+          },
+          "Michelini_S_et_al": {
+            "modality": "Not specified in snippet",
+            "dataset_size": "22 neoplasms from 13 patients",
+            "sensitivity": "100%",
+            "specificity": "96.3%"
+          }
+        }
+      },
+      "notes": "The multimodal model achieved superior performance compared to other studies combining various diagnostic modalities with machine learning. The integration of OCT, DRS, and HFUS significantly improved diagnostic accuracy."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Unimodal CatBoost classifiers (gradient boosting) combined via a multimodal weighted-voting ensemble algorithm.",
+    "pretraining": "null",
+    "input_size": "Features projected into the first three principal components (PC1, PC2, PC3) for each modality (OCT, DRS, HFUS).",
+    "architecture_details": {
+      "unimodal_classifiers": {
+        "algorithm": "CatBoost (gradient boosting)",
+        "modality_specific_inputs": {
+          "OCT": "Texture features extracted from OCT images",
+          "DRS": "Spectral parameters (e.g., Hemoglobin Coefficients, Oxygen Saturation, Slope, Nonlinearity) from DRS",
+          "HFUS": "Shape characteristics (e.g., Area, Perimeter, Circularity, Aspect Ratio, Eccentricity) from HFUS images"
+        },
+        "hyperparameters": {
+          "class_weighting": "Adjusted according to the ratio of benign to malignant neoplasms to handle class imbalance"
+        }
+      },
+      "multimodal_fusion": {
+        "method": "Weighted voting based on individual unimodal ROC-AUC scores",
+        "logic": "Final probability of malignancy calculated as a weighted average of individual modality probabilities, normalized by the sum of weights. Binary prediction threshold set to 0.5."
+      }
+    },
+    "training_details": {
+      "validation_strategy": "Leave-One-Patient-Out cross-validation (LOPO-CV)",
+      "preprocessing": [
+        "Interquartile Range (IQR) method for outlier removal",
+        "StandardScaler for feature standardization",
+        "Principal Component Analysis (PCA) for dimensionality reduction (retaining top 3 PCs)"
+      ],
+      "software_libraries": [
+        "Python",
+        "pandas",
+        "NumPy",
+        "matplotlib",
+        "scikit-learn",
+        "CatBoost"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Weighted voting ensemble",
+      "output": "Binary classification (Benign vs. Malignant) based on probability threshold of 0.5"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "CatBoost (gradient boosting algorithm)",
+    "Unimodal CatBoost classifiers (OCT_texture_model, DRS_spectral_model, HFUS_shape_model)",
+    "Multimodal weighted voting ensemble model",
+    "Convolutional neural networks (mentioned as anticipated future approach)",
+    "Transformer-based models (mentioned as anticipated future approach)"
+  ],
+  "preprocessing_techniques": [
+    "Interquartile Range (IQR) method for outlier removal (removing data points falling below the first quartile or above the third quartile by more than 1.5 × IQR)",
+    "StandardScaler for feature standardization to bring all features to a uniform scale",
+    "Principal Component Analysis (PCA) for dimensionality reduction (retaining the first three principal components: PC1, PC2, PC3)",
+    "Normalization of spectral characteristics to average values of parameters from conditionally healthy skin to minimize individual variations"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The developed multimodal machine learning model, integrating Optical Coherence Tomography (OCT), Diffuse Reflectance Spectroscopy (DRS), and High-Frequency Ultrasound (HFUS) data via a weighted voting ensemble, achieved a high classification accuracy of 96% in differentiating benign and malignant skin neoplasms.",
+    "The multimodal model demonstrated superior diagnostic performance compared to previous iterations of the authors' work (which had a smaller dataset of 37 neoplasms and lower sensitivity of 89.1%) and other studies combining various diagnostic modalities with machine learning.",
+    "The model achieved 99% sensitivity and 96% specificity, with a Cohen’s Kappa coefficient of 0.91, indicating strong agreement between predictions and true labels and minimal classification errors.",
+    "Among unimodal classifiers, the OCT texture model provided the most reliable separation of benign and malignant neoplasms, followed by the HFUS shape model, while the DRS spectral model showed the lowest discrimination capability.",
+    "The integration of multiple modalities compensates for the individual limitations of each technique (e.g., OCT's limited penetration depth, HFUS's lower cellular-level contrast, and DRS's spectral variability), thereby enhancing differential diagnosis accuracy.",
+    "The proposed weighted voting fusion strategy allows the model to maintain high diagnostic performance even when one modality is missing, addressing a critical limitation for practical clinical implementation and reducing reliance on invasive biopsies.",
+    "The study acknowledges that it was conducted on a limited cohort (106 patients) with incomplete multimodal pairing, which necessitated the use of gradient boosting methods over deep learning.",
+    "The authors anticipate that applying deep learning approaches, such as convolutional neural networks or transformer-based models, to larger and more comprehensive multimodal datasets may further enhance diagnostic capabilities by revealing latent inter-modal correlations."
+  ],
+  "important_remarks": [
+    "The study is limited by a small, single-center cohort (106 patients) from Saratov State Medical University, which restricts external validity and generalizability.",
+    "There is significant incomplete multimodal pairing: OCT data was available for only 58 neoplasms, DRS for 98, and HFUS for 71, necessitating a fusion algorithm capable of handling missing modalities.",
+    "The dataset exhibits class imbalance with 71 malignant (BCC) cases versus 35 benign cases, though class weighting was applied in the CatBoost model to mitigate this.",
+    "The study lacks external validation; results are based solely on internal Leave-One-Patient-Out cross-validation (LOPO-CV) within the single institutional cohort.",
+    "The reliance on gradient boosting (CatBoost) rather than deep learning is explicitly attributed to the limited sample size and incomplete multimodal data, acknowledging that deep learning may be more suitable for larger datasets.",
+    "The comparison with other studies (e.g., Michelini et al.) highlights that while some prior works reported higher sensitivity (100%), they were limited by very small sample sizes (22 neoplasms) or focused on ex vivo margin assessment rather than in vivo primary diagnosis.",
+    "The model's performance (96% accuracy, 0.91 Kappa) is strong but must be interpreted with caution due to the lack of independent test sets and potential overfitting risks inherent in small-sample LOPO-CV.",
+    "The study addresses a critical clinical limitation by demonstrating robustness to missing modalities, a common issue in real-world clinical settings where not all imaging techniques are always available."
+  ]
+}

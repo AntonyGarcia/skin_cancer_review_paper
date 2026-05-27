@@ -1,0 +1,347 @@
+{
+  "file_name": "zanddizari_2021_a_new_preprocessing_approach_to_improve_the_performance_of_cnn_b.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning methods, specifically Convolutional Neural Networks (CNNs) such as InceptionResNetV2, Xception, InceptionV3, DenseNet, ResNet-152, and VGG19, for skin lesion classification. It also employed a MultiResUNet model for semantic segmentation to extract the region of interest (RoI) from dermoscopy images in the ISIC-2019 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as an 'ORIGINAL ARTICLE' in the header. It presents a new preprocessing approach using MultiResUNet for segmentation and evaluates its impact on CNN-based skin lesion classification using the ISIC-2019 dataset. The study includes original experiments, methods, results (accuracy improvements, time reduction), and conclusions, rather than summarizing prior literature."
+  },
+  "title": "A new preprocessing approach to improve the performance of CNN-based skin lesion classiﬁcation",
+  "authors": [
+    "Hadi Zanddizari",
+    "Nam Nguyen",
+    "Behnam Zeinali",
+    "J. Morris Chang"
+  ],
+  "doi": "10.1007/s11517-021-02355-5",
+  "journal": "Medical & Biological Engineering & Computing",
+  "year": 2021,
+  "article_type": "Original research article",
+  "brief_summary": "This study proposes a new preprocessing approach using the MultiResUNet semantic segmentation model to extract the region of interest (RoI) from dermoscopy images in the ISIC-2019 dataset, aiming to improve skin lesion classification. The authors evaluated the impact of this preprocessing on the performance of several state-of-the-art Convolutional Neural Networks (CNNs), including InceptionResNetV2, Xception, and VGG19, by comparing results on raw images versus RoI-extracted images. The main evaluation approach involved measuring classification accuracy, F1-scores, and computational efficiency (training and inference time) across these models. Key results demonstrated that training CNNs with RoI-extracted data improved prediction accuracy, such as a 2.18% increase for InceptionResNetV2, while significantly reducing both training and inference times. Additionally, the segmented dataset reduced the overall data size from 9.4 GB to 1.4 GB, highlighting benefits for storage and transmission in remote classification tasks. The study concludes that focusing on the RoI by removing background noise and artifacts enhances classifier performance and efficiency.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the two specific disease classes for which F1-scores were reported in Figure 4. The paper also mentions 'melanoma lesions detection' in the context of prior work using Otsu's thresholding."
+    },
+    {
+      "lesion_type": "Nevus",
+      "paper_terms": [
+        "nevus"
+      ],
+      "role": "Target class",
+      "details": "One of the two specific disease classes for which F1-scores were reported in Figure 4. The paper notes that the dataset contains 8 unbalanced classes, but only provides detailed F1-score analysis for melanoma and nevus."
+    },
+    {
+      "lesion_type": "Non-melanoma lesions",
+      "paper_terms": [
+        "non-melanoma lesions"
+      ],
+      "role": "Comparator class",
+      "details": "Mentioned in the abstract as a class visually similar to melanoma, contributing to the challenge of accurate detection. The study uses the ISIC-2019 dataset which contains multiple classes, but specific labels other than melanoma and nevus are not detailed in the results."
+    },
+    {
+      "lesion_type": "Skin lesions (general)",
+      "paper_terms": [
+        "skin lesion",
+        "pigmented skin lesions"
+      ],
+      "role": "General category",
+      "details": "The general subject of the study. The ISIC-2019 dataset is described as containing 23,331 samples with 8 unbalanced classes of skin lesions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin lesion diagnostic categories (specifically melanoma vs. nevus and other classes from the ISIC-2019 dataset)",
+        "primary": true,
+        "details": "The paper evaluates the performance of CNN classifiers (InceptionResNetV2, Xception, InceptionV3, DenseNet, ResNet-152, VGG19, etc.) for skin lesion classification. The primary task is predicting discrete disease labels (e.g., melanoma, nevus) from dermoscopy images. Performance is measured using accuracy and F1-scores for binary (melanoma vs. nevus) and multi-class (8 unbalanced classes) scenarios."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Region of Interest (RoI) mask of the skin lesion",
+        "primary": false,
+        "details": "A MultiResUNet model is used for semantic segmentation to extract the RoI from raw dermoscopy images. This is a preprocessing step to improve the subsequent classification task, not the primary predictive outcome of the study's main evaluation."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC-2019",
+      "description": "A public dermoscopy image dataset provided by the International Skin Imaging Collaboration (ISIC). It contains 25,331 dermoscopic images belonging to 8 unbalanced classes of skin lesions.",
+      "classes_used": [
+        "melanoma",
+        "melanocytic nevus",
+        "basal cell carcinoma",
+        "actinic keratosis",
+        "benign keratosis",
+        "dermatofibroma",
+        "vascular lesion",
+        "squamous cell carcinoma"
+      ],
+      "counts": {
+        "total": 25331,
+        "training": 18890,
+        "validation": 2101,
+        "testing": 2340,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training CNN classifiers (InceptionResNetV2, Xception, InceptionV3, DenseNet, ResNet-152, VGG19, EfficientNet, NasNet) after RoI extraction. 18,890 samples were used for training.",
+        "validation": "Used for validation during CNN training. 2,101 samples were used.",
+        "testing": "Used for testing CNN performance. 2,340 samples were used.",
+        "other": "2,000 samples from this dataset (which were also available in ISIC-2017) were used to train the MultiResUNet segmentation model but were excluded from the final evaluation of the classification task."
+      }
+    },
+    {
+      "name": "ISIC-2017",
+      "description": "A public skin lesion dataset containing 2,000 samples with corresponding ground truth masks for segmentation. These samples are a subset of the ISIC-2019 dataset.",
+      "classes_used": [
+        "Skin lesions (general)"
+      ],
+      "counts": {
+        "total": 2000,
+        "training": 2000,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the MultiResUNet semantic segmentation model for extracting the Region of Interest (RoI).",
+        "validation": null,
+        "testing": null,
+        "other": "Used to evaluate segmentation algorithms (Otsu's thresholding and K-means clustering) using the Jaccard Index metric."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "F1-score",
+    "Jaccard Index",
+    "Training time",
+    "Inference time (evaluation time)",
+    "Dataset size (storage size)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Repeated experimentation and averaging",
+      "purpose": "To obtain stable results for inference time by repeating experiments 10 times over the test dataset and calculating the average.",
+      "type": "Uncertainty estimation / Stability analysis"
+    },
+    {
+      "method": "F1-score (weighted-average)",
+      "purpose": "To evaluate classifier performance across unbalanced classes, providing a more realistic measure than overall accuracy.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Jaccard Index",
+      "purpose": "To evaluate the performance of segmentation algorithms (Otsu's thresholding and K-means clustering) against ground truth masks.",
+      "type": "Performance metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It reported accuracy improvements (e.g., 2.18% for InceptionResNetV2) and time reductions, describing them as 'significant' in a descriptive sense, but did not provide statistical significance testing results."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC-2019": {
+      "description": "Dataset containing 23,331 dermoscopy images (after excluding 2,000 used for segmentation training) split into training (18,890), validation (2,101), and testing (2,340) sets. Evaluated on raw images vs. RoI-extracted images.",
+      "metrics": [
+        "Accuracy (%)",
+        "Inference Time (ms)",
+        "Training Time (Hours)",
+        "F1-Score (%)"
+      ],
+      "models": {
+        "InceptionResNetV2": {
+          "accuracy_raw": "86.75",
+          "accuracy_roi_extracted": "88.93",
+          "inference_time_raw_ms": "22",
+          "inference_time_roi_extracted_ms": "12",
+          "training_time_raw_hours": "16.2",
+          "training_time_roi_extracted_hours": "9.6",
+          "notes": "Accuracy improvement of 2.18% reported in abstract."
+        },
+        "Efficient-B7": {
+          "accuracy_raw": "84.87",
+          "accuracy_roi_extracted": "87.95",
+          "inference_time_raw_ms": "20",
+          "inference_time_roi_extracted_ms": "14",
+          "training_time_raw_hours": "17.4",
+          "training_time_roi_extracted_hours": "11.7"
+        },
+        "Xception": {
+          "accuracy_raw": "86.03",
+          "accuracy_roi_extracted": "87.74",
+          "inference_time_raw_ms": "24",
+          "inference_time_roi_extracted_ms": "10",
+          "training_time_raw_hours": "11.8",
+          "training_time_roi_extracted_hours": "6.7"
+        },
+        "InceptionV3": {
+          "accuracy_raw": "87.09",
+          "accuracy_roi_extracted": "87.39",
+          "inference_time_raw_ms": "22",
+          "inference_time_roi_extracted_ms": "8",
+          "training_time_raw_hours": "12.8",
+          "training_time_roi_extracted_hours": "10.5"
+        },
+        "NasNet": {
+          "accuracy_raw": "85.85",
+          "accuracy_roi_extracted": "86.24",
+          "inference_time_raw_ms": "30",
+          "inference_time_roi_extracted_ms": "23",
+          "training_time_raw_hours": "13.3",
+          "training_time_roi_extracted_hours": "12.7",
+          "notes": "Batch size 8 used; others used batch size 16."
+        },
+        "DenseNet": {
+          "accuracy_raw": "85.68",
+          "accuracy_roi_extracted": "86.03",
+          "inference_time_raw_ms": "19",
+          "inference_time_roi_extracted_ms": "8",
+          "training_time_raw_hours": "11.4",
+          "training_time_roi_extracted_hours": "9.3"
+        },
+        "ResNet-152": {
+          "accuracy_raw": "84.15",
+          "accuracy_roi_extracted": "85.17",
+          "inference_time_raw_ms": "21",
+          "inference_time_roi_extracted_ms": "11",
+          "training_time_raw_hours": "10.5",
+          "training_time_roi_extracted_hours": "7.1"
+        },
+        "Efficient-B0": {
+          "accuracy_raw": "81.75",
+          "accuracy_roi_extracted": "84.87",
+          "inference_time_raw_ms": "19",
+          "inference_time_roi_extracted_ms": "7",
+          "training_time_raw_hours": "6.5",
+          "training_time_roi_extracted_hours": "3.5"
+        },
+        "VGG19": {
+          "accuracy_raw": "80.17",
+          "accuracy_roi_extracted": "82.61",
+          "inference_time_raw_ms": "21",
+          "inference_time_roi_extracted_ms": "9",
+          "training_time_raw_hours": "12.7",
+          "training_time_roi_extracted_hours": "5.3"
+        }
+      },
+      "notes": "F1-scores for 'melanoma', 'nevus', and weighted-average were evaluated (Figure 4), showing improvement for almost all classifiers. Dataset size reduced from 9.4 GB (raw) to 1.4 GB (segmented). Inference times were averaged over 10 repetitions."
+    },
+    "ISIC-2017": {
+      "description": "Subset of 2,000 samples with ground truth masks used to train the MultiResUNet segmentation model. Also used to evaluate non-training-based segmentation algorithms.",
+      "metrics": [
+        "Jaccard Index"
+      ],
+      "models": {
+        "MultiResUNet": {
+          "jaccard_index": "80.4",
+          "notes": "Best segmentation model selected for segmenting the remaining ISIC-2019 images."
+        },
+        "K-means Clustering": {
+          "jaccard_index": "76.2",
+          "notes": "Evaluated against ground truth; performed better than Otsu's thresholding but failed to eliminate artifacts efficiently."
+        },
+        "Otsu's Thresholding": {
+          "jaccard_index": "71.7",
+          "notes": "Evaluated against ground truth."
+        }
+      },
+      "notes": "MultiResUNet outperformed conventional U-Net by 5.065% in skin lesion boundary segmentation (referenced from prior work/experimental results). Average segmentation time per image was 11 ms."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MultiResUNet (for segmentation); InceptionResNetV2, Xception, InceptionV3, DenseNet, ResNet-152, VGG19, EfficientNet-B7, EfficientNet-B0, NasNet (for classification)",
+    "pretraining": "ImageNet pre-trained weights used for CNN classifiers; MultiResUNet trained from scratch on ISIC-2017 dataset",
+    "input_size": "MultiResUNet: 224x224 pixels; InceptionResNetV2: 299x299; Xception: 299x299; InceptionV3: 299x299; NasNet: 331x331; DenseNet: 224x224; ResNet-152: 224x224; EfficientNet-B7: 224x224; EfficientNet-B0: 224x224; VGG19: 224x224",
+    "architecture_details": {
+      "segmentation_model": "MultiResUNet, which integrates the idea of Residual Inception blocks. It outperformed conventional U-Net by 5.065% in skin lesion boundary segmentation.",
+      "classification_models": "Pre-trained CNNs selected from Keras documentation. Models include InceptionResNetV2, Xception, InceptionV3, DenseNet, ResNet-152, VGG19, EfficientNet-B7, EfficientNet-B0, and NasNet. NasNet and EfficientNet were automatically designed by Google Brain team.",
+      "implementation": "Implemented using Keras API running on top of TensorFlow. Models were converted to TensorFlow Lite (TFLite) format for potential Android deployment."
+    },
+    "training_details": {
+      "optimizer": "Not explicitly named, but standard Keras/TensorFlow defaults implied for transfer learning.",
+      "loss_function": "Not explicitly named for classification; Jaccard Distance loss mentioned for segmentation in related work [13], but MultiResUNet training specifics not detailed beyond epochs.",
+      "hyperparameters": {
+        "learning_rate": 0.001,
+        "batch_size": "16 for most models; 8 for NasNet",
+        "epochs": 50,
+        "steps_per_epoch": 1000,
+        "data_augmentation": "Random rotation up to 90 degrees and horizontal flipping"
+      },
+      "hardware": "Single GPU: Nvidia GeForce GTX 1080 Ti with 11 GB GDDR5X memory",
+      "software": "Python, Keras, TensorFlow"
+    },
+    "classification_or_output_head": {
+      "segmentation_head": "Binary segmentation mask for Region of Interest (RoI) extraction",
+      "classification_head": "Dense layers added for skin lesion classification (8 classes in ISIC-2019). Transfer learning involved either feature extraction (frozen convolutional layers) or fine-tuning (relaxed back-propagation on whole parameters)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MultiResUNet",
+    "InceptionResNetV2",
+    "Xception",
+    "InceptionV3",
+    "DenseNet",
+    "ResNet-152",
+    "VGG19",
+    "EfficientNet-B7",
+    "EfficientNet-B0",
+    "NasNet",
+    "U-Net",
+    "Otsu's thresholding",
+    "K-means clustering"
+  ],
+  "preprocessing_techniques": [
+    "Semantic segmentation using MultiResUNet to extract the Region of Interest (RoI) mask from raw dermoscopy images",
+    "Resizing the segmented mask to match the original raw image dimensions",
+    "Contour structural analysis to detect the bounding rectangle of the RoI",
+    "Cropping the raw image based on the detected bounding rectangle to isolate the lesion and remove background noise/artifacts",
+    "Data augmentation including random rotation up to 90 degrees and horizontal flipping",
+    "Evaluation of non-training-based segmentation methods: Otsu's thresholding and K-means clustering (used for comparison, not final pipeline)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random rotation",
+      "details": "Training images were randomly rotated up to 90 degrees."
+    },
+    {
+      "technique": "Horizontal flipping",
+      "details": "Training images were flipped horizontally."
+    }
+  ],
+  "conclusions": [
+    "Training CNN models using Region of Interest (RoI) extracted images improves prediction accuracy compared to using raw images (e.g., a 2.18% improvement for InceptionResNetV2).",
+    "The proposed preprocessing approach significantly decreases both the training time and inference (evaluation) time of CNN classifiers.",
+    "The segmented dataset reduces the overall data size from 9.4 GB to 1.4 GB, which is beneficial for storage and transmission in remote classification tasks.",
+    "Focusing on the RoI by removing background noise and artifacts enhances the performance of skin lesion classification.",
+    "Non-training-based segmentation methods (Otsu's thresholding and K-means clustering) were found to be less effective than training-based methods (MultiResUNet) in eliminating artifacts and capturing lesion boundaries.",
+    "The MultiResUNet model was identified as the most effective segmentation method for extracting the RoI in this study."
+  ],
+  "important_remarks": [
+    "The study lacks formal statistical hypothesis testing (e.g., p-values, confidence intervals) to validate the significance of accuracy improvements, relying instead on descriptive comparisons.",
+    "The MultiResUNet segmentation model was trained on 2,000 samples from the ISIC-2017 dataset, which are a subset of the ISIC-2019 dataset; these 2,000 samples were excluded from the final classification evaluation to prevent data leakage, but the segmentation model's performance on the remaining ISIC-2019 data is critical to the study's validity.",
+    "The dataset classes are unbalanced (8 classes), and while F1-scores were reported for melanoma and nevus, detailed per-class performance metrics for the other six classes are not provided in the extracted results.",
+    "The preprocessing pipeline relies on contour structural analysis to detect bounding rectangles for cropping; this may introduce bias or errors if the segmentation mask is imperfect or if the lesion shape is irregular, potentially excluding relevant contextual information.",
+    "The study was conducted on a single GPU (Nvidia GeForce GTX 1080 Ti) using Keras/TensorFlow; results may not be directly comparable across different hardware or software implementations without normalization.",
+    "The paper acknowledges that non-training-based methods (Otsu's thresholding, K-means) failed to eliminate artifacts like badges and hairs efficiently, suggesting that the proposed method's effectiveness is contingent on the quality of the deep learning segmentation model.",
+    "The improvement in accuracy (e.g., 2.18% for InceptionResNetV2) is modest; the primary benefit highlighted is the reduction in computational cost (training/inference time) and data storage size (9.4 GB to 1.4 GB), which may be more clinically relevant for resource-constrained settings than marginal accuracy gains.",
+    "The study does not address external validation on independent datasets outside of ISIC-2019, limiting the generalizability of the findings to other dermoscopy image collections with different acquisition protocols or populations."
+  ]
+}

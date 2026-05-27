@@ -1,0 +1,267 @@
+{
+  "file_name": "Combalia et al. - 2018 - Digitally stained confocal microscopy through deep learning.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning techniques, specifically a fully convolutional neural network for despeckling and a CycleGAN (Cycle Consistency Generative Adversarial Network) for digitally staining confocal microscopy images into H&E-like slides, to facilitate the interpretation of skin tissue samples (dermatology/skin cancer context) by pathologists."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a deep learning pipeline (despeckling neural network and CycleGAN) to digitally stain confocal microscopy images. It details specific methods, datasets (11 CM slides, 29 H&E samples), model architectures, training parameters, and quantitative results (PSNR, SSIM), which characterizes it as a technical research study rather than a review."
+  },
+  "title": "Digitally Stained Confocal Microscopy through Deep Learning",
+  "authors": [
+    "Marc Combalia",
+    "Javiera Pérez-Anker",
+    "Adriana García-Herrera",
+    "Lluïcia Alos",
+    "Verónica Vilaplana",
+    "Ferran Marques",
+    "Susana Puig",
+    "Josep Malvehy"
+  ],
+  "doi": null,
+  "journal": "Proceedings of Machine Learning Research",
+  "year": 2019,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a deep learning pipeline to digitally stain ex vivo confocal microscopy (CM) images into hematoxylin and eosin (H&E)-like slides, facilitating interpretation by pathologists without specific training. The method first employs a fully convolutional neural network with multiplicative residual connections to remove speckle noise from reflectance CM images, followed by a CycleGAN to translate the denoised images into H&E-like appearances. The model was trained on 949 CM patches and 8789 H&E histology patches extracted from 11 CM slides and 29 tissue samples, respectively. Quantitative evaluation of the despeckling step demonstrated significant improvements in PSNR (from 16.19 to 23.97 dB) and SSIM (from 0.438 to 0.727) on artificially noisy histology images. Expert pathologists confirmed that the digitally stained images produced by the pipeline were visually similar to routine H&E slides, validating the approach for potential clinical use.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal Cell Carcinoma",
+      "paper_terms": [
+        "Basal Cell Carcinoma",
+        "BCC",
+        "nonmelanoma skin cancers"
+      ],
+      "role": "Mentioned only",
+      "details": "Basal Cell Carcinoma is mentioned in the Abstract and References (Chung et al., 2004) as a condition identified using confocal microscopy in previous studies. The current paper does not perform classification or diagnosis of specific lesion types but focuses on the technical task of digitally staining confocal microscopy images to resemble H&E slides for general tissue interpretation."
+    },
+    {
+      "lesion_type": "Skin tissue / General skin lesions",
+      "paper_terms": [
+        "skin tissue samples",
+        "tissue lesions",
+        "skin histology images",
+        "CM dataset"
+      ],
+      "role": "Target class",
+      "details": "The study uses 11 confocal microscopy slides and 29 H&E histology tissue samples from the Dermatology Department, Melanoma Unit. The specific pathological diagnoses of these 40 samples are not listed in the text, but they are described as 'skin tissue' used for training the digital staining pipeline."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Generation/Synthesis",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Generation/Synthesis",
+        "target": "Digitally stained (H&E)-like images from confocal microscopy images",
+        "primary": true,
+        "details": "The paper focuses on image-to-image translation using a CycleGAN to generate H&E-like stained images from confocal microscopy (CM) inputs. It also employs a fully convolutional neural network for image denoising (despeckling), which is a generative/synthesis task aimed at reconstructing clean images from noisy inputs. The output is continuous pixel values representing images, not discrete classes or regression scores."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Confocal Microscopy (CM) Dataset",
+      "description": "A dataset of 11 microscopy skin slides obtained with the Vivascope 2500 4th Generation CM, capturing tissues at 0.75 µm/px resolution. It consists of reflectance (RCM) and fluorescence (FCM) modes. Non-overlapping patches of size 1024x1024 pixels were extracted.",
+      "classes_used": [
+        "Reflectance Confocal Microscopy (RCM)",
+        "Fluorescence Confocal Microscopy (FCM)"
+      ],
+      "counts": {
+        "total": 949,
+        "training": 759,
+        "validation": 190,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the CycleGAN for digital staining (759 patches) and evaluated on 949 RCM images for despeckling results.",
+        "validation": "Used for validation of the CycleGAN training (20% split, 190 patches).",
+        "testing": "Evaluated for despeckling performance (949 RCM images).",
+        "other": "Used as the source domain (Domain A) for the CycleGAN image-to-image translation task."
+      }
+    },
+    {
+      "name": "H&E Histology Dataset",
+      "description": "A dataset of 29 skin tissue samples scanned with a Ventana Whole Slide Image scanner at 0.47 µm/px resolution. Patches of size 1630x1630 pixels were extracted and resized to 1024x1024 pixels to match CM resolution.",
+      "classes_used": [
+        "Hematoxylin and Eosin (H&E) stained histology"
+      ],
+      "counts": {
+        "total": 8789,
+        "training": 7031,
+        "validation": 1758,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the Despeckling Neural Network (7031 images) and the CycleGAN (282 images from a single slide).",
+        "validation": "Used for validation of the CycleGAN training (20% split, 1758 images).",
+        "testing": "Evaluated for despeckling performance (1758 artificially noisy histology images).",
+        "other": "Used as the target domain (Domain B) for the CycleGAN image-to-image translation task."
+      }
+    },
+    {
+      "name": "Artificially Noisy Histology Dataset",
+      "description": "A synthetic dataset created by transforming H&E histology images to the YUV color space and applying artificial multiplicative speckle noise (noise = Gauss(mean=1, std=0.2)) to simulate noisy RCM images for training the despeckling network.",
+      "classes_used": [
+        "Artificially noisy histology",
+        "Clean histology (ground truth)"
+      ],
+      "counts": {
+        "total": 8789,
+        "training": 7031,
+        "validation": null,
+        "testing": 1758,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the Despeckling Neural Network.",
+        "validation": null,
+        "testing": "Used to evaluate the quantitative performance (PSNR, SSIM) of the Despeckling Neural Network.",
+        "other": "Synthetic generation for domain adaptation purposes."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "PSNR (Peak Signal-to-Noise Ratio)",
+    "SSIM (Structural Similarity Index)",
+    "Visual similarity assessment by expert pathologists"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using quantitative metrics (PSNR, SSIM) and qualitative visual assessment by expert pathologists."
+  },
+  "results_obtained_in_each_dataset": {
+    "Artificially Noisy Histology Dataset": {
+      "metric": "PSNR (dB) and SSIM",
+      "models": {
+        "Despeckling Neural Network": {
+          "PSNR (dB)": "23.97",
+          "SSIM": "0.727"
+        },
+        "Noisy Input (Baseline)": {
+          "PSNR (dB)": "16.19",
+          "SSIM": "0.438"
+        }
+      },
+      "notes": "Quantitative results obtained on 1758 histology images contaminated with artificial speckle noise. The despeckling network improved PSNR from 16.19 dB to 23.97 dB and SSIM from 0.438 to 0.727."
+    },
+    "Confocal Microscopy (CM) Dataset": {
+      "metric": "Visual Assessment",
+      "models": {
+        "Despeckling Neural Network": {
+          "result": "Noise reduction confirmed visually"
+        },
+        "CycleGAN (Staining)": {
+          "result": "Produced realistic (H&E)-like images"
+        }
+      },
+      "notes": "Evaluated on 949 RCM images. Expert pathologists confirmed that the digitally stained images produced by the pipeline were visually similar to routine H&E slides. The despeckling network was found crucial for obtaining realistic images; training CycleGAN on noisy RCM images resulted in non-desirable artifacts and elimination of some nuclei."
+    },
+    "CycleGAN Training Dataset": {
+      "metric": "Training Performance",
+      "models": {
+        "CycleGAN": {
+          "training_data": "759 CM images and 282 histology images from a single slide",
+          "processing_time": "Less than 3 minutes for a 15000 x 10000 pixels slide using NVIDIA Tesla K80"
+        }
+      },
+      "notes": "The CycleGAN was trained first on 256x256 patches for 50 epochs, then on 512x512 patches for another 50 epochs with learning rate decay. The architecture successfully digitally stained confocal microscopy slides."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two-stage pipeline: 1) Fully Convolutional Neural Network (FCN) for despeckling; 2) CycleGAN (Cycle Consistency Generative Adversarial Network) for digital staining.",
+    "pretraining": "Not reported.",
+    "input_size": "1024x1024 pixels (CM patches); 1630x1630 pixels (H&E patches, resized to 1024x1024). CycleGAN trained on 256x256 patches then 512x512 patches.",
+    "architecture_details": {
+      "despeckling_network": {
+        "type": "Fully Convolutional Neural Network",
+        "layers": "7 convolutional layers with 64 filters each, followed by 1 final convolutional layer with a single filter.",
+        "activations": "PreLU for intermediate layers, TanH for the final layer.",
+        "normalization": "Batch normalization added to intermediate layers.",
+        "special_connections": "Multiplicative residual connection between the last convolutional layer and the input image to incorporate speckle noise formulation (estimating inverse of speckle noise).",
+        "post_processing": "3x3 median filter applied to remove spurious pixel activations."
+      },
+      "staining_network": {
+        "type": "CycleGAN",
+        "generators": "ResNet architecture (He et al., 2016).",
+        "discriminators": "PatchNet architecture (Isola et al., 2016).",
+        "loss_functions": "Cycle consistency loss (Lcyc), Adversarial loss (Ladv), Identity loss (Lid)."
+      }
+    },
+    "training_details": {
+      "despeckling_network": {
+        "optimizer": "Adam",
+        "learning_rate": "5e-4",
+        "loss_function": "Squared error between clean images and network output.",
+        "data_augmentation": "Random flips and random crops of size 256x256 pixels.",
+        "training_samples": "7031 artificially noisy histology images."
+      },
+      "staining_network": {
+        "optimizer": "Adam",
+        "learning_rate": "2e-4",
+        "training_schedule": "Trained on 256x256 patches for 50 epochs, then on 512x512 patches for another 50 epochs with learning rate decay.",
+        "training_samples": "759 CM images and 282 histology images from a single slide.",
+        "initialization_strategy": "Used digital staining method (Gareau, 2009) as source images for domain A to ease initialization."
+      }
+    },
+    "classification_or_output_head": {
+      "despeckling_network": "Single filter convolutional layer outputting the estimated clean reflectance image.",
+      "staining_network": "Generative output producing H&E-like RGB images."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Fully Convolutional Neural Network (FCN) for despeckling",
+    "CycleGAN (Cycle Consistency Generative Adversarial Network)",
+    "ResNet (used as generator architecture in CycleGAN)",
+    "PatchNet (used as discriminator architecture in CycleGAN)"
+  ],
+  "preprocessing_techniques": [
+    "Normalization of RCM and FCM images to cover a range from 0 to 1",
+    "OTSU thresholding to determine tissue-containing regions in CM and H&E slides",
+    "Patch extraction: Non-overlapping 1024x1024 pixel patches from CM slides",
+    "Patch extraction: 1630x1630 pixel patches from H&E slides, resized to 1024x1024 pixels",
+    "Color space transformation: H&E images transformed to YUV color space for despeckling training",
+    "Channel inversion: Inverse of the Y channel used for despeckling network input",
+    "Artificial noise generation: Multiplicative speckle noise applied (noise = Gauss(mean=1, std=0.2)) to simulate noisy RCM images",
+    "Data augmentation: Random flips and random crops of size 256x256 pixels for despeckling network training",
+    "Post-processing: 3x3 median filter applied to despeckled images to remove spurious pixel activations",
+    "Digital staining initialization: Linear combination of FCM and RCM images (blue for FCM, pink/purple for RCM) used as source images for CycleGAN domain A"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random flips",
+      "details": "Applied to the training dataset for the Despeckling Neural Network."
+    },
+    {
+      "technique": "Random crops",
+      "details": "Applied to the training dataset for the Despeckling Neural Network with a crop size of 256x256 pixels."
+    }
+  ],
+  "conclusions": [
+    "The proposed deep learning pipeline, combining a despeckling neural network and a CycleGAN, successfully produces realistic (H&E)-like images from confocal microscopy (CM) data.",
+    "Expert pathologists confirmed that the digitally stained images produced by the pipeline were visually similar to routine H&E slides, validating the approach for facilitating interpretation by untrained clinicians.",
+    "The despeckling neural network is crucial for obtaining realistic images; training the CycleGAN on noisy RCM images resulted in non-desirable artifacts and the elimination of some nuclei.",
+    "The despeckling neural network significantly improved image quality, increasing PSNR from 16.19 dB to 23.97 dB and SSIM from 0.438 to 0.727 on artificially noisy histology images.",
+    "The architecture can digitally stain a large confocal microscopy slide (15000 x 10000 pixels) in less than 3 minutes using an NVIDIA Tesla K80.",
+    "The authors acknowledge that the despeckling neural network could benefit from including an adversarial loss in the optimization process to produce sharper results.",
+    "The methods described in the paper are intended to undergo clinical validation, with diagnostic accuracy to be tested in the near future."
+  ],
+  "important_remarks": [
+    "The despeckling neural network was trained on artificially noisy histology images (transformed to YUV space with multiplicative speckle noise) rather than real paired noisy/clean confocal microscopy images, which may limit generalizability to actual CM noise characteristics.",
+    "The CycleGAN for digital staining was trained on a very small subset of data: only 759 CM patches and 282 histology patches extracted from a single H&E slide, raising concerns about dataset bias and overfitting.",
+    "Training the CycleGAN directly on noisy RCM images (without the despeckling step) resulted in non-desirable artifacts and the elimination of nuclei, highlighting a critical dependency on the preprocessing step.",
+    "The study lacks external validation; all data came from a single institution (Hospital Clínic de Barcelona) and specific devices (Vivascope 2500, Ventana scanner), limiting generalizability to other CM systems or scanners.",
+    "No formal statistical hypothesis testing or p-values were reported; evaluation relied on quantitative metrics (PSNR, SSIM) on synthetic data and qualitative visual assessment by two expert pathologists.",
+    "The authors acknowledge that the despeckling network could benefit from adversarial loss to produce sharper results, indicating a known limitation in current image sharpness.",
+    "Clinical validation and diagnostic accuracy testing are noted as future work, meaning the current results do not demonstrate clinical utility or diagnostic performance."
+  ]
+}

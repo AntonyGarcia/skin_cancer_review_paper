@@ -1,0 +1,294 @@
+{
+  "file_name": "du_harpur_2020_clinically_relevant_vulnerabilities_of_deep_machine_learning_syst.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning systems, specifically Convolutional Neural Networks (CNNs) including a pretrained Inception v3 network fine-tuned for melanoma classification, to obtain results regarding vulnerabilities to adversarial attacks in skin cancer diagnosis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental results regarding vulnerabilities of deep learning systems (specifically a fine-tuned Inception v3 network) to adversarial attacks on skin cancer diagnosis. It details the implementation of specific attacks (FGSM, three-pixel, differential evolution), reports quantitative findings (e.g., 33% decrease in successful attacks with color jitter), and includes author contributions for data curation, formal analysis, and methodology, indicating it is an original study rather than a review."
+  },
+  "title": "Clinically Relevant Vulnerabilities of Deep Machine Learning Systems for Skin Cancer Diagnosis",
+  "authors": [
+    "Xinyi Du-Harpur",
+    "Callum Arthurs",
+    "Clarisse Ganier",
+    "Rick Woolf",
+    "Zainab Laftah",
+    "Manpreet Lakhan",
+    "Amr Salam",
+    "Bo Wan",
+    "Fiona M. Watt",
+    "Nicholas M. Luscombe",
+    "Magnus D. Lynch"
+  ],
+  "doi": "10.1016/j.jid.2020.07.034",
+  "journal": "Journal of Investigative Dermatology",
+  "year": 2021,
+  "article_type": "Letter",
+  "brief_summary": "This study investigated the clinical vulnerabilities of deep learning systems for skin cancer diagnosis by testing a fine-tuned Inception v3 network against various adversarial attacks. Using images from the International Skin Imaging Collaboration Challenge dataset, the researchers implemented Fast Gradient Sign Method (FGSM), three-pixel, color balance, and rotation/translation attacks. The evaluation revealed that CNNs were susceptible to misclassifying melanoma as benign nevi through subtle perturbations in color balance and image orientation. Specifically, simple rotation and translation deceived the network in 45.6% of tested images, while color balance alterations significantly increased false negatives. In contrast, human dermatologists showed no statistically significant difference in diagnostic accuracy when exposed to these same adversarial perturbations. The findings highlight that CNN classifiers are vulnerable to clinically relevant variations in image capture that mimic real-world inconsistencies.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for the CNN classifier, which was fine-tuned to differentiate melanoma from benign melanocytic nevi. The study focused on the misclassification of melanoma as benign nevi due to adversarial attacks."
+    },
+    {
+      "lesion_type": "Benign melanocytic nevus",
+      "paper_terms": [
+        "benign melanocytic nevi",
+        "benign nevus"
+      ],
+      "role": "Comparator class",
+      "details": "The comparator class in the binary classification task. The CNN was trained to distinguish melanoma from these benign lesions, and adversarial attacks often resulted in melanoma being misclassified as a benign nevus."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Differentiation of melanoma from benign melanocytic nevi",
+        "primary": true,
+        "details": "The study uses a fine-tuned Inception v3 CNN classifier to predict discrete diagnostic categories (melanoma vs. benign nevus). The model outputs probabilities via softmax transformation for class prediction, and the task is evaluated based on accuracy, sensitivity, specificity, and misclassification rates (e.g., melanoma misclassified as benign nevus)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "International Skin Imaging Collaboration Challenge dataset 2018",
+      "description": "A dataset of skin lesion images compiled by the International Skin Imaging Collaboration Challenge, used for fine-tuning a pretrained Inception v3 network for melanoma classification.",
+      "classes_used": [
+        "Melanoma",
+        "Benign melanocytic nevi"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to fine-tune the pretrained Inception v3 network for differentiation of melanoma from benign melanocytic nevi.",
+        "validation": "Used for validation set analysis to plot dependency of successful adversarial attacks on initial classification.",
+        "testing": "Used as the test dataset for evaluating adversarial attacks (FGSM, three-pixel, color balance, rotation/translation).",
+        "other": null
+      }
+    },
+    {
+      "name": "Test images of melanoma released with the publication",
+      "description": "A specific set of melanoma test images released alongside the publication, used to assess the vulnerability of a different CNN architecture (Han et al., 2018) to the described attacks.",
+      "classes_used": [
+        "Melanoma"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to test the differential evolution-based attacks on a previously characterized pretrained model (Han et al., 2018).",
+        "other": null
+      }
+    },
+    {
+      "name": "Dermatologist evaluation set",
+      "description": "A set of 204 images (half unmodified, half adversarial) used to test the diagnostic accuracy of four dermatologists against the CNN's vulnerabilities.",
+      "classes_used": [
+        "Melanoma",
+        "Benign melanocytic nevi"
+      ],
+      "counts": {
+        "total": 204,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to evaluate human dermatologist diagnostic accuracy in the presence of adversarial perturbations.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity",
+    "Specificity",
+    "Area under the curve",
+    "Accuracy",
+    "Confidence (output of the network in favor of this class after softmax transformation)",
+    "False negatives",
+    "Misclassification rate"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Differential evolution",
+      "purpose": "Used as an optimization method to craft adversarial attacks by modifying image color balance and rotation/translation to deceive the CNN classifier.",
+      "type": "Optimization algorithm"
+    },
+    {
+      "method": "Fast Gradient Sign Method (FGSM)",
+      "purpose": "Implemented to create adversarial attacks by making subtle adjustments to pixel values based on the gradient of the loss function.",
+      "type": "Adversarial attack method"
+    },
+    {
+      "method": "Three-pixel attack",
+      "purpose": "Implemented to modify only three pixels within the input image to cause misclassification.",
+      "type": "Adversarial attack method"
+    },
+    {
+      "method": "Chi-squared test",
+      "purpose": "Used to compare the diagnostic accuracy of dermatologists on unmodified versus adversarial images, finding no statistically significant difference.",
+      "type": "Hypothesis test"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Chi-squared test",
+    "null_hypothesis": "There is no statistically significant difference in the diagnostic accuracy of dermatologists when evaluating unmodified images versus adversarial images.",
+    "alternative_hypothesis": "There is a statistically significant difference in the diagnostic accuracy of dermatologists when evaluating unmodified images versus adversarial images.",
+    "alpha": null,
+    "interpretation": "The chi-squared test found no statistically significant difference in the diagnostic accuracy of four dermatologists between unmodified and adversarial images, indicating that human visual system was not susceptible to similar perturbations in the same way the CNN was."
+  },
+  "results_obtained_in_each_dataset": {
+    "International_Skin_Imaging_Collaboration_Challenge_dataset_2018": {
+      "experiment": "FGSM and Three-Pixel Attacks on Fine-Tuned Inception v3",
+      "models": {
+        "Fine-tuned Inception v3": {
+          "FGSM_attack_success": "High degree of success (specific percentage not reported, but described as 'high degree of success' in Figure 1aeg)",
+          "Three_pixel_attack_success": "Successful, but lower success rate than FGSM; attacks only successful when initial confidence of predicting melanoma was lower",
+          "Sensitivity_Specificity_AUC": "Comparable or superior to other published models (Supplementary Table S1)"
+        }
+      },
+      "notes": "The model was fine-tuned on this dataset. Sensitivity, specificity, and AUC were comparable or superior to other published models."
+    },
+    "Test_images_of_melanoma_released_with_publication": {
+      "experiment": "Differential Evolution-based Attacks on Han et al. (2018) Model",
+      "models": {
+        "Han et al. (2018) pretrained model": {
+          "Vulnerability_to_color_balance_and_rotation_attacks": "Vulnerable to attacks described in the study (Supplementary Table S1)"
+        }
+      },
+      "notes": "Used to assess generalizability of vulnerabilities to a different CNN architecture."
+    },
+    "Dermatologist_evaluation_set": {
+      "experiment": "Human Dermatologist Diagnostic Accuracy on Unmodified vs. Adversarial Images",
+      "models": {
+        "Four Dermatologists": {
+          "Accuracy_difference": "No statistically significant difference in accuracy between unmodified and adversarial images (Supplementary Figure S2)"
+        }
+      },
+      "notes": "Set consisted of 204 images (half unmodified, half adversarial). Tested against attacks that defeated the CNN."
+    },
+    "Validation_Set": {
+      "experiment": "Dependency of Successful Attacks on Initial Classification",
+      "models": {
+        "Fine-tuned Inception v3": {
+          "FGSM_dependency": "Successful attacks depended on initial classification confidence (Figure 1g)",
+          "Three_pixel_dependency": "Successful attacks depended on initial classification confidence (Figure 1n)",
+          "Color_balance_attack_dependency": "Successful attacks depended on initial classification confidence (Figure 2j)",
+          "Rotation_translation_dependency": "Successful attacks could be achieved even when initial confidence was high (Figure 2t)"
+        }
+      },
+      "notes": "Plotted output of final classification layer for original vs. adversarial images."
+    },
+    "Test_Set": {
+      "experiment": "Impact of Color Balance and Rotation/Translation on False Negatives",
+      "models": {
+        "Fine-tuned Inception v3": {
+          "Baseline_false_negatives": "68 cases",
+          "False_negatives_with_10_unit_green_subtraction": "160 cases (235% increase)",
+          "False_negatives_with_45_degree_rotation": "76 cases (11% increase from baseline)",
+          "False_negatives_with_180_degree_rotation": "76 cases (11% increase from baseline)",
+          "Rotation_translation_deception_rate": "45.6% of tested images deceived by simple rotation and translation"
+        }
+      },
+      "notes": "Test set size was 782 images. Subtraction of 10 units from green channel (max 255) led to 235% increase in false negatives. 45 and 180 degree rotations increased false negative rate by 11%."
+    },
+    "Retrained_Model_Evaluation": {
+      "experiment": "Mitigation via Data Augmentation",
+      "models": {
+        "Fine-tuned Inception v3 (with random color variation)": {
+          "Decrease_in_successful_adversarial_attacks": "33% decrease in number of successful attacks compared to original model"
+        }
+      },
+      "notes": "Retraining with random color variation did not eliminate vulnerabilities but reduced success rate. Retraining with different train/test split also did not prevent attacks."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Inception, version 3 (pretrained CNN)",
+    "pretraining": "Pretrained on natural images (off-the-shelf), then fine-tuned on the International Skin Imaging Collaboration Challenge dataset 2018 for differentiation of melanoma from benign melanocytic nevi.",
+    "input_size": "299 x 299 pixels",
+    "architecture_details": {
+      "model_family": "Convolutional Neural Network (CNN)",
+      "specific_architecture": "Inception v3",
+      "training_method": "Fine-tuning",
+      "data_augmentation": "Random color variation applied during training for mitigation experiments; random rotation applied during initial training."
+    },
+    "training_details": {
+      "dataset": "International Skin Imaging Collaboration Challenge dataset 2018",
+      "classes": [
+        "Melanoma",
+        "Benign melanocytic nevi"
+      ],
+      "mitigation_strategy": "Retraining with random color variation in each training batch resulted in a 33% decrease in successful adversarial attacks."
+    },
+    "classification_or_output_head": {
+      "type": "Softmax transformation",
+      "output": "Confidence (probability) for melanoma and benign nevus classes"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Inception v3 (pretrained Convolutional Neural Network fine-tuned for melanoma classification)",
+    "Han et al. (2018) pretrained CNN model"
+  ],
+  "preprocessing_techniques": [
+    "Fine-tuning a pretrained Inception v3 network on the International Skin Imaging Collaboration Challenge dataset 2018",
+    "Data augmentation with random color variation applied during training batches",
+    "Data augmentation with random rotation of images during initial training",
+    "Subtracting 10 units from the green channel (maximum 255) to alter color balance",
+    "Systematic rotation of test images by 45 and 180 degrees",
+    "Translation of input images (up to 50 pixels in horizontal and vertical orientations)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random color variation",
+      "details": "Applied to each training image in every training batch during retraining experiments to mitigate adversarial vulnerabilities. This resulted in a 33% decrease in the number of successful adversarial attacks compared to the original model."
+    },
+    {
+      "technique": "Random rotation",
+      "details": "Applied to images during the initial training of the network. Despite this augmentation, the network remained vulnerable to systematic rotation attacks (45 and 180 degrees) during testing."
+    }
+  ],
+  "conclusions": [
+    "Convolutional Neural Networks (CNNs) used for skin cancer diagnosis are vulnerable to clinically relevant adversarial attacks, specifically alterations in image color balance and rotation/translation, which can lead to the misclassification of melanoma as benign nevi.",
+    "Simple systematic alterations, such as subtracting 10 units from the green channel or rotating images by 45 or 180 degrees, significantly increased false negative rates (by 235% and 11% respectively) in the CNN classifier.",
+    "Human dermatologists showed no statistically significant difference in diagnostic accuracy when evaluating unmodified versus adversarially perturbed images, indicating that the human visual system is robust to these specific perturbations in a way that CNNs are not.",
+    "Data augmentation with random color variation during training reduced the number of successful adversarial attacks by 33%, but did not eliminate the vulnerability, suggesting that mitigation strategies are necessary but insufficient on their own.",
+    "Retraining the model with a different train/test split did not prevent adversarial attacks, indicating that the vulnerabilities are inherent to the CNN architecture's reliance on features susceptible to these perturbations rather than overfitting to specific training data.",
+    "The study highlights limitations in the generalization ability of CNN architectures originally developed for natural image classification when applied to medical imaging, necessitating rigorous testing of failure modes before clinical deployment."
+  ],
+  "important_remarks": [
+    "CNNs are vulnerable to clinically relevant adversarial attacks involving subtle alterations in image color balance and rotation/translation, which mimic real-world inconsistencies in dermoscopic image capture.",
+    "Subtracting 10 units from the green channel (out of 255) increased false negatives by 235% (from 68 to 160 cases), demonstrating high sensitivity to minor color perturbations.",
+    "Simple rotation and translation deceived the network in 45.6% of tested images, even when the initial classification confidence was high.",
+    "Human dermatologists showed no statistically significant difference in diagnostic accuracy when evaluating unmodified versus adversarially perturbed images, highlighting a robustness gap between CNNs and humans.",
+    "Data augmentation with random color variation during training reduced successful adversarial attacks by 33% but did not eliminate vulnerabilities, indicating mitigation strategies are insufficient on their own.",
+    "Retraining the model with a different train/test split did not prevent adversarial attacks, suggesting vulnerabilities are inherent to the CNN architecture's feature reliance rather than overfitting to specific training data.",
+    "The study evaluated a limited number of CNN architectures; generalizability to other models requires further investigation.",
+    "CNNs originally developed for natural image classification show limitations in generalizing to medical imaging data, necessitating rigorous testing of failure modes before clinical deployment."
+  ]
+}

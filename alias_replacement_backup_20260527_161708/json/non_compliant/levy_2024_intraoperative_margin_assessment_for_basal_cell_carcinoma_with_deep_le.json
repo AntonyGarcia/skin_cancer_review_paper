@@ -1,0 +1,465 @@
+{
+  "file_name": "levy_2024_intraoperative_margin_assessment_for_basal_cell_carcinoma_with_deep_le.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed an artificial intelligence platform (ArcticAI) using deep learning methods, specifically ResNet50 CNNs for feature extraction/embeddings and graph neural networks for histological assessment, to automate grossing recommendations, tumor mapping, and orientation for intraoperative margin assessment in basal cell carcinoma (a dermatology/skin cancer context)."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper describes the development and validation of an original artificial intelligence platform (ArcticAI) using deep learning methods (ResNet50 CNNs and graph neural networks) for intraoperative margin assessment in basal cell carcinoma. It presents original experimental results, including algorithm training/validation on patient datasets, performance metrics, and a proof-of-concept workflow, rather than summarizing prior literature."
+  },
+  "title": "Intraoperative margin assessment for basal cell carcinoma with deep learning and histologic tumor mapping to surgical site",
+  "authors": [
+    "Joshua J Levy",
+    "Matthew J Davis",
+    "Rachael S Chacko",
+    "Michael J Davis",
+    "Lucy J Fu",
+    "Tarushii Goel",
+    "Akash Pamal",
+    "Irfan Naﬁ",
+    "Abhinav Angirekula",
+    "Anish Suvarna",
+    "Ram Vempati",
+    "Brock C Christensen",
+    "Matthew S Hayden",
+    "Louis J Vaickus",
+    "Matthew R LeBoeuf"
+  ],
+  "doi": "10.1038/s41698-023-00477-7",
+  "journal": "npj Precision Oncology",
+  "year": 2024,
+  "article_type": "Article",
+  "brief_summary": "This study developed ArcticAI, an artificial intelligence platform utilizing deep learning methods including ResNet50 CNNs and graph neural networks, to automate intraoperative margin assessment for basal cell carcinoma. The system processes whole-slide images to provide automated grossing recommendations, tumor mapping, and orientation of histological findings to the surgical specimen. Evaluation was conducted on internal validation and held-out test sets comprising unique patient datasets, with performance metrics including Dice scores and F1-scores. The results demonstrate that this approach addresses surgical laboratory efficiency bottlenecks by reducing tissue preprocessing and histological assessment time. Ultimately, the platform enables rapid and complete intraoperative margin assessment, potentially improving surgical outcomes for basal cell carcinoma.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal cell carcinoma",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC",
+        "tumor"
+      ],
+      "role": "Target class",
+      "details": "The primary disease entity studied. The paper uses BCC as a model system for intraoperative margin assessment. Specific histologic subtypes of BCC included in the dataset and analysis are: nodular, superficial, infiltrative, micronodular, and sclerodermiform."
+    },
+    {
+      "lesion_type": "Benign skin structures",
+      "paper_terms": [
+        "benign skin structures",
+        "hair follicles",
+        "benign epidermal keratinocytes"
+      ],
+      "role": "Comparator class / Exclusion target",
+      "details": "Used as negative controls or distinct classes to differentiate from tumor. Hair follicles were specifically detected to prevent misclassification of tumor in conflated regions. Benign epidermal keratinocytes were one of the cell types detected in the nuclei classification task."
+    },
+    {
+      "lesion_type": "Inflammation",
+      "paper_terms": [
+        "inflammation",
+        "inflammatory cells",
+        "inflammatory aggregates"
+      ],
+      "role": "Comparator class / Distinct class",
+      "details": "Included as a distinct class in a three-class model (tumor vs. benign vs. inflammation) to improve specificity and reduce misclassification of inflamed regions as tumor. It was excluded from the two-class model."
+    },
+    {
+      "lesion_type": "Squamous cell carcinoma",
+      "paper_terms": [
+        "squamous cell carcinoma",
+        "squamatized"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as a type of skin cancer treated by Mohs Micrographic Surgery, but not the primary focus of the AI platform development or validation in this study. 'Squamatized' refers to a BCC subtype appearance."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Tumor presence (tumor vs. benign), tissue completeness (hole/tear vs. tissue), and cell type (tumor, benign, inflammation, hair follicles, nuclei types).",
+        "primary": true,
+        "details": "The paper describes multiple classification tasks using CNNs and GNNs. Specifically: 1) Tumor classification: Distinguishing tumor from benign tissue (two-class) and tumor from benign/inflammation (three-class). Patches were labeled as containing tumor if they contained malignant cells. 2) Tissue completeness classification: Delineating holes/tears vs. tissue. 3) Confounder identification: Hair follicle detection and nuclei classification (e.g., benign epidermal keratinocytes vs. tumor). The primary output for margin assessment is the presence/absence of tumor (classification) mapped to the surgical specimen."
+      },
+      {
+        "task_type": "Detection",
+        "target": "Hair follicles and nuclei locations.",
+        "primary": false,
+        "details": "The paper mentions an 'image detection model' to remove hair follicles from conflated tumor-predicted regions and 'nuclei detection' for cell classification. This implies object detection tasks for specific histological structures."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Internal Patient Cohort (Basal Cell Carcinoma)",
+      "description": "A private dataset of whole-slide images (WSI) from patients with basal cell carcinoma (BCC) treated at the authors' institutions (Cedars-Sinai Medical Center and Dartmouth Health). The dataset includes serial sections of surgical specimens processed for intraoperative margin assessment. Data availability is restricted due to participant privacy concerns, though a subset is accessible via a demo web application.",
+      "classes_used": [
+        "Basal cell carcinoma (tumor)",
+        "Benign tissue",
+        "Inflammation",
+        "Hole/tear (tissue completeness)",
+        "Fat",
+        "Epidermis",
+        "Dermis",
+        "Hair follicles",
+        "Fibroblasts",
+        "Malignant basal cells",
+        "Benign epidermal keratinocytes",
+        "Inflammatory cells"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the Tumor CNN, Completeness CNN, and nuclei detection/classification models. Patches were extracted from WSI for model training.",
+        "validation": "Used for hyperparameter tuning and internal validation. A held-out validation set was used to evaluate detection accuracy (Dice score) and refine cell type predictions.",
+        "testing": "Used for final performance evaluation on a held-out test set comprising a unique set of patients not included in training or validation. Metrics included F1-scores and Dice scores.",
+        "other": "Used for proof-of-concept workflow demonstration via a public web application (arcticai.demo.levylab.host.dartmouth.edu)."
+      }
+    },
+    {
+      "name": "Nuclei Annotation Subset",
+      "description": "A subset of the internal dataset specifically annotated by four pathologists using the Automated Slide Analysis Platform (ASAP). It consists of 795 patches of size 128x128 pixels, corresponding to approximately 32,763 nuclei, extracted from three whole slide images (WSI) from the training/validation set.",
+      "classes_used": [
+        "Fibroblasts",
+        "Hair follicles",
+        "Inflammation",
+        "Malignant basal cells",
+        "Benign epidermal keratinocytes"
+      ],
+      "counts": {
+        "total": 795,
+        "training": 636,
+        "validation": 159,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "80% of patches (636) were randomly chosen for the training/validation dataset for the nuclei detection and classification model.",
+        "validation": "The remaining 20% of patches (159) were used for internal validation prior to prediction on the held-out test WSI.",
+        "testing": "The model was evaluated on a held-out test set of WSI (unique patients) for final prediction accuracy, but the specific count of test nuclei patches is not reported separately from the general test set.",
+        "other": "Used to train a CNN (ResNet-50) and GNN model to detect and classify specific cell types."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice score",
+    "F1-Score",
+    "AUC",
+    "Macro-AUC",
+    "Median Absolute Deviation (MAD)",
+    "Median Proportion Change (MPC)",
+    "Correlation",
+    "Proportion Correct Orientation",
+    "Sliced Wasserstein distance",
+    "Execution Time"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "95% confidence intervals",
+      "purpose": "To account for variation in concordance across cases and to estimate uncertainty for margin assessment speed (seconds per case).",
+      "type": "Confidence Interval"
+    },
+    {
+      "method": "Non-parametric bootstrap",
+      "purpose": "To acquire 95% confidence intervals for AUC statistics and to estimate uncertainty for execution time, accounting for clustering on the WSI level.",
+      "type": "Bootstrap Method"
+    },
+    {
+      "method": "Median Absolute Deviation (MAD)",
+      "purpose": "To compare length, width, and height measurements of the 3D reconstruction of resected tissue to hand measurements of the original specimen.",
+      "type": "Descriptive/Comparison Statistic"
+    },
+    {
+      "method": "Spearman correlation",
+      "purpose": "To compare length, width, and height measurements of the 3D reconstruction of resected tissue to hand measurements of the original specimen.",
+      "type": "Correlation"
+    },
+    {
+      "method": "Sliced Wasserstein distance",
+      "purpose": "To estimate the distributional difference between the histological section and surgical mapping ellipse during the morphing process.",
+      "type": "Distance Metric"
+    },
+    {
+      "method": "Group-ShuffleSplit iterator",
+      "purpose": "To partition data into training, validation, and test sets comprising different sets of patients to avoid target leakage from serial sections.",
+      "type": "Data Splitting Method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Statistical methods included descriptive statistics (median absolute deviation, Spearman correlation), confidence intervals (95% via non-parametric bootstrap), and distributional distance metrics (Sliced Wasserstein distance) to evaluate concordance and uncertainty, but no formal null hypothesis significance testing was performed."
+  },
+  "results_obtained_in_each_dataset": {
+    "Internal Patient Cohort (Basal Cell Carcinoma)": {
+      "Gross Measurements (3D Point Cloud)": {
+        "metric": "Median Absolute Deviation (MAD) in cm",
+        "models": {
+          "3D Point Cloud": {
+            "Length (L)": "0.36 (95% CI: 0.21-0.53)",
+            "Width (W)": "0.23 (95% CI: 0.12-0.52)",
+            "Height (H)": "0.29 (95% CI: 0.19-0.50)",
+            "Overall": "0.29 (95% CI: 0.20-0.47)"
+          }
+        },
+        "notes": "Comparison of 3D reconstruction measurements to hand measurements of original specimen."
+      },
+      "Gross Measurements (NeRF)": {
+        "metric": "Median Absolute Deviation (MAD) in cm",
+        "models": {
+          "NeRF": {
+            "Length (L)": "0.21 (95% CI: 0.11-0.53)",
+            "Width (W)": "0.19 (95% CI: 0.17-0.22)",
+            "Height (H)": "0.27 (95% CI: 0.17-0.36)",
+            "Overall": "0.22 (95% CI: 0.18-0.33)"
+          }
+        },
+        "notes": "Comparison of NeRF reconstruction measurements to hand measurements of original specimen."
+      },
+      "Gross Measurements (Proportion Change)": {
+        "metric": "Median Proportion Change (MPC) %",
+        "models": {
+          "3D Point Cloud": {
+            "Length (L)": "12.4 (95% CI: 7.9-17.7)",
+            "Width (W)": "13.0 (95% CI: 8.3-32.0)",
+            "Height (H)": "31.7 (95% CI: 20.0-58.0)",
+            "Overall": "19.0 (95% CI: 12.6-33.2)"
+          },
+          "NeRF": {
+            "Length (L)": "11.3 (95% CI: 4.5-14.3)",
+            "Width (W)": "11.3 (95% CI: 8.3-16.9)",
+            "Height (H)": "34 (95% CI: 6.5-58.3)",
+            "Overall": "18.9 (95% CI: 8.2-28.5)"
+          }
+        },
+        "notes": "Median Proportion Change of dimensions."
+      },
+      "Gross Measurements (Correlation)": {
+        "metric": "Spearman Correlation",
+        "models": {
+          "3D Point Cloud": {
+            "Length (L)": "0.848 (95% CI: 0.544-0.973)",
+            "Width (W)": "0.833 (95% CI: 0.467-0.971)",
+            "Height (H)": "0.812 (95% CI: 0.456-0.955)",
+            "Overall": "0.831 (95% CI: 0.602-0.937)"
+          },
+          "NeRF": {
+            "Length (L)": "0.946 (95% CI: 0.814-0.988)",
+            "Width (W)": "0.875 (95% CI: 0.576-0.976)",
+            "Height (H)": "0.893 (95% CI: 0.646-0.984)",
+            "Overall": "0.905 (95% CI: 0.782-0.96)"
+          }
+        },
+        "notes": "Correlation between 3D reconstruction and hand measurements."
+      },
+      "Tissue Orientation": {
+        "metric": "Median Absolute Deviation (MAD) in degrees; Proportion Correct Orientation",
+        "models": {
+          "Orientation Accuracy": {
+            "MAD (°)": "4.883 (95% CI: 4.04-5.451)",
+            "Proportion Correct ≤45°": "94.7% (95% CI: 92.3%-96.6%)",
+            "Proportion Correct ≤15°": "86.0% (95% CI: 82.6%-88.9%)",
+            "Proportion Correct ≤5°": "51.3% (95% CI: 46.7%-55.7%)"
+          }
+        },
+        "notes": "Assessment of tissue orientation concordance."
+      },
+      "GNN: Tissue Completeness": {
+        "metric": "AUC",
+        "models": {
+          "GNN": {
+            "AUC": "0.839 (95% CI: 0.825-0.855)",
+            "Macro-AUC": "0.851 (95% CI: 0.839-0.863)"
+          }
+        },
+        "notes": "Macro-AUC represents slide-level averaging."
+      },
+      "GNN: Margin Assessment": {
+        "metric": "AUC",
+        "models": {
+          "GNN (Original Slides)": {
+            "AUC": "0.967 (95% CI: 0.960-0.979)",
+            "Macro-AUC": "0.962 (95% CI: 0.954-0.970)"
+          },
+          "GNN (Follicle Removal)": {
+            "AUC": "0.965 (95% CI: 0.959-0.975)",
+            "Macro-AUC": "0.957 (95% CI: 0.949-0.964)"
+          }
+        },
+        "notes": "Comparison of margin assessment with and without follicle removal confounder adjustment."
+      },
+      "CNN: Tissue Completeness": {
+        "metric": "AUC",
+        "models": {
+          "CNN": {
+            "AUC": "0.923 (95% CI: 0.917-0.930)",
+            "Macro-AUC": "0.916 (95% CI: 0.907-0.925)"
+          }
+        },
+        "notes": "CNN-based tissue completeness assessment."
+      },
+      "CNN: Margin Assessment": {
+        "metric": "AUC",
+        "models": {
+          "CNN": {
+            "AUC": "0.900 (95% CI: 0.887-0.912)",
+            "Macro-AUC": "0.877 (95% CI: 0.859-0.893)"
+          }
+        },
+        "notes": "CNN-based margin assessment."
+      },
+      "Tumor Mapping Accuracy": {
+        "metric": "Macro-AUC",
+        "models": {
+          "Mapping": {
+            "Macro-AUC": "0.992 (95% CI: 0.915-0.999)"
+          }
+        },
+        "notes": "Accuracy of mapping tumor results to surgical specimen."
+      }
+    },
+    "Nuclei Annotation Subset": {
+      "Nuclei Detection and Classification": {
+        "metric": "Dice Score (Validation); F1-Score (Test)",
+        "models": {
+          "CNN (ResNet-50) + GNN": {
+            "Validation Dice Score": "Not explicitly reported as a single number in text, but used for hyperparameter tuning",
+            "Test F1-Score": "Not explicitly reported as a single aggregate number in text, but recorded separately for detection, CNN, and GNN components"
+          }
+        },
+        "notes": "The paper states F1-score statistics were recorded as a final measure of fit across the test set cells, separately comparing detection, CNN, and GNN models. Specific aggregate F1 values are not provided in the text chunks, only the methodology of recording them. Validation was performed on 20% of the 795 patches (159 patches) using Dice score."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "ArcticAI platform comprising ResNet-50 Convolutional Neural Networks (CNNs) for feature extraction/embeddings and Graph Neural Networks (GNNs) for histological assessment; additionally utilized Detectron2 for panoptic segmentation and NeRF/3D Point Cloud for gross measurement reconstruction.",
+    "pretraining": "ResNet-50 models were selected after comparing performance on the validation set between models available in the PathFlowAI package; specific pretraining weights (e.g., ImageNet) are not explicitly stated, but PathFlowAI typically utilizes pre-trained backbones. GNN architecture was determined via randomized hyperparameter search.",
+    "input_size": "CNNs processed image patches (subimages/tiles) extracted from Whole Slide Images (WSI). Specific patch dimensions for nuclei detection were 128x128 pixels. For follicle detection, 1024x1024 pixel subimages were extracted. GNNs processed graphs where nodes represented patches and edges represented spatial dependencies.",
+    "architecture_details": {
+      "CNN": {
+        "model_family": "ResNet-50",
+        "framework": "PyTorch (v1.8.0)",
+        "output": "2048-dimensional embeddings from the penultimate layer for tumor_map and macro_map patches.",
+        "tasks": [
+          "Tumor CNN: Delineating tumor from benign structures and inflammation.",
+          "Completeness CNN: Delineating hole/tear, fat, epidermis, and dermis."
+        ]
+      },
+      "GNN": {
+        "framework": "PyTorch-Geometric (v1.7.1)",
+        "graph_definition": "Radius neighbors algorithm connecting patches (nodes) to immediate neighbors (edges) based on x-y coordinates.",
+        "layers": "Three graph attention layers with dimensionalities 32, 32, and 64. Interspersed with DropEdge and Dropout layers.",
+        "node_attributes": "CNN embeddings (2048-dim).",
+        "tasks": [
+          "Tumor GNN: Analogous to Tumor CNN.",
+          "Completeness GNN: Analogous to Completeness CNN."
+        ]
+      },
+      "Detection_Segmentation": {
+        "model_family": "R101-FPN (ResNet-101 with Feature Pyramid Network)",
+        "framework": "Detectron2",
+        "task": "Panoptic segmentation for follicle detection and residual tumor identification in inflammation pockets."
+      },
+      "Reconstruction": {
+        "models": [
+          "3D Point Cloud",
+          "Neural Radiance Fields (NeRF)"
+        ],
+        "purpose": "Gross measurement reconstruction and tissue orientation mapping."
+      }
+    },
+    "training_details": {
+      "CNN_Training": {
+        "dataset_size": "1,988,841 patches from 122 WSI.",
+        "batch_size": 32,
+        "learning_rate": "1e-4",
+        "scheduler": "Cosine annealing learning rate scheduler",
+        "epochs": 100
+      },
+      "GNN_Training": {
+        "dataset_size": "1065 tissue patches for tumor localization; 32,763 cell annotations for nuclei classification.",
+        "batch_size": 16,
+        "learning_rate": "1e-2",
+        "scheduler": "Cosine annealing learning rate scheduler",
+        "epochs": 1500
+      },
+      "Detection_Training": {
+        "dataset_size": "672 follicles annotated across 16 WSI; 595 non-overlapping 1024x1024 pixel subimages.",
+        "learning_rate": "1e-3",
+        "epochs": 1000
+      },
+      "Nuclei_Classification_Training": {
+        "dataset_size": "795 patches (636 training, 159 validation) corresponding to ~32,763 nuclei.",
+        "models": "CNN (ResNet-50) + GNN"
+      }
+    },
+    "classification_or_output_head": {
+      "CNN": "Penultimate layer outputs 2048-dimensional embeddings. Final layer outputs probability of specific tissue architecture presence.",
+      "GNN": "Prediction output layer returning predicted probabilities (and logits) of each class for tumor and completeness tasks.",
+      "Detection": "Bounding box proposals and segmentation masks via panoptic segmentation architecture."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ArcticAI platform",
+    "ResNet50 CNN",
+    "Graph Neural Network (GNN)",
+    "R101-FPN neural network",
+    "Detectron2",
+    "3D Point Cloud",
+    "Neural Radiance Fields (NeRF)"
+  ],
+  "preprocessing_techniques": [
+    "Tissue mask creation using PathFlowAI package with intensity thresholding to remove high-intensity objects and large gray artifacts (e.g., scanner text, background black pen)",
+    "Morphology operations including binary closing and blurring to smooth the tissue mask",
+    "Removal of small objects and small holes from the tissue mask",
+    "Patch extraction of 256-pixel by 256-pixel subimages from Whole Slide Images (WSI) based on significant overlap with the tissue mask",
+    "Patch extraction of 1024x1024 pixel subimages for follicle detection",
+    "Patch extraction of 128x128 pixel patches for nuclei annotation",
+    "Patch extraction of 4096-pixel radius patches for macro_map configuration to connect neighboring tissue pieces",
+    "Patch extraction of 512-pixel radius patches for spectral clustering to divide conjoined sections",
+    "Ink detection using Sobel filter with morphological dilation and opening operations",
+    "Ink detection using sensitivity analysis over thresholds in Hue, Saturation, Value (HSV) color space combined with connected component analysis",
+    "Removal of spurious ink applications within tissue edges",
+    "Ink detection using semantic segmentation algorithms and conditional random fields",
+    "Calculation of center of mass of x-y coordinates of detected ink colors (blue, red, yellow, green, orange, purple, black) for tissue orientation",
+    "Image stitching for WSI processing",
+    "3D model reconstruction using photogrammetry (RANSAC-based ellipse finding, grabcut background removal, intensity thresholding, connected component analysis, object size filtering)",
+    "3D model refinement using Radius Neighbor’s regression, Poisson mesh reconstruction, or Delauney triangulation and alpha hull construction",
+    "Tissue localization using segmentation neural networks and hand annotations",
+    "Estimation of camera intrinsics for NeRF modeling",
+    "Removal of patches containing wispy white patterns from dermis to avoid conflation with hole/tear regions during training"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The ArcticAI platform, utilizing deep learning (ResNet50 CNNs and Graph Neural Networks) and 3D reconstruction, successfully addresses surgical laboratory efficiency bottlenecks by automating grossing recommendations, tumor mapping, and orientation for intraoperative margin assessment in basal cell carcinoma.",
+    "The AI platform significantly reduces histological assessment time, achieving a median execution time of 78 seconds for more than 20 tissue sections, which is substantially faster than previously reported compute times (e.g., 13 minutes for 3 sections).",
+    "The system demonstrated high accuracy in mapping tumor presence to the surgical specimen, with positive margins correctly identified and located in the correct anatomical orientation in 99.2% of test set cases.",
+    "The algorithm performed well across different histological subtypes of basal cell carcinoma, including nodular, superficial, infiltrative, micronodular, and sclerodermiform subtypes.",
+    "The study elucidates the importance of the relationship between tumor and surrounding inflammatory cell populations as an indicator of tumor presence, highlighting the value of high-resolution cell-level analysis.",
+    "The platform enables rapid and complete intraoperative margin assessment, potentially reducing the need for repeat procedures and improving surgical outcomes for basal cell carcinoma.",
+    "The current proof-of-concept workflow was validated only on basal cell carcinoma subtypes; future work is necessary to incorporate detection and localization of collision lesions or other skin cancer subtypes (e.g., Squamous Cell Carcinoma, Melanoma in Situ).",
+    "Implementation in diverse healthcare settings will require adapting virtual inking recommendations to specific hospital protocols and accounting for variations in standardized inking practices.",
+    "The platform has the potential to decrease pathologist burnout by reducing excessive charting and documentation burdens, and to increase the productivity of remote pathologists through informatics-augmented platforms."
+  ],
+  "important_remarks": [
+    "The study is a proof-of-concept limited to Basal Cell Carcinoma (BCC) subtypes (nodular, superficial, infiltrative, micronodular, sclerodermiform); it does not account for other skin cancer subtypes like Squamous Cell Carcinoma or Melanoma, nor structures like actinic keratosis or perineural invasion.",
+    "The dataset is internal, sourced from Cedars-Sinai Medical Center and Dartmouth Health, with no external validation reported; models trained at a single site may require retraining for other institutions.",
+    "Data availability is restricted due to participant privacy concerns, though a subset is accessible via a demo web application.",
+    "The follicle detection algorithm used to remove confounding hair follicles is noted as needing improvement through additional data collection in various tissue sites (e.g., nose).",
+    "Implementation in diverse healthcare settings requires adapting virtual inking recommendations to specific hospital protocols and standardized inking practices.",
+    "The study acknowledges barriers to adoption, including the need for stakeholder buy-in, educational alignment, and qualitative assessment of stakeholder interests.",
+    "The algorithm's performance on tissue orientation and gross measurements relies on 3D reconstruction methods (Point Cloud and NeRF) which may be sensitive to calibration and imaging conditions.",
+    "The paper did not report formal hypothesis testing (p-values); statistical uncertainty was estimated using 95% confidence intervals via non-parametric bootstrapping."
+  ]
+}

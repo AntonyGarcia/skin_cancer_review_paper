@@ -1,0 +1,266 @@
+{
+  "file_name": "chacko_2023_integration_of_a_deep_learning_basal_cell_carcinoma_detection_and_tu.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The study used a deep learning-based basal cell carcinoma (BCC) detection and tumor mapping algorithm (utilizing convolutional neural networks, graph neural networks, and R101-FPN models) to simulate integration into a Mohs micrographic surgery workflow. The AI was used to generate tumor maps and assess histologic findings, which were then used to calculate time savings in slide, staff, and histotechnician waiting times."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as an 'ORIGINAL ARTICLE' and describes a 'simulated, retrospective study' involving original data collection and analysis. The Methods section details the analysis of slide, staff, and histotechnician waiting times over a 20-day period for 104 consecutive Mohs micrographic surgery cases, and the Results section presents specific quantitative findings (e.g., time savings percentages, accuracy rates). This structure and content align with the definition of a research paper producing new results rather than a review summarizing prior literature."
+  },
+  "title": "Integration of a deep learning basal cell carcinoma detection and tumor mapping algorithm into the Mohs micrographic surgery workflow and effects on clinical staffing: A simulated, retrospective study",
+  "authors": [
+    "Rachael Chacko",
+    "Matthew J. Davis",
+    "Joshua Levy",
+    "Matthew LeBoeuf"
+  ],
+  "doi": "10.1016/j.jdin.2024.02.014",
+  "journal": "JAAD International",
+  "year": 2024,
+  "article_type": "Original research article",
+  "brief_summary": "This simulated, retrospective study evaluated the integration of a deep learning basal cell carcinoma detection and tumor mapping algorithm into a Mohs micrographic surgery workflow to assess its impact on clinical staffing efficiency. The researchers analyzed slide, staff, and histotechnician waiting times over a 20-day period for 104 consecutive cases, comparing real-world metrics against a simulated workflow incorporating the AI algorithm. The algorithm, which utilizes convolutional neural networks, graph neural networks, and R101-FPN models, demonstrated an accuracy of 94% in identifying tumor locations. Results indicated that simulated nonautonomous algorithm integration led to significant time savings, reducing slide waiting time by 35.6%, staff waiting time by 18.4%, and histotechnician waiting time by 18.6% per day. The greatest time savings were observed on days with increased reconstruction complexity or numerous tumor removal stages. The study concludes that while AI integration can streamline workflows and increase productivity, logistical challenges must be addressed before broad clinical adoption.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "The study focused exclusively on basal cell carcinoma cases (n=104 in the main workflow analysis, n=65 for algorithm accuracy assessment) undergoing Mohs micrographic surgery. The algorithm was trained and validated on BCC specimens. Table I lists BCC histologic subtypes: Nodular, Superficial, Infiltrative, Micronodular, and No tumor."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Detection",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Detection",
+        "target": "Basal cell carcinoma tumor locations and tumor mapping",
+        "primary": true,
+        "details": "The paper describes a 'basal cell carcinoma detection and tumor mapping algorithm' that identifies tumor locations and generates tumor maps. The algorithm achieved an accuracy of 94% in identifying tumor locations (AUC of 0.97 for positive tumor margin identification). The task involves localizing the tumor within histologic images rather than predicting a discrete diagnostic class label or a continuous numeric outcome."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Mohs Micrographic Surgery (MMS) Cohort",
+      "description": "A cohort of 104 consecutive basal cell carcinoma (BCC) cases performed over a 20-day period at a single Mohs micrographic surgery unit (Dartmouth Health). This dataset was used to measure real-world slide, staff, and histotechnician waiting times.",
+      "classes_used": [
+        "Basal cell carcinoma (BCC)"
+      ],
+      "counts": {
+        "total": 104,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to measure real-world waiting times (slide, staff, histotechnician) for the baseline comparison against the simulated AI workflow.",
+        "other": "Used to define the clinical workflow context and staffing parameters (3 nursing staff, 2 histotechnicians, 5 operating rooms)."
+      }
+    },
+    {
+      "name": "Algorithm Training and Validation Cohort",
+      "description": "A subset of 65 BCC cases selected to reflect the normal distribution of BCC histologic subtypes in MMS clinical practice. These cases were scanned at 20X using an Aperio AT2 to generate whole slide images (SVS format) and analyzed by the BCC detection algorithm to assess accuracy and generate simulated waiting times.",
+      "classes_used": [
+        "Nodular BCC",
+        "Superficial BCC",
+        "Infiltrative BCC",
+        "Micronodular BCC",
+        "No tumor"
+      ],
+      "counts": {
+        "total": 65,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Nodular": 37,
+          "Superficial": 14,
+          "Infiltrative": 15,
+          "Micronodular": 5,
+          "No tumor": 16
+        }
+      },
+      "use": {
+        "training": "The BCC detection algorithm was trained and validated using whole slide images of specimens from patients undergoing MMS for BCC removal that were manually annotated for tumor, benign structures, and layers of skin by 4 pathologists.",
+        "validation": "Used to validate the algorithm's accuracy in identifying tumor locations (94% accuracy) and to measure algorithm processing/runtime and slide scanning times for the simulated workflow.",
+        "testing": "Algorithm-generated tumor maps were compared to surgeon-generated maps for concordance assessment.",
+        "other": "Used to simulate nonautonomous algorithm integration by calculating time savings based on the difference between actual and simulated slide waiting times."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "AUC-ROC",
+    "95% Confidence Interval (CI)",
+    "Slide waiting time",
+    "Staff waiting time",
+    "Histotechnician waiting time",
+    "Processing time",
+    "Algorithm runtime",
+    "Slide scanning time",
+    "Output review time",
+    "Concordance between tumor maps"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Normal approximation of the binomial probabilities",
+      "purpose": "To obtain 95% confidence intervals for the concordance proportion between algorithm-generated and surgeon-generated tumor maps.",
+      "type": "Confidence Interval Estimation"
+    },
+    {
+      "method": "Percentage calculation",
+      "purpose": "To quantify time savings in slide, staff, and histotechnician waiting times by comparing real-world metrics against simulated AI workflow metrics.",
+      "type": "Descriptive Statistics"
+    },
+    {
+      "method": "Comparison of means/medians (implied)",
+      "purpose": "To compare waiting times between days with the highest and lowest proportion of complex repairs and days with the most and least tumor removal stages.",
+      "type": "Comparative Analysis"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests) for the comparison of waiting times. Statistical analysis was limited to calculating percentages of time savings, accuracy rates with 95% confidence intervals derived from the normal approximation of binomial probabilities, and descriptive comparisons of means/medians between groups."
+  },
+  "results_obtained_in_each_dataset": {
+    "Algorithm Training and Validation Cohort (n=65)": {
+      "metric": "Accuracy of tumor location identification",
+      "models": {
+        "BCC Detection and Tumor Mapping Algorithm": {
+          "accuracy": "94%",
+          "confidence_interval": "88% to 99%"
+        }
+      },
+      "notes": "The algorithm identified the tumor and appropriate location in 94% of surgical cases. This accuracy fell below the presumed human diagnostic accuracy of 98% to 99%. Concordance between algorithm-generated and surgeon-generated tumor maps was established via retrospective review and subjective interpretation of visual agreement."
+    },
+    "Mohs Micrographic Surgery Cohort (n=104 cases over 20 days)": {
+      "metric": "Time savings in simulated nonautonomous algorithm integration",
+      "models": {
+        "Simulated Nonautonomous Workflow": {
+          "slide_waiting_time_savings_percentage": "35.69%",
+          "slide_waiting_time_savings_absolute": "37:28 minutes per day",
+          "staff_waiting_time_savings_percentage": "18.24%",
+          "histotechnician_waiting_time_savings_percentage": "18.62%"
+        }
+      },
+      "notes": "Simulated nonautonomous algorithm integration resulted in savings of 35.69% of slide waiting time, 18.24% of staff waiting time, and 18.62% of histotechnician waiting time per day across all 104 cases. 55 out of 104 cases (52.9%) had increased time savings. For the 55 cases with net positive time savings, the savings were 55.03% for slide waiting time, 28.13% for staff waiting time, and 25.53% for histotechnician waiting time."
+    },
+    "Subgroup Analysis (55 cases with net positive time savings)": {
+      "metric": "Time savings for cases benefiting from AI",
+      "models": {
+        "Simulated Nonautonomous Workflow": {
+          "slide_waiting_time_savings_percentage": "55.03%",
+          "staff_waiting_time_savings_percentage": "28.13%",
+          "histotechnician_waiting_time_savings_percentage": "25.53%"
+        }
+      },
+      "notes": "Comparison of only cases that benefited from the implementation of the AI algorithm revealed these specific savings over the 20-day period."
+    },
+    "Stratified Analysis by Repair Complexity and Tumor Stages": {
+      "metric": "Waiting time differences between high/low complexity/stage days",
+      "models": {
+        "Complex Repair Days (vs Simple)": {
+          "mean_slide_waiting_time_saved": "0:11:09 (h:mm:ss)",
+          "mean_staff_waiting_time_saved": "0:11:09 (h:mm:ss)",
+          "mean_histotechnician_waiting_time_saved": "0:05:22 (h:mm:ss)"
+        },
+        "Simple Repair Days (vs Complex)": {
+          "mean_slide_waiting_time_saved": "0:07:34 (h:mm:ss)",
+          "mean_staff_waiting_time_saved": "0:07:34 (h:mm:ss)",
+          "mean_histotechnician_waiting_time_saved": "0:02:14 (h:mm:ss)"
+        },
+        "High Tumor Stage Days (vs Few Stages)": {
+          "mean_slide_waiting_time_saved": "0:17:23 (h:mm:ss)",
+          "mean_staff_waiting_time_saved": "0:17:23 (h:mm:ss)",
+          "mean_histotechnician_waiting_time_saved": "0:09:36 (h:mm:ss)"
+        },
+        "Low Tumor Stage Days (vs High Stages)": {
+          "mean_slide_waiting_time_saved": "0:01:13 (h:mm:ss)",
+          "mean_staff_waiting_time_saved": "0:01:13 (h:mm:ss)",
+          "mean_histotechnician_waiting_time_saved": "0:00:06 (h:mm:ss)"
+        }
+      },
+      "notes": "More time was saved on days with increased complexity and/or increased tumor removal stages. Paired t-tests were used to assess significance (P < .05). Days with the highest proportion of complex repairs and most tumor removal stages showed the greatest time savings."
+    },
+    "Algorithm Performance Metrics (n=65 cases)": {
+      "metric": "Processing and scanning times",
+      "models": {
+        "BCC Detection Algorithm": {
+          "average_slide_scanning_time_per_case": "10:25 minutes",
+          "average_algorithm_processing_and_execution_time_per_case": "2:00 minutes",
+          "average_output_review_time_per_case": "30 seconds",
+          "slide_scanning_time_range": "4:00 to 43:00 minutes"
+        }
+      },
+      "notes": "Scan time was proportional to the number of slides per case, the number of tissue sections per slide, and the size of the tissue sections."
+    }
+  },
+  "architecture_used": {
+    "main_model": "BCC detection and tumor mapping algorithm",
+    "pretraining": "Not reported",
+    "input_size": "Whole slide images (SVS format) scanned at 20X using an Aperio AT2",
+    "architecture_details": {
+      "components": [
+        "Convolutional neural networks (CNNs)",
+        "Graph neural networks (GNNs)",
+        "R101-FPN neural network models"
+      ],
+      "capabilities": [
+        "Three-dimensional gross specimen reconstruction with neural radiance fields",
+        "Tissue completeness assessment with CNNs",
+        "Identification of tumor confounders (e.g., hair follicles) with R101-FPN",
+        "Tumor mapping depicting histological findings"
+      ]
+    },
+    "training_details": {
+      "dataset": "Whole slide images of specimens from patients undergoing Mohs micrographic surgery for BCC removal",
+      "annotation": "Manually annotated for tumor, benign structures (e.g., inflammation, follicles), and layers of skin (e.g., epidermis, dermis) by 4 pathologists",
+      "availability": "Available on GitHub"
+    },
+    "classification_or_output_head": {
+      "output_type": "Tumor maps and surgical recommendations",
+      "delivery": "Dynamic web application providing interactive and exportable pathology report"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "BCC detection and tumor mapping algorithm",
+    "Convolutional neural networks (CNNs)",
+    "Graph neural networks (GNNs)",
+    "R101-FPN neural network models"
+  ],
+  "preprocessing_techniques": [
+    "Slide scanning at 20X magnification using an Aperio AT2 scanner to generate whole slide images in SVS format with 8-bit color channels",
+    "Deidentification of cases for comparison of algorithm-versus surgeon-generated tumor maps",
+    "Tissue completeness assessment using convolutional neural networks to ensure high-quality sections without holes or tears prior to analysis"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "Simulated integration of a nonautonomous deep learning basal cell carcinoma detection and tumor mapping algorithm into the Mohs micrographic surgery workflow resulted in significant time savings, specifically reducing slide waiting time by 35.6%, staff waiting time by 18.4%, and histotechnician waiting time by 18.6% per day.",
+    "AI integration enables increased productivity and a streamlined clinical workflow by reducing staff waiting times and allowing for earlier preparation of operating rooms and patients.",
+    "Schedules containing surgical cases with increased reconstruction complexity or numerous tumor removal stages stand to benefit most from algorithm implementation, showing the greatest time savings.",
+    "Not all cases benefit from algorithm implementation; the number of tumor removal stages and repair complexity are important variables affecting time savings.",
+    "Significant logistical challenges must be addressed before broad adoption of this AI algorithm into clinical practice is realistic.",
+    "The algorithm demonstrated an accuracy of 94% in identifying tumor locations, which fell below the presumed human diagnostic accuracy of 98% to 99%, suggesting that initial implementation should be nonautonomous to ensure gold standard outcomes."
+  ],
+  "important_remarks": [
+    "The study is limited by its retrospective, simulated design and single-site data collection (Dartmouth Health), which may limit generalizability to other clinical settings.",
+    "The algorithm's accuracy (94%) fell below the presumed human diagnostic accuracy (98%-99%), necessitating a nonautonomous workflow where surgeon verification is required, which impacts the potential for full automation and time savings.",
+    "Not all cases benefit from AI integration; time savings were contingent on specific variables such as increased reconstruction complexity and the number of tumor removal stages.",
+    "The study highlights significant logistical challenges that must be addressed before broad clinical adoption of such AI algorithms is realistic.",
+    "Concordance between algorithm-generated and surgeon-generated tumor maps was established via retrospective review and subjective interpretation of visual agreement, rather than objective quantitative metrics.",
+    "No clinical decisions were made using the algorithm output during the study period, ensuring patient safety but limiting the assessment of real-time clinical impact."
+  ]
+}

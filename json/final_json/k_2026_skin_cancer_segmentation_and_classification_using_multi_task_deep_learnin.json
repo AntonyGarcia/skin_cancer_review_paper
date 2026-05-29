@@ -1,0 +1,441 @@
+{
+  "file_name": "k_2026_skin_cancer_segmentation_and_classification_using_multi_task_deep_learnin.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a multi-task deep learning framework based on an EfficientNet backbone and Feature Pyramid Network (FPN) to perform lesion segmentation, dermoscopic feature detection, and classification of skin cancer (melanoma, nevus, seborrheic keratosis) using the ISIC 2017 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a unified multi-task deep learning framework (EfficientNet-FPN) for skin cancer segmentation and classification. It details specific methodology, dataset usage (ISIC 2017), training procedures, and reports new quantitative results (e.g., 75.8% accuracy, Dice scores > 0.83) on a test set, rather than summarizing prior literature."
+  },
+  "title": "Skin Cancer Segmentation and Classification Using Multi-Task Deep Learning with EfficientNet and Feature Pyramid Network",
+  "authors": [
+    "Seethalakshmi K",
+    "K Jayaveera kumar",
+    "B V Pravallika",
+    "A Bhagyalakshmi",
+    "R Panneerselvi"
+  ],
+  "doi": "10.1109/ICBSII69710.2026.11479257",
+  "journal": "2026 Twelfth International Conference on Bio Signals, Images, and Instrumentation (ICBSII)",
+  "year": 2026,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a unified multi-task deep learning framework to simultaneously perform lesion segmentation, dermoscopic feature detection, and classification of melanoma, nevus, and seborrheic keratosis. The architecture utilizes an EfficientNet backbone with a Feature Pyramid Network and a U-Net-style decoder, trained on the imbalanced ISIC 2017 dataset using dynamic oversampling. Evaluation on the official test set demonstrated a classification accuracy of 75.8% with a macro F1-score of 0.6990. The segmentation branch achieved Dice scores above 0.83, while feature detection yielded a mean F1-score of approximately 0.60. These results indicate that sharing feature representations across tasks improves generalization and stability compared to siloed approaches.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "Malignant class in the ISIC 2017 dataset; minority class (19% of dataset) requiring dynamic oversampling; classification F1-score of 0.5911 on test set."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus"
+      ],
+      "role": "Target class",
+      "details": "Benign class in the ISIC 2017 dataset; majority class (68% of dataset); classification F1-score of 0.8391 on test set; highest confusion with melanoma."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "Seb. Keratosis"
+      ],
+      "role": "Target class",
+      "details": "Benign class in the ISIC 2017 dataset; minority class (13% of dataset); classification F1-score of 0.6667 on test set."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Lesion class (melanoma, nevus, seborrheic keratosis)",
+        "primary": true,
+        "details": "Multi-class classification of skin lesions into three categories: melanoma, nevus, and seborrheic keratosis. Evaluated using accuracy (75.8% on test set) and macro F1-score (0.6990 on test set)."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion boundary mask",
+        "primary": false,
+        "details": "Binary segmentation of lesion regions from dermoscopic images using a U-Net-style decoder. Evaluated using Dice coefficient (above 0.83) and Intersection over Union (IoU)."
+      },
+      {
+        "task_type": "Detection",
+        "target": "Presence of dermoscopic structures",
+        "primary": false,
+        "details": "Multi-label detection of seven key dermoscopic structures (e.g., pigment network, streaks, globules) from JSON annotations. Evaluated using macro F1-score (mean score of 0.59 on test set)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public benchmark dataset for skin lesion analysis containing dermoscopic images with associated binary segmentation masks, JSON files for dermoscopic feature detection (presence of seven key structures), and disease classification labels. The dataset is known for class imbalance, particularly with melanoma being a minority class.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus",
+        "Seborrheic Keratosis"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "Nevus": {
+            "training": 1372,
+            "validation": 93,
+            "testing": 393
+          },
+          "Melanoma": {
+            "training": 374,
+            "validation": 30,
+            "testing": 117
+          },
+          "Seborrheic Keratosis": {
+            "training": 254,
+            "validation": 27,
+            "testing": 90
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the multi-task deep learning framework (EfficientNet-FPN) with dynamic oversampling and on-the-fly augmentation to handle class imbalance.",
+        "validation": "Used for validation during training to monitor metrics such as accuracy (reaching 84%) and Dice coefficient (stabilizing above 0.83).",
+        "testing": "Used for final evaluation of the model's performance, reporting classification accuracy (75.8%), macro F1-score (0.6990), segmentation Dice scores (>0.83), and feature detection F1-scores (~0.60).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Macro F1-score",
+    "Per-class F1-score",
+    "Precision",
+    "Recall",
+    "Dice Coefficient",
+    "Intersection over Union (IoU)",
+    "AUC-ROC",
+    "Confusion Matrix"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics such as accuracy, F1-score, Dice coefficient, and AUC."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "validation_set": {
+        "classification": {
+          "accuracy": "84%",
+          "macro_f1_score": "0.8058",
+          "per_class_f1_scores": {
+            "Nevus": "0.88",
+            "Melanoma": "0.72",
+            "Seborrheic Keratosis": "0.83"
+          }
+        },
+        "segmentation": {
+          "dice_coefficient": "0.83"
+        }
+      },
+      "test_set": {
+        "classification": {
+          "accuracy": "75.8%",
+          "macro_f1_score": "0.6990",
+          "per_class_f1_scores": {
+            "Nevus": "0.8391",
+            "Melanoma": "0.5911",
+            "Seborrheic Keratosis": "0.6667"
+          }
+        },
+        "segmentation": {
+          "dice_coefficient": "0.83"
+        },
+        "feature_detection": {
+          "macro_f1_score": "0.59",
+          "per_feature_f1_scores": {
+            "Pigment Network": "0.67",
+            "Streaks": "0.57",
+            "Globules": "0.56",
+            "Milia-like Cysts": "0.63",
+            "Negative Network": "0.49"
+          }
+        }
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Multi-task deep learning framework based on EfficientNet-B4 backbone with Feature Pyramid Network (FPN)",
+    "pretraining": "EfficientNet-B4 was used as a pre-trained model for the shared encoder",
+    "input_size": "320x320 pixels",
+    "architecture_details": {
+      "backbone": "EfficientNet-B4",
+      "feature_aggregation": "Feature Pyramid Network (FPN) blending information across scales",
+      "segmentation_head": "U-Net-style decoder with successive bilinear upsampling layers and convolutional blocks, ending with 1x1 convolution and Sigmoid activation",
+      "classification_head": "Global average pooling on deepest backbone feature map, followed by fully connected layer with ReLU activation, Dropout regularization, and linear classifier for 3 classes",
+      "feature_detection_head": "Global average pooling on shared features, followed by fully connected layer outputting 7-dimensional vector with Sigmoid activations for multi-label detection",
+      "loss_functions": {
+        "segmentation": "Combined Binary Cross-Entropy (BCE) and Dice loss",
+        "classification": "Cross-Entropy (CE) loss",
+        "feature_detection": "Binary Cross-Entropy (BCE) loss",
+        "total_loss": "Weighted sum: L_total = 0.5 * (L_BCE_seg + L_Dice) + 0.5 * (L_CE_cls + L_BCE_feat) with weights w_seg = w_cls = w_feat = 1"
+      }
+    },
+    "training_details": {
+      "epochs": 50,
+      "optimizer": "Not explicitly named, but 'standard deep-learning training loop' mentioned",
+      "learning_rate_scheduler": "ReduceLROnPlateau",
+      "batch_sampling": "WeightedRandomSampler with inverse-frequency weights to handle class imbalance",
+      "augmentation": "On-the-fly augmentation via Albumentations (horizontal/vertical flips, random 90 rotations, shift-scale-rotate perturbations, brightness/contrast adjustments, hue/saturation modifications, Gaussian blur/noise, coarse dropout)",
+      "precision": "Mixed-precision training (AMP)",
+      "reproducibility": "Fixed random seeds for NumPy, PyTorch, and CUDA; deterministic modes enabled"
+    },
+    "classification_or_output_head": {
+      "type": "Multi-task heads",
+      "tasks": [
+        "Lesion segmentation (binary mask)",
+        "Dermoscopic feature detection (7 structures)",
+        "Disease classification (3 classes: melanoma, nevus, seborrheic keratosis)"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNet-B4",
+    "Feature Pyramid Network (FPN)",
+    "U-Net-style decoder",
+    "Multi-task deep learning framework (EfficientNet-FPN)",
+    "CNN (referenced in comparison with Esteva [27])",
+    "Hybrid model (referenced in comparison with Fiaz [12])",
+    "ML (Machine Learning, referenced in comparison with Nasir [5])",
+    "ViT (Vision Transformer, referenced in comparison with Dagnaw [6])",
+    "Transformer-style models (referenced as potential future work)"
+  ],
+  "preprocessing_techniques": [
+    "Resizing input images to 320x320 pixels",
+    "Resizing segmentation masks to match input dimensions to maintain spatial correspondence",
+    "Normalization of images to fit EfficientNet input format using ImageNet statistics",
+    "On-the-fly data augmentation via Albumentations library including: horizontal and vertical flips, random 90-degree rotations, shift-scale-rotate perturbations, brightness/contrast adjustments, hue/saturation modifications, Gaussian blur and noise, and coarse dropout",
+    "Dynamic oversampling strategy with continuous augmentation to handle class imbalance",
+    "WeightedRandomSampler with inverse-frequency weights for batch sampling"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Horizontal and vertical flips; random 90-degree rotations; shift-scale-rotate perturbations."
+    },
+    {
+      "technique": "Color/Intensity Transforms",
+      "details": "Brightness and contrast adjustments; hue and saturation modifications."
+    },
+    {
+      "technique": "Noise and Blur",
+      "details": "Gaussian blur; Gaussian noise."
+    },
+    {
+      "technique": "Occlusion/Dropout",
+      "details": "Coarse dropout."
+    },
+    {
+      "technique": "Implementation Method",
+      "details": "On-the-fly augmentation performed during training using the Albumentations library to increase visual diversity for minority classes without modifying the original dataset."
+    },
+    {
+      "technique": "Class Balancing Augmentation",
+      "details": "Dynamic oversampling strategy combined with continuous on-the-fly augmentation to provide more variation for minority classes (specifically melanoma) during training."
+    }
+  ],
+  "conclusions": [
+    "The proposed multi-task deep learning framework, utilizing an EfficientNet backbone with a Feature Pyramid Network (FPN) and a U-Net-style decoder, successfully performs lesion segmentation, dermoscopic feature detection, and classification simultaneously.",
+    "Sharing feature representations across segmentation, feature detection, and classification tasks leads to better generalization and stability compared to siloed or separate pipeline approaches.",
+    "The framework achieved a classification accuracy of 75.8% and a macro F1-score of 0.6990 on the ISIC 2017 test set, with segmentation Dice scores stabilizing above 0.83 and feature detection yielding a mean F1-score of approximately 0.60.",
+    "Dynamic oversampling combined with on-the-fly augmentation effectively addressed the severe class imbalance in the ISIC 2017 dataset, particularly improving stability and sensitivity for the minority melanoma class.",
+    "The highest classification confusion occurred between melanoma and nevus, reflecting the visual similarity of these lesion types in dermoscopic imaging.",
+    "The unified framework reduces computational redundancy and maintains efficiency while providing interpretability advantages through joint feature detection, which is often absent in single-task classification pipelines.",
+    "The study establishes a foundation for future improvements in clinical decision support, including potential integration with transformer-based models, semi-supervised training, and explainable AI."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC 2017 dataset, which exhibits severe class imbalance (Nevus ~68%, Melanoma ~19%, Seborrheic Keratosis ~13%), potentially limiting generalizability to other populations or datasets.",
+    "No external validation was performed; the model was evaluated only on the official ISIC 2017 test set, raising concerns about overfitting to this specific benchmark.",
+    "The paper does not report any statistical significance tests (e.g., p-values, confidence intervals) to validate the performance improvements over baseline or siloed approaches.",
+    "Classification performance for the minority class (Melanoma) was notably lower (F1-score 0.5911) compared to benign classes (Nevus F1 0.8391), indicating persistent difficulty in distinguishing melanoma from nevus despite oversampling.",
+    "The highest classification confusion occurred between melanoma and nevus, reflecting inherent visual similarities in dermoscopic imaging that the model could not fully resolve.",
+    "Feature detection performance was relatively weak (mean F1-score ~0.60), suggesting that the multi-task framework may not sufficiently optimize for fine-grained dermoscopic structure identification.",
+    "The paper is a conference publication (ICBSII 2026) with limited scope compared to journal articles, and lacks detailed ablation studies isolating the contribution of each task head.",
+    "Deployment concerns include the lack of discussion on computational efficiency metrics (e.g., inference time, FLOPs) despite claims of reduced redundancy, and no mention of clinical integration or regulatory compliance."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_k_2026_skin_cancer_segmentation_and_classification_using_multi_task_deep_learnin.pdf",
+    "summary": "The study utilized the ISIC 2017 dataset for all phases of the experiment. The dataset was split into training (2000 samples), validation (150 samples), and testing (600 samples) sets. The model was trained on the training set with dynamic oversampling and augmentation to handle class imbalance. The validation set was used for model selection (monitoring accuracy and Dice scores). The official test set was used for final performance evaluation. No external or cross-dataset validation was performed.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper explicitly states that experiments were performed on the ISIC 2017 dataset only. No external datasets were used for testing or validation.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2017",
+          "counts": 2000,
+          "notes": "Used for training the multi-task deep learning framework. Dynamic oversampling and on-the-fly augmentation were applied to handle class imbalance."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2017",
+          "counts": 150,
+          "notes": "Used for model selection and monitoring training progress. The best checkpoint was selected based on validation performance."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2017",
+          "counts": 600,
+          "notes": "Used for final evaluation of classification, segmentation, and feature detection performance."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "EfficientNet-B4 backbone was pre-trained on ImageNet. Images were normalized using ImageNet statistics."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "ISIC 2017 (Training Set)",
+          "notes": "Dynamic oversampling and on-the-fly augmentation (flips, rotations, color adjustments, noise, dropout) were used to generate variations of minority class samples during training."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "Official ISIC 2017 split: Training (2000 samples), Validation (150 samples), Test (600 samples). Split was image-level.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No unseen external dataset was reported. The test set is part of the same ISIC 2017 cohort."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2017 (Validation)",
+        "role_at_result_time": "validation",
+        "train_datasets_for_this_result": [
+          "ISIC 2017"
+        ],
+        "model_or_method": "Multi-task Deep Learning (EfficientNet-B4 + FPN + U-Net Decoder)",
+        "metrics": {
+          "accuracy": "0.84",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "0.8058",
+          "other_metrics": {
+            "segmentation_dice": "0.83"
+          }
+        },
+        "notes": "Validation results used for model selection. Per-class F1 scores: Nevus 0.88, Melanoma 0.72, Seborrheic Keratosis 0.83."
+      },
+      {
+        "dataset": "ISIC 2017 (Test)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017"
+        ],
+        "model_or_method": "Multi-task Deep Learning (EfficientNet-B4 + FPN + U-Net Decoder)",
+        "metrics": {
+          "accuracy": "0.758",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "0.6990",
+          "other_metrics": {
+            "segmentation_dice": "0.83",
+            "feature_detection_macro_f1": "0.59",
+            "per_class_f1": {
+              "Nevus": "0.8391",
+              "Melanoma": "0.5911",
+              "Seborrheic Keratosis": "0.6667"
+            }
+          }
+        },
+        "notes": "Final test results. High confusion between melanoma and nevus. Feature detection mean F1 was 0.59."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2017",
+        "split_or_cv": "Fixed split: 2000 train, 150 val, 600 test",
+        "models": [
+          "Multi-task Deep Learning (EfficientNet-B4 + FPN + U-Net Decoder)"
+        ],
+        "results": [
+          {
+            "metric": "Classification Accuracy",
+            "value": "0.84",
+            "model": "Multi-task Deep Learning",
+            "data_split": "validation"
+          },
+          {
+            "metric": "Classification Macro F1",
+            "value": "0.8058",
+            "model": "Multi-task Deep Learning",
+            "data_split": "validation"
+          },
+          {
+            "metric": "Segmentation Dice",
+            "value": "0.83",
+            "model": "Multi-task Deep Learning",
+            "data_split": "validation"
+          },
+          {
+            "metric": "Classification Accuracy",
+            "value": "0.758",
+            "model": "Multi-task Deep Learning",
+            "data_split": "test"
+          },
+          {
+            "metric": "Classification Macro F1",
+            "value": "0.6990",
+            "model": "Multi-task Deep Learning",
+            "data_split": "test"
+          },
+          {
+            "metric": "Segmentation Dice",
+            "value": "0.83",
+            "model": "Multi-task Deep Learning",
+            "data_split": "test"
+          },
+          {
+            "metric": "Feature Detection Macro F1",
+            "value": "0.59",
+            "model": "Multi-task Deep Learning",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study relies exclusively on the ISIC 2017 dataset, which exhibits severe class imbalance. No external validation was performed, limiting the assessment of generalizability to other populations or datasets.",
+      "The paper notes that the highest confusion occurred between melanoma and nevus, reflecting inherent visual similarities that the model could not fully resolve.",
+      "Feature detection performance was relatively weak (mean F1 ~0.60), suggesting limitations in fine-grained structure identification."
+    ],
+    "information_not_reported": [
+      "No statistical significance tests (p-values, confidence intervals) were reported.",
+      "No external dataset results were provided.",
+      "Patient-level separation details were not explicitly reported, though image-level splits were used."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780001370
+  }
+}

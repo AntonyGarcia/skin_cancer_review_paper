@@ -1,0 +1,420 @@
+{
+  "file_name": "silva_2024_a_new_svm_solver_applied_to_skin_lesion_classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used AI/ML methods for skin lesion classification (dermatology task). Specifically, it employed three pre-trained Convolutional Neural Networks (CNNs: Xception, InceptionResNetV2, and DenseNet201) as feature extractors using transfer learning. The extracted features were reduced using Principal Component Analysis (PCA), Kernel Principal Component Analysis (KPCA), and Independent Component Analysis (ICA), and then classified using a new Support Vector Machine (SVM) solver named DiagSVM. The study was evaluated on the ISIC2017 and PH2 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new SVM solver named DiagSVM and applying it to skin lesion classification. It details a specific methodology involving pre-trained CNNs (Xception, InceptionResNetV2, DenseNet201) for feature extraction, dimensionality reduction techniques (PCA, KPCA, ICA), and numerical experiments on benchmark and ISIC2017/PH2 datasets to evaluate performance metrics like accuracy, specificity, and sensitivity. Although it references a survey [31] in the introduction, the core contribution is the development and validation of a new algorithmic framework, not a summary of prior literature."
+  },
+  "title": "A New SVM Solver Applied to Skin Lesion Classification",
+  "authors": [
+    "Jonatas Silva",
+    "Atecio Alves",
+    "Paulo Santos",
+    "Luiz Matioli"
+  ],
+  "doi": "10.19139/soic-2310-5070-2005",
+  "journal": "Statistics, Optimization and Information Computing",
+  "year": 2024,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes DiagSVM, a new nonlinear Support Vector Machine solver based on separable diagonal approximation and root-finding methods, applied to the skin lesion classification task. The methodology employs three pre-trained Convolutional Neural Networks (Xception, InceptionResNetV2, and DenseNet201) as feature extractors, with dimensionality reduction performed using PCA, KPCA, and ICA. The approach was evaluated on the ISIC2017 and PH2 datasets using binary classification problems for melanoma detection. Results indicate that DiagSVM achieves competitive accuracy, specificity, and sensitivity compared to the standard Libsvm solver. Specifically, DenseNet201 combined with the proposed framework yielded high performance metrics on the ISIC2017 dataset. The findings suggest that DiagSVM is a promising, low-computational-cost alternative for computer-aided diagnosis systems in dermatology.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "ME",
+        "ML"
+      ],
+      "role": "Target class",
+      "details": "Studied as a malignant skin cancer class in binary classification problems on ISIC2017 (ME) and PH2 (ME/ML) datasets."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "benign nevi",
+        "BN",
+        "common nevi",
+        "CN",
+        "atypical nevi",
+        "AN"
+      ],
+      "role": "Target class",
+      "details": "Studied as benign classes. On ISIC2017, 'benign nevi' (BN) was used. On PH2, 'common nevi' (CN) and 'atypical nevi' (AN) were used. In some ISIC2017 problems, ME and BN were merged into a positive class."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "SK"
+      ],
+      "role": "Target class",
+      "details": "Studied as a benign class on the ISIC2017 dataset. In some binary problems, SK was used as the negative class against merged positive classes (ME+BN or ME+SK)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of skin lesions (e.g., Melanoma vs. Benign, Melanoma vs. Seborrheic Keratosis, or merged classes like ME+BN vs. SK)",
+        "primary": true,
+        "details": "The paper explicitly addresses the 'Skin Lesion Classification (SLC)' problem. It defines binary classification problems using the ISIC2017 and PH2 datasets (e.g., Problem 'ME, BN - SK' and 'ME, SK - BN'). The model predicts discrete diagnostic categories (melanoma, benign nevi, seborrheic keratosis) using a Support Vector Machine (SVM) solver. Performance is evaluated using classification metrics: Accuracy, Specificity, and Sensitivity."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "The International Skin Imaging Collaboration 2017 dataset, a public repository for skin cancer detection containing dermoscopic images with ground truth and patient metadata.",
+      "classes_used": [
+        "Melanoma (ME)",
+        "Benign Nevi (BN)",
+        "Seborrheic Keratosis (SK)"
+      ],
+      "counts": {
+        "total": 2600,
+        "training": 2000,
+        "validation": null,
+        "testing": 600,
+        "per_class": {
+          "training_ME": 374,
+          "training_SK": 254,
+          "training_BN": 1372,
+          "testing_ME": 117,
+          "testing_SK": 90,
+          "testing_BN": 393
+        }
+      },
+      "use": {
+        "training": "Used for binary classification problems (ME, BN - SK and ME, SK - BN) after data augmentation to balance classes.",
+        "validation": null,
+        "testing": "Used for final evaluation of classification performance (accuracy, specificity, sensitivity).",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2 Dataset",
+      "description": "A dermoscopic skin lesion information database containing images obtained using the Tuebinger Mole Analyzer system at 20x magnification.",
+      "classes_used": [
+        "Common Nevi (CN)",
+        "Atypical Nevi (AN)",
+        "Melanoma (ME)"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "CN": 80,
+          "AN": 80,
+          "ME": 40
+        }
+      },
+      "use": {
+        "training": "Split into 70% training and 30% test sets for binary classification problems (CN, AN - ME and AN, ME - CN).",
+        "validation": null,
+        "testing": "Used for final evaluation of classification performance.",
+        "other": null
+      }
+    },
+    {
+      "name": "MNIST",
+      "description": "A benchmark database for handwritten digit recognition used to validate new machine learning techniques.",
+      "classes_used": [
+        "Digits 0-9"
+      ],
+      "counts": {
+        "total": 1568,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for benchmarking the DiagSVM solver with 70% split for training and 30% for testing via Cross-Validation.",
+        "validation": null,
+        "testing": "Used for benchmarking performance metrics.",
+        "other": "Benchmark dataset for solver validation."
+      }
+    },
+    {
+      "name": "heart",
+      "description": "A benchmark dataset extracted from the official Libsvm website.",
+      "classes_used": [
+        "Binary classification"
+      ],
+      "counts": {
+        "total": 270,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for benchmarking the DiagSVM solver with 70% split for training and 30% for testing via Cross-Validation.",
+        "validation": null,
+        "testing": "Used for benchmarking performance metrics.",
+        "other": "Benchmark dataset for solver validation."
+      }
+    },
+    {
+      "name": "australian",
+      "description": "A benchmark dataset extracted from the official Libsvm website.",
+      "classes_used": [
+        "Binary classification"
+      ],
+      "counts": {
+        "total": 690,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for benchmarking the DiagSVM solver with 70% split for training and 30% for testing via Cross-Validation.",
+        "validation": null,
+        "testing": "Used for benchmarking performance metrics.",
+        "other": "Benchmark dataset for solver validation."
+      }
+    },
+    {
+      "name": "fourclass",
+      "description": "A benchmark dataset extracted from the official Libsvm website.",
+      "classes_used": [
+        "4 classes"
+      ],
+      "counts": {
+        "total": 862,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for benchmarking the DiagSVM solver with 70% split for training and 30% for testing via Cross-Validation.",
+        "validation": null,
+        "testing": "Used for benchmarking performance metrics.",
+        "other": "Benchmark dataset for solver validation."
+      }
+    },
+    {
+      "name": "ionosphere",
+      "description": "A benchmark dataset extracted from the official Libsvm website.",
+      "classes_used": [
+        "Binary classification"
+      ],
+      "counts": {
+        "total": 351,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for benchmarking the DiagSVM solver with 70% split for training and 30% for testing via Cross-Validation.",
+        "validation": null,
+        "testing": "Used for benchmarking performance metrics.",
+        "other": "Benchmark dataset for solver validation."
+      }
+    },
+    {
+      "name": "sonar",
+      "description": "A benchmark dataset extracted from the official Libsvm website.",
+      "classes_used": [
+        "Binary classification"
+      ],
+      "counts": {
+        "total": 208,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for benchmarking the DiagSVM solver with 70% split for training and 30% for testing via Cross-Validation.",
+        "validation": null,
+        "testing": "Used for benchmarking performance metrics.",
+        "other": "Benchmark dataset for solver validation."
+      }
+    },
+    {
+      "name": "splice",
+      "description": "A benchmark dataset extracted from the official Libsvm website.",
+      "classes_used": [
+        "Binary classification"
+      ],
+      "counts": {
+        "total": 1000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for benchmarking the DiagSVM solver with 70% split for training and 30% for testing via Cross-Validation.",
+        "validation": null,
+        "testing": "Used for benchmarking performance metrics.",
+        "other": "Benchmark dataset for solver validation."
+      }
+    },
+    {
+      "name": "german",
+      "description": "A benchmark dataset extracted from the official Libsvm website (listed in results table but not detailed in description table).",
+      "classes_used": [
+        "Binary classification"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for benchmarking the DiagSVM solver.",
+        "validation": null,
+        "testing": "Used for benchmarking performance metrics.",
+        "other": "Benchmark dataset for solver validation."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Specificity",
+    "Sensitivity (True Positive Rate)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Cross-Validation (CV)",
+      "purpose": "To obtain a disjoint test set and select hyperparameters (C and sigma) via grid search for benchmark datasets.",
+      "type": "Resampling technique"
+    },
+    {
+      "method": "Ten-fold Cross-Validation with random seeds",
+      "purpose": "To generate different training and test data subsets for benchmark datasets, with results reported as average values of ten problems.",
+      "type": "Resampling technique"
+    },
+    {
+      "method": "70/30 Train-Test Split",
+      "purpose": "To separate the original dataset into a training set (70%) and a test set (30%) for benchmark datasets.",
+      "type": "Data splitting technique"
+    },
+    {
+      "method": "Linear Scaling",
+      "purpose": "To scale dataset attributes to intervals [-1, 1] or [0, 1] to prevent numerical difficulties and avoid attribute value range dominance.",
+      "type": "Data preprocessing"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons between DiagSVM and Libsvm were based on descriptive statistics (accuracy, specificity, sensitivity) and visual inspection of results tables and figures, without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "extraction_error": "Could not parse a balanced JSON object",
+    "answer": null
+  },
+  "architecture_used": {
+    "main_model": "DiagSVM (new nonlinear SVM solver based on separable diagonal approximation and root-finding methods) combined with pre-trained Convolutional Neural Networks (CNNs) for feature extraction.",
+    "pretraining": "Pre-trained models used for feature extraction: Xception, InceptionResNetV2, and DenseNet201.",
+    "input_size": "Not explicitly reported (images applied directly without segmentation step; specific pixel dimensions not stated).",
+    "architecture_details": {
+      "feature_extractors": [
+        "Xception: 36 convolutional layers, depth-wise separable convolutions.",
+        "InceptionResNetV2: Variation of InceptionV3 with residual connections.",
+        "DenseNet201: 201 layers, dense connections between layers."
+      ],
+      "feature_reduction": [
+        "Principal Component Analysis (PCA)",
+        "Kernel Principal Component Analysis (KPCA)",
+        "Independent Component Analysis (ICA)"
+      ],
+      "classifier": "DiagSVM (proposed) and Libsvm (baseline).",
+      "svm_hyperparameters": {
+        "C_values": [
+          "1E+0",
+          "1E+1",
+          "1E+2",
+          "1E+3"
+        ],
+        "sigma_values": [
+          "1E-1",
+          "1E-2",
+          "1E-3",
+          "1E-4"
+        ],
+        "selection_method": "Grid search with 16 combinations (4x4) via cross-validation."
+      },
+      "feature_components": "Number of components (Nc) varied by reduction method (e.g., 50, 100, 250, 500, 1000) selected via grid search."
+    },
+    "training_details": {
+      "framework": "Transfer learning for feature extraction; SVM training using DiagSVM or Libsvm.",
+      "data_augmentation": "Applied to training samples to balance classes (e.g., ME, BN - SK; ME, SK - BN).",
+      "implementation": "Python 3.8 for SLC experiments; MATLAB 2021b for benchmark experiments.",
+      "hardware": "Intel Core i5-9400 CPU 2.90GHz, 24 GB RAM, Radeon RX Vega GPU (8 GB memory) for SLC; Intel Core i5 1.6 GHz, 8 GB RAM for benchmarks."
+    },
+    "classification_or_output_head": "Binary classification output (Melanoma vs. Benign/Seborrheic Keratosis or merged classes).",
+    "approximate_parameters": "Not reported (CNNs were pre-trained and used as fixed feature extractors; parameter counts for Xception, InceptionResNetV2, and DenseNet201 are not provided in the text)."
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "DiagSVM",
+    "Libsvm",
+    "Xception",
+    "InceptionResNetV2",
+    "DenseNet201"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation applied to training samples to balance classes, including horizontal/vertical flip, width/height shift, zoom, and rotation.",
+    "Feature normalization applied to extracted features before dimensionality reduction and classification.",
+    "Feature dimensionality reduction using Principal Component Analysis (PCA), Kernel Principal Component Analysis (KPCA), and Independent Component Analysis (ICA).",
+    "Linear scaling of dataset attributes to intervals [-1, 1] or [0, 1] for benchmark datasets to prevent numerical difficulties.",
+    "Direct application of pre-trained CNNs to images without a segmentation step."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal/Vertical Flip",
+      "details": "Applied to training samples to balance classes and overcome limited image numbers. Specifically, horizontal flip is illustrated in Figure 4."
+    },
+    {
+      "technique": "Width/Height Shift",
+      "details": "Applied to training samples as part of the augmentation process to balance classes."
+    },
+    {
+      "technique": "Zoom",
+      "details": "Applied to training samples as part of the augmentation process to balance classes."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Applied to training samples as part of the augmentation process to balance classes."
+    },
+    {
+      "technique": "Class Balancing via Augmentation",
+      "details": "Augmentation was applied only to training samples to address class imbalance in ISIC2017 and PH2 datasets. For example, in the 'ME, BN - SK' problem on ISIC2017, the minority class SK training samples increased from 254 to 1774, while the majority class (ME, BN) increased from 1746 to 2046."
+    }
+  ],
+  "conclusions": [
+    "The proposed DiagSVM solver, based on separable diagonal approximation and root-finding methods, achieves performance metrics (accuracy, specificity, sensitivity) comparable to the standard Libsvm solver on benchmark datasets.",
+    "Feature reduction using PCA, KPCA, or ICA improves the classification performance of the SVM compared to using features without reduction.",
+    "For the ISIC2017 skin lesion classification dataset, the DenseNet201 architecture combined with the proposed framework yielded the best performance, achieving an accuracy of 89.83%, specificity of 90.16%, and sensitivity of 85.37%.",
+    "For the PH2 skin lesion classification dataset, the InceptionResNetV2 architecture outperformed DenseNet201 and Xception, achieving an accuracy of 96.67%, specificity of 100.00%, and sensitivity of 85.71%.",
+    "The proposed methodology is considered a promising, low-computational-cost alternative for integration into Computer-Aided Diagnosis (CAD) systems for skin cancer detection.",
+    "Future work should focus on expanding separable quadratic approximation methods, developing new root-finding methods, and incorporating additional features such as lesion shape and color."
+  ],
+  "important_remarks": [
+    "The study lacks external validation, relying solely on two public datasets (ISIC2017 and PH2), which limits the generalizability of the findings to other clinical populations or imaging devices.",
+    "The PH2 dataset is very small (200 images total), and the ISIC2017 dataset exhibits significant class imbalance (e.g., 1372 benign nevi vs. 254 seborrheic keratosis in training), necessitating data augmentation that may introduce bias or overfitting risks.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to compare DiagSVM against the baseline Libsvm; comparisons were based on descriptive statistics (accuracy, specificity, sensitivity).",
+    "The methodology applies pre-trained CNNs directly to images without a prior segmentation step, which may affect feature quality compared to pipelines that include explicit lesion segmentation.",
+    "The paper does not report computational time or memory usage metrics for the skin lesion classification experiments, only claiming 'low computational cost' qualitatively.",
+    "The proposed DiagSVM solver was primarily validated on benchmark datasets (MNIST, heart, etc.) and two dermatological datasets; its performance on larger, more diverse, or multi-center skin lesion datasets is not reported."
+  ]
+}

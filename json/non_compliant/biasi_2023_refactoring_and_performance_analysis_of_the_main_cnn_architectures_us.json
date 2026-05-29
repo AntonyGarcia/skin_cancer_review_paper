@@ -1,0 +1,538 @@
+{
+  "file_name": "biasi_2023_refactoring_and_performance_analysis_of_the_main_cnn_architectures_us.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used Convolutional Neural Networks (CNNs), specifically AlexNet, DenseNet, GoogleNet, Inception V3, MobileNet, ShuffleNet, SqueezeNet, and VGG16, to perform binary classification of melanoma versus naevi using clinical images from the MED-NODE dataset. The study optimized these deep learning architectures to minimize the false negative rate for melanoma detection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled 'RESEARCH Open Access' and presents original experimental work. It describes a methodology involving the collection and analysis of the MED-NODE dataset (170 clinical images), the optimization of specific CNN architectures (AlexNet, VGG16, etc.), and the reporting of new performance results (FNR, accuracy, sensitivity, specificity) to solve the melanoma detection problem."
+  },
+  "title": "Refactoring and performance analysis of the main CNN architectures: using false negative rate minimization to solve the clinical images melanoma detection problem",
+  "authors": [
+    "Luigi Di Biasi",
+    "Fabiola De Marco",
+    "Alessia Auriemma Citarella",
+    "Modesto Castrillón‑Santana",
+    "Paola Barra",
+    "Genoveffa Tortora"
+  ],
+  "doi": "10.1186/s12859-023-05516-5",
+  "journal": "BMC Bioinformatics",
+  "year": 2023,
+  "article_type": "Research article",
+  "brief_summary": "This study addresses the critical need for minimizing false negative rates in melanoma detection by evaluating and optimizing nine main Convolutional Neural Network (CNN) architectures, including VGG16 and AlexNet, for binary classification of melanoma versus naevi. The researchers utilized the MED-NODE dataset, comprising 170 clinical images, to perform this analysis with the goal of creating an accessible computer-aided diagnosis system using smartphone-captured images. To address the small dataset size, the authors generated four variations of the data using image improvement and data augmentation techniques. The evaluation focused on identifying the architecture that achieved the lowest false negative rate while maintaining acceptable global performance metrics. The results indicated that VGG16 achieved the lowest false negative rate of 0.07, while AlexNet provided a comparable false negative rate of 0.13 with higher global accuracy. The study concludes that CNNs based on VGG or AlexNet structures are suitable for building easy-to-use CAD systems for melanoma detection using clinical images.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma",
+        "MM"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the binary classification task using the MED-NODE dataset (70 images)."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "naevi",
+        "naevus",
+        "benign cases",
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "The comparator class in the binary classification task using the MED-NODE dataset (100 images)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of melanoma versus naevi (benign cases)",
+        "primary": true,
+        "details": "The paper explicitly addresses the 'Melanoma clinical image binary classification problem (MCIBCP)' using the MED-NODE dataset. The model predicts discrete diagnostic categories (melanoma or naevi) using CNN architectures (AlexNet, VGG16, etc.). Performance is evaluated using classification metrics such as accuracy, sensitivity, specificity, and false negative rate (FNR)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "MED-NODE",
+      "description": "A dataset of 170 non-dermoscopic clinical images (70 melanoma, 100 naevi) extracted from the digital image archive of the Department of Dermatology at the University Medical Center Groningen (UMCG). The authors also generated four derived datasets (NINA, NIA, INA, IA) using data augmentation and image improvement techniques on this original set.",
+      "classes_used": [
+        "Melanoma",
+        "Naevi"
+      ],
+      "counts": {
+        "total": 170,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 70,
+          "Naevi": 100
+        }
+      },
+      "use": {
+        "training": "Used as the primary source for training CNNs (AlexNet, VGG16, etc.) after applying data augmentation and image improvement techniques to create derived datasets (NINA, NIA, INA, IA).",
+        "validation": "Used for validation during the training process of the CNN architectures.",
+        "testing": "Used for testing the performance of the CNN architectures.",
+        "other": "Four derived datasets (NINA, NIA, INA, IA) were generated from MED-NODE to investigate the impact of data augmentation and image pre-processing."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "Precision (PPV)",
+    "False Discovery Rate (FDR)",
+    "False Negative Rate",
+    "False Positive Rate (FPR)",
+    "Mean Accuracy",
+    "Maximum Accuracy",
+    "Minimum Accuracy",
+    "Standard Deviation of Accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Repeated random splitting (100 iterations)",
+      "purpose": "To mitigate bias from intra-class dissimilarities and extra-class similarities by varying training, validation, and test sets across iterations, ensuring robust performance estimation.",
+      "type": "Cross-validation / Resampling"
+    },
+    {
+      "method": "Calculation of Mean, Maximum, Minimum, and Standard Deviation",
+      "purpose": "To summarize global performance (Accuracy) and variability across the 100 training steps for each network and dataset configuration.",
+      "type": "Descriptive Statistics"
+    },
+    {
+      "method": "False Negative Rate (FNR) minimization analysis",
+      "purpose": "To identify the CNN architecture that minimizes type 2 errors (false negatives) for melanoma detection, prioritizing this metric over global accuracy.",
+      "type": "Performance Metric Optimization"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). It relied on descriptive statistics (mean, standard deviation, min, max) of performance metrics (Accuracy, FNR, etc.) across 100 repeated random splits to compare CNN architectures."
+  },
+  "results_obtained_in_each_dataset": {
+    "MED-NODE (NINA - Not improved, Not Data Augmented)": {
+      "description": "Original dataset without image improvement or data augmentation.",
+      "metrics": {
+        "AlexNet": {
+          "Accuracy": 0.89,
+          "Sensitivity": 0.87,
+          "Specificity": 0.9,
+          "Precision": 0.86,
+          "FDR": 0.15,
+          "FNR": 0.13,
+          "FPR": 0.1
+        },
+        "AlexNet (with Data Augmentation)": {
+          "Accuracy": 0.87,
+          "Sensitivity": 0.84,
+          "Specificity": 0.91,
+          "Precision": 0.87,
+          "FDR": 0.14,
+          "FNR": 0.16,
+          "FPR": 0.09
+        },
+        "DenseNet": {
+          "Accuracy": 0.74,
+          "Sensitivity": 0.56,
+          "Specificity": 0.82,
+          "Precision": 0.77,
+          "FDR": 0.23,
+          "FNR": 0.29,
+          "FPR": 0.18
+        },
+        "Google InceptionV3": {
+          "Accuracy": 0.74,
+          "Sensitivity": 0.73,
+          "Specificity": 0.76,
+          "Precision": 0.62,
+          "FDR": 0.38,
+          "FNR": 0.27,
+          "FPR": 0.24
+        },
+        "GoogleNet": {
+          "Accuracy": 0.8,
+          "Sensitivity": 0.79,
+          "Specificity": 0.82,
+          "Precision": 0.72,
+          "FDR": 0.28,
+          "FNR": 0.21,
+          "FPR": 0.18
+        },
+        "MobileNet": {
+          "Accuracy": 0.75,
+          "Sensitivity": 0.81,
+          "Specificity": 0.72,
+          "Precision": 0.45,
+          "FDR": 0.55,
+          "FNR": 0.14,
+          "FPR": 0.28
+        },
+        "ShuffleNet": {
+          "Accuracy": 0.69,
+          "Sensitivity": 0.61,
+          "Specificity": 0.74,
+          "Precision": 0.6,
+          "FDR": 0.4,
+          "FNR": 0.35,
+          "FPR": 0.26
+        },
+        "SqueezeNet": {
+          "Accuracy": 0.55,
+          "Sensitivity": 0.23,
+          "Specificity": 0.43,
+          "Precision": 0.43,
+          "FDR": 0.57,
+          "FNR": 0.22,
+          "FPR": 0.27
+        },
+        "VGG": {
+          "Accuracy": 0.75,
+          "Sensitivity": 0.58,
+          "Specificity": 0.83,
+          "Precision": 0.76,
+          "FDR": 0.24,
+          "FNR": 0.27,
+          "FPR": 0.17
+        }
+      },
+      "notes": "AlexNet achieved the lowest FNR (0.13) among networks without data augmentation. MobileNet had an FNR of 0.14. VGG achieved the lowest FNR (0.07) when data augmentation was applied."
+    },
+    "MED-NODE (NIA - Not improved, Data Augmented)": {
+      "description": "Original dataset with data augmentation but no image improvement.",
+      "metrics": {
+        "AlexNet": {
+          "Accuracy": 0.87,
+          "Sensitivity": 0.84,
+          "Specificity": 0.91,
+          "Precision": 0.87,
+          "FDR": 0.14,
+          "FNR": 0.16,
+          "FPR": 0.09
+        },
+        "DenseNet": {
+          "Accuracy": 0.73,
+          "Sensitivity": 0.64,
+          "Specificity": 0.74,
+          "Precision": 0.56,
+          "FDR": 0.44,
+          "FNR": 0.19,
+          "FPR": 0.26
+        },
+        "Google InceptionV3": {
+          "Accuracy": 0.55,
+          "Sensitivity": 0.39,
+          "Specificity": 0.6,
+          "Precision": 0.29,
+          "FDR": 0.71,
+          "FNR": 0.57,
+          "FPR": 0.4
+        },
+        "GoogleNet": {
+          "Accuracy": 0.55,
+          "Sensitivity": 0.45,
+          "Specificity": 0.63,
+          "Precision": 0.48,
+          "FDR": 0.52,
+          "FNR": 0.54,
+          "FPR": 0.37
+        },
+        "MobileNet": {
+          "Accuracy": 0.56,
+          "Sensitivity": 0.32,
+          "Specificity": 0.61,
+          "Precision": 0.29,
+          "FDR": 0.71,
+          "FNR": 0.37,
+          "FPR": 0.38
+        },
+        "ShuffleNet": {
+          "Accuracy": 0.52,
+          "Sensitivity": 0.36,
+          "Specificity": 0.6,
+          "Precision": 0.45,
+          "FDR": 0.55,
+          "FNR": 0.52,
+          "FPR": 0.39
+        },
+        "SqueezeNet": {
+          "Accuracy": 0.58,
+          "Sensitivity": 0.43,
+          "Specificity": 0.62,
+          "Precision": 0.41,
+          "FDR": 0.59,
+          "FNR": 0.41,
+          "FPR": 0.37
+        },
+        "VGG": {
+          "Accuracy": 0.73,
+          "Sensitivity": 0.82,
+          "Specificity": 0.59,
+          "Precision": 0.4,
+          "FDR": 0.6,
+          "FNR": 0.07,
+          "FPR": 0.24
+        }
+      },
+      "notes": "VGG achieved the lowest FNR (0.07) on this dataset. AlexNet had an FNR of 0.16."
+    },
+    "MED-NODE (INA - Improved, Not Data Augmented)": {
+      "description": "Dataset with image improvement (IIQ) but no data augmentation.",
+      "metrics": {
+        "AlexNet": {
+          "Accuracy": 0.78,
+          "Sensitivity": 0.75,
+          "Specificity": 0.82,
+          "Precision": 0.73,
+          "FDR": 0.27,
+          "FNR": 0.25,
+          "FPR": 0.18
+        },
+        "DenseNet": {
+          "Accuracy": 0.69,
+          "Sensitivity": 0.51,
+          "Specificity": 0.81,
+          "Precision": 0.78,
+          "FDR": 0.22,
+          "FNR": 0.34,
+          "FPR": 0.19
+        },
+        "Google InceptionV3": {
+          "Accuracy": 0.76,
+          "Sensitivity": 0.74,
+          "Specificity": 0.79,
+          "Precision": 0.68,
+          "FDR": 0.32,
+          "FNR": 0.26,
+          "FPR": 0.21
+        },
+        "GoogleNet": {
+          "Accuracy": 0.75,
+          "Sensitivity": 0.72,
+          "Specificity": 0.78,
+          "Precision": 0.67,
+          "FDR": 0.33,
+          "FNR": 0.28,
+          "FPR": 0.22
+        },
+        "MobileNet": {
+          "Accuracy": 0.58,
+          "Sensitivity": 0.37,
+          "Specificity": 0.59,
+          "Precision": 0.09,
+          "FDR": 0.91,
+          "FNR": 0.48,
+          "FPR": 0.41
+        },
+        "ShuffleNet": {
+          "Accuracy": 0.66,
+          "Sensitivity": 0.55,
+          "Specificity": 0.75,
+          "Precision": 0.67,
+          "FDR": 0.33,
+          "FNR": 0.41,
+          "FPR": 0.25
+        },
+        "SqueezeNet": {
+          "Accuracy": 0.78,
+          "Sensitivity": 0.32,
+          "Specificity": 0.59,
+          "Precision": 0.79,
+          "FDR": 0.21,
+          "FNR": 0.13,
+          "FPR": 0.11
+        },
+        "VGG": {
+          "Accuracy": 0.74,
+          "Sensitivity": 0.59,
+          "Specificity": 0.8,
+          "Precision": 0.71,
+          "FDR": 0.3,
+          "FNR": 0.26,
+          "FPR": 0.2
+        }
+      },
+      "notes": "SqueezeNet achieved the lowest FNR (0.13) on this dataset. AlexNet and SqueezeNet both achieved the highest mean accuracy (0.78)."
+    },
+    "MED-NODE (IA - Improved, Data Augmented)": {
+      "description": "Dataset with both image improvement and data augmentation.",
+      "metrics": {
+        "AlexNet": {
+          "Accuracy": 0.68,
+          "Sensitivity": 0.63,
+          "Specificity": 0.76,
+          "Precision": 0.65,
+          "FDR": 0.35,
+          "FNR": 0.37,
+          "FPR": 0.24
+        },
+        "DenseNet": {
+          "Accuracy": 0.66,
+          "Sensitivity": 0.55,
+          "Specificity": 0.69,
+          "Precision": 0.62,
+          "FDR": 0.38,
+          "FNR": 0.27,
+          "FPR": 0.24
+        },
+        "Google InceptionV3": {
+          "Accuracy": 0.53,
+          "Sensitivity": 0.38,
+          "Specificity": 0.57,
+          "Precision": 0.38,
+          "FDR": 0.62,
+          "FNR": 0.47,
+          "FPR": 0.41
+        },
+        "GoogleNet": {
+          "Accuracy": 0.55,
+          "Sensitivity": 0.44,
+          "Specificity": 0.62,
+          "Precision": 0.4,
+          "FDR": 0.6,
+          "FNR": 0.51,
+          "FPR": 0.37
+        },
+        "MobileNet": {
+          "Accuracy": 0.49,
+          "Sensitivity": 0.38,
+          "Specificity": 0.51,
+          "Precision": 0.59,
+          "FDR": 0.41,
+          "FNR": 0.53,
+          "FPR": 0.32
+        },
+        "ShuffleNet": {
+          "Accuracy": 0.5,
+          "Sensitivity": 0.39,
+          "Specificity": 0.57,
+          "Precision": 0.51,
+          "FDR": 0.49,
+          "FNR": 0.55,
+          "FPR": 0.42
+        },
+        "SqueezeNet": {
+          "Accuracy": 0.58,
+          "Sensitivity": 0.39,
+          "Specificity": 0.63,
+          "Precision": 0.42,
+          "FDR": 0.58,
+          "FNR": 0.42,
+          "FPR": 0.36
+        },
+        "VGG": {
+          "Accuracy": 0.7,
+          "Sensitivity": 0.61,
+          "Specificity": 0.65,
+          "Precision": 0.64,
+          "FDR": 0.36,
+          "FNR": 0.3,
+          "FPR": 0.18
+        }
+      },
+      "notes": "DenseNet achieved the lowest FNR (0.27) on this dataset. AlexNet had the highest mean accuracy (0.68) among networks with data augmentation on improved images, though VGG had higher accuracy (0.70) without data augmentation on improved images."
+    },
+    "Overall Best Performers (Conclusion)": {
+      "VGG": {
+        "Lowest FNR": 0.07,
+        "Context": "Achieved on the NIA dataset (Not improved, Data Augmented). Global performance: 73% accuracy, 82% sensitivity, 59% specificity."
+      },
+      "AlexNet": {
+        "Lowest FNR": 0.13,
+        "Context": "Achieved on the NINA dataset (Not improved, Not Data Augmented). Global performance: 89% accuracy, 87% sensitivity, 90% specificity."
+      },
+      "SqueezeNet": {
+        "Lowest FNR": 0.13,
+        "Context": "Achieved on the INA dataset (Improved, Not Data Augmented)."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "AlexNet, DenseNet, GoogleNet Inception V3, GoogleNet, MobileNet, ShuffleNet, SqueezeNet, and VGG16",
+    "pretraining": "Original versions came with pre-trained weights from ImageNet (1000 classes), but all pre-trained weights were discarded; no transfer learning was used.",
+    "input_size": "Varied by architecture: 299x299 for Google Inception V3; 227x227 for AlexNet; other architectures resized to fit their specific input constraints.",
+    "architecture_details": {
+      "refactoring": "All final layers (softmax, Fully connected) were changed to discriminate between two classes (melanoma vs naevi) instead of 1000 classes.",
+      "implementation": "Implemented in MatLab 2021b using trainNetwork and classify functions."
+    },
+    "training_details": {
+      "optimizer": "Not explicitly named, but standard MatLab trainNetwork defaults were used.",
+      "loss_function": "Not explicitly named, but standard classification loss was used.",
+      "hyperparameters": {
+        "MaxEpochs": 30,
+        "MiniBatchSize": 32,
+        "InitialLearnRate": "1e-4"
+      },
+      "training_schedule": "100 training steps (iterations) for each network and dataset configuration. Each step used a random split of the dataset.",
+      "data_split": "50% training (85 images), 30% validation (51 images), 20% testing (34 images) per iteration."
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification head",
+      "details": "Final layers modified to output 2 classes (melanoma or naevi)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "AlexNet",
+    "DenseNet",
+    "GoogleNet Inception V3",
+    "GoogleNet",
+    "MobileNet",
+    "ShuffleNet",
+    "SqueezeNet",
+    "VGG16",
+    "FRCNN"
+  ],
+  "preprocessing_techniques": [
+    "Image Improvement Quality (IIQ) using histogram optimization for contrast enhancement",
+    "Image segmentation using Otsu's method (OTSU) for automatic thresholding to separate background and foreground",
+    "Data augmentation including random rotation, random scaling, and random translation on X and Y axes"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random rotation",
+      "details": "Applied as a data augmentation operator to generate new training sets from the original MED-NODE dataset."
+    },
+    {
+      "technique": "Random scaling",
+      "details": "Applied as a data augmentation operator to generate new training sets from the original MED-NODE dataset."
+    },
+    {
+      "technique": "Random translation on X and Y axes",
+      "details": "Applied as a data augmentation operator to generate new training sets from the original MED-NODE dataset."
+    }
+  ],
+  "conclusions": [
+    "CNNs built on the VGG or AlexNet structure can ensure the lowest false negative rates (FNR) for melanoma detection, with VGG achieving an FNR of 0.07 and AlexNet achieving an FNR of 0.13.",
+    "VGG achieved the lowest FNR (0.07) on the NIA dataset (data augmentation without image improvement), with global performance of 73% accuracy, 82% sensitivity, and 59% specificity.",
+    "AlexNet achieved the lowest FNR (0.13) on the NINA dataset (no image improvement, no data augmentation), with global performance of 89% accuracy, 87% sensitivity, and 90% specificity.",
+    "SqueezeNet ensured the lowest FNR (0.13) on the INA dataset (image improvement without data augmentation), suggesting it can be chosen to minimize type 2 errors in that specific context despite lower global performance.",
+    "DenseNet ensured the lowest FNR (0.27) on the IA dataset (image improvement with data augmentation).",
+    "Data augmentation techniques (scaling, rotation, translation) generally reduced classification performance compared to using original images without augmentation, with AlexNet obtaining the best global performance without data augmentation.",
+    "Image improvement techniques (histogram optimization) and data augmentation did not consistently improve performance, and the most important effort should be dedicated to mitigating artifacts to ensure reliability.",
+    "The study confirms that CNNs are suitable for building easy-to-use computer-aided diagnosis (CAD) systems for melanoma detection using accessible clinical images (e.g., from smartphones) rather than requiring high-resolution dermoscopic images.",
+    "The MED-NODE dataset, consisting of 170 clinical images (70 melanoma, 100 naevi), was used to demonstrate that high classification performance is possible with clinical images despite lower resolution compared to dermoscopic images."
+  ],
+  "important_remarks": [
+    "The study relies on a very small dataset (MED-NODE) consisting of only 170 clinical images (70 melanoma, 100 naevi), which the authors explicitly acknowledge as a limitation that may restrict the generalizability of the results.",
+    "The paper does not report formal statistical hypothesis testing (e.g., p-values) to compare architectures; it relies on descriptive statistics (mean, standard deviation) across 100 repeated random splits.",
+    "Data augmentation and image improvement techniques generally reduced or did not consistently improve classification performance compared to using original images without pre-processing, suggesting that adding artifacts or losing contextual information (like surrounding skin) can be detrimental.",
+    "There is no external validation; the models were trained and tested solely on the MED-NODE dataset, limiting the assessment of real-world robustness.",
+    "The study lacks a direct comparative analysis with dermatologist performance, which limits the ability to fully assess the clinical advantage or disadvantage of the proposed CAD system.",
+    "The focus on minimizing False Negative Rate (FNR) resulted in trade-offs with global accuracy and specificity (e.g., VGG16 achieved the lowest FNR of 0.07 but had lower specificity of 59% compared to AlexNet's 90%).",
+    "The dataset contains non-dermoscopic clinical images (e.g., smartphone-captured), which have lower resolution than dermoscopic images, potentially affecting feature extraction capabilities.",
+    "No transfer learning was used; all pre-trained ImageNet weights were discarded, and networks were trained from scratch, which is unusual for deep learning on small datasets and may contribute to performance variability."
+  ]
+}

@@ -1,0 +1,443 @@
+{
+  "file_name": "choi_2024_enhancing_skin_lesion_classification_performance_with_the_abc_ensemble.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used an ABC ensemble model combining deep learning architectures (ViT-B/16, DenseNet121, EfficientNet-B0, MobileNetV2, and ResNet50) for skin lesion classification on the HAM10000 dataset, leveraging the ABCD rule for feature extraction and weighted soft voting for final diagnosis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel ABC ensemble model for skin lesion classification, describes its architecture and training on the HAM10000 dataset, and reports original experimental results including accuracy (0.9326) and F1-score (0.9302) from 15 experiments, which constitutes original experimental research rather than a literature review."
+  },
+  "title": "Enhancing Skin Lesion Classification Performance with the ABC Ensemble Model",
+  "authors": [
+    "Jae-Young Choi",
+    "Min-Ji Song",
+    "You-Jin Shin"
+  ],
+  "doi": "10.3390/app142210294",
+  "journal": "Applied Sciences",
+  "year": 2024,
+  "article_type": "Article",
+  "brief_summary": "This study proposes a novel ABC ensemble model to enhance skin lesion classification by integrating the dermatological ABCD rule with deep learning architectures. The model combines five classifiers—ViT-B/16, DenseNet121, EfficientNet-B0, MobileNetV2, and ResNet50—using preprocessing techniques that emphasize asymmetry, border, and color features. Trained and evaluated on the HAM10000 dataset, the approach utilizes a weighted soft voting mechanism where generalization blocks are assigned higher weights to optimize performance. Experimental results from 15 configurations demonstrate that the proposed model outperforms baselines, achieving an accuracy of 0.9326 and an F1-score of 0.9302. Additionally, Grad-CAM analysis was employed to validate the model's interpretability by visualizing the specific lesion features each block focuses on. The findings indicate that integrating general image features with specific dermatological characteristics significantly improves classification reliability for early skin cancer diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "Akiec",
+        "Actinic Keratoses and Intraepithelial Carcinoma"
+      ],
+      "role": "Target class",
+      "details": "Classified as a precursor cancer type of non-melanoma skin cancer; 327 images (3.27%) in HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "Bcc",
+        "Basal cell carcinoma"
+      ],
+      "role": "Target class",
+      "details": "Most common form of skin cancer; 514 images (5.13%) in HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "Bkl",
+        "Benign keratosis",
+        "seborrheic keratosis"
+      ],
+      "role": "Target class",
+      "details": "Variant of seborrheic keratosis; 1099 images (10.97%) in HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "Df",
+        "Dermatofibroma"
+      ],
+      "role": "Target class",
+      "details": "Benign skin lesion considered an inflammatory response; 115 images (1.15%) in HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Mel",
+        "Melanoma"
+      ],
+      "role": "Target class",
+      "details": "Malignant tumor derived from melanocytes; 113 images (1.11%) in HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "Nv",
+        "Melanocytic nevi"
+      ],
+      "role": "Target class",
+      "details": "Benign forms of melanocytes; 6705 images (66.95%) in HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "Vasc",
+        "Vascular skin lesions",
+        "cherry hemangiomas",
+        "angiokeratomas",
+        "pyogenic granulomas"
+      ],
+      "role": "Target class",
+      "details": "Includes cherry hemangiomas, angiokeratomas, and pyogenic granulomas; 142 images (1.42%) in HAM10000 dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Seven types of skin lesions (Actinic Keratoses and Intraepithelial Carcinoma, Basal Cell Carcinoma, Benign Keratosis, Dermatofibroma, Melanoma, Melanocytic Nevi, Vascular Lesions)",
+        "primary": true,
+        "details": "Multiclass classification of skin lesions using the HAM10000 dataset. The model predicts discrete diagnostic categories (lesion classes) using an ABC ensemble model with weighted soft voting. Performance was evaluated using accuracy (0.9326), F1-score (0.9302), recall, and precision."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A widely used benchmark dataset containing 10,015 dermatoscopic images of seven different types of skin lesions, collected from multiple sources. It is publicly available on Kaggle.",
+      "classes_used": [
+        "Actinic Keratoses and Intraepithelial Carcinoma (akiec)",
+        "Basal Cell Carcinoma (bcc)",
+        "Benign Keratosis (bkl)",
+        "Dermatofibroma (df)",
+        "Melanoma (mel)",
+        "Melanocytic Nevi (nv)",
+        "Vascular Lesions (vasc)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "akiec": 327,
+          "bcc": 514,
+          "bkl": 1099,
+          "df": 115,
+          "mel": 113,
+          "nv": 6705,
+          "vasc": 142
+        }
+      },
+      "use": {
+        "training": "Used for training the ABC ensemble model (ViT-B/16, DenseNet121, EfficientNet-B0, MobileNetV2, ResNet50) after applying oversampling and basic augmentation (rotation, zoom, horizontal flip, vertical flip) to balance class distribution.",
+        "validation": "Used for validation during the 5-fold cross-validation process (implied by '15 experiments' and '5-fold cross-validation' mention in limitations, though specific split counts are not explicitly detailed in the provided text).",
+        "testing": "Used for testing the model performance, with results reported as accuracy (0.9326) and F1-score (0.9302) from the experiments.",
+        "other": "Used as the primary benchmark for evaluating the proposed ABC ensemble model against baseline models."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Recall",
+    "Precision",
+    "F1-Score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "To avoid biased results towards specific test sets and to measure performance consistently by averaging accuracy, recall, precision, and F1-score across five folds.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Weighted soft voting",
+      "purpose": "To combine predictions from the five ensemble classifiers, assigning higher weights (2.0) to generalization blocks and lower weights (1.0) to ABCD-specific blocks to optimize performance.",
+      "type": "Ensemble aggregation"
+    },
+    {
+      "method": "Confusion matrix analysis",
+      "purpose": "To visualize and understand the model's classification performance for each class, including True Positive Rates (TPR) and misclassifications.",
+      "type": "Performance evaluation"
+    },
+    {
+      "method": "Grad-CAM analysis",
+      "purpose": "To assess how each block in the ensemble focuses on distinct lesion features, enhancing interpretability and reliability.",
+      "type": "Interpretability/Uncertainty estimation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using average accuracy, recall, precision, and F1-score across 5-fold cross-validation without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "split": "80% training (8012 images), 20% testing (2003 images) with 5-fold cross-validation",
+      "metric": "Accuracy, Recall, Precision, F1-Score",
+      "models": {
+        "GoogLeNet (no preprocessing)": {
+          "accuracy": 0.8816,
+          "recall": 0.8779,
+          "precision": 0.8816,
+          "f1_score": 0.8762
+        },
+        "AlexNet (no preprocessing)": {
+          "accuracy": 0.8458,
+          "recall": 0.8424,
+          "precision": 0.8458,
+          "f1_score": 0.8412
+        },
+        "ViT-B/16 (no preprocessing)": {
+          "accuracy": 0.8937,
+          "recall": 0.8905,
+          "precision": 0.8932,
+          "f1_score": 0.89
+        },
+        "DenseNet121 (no preprocessing)": {
+          "accuracy": 0.9023,
+          "recall": 0.9001,
+          "precision": 0.9022,
+          "f1_score": 0.8993
+        },
+        "EfficientNet-B0 (no preprocessing)": {
+          "accuracy": 0.9025,
+          "recall": 0.9,
+          "precision": 0.9024,
+          "f1_score": 0.8997
+        },
+        "MobileNetV2 (no preprocessing)": {
+          "accuracy": 0.8909,
+          "recall": 0.8878,
+          "precision": 0.8909,
+          "f1_score": 0.888
+        },
+        "ResNet50 (no preprocessing)": {
+          "accuracy": 0.8883,
+          "recall": 0.8854,
+          "precision": 0.8883,
+          "f1_score": 0.8852
+        },
+        "ViT-B/16 (with ROI extraction)": {
+          "accuracy": 0.909,
+          "recall": 0.9059,
+          "precision": 0.9073,
+          "f1_score": 0.9053
+        },
+        "DenseNet121 (with ROI extraction, Upsampling)": {
+          "accuracy": 0.8913,
+          "recall": 0.89,
+          "precision": 0.8913,
+          "f1_score": 0.8893
+        },
+        "EfficientNet-B0 (with ROI extraction, Segmentation)": {
+          "accuracy": 0.9073,
+          "recall": 0.9057,
+          "precision": 0.9073,
+          "f1_score": 0.9051
+        },
+        "MobileNetV2 (with ROI extraction, Adjust Hue)": {
+          "accuracy": 0.8999,
+          "recall": 0.8987,
+          "precision": 0.8999,
+          "f1_score": 0.8982
+        },
+        "ResNet50 (with ROI extraction, Morphological Transformation)": {
+          "accuracy": 0.8999,
+          "recall": 0.8982,
+          "precision": 0.8999,
+          "f1_score": 0.8973
+        },
+        "Ensemble (w/o ABCD)": {
+          "accuracy": 0.9154,
+          "recall": 0.9137,
+          "precision": 0.9154,
+          "f1_score": 0.9129
+        },
+        "Ensemble (w/ weights, w/o ABCD)": {
+          "accuracy": 0.9232,
+          "recall": 0.9223,
+          "precision": 0.9226,
+          "f1_score": 0.9196
+        },
+        "ABC Ensemble [1, 1, 1, 1, 1]": {
+          "accuracy": 0.9315,
+          "recall": 0.9307,
+          "precision": 0.9315,
+          "f1_score": 0.9297
+        },
+        "ABC Ensemble [1, 2, 1, 1, 1]": {
+          "accuracy": 0.932,
+          "recall": 0.9311,
+          "precision": 0.932,
+          "f1_score": 0.9302
+        },
+        "ABC Ensemble [1, 1, 2, 1, 1]": {
+          "accuracy": 0.9313,
+          "recall": 0.9307,
+          "precision": 0.9313,
+          "f1_score": 0.9295
+        },
+        "ABC Ensemble [1, 1, 1, 2, 1]": {
+          "accuracy": 0.9294,
+          "recall": 0.9289,
+          "precision": 0.9294,
+          "f1_score": 0.9276
+        },
+        "ABC Ensemble [1, 1, 1, 1, 2]": {
+          "accuracy": 0.9303,
+          "recall": 0.9295,
+          "precision": 0.9303,
+          "f1_score": 0.9284
+        },
+        "ABC Ensemble [1, 1, 2, 2, 2]": {
+          "accuracy": 0.9296,
+          "recall": 0.9289,
+          "precision": 0.9296,
+          "f1_score": 0.9278
+        },
+        "ABC Ensemble [2, 2, 1, 1, 1] (Ours)": {
+          "accuracy": 0.9326,
+          "recall": 0.9316,
+          "precision": 0.931,
+          "f1_score": 0.9302
+        }
+      },
+      "notes": "The best-performing model was the ABC Ensemble with weights [2, 2, 1, 1, 1] (Ours), achieving an accuracy of 0.9326 and F1-score of 0.9302. Among single models without preprocessing, EfficientNet-B0 performed best (Accuracy: 0.9025, F1: 0.8997). Among single models with preprocessing, EfficientNet-B0 with ROI extraction and Segmentation performed best (Accuracy: 0.9073, F1: 0.9051). Category-wise True Positive Rates for the best model were: nv (0.98), vasc (0.90), bcc (0.87), bkl (0.86), mel (0.85), akiec (0.73), df (not explicitly stated in text but implied by confusion matrix context)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ABC Ensemble Model (combining ViT-B/16, DenseNet121, EfficientNet-B0, MobileNetV2, and ResNet50)",
+    "pretraining": "Transfer learning on pre-trained ImageNet weights for CNN models; ViT-B/16 used with parameter tuning for the HAM10000 dataset",
+    "input_size": "256 × 256 pixels (standard); 384 × 384 pixels for Upsize Training (Block 2/DenseNet121)",
+    "architecture_details": {
+      "ensemble_structure": "Five distinct blocks: Block 1 (Generality Training/ViT-B/16), Block 2 (Upsize Training/DenseNet121), Block 3 (Asymmetry Enhancement/EfficientNet-B0), Block 4 (Border Enhancement/MobileNetV2), Block 5 (Color Enhancement/ResNet50)",
+      "block_1_details": "Vision Transformer-B/16 (ViT-B/16); vectorizes image into N patches of size (P, P); transformer encoder with multi-head self-attention; fully connected classification layer",
+      "block_2_details": "DenseNet121; utilizes upsampling preprocessing; connects feature maps of all layers via Dense blocks",
+      "block_3_details": "EfficientNet-B0; utilizes ROI extraction and Segmentation preprocessing",
+      "block_4_details": "MobileNetV2; utilizes ROI extraction and Morphological Transformation preprocessing",
+      "block_5_details": "ResNet50; utilizes ROI extraction and Adjust Hue preprocessing",
+      "aggregation_method": "Weighted soft voting; generalization blocks (Block 1 and Block 2) assigned weight 2.0; ABCD-specific blocks (Blocks 3, 4, 5) assigned weight 1.0"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.0001,
+      "batch_size": 64,
+      "epochs": 70,
+      "validation_method": "5-fold cross-validation",
+      "data_split": "80% training (8012 images), 20% testing (2003 images)"
+    },
+    "classification_or_output_head": {
+      "type": "Weighted Soft Voting",
+      "classes": 7,
+      "class_labels": [
+        "Actinic Keratoses and Intraepithelial Carcinoma (akiec)",
+        "Basal Cell Carcinoma (bcc)",
+        "Benign Keratosis (bkl)",
+        "Dermatofibroma (df)",
+        "Melanoma (mel)",
+        "Melanocytic Nevi (nv)",
+        "Vascular Lesions (vasc)"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ViT-B/16",
+    "DenseNet121",
+    "EfficientNet-B0",
+    "MobileNetV2",
+    "ResNet50",
+    "GoogLeNet",
+    "AlexNet",
+    "ABC Ensemble Model",
+    "Ensemble (w/o ABCD)",
+    "Ensemble (w/ weights, w/o ABCD)",
+    "ABC Ensemble [1, 1, 1, 1, 1]",
+    "ABC Ensemble [1, 2, 1, 1, 1]",
+    "ABC Ensemble [1, 1, 2, 1, 1]",
+    "ABC Ensemble [1, 1, 1, 2, 1]",
+    "ABC Ensemble [1, 1, 1, 1, 2]",
+    "ABC Ensemble [1, 1, 2, 2, 2]",
+    "ABC Ensemble [2, 2, 1, 1, 1]"
+  ],
+  "preprocessing_techniques": [
+    "U-Net based segmentation mask generation for Region of Interest (ROI) extraction to isolate lesions from surrounding skin noise",
+    "Binarization of segmentation masks using a threshold of 0.05",
+    "ROI extraction based on bounding box coordinates derived from binary mask",
+    "Image upsizing/resizing to 384 × 384 pixels for the Upsize Training block (DenseNet121)",
+    "Image resizing to 256 × 256 pixels for other blocks",
+    "Segmentation mask application (dot-product with original image) for Asymmetry Enhancement Training",
+    "Morphological Transformation (erosion and dilation with kernel size 6) for Border Enhancement Training to blur color and emphasize edges",
+    "Hue adjustment for Color Enhancement Training",
+    "Data augmentation including rotation, zoom, horizontal flip, and vertical flip",
+    "Oversampling to balance class distribution"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Oversampling",
+      "details": "Applied to balance class distribution by increasing the number of images for classes with fewer samples (akiec, bcc, df, mel, vasc) to match the most frequent class (nv). Specific sampling method not detailed beyond 'oversampling'."
+    },
+    {
+      "technique": "Rotation",
+      "details": "Basic augmentation method applied during oversampling. Specific angles or probabilities not reported."
+    },
+    {
+      "technique": "Zoom",
+      "details": "Basic augmentation method applied during oversampling. Specific zoom ranges or factors not reported."
+    },
+    {
+      "technique": "Horizontal Flip",
+      "details": "Basic augmentation method applied during oversampling. Probability not reported."
+    },
+    {
+      "technique": "Vertical Flip",
+      "details": "Basic augmentation method applied during oversampling. Probability not reported."
+    },
+    {
+      "technique": "U-Net based Segmentation Mask Generation",
+      "details": "Used to extract Region of Interest (ROI) by generating a binary mask (threshold 0.05) to isolate lesions from surrounding skin noise. This preprocessing step acts as a form of spatial filtering/augmentation for specific blocks."
+    },
+    {
+      "technique": "ROI Extraction",
+      "details": "Images were cropped and resized based on bounding box coordinates derived from the binary segmentation mask. Used for Asymmetry, Border, and Color enhancement blocks."
+    },
+    {
+      "technique": "Image Upsizing",
+      "details": "Images were upsized to 384 × 384 pixels specifically for the Upsize Training block (DenseNet121) to capture finer details. Other blocks used 256 × 256 pixels."
+    },
+    {
+      "technique": "Segmentation Mask Dot-Product",
+      "details": "Applied in Asymmetry Enhancement Training (Block 3) where the segmentation mask was dot-produced with the original image to highlight lesion shape and symmetry."
+    },
+    {
+      "technique": "Morphological Transformation (Erosion and Dilation)",
+      "details": "Applied in Border Enhancement Training (Block 4) using a kernel size of 6 to blur overall color and emphasize edges."
+    },
+    {
+      "technique": "Hue Adjustment",
+      "details": "Applied in Color Enhancement Training (Block 5) to adjust color features. Specific adjustment parameters not reported."
+    }
+  ],
+  "conclusions": [
+    "The proposed ABC ensemble model, which integrates the dermatological ABCD rule (Asymmetry, Border, Color) with deep learning architectures (ViT-B/16, DenseNet121, EfficientNet-B0, MobileNetV2, and ResNet50), outperforms baseline single models and unweighted ensemble models in skin lesion classification.",
+    "The model achieved its best performance with an accuracy of 0.9326 and an F1-score of 0.9302 on the HAM10000 dataset using a weighted soft voting mechanism where generalization blocks were assigned higher weights (2.0) compared to ABCD-specific blocks (1.0).",
+    "Integrating general image features with specific dermatological characteristics (asymmetry, border, and color) significantly improves classification reliability for early skin cancer diagnosis.",
+    "Adjusting the soft voting weights to prioritize generalization blocks yields optimal results, demonstrating that the weighted ensemble approach is more effective than equal weighting or unweighted ensembles.",
+    "Grad-CAM analysis validated the model's interpretability by confirming that each block in the ensemble focuses on distinct lesion features relevant to the ABCD rule.",
+    "The model is most suitable as an auxiliary diagnostic tool for medical professionals rather than a standalone diagnostic system, due to limitations such as the relatively low True Positive Rate (0.73) for the Actinic Keratoses and Intraepithelial Carcinoma (akiec) class.",
+    "Future improvements to achieve independent diagnostic confidence require expanding the dataset, training for more epochs, increasing cross-validation folds (e.g., to 10-fold), and exploring improved methodologies."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the HAM10000 dataset, which exhibits significant class imbalance (e.g., 66.95% Melanocytic Nevi vs. 1.15% Dermatofibroma), potentially biasing the model toward frequent classes.",
+    "The 'Diameter' component of the ABCD rule was excluded because the HAM10000 dataset contains images captured at varying magnifications and distances, making diameter measurement unreliable.",
+    "The authors acknowledge that oversampling minority classes using basic augmentation (rotation, flip, etc.) may introduce redundancy and overfitting, suggesting GANs as a future improvement.",
+    "The ViT-B/16 model underperformed relative to CNNs on this dataset, which the authors attribute to ViT's requirement for large datasets, necessitating specific data augmentation strategies.",
+    "The model achieved a notably low True Positive Rate (0.73) for the Actinic Keratoses and Intraepithelial Carcinoma (akiec) class, indicating limited sensitivity for this specific precursor cancer type.",
+    "The authors explicitly state that the model is suitable only as an auxiliary diagnostic tool for medical professionals, not as a standalone diagnostic system, due to current performance limitations and data scarcity.",
+    "No external validation was performed; the model was trained and tested solely on the HAM10000 dataset, limiting the generalizability of the findings to other populations or imaging devices.",
+    "The study did not report formal statistical significance testing (e.g., p-values) for performance comparisons, relying instead on average metrics across 5-fold cross-validation."
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "file_name": "flamminio_2025_machine_learning_techniques_for_the_diagnosis_and_monitoring_of_n.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a pre-trained ResNet-50 Convolutional Neural Network (CNN) for dermoscopic image feature extraction and a LinearSVC classifier for structured clinical data to automate the diagnosis and monitoring of nevi and melanomas. The system was evaluated on the ISIC HAM10000 and PH2 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents an original deep learning framework for automated nevus and melanoma analysis, detailing specific methodology (ResNet-50, LinearSVC), implementation details (Python, NVIDIA A100 GPU), and experimental results on the ISIC HAM10000 and PH2 datasets. It reports new performance metrics (Precision, Recall, F1-score) and is published in the proceedings of the 2025 International Symposium on Multimedia (ISM)."
+  },
+  "title": "Machine Learning techniques for the Diagnosis and Monitoring of Nevi and Melanomas",
+  "authors": [
+    "Giulia Di Flamminio",
+    "Fabio Persia",
+    "Daniela D’Auria",
+    "Ciro Esposito",
+    "Vincenzo Coppola"
+  ],
+  "doi": "10.1109/ISM66958.2025.00079",
+  "journal": "2025 International Symposium on Multimedia (ISM)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study presents an automated system for the diagnosis and monitoring of nevi and melanomas using two complementary machine learning approaches. A pre-trained ResNet-50 CNN was employed for dermoscopic image feature extraction and comparison on the curated ISIC HAM10000 dataset, while a LinearSVC classifier analyzed structured clinical data from the PH2 dataset. The CNN-based method achieved an average precision of 0.93 and 100% recall, effectively minimizing false negatives, whereas the LinearSVC classifier attained an overall accuracy of 94.50% with high precision and recall on the clinical features. The results demonstrate that while ResNet-50 excels at capturing visual patterns and ensuring sensitivity, LinearSVC provides superior general accuracy for structured data. The authors conclude that integrating both methodologies offers a robust strategy for telemedicine, combining the strengths of deep learning image analysis with efficient feature-based classification.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi",
+        "atypical nevus",
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "Studied as the benign class in the PH2 dataset (155 correctly classified nevi) and as 'atypical nevus' in the execution example. The paper focuses on distinguishing nevi from melanomas."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "Studied as the malignant class in the PH2 dataset (34 correctly classified melanomas, 6 false negatives). The CNN-based method achieved 100% recall for melanoma detection on the ISIC HAM10000 dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Diagnostic categories (benign/nevus vs. malignant/melanoma)",
+        "primary": true,
+        "details": "The paper employs two classification approaches: (1) A pre-trained ResNet-50 CNN for dermoscopic image feature extraction and comparison to predict lesion class (benign vs. malignant) based on similarity to a database of labeled images; (2) A LinearSVC classifier for structured clinical data (dermoscopic attributes) to classify lesions as benign or malignant. The task is binary classification (benign vs. malignant) on the PH2 dataset and multi-class classification (7 classes) on the ISIC HAM10000 dataset."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PH2 Dataset",
+      "description": "A dermoscopic image database for research and benchmarking, containing 200 dermoscopic images with expert-annotated lesion features. It was initially used for testing and later for the feature-based classification part of the study.",
+      "classes_used": [
+        "nevus",
+        "melanoma"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {
+          "nevus": 160,
+          "melanoma": 40
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": "Used for Leave-One-Out validation for the LinearSVC classifier.",
+        "testing": "Used for testing the LinearSVC classifier and as a source for execution examples.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC HAM10000",
+      "description": "A dataset of dermoscopic images of the most common types of pigmented skin lesions, originally comprising 11,720 labeled images. A curated set of 9,024 images was used after excluding those with uncertain diagnostic labels.",
+      "classes_used": [
+        "actinic keratosis",
+        "basal cell carcinoma",
+        "benign keratosis",
+        "dermatofibroma",
+        "melanoma",
+        "nevus",
+        "vascular lesion"
+      ],
+      "counts": {
+        "total": 9024,
+        "training": null,
+        "validation": null,
+        "testing": 9024,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": "Used for 10-fold cross-validation for the ResNet-50 image comparison method.",
+        "testing": "Used for evaluating the ResNet-50 image comparison method.",
+        "other": "Used as the database for image comparison (retrieving similar samples)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Precision",
+    "Recall",
+    "F1-Score",
+    "Accuracy",
+    "Average Precision",
+    "Confusion Matrix",
+    "Cosine Similarity",
+    "Similarity Score",
+    "Confidence score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10-fold cross-validation",
+      "purpose": "Applied to ensure reliable evaluation of the ResNet-50 image comparison method on the ISIC HAM10000 dataset.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Leave-One-Out validation",
+      "purpose": "Used for evaluating the LinearSVC classifier on the PH2 dataset.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Cosine similarity",
+      "purpose": "Computed between CNN-extracted features to determine similarity scores for image retrieval and diagnosis in the ResNet-50 method.",
+      "type": "Similarity metric"
+    },
+    {
+      "method": "Confidence scores via softmax-based approximation",
+      "purpose": "Used to quantify prediction reliability for the LinearSVC classifier.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Precision-Recall curve analysis",
+      "purpose": "Used to confirm the discriminative capacity of the ResNet-50 model and calculate Average Precision (AP).",
+      "type": "Performance evaluation"
+    },
+    {
+      "method": "Confusion Matrix",
+      "purpose": "Used to evaluate the performance of the LinearSVC classifier on the PH2 dataset.",
+      "type": "Performance evaluation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using metrics such as Precision, Recall, F1-score, Accuracy, and Average Precision, along with cross-validation procedures (10-fold and Leave-One-Out), but no statistical significance testing between models was reported."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC HAM10000": {
+      "experiment": "Image Comparison with ResNet-50",
+      "evaluation_setting": "10-fold cross-validation",
+      "models": {
+        "ResNet-50": {
+          "Average Precision (AP)": "0.93",
+          "Overall Accuracy": "86.98%",
+          "Recall": "1.0000",
+          "Precision": "0.8754",
+          "F1-score": "0.9335",
+          "Similarity Threshold (Smin)": "85%",
+          "Similarity Distribution": "Most values fall between 0.7 and 0.8"
+        }
+      },
+      "notes": "The model achieved perfect recall, correctly identifying all positive cases. The threshold Smin=85% was selected based on the distribution of cosine similarity scores. Performance was slightly lower than LinearSVC in overall accuracy but superior in sensitivity."
+    },
+    "PH2": {
+      "experiment": "Feature-Based Classification with LinearSVC",
+      "evaluation_setting": "Leave-One-Out validation",
+      "models": {
+        "LinearSVC": {
+          "Overall Accuracy": "94.50%",
+          "Precision": "0.9173",
+          "Recall": "0.9094",
+          "F1-score": "0.9132",
+          "True Positives (Melanoma)": "34",
+          "True Negatives (Nevus)": "155",
+          "False Positives": "5",
+          "False Negatives": "6"
+        },
+        "Random Forest": {
+          "Performance": "Evaluated with hyperparameter tuning via grid_search; achieved inferior performance compared to LinearSVC and was not adopted as the final classifier."
+        }
+      },
+      "notes": "LinearSVC provided superior general accuracy. The confusion matrix showed 155 correctly classified nevi and 34 correctly classified melanomas. Confidence scores were computed via softmax-based approximation."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet-50 (CNN) for image feature extraction; LinearSVC for clinical data classification",
+    "pretraining": "ResNet-50 pre-trained on ImageNet (weights: ResNet50_Weights.IMAGENET1K_V1)",
+    "input_size": "Dermoscopic images (specific dimensions not reported); Clinical data features (structural and chromatic descriptors)",
+    "architecture_details": {
+      "resnet50": {
+        "type": "Convolutional Neural Network",
+        "modification": "Final classification layer removed to extract high-dimensional feature embeddings",
+        "weights_source": "ResNet50_Weights.IMAGENET1K_V1 (chosen over IMAGENET1K_V2 for 7.85% performance improvement)"
+      },
+      "linearsvc": {
+        "type": "Support Vector Classifier",
+        "implementation": "Scikit-learn LinearSVC",
+        "rationale": "Efficiency and robustness in high-dimensional sparse input spaces"
+      }
+    },
+    "training_details": {
+      "framework": "Python with numpy, scikit-learn, matplotlib",
+      "hardware": "NVIDIA A100 GPU via Google Colab",
+      "validation_resnet50": "10-fold cross-validation on ISIC HAM10000",
+      "validation_linearsvc": "Leave-One-Out validation on PH2",
+      "hyperparameter_tuning": "Random Forest evaluated with grid_search (not adopted); LinearSVC adopted as final classifier"
+    },
+    "classification_or_output_head": {
+      "resnet50": {
+        "mechanism": "Cosine similarity between CNN-extracted features",
+        "threshold": "Smin = 85%",
+        "decision_rule": "Majority class among retrieved similar images; highest mean similarity in case of class balance"
+      },
+      "linearsvc": {
+        "mechanism": "Classification of structured clinical attributes",
+        "confidence_estimation": "Softmax-based approximation"
+      }
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet-50",
+    "LinearSVC",
+    "Random Forest"
+  ],
+  "preprocessing_techniques": [
+    "Exclusion of images with uncertain diagnostic labels from the ISIC HAM10000 dataset to create a curated set of 9,024 images",
+    "Removal of the final classification layer from the pre-trained ResNet-50 network to extract high-dimensional feature embeddings",
+    "Manual insertion of dermoscopic attributes (structural and chromatic descriptors) for the LinearSVC classifier"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed automated system for nevus and melanoma analysis effectively combines a pre-trained ResNet-50 CNN for dermoscopic image feature extraction and a LinearSVC classifier for structured clinical data.",
+    "The ResNet-50-based image comparison method achieved 100% recall on the ISIC HAM10000 dataset, demonstrating its superiority in minimizing false negatives, which is critical for medical diagnosis.",
+    "The LinearSVC classifier achieved superior general accuracy (94.50% on the PH2 dataset) with a good balance of precision and recall, making it a reliable model for reducing overall classification errors.",
+    "Integrating both methodologies offers a robust strategy for telemedicine, leveraging ResNet-50's sensitivity to detect all suspicious cases and LinearSVC's precision to improve overall classification reliability.",
+    "The study highlights the distinct strengths and limitations of each approach: CNNs excel at capturing complex visual patterns and ensuring sensitivity, while feature-based classifiers provide higher general accuracy for structured data."
+  ],
+  "important_remarks": [
+    "The study lacks external validation; the CNN model was evaluated on the ISIC HAM10000 dataset while the feature-based classifier was evaluated on the PH2 dataset, preventing direct comparison of the two methods on the same data distribution.",
+    "The PH2 dataset is small (200 images), and the LinearSVC classifier was evaluated using Leave-One-Out validation, which may lead to optimistic performance estimates and limited generalizability.",
+    "The ResNet-50 model achieved 100% recall on the ISIC HAM10000 dataset, which is critical for minimizing false negatives in melanoma detection, but had a lower overall accuracy (86.98%) compared to LinearSVC (94.50%).",
+    "The paper notes that performance depends on the quality and balance of available images, suggesting that future work requires coordinated efforts to collect dermoscopic data directly from clinical sources to enhance generalization.",
+    "The system relies on manually inserted dermoscopic attributes for the LinearSVC classifier, which introduces potential for human error and limits scalability compared to fully automated image-based methods.",
+    "The study acknowledges that machine learning systems may inadvertently replicate clinician bias, particularly when trained on Electronic Medical Records (EMRs), highlighting the need for approaches that complement rather than mimic clinical judgment."
+  ]
+}

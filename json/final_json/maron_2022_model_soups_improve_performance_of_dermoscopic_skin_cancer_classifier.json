@@ -1,0 +1,755 @@
+{
+  "file_name": "maron_2022_model_soups_improve_performance_of_dermoscopic_skin_cancer_classifier.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning (DL) and convolutional neural networks (CNNs) to develop dermoscopic skin cancer classifiers. Specifically, it investigates 'model soups' by averaging weights of multiple CNN architectures (ResNet, DenseNet, EfficientNet, VGG) pre-trained on ImageNet and fine-tuned on a multi-source dermoscopic image dataset for melanoma-nevus classification."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled 'Original Research' on the first page. It presents a study with specific objectives, methods (constructing model soups using CNNs on a multi-source dermoscopic dataset), results (performance metrics on holdout and external components), and conclusions regarding generalization, robustness, and calibration. It is not a review or summary of prior literature."
+  },
+  "title": "Model soups improve performance of dermoscopic skin cancer classifiers",
+  "authors": [
+    "Roman C. Maron",
+    "Achim Hekler",
+    "Sarah Haggenmüller",
+    "Christof von Kalle",
+    "Jochen S. Utikal",
+    "Verena Müller",
+    "Maria Gaiser",
+    "Friedegund Meier",
+    "Sarah Hobelsberger",
+    "Frank F. Gellrich",
+    "Mildred Sergon",
+    "Axel Hauschild",
+    "Lars E. French",
+    "Lucie Heinzerling",
+    "Justin G. Schlager",
+    "Kamran Ghoreschi",
+    "Max Schlaak",
+    "Franz J. Hilke",
+    "Gabriela Poch",
+    "Sören Korsing",
+    "Carola Berking",
+    "Markus V. Heppt",
+    "Michael Erdmann",
+    "Sebastian Haferkamp",
+    "Dirk Schadendorf",
+    "Wiebke Sondermann",
+    "Matthias Goebeler",
+    "Bastian Schilling",
+    "Jakob N. Kather",
+    "Stefan Fröhling",
+    "Daniel B. Lipka",
+    "Eva Krieghoff-Henning",
+    "Titus J. Brinker"
+  ],
+  "doi": "10.1016/j.ejca.2022.07.002",
+  "journal": "European Journal of Cancer",
+  "year": 2022,
+  "article_type": "Original Research",
+  "brief_summary": "This study investigates whether 'model soups,' created by averaging the weights of multiple fine-tuned convolutional neural networks, improve the performance of dermoscopic skin cancer classifiers compared to traditional ensembles. The researchers evaluated eight CNN architectures (ResNet, DenseNet, EfficientNet, VGG) pre-trained on ImageNet and fine-tuned on a multi-source dataset of 14,648 melanoma and nevus images. Performance was assessed on a holdout component and an external component comprising 5,678 images from six different datasets, focusing on generalization, robustness to image perturbations, and calibration. The results demonstrated that model soups improved generalization and calibration on the external component while maintaining performance on the holdout component. Additionally, soups showed improved robustness against perturbed test images, although performance on corrupted images remained comparable to baselines. The authors conclude that model soups offer a computationally efficient and transparent alternative to ensembles, enhancing clinical applicability by reducing model complexity while improving key performance metrics.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the dermoscopic melanoma-nevus classification task. Used in the multi-source dermoscopic image dataset (14,648 images) and the external component (5,678 images)."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the dermoscopic melanoma-nevus classification task. Used in the multi-source dermoscopic image dataset (14,648 images) and the external component (5,678 images)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. Nevus",
+        "primary": true,
+        "details": "The paper investigates a dermoscopic melanoma-nevus skin cancer classification task. The model predicts discrete diagnostic categories (melanoma or nevus) using convolutional neural networks fine-tuned on a multi-source dermoscopic image dataset."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Multi-source dermoscopic image dataset (Primary Training/Validation)",
+      "description": "A multi-source dataset used for fine-tuning the convolutional neural networks. The specific constituent datasets for this primary pool are not explicitly named in the provided text, but it is distinct from the external component.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": 14648,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to fine-tune pre-trained CNN architectures (ResNet, DenseNet, EfficientNet, VGG) at seven different image resolutions.",
+        "validation": null,
+        "testing": "A holdout component of 562 images was set aside from this dataset for evaluation.",
+        "other": null
+      }
+    },
+    {
+      "name": "Holdout Component",
+      "description": "A subset of the primary multi-source dataset set aside for model evaluation.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": 562,
+        "training": null,
+        "validation": null,
+        "testing": 562,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to evaluate model performance on data from the same distribution as the training set.",
+        "other": null
+      }
+    },
+    {
+      "name": "External Component (Multi-source)",
+      "description": "A multi-source external component constructed from six different datasets to evaluate generalization to images from other clinics.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": 5678,
+        "training": null,
+        "validation": null,
+        "testing": 5678,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to evaluate generalization, robustness, and calibration on external data.",
+        "other": null
+      }
+    },
+    {
+      "name": "MSK",
+      "description": "One of the six datasets comprising the external component. Referenced as [33] in the text (Gutman et al., ISBI 2016 challenge data).",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Contributed to the external component for generalization testing.",
+        "other": null
+      }
+    },
+    {
+      "name": "7-Point Dataset",
+      "description": "One of the six datasets comprising the external component. Referenced as [34] in the text (Kawahara et al.).",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Contributed to the external component for generalization testing.",
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2020",
+      "description": "One of the six datasets comprising the external component. Referenced as [32] in the text (Rotemberg et al.).",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Contributed to the external component for generalization testing.",
+        "other": null
+      }
+    },
+    {
+      "name": "SAM",
+      "description": "One of the six datasets comprising the external component. Referenced as [35] in the text (Maron et al., robustness benchmark).",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Contributed to the external component for generalization testing.",
+        "other": null
+      }
+    },
+    {
+      "name": "PH2 Dataset",
+      "description": "One of the six datasets comprising the external component. Referenced as [36] in the text (Mendonca et al.).",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Contributed to the external component for generalization testing.",
+        "other": null
+      }
+    },
+    {
+      "name": "SKI-L2",
+      "description": "One of the six datasets comprising the external component. Referenced as [37] in the text (de Faria et al.).",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Contributed to the external component for generalization testing.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "AUC-ROC",
+    "ECE",
+    "Brier Score",
+    "NLL",
+    "mBCE",
+    "mFR"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Standard Deviation",
+      "purpose": "To report the variability of performance metrics (AUROC, ECE, mBCE, mFR) across eight different CNN architectures.",
+      "type": "Descriptive Statistics"
+    },
+    {
+      "method": "Area Under the Receiver Operating Characteristic (AUROC)",
+      "purpose": "To evaluate and compare model generalization performance on holdout and external test sets.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Expected Calibration Error (ECE)",
+      "purpose": "To evaluate model calibration on holdout and external test sets.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Brier Score (BS)",
+      "purpose": "To assess calibration, used in conjunction with ECE due to ECE's sensitivity to bin selection.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Negative Log Likelihood (NLL)",
+      "purpose": "To assess calibration, used in conjunction with ECE.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Balanced Corruption Error (BCE)",
+      "purpose": "To evaluate model robustness against image corruptions, adjusted by an AlexNet baseline.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Mean Balanced Corruption Error (mBCE)",
+      "purpose": "To summarize robustness performance across 14 types of corruptions.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Flip Rate (FR)",
+      "purpose": "To evaluate model robustness against image perturbations, adjusted by an AlexNet baseline.",
+      "type": "Performance Metric"
+    },
+    {
+      "method": "Mean Flip Rate (mFR)",
+      "purpose": "To summarize robustness performance across 10 types of perturbations.",
+      "type": "Performance Metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive statistics (averages and standard deviations across eight architectures) and visual inspection of figures/tables."
+  },
+  "results_obtained_in_each_dataset": {
+    "Holdout Component": {
+      "description": "A subset of the primary multi-source dataset (562 images) used to evaluate performance on data from the same distribution as the training set.",
+      "metrics": {
+        "AUROC": {
+          "baseline": "Baseline performance (value not explicitly reported in text, referenced as grey dashed line in Fig. 2)",
+          "uniform_soup": "Performed worse than baseline (text states 'perform worse on the holdout test set, especially for AUROC')",
+          "greedy_soup": "Performed on par with baseline (text states 'maintaining performance on the holdout test set' and 'guarantees at least on par performance')",
+          "uniform_ensemble": "Outperformed baseline",
+          "greedy_ensemble": "Outperformed baseline"
+        },
+        "ECE": {
+          "greedy_ensemble": "Outperformed greedy soup",
+          "uniform_ensemble": "Outperformed greedy soup"
+        },
+        "Brier Score (BS)": {
+          "greedy_ensemble": "Outperformed greedy soup"
+        },
+        "NLL": {
+          "greedy_ensemble": "Outperformed greedy soup"
+        },
+        "mBCE": {
+          "greedy_inv_soups": "Worse than greedy soups"
+        },
+        "mFR": {
+          "greedy_inv_soups": "Worse than greedy soups"
+        }
+      },
+      "notes": "Greedy soups maintained performance on the holdout test set. Uniform soups performed worse on the holdout test set, especially for AUROC. Ensembles outperformed greedy soups on the holdout test set."
+    },
+    "External Component (Multi-source)": {
+      "description": "A multi-source external component constructed from six different datasets (MSK, DERM7PT, ISIC2020_SYDNEY, SAM, PH2, SKINL2) comprising 5,678 images to evaluate generalization.",
+      "metrics": {
+        "AUROC": {
+          "baseline": "Baseline performance (value not explicitly reported in text)",
+          "greedy_soup": "Improved over baseline (text states 'substantial AUROC improvement')",
+          "uniform_soup": "Better than baseline",
+          "greedy_ensemble": "Performed on par with greedy soup",
+          "uniform_ensemble": "Performed on par with greedy soup"
+        },
+        "ECE": {
+          "greedy_soup": "Improved calibration compared to baseline",
+          "uniform_soup": "Improved calibration compared to baseline",
+          "greedy_ensemble": "Outperformed greedy soup",
+          "uniform_ensemble": "Outperformed greedy soup"
+        },
+        "Brier Score (BS)": {
+          "greedy_ensemble": "Outperformed greedy soup"
+        },
+        "NLL": {
+          "greedy_ensemble": "Outperformed greedy soup"
+        }
+      },
+      "sub_datasets": {
+        "ISIC2020_SIDNEY": {
+          "AUROC": {
+            "greedy_soup": "Approximated or outperformed greedy ensembles"
+          }
+        },
+        "other_external_datasets": {
+          "AUROC": {
+            "greedy_soup": "Outperformed baseline and approximated/outperformed greedy ensembles"
+          }
+        }
+      },
+      "notes": "Model soups improved generalization and calibration on the external component. Greedy soups showed substantial AUROC improvement. Ensembles generally outperformed soups in calibration metrics (ECE, BS, NLL)."
+    },
+    "Corrupted Test Set (SAM-C)": {
+      "description": "Test set using SAM-C to evaluate robustness against image corruptions (14 types).",
+      "metrics": {
+        "mBCE": {
+          "baseline": "93.51 ± 6.45",
+          "greedy_soup": "93.43 ± 9.96"
+        }
+      },
+      "notes": "Performance remained on par between baseline and greedy soup. No consistent trend for individual corruption types. Only five out of eight architectures showed lower mBCE than baseline."
+    },
+    "Perturbed Test Set (SAM-P)": {
+      "description": "Test set using SAM-P to evaluate robustness against image perturbations (10 types).",
+      "metrics": {
+        "mFR": {
+          "baseline": "66.9 ± 21.87",
+          "greedy_soup": "52.77 ± 16.09"
+        }
+      },
+      "notes": "Substantial average improvement in mFR observed. Improvements were consistently observed across all ten perturbation types."
+    },
+    "Modified Greedy Soup Algorithms": {
+      "description": "Comparison of different greedy soup construction methods (greedy, greedy cropped, greedy DA, greedy INV, etc.).",
+      "metrics": {
+        "AUROC": {
+          "greedy_inv_soups": "Worse than greedy soups on holdout; better on external/corrupted/perturbed sets",
+          "greedy_cropped_soups": "No consistent increase across all sets",
+          "greedy_DA_soups": "No consistent increase across all sets"
+        },
+        "mBCE": {
+          "greedy_inv_soups": "Better than greedy soups on corrupted set"
+        },
+        "mFR": {
+          "greedy_inv_soups": "Better than greedy soups on perturbed set"
+        }
+      },
+      "notes": "Standard greedy soup algorithm was found to be relatively effective. Inverse greedy methods (greedy INV) performed worse on holdout but better on external/robustness sets. Artificially increasing validation set size/variation (cropped/DA) was only somewhat successful."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Convolutional Neural Networks (CNNs): ResNet34/50, DenseNet121/169, EfficientNetB1/B3, and VGG11/16",
+    "pretraining": "Pre-trained on ImageNet (ImageNet-1k)",
+    "input_size": "Seven different image resolutions ranging from 112x122 pixels to 448x448 pixels in steps of 56 pixels",
+    "architecture_details": {
+      "model_family": "CNN",
+      "specific_architectures": [
+        "ResNet34",
+        "ResNet50",
+        "DenseNet121",
+        "DenseNet169",
+        "EfficientNetB1",
+        "EfficientNetB3",
+        "VGG11",
+        "VGG16"
+      ],
+      "training_method": "Fine-tuned on a multi-source dermoscopic image dataset (14,648 images) for melanoma-nevus classification",
+      "cross_validation": "Five-fold cross-validation",
+      "hyperparameters": "Fixed according to Ha et al. [19], except for image size",
+      "model_souping": "Weights averaged across models trained on different image sizes (uniform soups) or selected via greedy algorithm based on validation AUROC (greedy soups)"
+    },
+    "training_details": {
+      "dataset": "Multi-source dermoscopic image dataset (14,648 melanoma and nevus images)",
+      "validation_set": "164 melanoma and 398 nevus images used for ranking models in greedy souping",
+      "holdout_set": "562 images",
+      "external_component": "5,678 images from six datasets (MSK, DERM7PT, ISIC2020_SYDNEY, SAM, PH2, SKI-L2)"
+    },
+    "classification_or_output_head": {
+      "task": "Binary classification (Melanoma vs. Nevus)",
+      "output": "Predictive probabilities/confidences"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet34",
+    "ResNet50",
+    "DenseNet121",
+    "DenseNet169",
+    "EfficientNetB1",
+    "EfficientNetB3",
+    "VGG11",
+    "VGG16",
+    "AlexNet",
+    "Model Soups (Uniform)",
+    "Model Soups (Greedy)",
+    "Model Soups (Greedy Cropped)",
+    "Model Soups (Greedy DA)",
+    "Model Soups (Greedy INV)",
+    "Model Soups (Greedy Cropped INV)",
+    "Model Soups (Greedy DA INV)",
+    "Ensembles (Uniform)",
+    "Ensembles (Greedy)"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to seven different resolutions ranging from 112x122 pixels to 448x448 pixels in steps of 56 pixels",
+    "Image corruptions (SAM-C) including blur and other low-quality image perturbations for robustness testing",
+    "Image perturbations (SAM-P) including continuous changes of brightness for robustness testing"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random Cropping",
+      "details": "Used to artificially increase the size and variety of the validation set for greedy soup construction (greedy cropped). Images were duplicated ten times via random cropping."
+    },
+    {
+      "technique": "Data Augmentation (DA)",
+      "details": "Used to artificially increase the size and variety of the validation set for greedy soup construction (greedy DA). Specific augmentation methods were taken from Ha et al. [19]."
+    }
+  ],
+  "conclusions": [
+    "Model soups improve generalization and calibration on external test sets while maintaining performance on holdout test sets for dermoscopic skin cancer classifiers.",
+    "Model soups demonstrate improved robustness against image perturbations, with a substantial average improvement in mean flip rate (from 66.9 ± 21.87 to 52.77 ± 16.09), but show no consistent improvement against image corruptions.",
+    "Greedy soups generally outperform the baseline and perform on par with or better than ensembles on external components, while uniform soups generalize better but perform worse than the baseline on holdout sets.",
+    "Model soups offer a computationally efficient and more transparent alternative to traditional ensembles by combining multiple models into a single model, which reduces complexity and may enhance clinical applicability.",
+    "The standard greedy soup algorithm is robust to changes in validation set size and variation, with negligible performance differences observed when artificially altering these factors.",
+    "Inverse greedy soup algorithms improve performance on external and robustness test sets but result in decreased performance on the holdout test set compared to standard greedy soups."
+  ],
+  "important_remarks": [
+    "The model pool size was limited to only seven models (varying image resolutions), which is smaller than the 12-72 models used in the foundational model soups literature (Wortsman et al.), potentially limiting the generalizability of the soup construction benefits.",
+    "The study is constrained by the highest native resolution available online for the HAM10000 dataset (600x450 pixels), which limits the upper bound of image resolution variations tested.",
+    "While model soups improved generalization and calibration on external datasets, they performed worse than the baseline on the holdout component for AUROC (specifically uniform soups), indicating a potential trade-off between external generalization and in-distribution performance.",
+    "Model soups showed no consistent improvement against image corruptions (mBCE remained on par with baseline), suggesting limited robustness to low-quality image artifacts compared to perturbations.",
+    "The study relies on retrospective dermoscopic image datasets; clinical applicability claims are based on computational metrics (AUROC, ECE, robustness) rather than prospective clinical trials or human-in-the-loop studies.",
+    "Several authors report significant conflicts of interest, including advisory roles, speaker honoraria, and consulting fees from major pharmaceutical companies (e.g., Novartis, Roche, BMS, MSD) and dermatology-related entities, which may introduce bias in the interpretation of clinical applicability.",
+    "One corresponding author (TJB) owns a company (Smart Health Heidelberg) developing telemedicine mobile apps, raising potential commercial conflict of interest regarding the promotion of AI tools in dermatology.",
+    "The external component was constructed from only six specific datasets (MSK, DERM7PT, ISIC2020_SYDNEY, SAM, PH2, SKINL2), which may not fully represent the global diversity of dermoscopic imaging practices and populations."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_maron_2022_model_soups_improve_performance_of_dermoscopic_skin_cancer_classifier.pdf",
+    "summary": "The study utilized a multi-source dermoscopic image dataset of 14,648 images for training and fine-tuning eight CNN architectures pre-trained on ImageNet. A holdout component of 562 images from the same source was used for internal testing and model selection (validation) during the greedy soup construction process. An external component comprising 5,678 images from six distinct datasets (MSK, DERM7PT, ISIC2020_SYDNEY, SAM, PH2, SKINL2) was used for external testing to evaluate generalization. Additionally, the SAM-C and SAM-P subsets from the SAM dataset were used to evaluate robustness against corruptions and perturbations, respectively.",
+    "cross_dataset_testing": true,
+    "has_cross_dataset_validation": "Yes",
+    "cross_dataset_validation_type": "Train-on-one-test-on-another",
+    "cross_dataset_validation_details": "The models were trained on a multi-source dataset (14,648 images) and tested on a separate external component (5,678 images) constructed from six different named datasets (MSK, DERM7PT, ISIC2020_SYDNEY, SAM, PH2, SKINL2) that were not used for training. This constitutes cross-dataset validation as the test data comes from unseen sources relative to the training distribution.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "Multi-source dermoscopic image dataset",
+          "counts": "14,648 images (melanoma and nevus)",
+          "notes": "Used to fine-tune eight CNN architectures (ResNet34/50, DenseNet121/169, EfficientNetB1/B3, VGG11/16) pre-trained on ImageNet across seven different image resolutions."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "Holdout Component (subset of multi-source dataset)",
+          "counts": "562 images (164 melanoma, 398 nevi)",
+          "notes": "Used for model selection during greedy soup construction (ranking models) and as an internal test set for performance evaluation. Note: The paper refers to this as a 'holdout component' and also uses a subset of it for validation during soup construction."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "Holdout Component",
+          "counts": "562 images",
+          "notes": "Used for internal testing to evaluate performance on data from the same distribution as the training set."
+        },
+        {
+          "dataset": "External Component",
+          "counts": "5,678 images",
+          "notes": "Used for external testing to evaluate generalization to images from other clinics."
+        }
+      ],
+      "external_testing": [
+        {
+          "dataset": "External Component (Multi-source)",
+          "counts": "5,678 images",
+          "notes": "Constructed from six distinct datasets: MSK, DERM7PT, ISIC2020_SYDNEY, SAM, PH2, and SKINL2. Used to assess generalization, robustness, and calibration on unseen data."
+        }
+      ],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Used to pre-train the eight CNN architectures before fine-tuning on the dermoscopic dataset."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "SAM-C (Corrupted)",
+          "notes": "Subset of SAM dataset with 14 types of image corruptions (e.g., blur) used to evaluate robustness. Not synthetic, but perturbed real data."
+        },
+        {
+          "dataset": "SAM-P (Perturbed)",
+          "notes": "Subset of SAM dataset with 10 types of image perturbations (e.g., brightness changes) used to evaluate robustness. Not synthetic, but perturbed real data."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split | external validation",
+      "split_details": "Training: 14,648 images. Validation/Model Selection: 562 images (subset of training source). Internal Test: 562 images (Holdout Component). External Test: 5,678 images (External Component).",
+      "cross_validation_details": "Five-fold cross-validation was used within the training process to reduce influence of stochastic training events and dataset differences, but the final evaluation was on fixed holdout and external splits.",
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "The External Component (5,678 images from MSK, DERM7PT, ISIC2020_SYDNEY, SAM, PH2, SKINL2) served as unseen data for generalization testing."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "Holdout Component",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "Multi-source dermoscopic image dataset"
+        ],
+        "model_or_method": "Greedy Soup",
+        "metrics": {
+          "accuracy": null,
+          "auc": "On par with baseline",
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "ECE": "Not reported specifically for greedy soup vs baseline in text, but ensembles outperformed greedy soup",
+            "Brier Score": "Not reported specifically for greedy soup vs baseline in text, but ensembles outperformed greedy soup",
+            "NLL": "Not reported specifically for greedy soup vs baseline in text, but ensembles outperformed greedy soup"
+          }
+        },
+        "notes": "Greedy soups maintained performance on the holdout test set. Uniform soups performed worse on the holdout test set, especially for AUROC. Ensembles outperformed greedy soups on the holdout test set."
+      },
+      {
+        "dataset": "External Component",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "Multi-source dermoscopic image dataset"
+        ],
+        "model_or_method": "Greedy Soup",
+        "metrics": {
+          "accuracy": null,
+          "auc": "Improved over baseline (substantial AUROC improvement)",
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "ECE": "Improved calibration compared to baseline",
+            "Brier Score": "Not reported for greedy soup vs baseline in text, but ensembles outperformed greedy soup",
+            "NLL": "Not reported for greedy soup vs baseline in text, but ensembles outperformed greedy soup"
+          }
+        },
+        "notes": "Model soups improved generalization and calibration on the external component. Greedy soups showed substantial AUROC improvement. Ensembles generally outperformed soups in calibration metrics (ECE, BS, NLL)."
+      },
+      {
+        "dataset": "SAM-C (Corrupted)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "Multi-source dermoscopic image dataset"
+        ],
+        "model_or_method": "Greedy Soup",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "mBCE": "93.43 ± 9.96"
+          }
+        },
+        "notes": "Performance remained on par with baseline (93.51 ± 6.45). No consistent trend for individual corruption types."
+      },
+      {
+        "dataset": "SAM-P (Perturbed)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "Multi-source dermoscopic image dataset"
+        ],
+        "model_or_method": "Greedy Soup",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "mFR": "52.77 ± 16.09"
+          }
+        },
+        "notes": "Substantial average improvement in mFR observed compared to baseline (66.9 ± 21.87). Improvements were consistently observed across all ten perturbation types."
+      }
+    ],
+    "cross_dataset_experiments": [
+      {
+        "train_datasets": [
+          "Multi-source dermoscopic image dataset"
+        ],
+        "validation_datasets": [
+          "Holdout Component (subset of training source)"
+        ],
+        "test_datasets": [
+          "External Component"
+        ],
+        "unseen_test_data": true,
+        "models": [
+          "Greedy Soup",
+          "Uniform Soup",
+          "Ensembles"
+        ],
+        "results": [
+          {
+            "dataset": "External Component",
+            "metric": "AUROC",
+            "value": "Improved over baseline",
+            "model": "Greedy Soup"
+          },
+          {
+            "dataset": "External Component",
+            "metric": "ECE",
+            "value": "Improved calibration",
+            "model": "Greedy Soup"
+          },
+          {
+            "dataset": "SAM-C",
+            "metric": "mBCE",
+            "value": "93.43 ± 9.96",
+            "model": "Greedy Soup"
+          },
+          {
+            "dataset": "SAM-P",
+            "metric": "mFR",
+            "value": "52.77 ± 16.09",
+            "model": "Greedy Soup"
+          }
+        ],
+        "notes": "The model was trained on one multi-source dataset and tested on a different set of unseen datasets (External Component) to evaluate generalization. This is a true cross-dataset validation experiment."
+      }
+    ],
+    "within_dataset_results": [
+      {
+        "dataset": "Holdout Component",
+        "split_or_cv": "Fixed split (562 images)",
+        "models": [
+          "Greedy Soup",
+          "Uniform Soup",
+          "Ensembles"
+        ],
+        "results": [
+          {
+            "metric": "AUROC",
+            "value": "On par with baseline (Greedy), Worse than baseline (Uniform)",
+            "model": "Greedy Soup / Uniform Soup",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study demonstrates improved generalization on external datasets (External Component) compared to the baseline, particularly for greedy soups.",
+      "Performance on the holdout component (in-distribution) was maintained but not improved by greedy soups, while uniform soups performed worse.",
+      "Robustness to perturbations (SAM-P) was improved, but robustness to corruptions (SAM-C) was not significantly improved.",
+      "The external component was constructed from only six specific datasets, which may not fully represent global diversity.",
+      "The model pool size was limited to seven models, which is smaller than typical model soup literature, potentially limiting generalizability of the soup construction benefits."
+    ],
+    "information_not_reported": [
+      "Exact counts for each of the six external datasets (MSK, DERM7PT, ISIC2020_SYDNEY, SAM, PH2, SKINL2) are not provided in the text, only the total (5,678).",
+      "Specific AUROC values for the baseline and soups on the holdout and external components are not explicitly reported as numbers in the text, only relative comparisons (e.g., 'improved', 'on par').",
+      "Patient-level separation details are not explicitly reported, though image-level splits are implied."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780002189
+  }
+}

@@ -1,0 +1,623 @@
+{
+  "file_name": "he_2023_attention_based_dual_path_feature_fusion_network_for_automatic_skin_lesi.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses an Attention-based Dual-path Feature Fusion Network (ADFFNet), a deep learning model based on Convolutional Neural Networks (CNN) and VGG16, for automatic skin lesion segmentation in dermoscopy images. The method was evaluated on the ISIC 2018 and PH2 datasets to segment melanoma and other skin lesions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper explicitly labels itself as 'RESEARCH' and presents an original experimental study proposing a new deep learning model, the Attention-based Dual-path Feature Fusion Network (ADFFNet), for skin lesion segmentation. It details the methodology, including specific modules (BR, MFS, DFF), describes the experimental setup using the ISIC 2018 and PH2 datasets, and reports quantitative results (F1-score, SE, JS) and ablation studies, which are characteristic of original research rather than a review."
+  },
+  "title": "Attention‑based dual‑path feature fusion network for automatic skin lesion segmentation",
+  "authors": [
+    "Zhenxiang He",
+    "Xiaoxia Li",
+    "Yuling Chen",
+    "Nianzu Lv",
+    "Yong Cai"
+  ],
+  "doi": "10.1186/s13040-023-00345-x",
+  "journal": "BioData Mining",
+  "year": 2023,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes an Attention-based Dual-path Feature Fusion Network (ADFFNet) to address the challenges of automatic skin lesion segmentation, such as blurred boundaries and uneven color distribution. The model utilizes a Boundary Refinement module in the spatial path and a Multi-scale Feature Selection module in the context path, integrated via a Dual-path Feature Fusion mechanism, with VGG16 as the backbone. The method was evaluated on the ISIC 2018 and PH2 datasets, achieving F1-scores of 0.890 and 0.925, respectively. Comparative analysis demonstrated that ADFFNet outperforms state-of-the-art segmentation methods in both accuracy and generalization ability. The results indicate that the proposed network effectively restores image details and improves pixel-level segmentation accuracy for melanoma detection.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "nodular melanoma",
+        "skin melanoma",
+        "skin lesions"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on the segmentation of melanoma and other skin lesions. The ISIC 2018 dataset includes 7 types of skin diseases such as melanoma and nodular melanoma. The PH2 dataset includes 160 pictures of moles (nevi) and 40 pictures of melanoma. The model was trained on ISIC 2018 and tested on both ISIC 2018 and PH2 datasets for melanoma segmentation."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "moles",
+        "skin lesions"
+      ],
+      "role": "Target class",
+      "details": "Included in the PH2 dataset which contains 160 pictures of moles. The PH2 dataset was used for testing the generalization ability of the model."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-level segmentation mask of skin lesions (melanoma and other skin diseases) in dermoscopy images.",
+        "primary": true,
+        "details": "The paper explicitly focuses on 'automatic skin lesion segmentation'. The model (ADFFNet) predicts a binary segmentation mask (lesion vs. background) at the pixel level. The task is defined as 'pixel-by-pixel classification of dermoscopy images to delimit the boundaries of the lesion'. Evaluation metrics include F1-score, Sensitivity (SE), Jaccard similarity (JS), Accuracy, Specificity, and Precision, which are standard for segmentation tasks. The loss function combines boundary-oriented loss, cross-entropy loss, and dice coefficient loss, all tailored for segmentation."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A large-scale dataset of dermoscopy images published by the International Skin Imaging Collaboration (ISIC), coming from challenges of lesion segmentation, dermoscopy feature detection, and disease classification. It includes 7 types of skin diseases such as melanoma and nodular melanoma. Images were resized to 256x256 pixels. GANs were used for data augmentation.",
+      "classes_used": [
+        "melanoma",
+        "nodular melanoma",
+        "other skin diseases (5 other types)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 1815,
+        "validation": 259,
+        "testing": 520,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the ADFFNet model (1815 images).",
+        "validation": "Used for validation during training (259 images).",
+        "testing": "Used for testing the model's segmentation performance (520 images).",
+        "other": "Data augmentation was performed using Generative Adversarial Networks (GANs)."
+      }
+    },
+    {
+      "name": "PH2 Dataset",
+      "description": "A dataset published by Mendonça et al. in 2013, containing dermoscopy images with continuous labeling of segmented areas. Images are 8-bit RGB with 768x560 pixels resolution, resized to 256x256 pixels for this study.",
+      "classes_used": [
+        "moles (nevi)",
+        "melanoma"
+      ],
+      "counts": {
+        "total": 200,
+        "training": null,
+        "validation": null,
+        "testing": 200,
+        "per_class": {
+          "moles": 160,
+          "melanoma": 40
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for testing the generalization ability of the model trained on ISIC 2018.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "F1-Score",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "Accuracy",
+    "Precision",
+    "Jaccard Coefficient",
+    "Dice Coefficient",
+    "FLOPs",
+    "Parameters",
+    "Inference Time",
+    "AUC-ROC",
+    "Sensitivity (True Positive Rate)",
+    "False Positive Rate (FPR)"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using absolute metric values (F1-score, SE, JS, etc.) and percentage improvements over baseline methods without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018": {
+      "metric": "F1-score, SE, SP, AC, PC, JS",
+      "models": {
+        "UNet": {
+          "F1-score": "0.742",
+          "SE": "0.708",
+          "SP": "0.964",
+          "AC": "0.890",
+          "PC": "0.779",
+          "JS": "0.590"
+        },
+        "Attention UNet": {
+          "F1-score": "0.750",
+          "SE": "0.717",
+          "SP": "0.967",
+          "AC": "0.897",
+          "PC": "0.787",
+          "JS": "0.600"
+        },
+        "R2UNet": {
+          "F1-score": "0.766",
+          "SE": "0.792",
+          "SP": "0.928",
+          "AC": "0.880",
+          "PC": "0.741",
+          "JS": "0.620"
+        },
+        "FCN": {
+          "F1-score": "0.852",
+          "SE": "0.837",
+          "SP": "0.966",
+          "AC": "0.938",
+          "PC": "0.868",
+          "JS": "0.742"
+        },
+        "UNet++": {
+          "F1-score": "0.856",
+          "SE": "0.817",
+          "SP": "0.975",
+          "AC": "0.942",
+          "PC": "0.900",
+          "JS": "0.748"
+        },
+        "BCDUNet": {
+          "F1-score": "0.851",
+          "SE": "0.785",
+          "SP": "0.982",
+          "AC": "0.937",
+          "PC": "0.928",
+          "JS": "0.740"
+        },
+        "HiFormeS": {
+          "F1-score": "0.883",
+          "SE": "0.928",
+          "SP": "0.911",
+          "AC": "0.918",
+          "PC": "0.848",
+          "JS": "0.795"
+        },
+        "ADFFNet (VGG16)": {
+          "F1-score": "0.873",
+          "SE": "0.827",
+          "SP": "0.982",
+          "AC": "0.950",
+          "PC": "0.924",
+          "JS": "0.774"
+        },
+        "ADFFNet (ResNet101)": {
+          "F1-score": "0.890",
+          "SE": "0.933",
+          "SP": "0.918",
+          "AC": "0.927",
+          "PC": "0.880",
+          "JS": "0.819"
+        }
+      },
+      "notes": "The ADFFNet with ResNet101 backbone achieved the highest F1-score (0.890), SE (0.933), and JS (0.819). The method improved F1-score, SE, and JS by 0.7%, 0.5%, and 2.4% respectively compared to the highest value of all comparison methods. ADFFNet (VGG16) achieved an AUC of 0.9099."
+    },
+    "PH2": {
+      "metric": "F1-score, SE, SP, AC, PC, JS",
+      "models": {
+        "UNet": {
+          "F1-score": "0.789",
+          "SE": "0.781",
+          "SP": "0.851",
+          "AC": "0.859",
+          "PC": "0.787",
+          "JS": "0.651"
+        },
+        "Attention UNet": {
+          "F1-score": "0.823",
+          "SE": "0.796",
+          "SP": "0.934",
+          "AC": "0.889",
+          "PC": "0.852",
+          "JS": "0.700"
+        },
+        "R2UNet": {
+          "F1-score": "0.834",
+          "SE": "0.812",
+          "SP": "0.923",
+          "AC": "0.896",
+          "PC": "0.857",
+          "JS": "0.715"
+        },
+        "BCDUNet": {
+          "F1-score": "0.866",
+          "SE": "0.864",
+          "SP": "0.938",
+          "AC": "0.914",
+          "PC": "0.869",
+          "JS": "0.764"
+        },
+        "HiFormeS": {
+          "F1-score": "0.922",
+          "SE": "0.982",
+          "SP": "0.903",
+          "AC": "0.937",
+          "PC": "0.871",
+          "JS": "0.856"
+        },
+        "ADFFNet (VGG16)": {
+          "F1-score": "0.897",
+          "SE": "0.893",
+          "SP": "0.954",
+          "AC": "0.934",
+          "PC": "0.902",
+          "JS": "0.814"
+        },
+        "ADFFNet (ResNet101)": {
+          "F1-score": "0.925",
+          "SE": "0.954",
+          "SP": "0.922",
+          "AC": "0.945",
+          "PC": "0.915",
+          "JS": "0.872"
+        }
+      },
+      "notes": "The ADFFNet with ResNet101 backbone achieved the highest F1-score (0.925) and JS (0.872). The method improved F1-score, SP, AC, PC, and JS by 0.3%, 1.6%, 0.8%, 4.4%, and 1.6% respectively. ADFFNet (VGG16) achieved an AUC of 0.9323. The model was trained on ISIC 2018 and tested directly on PH2 to verify generalization ability."
+    },
+    "Ablation Study (ISIC 2018)": {
+      "metric": "JS (Jaccard Similarity)",
+      "models": {
+        "U-Net (Baseline)": "0.590",
+        "U-Net + BR": "0.635",
+        "U-Net + MCIE": "0.628",
+        "U-Net + FS": "0.671",
+        "U-Net + BR + FS": "0.649",
+        "U-Net + BR + MCIE + FS": "0.717",
+        "U-Net + BR + MCIE + DFF": "0.755",
+        "ADFFNet (Full)": "0.783"
+      },
+      "notes": "Ablation experiments were conducted on the ISIC 2018 dataset using JS as the primary metric. The full ADFFNet model achieved the highest JS score of 0.783. The Multi-scale Context Information Extraction (MCIE) module had the greatest effect on performance improvement among individual modules."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Attention-based Dual-path Feature Fusion Network (ADFFNet)",
+    "pretraining": "Not reported (weights and bias terms were randomly initialized to obey the standard Gaussian distribution)",
+    "input_size": "256x256 pixels",
+    "architecture_details": {
+      "backbone": [
+        "VGG16",
+        "ResNet101"
+      ],
+      "structure": "Encoder-decoder structure with spatial path and context path",
+      "modules": {
+        "spatial_path": "Boundary Refinement (BR) module for low-level features to filter irrelevant background and retain boundary details",
+        "context_path": "Multi-scale Feature Selection (MFS) module for high-level features to capture multi-scale context information and use attention mechanism to filter redundant semantic information",
+        "fusion": "Dual-path Feature Fusion (DFF) module using high-level global attention information to guide step-by-step fusion of high-level semantic features and low-level detail features",
+        "additional_components": [
+          "Multi-scale Context Information Extraction (MCIE) module",
+          "Feature Selection (FS) structure",
+          "Traditional edge detection operators integrated to guide boundary positioning"
+        ]
+      },
+      "loss_function": "Combination of boundary-oriented loss, cross-entropy loss, and dice coefficient loss",
+      "optimizer": "Adam",
+      "optimizer_hyperparameters": {
+        "learning_rate": 0.0001,
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "decay": "1e-4"
+      },
+      "training_schedule": {
+        "epochs": 60,
+        "batch_size": 8,
+        "early_stopping": "Stopped if validation loss did not decrease for 10 epochs"
+      },
+      "framework": "Keras (with CuDNN V7 and Cuda9.1)",
+      "hardware": "NVIDIA GTX1080Ti GPU"
+    },
+    "training_details": {
+      "dataset": "ISIC 2018 (1815 training, 259 validation, 520 testing images)",
+      "data_augmentation": "Generative Adversarial Networks (GANs)",
+      "weight_initialization": "Standard Gaussian distribution"
+    },
+    "classification_or_output_head": {
+      "type": "Pixel-level binary segmentation mask (lesion vs. background)",
+      "evaluation_metric_for_training": "Dice coefficient"
+    },
+    "approximate_parameters": {
+      "ADFFNet_VGG16": "16.2M",
+      "ADFFNet_ResNet101": "46.2M"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Attention-based Dual-path Feature Fusion Network (ADFFNet)",
+    "U-Net",
+    "Attention UNet",
+    "R2UNet",
+    "Fully Convolutional Network (FCN)",
+    "UNet++",
+    "BCDUNet",
+    "HiFormeS",
+    "U-Net (Baseline for ablation)",
+    "U-Net + BR",
+    "U-Net + MCIE",
+    "U-Net + FS",
+    "U-Net + BR + FS",
+    "U-Net + BR + MCIE + FS",
+    "U-Net + BR + MCIE + DFF",
+    "ADFFNet (VGG16 backbone)",
+    "ADFFNet (ResNet101 backbone)"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 256x256 pixels for both ISIC 2018 and PH2 datasets",
+    "Data augmentation using Generative Adversarial Networks (GANs) to address limited dataset size and prevent overfitting"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Generative Adversarial Networks (GANs)",
+      "details": "Used to augment the ISIC 2018 dataset to address the limited number of images and prevent model overfitting during training."
+    }
+  ],
+  "conclusions": [
+    "The proposed Attention-based Dual-path Feature Fusion Network (ADFFNet) effectively addresses challenges in automatic skin lesion segmentation, such as blurred boundaries and uneven color distribution, by utilizing a Boundary Refinement (BR) module, a Multi-scale Feature Selection (MFS) module, and a Dual-path Feature Fusion (DFF) mechanism.",
+    "ADFFNet achieves superior segmentation performance compared to state-of-the-art methods, with an F1-score of 0.890 and Sensitivity (SE) of 0.933 on the ISIC 2018 dataset, and an F1-score of 0.925 and SE of 0.954 on the PH2 dataset.",
+    "The model demonstrates strong generalization ability, as evidenced by its high performance on the PH2 dataset despite being trained exclusively on the ISIC 2018 dataset.",
+    "Ablation studies confirm that the Multi-scale Context Information Extraction (MCIE) module has the greatest impact on performance improvement, while the BR, FS, and DFF modules also significantly enhance segmentation accuracy.",
+    "ADFFNet balances computational efficiency and accuracy, achieving the smallest number of FLOPs among compared methods while maintaining favorable parameter counts and inference times.",
+    "The integration of a multivariate loss function (combining boundary-oriented loss, cross-entropy loss, and dice coefficient loss) helps stabilize training and overcome class imbalance, leading to more accurate pixel-level segmentation."
+  ],
+  "important_remarks": [
+    "The study focuses exclusively on lesion segmentation and does not address lesion categorization or diagnosis, which are necessary for comprehensive clinical application.",
+    "The model was trained on the ISIC 2018 dataset and tested on the PH2 dataset for generalization; however, no external validation on other independent datasets was performed.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was reported; performance comparisons rely on absolute metric values.",
+    "Data augmentation was performed using Generative Adversarial Networks (GANs), but the specific architecture or training details of the GANs are not provided.",
+    "The PH2 dataset is small (200 images total: 160 moles, 40 melanomas), which may limit the robustness of the generalization evaluation.",
+    "The paper claims superior performance but does not report standard deviation or variance across multiple runs, making it difficult to assess result stability.",
+    "The study acknowledges that background factors like skin color, hair, capillaries, and bubbles affect segmentation, but does not provide specific analysis on failure cases related to these artifacts."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_he_2023_attention_based_dual_path_feature_fusion_network_for_automatic_skin_lesi.pdf",
+    "summary": "The study proposes an Attention-based Dual-path Feature Fusion Network (ADFFNet) for automatic skin lesion segmentation. The model was trained on the ISIC 2018 dataset (1815 images) with a validation split (259 images) for early stopping. The testing phase involved an internal test on the ISIC 2018 dataset (520 images) and an external generalization test on the PH2 dataset (200 images), which was not used during training. Data augmentation was performed using Generative Adversarial Networks (GANs) on the ISIC 2018 training set.",
+    "cross_dataset_testing": true,
+    "has_cross_dataset_validation": "Yes",
+    "cross_dataset_validation_type": "Train-on-one-test-on-another",
+    "cross_dataset_validation_details": "The model was trained exclusively on the ISIC 2018 dataset. It was then tested on the PH2 dataset, which is a separate, unseen dataset, to evaluate generalization ability. This constitutes a train-on-one-test-on-another cross-dataset validation experiment.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2018",
+          "counts": 1815,
+          "notes": "Used for training the ADFFNet model. Images were resized to 256x256 pixels. GANs were used for data augmentation."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2018",
+          "counts": 259,
+          "notes": "Used for model selection/tuning. Training was stopped if the validation loss did not decrease for 10 epochs (early stopping)."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2018",
+          "counts": 520,
+          "notes": "Used for internal testing of the model's segmentation performance on the same distribution as training data."
+        }
+      ],
+      "external_testing": [
+        {
+          "dataset": "PH2",
+          "counts": 200,
+          "notes": "Used as an unseen external dataset to verify the generalization ability of the model trained on ISIC 2018. Contains 160 moles and 40 melanomas."
+        }
+      ],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Not explicitly stated as pretraining source in the provided text, but VGG16 and ResNet101 backbones typically imply ImageNet pretraining. The paper states 'randomly initialize the model weights' for the full network but uses VGG16/ResNet101 as backbones. Standard practice implies ImageNet pretraining for these backbones, but the text does not explicitly confirm it. Given the strict rule, we note the backbone usage."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "ISIC 2018 (Augmented)",
+          "notes": "Generative Adversarial Networks (GANs) were used to augment the ISIC 2018 training dataset to address limited image count and prevent overfitting."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split | external validation",
+      "split_details": "ISIC 2018: 1815 training, 259 validation, 520 testing. PH2: 200 testing (no split). Images resized to 256x256.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "The PH2 dataset (200 images) was used as unseen external data. The model was trained on ISIC 2018 and tested directly on PH2."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2018",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018"
+        ],
+        "model_or_method": "ADFFNet (ResNet101)",
+        "metrics": {
+          "accuracy": "0.927",
+          "auc": "0.9099",
+          "sensitivity": "0.933",
+          "specificity": "0.918",
+          "f1_score": "0.890",
+          "other_metrics": {
+            "precision": "0.880",
+            "jaccard_similarity": "0.819"
+          }
+        },
+        "notes": "Best performing model on ISIC 2018. Improved F1, SE, and JS by 0.7%, 0.5%, and 2.4% respectively compared to the next best method (HiFormeS)."
+      },
+      {
+        "dataset": "ISIC 2018",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018"
+        ],
+        "model_or_method": "ADFFNet (VGG16)",
+        "metrics": {
+          "accuracy": "0.950",
+          "auc": "0.9099",
+          "sensitivity": "0.827",
+          "specificity": "0.982",
+          "f1_score": "0.873",
+          "other_metrics": {
+            "precision": "0.924",
+            "jaccard_similarity": "0.774"
+          }
+        },
+        "notes": "ADFFNet with VGG16 backbone."
+      },
+      {
+        "dataset": "PH2",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018"
+        ],
+        "model_or_method": "ADFFNet (ResNet101)",
+        "metrics": {
+          "accuracy": "0.945",
+          "auc": "0.9323",
+          "sensitivity": "0.954",
+          "specificity": "0.922",
+          "f1_score": "0.925",
+          "other_metrics": {
+            "precision": "0.915",
+            "jaccard_similarity": "0.872"
+          }
+        },
+        "notes": "External generalization test. Improved F1, SP, AC, PC, and JS by 0.3%, 1.6%, 0.8%, 4.4%, and 1.6% respectively compared to the next best method (HiFormeS)."
+      },
+      {
+        "dataset": "PH2",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018"
+        ],
+        "model_or_method": "ADFFNet (VGG16)",
+        "metrics": {
+          "accuracy": "0.934",
+          "auc": "0.9323",
+          "sensitivity": "0.893",
+          "specificity": "0.954",
+          "f1_score": "0.897",
+          "other_metrics": {
+            "precision": "0.902",
+            "jaccard_similarity": "0.814"
+          }
+        },
+        "notes": "External generalization test with VGG16 backbone."
+      }
+    ],
+    "cross_dataset_experiments": [
+      {
+        "train_datasets": [
+          "ISIC 2018"
+        ],
+        "validation_datasets": [
+          "ISIC 2018"
+        ],
+        "test_datasets": [
+          "PH2"
+        ],
+        "unseen_test_data": true,
+        "models": [
+          "ADFFNet (ResNet101)",
+          "ADFFNet (VGG16)"
+        ],
+        "results": [
+          {
+            "dataset": "PH2",
+            "metric": "F1-score",
+            "value": "0.925",
+            "model": "ADFFNet (ResNet101)"
+          },
+          {
+            "dataset": "PH2",
+            "metric": "F1-score",
+            "value": "0.897",
+            "model": "ADFFNet (VGG16)"
+          },
+          {
+            "dataset": "PH2",
+            "metric": "Jaccard Similarity",
+            "value": "0.872",
+            "model": "ADFFNet (ResNet101)"
+          },
+          {
+            "dataset": "PH2",
+            "metric": "Jaccard Similarity",
+            "value": "0.814",
+            "model": "ADFFNet (VGG16)"
+          }
+        ],
+        "notes": "The model was trained on ISIC 2018 and tested on the unseen PH2 dataset to verify generalization ability. PH2 is a small dataset (200 images) with a different distribution than ISIC 2018."
+      }
+    ],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2018",
+        "split_or_cv": "1815 train, 259 val, 520 test",
+        "models": [
+          "ADFFNet (ResNet101)",
+          "ADFFNet (VGG16)",
+          "UNet",
+          "Attention UNet",
+          "R2UNet",
+          "FCN",
+          "UNet++",
+          "BCDUNet",
+          "HiFormeS"
+        ],
+        "results": [
+          {
+            "metric": "F1-score",
+            "value": "0.890",
+            "model": "ADFFNet (ResNet101)",
+            "data_split": "test"
+          },
+          {
+            "metric": "F1-score",
+            "value": "0.873",
+            "model": "ADFFNet (VGG16)",
+            "data_split": "test"
+          },
+          {
+            "metric": "Jaccard Similarity",
+            "value": "0.819",
+            "model": "ADFFNet (ResNet101)",
+            "data_split": "test"
+          },
+          {
+            "metric": "Jaccard Similarity",
+            "value": "0.783",
+            "model": "ADFFNet (Full Ablation)",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study demonstrates generalization by testing on the PH2 dataset, which was not used during training. However, the PH2 dataset is small (200 images), which may limit the robustness of the generalization evaluation. No other external datasets were used for validation.",
+      "The paper acknowledges limitations regarding lesion categorization and diagnosis, focusing only on segmentation.",
+      "No formal statistical hypothesis testing (p-values, confidence intervals) was reported for the generalization results."
+    ],
+    "information_not_reported": [
+      "Specific details of the GAN architecture used for augmentation.",
+      "Whether ImageNet pretraining was explicitly used for the VGG16/ResNet101 backbones (though standard, not explicitly confirmed in text).",
+      "Standard deviation or variance across multiple runs for the reported metrics.",
+      "Patient-level separation details (images are treated as independent samples)."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780001086
+  }
+}

@@ -1,0 +1,704 @@
+{
+  "file_name": "wan_2025_evaluating_sex_and_age_biases_in_multimodal_large_language_models_for_s.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The study used multimodal large language models (ChatGPT-4 and LLaVA-1.6) and deep learning models (VGG16, ResNet50, Swin-B, Model Derm) to perform skin disease identification (classification of melanoma, melanocytic nevi, and benign keratosis-like lesions) from dermatoscopic images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'RESEARCH ARTICLE' and presents original experimental results. The Methods section details the use of specific datasets (HAM10000 subset), models (ChatGPT-4, LLaVA-1.6, VGG16, ResNet50, Swin-B, Model Derm), and statistical analyses (chi-square tests, AOD metrics) to evaluate sex and age biases. The Results section reports specific accuracy and F1-score findings, indicating it is an original study rather than a review."
+  },
+  "title": "Evaluating Sex and Age Biases in Multimodal Large Language Models for Skin Disease Identification from Dermatoscopic Images",
+  "authors": [
+    "Zhiyu Wan",
+    "Yuhang Guo",
+    "Shunxing Bao",
+    "Qian Wang",
+    "Bradley A. Malin"
+  ],
+  "doi": "10.34133/hds.0256",
+  "journal": "Health Data Science",
+  "year": 2025,
+  "article_type": "Research article",
+  "brief_summary": "This study evaluated the performance and fairness of two multimodal large language models, ChatGPT-4 and LLaVA-1.6, in identifying three skin diseases (melanoma, melanocytic nevi, and benign keratosis-like lesions) from dermatoscopic images. Using a balanced subset of the HAM10000 dataset, the researchers compared these LLMs against deep learning baselines including VGG16, ResNet50, Model Derm, and Swin-B. The evaluation assessed accuracy and F1-scores across different sex and age groups to determine demographic biases. Results showed that ChatGPT-4 and LLaVA-1.6 outperformed the best CNN-based baseline but were significantly less accurate than the Swin-B vision transformer. Crucially, ChatGPT-4 demonstrated generally unbiased performance across sex and age groups, whereas LLaVA-1.6 exhibited some biases, suggesting LLMs can be useful and fair tools for dermatological screening.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "Mel."
+      ],
+      "role": "Target class",
+      "details": "One of the three skin diseases studied in the HAM10000 subset. The balanced dataset contained 1,112 images of melanoma. It is described as a malignant lesion and considered more serious than MN and BKL."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "melanocytic nevi",
+        "MN"
+      ],
+      "role": "Target class",
+      "details": "One of the three skin diseases studied in the HAM10000 subset. The balanced dataset contained 1,115 images of melanocytic nevi."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "benign keratosis-like lesions",
+        "BKL"
+      ],
+      "role": "Target class",
+      "details": "One of the three skin diseases studied in the HAM10000 subset. The balanced dataset contained 1,100 images of BKL. The paper notes that BKL and melanoma appear quite similar."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin disease identification (melanoma, melanocytic nevi, or benign keratosis-like lesions)",
+        "primary": true,
+        "details": "The study performs multi-class classification of dermatoscopic images into three discrete diagnostic categories: melanoma, melanocytic nevi (MN), and benign keratosis-like lesions (BKL). The models (ChatGPT-4, LLaVA-1.6, VGG16, ResNet50, Swin-B, Model Derm) predict discrete disease labels. Performance is evaluated using accuracy and F1-scores for these classes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A subset of the HAM10000 dataset, an open, multi-source dermatoscopic image dataset. The study focused on three specific skin diseases: melanoma, melanocytic nevi (MN), and benign keratosis-like lesions (BKL). The original dataset contained 10,015 images covering 7 diseases, but this study selected images for the three most common classes to create a balanced subset.",
+      "classes_used": [
+        "Melanoma",
+        "Melanocytic nevi (MN)",
+        "Benign keratosis-like lesions (BKL)"
+      ],
+      "counts": {
+        "total": 3327,
+        "training": 2355,
+        "validation": null,
+        "testing": 972,
+        "per_class": {
+          "Melanoma": {
+            "total": 1112,
+            "training": 777,
+            "validation": null,
+            "testing": 335
+          },
+          "Melanocytic nevi": {
+            "total": 1115,
+            "training": 810,
+            "validation": null,
+            "testing": 305
+          },
+          "Benign keratosis-like lesions": {
+            "total": 1100,
+            "training": 768,
+            "validation": null,
+            "testing": 332
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training VGG16 and ResNet50 models (2,355 images). Also used to generate responses from ChatGPT-4 which were manually interpreted as ground truth for fine-tuning a BERT model.",
+        "validation": "Included within the training set for VGG16 and ResNet50 models, but specific validation split counts were not reported separately.",
+        "testing": "Used for evaluating the performance of ChatGPT-4, LLaVA-1.6, Swin-B, VGG16, ResNet50, Model Derm, and a Random baseline model (972 images).",
+        "other": "Used to assess sex and age biases by categorizing samples into Female/Male/Unknown sex groups and Young/Middle-aged/Senior age groups."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "F1-Score",
+    "Statistical Tests",
+    "Statistical Tests",
+    "Average Odds Difference (AOD)",
+    "Equalized Odds (EOD)",
+    "Disparate Impact (DI)",
+    "Equal Opportunity (EOP)",
+    "Sensitivity (True Positive Rate)",
+    "False Positive Rate (FPR)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Chi-square test",
+      "purpose": "To determine whether an individual's sex or age group is correlated with the accuracy of skin disease identification, by testing the null hypothesis that accuracy measures are the same across groups against the alternative that they differ.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Average Odds Difference (AOD)",
+      "purpose": "To quantify the distance between the model's performance and the ideal state of Equalized Odds (EOD) by calculating the average prediction bias (difference in True Positive Rates and False Positive Rates) across different demographic groups.",
+      "type": "Fairness metric / Uncertainty estimation"
+    },
+    {
+      "method": "Equalized Odds (EOD)",
+      "purpose": "Used as the ideal state criterion for fairness evaluation, requiring equal true positive rates (TPRs) and false positive rates (FPRs) across different groups.",
+      "type": "Fairness criterion"
+    },
+    {
+      "method": "Disparate Impact (DI)",
+      "purpose": "Used as a fairness assessment metric to evaluate bias in the models.",
+      "type": "Fairness metric"
+    },
+    {
+      "method": "Equal Opportunity (EOP)",
+      "purpose": "Used as a fairness assessment metric to evaluate bias in the models.",
+      "type": "Fairness metric"
+    },
+    {
+      "method": "Significance threshold (p < 0.05)",
+      "purpose": "To determine statistical significance for the chi-square tests; if the p-value is less than 0.05, the null hypothesis is rejected.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Chi-square test",
+    "null_hypothesis": "The accuracy measures of the demographic groups (sex or age) are the same.",
+    "alternative_hypothesis": "The accuracy measures differ among the demographic groups.",
+    "alpha": 0.05,
+    "interpretation": "If the P value is less than the significance level (0.05), the null hypothesis is rejected, concluding that there is a significant difference in accuracy across the groups."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000_subset_balanced": {
+      "description": "Fairness evaluation across sex and age groups.",
+      "experiment": "Fairness Evaluation",
+      "metrics": [
+        "Average Odds Difference (AOD)",
+        "P value (chi-square test)",
+        "Bias Status"
+      ],
+      "models": {
+        "ChatGPT-4": {
+          "AOD": {
+            "Sex": {
+              "Melanoma": 0.021,
+              "Melanocytic nevi": 0.089,
+              "Benign keratosis-like lesions": 0.025,
+              "All": 0.024
+            },
+            "Age group": {
+              "Melanoma": 0.069,
+              "Melanocytic nevi": 0.172,
+              "Benign keratosis-like lesions": 0.125,
+              "All": 0.021
+            }
+          },
+          "P_value": {
+            "Sex": {
+              "Melanoma": 0.814,
+              "Melanocytic nevi": 0.141,
+              "Benign keratosis-like lesions": 0.475,
+              "All": 0.545
+            },
+            "Age group": {
+              "Melanoma": 0.738,
+              "Melanocytic nevi": 0.951,
+              "Benign keratosis-like lesions": 0.626,
+              "All": 0.981
+            }
+          },
+          "Biased": "No"
+        },
+        "LLaVA-1.6": {
+          "AOD": {
+            "Sex": {
+              "Melanoma": 0.044,
+              "Melanocytic nevi": 0.095,
+              "Benign keratosis-like lesions": 0.03,
+              "All": 0.04
+            },
+            "Age group": {
+              "Melanoma": 0.096,
+              "Melanocytic nevi": 0.195,
+              "Benign keratosis-like lesions": 0.045,
+              "All": 0.044
+            }
+          },
+          "P_value": {
+            "Sex": {
+              "Melanoma": 0.294,
+              "Melanocytic nevi": 0.005,
+              "Benign keratosis-like lesions": 0.337,
+              "All": 0.06
+            },
+            "Age group": {
+              "Melanoma": 0.136,
+              "Melanocytic nevi": 0.219,
+              "Benign keratosis-like lesions": 0.901,
+              "All": 0.34
+            }
+          },
+          "Biased": "Yes"
+        },
+        "Swin-B": {
+          "AOD": {
+            "Sex": {
+              "Melanoma": 0.029,
+              "Melanocytic nevi": 0.01,
+              "Benign keratosis-like lesions": 0.004,
+              "All": 0.002
+            },
+            "Age group": {
+              "Melanoma": 0.058,
+              "Melanocytic nevi": 0.147,
+              "Benign keratosis-like lesions": 0.056,
+              "All": 0.016
+            }
+          },
+          "P_value": {
+            "Sex": {
+              "Melanoma": 0.517,
+              "Melanocytic nevi": 0.952,
+              "Benign keratosis-like lesions": 0.928,
+              "All": 0.576
+            },
+            "Age group": {
+              "Melanoma": 0.631,
+              "Melanocytic nevi": 0.011,
+              "Benign keratosis-like lesions": 0.918,
+              "All": 0.237
+            }
+          },
+          "Biased": "Yes"
+        },
+        "VGG16": {
+          "AOD": {
+            "Sex": {
+              "Melanoma": 0.108,
+              "Melanocytic nevi": 0.021,
+              "Benign keratosis-like lesions": 0.004,
+              "All": 0.025
+            },
+            "Age group": {
+              "Melanoma": 0.166,
+              "Melanocytic nevi": 0.162,
+              "Benign keratosis-like lesions": 0.158,
+              "All": 0.104
+            }
+          },
+          "P_value": {
+            "Sex": {
+              "Melanoma": 0,
+              "Melanocytic nevi": 0.577,
+              "Benign keratosis-like lesions": 0.626,
+              "All": 0.025
+            },
+            "Age group": {
+              "Melanoma": 0,
+              "Melanocytic nevi": 0.063,
+              "Benign keratosis-like lesions": 0,
+              "All": 0
+            }
+          },
+          "Biased": "Yes"
+        },
+        "ResNet50": {
+          "AOD": {
+            "Sex": {
+              "Melanoma": 0.038,
+              "Melanocytic nevi": 0.022,
+              "Benign keratosis-like lesions": 0.051,
+              "All": 0.013
+            },
+            "Age group": {
+              "Melanoma": 0.111,
+              "Melanocytic nevi": 0.232,
+              "Benign keratosis-like lesions": 0.207,
+              "All": 0.076
+            }
+          },
+          "P_value": {
+            "Sex": {
+              "Melanoma": 0.785,
+              "Melanocytic nevi": 0.778,
+              "Benign keratosis-like lesions": 0.044,
+              "All": 0.598
+            },
+            "Age group": {
+              "Melanoma": 0.553,
+              "Melanocytic nevi": 0,
+              "Benign keratosis-like lesions": 0.012,
+              "All": 0
+            }
+          },
+          "Biased": "Yes"
+        },
+        "Model Derm": {
+          "AOD": {
+            "Sex": {
+              "Melanoma": 0.091,
+              "Melanocytic nevi": 0.169,
+              "Benign keratosis-like lesions": 0.031,
+              "All": 0.09
+            },
+            "Age group": {
+              "Melanoma": 0.1,
+              "Melanocytic nevi": 0.183,
+              "Benign keratosis-like lesions": 0.205,
+              "All": 0.084
+            }
+          },
+          "P_value": {
+            "Sex": {
+              "Melanoma": 0.09,
+              "Melanocytic nevi": 0,
+              "Benign keratosis-like lesions": 0.497,
+              "All": 0
+            },
+            "Age group": {
+              "Melanoma": 0.008,
+              "Melanocytic nevi": 0.756,
+              "Benign keratosis-like lesions": 0.011,
+              "All": 0.064
+            }
+          },
+          "Biased": "Yes"
+        },
+        "Random Model": {
+          "AOD": {
+            "Sex": {
+              "Melanoma": 0.042,
+              "Melanocytic nevi": 0.042,
+              "Benign keratosis-like lesions": 0.015,
+              "All": 0.011
+            },
+            "Age group": {
+              "Melanoma": 0.085,
+              "Melanocytic nevi": 0.241,
+              "Benign keratosis-like lesions": 0.18,
+              "All": 0.013
+            }
+          },
+          "P_value": {
+            "Sex": {
+              "Melanoma": 0.525,
+              "Melanocytic nevi": 0.982,
+              "Benign keratosis-like lesions": 0.549,
+              "All": 0.477
+            },
+            "Age group": {
+              "Melanoma": 0.667,
+              "Melanocytic nevi": 0.386,
+              "Benign keratosis-like lesions": 0.178,
+              "All": 0.37
+            }
+          },
+          "Biased": "No"
+        }
+      },
+      "notes": "ChatGPT-4 is generally unbiased in identifying these skin diseases across sex and age groups. LLaVA-1.6 is generally unbiased across age groups but biased across sex groups (specifically for Melanocytic nevi, p=0.005). Swin-B is biased in identifying melanocytic nevi across age groups (p=0.011). VGG16 and ResNet50 showed significant biases across age groups."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ChatGPT-4, LLaVA-1.6, Swin-B, VGG16, ResNet50, Model Derm",
+    "pretraining": "LLaVA-1.6 utilizes the LLaMA model from Meta and relies on the pre-trained Contrastive Language-Image Pre-Training (CLIP) visual encoder from OpenAI. Swin-B was pretrained on ImageNet-22K. Model Derm was trained on 220,680 images of 174 disorders. VGG16 and ResNet50 were validated on large-scale datasets.",
+    "input_size": "null",
+    "architecture_details": {
+      "ChatGPT-4": "Proprietary multimodal large language model based on GPT-4.",
+      "LLaVA-1.6": "Open-sourced multimodal LLM utilizing LLaMA backbone and CLIP visual encoder.",
+      "Swin-B": "Vision transformer-based architecture using a sliding window mechanism and hierarchical design.",
+      "VGG16": "Convolutional neural network (CNN) based deep learning model.",
+      "ResNet50": "Convolutional neural network (CNN) based deep learning model.",
+      "Model Derm": "Deep learning model specialized in dermatological diagnosis employing CNN architectures."
+    },
+    "training_details": {
+      "Swin-B": {
+        "learning_rate": "5 × 10^-5",
+        "custom_layers": "Custom classification layers added"
+      },
+      "VGG16": {
+        "custom_layers": "Custom classification layers added"
+      },
+      "ResNet50": {
+        "custom_layers": "Custom classification layers added"
+      },
+      "BERT": {
+        "purpose": "Fine-tuned using manual interpretation of ChatGPT-4 responses as ground truth for automatic response interpretation."
+      }
+    },
+    "classification_or_output_head": {
+      "ChatGPT-4": "Textual analysis of lesion characteristics, potential diagnoses, and inference about lesion type, manually or automatically interpreted into one of three classes: melanoma, melanocytic nevi, or benign keratosis-like lesions.",
+      "LLaVA-1.6": "Direct identification of the specific type of lesion.",
+      "Swin-B, VGG16, ResNet50, Model Derm": "Custom classification layers added for skin disease identification."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ChatGPT-4",
+    "LLaVA-1.6",
+    "Swin-B",
+    "VGG16",
+    "ResNet50",
+    "Model Derm",
+    "Random Model",
+    "BERT"
+  ],
+  "preprocessing_techniques": [
+    "No image preprocessing was applied for data augmentation.",
+    "Dataset balancing by selecting samples to make the number of images for the three diseases (melanoma, melanocytic nevi, and benign keratosis-like lesions) roughly equal."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Dataset Balancing",
+      "details": "The original HAM10000 dataset was imbalanced. The researchers created a balanced subset by selecting samples to make the number of images for the three diseases (melanoma, melanocytic nevi, and benign keratosis-like lesions) roughly equal. A threshold of 1,100 samples per disease was set. The final balanced dataset contained 3,327 images: 1,112 melanoma, 1,115 melanocytic nevi, and 1,100 benign keratosis-like lesions."
+    },
+    {
+      "technique": "Image Pre-processing for Augmentation",
+      "details": "The paper explicitly states that no image pre-processing was applied for data augmentation."
+    }
+  ],
+  "conclusions": [
+    "Multimodal large language models (ChatGPT-4 and LLaVA-1.6) demonstrated overall accuracies that were 3% and 23% higher (and F1-scores that were 4% and 34% higher), respectively, than the best-performing CNN-based baseline (VGG16).",
+    "ChatGPT-4 and LLaVA-1.6 had accuracies that were 38% and 26% lower (and F1-scores that were 38% and 19% lower), respectively, than the vision transformer model Swin-B.",
+    "ChatGPT-4 was generally unbiased in identifying skin diseases across sex and age groups.",
+    "LLaVA-1.6 was generally unbiased across age groups but exhibited bias across sex groups.",
+    "Swin-B was found to be biased in identifying melanocytic nevi across age groups.",
+    "The study suggests the usefulness and fairness of LLMs in dermatological applications for aiding physicians and practitioners with diagnostic recommendations and patient screening.",
+    "Further experiments using larger and more diverse datasets are needed to verify and evaluate the reliability and fairness of LLMs in healthcare."
+  ],
+  "important_remarks": [
+    "The study is limited by the use of a single dataset (HAM10000 subset) with ambiguous patient contribution records, which may lead to overestimating model performance and failing to represent real-world clinical heterogeneity.",
+    "Experiments were conducted only once, meaning observed biases may be attributed to underlying uncertainty rather than systematic model flaws; repeated experiments and sensitivity analysis are recommended.",
+    "The dataset was artificially balanced to mitigate sample size disparities, which may not reflect real-world clinical distributions where melanoma prevalence is typically higher than benign keratosis-like lesions.",
+    "ChatGPT-4 responses required manual interpretation to extract diagnoses due to safety filters avoiding direct medical diagnoses, introducing potential subjectivity in ground truth labeling.",
+    "The study did not evaluate race or ethnicity biases, as the dataset lacked this demographic information, limiting the generalizability of fairness conclusions.",
+    "LLaVA-1.6 exhibited significant bias across sex groups for melanocytic nevi identification (p=0.005), potentially due to imbalanced selective training data, particularly lower accuracy for younger and female groups.",
+    "Swin-B showed bias in identifying melanocytic nevi across age groups (p=0.011), indicating that even high-performing vision transformers are not immune to demographic biases.",
+    "VGG16 and ResNet50 demonstrated significant biases across age groups, highlighting persistent fairness issues in traditional CNN-based baselines.",
+    "The study acknowledges that using synthetic data generated by tools like DALL-E-3 could address privacy and feasibility issues but was not implemented in this work.",
+    "Performance comparisons with other studies (e.g., Zhou et al., Kaczmarczyk et al.) are complicated by differences in input types (real-life photos vs. dermatoscopic images), task complexity, and lack of fairness evaluation in prior works."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_wan_2025_evaluating_sex_and_age_biases_in_multimodal_large_language_models_for_s.pdf",
+    "summary": "The study utilized a balanced subset of the HAM10000 (ISIC 2018) dataset, which originally contained 10,015 images across 7 diseases. The researchers selected images for the three most common classes (melanoma, melanocytic nevi, and benign keratosis-like lesions) to create a balanced subset of 3,327 images. This dataset was split into a training set (2,355 images) and a test set (972 images, ~30%). The training set was used to train VGG16 and ResNet50 models. The test set was used to evaluate the performance of ChatGPT-4, LLaVA-1.6, Swin-B, VGG16, ResNet50, Model Derm, and a Random baseline. The study did not perform cross-dataset validation; it relied on a single internal split of one dataset. The paper notes limitations regarding the lack of external validation and potential patient-level leakage due to ambiguous patient contribution records in the HAM10000 dataset.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The study did not perform cross-dataset validation. All models were evaluated on a single internal test split of the HAM10000 dataset. The paper explicitly states that 'experiments using larger and more diverse datasets need to be performed in the future' to verify reliability and fairness, implying the current study lacks external validation.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "HAM10000 (ISIC 2018) - Balanced Subset",
+          "counts": "2,355 images",
+          "notes": "Used for training VGG16 and ResNet50 models. The subset was created by balancing the three classes (melanoma, melanocytic nevi, BKL) to 1,112, 1,115, and 1,100 images respectively, from the original 8,917 images of these classes."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "HAM10000 (ISIC 2018) - Balanced Subset",
+          "counts": "Not reported separately",
+          "notes": "The paper states the remaining images (after the 30% test split) were used for training (including validation) of VGG16 and ResNet50, but does not report a specific validation split count or set. It is implied that validation was part of the training process or not explicitly separated."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "HAM10000 (ISIC 2018) - Balanced Subset",
+          "counts": "972 images",
+          "notes": "Used for final performance evaluation of all models (ChatGPT-4, LLaVA-1.6, Swin-B, VGG16, ResNet50, Model Derm, Random). This represents ~30% of the balanced dataset."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet (implied for Swin-B, VGG16, ResNet50)",
+          "notes": "Swin-B, VGG16, and ResNet50 are pre-trained models. The paper mentions they were 'pre-trained' but does not explicitly name ImageNet, though it is standard for these architectures. LLaVA-1.6 relies on pre-trained CLIP visual encoder from OpenAI."
+        },
+        {
+          "dataset": "CLIP (OpenAI)",
+          "notes": "Used as the visual encoder for LLaVA-1.6."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "HAM10000 (ISIC 2018) - Balanced Subset",
+          "notes": "The dataset was artificially balanced by selecting samples to mitigate class imbalance. No image-level data augmentation (e.g., rotation, flipping) was applied. The paper notes that synthetic data (e.g., DALL-E-3) was considered for future work but not implemented."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "Fixed split",
+      "split_details": "30% test set (972 images), 70% training set (2,355 images). The split was random. No k-fold cross-validation was reported.",
+      "cross_validation_details": "Not reported.",
+      "patient_level_or_image_level_split": "Not reported (ambiguous)",
+      "unseen_data_details": "No unseen external dataset was used. The test set was a held-out portion of the same source dataset (HAM10000)."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "HAM10000 (ISIC 2018) - Balanced Subset (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (ISIC 2018) - Balanced Subset (Training Set)"
+        ],
+        "model_or_method": "ChatGPT-4",
+        "metrics": {
+          "accuracy": 0.484,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": 0.488,
+          "other_metrics": {
+            "AOD_Sex": 0.024,
+            "AOD_Age": 0.021,
+            "P_value_Sex": 0.545,
+            "P_value_Age": 0.981
+          }
+        },
+        "notes": "ChatGPT-4 was generally unbiased across sex and age groups."
+      },
+      {
+        "dataset": "HAM10000 (ISIC 2018) - Balanced Subset (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (ISIC 2018) - Balanced Subset (Training Set)"
+        ],
+        "model_or_method": "LLaVA-1.6",
+        "metrics": {
+          "accuracy": 0.578,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": 0.63,
+          "other_metrics": {
+            "AOD_Sex": 0.04,
+            "AOD_Age": 0.044,
+            "P_value_Sex": 0.06,
+            "P_value_Age": 0.34
+          }
+        },
+        "notes": "LLaVA-1.6 showed a trend toward insignificant bias between sex groups (p=0.06) and was unbiased across age groups."
+      },
+      {
+        "dataset": "HAM10000 (ISIC 2018) - Balanced Subset (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (ISIC 2018) - Balanced Subset (Training Set)"
+        ],
+        "model_or_method": "Swin-B",
+        "metrics": {
+          "accuracy": 0.782,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": 0.782,
+          "other_metrics": {
+            "AOD_Sex": 0.002,
+            "AOD_Age": 0.016,
+            "P_value_Sex": 0.576,
+            "P_value_Age": 0.237
+          }
+        },
+        "notes": "Swin-B was biased in identifying melanocytic nevi across age groups (p=0.011)."
+      },
+      {
+        "dataset": "HAM10000 (ISIC 2018) - Balanced Subset (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (ISIC 2018) - Balanced Subset (Training Set)"
+        ],
+        "model_or_method": "VGG16",
+        "metrics": {
+          "accuracy": 0.469,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": 0.469,
+          "other_metrics": {
+            "AOD_Sex": 0.025,
+            "AOD_Age": 0.104,
+            "P_value_Sex": 0.025,
+            "P_value_Age": 0
+          }
+        },
+        "notes": "VGG16 showed significant biases across age groups (p=0)."
+      },
+      {
+        "dataset": "HAM10000 (ISIC 2018) - Balanced Subset (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (ISIC 2018) - Balanced Subset (Training Set)"
+        ],
+        "model_or_method": "ResNet50",
+        "metrics": {
+          "accuracy": 0.414,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": 0.414,
+          "other_metrics": {
+            "AOD_Sex": 0.013,
+            "AOD_Age": 0.076,
+            "P_value_Sex": 0.598,
+            "P_value_Age": 0
+          }
+        },
+        "notes": "ResNet50 showed significant biases across age groups (p=0)."
+      },
+      {
+        "dataset": "HAM10000 (ISIC 2018) - Balanced Subset (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (ISIC 2018) - Balanced Subset (Training Set)"
+        ],
+        "model_or_method": "Model Derm",
+        "metrics": {
+          "accuracy": 0.342,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": 0.413,
+          "other_metrics": {
+            "AOD_Sex": 0.09,
+            "AOD_Age": 0.084,
+            "P_value_Sex": 0,
+            "P_value_Age": 0.064
+          }
+        },
+        "notes": "Model Derm showed significant biases across sex groups (p=0)."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "HAM10000 (ISIC 2018) - Balanced Subset",
+        "split_or_cv": "70% train / 30% test",
+        "models": [
+          "ChatGPT-4",
+          "LLaVA-1.6",
+          "Swin-B",
+          "VGG16",
+          "ResNet50",
+          "Model Derm",
+          "Random Model"
+        ],
+        "results": [
+          {
+            "metric": "Accuracy",
+            "value": "ChatGPT-4: 0.484, LLaVA-1.6: 0.578, Swin-B: 0.782, VGG16: 0.469, ResNet50: 0.414, Model Derm: 0.342, Random: 0.334",
+            "model": "All",
+            "data_split": "test"
+          },
+          {
+            "metric": "F1-Score",
+            "value": "ChatGPT-4: 0.488, LLaVA-1.6: 0.63, Swin-B: 0.782, VGG16: 0.469, ResNet50: 0.414, Model Derm: 0.413, Random: 0.335",
+            "model": "All",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study is limited by the use of a single dataset (HAM10000 subset) with ambiguous patient contribution records, which may lead to overestimating model performance and failing to represent real-world clinical heterogeneity.",
+      "The dataset was artificially balanced, which may not reflect real-world clinical distributions.",
+      "The study did not evaluate race or ethnicity biases as the dataset lacked this information.",
+      "Experiments were conducted only once, so observed biases may be attributed to uncertainty rather than systematic flaws.",
+      "The paper explicitly calls for 'experiments using larger and more diverse datasets' to verify reliability and fairness, indicating a lack of external validation in this work."
+    ],
+    "information_not_reported": [
+      "Specific validation set counts or split details for VGG16 and ResNet50.",
+      "Patient-level vs. image-level split details for the HAM10000 subset.",
+      "Specific pretraining dataset names for Swin-B, VGG16, and ResNet50 (though ImageNet is standard, it is not explicitly named in the context of this study's methodology)."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780005567
+  }
+}

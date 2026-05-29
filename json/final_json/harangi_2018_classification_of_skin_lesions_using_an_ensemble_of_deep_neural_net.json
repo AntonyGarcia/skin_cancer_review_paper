@@ -1,0 +1,456 @@
+{
+  "file_name": "harangi_2018_classification_of_skin_lesions_using_an_ensemble_of_deep_neural_net.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses an ensemble of deep neural networks (CNNs: AlexNet, VGGNet, GoogLeNet) for the classification of skin lesions (nevus, malignant melanoma, seborrheic keratosis) using the ISBI 2017 challenge dataset. The method involves fusing these CNN architectures via a joint fully connected layer and weighted outputs, trained using backpropagation and transfer learning."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel deep learning-based approach (an ensemble of CNNs: AlexNet, VGGNet, GoogLeNet) for skin lesion classification. It details a specific methodology (fusion via joint fully connected layer), describes the dataset used (ISBI 2017 challenge), and reports quantitative results (accuracy and AUC) comparing the proposed method against individual member CNNs. The structure includes Abstract, Introduction, Methodology, and Performance Evaluation sections typical of original research."
+  },
+  "title": "Classification of skin lesions using an ensemble of deep neural networks",
+  "authors": [
+    "Balazs Harangi",
+    "Agnes Baran",
+    "Andras Hajdu"
+  ],
+  "doi": null,
+  "journal": "IEEE International Symposium on Biomedical Imaging (ISBI)",
+  "year": 2018,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes a deep learning-based approach for the classification of skin lesions, specifically distinguishing between nevus, malignant melanoma, and seborrheic keratosis. The authors construct an ensemble of three state-of-the-art convolutional neural networks (AlexNet, VGGNet, and GoogLeNet) by fusing their features through a joint fully connected layer with weighted outputs. The model was trained using transfer learning and data augmentation on the ISBI 2017 challenge dataset, which included 2,000 training images. Performance was evaluated using accuracy and area-under-the-curve (AUC) metrics via a one-vs-all binary classification strategy. The experimental results demonstrated that the proposed ensemble method outperformed all individual member CNNs and pairwise ensembles, achieving competitive classification accuracy.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus",
+        "CN",
+        "healthy lesion"
+      ],
+      "role": "Target class",
+      "details": "One of the three classes in the ISBI 2017 challenge dataset used for classification. Training set count: 1,372 (increased to 8,200 with augmentation). Test set count: 393."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "melanoma",
+        "CM",
+        "cancerous lesion",
+        "skin cancer",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the three classes in the ISBI 2017 challenge dataset used for classification. Training set count: 374 (increased to 4,600 with augmentation). Test set count: 90."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "CSK",
+        "age-related, non-cancerous lesion"
+      ],
+      "role": "Target class",
+      "details": "One of the three classes in the ISBI 2017 challenge dataset used for classification. Training set count: 254 (increased to 1,500 with augmentation). Test set count: 117."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories of skin lesions (nevus, malignant melanoma, seborrheic keratosis)",
+        "primary": true,
+        "details": "The paper performs a three-class classification task to recognize nevus (healthy lesion), malignant melanoma (cancerous lesion), and seborrheic keratosis (age-related, non-cancerous lesion). The model predicts discrete class labels using a softmax layer. Performance was evaluated using accuracy and AUC via a one-vs-all binary classification strategy."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A publicly available dataset released during the IEEE International Symposium on Biomedical Imaging (ISBI) 2017 challenge dedicated to skin cancer recognition. It contains dermatoscopic images of skin lesions.",
+      "classes_used": [
+        "Nevus (CN)",
+        "Malignant Melanoma (CM)",
+        "Seborrheic Keratosis (CSK)"
+      ],
+      "counts": {
+        "total": 2000,
+        "training": 2000,
+        "validation": null,
+        "testing": 600,
+        "per_class": {
+          "training": {
+            "Nevus": 1372,
+            "Malignant Melanoma": 374,
+            "Seborrheic Keratosis": 254
+          },
+          "testing": {
+            "Nevus": 393,
+            "Malignant Melanoma": 90,
+            "Seborrheic Keratosis": 117
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the ensemble of CNNs (AlexNet, VGGNet, GoogLeNet) with data augmentation (cropping, horizontal flipping, rotating) increasing the effective training set to 14,300 images.",
+        "validation": null,
+        "testing": "Used for independent performance evaluation of the proposed ensemble and member CNNs using accuracy and AUC metrics.",
+        "other": "The pre-trained weights for the member CNNs were originally obtained from the ImageNet dataset (1.28 million natural images), but the specific ImageNet dataset is not the primary dataset for the skin lesion task."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "AUC-ROC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "One-vs-all binary classification strategy",
+      "purpose": "To convert the three-class classification task into binary problems for the calculation of accuracy and AUC metrics.",
+      "type": "Evaluation strategy"
+    },
+    {
+      "method": "Accuracy (ACC)",
+      "purpose": "To evaluate classification performance at the 0.5 confidence level on the ROC curve.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Area-under-receiver operating characteristic curve (AUC)",
+      "purpose": "To provide a detailed description of classification performance across different thresholds.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Stochastic gradient descent",
+      "purpose": "To optimize the parameters of the neural network architectures during training.",
+      "type": "Optimization algorithm"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using accuracy (ACC) and area-under-the-curve (AUC) metrics without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISBI 2017 Challenge Dataset (Test Set)": {
+      "metric": [
+        "Accuracy (ACC)",
+        "Area Under the Receiver Operating Characteristic Curve (AUC)"
+      ],
+      "evaluation_setting": "One-vs-all binary classification for three classes: Nevus (CN), Malignant Melanoma (CM), Seborrheic Keratosis (CSK). Average (AVG) performance across the three scenarios is also reported.",
+      "models": {
+        "AlexNet": {
+          "AVG_AUC": 0.826,
+          "NEV_AUC": 0.815,
+          "MEL_AUC": 0.786,
+          "SK_AUC": 0.877,
+          "AVG_ACC": 0.822,
+          "NEV_ACC": 0.772,
+          "MEL_ACC": 0.823,
+          "SK_ACC": 0.872
+        },
+        "VGGNet": {
+          "AVG_AUC": 0.813,
+          "NEV_AUC": 0.824,
+          "MEL_AUC": 0.766,
+          "SK_AUC": 0.849,
+          "AVG_ACC": 0.793,
+          "NEV_ACC": 0.753,
+          "MEL_ACC": 0.802,
+          "SK_ACC": 0.825
+        },
+        "GoogLeNet": {
+          "AVG_AUC": 0.831,
+          "NEV_AUC": 0.833,
+          "MEL_AUC": 0.802,
+          "SK_AUC": 0.859,
+          "AVG_ACC": 0.826,
+          "NEV_ACC": 0.772,
+          "MEL_ACC": 0.825,
+          "SK_ACC": 0.88
+        },
+        "AlexNet & VGGNet (Pairwise Ensemble)": {
+          "AVG_AUC": 0.821,
+          "NEV_AUC": 0.808,
+          "MEL_AUC": 0.78,
+          "SK_AUC": 0.874,
+          "AVG_ACC": 0.799,
+          "NEV_ACC": 0.742,
+          "MEL_ACC": 0.81,
+          "SK_ACC": 0.845
+        },
+        "GoogLeNet & AlexNet (Pairwise Ensemble)": {
+          "AVG_AUC": 0.832,
+          "NEV_AUC": 0.809,
+          "MEL_AUC": 0.799,
+          "SK_AUC": 0.89,
+          "AVG_ACC": 0.807,
+          "NEV_ACC": 0.745,
+          "MEL_ACC": 0.818,
+          "SK_ACC": 0.857
+        },
+        "GoogLeNet & VGGNet (Pairwise Ensemble)": {
+          "AVG_AUC": 0.828,
+          "NEV_AUC": 0.814,
+          "MEL_AUC": 0.802,
+          "SK_AUC": 0.868,
+          "AVG_ACC": 0.812,
+          "NEV_ACC": 0.747,
+          "MEL_ACC": 0.83,
+          "SK_ACC": 0.858
+        },
+        "GoogLeNet & AlexNet & VGGNet (Proposed Ensemble)": {
+          "AVG_AUC": 0.848,
+          "NEV_AUC": 0.837,
+          "MEL_AUC": 0.836,
+          "SK_AUC": 0.869,
+          "AVG_ACC": 0.838,
+          "NEV_ACC": 0.797,
+          "MEL_ACC": 0.857,
+          "SK_ACC": 0.862
+        }
+      },
+      "notes": "The proposed ensemble-based system (GoogLeNet & AlexNet & VGGNet) outperformed all individual member CNNs and pairwise ensembles in both average accuracy and average AUC. The paper did not report statistical significance tests (p-values) for these comparisons."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Ensemble of AlexNet, VGGNet, and GoogLeNet",
+    "pretraining": "Pre-trained weights from ImageNet (1.28 million natural images)",
+    "input_size": "Not explicitly reported (standard for member CNNs)",
+    "architecture_details": {
+      "member_models": [
+        "AlexNet: 5 convolutional layers, max-pooling, 3 fully-connected layers, softmax",
+        "VGGNet (VGG16): 13 convolutional layers (3x3 filters), 5 max-pooling layers (2x2 mask, stride 2), 3 fully-connected layers",
+        "GoogLeNet: 22 convolutional layers including 9 Inception modules (kernels 5x5, 3x3, 1x1 and 3x3 pooling)"
+      ],
+      "fusion_method": "Removal of original final fully-connected and classification layers; replacement with 3-dimensional fully-connected layers; aggregation via joint fully connected layer (fc_AVG) with weighted outputs (matrices A1, A2, A3 initialized as diagonal matrices with 1/3 on diagonal)",
+      "final_layers": "Softmax/classification layer following the aggregation layer"
+    },
+    "training_details": {
+      "optimizer": "Stochastic gradient descent",
+      "loss_function": "Mean Squared Error (MSE) between normalized aggregated output and ground truth labels",
+      "epochs": 77,
+      "data_augmentation": "Cropping, horizontal flipping, rotating (training set increased from 2,000 to 14,300 images)",
+      "hardware": "NVIDIA TITAN X GPU (7 TFlops, 336.5 GB/s memory bandwidth, 3,072 CUDA cores, 12 GB memory)",
+      "software": "MATLAB 2017b Deep Learning Toolbox"
+    },
+    "classification_or_output_head": {
+      "type": "Softmax",
+      "classes": 3,
+      "class_labels": [
+        "Nevus (CN)",
+        "Malignant Melanoma (CM)",
+        "Seborrheic Keratosis (CSK)"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "AlexNet",
+    "VGGNet (VGG16)",
+    "GoogLeNet",
+    "AlexNet & VGGNet (Pairwise Ensemble)",
+    "GoogLeNet & AlexNet (Pairwise Ensemble)",
+    "GoogLeNet & VGGNet (Pairwise Ensemble)",
+    "GoogLeNet & AlexNet & VGGNet (Proposed Ensemble)"
+  ],
+  "preprocessing_techniques": [
+    "Data augmentation: cropping, horizontal flipping, and rotating images to increase the training set size from 2,000 to 14,300 images.",
+    "Transfer learning: using pre-trained weights and biases from ImageNet for the member CNNs (AlexNet, VGGNet, GoogLeNet).",
+    "Label normalization: ground truth labels normalized to vectors (e.g., (1, 0, 0), (0, 1, 0), (0, 0, 1)) for the three classes.",
+    "One-vs-all binary classification strategy: converting the three-class task into binary problems for evaluation metrics calculation."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Cropping",
+      "details": "Applied during training to increase dataset size; specific ranges or probabilities not reported."
+    },
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied during training to increase dataset size; specific probabilities not reported."
+    },
+    {
+      "technique": "Rotating",
+      "details": "Applied during training to increase dataset size; specific angles or probabilities not reported."
+    }
+  ],
+  "conclusions": [
+    "The proposed ensemble-based approach, which fuses AlexNet, VGGNet, and GoogLeNet via a joint fully connected layer with weighted outputs, outperformed all individual member CNNs and pairwise ensembles in classifying skin lesions (nevus, malignant melanoma, and seborrheic keratosis).",
+    "The ensemble achieved an average accuracy of 0.838 and an average AUC of 0.848 on the ISBI 2017 challenge test set, demonstrating competitive performance in the field of skin cancer recognition.",
+    "The framework allows for the automatic adjustment of weights for the member CNN outputs via backpropagation, eliminating the need for manual tuning.",
+    "The modular architecture of the ensemble allows for the inclusion of additional CNN members in the future to potentially improve performance.",
+    "Regularization issues regarding the weighting parameters used in the aggregation of ensemble members to avoid overfitting may be addressed by adding corresponding terms to the loss function.",
+    "Increasing the volume of the training dataset is expected to raise the performance of the combined architecture, given its complexity."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISBI 2017 challenge dataset for both training and testing, with no external validation on independent clinical datasets, limiting generalizability assessment.",
+    "The dataset exhibits significant class imbalance in the training set (Nevus: 1,372; Melanoma: 374; Seborrheic Keratosis: 254), which may bias the model towards the majority class despite data augmentation.",
+    "No statistical significance testing (e.g., p-values) was performed to validate the performance improvements of the ensemble over individual CNNs or pairwise ensembles.",
+    "The authors acknowledge potential regularization issues regarding the weighting parameters used in the aggregation layer to prevent overfitting, suggesting this as a limitation.",
+    "The model was trained on a relatively small dataset (2,000 images), augmented to 14,300, which may limit the robustness of the deep learning approach compared to models trained on larger, multi-center datasets.",
+    "The hardware dependency is high, requiring an NVIDIA TITAN X GPU for training, with significant training times (e.g., 287.5 hours for the ensemble), posing deployment concerns for resource-constrained environments."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_harangi_2018_classification_of_skin_lesions_using_an_ensemble_of_deep_neural_net.pdf",
+    "summary": "The study utilized the ISBI 2017 challenge dataset for both training and testing. The training set consisted of 2,000 dermatoscopic images of skin lesions (nevus, malignant melanoma, seborrheic keratosis), which were augmented to 14,300 images. The test set consisted of 600 images. Pre-trained weights from the ImageNet dataset were used for transfer learning. The model was evaluated on the official test set of the ISBI 2017 challenge. No external validation or cross-dataset testing was performed.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper did not perform cross-dataset validation. The model was trained on the ISBI 2017 training set and tested on the ISBI 2017 test set. No other named datasets were used for testing.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISBI 2017 Challenge Training Set",
+          "counts": "2,000 images (augmented to 14,300 images)",
+          "notes": "Used for training the ensemble of CNNs (AlexNet, VGGNet, GoogLeNet) with data augmentation (cropping, horizontal flipping, rotating). Classes: Nevus (1,372), Malignant Melanoma (374), Seborrheic Keratosis (254)."
+        }
+      ],
+      "validation": [],
+      "testing": [
+        {
+          "dataset": "ISBI 2017 Challenge Test Set",
+          "counts": "600 images",
+          "notes": "Used for independent performance evaluation. Classes: Nevus (393), Malignant Melanoma (90), Seborrheic Keratosis (117)."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Pre-trained weights and biases from ImageNet (1.28 million natural images) were used to initialize the member CNNs (AlexNet, VGGNet, GoogLeNet) for transfer learning."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "ISBI 2017 Training Set (Augmented)",
+          "notes": "Data augmentation techniques including cropping, horizontal flipping, and rotating were applied to the 2,000 training images to create a synthetic training set of 14,300 images."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/test split",
+      "split_details": "Training set: 2,000 images. Test set: 600 images. No random split percentage reported; the split was defined by the ISBI 2017 challenge protocol.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "None reported. The test set was part of the same challenge dataset as the training set."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISBI 2017 Challenge Test Set",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISBI 2017 Challenge Training Set"
+        ],
+        "model_or_method": "GoogLeNet & AlexNet & VGGNet (Proposed Ensemble)",
+        "metrics": {
+          "accuracy": 0.838,
+          "auc": 0.848,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "NEV_ACC": 0.797,
+            "MEL_ACC": 0.857,
+            "SK_ACC": 0.862,
+            "NEV_AUC": 0.837,
+            "MEL_AUC": 0.836,
+            "SK_AUC": 0.869
+          }
+        },
+        "notes": "Results are averaged across three one-vs-all binary classification scenarios (Nevus vs others, Melanoma vs others, Seborrheic Keratosis vs others). The ensemble outperformed individual member CNNs and pairwise ensembles."
+      },
+      {
+        "dataset": "ISBI 2017 Challenge Test Set",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISBI 2017 Challenge Training Set"
+        ],
+        "model_or_method": "AlexNet",
+        "metrics": {
+          "accuracy": 0.822,
+          "auc": 0.826,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "NEV_ACC": 0.772,
+            "MEL_ACC": 0.823,
+            "SK_ACC": 0.872,
+            "NEV_AUC": 0.815,
+            "MEL_AUC": 0.786,
+            "SK_AUC": 0.877
+          }
+        },
+        "notes": "Individual member CNN performance."
+      },
+      {
+        "dataset": "ISBI 2017 Challenge Test Set",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISBI 2017 Challenge Training Set"
+        ],
+        "model_or_method": "VGGNet",
+        "metrics": {
+          "accuracy": 0.793,
+          "auc": 0.813,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "NEV_ACC": 0.753,
+            "MEL_ACC": 0.802,
+            "SK_ACC": 0.825,
+            "NEV_AUC": 0.824,
+            "MEL_AUC": 0.766,
+            "SK_AUC": 0.849
+          }
+        },
+        "notes": "Individual member CNN performance."
+      },
+      {
+        "dataset": "ISBI 2017 Challenge Test Set",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISBI 2017 Challenge Training Set"
+        ],
+        "model_or_method": "GoogLeNet",
+        "metrics": {
+          "accuracy": 0.826,
+          "auc": 0.831,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "NEV_ACC": 0.772,
+            "MEL_ACC": 0.825,
+            "SK_ACC": 0.88,
+            "NEV_AUC": 0.833,
+            "MEL_AUC": 0.802,
+            "SK_AUC": 0.859
+          }
+        },
+        "notes": "Individual member CNN performance."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [],
+    "generalizability_notes": [
+      "The study relies exclusively on the ISBI 2017 challenge dataset for both training and testing, with no external validation on independent clinical datasets, limiting generalizability assessment.",
+      "The dataset exhibits significant class imbalance in the training set (Nevus: 1,372; Melanoma: 374; Seborrheic Keratosis: 254), which may bias the model towards the majority class despite data augmentation.",
+      "The model was trained on a relatively small dataset (2,000 images), augmented to 14,300, which may limit the robustness of the deep learning approach compared to models trained on larger, multi-center datasets."
+    ],
+    "information_not_reported": [
+      "No validation set was used for model selection; the test set was used for final evaluation.",
+      "No statistical significance testing (e.g., p-values) was performed.",
+      "Patient-level separation was not reported; the split was image-level.",
+      "No external test sets were used."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780001002
+  }
+}

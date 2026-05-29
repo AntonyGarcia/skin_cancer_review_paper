@@ -1,0 +1,656 @@
+{
+  "file_name": "mazoure_2022_dunescan_a_web_server_for_uncertainty_estimation_in_skin_cancer_det.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper developed DUNEScan, a web server that uses six state-of-the-art convolutional neural network (CNN) models (Inceptionv3, ResNet50, MobileNetv2, EfficientNet, BYOL, and SwAV) for skin cancer detection and uncertainty estimation. The models were trained on skin lesion images from the ISIC database and tested on the HAM10000 dataset to classify lesions as malignant or benign."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents the development and validation of DUNEScan, a novel web server for uncertainty estimation in skin cancer detection. It describes original experimental work including the training of six CNN models on the ISIC database, testing on the HAM10000 dataset, and the implementation of uncertainty estimation techniques (Grad-CAM, UMAP, Binary Dropout). The structure includes standard research sections such as Methods, Results, and Conclusion, reporting new technical contributions and performance assessments rather than summarizing prior literature."
+  },
+  "title": "DUNEScan: a web server for uncertainty estimation in skin cancer detection with deep neural networks",
+  "authors": [
+    "Bogdan Mazoure",
+    "Alexander Mazoure",
+    "Jocelyn Bédard",
+    "Vladimir Makarenkov"
+  ],
+  "doi": "10.1038/s41598-021-03889-2",
+  "journal": "Scientific Reports",
+  "year": 2022,
+  "article_type": "Research article",
+  "brief_summary": "This study presents DUNEScan, a web server designed to estimate uncertainty in skin cancer detection using deep neural networks. The system integrates six state-of-the-art convolutional neural network models, including Inceptionv3, ResNet50, MobileNetv2, EfficientNet, BYOL, and SwAV, which were trained on the ISIC database. The application was evaluated using images from the HAM10000 dataset to classify lesions as malignant or benign. DUNEScan provides uncertainty estimates through mean and variance calculations, Grad-CAM visualizations, and UMAP manifold projections. The results demonstrate that comparing average predictions with approximate posterior distributions helps identify reliable diagnoses, particularly when confidence intervals are small. The tool aims to assist dermatologists by highlighting when model predictions should be trusted or when traditional diagnostic methods are necessary.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "mel"
+      ],
+      "role": "Target class",
+      "details": "Malignant skin disease; used in experiments (e.g., images Mel1, Mel2); represents ~11% of the HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "melanocytic nevi",
+        "nv"
+      ],
+      "role": "Target class",
+      "details": "Benign skin disease; used in experiments (e.g., images Nv1, Nv2, Nv3); represents ~67% of the HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "bcc"
+      ],
+      "role": "Target class",
+      "details": "Malignant skin disease; listed as one of the seven classes in the HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "actinic keratosis",
+        "akiec"
+      ],
+      "role": "Target class",
+      "details": "Listed as one of the seven classes in the HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "benign keratosis",
+        "bkl"
+      ],
+      "role": "Target class",
+      "details": "Benign skin disease; used in experiments (e.g., image Bkl1); listed as one of the seven classes in the HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "dermatofibroma",
+        "df"
+      ],
+      "role": "Target class",
+      "details": "Listed as one of the seven classes in the HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "vascular lesions",
+        "vasc"
+      ],
+      "role": "Target class",
+      "details": "Listed as one of the seven classes in the HAM10000 dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (malignant vs. benign) and multi-class lesion type (7 classes: actinic keratosis, basal cell carcinoma, benign keratosis, dermatofibroma, melanocytic nevi, melanoma, vascular lesions)",
+        "primary": true,
+        "details": "The paper describes a skin cancer detection system using CNNs to classify skin lesion images. The primary task is binary classification (malignant vs. benign) as indicated by the output probabilities P[malignant|skin lesion image] and the use of confidence intervals for this binary outcome. The models were also trained on the HAM10000 dataset which contains 7 distinct lesion classes. The output is a discrete class prediction supported by probability estimates derived via softmax, not a continuous regression target."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Archive",
+      "description": "A public archive containing skin lesion images used to construct the training dataset. The archive contains 23,900 images, with 2,287 malignant and 21,613 benign lesions. Images originate from various datasets with different camera resolutions, angles, and lighting.",
+      "classes_used": [
+        "malignant",
+        "benign"
+      ],
+      "counts": {
+        "total": 23900,
+        "training": 12287,
+        "validation": null,
+        "testing": 6144,
+        "per_class": {
+          "malignant": 2287,
+          "benign": 21613
+        }
+      },
+      "use": {
+        "training": "Used to create the training dataset. A meta-dataset was formed by combining all 2,287 malignant images with 10,000 randomly sampled benign images. This meta-dataset was split 80/20 into training and testing sets.",
+        "validation": "Used for validation via a fivefold split of the training set (4 groups for training, 1 for validation per epoch).",
+        "testing": "The remaining 20% of the meta-dataset (balanced 50-50 malignant/benign) served as the independent test set for computing confusion matrices and performance metrics.",
+        "other": "Used as a reference for visualizing the classification manifold via UMAP."
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A dataset used as source data for the ISIC 2018 challenge, containing images of skin lesions corresponding to seven different classes. Labels were confirmed by histopathology (>50%), expert consensus, or in-vivo confocal microscopy.",
+      "classes_used": [
+        "actinic keratosis (akiec)",
+        "basal cell carcinoma (bcc)",
+        "benign keratosis (bkl)",
+        "dermatofibroma (df)",
+        "melanocytic nevi (nv)",
+        "melanoma (mel)",
+        "vascular lesions (vasc)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used to test the application. Selected images (Mel1, Mel2, Nv1, Nv2, Nv3, Bkl1) were analyzed using 50 replicates with all six CNN models.",
+        "other": "Referenced for class distribution statistics (~11% melanoma, ~67% melanocytic nevi)."
+      }
+    },
+    {
+      "name": "ImageNet",
+      "description": "A large-scale image database used for pre-processing normalization parameters.",
+      "classes_used": [],
+      "counts": {
+        "total": 14000000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Used to obtain mean [0.485, 0.456, 0.406] and standard deviation [0.229, 0.224, 0.225] vectors for Z-score normalization of input images for supervised models."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "95% Confidence Interval (CI)",
+    "Approximate posterior distributions",
+    "Mean predictions",
+    "Variance estimates",
+    "Prediction probabilities (P[malignant|skin lesion image])",
+    "Accuracy",
+    "Loss",
+    "Confusion Matrix"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Binary Dropout",
+      "purpose": "To estimate uncertainty by generating approximate posterior distributions through 50 replicates for each input image, allowing comparison of mean predictions with variance.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Confidence Intervals",
+      "purpose": "To assess the reliability of classifier predictions; small intervals indicate trustworthy predictions, while large intervals suggest the need for traditional diagnostic methods.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Mean and Variance Calculation",
+      "purpose": "To quantify the central tendency and spread of prediction probabilities across dropout replicates for each model.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Fivefold Cross-Validation",
+      "purpose": "Used during the training phase to assess loss and accuracy of each CNN model and determine the stopping point for the training process.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Confusion Matrices",
+      "purpose": "To evaluate the performance of the six CNN models on the independent test set (balanced 50-50 malignant/benign).",
+      "type": "Performance evaluation"
+    },
+    {
+      "method": "UMAP (Uniform Manifold Approximation and Projection)",
+      "purpose": "To visualize the classification manifold and assess the closeness of the user's input image to skin lesion images from the ISIC database, providing context for uncertainty.",
+      "type": "Dimensionality reduction / Visualization"
+    },
+    {
+      "method": "Grad-CAM (Gradient-weighted Class Activation Mapping)",
+      "purpose": "To visualize the regions of high importance on the input image detected by the CNN models, aiding in the interpretation of model decisions.",
+      "type": "Visualization / Interpretability"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). It relied on confidence intervals, variance estimates, and approximate posterior distributions derived from binary dropout to assess uncertainty and prediction reliability."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC_Archive_Meta_Dataset_Test_Set": {
+      "description": "Independent test set with balanced 50-50 malignant/benign cases derived from the ISIC archive meta-dataset (80/20 split). Performance evaluated via confusion matrices (referenced in Fig. 1e) and general accuracy observations.",
+      "models": {
+        "Inceptionv3": {
+          "metric": "Accuracy/Performance",
+          "value": "Not explicitly quantified numerically; noted as producing outlier results in specific cases (e.g., Mel2, Nv2) and larger confidence intervals."
+        },
+        "ResNet50": {
+          "metric": "Accuracy/Performance",
+          "value": "Not explicitly quantified numerically; noted as highly confident in Mel1 and Nv2 cases."
+        },
+        "MobileNetv2": {
+          "metric": "Accuracy/Performance",
+          "value": "Not explicitly quantified numerically; noted as reliable but with noticeably larger spread of approximate posterior distribution compared to ResNet50/EfficientNet/SwAV."
+        },
+        "EfficientNet": {
+          "metric": "Accuracy/Performance",
+          "value": "Not explicitly quantified numerically; noted as highly confident in Mel1 and intermediate prediction distribution size for Nv2."
+        },
+        "SwAV": {
+          "metric": "Accuracy/Performance",
+          "value": "Highlighted as a 'particularly accurate model' with tight prediction distributions in Nv2 case."
+        },
+        "BYOL": {
+          "metric": "Accuracy/Performance",
+          "value": "Noted as providing low-confidence predictions for Mel1 and Mel2; generally less reliable than consensus."
+        }
+      },
+      "notes": "The paper states that 'on average, most of the six classification models have similar levels of accuracy' but highlights SwAV as particularly accurate. Specific numerical accuracy metrics (e.g., % accuracy) for the full test set are not reported in the text, only referenced as existing in Fig. 1e."
+    },
+    "HAM10000_Sample_Images": {
+      "description": "Specific images from the HAM10000 dataset analyzed using 50 replicates with all six CNN models to assess uncertainty and prediction probabilities.",
+      "models": {
+        "Mel1 (ISIC_0024482)": {
+          "ResNet50": {
+            "metric": "P(malignancy)",
+            "value": "0.95"
+          },
+          "EfficientNet": {
+            "metric": "P(malignancy)",
+            "value": "0.81"
+          },
+          "InceptionV3": {
+            "metric": "P(malignancy)",
+            "value": "0.81"
+          },
+          "MobileNetv2": {
+            "metric": "P(malignancy)",
+            "value": "0.81"
+          },
+          "SwAV": {
+            "metric": "P(malignancy)",
+            "value": "0.96"
+          },
+          "BYOL": {
+            "metric": "P(malignancy)",
+            "value": "0.01"
+          }
+        },
+        "Mel2 (ISIC_0024751)": {
+          "ResNet50": {
+            "metric": "P(malignancy)",
+            "value": "1.00"
+          },
+          "EfficientNet": {
+            "metric": "P(malignancy)",
+            "value": "0.91"
+          },
+          "InceptionV3": {
+            "metric": "P(malignancy)",
+            "value": "0.26"
+          },
+          "MobileNetv2": {
+            "metric": "P(malignancy)",
+            "value": "0.95"
+          },
+          "SwAV": {
+            "metric": "P(malignancy)",
+            "value": "0.96"
+          },
+          "BYOL": {
+            "metric": "P(malignancy)",
+            "value": "0.07"
+          }
+        },
+        "Nv1 (ISIC_0024320)": {
+          "ResNet50": {
+            "metric": "P(malignancy)",
+            "value": "0.00"
+          },
+          "EfficientNet": {
+            "metric": "P(malignancy)",
+            "value": "0.48"
+          },
+          "InceptionV3": {
+            "metric": "P(malignancy)",
+            "value": "0.27"
+          },
+          "MobileNetv2": {
+            "metric": "P(malignancy)",
+            "value": "0.12"
+          },
+          "SwAV": {
+            "metric": "P(malignancy)",
+            "value": "0.36"
+          },
+          "BYOL": {
+            "metric": "P(malignancy)",
+            "value": "0.03"
+          }
+        },
+        "Nv2 (ISIC_0024334)": {
+          "ResNet50": {
+            "metric": "P(malignancy)",
+            "value": "0.02"
+          },
+          "EfficientNet": {
+            "metric": "P(malignancy)",
+            "value": "0.27"
+          },
+          "InceptionV3": {
+            "metric": "P(malignancy)",
+            "value": "0.66"
+          },
+          "MobileNetv2": {
+            "metric": "P(malignancy)",
+            "value": "0.36"
+          },
+          "SwAV": {
+            "metric": "P(malignancy)",
+            "value": "0.03"
+          },
+          "BYOL": {
+            "metric": "P(malignancy)",
+            "value": "0.06"
+          }
+        },
+        "Nv3 (ISIC_0024307)": {
+          "ResNet50": {
+            "metric": "P(malignancy)",
+            "value": "0.45"
+          },
+          "EfficientNet": {
+            "metric": "P(malignancy)",
+            "value": "0.43"
+          },
+          "InceptionV3": {
+            "metric": "P(malignancy)",
+            "value": "0.53"
+          },
+          "MobileNetv2": {
+            "metric": "P(malignancy)",
+            "value": "0.58"
+          },
+          "SwAV": {
+            "metric": "P(malignancy)",
+            "value": "0.03"
+          },
+          "BYOL": {
+            "metric": "P(malignancy)",
+            "value": "0.10"
+          }
+        },
+        "Bkl1 (ISIC_0024337)": {
+          "ResNet50": {
+            "metric": "P(malignancy)",
+            "value": "0.30"
+          },
+          "EfficientNet": {
+            "metric": "P(malignancy)",
+            "value": "0.09"
+          },
+          "InceptionV3": {
+            "metric": "P(malignancy)",
+            "value": "0.16"
+          },
+          "MobileNetv2": {
+            "metric": "P(malignancy)",
+            "value": "0.12"
+          },
+          "SwAV": {
+            "metric": "P(malignancy)",
+            "value": "0.05"
+          },
+          "BYOL": {
+            "metric": "P(malignancy)",
+            "value": "0.47"
+          }
+        }
+      },
+      "notes": "Probabilities represent P(malignancy). For Bkl1, the text notes that all models except BYOL predict the lesion to be benign with a probability of 0.70 or greater (implying P(malignancy) < 0.30, consistent with the table values). SwAV classified Nv3 as benign with high probability (0.97) and confidence."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Six convolutional neural network (CNN) models: Inceptionv3, ResNet50, MobileNetv2, EfficientNet (specifically EfficientNet-B0 mentioned in context), BYOL (Bootstrap Your Own Latent), and SwAV (Swapping Assignments between multiple Views).",
+    "pretraining": "Inceptionv3, ResNet50, MobileNetv2, and EfficientNet were pre-trained on ImageNet (implied by use of ImageNet normalization vectors and standard practice for these models, though explicit pretraining weights not detailed beyond normalization). BYOL and SwAV were pre-trained with large amounts of unlabeled data using self-supervised learning (BYOL via predicting exponentially weighted averages of data augmented copies; SwAV via clustering prototypes).",
+    "input_size": "Not explicitly reported.",
+    "architecture_details": {
+      "Inceptionv3": "Combination of small asymmetric convolutions for computational efficiency.",
+      "ResNet50": "Uses residual connections to mitigate vanishing gradients.",
+      "MobileNetv2": "Replaces standard convolutional layers with depth-wise convolutions operating on a single channel at a time.",
+      "EfficientNet": "Family of models (B0-B7) combining network depth and width; EfficientNet-B0 used here.",
+      "BYOL": "Fully unsupervised training of a ResNet network encoder; predicts exponentially weighted averages of data augmented copies from latent representation.",
+      "SwAV": "Clustering-based approach mapping input images to prototypes and enforcing predictivity of labels from clusters."
+    },
+    "training_details": {
+      "optimizer": "Stochastic gradient descent (SGD) implied by 'stochastic gradient descent' mention; Layer-wise Adaptive Rate Scaling (LARS) used for self-supervised models.",
+      "loss_function": "Not explicitly reported (binary classification implied).",
+      "hyperparameters": {
+        "batch_size": 16,
+        "learning_rate_schedule": "Cosine learning rate annealing (for self-supervised models SwAV and BYOL)."
+      },
+      "training_schedule": "Complete pass on training set (epoch) with mini-batch size of 16. Self-supervised models trained in two steps: 1) learning unsupervised latent representation of encoder, 2) learning downstream binary classifier. Data augmentation included random crops, Gaussian blurs, color jitter, rescales, and random flips.",
+      "hardware": "NVIDIA P40 GPU with 4 CPUs."
+    },
+    "classification_or_output_head": {
+      "type": "Binary classifier (malignant vs. benign)",
+      "mechanism": "Outputs a vector of 2 real values (logits) passed through a softmax function to map onto the probability simplex. P[malignant|skin lesion image] is computed."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Inceptionv3",
+    "ResNet50",
+    "MobileNetv2",
+    "EfficientNet",
+    "BYOL",
+    "SwAV",
+    "decision trees",
+    "support vector machines"
+  ],
+  "preprocessing_techniques": [
+    "Z-score normalization using ImageNet mean [0.485, 0.456, 0.406] and standard deviation [0.229, 0.224, 0.225] vectors for supervised models",
+    "Data augmentation techniques from the Kornia library including random flip, random crops, Gaussian blurs, color jitter, and rescales",
+    "Pre-processing described in original BYOL and SwAV papers for self-supervised models"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random flip",
+      "details": "Applied during training using the Kornia library."
+    },
+    {
+      "technique": "Random crops",
+      "details": "Applied during training using the Kornia library."
+    },
+    {
+      "technique": "Gaussian blurs",
+      "details": "Applied during training using the Kornia library."
+    },
+    {
+      "technique": "Color jitter",
+      "details": "Applied during training using the Kornia library."
+    },
+    {
+      "technique": "Rescales",
+      "details": "Applied during training using the Kornia library."
+    },
+    {
+      "technique": "Natural data augmentations (camera resolution, angle, and lighting variations)",
+      "details": "Inherent to the training data source (ISIC archive), which combines images from various datasets with different camera resolutions, angles, and lighting conditions."
+    }
+  ],
+  "conclusions": [
+    "DUNEScan is a novel, freely available web server that addresses the lack of uncertainty estimates in publicly available skin cancer detection applications by providing confidence estimates for predictions.",
+    "High prediction probability does not necessarily imply high confidence; therefore, comparing average model predictions with approximate posterior distributions obtained via binary dropout is critical for accurate diagnosis.",
+    "If the confidence interval for a classifier is large, the prediction cannot be trusted, and domain experts should rely on traditional diagnostic methods.",
+    "If the confidence interval is small, the classifier's prediction should be taken into account and compared in detail with traditional diagnostic methods.",
+    "The web server integrates six state-of-the-art convolutional neural network models (Inceptionv3, ResNet50, MobileNetv2, EfficientNet, BYOL, and SwAV) to form a consensus prediction and analyze uncertainty.",
+    "DUNEScan utilizes Grad-CAM and UMAP algorithms to visualize the classification manifold, providing crucial information about the input image's closeness to skin lesion images from the ISIC database.",
+    "Self-supervised models (BYOL and SwAV) were integrated into the pipeline, leveraging large amounts of unlabeled data for pre-training, which is advantageous in healthcare where annotating images is costly.",
+    "The system allows dermatologists and health practitioners to combine classifier confidence estimates with their own observations to ensure a more grounded diagnosis.",
+    "All web connections in DUNEScan are performed over secured protocols to ensure user privacy and data security."
+  ],
+  "important_remarks": [
+    "The study acknowledges that the size of the training dataset is a main limitation, as medical image datasets are typically smaller than classical deep learning datasets (e.g., ImageNet) due to collection costs, labeling expenses, and privacy legislation.",
+    "Training data originates from the ISIC archive, combining images from various datasets with non-standardized pre-processing (different camera resolutions, angles, and lighting), which is known to increase prediction variance.",
+    "Conclusions drawn from the analysis of these smaller, less standardized datasets require validation by further statistical tests to ensure clear separation between class probabilities.",
+    "The paper does not report formal hypothesis testing (e.g., p-values); instead, it relies on confidence intervals, variance estimates, and approximate posterior distributions derived from binary dropout to assess uncertainty.",
+    "Specific numerical accuracy metrics (e.g., overall accuracy percentages) for the full test set are not explicitly reported in the text, with performance referenced only via confusion matrices in figures.",
+    "The BYOL model exhibited significant instability in predictions (e.g., predicting malignancy with 0.01 probability for Mel1 and 0.07 for Mel2, while other models predicted >0.80), suggesting it should be used with caution or that its hyperparameters may need tuning.",
+    "The evaluation on the HAM10000 dataset was limited to a small sample of images (Mel1, Mel2, Nv1, Nv2, Nv3, Bkl1) rather than a comprehensive external validation of the entire dataset.",
+    "High prediction probability does not necessarily imply high confidence; the paper emphasizes that comparing average model predictions with approximate posterior distributions is critical for accurate diagnosis.",
+    "The web server implementation ensures user privacy and data security by performing all web connections over secured protocols."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_mazoure_2022_dunescan_a_web_server_for_uncertainty_estimation_in_skin_cancer_det.pdf",
+    "summary": "The study utilized the ISIC Archive to construct a training and testing dataset for skin cancer detection. A meta-dataset was created by combining all 2,287 malignant images with 10,000 randomly sampled benign images from the ISIC Archive. This meta-dataset was split 80/20 into training and testing sets. The testing set was balanced 50/50. Validation was performed via five-fold cross-validation within the training set. The application was evaluated on a small sample of images from the HAM10000 dataset (which is part of the ISIC 2018 challenge data) to demonstrate uncertainty estimation capabilities. ImageNet was used for normalization parameters.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper does not report training on one named dataset and testing on a different unseen named dataset. The primary evaluation was on an internal test set derived from the ISIC Archive. A small subset of images from the HAM10000 dataset (which is part of the ISIC 2018 challenge) was used for illustrative examples of uncertainty estimation, but this was not a formal external validation experiment with reported aggregate metrics for that specific split.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC Archive (Meta-dataset)",
+          "counts": "12,287 images (2,287 malignant + 10,000 benign)",
+          "notes": "Formed by combining all malignant images from ISIC Archive with 10,000 randomly sampled benign images. Used for model fitting with 80% of the meta-dataset."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC Archive (Meta-dataset)",
+          "counts": "2,457 images (20% of 12,287)",
+          "notes": "Used for model selection/tuning via five-fold cross-validation within the training set. The validation set was rotated during training to determine the stopping point."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC Archive (Meta-dataset)",
+          "counts": "6,144 images (balanced 50/50 malignant/benign)",
+          "notes": "The remaining 20% of the meta-dataset served as the independent test set for computing confusion matrices and performance metrics."
+        }
+      ],
+      "external_testing": [
+        {
+          "dataset": "HAM10000 / ISIC 2018",
+          "counts": "6 specific images (Mel1, Mel2, Nv1, Nv2, Nv3, Bkl1)",
+          "notes": "Selected images from the HAM10000 dataset were used to demonstrate the web server's uncertainty estimation features. No aggregate performance metrics (e.g., accuracy, AUC) were reported for this specific subset as an external validation set."
+        }
+      ],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Used to obtain mean [0.485, 0.456, 0.406] and standard deviation [0.229, 0.224, 0.225] vectors for Z-score normalization of input images for supervised models. Not used for weight initialization in the reported context, but standard practice for these architectures."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "ISIC Archive (Natural Augmentation)",
+          "notes": "The training data inherently contained natural augmentations due to varying camera resolutions, angles, and lighting conditions from different source datasets within the ISIC archive."
+        },
+        {
+          "dataset": "Kornia Library",
+          "notes": "Data augmentation techniques including random flip, random crops, Gaussian blurs, color jitter, and rescales were applied during training."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split with k-fold cross-validation",
+      "split_details": "80/20 train-test split of the ISIC meta-dataset. The test set was balanced 50/50 malignant/benign. Validation was performed via five-fold cross-validation within the training set.",
+      "cross_validation_details": "Five-fold cross-validation was used during the training phase. For every epoch, the training set was split into 5 disjoint groups; 4 were used for training and 1 for validation to assess loss and accuracy and decide when to stop training.",
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No true external unseen dataset was used for formal validation. A small sample of 6 images from the HAM10000 dataset was used for illustrative purposes."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC Archive Meta-dataset (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC Archive (Meta-dataset)"
+        ],
+        "model_or_method": "Inceptionv3, ResNet50, MobileNetv2, EfficientNet, BYOL, SwAV",
+        "metrics": {
+          "accuracy": "Not explicitly quantified numerically in text; referenced as 'similar levels of accuracy' and 'SwAV particularly accurate'. Confusion matrices available in Fig. 1e.",
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "confidence_intervals": "Reported via boxplots of dropout replicates for specific sample images."
+          }
+        },
+        "notes": "Specific numerical accuracy metrics for the full test set are not reported in the text. SwAV was highlighted as particularly accurate. BYOL showed instability."
+      },
+      {
+        "dataset": "HAM10000 / ISIC 2018 (Sample Images)",
+        "role_at_result_time": "external test (illustrative)",
+        "train_datasets_for_this_result": [
+          "ISIC Archive (Meta-dataset)"
+        ],
+        "model_or_method": "Inceptionv3, ResNet50, MobileNetv2, EfficientNet, BYOL, SwAV",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "P(malignancy)": "Values reported for 6 specific images (Mel1, Mel2, Nv1, Nv2, Nv3, Bkl1) in Table 1."
+          }
+        },
+        "notes": "Results are limited to 6 specific images used to demonstrate uncertainty estimation. No aggregate performance metrics were calculated for this subset."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC Archive Meta-dataset",
+        "split_or_cv": "80/20 train-test split; 5-fold CV for validation",
+        "models": [
+          "Inceptionv3",
+          "ResNet50",
+          "MobileNetv2",
+          "EfficientNet",
+          "BYOL",
+          "SwAV"
+        ],
+        "results": [
+          {
+            "metric": "Accuracy",
+            "value": "Not reported numerically",
+            "model": "All models",
+            "data_split": "test"
+          },
+          {
+            "metric": "P(malignancy)",
+            "value": "See Table 1 for specific images",
+            "model": "All models",
+            "data_split": "unclear (illustrative)"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study acknowledges that the size of the training dataset is a limitation compared to classical deep learning datasets like ImageNet.",
+      "Training data originates from the ISIC archive, combining images from various datasets with non-standardized pre-processing (different camera resolutions, angles, and lighting), which is known to increase prediction variance.",
+      "Conclusions drawn from the analysis of these smaller, less standardized datasets require validation by further statistical tests.",
+      "The evaluation on the HAM10000 dataset was limited to a small sample of images rather than a comprehensive external validation.",
+      "The paper does not report formal hypothesis testing (e.g., p-values); instead, it relies on confidence intervals, variance estimates, and approximate posterior distributions derived from binary dropout to assess uncertainty."
+    ],
+    "information_not_reported": [
+      "Specific numerical accuracy, AUC, sensitivity, or specificity values for the full ISIC test set.",
+      "Aggregate performance metrics for the HAM10000 sample images.",
+      "Detailed patient-level separation information (image-level split is implied).",
+      "Exact fold counts for the final model selection beyond the description of the 5-fold process during training."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780002387
+  }
+}

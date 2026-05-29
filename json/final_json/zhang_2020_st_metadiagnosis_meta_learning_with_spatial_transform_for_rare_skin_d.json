@@ -1,0 +1,638 @@
+{
+  "file_name": "zhang_2020_st_metadiagnosis_meta_learning_with_spatial_transform_for_rare_skin_d.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning-based meta-learning approach called ST-MetaDiagnosis, which combines Spatial Transformer Networks (STN) and Model-Agnostic Meta-Learning (MAML), to perform rare skin disease classification on the ISIC 2018 skin lesion dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel deep learning method called ST-MetaDiagnosis for rare skin disease diagnosis. It includes a proposed approach, experimental setup using the ISIC 2018 dataset, and quantitative results (accuracy, F1-score, AUC) comparing the proposed method against baselines like MAML and fine-tuning. Although published in a conference (IEEE BIBM), it reports new technical results rather than summarizing prior literature."
+  },
+  "title": "ST-MetaDiagnosis: Meta learning with Spatial Transform for rare skin disease Diagnosis",
+  "authors": [
+    "Delong Zhang",
+    "Mengqun Jin",
+    "Peng Cao"
+  ],
+  "doi": "10.1109/BIBM49941.2020.9313372",
+  "journal": "2020 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)",
+  "year": 2020,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of diagnosing rare skin diseases with limited annotated data by proposing ST-MetaDiagnosis, a method combining Spatial Transformer Networks (STN) and Model-Agnostic Meta-Learning (MAML). The approach utilizes meta-learning to facilitate quick adaptation and generalization for rare disease identification using data from common diseases. Experiments were conducted on the ISIC 2018 skin lesion classification dataset, which included images from seven skin disease categories. The model achieved an accuracy of 64.6% and an F1-score of 64.4% in predicting target risks for rare classes like actinic keratosis, vascular lesion, and dermatoﬁbroma. These results demonstrate that ST-MetaDiagnosis improves performance for rare disease prediction compared to predictors trained solely on limited samples.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "melanocytic nevus",
+        "NV"
+      ],
+      "role": "Common disease (meta-train dataset)",
+      "details": "Included in the ISIC 2018 dataset with 6705 samples. Used as a common disease class for meta-training."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "MEL"
+      ],
+      "role": "Common disease (meta-train dataset)",
+      "details": "Included in the ISIC 2018 dataset with 1113 samples. Used as a common disease class for meta-training."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "benign keratosis",
+        "BKL"
+      ],
+      "role": "Common disease (meta-train dataset)",
+      "details": "Included in the ISIC 2018 dataset with 1099 samples. Used as a common disease class for meta-training."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Common disease (meta-train dataset)",
+      "details": "Included in the ISIC 2018 dataset with 514 samples. Used as a common disease class for meta-training."
+    },
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "actinic keratosis"
+      ],
+      "role": "Rare disease (meta-test dataset)",
+      "details": "Included in the ISIC 2018 dataset with 327 samples. Identified as a rare disease target for prediction."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "vascular lesion"
+      ],
+      "role": "Rare disease (meta-test dataset)",
+      "details": "Included in the ISIC 2018 dataset with 142 samples. Identified as a rare disease target for prediction."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "dermatofibroma"
+      ],
+      "role": "Rare disease (meta-test dataset)",
+      "details": "Included in the ISIC 2018 dataset with 115 samples. Identified as a rare disease target for prediction."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Discrete skin disease categories (rare diseases: actinic keratosis, vascular lesion, dermatofibroma; common diseases: melanocytic nevus, melanoma, benign keratosis, basal cell carcinoma)",
+        "primary": true,
+        "details": "The paper performs multi-class classification and binary-class classification (one-vs-the-rest) of skin lesions using the ISIC 2018 dataset. The model predicts discrete diagnostic labels for rare and common skin diseases. Performance is evaluated using accuracy, F1-score, recall, and AUC (Area Under the ROC Curve)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A public skin lesion classification dataset containing images from seven skin disease categories, used to simulate few-shot learning for rare skin diseases.",
+      "classes_used": [
+        "melanocytic nevus",
+        "melanoma",
+        "benign keratosis",
+        "basal cell carcinoma",
+        "actinic keratosis",
+        "vascular lesion",
+        "dermatofibroma"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "melanocytic nevus": 6705,
+          "melanoma": 1113,
+          "benign keratosis": 1099,
+          "basal cell carcinoma": 514,
+          "actinic keratosis": 327,
+          "vascular lesion": 142,
+          "dermatofibroma": 115
+        }
+      },
+      "use": {
+        "training": "Used as the meta-train dataset (D_tr) consisting of the 4 classes with the largest sample counts (melanocytic nevus, melanoma, benign keratosis, basal cell carcinoma) for meta-training tasks.",
+        "validation": "null",
+        "testing": "Used as the meta-test dataset (D_te) consisting of the remaining 3 rare classes (actinic keratosis, vascular lesion, dermatofibroma) for evaluating performance on rare diseases.",
+        "other": "The entire dataset was used to simulate the problem of rare disease diagnosis with limited data. During meta-training, tasks were sampled from the meta-train dataset. During meta-testing, the model was adapted to the meta-test dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "F1-Score",
+    "Macro Recall",
+    "AUC-ROC",
+    "AUC-ROC",
+    "Accuracy"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Repeated runs (5 runs)",
+      "purpose": "To report final results as the average accuracy, macro recall, and macro F1-score over multiple random initializations/samplings.",
+      "type": "Cross-validation statistics / Repetition"
+    },
+    {
+      "method": "Confusion matrix",
+      "purpose": "To provide detailed comparative performance analysis of the classification results.",
+      "type": "Visualization / Analysis tool"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using accuracy, F1-score, and AUC metrics averaged over 5 runs, without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018 Skin Lesion Analysis Towards Melanoma Detection Dataset": {
+      "multi-class_classification_3ways1shot": {
+        "metric": "Accuracy, Recall, F1-score",
+        "models": {
+          "Finetune + Aug": {
+            "Accuracy": "0.4089",
+            "Recall": "0.4015",
+            "F1": "0.4015"
+          },
+          "MAML": {
+            "Accuracy": "0.4436",
+            "Recall": "0.4462",
+            "F1": "0.4462"
+          },
+          "ST-MetaDiagnosis-0": {
+            "Accuracy": "0.4806",
+            "Recall": "0.4551",
+            "F1": "0.4551"
+          },
+          "ST-MetaDiagnosis-2": {
+            "Accuracy": "0.4810",
+            "Recall": "0.4562",
+            "F1": "0.4561"
+          },
+          "ST-MetaDiagnosis-4": {
+            "Accuracy": "0.4788",
+            "Recall": "0.4597",
+            "F1": "0.4595"
+          },
+          "ST-MetaDiagnosis-02": {
+            "Accuracy": "0.4415",
+            "Recall": "0.4412",
+            "F1": "0.4410"
+          }
+        },
+        "notes": "ST-MetaDiagnosis-2 achieved the best classification performance with an accuracy of 48.1%, resulting in a 3.74% increase compared with the previous MAML model."
+      },
+      "multi-class_classification_3ways3shot": {
+        "metric": "Accuracy",
+        "models": {
+          "ST-MetaDiagnosis-2": {
+            "Accuracy": "0.5979"
+          }
+        },
+        "notes": "ST-MetaDiagnosis-2 achieved an accuracy of 59.79%, resulting in a 2.11% increase in accuracy compared with the previous MAML model."
+      },
+      "multi-class_classification_3ways5shot": {
+        "metric": "Accuracy",
+        "models": {
+          "ST-MetaDiagnosis-2": {
+            "Accuracy": "0.6459"
+          }
+        },
+        "notes": "ST-MetaDiagnosis-2 achieved an accuracy of 64.59%, resulting in a 1.14% increase in accuracy compared with the previous MAML model."
+      },
+      "multi-class_classification_3ways1shot_st_diagnosis_4": {
+        "metric": "Accuracy",
+        "models": {
+          "ST-MetaDiagnosis-4": {
+            "Accuracy": "0.4788"
+          }
+        },
+        "notes": "ST-MetaDiagnosis-4 achieved an accuracy of 47.88%, resulting in a 3.52% increase in accuracy compared with the previous MAML model on the 3ways1shot setting."
+      },
+      "multi-class_classification_3ways3shot_st_diagnosis_4": {
+        "metric": "Accuracy",
+        "models": {
+          "ST-MetaDiagnosis-4": {
+            "Accuracy": "0.5887"
+          }
+        },
+        "notes": "ST-MetaDiagnosis-4 achieved an accuracy of 58.87%, resulting in a 1.19% increase in accuracy compared with the previous MAML model on the 3ways3shot setting."
+      },
+      "multi-class_classification_3ways5shot_st_diagnosis_4": {
+        "metric": "Accuracy",
+        "models": {
+          "ST-MetaDiagnosis-4": {
+            "Accuracy": "0.6459"
+          }
+        },
+        "notes": "ST-MetaDiagnosis-4 achieved an accuracy of 64.59%, resulting in a 4.21% increase in accuracy compared with the previous MAML model on the 3ways5shot setting."
+      },
+      "binary_class_classification_1shot": {
+        "metric": "Avg.AUC, Avg.ACC",
+        "models": {
+          "MAML": {
+            "Avg.AUC": "0.6174",
+            "Avg.ACC": "0.6016"
+          },
+          "ST-MetaDiagnosis-4": {
+            "Avg.AUC": "0.6527",
+            "Avg.ACC": "0.6578"
+          },
+          "ST-MetaDiagnosis-34": {
+            "Avg.AUC": "0.6291",
+            "Avg.ACC": "0.6407"
+          },
+          "ST-MetaDiagnosis-024": {
+            "Avg.AUC": "0.5843",
+            "Avg.ACC": "0.6193"
+          }
+        },
+        "notes": "Results averaged over 5 runs."
+      },
+      "binary_class_classification_3shot": {
+        "metric": "Avg.AUC, Avg.ACC",
+        "models": {
+          "MAML": {
+            "Avg.AUC": "0.7338",
+            "Avg.ACC": "0.7456"
+          },
+          "ST-MetaDiagnosis-4": {
+            "Avg.AUC": "0.7632",
+            "Avg.ACC": "0.7638"
+          },
+          "ST-MetaDiagnosis-34": {
+            "Avg.AUC": "0.7403",
+            "Avg.ACC": "0.7407"
+          },
+          "ST-MetaDiagnosis-024": {
+            "Avg.AUC": "0.7203",
+            "Avg.ACC": "0.7393"
+          }
+        },
+        "notes": "Results averaged over 5 runs."
+      },
+      "binary_class_classification_5shot": {
+        "metric": "Avg.AUC, Avg.ACC",
+        "models": {
+          "MAML": {
+            "Avg.AUC": "0.7829",
+            "Avg.ACC": "0.7916"
+          },
+          "ST-MetaDiagnosis-4": {
+            "Avg.AUC": "0.8059",
+            "Avg.ACC": "0.8138"
+          },
+          "ST-MetaDiagnosis-34": {
+            "Avg.AUC": "0.7933",
+            "Avg.ACC": "0.7907"
+          },
+          "ST-MetaDiagnosis-024": {
+            "Avg.AUC": "0.7903",
+            "Avg.ACC": "0.7993"
+          }
+        },
+        "notes": "Results averaged over 5 runs."
+      },
+      "comparison_with_multi_instance_learning": {
+        "metric": "ACC, AUC, Recall, F1",
+        "models": {
+          "ST-MetaDiagnosis": {
+            "ACC": "0.6459",
+            "AUC": "0.8059",
+            "Recall": "0.6438",
+            "F1": "0.6438"
+          },
+          "AMILDiagnosis": {
+            "ACC": "0.7361",
+            "AUC": "0.8512",
+            "Recall": "0.6367",
+            "F1": "0.6450"
+          }
+        },
+        "notes": "AMILDiagnosis achieved better classification performance in terms of ACC, AUC, and F1 compared to ST-MetaDiagnosis."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "ST-MetaDiagnosis (Model-Agnostic Meta-Learning (MAML) combined with Spatial Transformer Networks (STN))",
+    "pretraining": "Null (Parameters were randomly initialized)",
+    "input_size": "84x84 pixels",
+    "architecture_details": {
+      "backbone": "Convolutional Neural Network (CNN) with 4 convolutional blocks",
+      "layers": [
+        {
+          "type": "Convolutional",
+          "kernel_size": "3x3",
+          "activation": "ReLU"
+        },
+        {
+          "type": "Pooling",
+          "kernel_size": "2x2",
+          "stride": 2
+        },
+        {
+          "type": "Convolutional",
+          "kernel_size": "3x3",
+          "activation": "ReLU"
+        },
+        {
+          "type": "Pooling",
+          "kernel_size": "2x2",
+          "stride": 2
+        },
+        {
+          "type": "Spatial Transformer Network (STN)",
+          "components": [
+            "Localization network (fully-connected or convolutional with regression layer)",
+            "Grid generator",
+            "Sampler"
+          ],
+          "transformation": "Affine (6-dimensional parameters)"
+        },
+        {
+          "type": "Convolutional",
+          "kernel_size": "3x3",
+          "activation": "ReLU"
+        },
+        {
+          "type": "Pooling",
+          "kernel_size": "2x2",
+          "stride": 2
+        },
+        {
+          "type": "Fully Connected",
+          "description": "Final classification layer"
+        }
+      ],
+      "spatial_transformer_placement": "Inserted into different layers: input layer (STN0), fourth convolution layer (STN2), and fully-connected layer (STN4). Variants tested: ST-MetaDiagnosis-0 (input), ST-MetaDiagnosis-2 (4th conv), ST-MetaDiagnosis-4 (FC), ST-MetaDiagnosis-34 (4th conv + FC), ST-MetaDiagnosis-024 (input + 4th conv + FC)"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": "0.001 (divided by 2 every 10 epochs if validation accuracy did not increase)",
+      "meta_learning_rate_threshold": "1e-6 (training stopped if lower)",
+      "iterations": "10000",
+      "batch_size": "4 tasks",
+      "tasks_per_batch": "4 tasks sampled from meta-train dataset",
+      "samples_per_class": "k samples (1, 3, or 5 for testing; 15 for meta-training query)",
+      "classes_per_task": "4 classes (meta-train), 3 classes (meta-test)",
+      "runs": "5 runs (results averaged)"
+    },
+    "classification_or_output_head": {
+      "type": "Fully Connected Layer",
+      "activation": "Softmax (implied by classification task)",
+      "loss_function": "Cross-entropy loss"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ST-MetaDiagnosis",
+    "ST-MetaDiagnosis-0",
+    "ST-MetaDiagnosis-2",
+    "ST-MetaDiagnosis-4",
+    "ST-MetaDiagnosis-02",
+    "ST-MetaDiagnosis-34",
+    "ST-MetaDiagnosis-024",
+    "MAML",
+    "Finetune + Aug",
+    "AMILDiagnosis"
+  ],
+  "preprocessing_techniques": [
+    "Input images resized to 84x84 pixels",
+    "Spatial Transformer Networks (STN) applied for spatial localization and affine transformation of input images or feature maps to achieve spatial invariance",
+    "Data augmentation (mentioned as 'Finetune + Aug' baseline, implying standard augmentation techniques were used for comparison, though specific techniques like rotation/flip are not detailed in the provided context)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Spatial Transformer Networks (STN)",
+      "details": "A differentiable module applied to input images or feature maps to learn affine transformations (6-dimensional parameters) for spatial invariance. STN modules were inserted into different layers: input layer (STN0), fourth convolution layer (STN2), and fully-connected layer (STN4). Variants included ST-MetaDiagnosis-0, ST-MetaDiagnosis-2, ST-MetaDiagnosis-4, ST-MetaDiagnosis-34 (4th conv + FC), and ST-MetaDiagnosis-024 (input + 4th conv + FC)."
+    },
+    {
+      "technique": "Standard Data Augmentation (Baseline)",
+      "details": "Mentioned as part of the 'Finetune + Aug' baseline model for comparison purposes. Specific techniques (e.g., rotation, flip) are not detailed in the provided context."
+    }
+  ],
+  "conclusions": [
+    "The proposed ST-MetaDiagnosis method, which combines Model-Agnostic Meta-Learning (MAML) with Spatial Transformer Networks (STN), effectively addresses the challenge of diagnosing rare skin diseases with limited annotated data by leveraging knowledge from common diseases.",
+    "ST-MetaDiagnosis improves classification performance for rare skin diseases (actinic keratosis, vascular lesion, and dermatofibroma) compared to predictors trained solely on limited samples, achieving an accuracy of 64.6% and an F1-score of 64.4% on the ISIC 2018 dataset.",
+    "In multi-class classification tasks, ST-MetaDiagnosis-2 achieved the best performance with accuracies of 48.1%, 59.79%, and 64.59% for 1-shot, 3-shot, and 5-shot settings respectively, outperforming the baseline MAML model.",
+    "ST-MetaDiagnosis-4 achieved the best performance in binary classification tasks, with an average AUC of 0.8059 and average accuracy of 0.8138 in the 5-shot setting.",
+    "Incorporating STN modules into the network facilitates quick adaptation and generalization, allowing the model to handle spatial invariance and improve few-shot learning performance.",
+    "The location of the STN module affects performance; incorporating STN into higher convolution blocks (larger receptive fields) yields better results, and adding multiple STN layers does not necessarily improve performance due to potential overfitting from increased parameters.",
+    "The proposed method demonstrates that meta-learning with spatial transform is a viable approach for computer-aided diagnosis of rare skin conditions where data scarcity is a significant constraint."
+  ],
+  "important_remarks": [
+    "The study relies on a single dataset (ISIC 2018) to simulate few-shot learning by splitting classes into 'common' (meta-train) and 'rare' (meta-test) groups; this approach may not generalize to external datasets with different class distributions or image characteristics.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed; performance comparisons were based on average metrics over 5 runs without significance testing.",
+    "The proposed ST-MetaDiagnosis method underperformed compared to the Multi-Instance Learning baseline (AMILDiagnosis) in direct comparison, with AMILDiagnosis achieving higher accuracy (0.7361 vs 0.6459) and AUC (0.8512 vs 0.8059) in the 5-shot setting.",
+    "The model achieved moderate absolute performance (64.6% accuracy in 5-shot multi-class classification), which may limit immediate clinical utility without further improvement.",
+    "The paper does not report results on external validation cohorts, limiting the assessment of real-world robustness and generalizability.",
+    "Data leakage risks are inherent in the meta-learning setup where knowledge from common diseases is used to predict rare diseases; the extent of feature overlap or bias transfer is not explicitly quantified."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_zhang_2020_st_metadiagnosis_meta_learning_with_spatial_transform_for_rare_skin_d.pdf",
+    "summary": "The study utilized the ISIC 2018 Skin Lesion Analysis Towards Melanoma Detection Dataset to simulate a few-shot learning scenario for rare skin disease diagnosis. The dataset was split by class distribution: the four most common classes (melanocytic nevus, melanoma, benign keratosis, basal cell carcinoma) formed the meta-train dataset (D_tr) for meta-learning, while the three rarest classes (actinic keratosis, vascular lesion, dermatofibroma) formed the meta-test dataset (D_te) for evaluating performance on rare diseases. No external validation datasets were used; all experiments were conducted within this single dataset.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper did not perform cross-dataset validation. The model was trained on common classes from the ISIC 2018 dataset and tested on rare classes from the same ISIC 2018 dataset. No external or unseen named datasets were used for testing.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2018 (Meta-train subset)",
+          "counts": "9431 images (6705 melanocytic nevus, 1113 melanoma, 1099 benign keratosis, 514 basal cell carcinoma)",
+          "notes": "Used as the source for meta-training tasks. The four classes with the largest sample counts were designated as common diseases for meta-training."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2018 (Meta-train subset)",
+          "counts": "Not explicitly reported as a separate held-out set; validation accuracy was monitored during training to stop early if meta-learning rate dropped below 1e-6.",
+          "notes": "The paper mentions monitoring validation accuracy during the meta-training phase to determine stopping criteria, but does not define a separate fixed validation split distinct from the meta-train tasks."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2018 (Meta-test subset)",
+          "counts": "584 images (327 actinic keratosis, 142 vascular lesion, 115 dermatofibroma)",
+          "notes": "Used as the source for meta-test tasks. The remaining three classes with the fewest samples were designated as rare diseases for evaluation."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "Not explicitly reported",
+          "notes": "The paper mentions transfer learning as a general concept but does not specify if ImageNet or other pre-trained weights were used for the ST-MetaDiagnosis backbone. It focuses on meta-learning initialization rather than standard transfer learning from ImageNet."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "ISIC 2018 (via Spatial Transformer Networks)",
+          "notes": "Spatial Transformer Networks (STN) were used to learn affine transformations for spatial invariance, effectively acting as a differentiable augmentation mechanism during training. Standard data augmentation was also mentioned as part of the 'Finetune + Aug' baseline."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "Class-based split within ISIC 2018: 4 common classes (9431 images) for meta-training, 3 rare classes (584 images) for meta-testing. Tasks were sampled from these distributions. Final results averaged over 5 runs.",
+      "cross_validation_details": "Not applicable. The study uses a few-shot meta-learning protocol where tasks are sampled from the meta-train and meta-test distributions. No k-fold cross-validation across the entire dataset is reported.",
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No external unseen datasets were used. The 'unseen' data refers to the rare disease classes within the same ISIC 2018 dataset, which were held out from the meta-training class distribution."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2018 (Meta-test subset)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (Meta-train subset)"
+        ],
+        "model_or_method": "ST-MetaDiagnosis-2",
+        "metrics": {
+          "accuracy": "0.6459",
+          "auc": "0.8059",
+          "sensitivity": "0.6438",
+          "specificity": "null",
+          "f1_score": "0.6438",
+          "other_metrics": {
+            "multi-class_3ways5shot_accuracy": "0.6459"
+          }
+        },
+        "notes": "Best performing model in the 5-shot setting. Results averaged over 5 runs. Note: The paper also reports AMILDiagnosis achieving ACC 0.7361, AUC 0.8512, Recall 0.6367, F1 0.6450 on the same test set."
+      },
+      {
+        "dataset": "ISIC 2018 (Meta-test subset)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (Meta-train subset)"
+        ],
+        "model_or_method": "ST-MetaDiagnosis-4",
+        "metrics": {
+          "accuracy": "0.6459",
+          "auc": "0.8059",
+          "sensitivity": "0.6438",
+          "specificity": "null",
+          "f1_score": "0.6438",
+          "other_metrics": {
+            "binary_class_5shot_avg_auc": "0.8059",
+            "binary_class_5shot_avg_acc": "0.8138"
+          }
+        },
+        "notes": "Best performing model in binary classification 5-shot setting. Results averaged over 5 runs."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2018 (Meta-train subset)",
+        "split_or_cv": "Meta-training tasks sampled from 4 common classes",
+        "models": [
+          "ST-MetaDiagnosis",
+          "MAML",
+          "Finetune + Aug"
+        ],
+        "results": [
+          {
+            "metric": "Validation Accuracy (monitoring)",
+            "value": "null",
+            "model": "ST-MetaDiagnosis",
+            "data_split": "validation"
+          }
+        ]
+      },
+      {
+        "dataset": "ISIC 2018 (Meta-test subset)",
+        "split_or_cv": "Meta-test tasks sampled from 3 rare classes",
+        "models": [
+          "ST-MetaDiagnosis-2",
+          "ST-MetaDiagnosis-4",
+          "MAML",
+          "Finetune + Aug",
+          "AMILDiagnosis"
+        ],
+        "results": [
+          {
+            "metric": "Accuracy (3ways1shot)",
+            "value": "0.4810",
+            "model": "ST-MetaDiagnosis-2",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy (3ways3shot)",
+            "value": "0.5979",
+            "model": "ST-MetaDiagnosis-2",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy (3ways5shot)",
+            "value": "0.6459",
+            "model": "ST-MetaDiagnosis-2",
+            "data_split": "test"
+          },
+          {
+            "metric": "Avg.AUC (binary 5-shot)",
+            "value": "0.8059",
+            "model": "ST-MetaDiagnosis-4",
+            "data_split": "test"
+          },
+          {
+            "metric": "Avg.ACC (binary 5-shot)",
+            "value": "0.8138",
+            "model": "ST-MetaDiagnosis-4",
+            "data_split": "test"
+          },
+          {
+            "metric": "ACC (multi-class 5-shot)",
+            "value": "0.6459",
+            "model": "ST-MetaDiagnosis",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC (multi-class 5-shot)",
+            "value": "0.8059",
+            "model": "ST-MetaDiagnosis",
+            "data_split": "test"
+          },
+          {
+            "metric": "ACC (multi-class 5-shot)",
+            "value": "0.7361",
+            "model": "AMILDiagnosis",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC (multi-class 5-shot)",
+            "value": "0.8512",
+            "model": "AMILDiagnosis",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study relies on a single dataset (ISIC 2018) to simulate few-shot learning by splitting classes into 'common' (meta-train) and 'rare' (meta-test) groups. This approach may not generalize to external datasets with different class distributions or image characteristics.",
+      "No external validation cohorts were used, limiting the assessment of real-world robustness and generalizability.",
+      "Data leakage risks are inherent in the meta-learning setup where knowledge from common diseases is used to predict rare diseases; the extent of feature overlap or bias transfer is not explicitly quantified.",
+      "The model underperformed compared to the Multi-Instance Learning baseline (AMILDiagnosis) in direct comparison."
+    ],
+    "information_not_reported": [
+      "Specific patient-level separation details (whether images from the same patient were split across train/test sets).",
+      "Exact number of images used for the 'validation' monitoring during meta-training, as it appears to be part of the meta-train task sampling process rather than a fixed held-out set.",
+      "Pre-training weights source (e.g., ImageNet) for the backbone CNN.",
+      "Specific data augmentation techniques beyond STN and the baseline 'Finetune + Aug' description."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780005892
+  }
+}

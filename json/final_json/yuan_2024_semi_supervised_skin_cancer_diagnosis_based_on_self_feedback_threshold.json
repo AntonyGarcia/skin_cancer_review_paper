@@ -1,0 +1,498 @@
+{
+  "file_name": "yuan_2024_semi_supervised_skin_cancer_diagnosis_based_on_self_feedback_threshold.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes and validates a semi-supervised deep learning model called Self-feedback Threshold Focal Learning (STFL) for skin cancer diagnosis. It utilizes the HAM10000 dataset to train the model using partially labeled and unlabeled medical images, achieving specific diagnostic metrics (accuracy, Kappa, recall, precision, F1-score) for classifying skin lesions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled as 'Research' in the header and presents an original experimental study. It proposes a novel semi-supervised deep learning model (STFL), describes specific methods (ResNet50, SGD, HAM10000 dataset), and reports original quantitative results (accuracy, Kappa, F1-score) from experiments and ablation studies, rather than summarizing prior literature."
+  },
+  "title": "Semi‑supervised skin cancer diagnosis based on self‑feedback threshold focal learning",
+  "authors": [
+    "Weicheng Yuan",
+    "Zeyu Du",
+    "Shuo Han"
+  ],
+  "doi": "10.1007/s12672-024-01043-8",
+  "journal": "Discover Oncology",
+  "year": 2024,
+  "article_type": "Research",
+  "brief_summary": "This study addresses the limitations of supervised learning in skin cancer diagnosis by proposing a semi-supervised model called Self-feedback Threshold Focal Learning (STFL). The model utilizes both partially labeled and a large volume of unlabeled medical images to enhance diagnostic performance while mitigating class imbalance. Experimental validation was conducted on the HAM10000 dataset, simulating real-world scenarios with varying scales of labeled data. With only 500 annotated samples, the STFL model achieved an accuracy of 0.77, a Kappa score of 0.6408, and an F1-score of 0.7462. The results demonstrate that integrating unlabeled data significantly improves diagnostic accuracy and efficiency compared to methods relying solely on limited labeled data.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "AKIEC",
+        "Actinic keratosis and intraepithelial carcinoma/Bowen's disease"
+      ],
+      "role": "Target class",
+      "details": "One of the 7 classes in the HAM10000 dataset used for classification; 327 images in the dataset."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "BCC",
+        "Basal cell carcinoma"
+      ],
+      "role": "Target class",
+      "details": "One of the 7 classes in the HAM10000 dataset used for classification; 514 images in the dataset."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "MEL",
+        "Melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the 7 classes in the HAM10000 dataset used for classification; 1113 images in the dataset."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "BKL",
+        "Benign keratosis-like lesions"
+      ],
+      "role": "Target class",
+      "details": "One of the 7 classes in the HAM10000 dataset used for classification; 1099 images in the dataset. Includes seborrheic keratosis and solar lentigo."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "DF",
+        "Dermatofibroma"
+      ],
+      "role": "Target class",
+      "details": "One of the 7 classes in the HAM10000 dataset used for classification; 115 images in the dataset."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "NV",
+        "Melanocytic nevus"
+      ],
+      "role": "Target class",
+      "details": "One of the 7 classes in the HAM10000 dataset used for classification; 6705 images in the dataset."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "VASC",
+        "Vascular lesions"
+      ],
+      "role": "Target class",
+      "details": "One of the 7 classes in the HAM10000 dataset used for classification; 142 images in the dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin lesion diagnostic categories (AKIEC, BCC, BKL, DF, MEL, NV, VASC)",
+        "primary": true,
+        "details": "The model performs multi-class classification of skin lesions using the HAM10000 dataset. It predicts discrete diagnostic labels for 7 classes. The task involves generating pseudo-labels for unlabeled data based on maximum predicted probability and evaluating performance using classification metrics such as accuracy, precision, recall, F1-score, Kappa coefficient, and AUC (Area Under the ROC Curve)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A public skin cancer diagnosis dataset collected over 20 years from the Department of Dermatology at the Medical University of Vienna, Austria, and Cliff Rosendahl’s Skin Cancer Clinic in Queensland, Australia. It contains dermatoscopic images of various skin lesions.",
+      "classes_used": [
+        "AKIEC (Actinic keratosis and intraepithelial carcinoma/Bowen's disease)",
+        "BCC (Basal cell carcinoma)",
+        "MEL (Melanoma)",
+        "BKL (Benign keratosis-like lesions)",
+        "DF (Dermatofibroma)",
+        "NV (Melanocytic nevus)",
+        "VASC (Vascular lesions)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 5000,
+        "validation": null,
+        "testing": 5015,
+        "per_class": {
+          "AKIEC": 327,
+          "BCC": 514,
+          "MEL": 1113,
+          "BKL": 1099,
+          "DF": 115,
+          "NV": 6705,
+          "VASC": 142
+        }
+      },
+      "use": {
+        "training": "The dataset was randomly divided into a training set of 5000 images and a test set of 5015 images. The training set was further split into labeled and unlabeled subsets. Experiments simulated real-world scenarios using varying scales of labeled data (500, 1000, 1500, 2000, 2500, and full 5000 samples) combined with the remaining unlabeled data for semi-supervised training.",
+        "validation": null,
+        "testing": "The test set of 5015 images was used for quantitative evaluation of the model's performance, including accuracy, Kappa, recall, precision, F1-score, and AUC metrics.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "KAPPA",
+    "Recall",
+    "Precision",
+    "F1-Score",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "AUC-ROC",
+    "AUC-ROC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Kappa coefficient",
+      "purpose": "To measure inter-rater agreement or accuracy, taking into account the possibility of agreement occurring by chance, to assess the consistency of the model's predictions.",
+      "type": "Agreement metric"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) curve analysis",
+      "purpose": "To assess the performance of the classifier across different threshold settings and evaluate the model's ability to distinguish between classes, specifically using the Area Under the Curve (AUC) metric.",
+      "type": "Performance evaluation metric"
+    },
+    {
+      "method": "t-SNE (t-Distributed Stochastic Neighbor Embedding)",
+      "purpose": "To visualize the distribution of high-dimensional data in a low-dimensional space, assessing the model's feature extraction capability and generalization ability.",
+      "type": "Visualization technique"
+    },
+    {
+      "method": "Grad-CAM (Gradient-weighted Class Activation Mapping)",
+      "purpose": "To provide visual explanations for the model's decision-making process by highlighting significant regions in the input images.",
+      "type": "Visualization/Interpretability technique"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive statistics (accuracy, Kappa, F1-score, etc.) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "experiment": "Comparison with state-of-the-art semi-supervised methods (500 labeled samples)",
+      "metric": "AUC",
+      "models": {
+        "STFL": {
+          "auc": "0.940"
+        },
+        "FixMatch": {
+          "auc": "0.774"
+        },
+        "Self-train": {
+          "auc": "0.769"
+        },
+        "GLM": {
+          "auc": "0.783"
+        },
+        "NM": {
+          "auc": "0.792"
+        },
+        "Bis": {
+          "auc": "0.770"
+        },
+        "CSDA": {
+          "auc": "0.804"
+        }
+      },
+      "notes": "STFL was compared against other semi-supervised methods using 500 labeled samples, while others used 600. STFL significantly surpassed all compared methods in AUC."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Self-feedback Threshold Focal Learning (STFL)",
+    "pretraining": "ResNet50 initialized with parameters pre-trained on ImageNet",
+    "input_size": "224 x 224 pixels",
+    "architecture_details": {
+      "backbone": "ResNet50",
+      "backbone_alternatives_tested": [
+        "VggNet",
+        "GoogleNet"
+      ],
+      "feature_extractor": "ResNet50",
+      "classification_layer": "Defined classification layer p(·) to predict feature categories",
+      "loss_functions": [
+        "Cross-entropy loss (Lce) for labeled data",
+        "Threshold-based loss (LT) for unlabeled data",
+        "Focal Loss (Lf) for class imbalance mitigation (gamma=2)"
+      ],
+      "combined_loss": "L = λ1*Lce + λ2*LT + λ3*Lf",
+      "loss_weights": {
+        "lambda_1": 1,
+        "lambda_2": 0.5,
+        "lambda_3": 0.5
+      }
+    },
+    "training_details": {
+      "optimizer": "Stochastic Gradient Descent (SGD)",
+      "epochs": 150,
+      "batch_size": 64,
+      "initial_learning_rate": 0.001,
+      "data_augmentation": "Random horizontal flipping",
+      "implementation_framework": "Pytorch",
+      "hardware": "NVIDIA Geforce 4090 GPU"
+    },
+    "classification_or_output_head": {
+      "type": "Classification layer",
+      "function": "Predicts category probabilities for 7 skin lesion classes",
+      "classes": [
+        "AKIEC",
+        "BCC",
+        "MEL",
+        "BKL",
+        "DF",
+        "NV",
+        "VASC"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Self-feedback Threshold Focal Learning (STFL)",
+    "ResNet50",
+    "VggNet",
+    "GoogleNet",
+    "FixMatch",
+    "Self-train",
+    "GLM",
+    "NM",
+    "Bis",
+    "CSDA"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to 224 x 224 pixels",
+    "Random horizontal flipping (data augmentation)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random horizontal flipping",
+      "details": "Applied during training as the sole data augmentation method. Images were resized to 224 x 224 pixels prior to augmentation."
+    }
+  ],
+  "conclusions": [
+    "The proposed Self-feedback Threshold Focal Learning (STFL) semi-supervised model effectively utilizes both partially labeled and a large volume of unlabeled medical images to enhance skin cancer diagnostic performance.",
+    "The STFL model dynamically adjusts the selection threshold for unlabeled samples during training, which effectively filters reliable unlabeled samples and mitigates the impact of class imbalance through focal learning.",
+    "With only 500 annotated samples, the STFL model demonstrated robust performance, achieving an accuracy of 0.77, a Kappa score of 0.6408, a recall of 0.77, a precision of 0.7426, and an F1-score of 0.7462.",
+    "Integrating unlabeled data significantly improves diagnostic accuracy and efficiency compared to methods relying solely on limited labeled data, as evidenced by performance decreases when unlabeled data was removed in ablation studies.",
+    "The STFL model significantly outperformed state-of-the-art semi-supervised methods (such as FixMatch, Self-train, GLM, NM, Bis, and CSDA) in terms of AUC (0.940 vs. 0.769–0.804), despite using fewer labeled samples (500 vs. 600).",
+    "Model performance improves significantly as the scale of labeled data increases, with the fully labeled scenario (5000 samples) yielding the highest metrics (accuracy 0.8550, Kappa 0.8058, F1-score 0.8507).",
+    "The model demonstrates strong generalization and feature extraction capabilities, validated by t-SNE visualizations showing good discriminatory power for different skin lesion types.",
+    "The STFL model offers interpretability through Grad-CAM visualizations, highlighting clinically significant features that align with dermatologists' diagnostic reasoning."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the HAM10000 dataset, which has known demographic biases (primarily from Austria and Australia), limiting the generalizability of the model to other populations without external validation.",
+    "The proposed STFL model was compared against state-of-the-art semi-supervised methods (FixMatch, Self-train, GLM, NM, Bis, CSDA) using only 500 labeled samples, whereas the competing methods were evaluated using 600 labeled samples, creating an unfair comparison advantage for STFL.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals to support the significance of performance differences between models.",
+    "The dataset exhibits significant class imbalance (e.g., 6,705 NV vs. 115 DF images), which the authors address via Focal Loss but which may still bias the model towards majority classes.",
+    "The study simulates real-world semi-supervised scenarios by randomly splitting a fully annotated public dataset, rather than using truly unlabeled clinical data, which may overestimate performance in actual clinical deployment.",
+    "Data leakage risks exist due to the random split of the HAM10000 dataset without explicit mention of patient-level separation, potentially allowing images from the same patient to appear in both training and test sets.",
+    "The model's performance is highly dependent on the scale of labeled data, with accuracy dropping from 0.855 (5000 samples) to 0.77 (500 samples), indicating limited robustness in extremely low-label regimes.",
+    "No external validation on independent datasets was performed to verify the model's generalizability across different clinical settings or imaging devices."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_yuan_2024_semi_supervised_skin_cancer_diagnosis_based_on_self_feedback_threshold.pdf",
+    "summary": "The study utilized the HAM10000 dataset, a public collection of dermatoscopic images from Austria and Australia. The dataset was randomly split into a training set (5,000 images) and a test set (5,015 images). The training set was further subdivided into labeled subsets (500, 1,000, 1,500, 2,000, 2,500, and 5,000 samples) and corresponding unlabeled subsets to simulate semi-supervised learning scenarios. The model was trained on these labeled/unlabeled combinations and evaluated on the held-out test set. No external validation datasets were used.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper did not perform cross-dataset validation. All experiments were conducted on the HAM10000 dataset, which was split internally into training and testing sets. The authors explicitly note the lack of external validation as a limitation regarding generalizability.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "HAM10000 (Training Subset)",
+          "counts": "5,000 images (split into labeled subsets of 500, 1000, 1500, 2000, 2500, or 5000, and remaining unlabeled images)",
+          "notes": "Used for semi-supervised training. The labeled portion was used for supervised loss, and the unlabeled portion was used for pseudo-labeling and self-feedback threshold learning."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "HAM10000 (Training Subset)",
+          "counts": "Included within the 5,000 training images",
+          "notes": "The paper does not explicitly define a separate validation set for hyperparameter tuning or model selection. The unlabeled portion of the training set was used for semi-supervised learning objectives (pseudo-labeling), which serves a role similar to validation in semi-supervised contexts, but no distinct validation split for model selection is reported."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "HAM10000 (Test Subset)",
+          "counts": "5,015 images",
+          "notes": "Used for final quantitative evaluation of accuracy, Kappa, recall, precision, F1-score, and AUC."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "ResNet50 backbone was initialized with parameters pre-trained on ImageNet."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "HAM10000 (Augmented)",
+          "notes": "Random horizontal flipping was applied as data augmentation during training. No synthetic data generation (e.g., GANs) was reported."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "Fixed split",
+      "split_details": "The HAM10000 dataset (10,015 images) was randomly divided into a training set of 5,000 images and a test set of 5,015 images. The training set was further split into labeled subsets (500, 1000, 1500, 2000, 2500, 5000) and unlabeled subsets.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "not reported",
+      "unseen_data_details": "No unseen external dataset was used. The test set (5,015 images) was held out from the original HAM10000 dataset."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "HAM10000 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (Training Subset)"
+        ],
+        "model_or_method": "STFL (ResNet50 backbone)",
+        "metrics": {
+          "accuracy": "0.77 (with 500 labeled samples), 0.8550 (with 5000 labeled samples)",
+          "auc": "0.940 (macro-average with 500 labeled samples)",
+          "sensitivity": "0.77 (with 500 labeled samples), 0.8486 (with 5000 labeled samples)",
+          "specificity": "null",
+          "f1_score": "0.7462 (with 500 labeled samples), 0.8507 (with 5000 labeled samples)",
+          "other_metrics": {
+            "Kappa": "0.6408 (with 500 labeled samples), 0.8058 (with 5000 labeled samples)",
+            "Precision": "0.7426 (with 500 labeled samples), 0.8550 (with 5000 labeled samples)"
+          }
+        },
+        "notes": "Results vary by labeled data scale. With 500 labeled samples, STFL achieved an AUC of 0.940, outperforming other semi-supervised methods (FixMatch: 0.774, Self-train: 0.769, GLM: 0.783, NM: 0.792, Bis: 0.770, CSDA: 0.804) which used 600 labeled samples."
+      },
+      {
+        "dataset": "HAM10000 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (Training Subset)"
+        ],
+        "model_or_method": "STFL (VggNet backbone)",
+        "metrics": {
+          "accuracy": "0.737",
+          "auc": "null",
+          "sensitivity": "0.7462",
+          "specificity": "null",
+          "f1_score": "0.7371",
+          "other_metrics": {
+            "Kappa": "0.6541",
+            "Precision": "0.737"
+          }
+        },
+        "notes": "Comparison of backbone networks with 500 labeled samples. STFL with ResNet50 (Accuracy 0.77) outperformed VggNet (0.737) and GoogleNet (0.7264)."
+      },
+      {
+        "dataset": "HAM10000 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (Training Subset)"
+        ],
+        "model_or_method": "STFL (GoogleNet backbone)",
+        "metrics": {
+          "accuracy": "0.7264",
+          "auc": "null",
+          "sensitivity": "0.6867",
+          "specificity": "null",
+          "f1_score": "0.6881",
+          "other_metrics": {
+            "Kappa": "0.5730",
+            "Precision": "0.7264"
+          }
+        },
+        "notes": "Comparison of backbone networks with 500 labeled samples."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "HAM10000",
+        "split_or_cv": "Random split: 5,000 training / 5,015 testing. Training set further split into labeled subsets (500, 1000, 1500, 2000, 2500, 5000) and unlabeled remainder.",
+        "models": [
+          "STFL (ResNet50)",
+          "STFL (VggNet)",
+          "STFL (GoogleNet)",
+          "FixMatch",
+          "Self-train",
+          "GLM",
+          "NM",
+          "Bis",
+          "CSDA"
+        ],
+        "results": [
+          {
+            "metric": "AUC",
+            "value": "0.940",
+            "model": "STFL (ResNet50)",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": "0.77",
+            "model": "STFL (ResNet50)",
+            "data_split": "test"
+          },
+          {
+            "metric": "F1-score",
+            "value": "0.7462",
+            "model": "STFL (ResNet50)",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": "0.774",
+            "model": "FixMatch",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": "0.769",
+            "model": "Self-train",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": "0.783",
+            "model": "GLM",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": "0.792",
+            "model": "NM",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": "0.770",
+            "model": "Bis",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": "0.804",
+            "model": "CSDA",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study relies exclusively on the HAM10000 dataset, which has known demographic biases (primarily from Austria and Australia), limiting the generalizability of the model to other populations without external validation.",
+      "No external validation on independent datasets was performed to verify the model's generalizability across different clinical settings or imaging devices.",
+      "Data leakage risks exist due to the random split of the HAM10000 dataset without explicit mention of patient-level separation, potentially allowing images from the same patient to appear in both training and test sets.",
+      "The study simulates real-world semi-supervised scenarios by randomly splitting a fully annotated public dataset, rather than using truly unlabeled clinical data, which may overestimate performance in actual clinical deployment."
+    ],
+    "information_not_reported": [
+      "Patient-level separation details for the train/test split.",
+      "Specific validation set size or protocol for hyperparameter tuning (model selection).",
+      "Confidence intervals or p-values for statistical significance of results.",
+      "Specific counts of labeled vs. unlabeled images for each experimental scale (e.g., exact number of unlabeled images when 500 are labeled)."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780005818
+  }
+}

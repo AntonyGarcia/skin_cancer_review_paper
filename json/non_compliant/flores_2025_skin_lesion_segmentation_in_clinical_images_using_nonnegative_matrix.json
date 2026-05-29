@@ -1,0 +1,343 @@
+{
+  "file_name": "flores_2025_skin_lesion_segmentation_in_clinical_images_using_nonnegative_matrix.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes a novel patch-based model for skin lesion segmentation in clinical images that utilizes Nonnegative Matrix Factorization (NMF) and Mutual Information to extract features and guide segmentation via normalized graph cuts. This computational modeling approach is used to obtain segmentation results for cutaneous melanomas, which are then evaluated against deep learning baselines (e.g., U-Net, FCN) on dermatology datasets (DermIS, DermNet, DermQuest)."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents a novel patch-based model for skin lesion segmentation using Nonnegative Matrix Factorization and Mutual Information. It details a specific methodology (Sections II-A to II-E), describes an experimental setup involving three benchmark datasets (DermIS, DermNet, DermQuest), and reports original results including statistical analysis (Friedman test, Bonferroni-Dunn post-hoc test), ablation studies, and performance comparisons against deep learning baselines. The structure includes Introduction, Proposed Approach, Experimental Results, and Conclusions, which is characteristic of an original research article."
+  },
+  "title": "Skin Lesion Segmentation in Clinical Images Using Nonnegative Matrix Factorization and Mutual Information",
+  "authors": [
+    "Eliezer Soares Flores",
+    "Jacob Scharcanski"
+  ],
+  "doi": "10.1109/ACCESS.2025.3584305",
+  "journal": "IEEE Access",
+  "year": 2025,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes a novel patch-based model for segmenting cutaneous melanomas in clinical images by combining nonnegative matrix factorization and mutual information to guide normalized graph cuts. The method was evaluated on three benchmark datasets: DermIS, DermNet, and DermQuest, using statistical analysis, ablation studies, and cross-dataset testing. The proposed approach was compared against established deep learning baselines (FCNet, FCN, PSPNet, SegNet, U-Net) and recent skin lesion segmentation advancements (DSNet, FrCNet, LGPNet). Results indicate that the method statistically outperforms these alternatives on the DermNet dataset and demonstrates comparable or superior performance on the DermQuest dataset. The unsupervised nature of the model allows it to operate on full-resolution images without pre-training, offering resilience to data biases and potential for clinical integration.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "cutaneous melanoma",
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target for segmentation. The DermIS dataset contained 43 melanoma cases, DermNet contained 107 melanoma cases, and DermQuest contained 76 melanoma cases."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "atypical nevus",
+        "atypical nevi"
+      ],
+      "role": "Comparator class",
+      "details": "Included in the datasets as a distinct class from melanoma. The DermIS dataset contained 26 atypical nevus cases, DermNet contained 45 atypical nevus cases, and DermQuest contained 61 atypical nevus cases."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary mask indicating the location of skin lesion pixels versus background pixels",
+        "primary": true,
+        "details": "The paper proposes a patch-based model for skin lesion segmentation in clinical images. The method produces a binary mask where pixels are classified as belonging to the lesion or the background. Performance is evaluated using the BF1 score, a contour-based measure for segmentation, comparing the proposed method against deep learning baselines (FCNet, FCN, PSPNet, SegNet, U-Net) and other segmentation-specific models (DSNet, FrCNet, LGPNet) on the DermIS, DermNet, and DermQuest datasets."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "DermIS",
+      "description": "A benchmark dataset containing macroscopic clinical images of skin lesions.",
+      "classes_used": [
+        "cutaneous melanoma",
+        "atypical nevus"
+      ],
+      "counts": {
+        "total": 69,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "cutaneous melanoma": 43,
+          "atypical nevus": 26
+        }
+      },
+      "use": {
+        "training": "Used for hyperparameter tuning (grid search for K) and ablation studies.",
+        "validation": null,
+        "testing": "Used for ablation studies and performance ranking via BF1 score.",
+        "other": "Smallest database among those considered; used to establish the experimental protocol."
+      }
+    },
+    {
+      "name": "DermNet",
+      "description": "A benchmark dataset containing macroscopic clinical images of skin lesions.",
+      "classes_used": [
+        "cutaneous melanoma",
+        "atypical nevus"
+      ],
+      "counts": {
+        "total": 152,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "cutaneous melanoma": 107,
+          "atypical nevus": 45
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for cross-dataset testing and statistical comparison against baselines.",
+        "other": null
+      }
+    },
+    {
+      "name": "DermQuest",
+      "description": "A benchmark dataset containing macroscopic clinical images of skin lesions.",
+      "classes_used": [
+        "cutaneous melanoma",
+        "atypical nevus"
+      ],
+      "counts": {
+        "total": 137,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "cutaneous melanoma": 76,
+          "atypical nevus": 61
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for cross-dataset testing and statistical comparison against baselines.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "BF1 score",
+    "Statistical Tests",
+    "Statistical Tests",
+    "Statistical Tests",
+    "Statistical Tests"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Friedman test",
+      "purpose": "To perform pairwise method comparisons for evaluating segmentation performance across datasets.",
+      "type": "Non-parametric hypothesis test"
+    },
+    {
+      "method": "Nemenyi post-hoc test",
+      "purpose": "To conduct pairwise comparisons between methods following the Friedman test.",
+      "type": "Post-hoc test"
+    },
+    {
+      "method": "Bonferroni-Dunn post-hoc test",
+      "purpose": "To compare the proposed control method against alternative methods and ablated versions to confirm significant performance gains.",
+      "type": "Post-hoc test"
+    },
+    {
+      "method": "Confidence level of 95%",
+      "purpose": "To determine statistical significance thresholds for the hypothesis tests.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Friedman test, Nemenyi post-hoc test, and Bonferroni-Dunn post-hoc test",
+    "null_hypothesis": "There are no significant differences in performance among the compared methods (or variants/settings).",
+    "alternative_hypothesis": "There are significant differences in performance among the compared methods (or at least one method differs from the control).",
+    "alpha": 0.05,
+    "interpretation": "A confidence level of 95% was used. The Friedman test revealed significant performance differences (p ≈ 4.78% for hyperparameter tuning; p < 5% for ablation studies). The Bonferroni-Dunn post-hoc test confirmed significant performance gains of the proposed method over specific ablated versions, while the Nemenyi test showed no significant differences between the proposed method (K=3) and alternatives with K=4 to 8."
+  },
+  "results_obtained_in_each_dataset": {
+    "DermIS": {
+      "metric": "BF1 score (used for ranking)",
+      "models": {
+        "Proposed Method (K=3)": {
+          "average_ranking": "3.42"
+        },
+        "Proposed Method (K=9)": {
+          "average_ranking": "4.66"
+        },
+        "Proposed Method (K=4)": {
+          "average_ranking": "3.80"
+        },
+        "Proposed Method (K=5)": {
+          "average_ranking": "3.99"
+        },
+        "Proposed Method (K=6)": {
+          "average_ranking": "4.05"
+        },
+        "Proposed Method (K=7)": {
+          "average_ranking": "3.98"
+        },
+        "Proposed Method (K=8)": {
+          "average_ranking": "4.11"
+        },
+        "Ablated Version 1 (No preprocessing)": {
+          "average_ranking": "2.45"
+        },
+        "Ablated Version 2 (Intensity channel only)": {
+          "average_ranking": "3.22"
+        },
+        "Ablated Version 3 (K-SVD initialization)": {
+          "average_ranking": "5.46"
+        },
+        "Ablated Version 4 (K-means clustering)": {
+          "average_ranking": "4.36"
+        },
+        "Ablated Version 5 (No post-processing)": {
+          "average_ranking": "3.26"
+        }
+      },
+      "notes": "The Friedman test revealed significant performance differences between variants with different K values (p ≈ 4.78%). The Nemenyi post-hoc test found no significant differences between the proposed method (K=3) and alternatives with K=4 to 8. The Bonferroni-Dunn post-hoc test confirmed significant performance gains of the proposed method over ablated versions 1, 2, 5, 4, and 3, except for ablated version 5 (where it was not statistically superior but had a lower average ranking)."
+    },
+    "DermNet": {
+      "metric": "BF1 score (used for ranking)",
+      "models": {
+        "Proposed Method": {
+          "performance_description": "Statistically outperformed all compared alternatives"
+        },
+        "DSNet": {
+          "performance_description": "Outperformed by proposed method"
+        },
+        "FCNet": {
+          "performance_description": "Outperformed by proposed method"
+        },
+        "FrCNet": {
+          "performance_description": "Outperformed by proposed method"
+        },
+        "LGPNet": {
+          "performance_description": "Outperformed by proposed method"
+        },
+        "PSPNet": {
+          "performance_description": "Outperformed by proposed method"
+        },
+        "SegNet": {
+          "performance_description": "Outperformed by proposed method"
+        },
+        "U-Net": {
+          "performance_description": "Outperformed by proposed method"
+        }
+      },
+      "notes": "The proposed method significantly outperformed the compared alternatives (DSNet, FCNet, FrCNet, LGPNet, PSPNet, SegNet, U-Net) based on the Bonferroni-Dunn post-hoc test."
+    },
+    "DermQuest": {
+      "metric": "BF1 score (used for ranking)",
+      "models": {
+        "Proposed Method": {
+          "performance_description": "Comparable to DSNet and FrCNet; statistically outperformed other approaches"
+        },
+        "DSNet": {
+          "performance_description": "Comparable performance to proposed method"
+        },
+        "FrCNet": {
+          "performance_description": "Comparable performance to proposed method"
+        },
+        "FCNet": {
+          "performance_description": "Outperformed by proposed method"
+        },
+        "LGPNet": {
+          "performance_description": "Outperformed by proposed method"
+        },
+        "PSPNet": {
+          "performance_description": "Outperformed by proposed method"
+        },
+        "SegNet": {
+          "performance_description": "Outperformed by proposed method"
+        },
+        "U-Net": {
+          "performance_description": "Outperformed by proposed method"
+        }
+      },
+      "notes": "The proposed method demonstrated comparable performance to DSNet and FrCNet, while statistically outperforming the other approaches under analysis."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Patch-based model combining Nonnegative Matrix Factorization (NMF) and Mutual Information (MI) to guide Normalized Graph Cuts (NGC)",
+    "pretraining": "None (unsupervised learning; does not rely on pre-training)",
+    "input_size": "Variable clinical images; patch size (ω) is automatically defined as the odd integer closest to 1% of the larger image dimension (ω = floor((0.01L + 2)/2) - 1, where L is the larger image dimension)",
+    "architecture_details": {
+      "method_type": "Clustering-based / Dictionary Learning",
+      "core_components": [
+        "Shading attenuation preprocessing",
+        "Color saliency map extraction",
+        "Patch extraction (non-overlapping square patches)",
+        "Nonnegative Matrix Factorization (NMF) via Alternating Least Squares (ALS)",
+        "Mutual Information calculation between patches",
+        "Normalized Graph Cuts (NGC) for clustering",
+        "Post-processing (Gaussian filtering, global thresholding, flood fill)"
+      ],
+      "hyperparameters": {
+        "K": "Number of dictionary atoms/clusters (tuned via grid search on DermIS; optimal value K=3 used for final evaluation)",
+        "patch_size_omega": "Adaptive based on image dimension L"
+      },
+      "optimization": "Alternating Least Squares (ALS) for NMF minimization of ||P - DX||^2_F"
+    },
+    "training_details": {
+      "training_type": "Unsupervised",
+      "hyperparameter_tuning": "Grid search for K in {3, ..., 9} on DermIS dataset",
+      "evaluation_metric": "BF1 score (contour-based)",
+      "hardware": "Intel i3-4030U CPU (1.90 GHz), 12 GB RAM (no dedicated GPU)"
+    },
+    "classification_or_output_head": {
+      "output_type": "Binary mask indicating skin lesion regions",
+      "post_processing": "Gaussian filtering for boundary smoothing, global thresholding, flood fill for hole closing"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Proposed Patch-based Model (using Nonnegative Matrix Factorization and Mutual Information)",
+    "DSNet",
+    "FCNet",
+    "FrCNet",
+    "LGPNet",
+    "PSPNet",
+    "SegNet",
+    "U-Net",
+    "Ablated Version 1 (No preprocessing)",
+    "Ablated Version 2 (Intensity channel only)",
+    "Ablated Version 3 (K-SVD initialization)",
+    "Ablated Version 4 (K-means clustering)",
+    "Ablated Version 5 (No post-processing)"
+  ],
+  "preprocessing_techniques": [
+    "Shading attenuation to mitigate uneven illumination effects",
+    "Color saliency map extraction to accentuate chromatic differences between healthy and unhealthy skin pixels",
+    "Patch extraction using non-overlapping square patches with adaptive size (ω) defined as the odd integer closest to 1% of the larger image dimension",
+    "Gaussian filtering for boundary smoothing",
+    "Global thresholding",
+    "Flood fill algorithm for morphological closing of holes within the segmented region"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed patch-based model, which combines Nonnegative Matrix Factorization (NMF) and Mutual Information to guide Normalized Graph Cuts, provides accurate segmentation of cutaneous melanomas in clinical images.",
+    "The method statistically outperforms established deep learning baselines (FCNet, FCN, PSPNet, SegNet, U-Net) and recent skin lesion segmentation advancements (DSNet, FrCNet, LGPNet) on the DermNet dataset.",
+    "On the DermQuest dataset, the proposed method demonstrates comparable performance to DSNet and FrCNet while statistically outperforming other compared approaches.",
+    "The proposed approach is unsupervised and does not require pre-training, allowing it to operate on full-resolution images without relying on large annotated datasets.",
+    "The unsupervised nature of the model offers resilience to data biases and potential for clinical integration, particularly in resource-limited settings where dermoscopy is not commonplace.",
+    "The method exhibits limited sensitivity to the hyperparameter K (number of dictionary atoms), with K=3 yielding the optimal average ranking in ablation studies on the DermIS dataset.",
+    "Ablation studies confirm that components such as shading attenuation preprocessing, color saliency map extraction, and post-processing (Gaussian filtering, thresholding, flood fill) contribute to the method's performance, with the full proposed method achieving the lowest average ranking compared to ablated versions."
+  ],
+  "important_remarks": [
+    "The study is limited to cutaneous melanoma and atypical nevi; it does not evaluate performance on other dermatological conditions or modalities (e.g., dermoscopic images).",
+    "The proposed method uses non-overlapping patches, which introduces block artifacts and necessitates additional post-processing steps.",
+    "The method exhibits relatively long inference times compared to deep learning counterparts, particularly for very large input images.",
+    "Hyperparameter K was tuned using the DermIS dataset, which is the smallest of the three datasets used, potentially introducing bias in hyperparameter selection.",
+    "The model was evaluated exclusively on three specific benchmark datasets (DermIS, DermNet, DermQuest); generalizability to other clinical populations or imaging devices is not empirically demonstrated.",
+    "While the method is unsupervised and does not require pre-training, it relies on specific preprocessing steps (shading attenuation, color saliency) that may not be universally applicable to all clinical image qualities."
+  ]
+}

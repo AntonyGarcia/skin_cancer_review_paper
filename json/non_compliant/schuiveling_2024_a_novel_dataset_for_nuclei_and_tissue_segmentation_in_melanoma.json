@@ -1,0 +1,220 @@
+{
+  "file_name": "schuiveling_2024_a_novel_dataset_for_nuclei_and_tissue_segmentation_in_melanoma.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning models, specifically Hover-Net and Hover-NeXt, for nuclei and tissue segmentation in melanoma histopathology. It also employed semantic segmentation models (nnU-Net and Mask2Former with UNI backbone) to establish benchmarks for tissue classification (tumor, stroma, epidermis, etc.) and evaluated their performance in detecting lymphocytes and other immune cell subsets in melanoma samples."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, specifically the creation of the PUMA dataset for nuclei and tissue segmentation in melanoma and the evaluation of deep learning models (Hover-Net, Hover-NeXt) on this dataset. It includes a Methods section describing dataset creation and analysis, Results with quantitative performance metrics (F1 scores), and a Conclusion summarizing new findings. Although it is a preprint, it reports new research rather than summarizing prior literature."
+  },
+  "title": "A Novel Dataset for Nuclei and Tissue Segmentation in Melanoma with baseline nuclei segmentation and tissue segmentation benchmarks",
+  "authors": [
+    "Mark Schuiveling",
+    "Hong Liu",
+    "Daniel Eek",
+    "Gerben E. Breimer",
+    "Karijn P.M. Suijkerbuijk",
+    "Willeke A.M. Blokx",
+    "Mitko Veta"
+  ],
+  "doi": "10.1101/2024.10.07.24315039",
+  "journal": "medRxiv",
+  "year": 2024,
+  "article_type": "Dataset paper",
+  "brief_summary": "This study introduces the Panoptic Segmentation of nUclei and tissue in advanced MelanomA (PUMA) dataset, the first melanoma-specific resource for nuclei and tissue segmentation in H&E stained histopathology. The dataset comprises 155 primary and 155 metastatic melanoma regions of interest with expert annotations to facilitate the development of models for assessing tumor-infiltrating lymphocytes and other immune subsets. The authors established baseline benchmarks using semantic segmentation models like nnU-Net and Mask2Former, as well as nuclei segmentation models including Hover-Net and Hover-NeXt. Evaluation results demonstrated that the Hover-NeXt model trained on the PUMA dataset achieved the highest performance for lymphocyte detection, approaching human interobserver agreement. Additionally, the study showed that heuristic post-processing, which updates nuclei classes based on tissue localization, further improves the detection of non-common cell types. These findings highlight the potential of the PUMA dataset to support the creation of prognostic and predictive biomarkers for melanoma treatment response.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "primary melanoma",
+        "metastatic melanoma",
+        "advanced melanoma"
+      ],
+      "role": "Target class",
+      "details": "The study focuses exclusively on melanoma, specifically analyzing 155 primary and 155 metastatic melanoma regions of interest in the PUMA dataset. The dataset and benchmarks are designed for nuclei and tissue segmentation within melanoma histopathology."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Tissue classes (tumor, stroma, epidermis, blood vessel, necrosis) and nuclei instances (tumor, lymphocyte, plasma cell, histiocyte, melanophage, neutrophil, stroma, endothelium, epithelium, apoptosis).",
+        "primary": true,
+        "details": "The paper performs semantic segmentation of tissue regions using nnU-Net and Mask2Former, and instance segmentation of nuclei using Hover-Net and Hover-NeXt. The task involves producing segmentation masks for specific classes rather than predicting discrete diagnostic labels or continuous numeric outcomes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PUMA (Panoptic Segmentation of nUclei and tissue in advanced MelanomA)",
+      "description": "A novel dataset of H&E stained histopathology regions of interest (ROIs) from melanoma specimens, created to facilitate the development of deep learning models for nuclei and tissue segmentation. It includes annotations by a medical expert and dermatopathologist. The dataset was digitized at a large melanoma referral center, with some cases originating from other treatment hospitals.",
+      "classes_used": [
+        "Tissue classes: tumor, stroma, epidermis, blood vessel, necrosis",
+        "Nuclei classes (3-class): tumor, lymphocyte, other",
+        "Nuclei classes (10-class): tumor, lymphocyte, plasma cell, histiocyte, melanophage, neutrophil, stroma, endothelium, epithelium, apoptosis"
+      ],
+      "counts": {
+        "total": 310,
+        "training": 103,
+        "validation": null,
+        "testing": 104,
+        "per_class": {}
+      },
+      "use": {
+        "training": "103 ROIs (97,429 nuclei) were made publicly available for training models such as Hover-Net and Hover-NeXt.",
+        "validation": "null",
+        "testing": "104 ROIs (50,490 nuclei) were kept private as an independent test set for the PUMA challenge.",
+        "other": "The dataset is intended to be used for the PUMA challenge hosted on grand-challenge.org to further improve model performance."
+      }
+    },
+    {
+      "name": "PanNuke",
+      "description": "A pan-tissue dataset that includes skin samples, used as a source for pre-trained models (Hover-Net and Hover-NeXt) for comparison against models trained on the PUMA dataset.",
+      "classes_used": [
+        "Nuclei classes: tumor, lymphocyte, other (and potentially others inherent to the pan-tissue nature, though specific classes not detailed in context beyond 'pan-tissue')",
+        "Tissue classes: skin (included in the dataset)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Hover-Net and Hover-NeXt models pre-trained on PanNuke were used for baseline comparison.",
+        "validation": "null",
+        "testing": "null",
+        "other": "Used for comparison to evaluate the performance of melanoma-specific models versus pan-tissue models."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice Score",
+    "Average Dice",
+    "Micro Dice",
+    "F1-Score",
+    "Micro Average F1",
+    "Intraobserver agreement",
+    "Interobserver agreement"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "95% Confidence Intervals",
+      "purpose": "To report uncertainty for Dice scores and F1 scores of semantic segmentation and nuclei segmentation models, as well as intra- and interobserver agreement metrics.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Intraobserver agreement",
+      "purpose": "To assess the consistency of annotations by a single expert (medical expert/dermatopathologist) across different samples or time points.",
+      "type": "Inter-reader agreement"
+    },
+    {
+      "method": "Interobserver agreement",
+      "purpose": "To assess the consistency of annotations between different experts (medical expert and dermatopathologist) and compare model performance against human variability.",
+      "type": "Inter-reader agreement"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). Performance was evaluated using Dice scores, F1 scores, and 95% Confidence Intervals to assess uncertainty and agreement."
+  },
+  "results_obtained_in_each_dataset": {
+    "extraction_error": "Could not parse a balanced JSON object",
+    "answer": null
+  },
+  "architecture_used": {
+    "main_model": "Hover-Net, Hover-NeXt, nnU-Net, Mask2Former (with UNI backbone), NN192",
+    "pretraining": "Hover-Net and Hover-NeXt were pre-trained on the PanNuke dataset (a pan-tissue dataset including skin samples). Mask2Former used the UNI pathology foundation model as its backbone.",
+    "input_size": "null",
+    "architecture_details": {
+      "Hover-Net": "Used for nuclei segmentation. Evaluated with 3-class (tumor, lymphocyte, other) and 10-class (tumor, lymphocyte, plasma cell, histiocyte, melanophage, neutrophil, stroma, endothelium, epithelium, apoptosis) configurations.",
+      "Hover-NeXt": "Used for nuclei segmentation. Evaluated with 3-class and 10-class configurations. Reported as the best performing model for lymphocyte detection.",
+      "nnU-Net": "Used for semantic tissue segmentation (tumor, stroma, epidermis, blood vessel, necrosis).",
+      "Mask2Former": "Used for semantic tissue segmentation. Backbone replaced by UNI pathology foundation model.",
+      "NN192": "Older model using watershed segmentation followed by a fully connected neural network. Melanoma-specific model trained to recognize lymphocytes."
+    },
+    "training_details": {
+      "method": "5-fold cross validation",
+      "dataset": "PUMA dataset (103 ROIs for training)",
+      "post_processing": "Heuristic post-processing was applied to Hover-Net and Hover-NeXt outputs, updating nuclei classes based on tissue localization (e.g., nuclei in epidermis mask classified as epidermal nuclei; nuclei in blood vessel mask classified as endothelial nuclei)."
+    },
+    "classification_or_output_head": {
+      "nuclei_classes_3": [
+        "tumor",
+        "lymphocyte",
+        "other"
+      ],
+      "nuclei_classes_10": [
+        "tumor",
+        "lymphocyte",
+        "plasma cell",
+        "histiocyte",
+        "melanophage",
+        "neutrophil",
+        "stroma",
+        "endothelium",
+        "epithelium",
+        "apoptosis"
+      ],
+      "tissue_classes": [
+        "tumor",
+        "stroma",
+        "epidermis",
+        "blood vessel",
+        "necrosis"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Hover-Net",
+    "Hover-NeXt",
+    "nnU-Net",
+    "Mask2Former",
+    "NN192",
+    "LUNIT’s Scope IO pan tumor model"
+  ],
+  "preprocessing_techniques": [
+    "Heuristic post-processing: updating nuclei classes based on tissue localization (e.g., nuclei in epidermis mask classified as epidermal nuclei; nuclei in blood vessel mask classified as endothelial nuclei)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Extensive data augmentation",
+      "details": "Applied during the training stage of Hover-Net and Hover-NeXt models to compensate for variations in staining and scanners, allowing the out-of-the-box model trained on the PanNuke dataset to achieve better results."
+    },
+    {
+      "technique": "Test-time augmentation",
+      "details": "Applied during the inference stage of the Hover-NeXt model to account for variations in staining and scanners."
+    }
+  ],
+  "conclusions": [
+    "The PUMA dataset is the first melanoma-specific dataset available for developing melanoma-specific nuclei and tissue segmentation models.",
+    "Deep learning models trained on the PUMA dataset can be used for the development of prognostic and predictive biomarkers in melanoma treatment.",
+    "Incorporating tissue segmentation alongside nuclei segmentation improves deep learning nuclei segmentation performance.",
+    "The Hover-NeXt model trained on the PUMA dataset demonstrated the best performance for lymphocyte detection, with an F1 score approaching human interobserver agreement.",
+    "Heuristic post-processing, which updates nuclei classes based on their tissue localization, improves the detection of non-common cell classes such as epithelial nuclei.",
+    "Existing models pre-trained on pan-tissue datasets (like PanNuke) show suboptimal performance in melanoma due to misclassifications where melanoma cells resemble other cell types like stroma or lymphocytes.",
+    "The authors plan to use the PUMA dataset to organize a challenge aimed at further improving model performance."
+  ],
+  "important_remarks": [
+    "The paper is a preprint not certified by peer review and explicitly states it should not be used to guide clinical practice.",
+    "The dataset is derived from a single large melanoma referral center, with 76 cases being revisions or consultations from other hospitals, potentially introducing selection bias.",
+    "The test set (104 ROIs) is kept private for the PUMA challenge, preventing independent external validation of the reported benchmarks.",
+    "Annotations were created by a single medical expert and checked by one dermatopathologist, limiting the assessment of inter-annotator variability to only two observers.",
+    "Tissue classes such as epidermis and necrotic areas are underrepresented in both the training and test sets.",
+    "Existing models pre-trained on pan-tissue datasets (e.g., PanNuke) show suboptimal performance in melanoma due to misclassifications where melanoma cells resemble stroma or lymphocytes.",
+    "The older NN192 model showed the lowest performance for lymphocyte detection, potentially due to variations in staining and scanners not being corrected for.",
+    "The LUNIT’s Scope IO pan tumor model was not assessed due to unavailability.",
+    "Heuristic post-processing improved detection of non-common cell classes but relies on accurate tissue segmentation, which itself has limitations (e.g., lower Dice scores for necrosis)."
+  ]
+}

@@ -1,0 +1,556 @@
+{
+  "file_name": "silva_2023_deep_learning_techniques_applied_to_skin_lesion_classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning techniques, specifically an ensemble of EfficientNet-B2, EfficientNet-B5, and ResNeSt101 models, to classify skin lesions (melanoma, seborrheic keratosis, and benign nevi) using the ISIC 2017 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and evaluation of a deep learning ensemble (EfficientNet-B2, EfficientNet-B5, and ResNeSt101) for skin lesion classification using the ISIC 2017 dataset. It details specific methodology (preprocessing, augmentation, transfer learning), reports new performance metrics (AUC 0.9300, balanced accuracy 0.8132), and compares results against other methods, which characterizes it as a research paper rather than a review. Although published in a conference proceedings (MLCR 2023), it contains full original results."
+  },
+  "title": "Deep learning techniques applied to skin lesion classification",
+  "authors": [
+    "Giuliana M. Silva",
+    "André E. Lazzaretti",
+    "Fernando C. Monteiro"
+  ],
+  "doi": "10.1109/MLCR61158.2023.00013",
+  "journal": "2023 2nd International Conference on Machine Learning, Control, and Robotics (MLCR)",
+  "year": 2023,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the classification of skin lesions into melanoma, seborrheic keratosis, and benign nevi using deep learning techniques. The authors employed an ensemble strategy combining EfficientNet-B2, EfficientNet-B5, and ResNeSt101 models trained on the ISIC 2017 dataset. The methodology incorporated image preprocessing, data augmentation, and transfer learning to optimize performance. Evaluation results demonstrated an Area Under the Curve (AUC) of 0.9300 and a balanced accuracy of 0.8132. These metrics indicate that the proposed ensemble outperformed the top three solutions from the ISIC 2017 challenge in terms of AUC. The authors conclude that while effective, further validation on additional datasets is needed to ensure robustness in real-world clinical scenarios.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the three classes in the ISIC 2017 dataset used for classification. The paper notes that the model struggled with melanoma classification, misclassifying 23 as nevi and 11 as seborrheic keratosis from 117 total melanoma lesions."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratosis"
+      ],
+      "role": "Target class",
+      "details": "One of the three classes in the ISIC 2017 dataset used for classification. The model showed relatively high accuracy for this class."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "benign nevi",
+        "nevi"
+      ],
+      "role": "Target class",
+      "details": "One of the three classes in the ISIC 2017 dataset used for classification. The model showed relatively high accuracy for this class."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "basal cell carcinoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as a type of non-melanoma skin cancer, but not included in the experimental classification task."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma (SCC)",
+      "paper_terms": [
+        "squamous cell carcinoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Mentioned in the introduction as a type of non-melanoma skin cancer, but not included in the experimental classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Three discrete skin lesion classes: melanoma, seborrheic keratosis, and benign nevi.",
+        "primary": true,
+        "details": "The paper explicitly states the goal is to 'classify between three skin lesion classes' using the ISIC 2017 dataset. The models predict discrete diagnostic categories (melanoma, seborrheic keratosis, benign nevi). Evaluation metrics include balanced accuracy and AUC for class prediction. The confusion matrix rows represent actual classes (0 - nevi, 1 - melanoma, 2 - seborrheic keratosis) and columns represent predicted classes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public dataset of dermatoscopic images provided by the International Skin Imaging Collaboration (ISIC) for the 2017 challenge. It contains gold standard diagnoses for skin lesions.",
+      "classes_used": [
+        "melanoma",
+        "seborrheic keratosis",
+        "benign nevi"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the deep learning models (EfficientNet-B2, EfficientNet-B5, ResNeSt101) with data augmentation and transfer learning.",
+        "validation": "Used for hyperparameter tuning and evaluating balanced accuracy metrics during the training process.",
+        "testing": "Used for final evaluation of the model's performance (AUC, balanced accuracy) and comparison with other ISIC 2017 challenge solutions.",
+        "other": "Used as the primary benchmark dataset for the study."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "AUC-ROC",
+    "Balanced Accuracy (BACC)",
+    "Accuracy",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "AUC-ROC",
+    "AUC-ROC",
+    "AUC-ROC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Balanced Accuracy",
+      "purpose": "Used as the evaluation metric for selecting the best model configuration due to the imbalanced nature of the data, ensuring the model does not favor the majority class.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Cross-Entropy Loss with Class Weights",
+      "purpose": "Used as the loss function during training to allow the model to be more sensitive to the minority class and learn from both majority and minority classes equally.",
+      "type": "Loss Function"
+    },
+    {
+      "method": "Learning Rate Scheduler (ReduceLROnPlateau)",
+      "purpose": "Used to adjust the learning rate during training to facilitate better convergence and performance, reducing the rate by a factor of 0.1 if loss does not improve for 10 epochs.",
+      "type": "Optimization Technique"
+    },
+    {
+      "method": "Confusion Matrix Analysis",
+      "purpose": "Used to analyze the performance of each model individually and the ensemble, specifically to identify misclassification patterns (e.g., melanoma misclassified as nevi or seborrheic keratosis).",
+      "type": "Analysis Method"
+    },
+    {
+      "method": "GradCAM",
+      "purpose": "Used to visually inspect how models made predictions by identifying the parts of the input image the models focused on, validating that correct classifications relied on the lesion and incorrect ones on unrelated information.",
+      "type": "Visualization/Interpretability Method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using metrics such as AUC, balanced accuracy, accuracy, sensitivity, and specificity, and compared against other methods based on these metric values without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "metric": [
+        "Balanced Accuracy",
+        "Average AUC",
+        "Melanoma AUC",
+        "Melanoma Accuracy",
+        "Melanoma Sensitivity",
+        "Melanoma Specificity",
+        "Seborrheic Keratosis AUC",
+        "Seborrheic Keratosis Accuracy",
+        "Seborrheic Keratosis Sensitivity",
+        "Seborrheic Keratosis Specificity"
+      ],
+      "models": {
+        "Our method (Average of 3 Ensemble: ResNeSt101, EfficientNet-B2, EfficientNet-B5)": {
+          "Balanced Accuracy": "0.8132",
+          "Average AUC": "0.9300",
+          "Melanoma AUC": "0.8957",
+          "Melanoma Accuracy": "0.8750",
+          "Melanoma Sensitivity": "0.7094",
+          "Melanoma Specificity": "0.9151",
+          "Seborrheic Keratosis AUC": "0.9643",
+          "Seborrheic Keratosis Accuracy": "0.9283",
+          "Seborrheic Keratosis Sensitivity": "0.8778",
+          "Seborrheic Keratosis Specificity": "0.9373"
+        },
+        "Average Ensemble (All models)": {
+          "Balanced Accuracy": "0.8064"
+        },
+        "Voting Ensemble (All models)": {
+          "Balanced Accuracy": "0.7987"
+        },
+        "[19] First place (Matsunaga et al.)": {
+          "Average AUC": "0.9108",
+          "Melanoma AUC": "0.8681",
+          "Melanoma Accuracy": "0.8283",
+          "Melanoma Sensitivity": "0.7350",
+          "Melanoma Specificity": "0.8509",
+          "Seborrheic Keratosis AUC": "0.9535",
+          "Seborrheic Keratosis Accuracy": "0.8033",
+          "Seborrheic Keratosis Sensitivity": "0.9778",
+          "Seborrheic Keratosis Specificity": "0.8311"
+        },
+        "[20] Second place (González-Díaz)": {
+          "Average AUC": "0.9101",
+          "Melanoma AUC": "0.8556",
+          "Melanoma Accuracy": "0.8233",
+          "Melanoma Sensitivity": "0.1026",
+          "Melanoma Specificity": "0.9979",
+          "Seborrheic Keratosis AUC": "0.9647",
+          "Seborrheic Keratosis Accuracy": "0.8750",
+          "Seborrheic Keratosis Sensitivity": "0.1778",
+          "Seborrheic Keratosis Specificity": "0.8833"
+        },
+        "[21] Third place (Menegola et al.)": {
+          "Average AUC": "0.9080",
+          "Melanoma AUC": "0.8735",
+          "Melanoma Accuracy": "0.8716",
+          "Melanoma Sensitivity": "0.5470",
+          "Melanoma Specificity": "0.9503",
+          "Seborrheic Keratosis AUC": "0.9425",
+          "Seborrheic Keratosis Accuracy": "0.8950",
+          "Seborrheic Keratosis Sensitivity": "0.3556",
+          "Seborrheic Keratosis Specificity": "0.8440"
+        },
+        "[22] Liu et al.": {
+          "Average AUC": "0.9680",
+          "Melanoma AUC": "0.9470",
+          "Melanoma Accuracy": "0.9060",
+          "Melanoma Sensitivity": "0.8020",
+          "Melanoma Specificity": "0.9360",
+          "Seborrheic Keratosis AUC": "0.9890",
+          "Seborrheic Keratosis Accuracy": "0.9490",
+          "Seborrheic Keratosis Sensitivity": "0.9180",
+          "Seborrheic Keratosis Specificity": "0.9460"
+        },
+        "[23] Xie et al.": {
+          "Average AUC": "0.9380",
+          "Melanoma AUC": "0.9030",
+          "Melanoma Accuracy": "0.8780",
+          "Melanoma Sensitivity": "0.7270",
+          "Melanoma Specificity": "0.9150",
+          "Seborrheic Keratosis AUC": "0.9730",
+          "Seborrheic Keratosis Accuracy": "0.9300",
+          "Seborrheic Keratosis Sensitivity": "0.8440",
+          "Seborrheic Keratosis Specificity": "0.9450"
+        }
+      },
+      "notes": "The proposed 'Average of 3' ensemble (ResNeSt101, EfficientNet-B2, EfficientNet-B5) outperformed the top three solutions from the ISIC 2017 challenge in terms of Average AUC (0.9300) and Melanoma AUC (0.8957). However, it achieved a lower balanced accuracy (0.8132) compared to the second-place solution (0.8833) and third-place solution (0.8440). The model struggled with melanoma classification, misclassifying 23 melanoma lesions as nevi and 11 as seborrheic keratosis out of 117 total melanoma lesions. Liu et al. [22] overcame almost every metric for both melanoma and seborrheic keratosis classification."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Ensemble of EfficientNet-B2, EfficientNet-B5, and ResNeSt101",
+    "pretraining": "Pre-trained on the ImageNet dataset",
+    "input_size": "Resized to fit the input size requirements of each specific model (EfficientNet and ResNeSt models typically use 224x224 or 240x240, though exact pixel dimensions are not explicitly stated, only that resizing was applied based on model requirements)",
+    "architecture_details": {
+      "model_family": "Convolutional Neural Networks (CNNs)",
+      "specific_models": [
+        "EfficientNet-B2",
+        "EfficientNet-B5",
+        "ResNeSt101"
+      ],
+      "ensemble_method": "Average of 3 (exhaustive combination of models three by three, selecting the best performing triplet)",
+      "backbone_modifications": "The fully convolutional (FC) layer was replaced with a new one with the same number of neurons as the number of classes (3) in the dataset"
+    },
+    "training_details": {
+      "optimizer": "AdamW (for EfficientNet-B2, EfficientNet-B5, and ResNeSt101)",
+      "batch_size": 8,
+      "loss_function": "Cross-Entropy Loss with class weights assigned to handle class imbalance",
+      "learning_rate": {
+        "initial": "1e-4",
+        "scheduler": "ReduceLROnPlateau",
+        "patience": 10,
+        "reduction_factor": 0.1,
+        "minimum": "1e-6"
+      },
+      "epochs": 150,
+      "early_stopping": "Best epoch model saved based on balanced accuracy on the validation partition",
+      "data_augmentation": [
+        "Zoom-in",
+        "Horizontal flip",
+        "Vertical flip",
+        "Rotate",
+        "Gaussian blur",
+        "Dropout",
+        "Coarse dropout",
+        "Brightness adjustment",
+        "Hue adjustment",
+        "Saturation adjustment"
+      ],
+      "preprocessing": [
+        "Normalization (consistent with initial ImageNet training)",
+        "Center cropping",
+        "CLAHE (Contrast Limited Adaptive Histogram Equalization)",
+        "Color constancy (Shades of Gray algorithm)",
+        "Hair removal (DullRazor algorithm)"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Custom Fully Connected Layer",
+      "details": "Replaced the original FC layer with a new one having 3 neurons corresponding to the classes: melanoma, seborrheic keratosis, and benign nevi"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNet-B0",
+    "EfficientNet-B1",
+    "EfficientNet-B2",
+    "EfficientNet-B3",
+    "EfficientNet-B4",
+    "EfficientNet-B5",
+    "EfficientNet-B6",
+    "PNASNet",
+    "SEResNeXt101",
+    "ResNeXt101",
+    "ResNeSt101",
+    "DenseNet121",
+    "VGG19",
+    "Ensemble of EfficientNet-B2, EfficientNet-B5, and ResNeSt101",
+    "Average Ensemble (All models)",
+    "Voting Ensemble (All models)",
+    "Matsunaga et al. [19]",
+    "González-Díaz [20]",
+    "Menegola et al. [21]",
+    "Liu et al. [22]",
+    "Xie et al. [23]"
+  ],
+  "preprocessing_techniques": [
+    "Normalization (consistent with initial ImageNet training)",
+    "Image resizing based on model input size requirements",
+    "Center cropping",
+    "CLAHE (Contrast Limited Adaptive Histogram Equalization) for contrast enhancement",
+    "Color constancy using the Shades of Gray algorithm",
+    "Hair removal using the DullRazor algorithm"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Zoom-in",
+      "details": "Geometric transform applied to diversify the training dataset and prevent overfitting."
+    },
+    {
+      "technique": "Horizontal flip",
+      "details": "Geometric transform applied to diversify the training dataset and prevent overfitting."
+    },
+    {
+      "technique": "Vertical flip",
+      "details": "Geometric transform applied to diversify the training dataset and prevent overfitting."
+    },
+    {
+      "technique": "Rotate",
+      "details": "Geometric transform applied to diversify the training dataset and prevent overfitting."
+    },
+    {
+      "technique": "Gaussian blur",
+      "details": "Image processing transform applied to diversify the training dataset and prevent overfitting."
+    },
+    {
+      "technique": "Dropout",
+      "details": "Regularization technique applied during training to prevent overfitting."
+    },
+    {
+      "technique": "Coarse dropout",
+      "details": "Regularization technique applied during training to prevent overfitting."
+    },
+    {
+      "technique": "Brightness adjustment",
+      "details": "Color transform applied to diversify the training dataset and prevent overfitting."
+    },
+    {
+      "technique": "Hue adjustment",
+      "details": "Color transform applied to diversify the training dataset and prevent overfitting."
+    },
+    {
+      "technique": "Saturation adjustment",
+      "details": "Color transform applied to diversify the training dataset and prevent overfitting."
+    }
+  ],
+  "conclusions": [
+    "The proposed ensemble of EfficientNet-B2, EfficientNet-B5, and ResNeSt101 models achieved an AUC of 0.9300 and a balanced accuracy of 0.8132 on the ISIC 2017 dataset.",
+    "The proposed method outperformed the top three solutions from the ISIC 2017 challenge in terms of Average AUC.",
+    "The proposed method achieved a lower balanced accuracy (0.8132) compared to the second-place (0.8833) and third-place (0.8440) solutions from the ISIC 2017 challenge.",
+    "The model struggled with melanoma classification, misclassifying 23 melanoma lesions as nevi and 11 as seborrheic keratosis out of 117 total melanoma lesions.",
+    "The difficulty in classifying melanoma may be attributed to the complexity and variability of melanoma lesions and the reduced number of samples for this class.",
+    "GradCAM analysis indicated that correct classifications relied on the lesion area, while incorrect classifications often relied on information unrelated to the lesion.",
+    "The combination of image preprocessing techniques (color constancy, hair removal, center cropping), data augmentation, and transfer learning significantly improved model performance.",
+    "The 'Average of 3' ensemble technique performed better than the 'Average' and 'Voting' ensembles, indicating that high diversity of models does not always lead to the best prediction.",
+    "The authors acknowledge that the model's performance on the ISIC 2017 dataset may not translate to high performance in real-world clinical scenarios due to potential variations and complexities not captured by the dataset.",
+    "Further validation on additional datasets and for other skin lesion classes is recommended to ensure robustness."
+  ],
+  "important_remarks": [
+    "The study is limited to three specific skin lesion classes (melanoma, seborrheic keratosis, and benign nevi) from the ISIC 2017 dataset, excluding other critical malignancies like basal cell carcinoma and squamous cell carcinoma.",
+    "The model struggled significantly with melanoma classification, misclassifying 23 out of 117 melanoma lesions as nevi and 11 as seborrheic keratosis, likely due to lesion complexity and class imbalance.",
+    "While the proposed ensemble achieved a superior Average AUC (0.9300) compared to the top three ISIC 2017 challenge winners, it had a lower balanced accuracy (0.8132) than the second-place (0.8833) and third-place (0.8440) solutions.",
+    "The method did not utilize patient metadata (e.g., age, sex) or lesion segmentation, which were used by some competing methods, potentially limiting its diagnostic context.",
+    "GradCAM analysis revealed that incorrect classifications often relied on irrelevant image features rather than the lesion itself, indicating a risk of the model learning spurious correlations.",
+    "The authors explicitly note that performance on the ISIC 2017 dataset may not translate to real-world clinical scenarios due to variations and complexities not captured by the dataset.",
+    "No external validation was performed; the authors recommend validation on additional datasets and for other skin lesion classes to ensure robustness.",
+    "The study did not report formal statistical significance testing (e.g., p-values) for the comparison of metrics against other methods.",
+    "Image preprocessing techniques (color constancy, hair removal) were effective but the authors caution they may remove or modify important features, suggesting a need for careful technique selection.",
+    "The 'Average of 3' ensemble strategy outperformed 'Average' and 'Voting' ensembles, suggesting that high model diversity does not always guarantee the best prediction performance."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_silva_2023_deep_learning_techniques_applied_to_skin_lesion_classification.pdf",
+    "summary": "The study utilized the ISIC 2017 dataset for all phases of the experiment. The dataset was split into 2000 images for training, 150 for validation (used for hyperparameter tuning and model selection based on balanced accuracy), and 600 for testing (final performance evaluation). The models were pre-trained on ImageNet. No external or cross-dataset validation was performed; the authors note that performance on ISIC 2017 may not translate to real-world clinical scenarios and recommend validation on additional datasets.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper did not perform cross-dataset validation. The model was trained, validated, and tested exclusively on the ISIC 2017 dataset. The authors explicitly state that further validation on additional datasets is needed.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2017",
+          "counts": 2000,
+          "notes": "Used for training 13 CNN models (EfficientNet-B0-B6, PNASNet, SEResNeXt101, ResNeXt101, ResNeSt101, DenseNet121, VGG19) with data augmentation and transfer learning."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2017",
+          "counts": 150,
+          "notes": "Used for hyperparameter tuning, model selection, and saving the best epoch model based on balanced accuracy."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2017",
+          "counts": 600,
+          "notes": "Used for final evaluation of the ensemble models and comparison with other ISIC 2017 challenge solutions."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Models were pre-trained on ImageNet before being fine-tuned on the ISIC 2017 dataset."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "ISIC 2017 (Training Set)",
+          "notes": "Data augmentation techniques (zoom-in, flips, rotation, Gaussian blur, dropout, brightness/hue/saturation adjustments) were applied to the training images to diversify the dataset and prevent overfitting."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "Fixed split: 2000 images for training, 150 for validation, 600 for testing from the ISIC 2017 dataset.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No unseen external dataset was used. The test set (600 images) was part of the ISIC 2017 dataset."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2017 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 (Training)"
+        ],
+        "model_or_method": "Average of 3 Ensemble (ResNeSt101, EfficientNet-B2, EfficientNet-B5)",
+        "metrics": {
+          "accuracy": null,
+          "auc": "0.9300",
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": "0.8132",
+            "melanoma_auc": "0.8957",
+            "melanoma_accuracy": "0.8750",
+            "melanoma_sensitivity": "0.7094",
+            "melanoma_specificity": "0.9151",
+            "seborrheic_keratosis_auc": "0.9643",
+            "seborrheic_keratosis_accuracy": "0.9283",
+            "seborrheic_keratosis_sensitivity": "0.8778",
+            "seborrheic_keratosis_specificity": "0.9373"
+          }
+        },
+        "notes": "The ensemble outperformed the top three ISIC 2017 challenge solutions in Average AUC. It struggled with melanoma classification, misclassifying 23 as nevi and 11 as seborrheic keratosis out of 117 melanoma lesions."
+      },
+      {
+        "dataset": "ISIC 2017 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 (Training)"
+        ],
+        "model_or_method": "Average Ensemble (All models)",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": "0.8064"
+          }
+        },
+        "notes": "Second-best ensemble performance."
+      },
+      {
+        "dataset": "ISIC 2017 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 (Training)"
+        ],
+        "model_or_method": "Voting Ensemble (All models)",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": "0.7987"
+          }
+        },
+        "notes": "Third-best ensemble performance."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2017",
+        "split_or_cv": "2000 train / 150 validation / 600 test",
+        "models": [
+          "EfficientNet-B0",
+          "EfficientNet-B1",
+          "EfficientNet-B2",
+          "EfficientNet-B3",
+          "EfficientNet-B4",
+          "EfficientNet-B5",
+          "EfficientNet-B6",
+          "PNASNet",
+          "SEResNeXt101",
+          "ResNeXt101",
+          "ResNeSt101",
+          "DenseNet121",
+          "VGG19"
+        ],
+        "results": [
+          {
+            "metric": "Balanced Accuracy",
+            "value": "0.8132",
+            "model": "Average of 3 Ensemble (ResNeSt101, EfficientNet-B2, EfficientNet-B5)",
+            "data_split": "test"
+          },
+          {
+            "metric": "Average AUC",
+            "value": "0.9300",
+            "model": "Average of 3 Ensemble (ResNeSt101, EfficientNet-B2, EfficientNet-B5)",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The authors acknowledge that the model's performance on the ISIC 2017 dataset may not translate to high performance in real-world clinical scenarios due to potential variations and complexities not captured by the dataset.",
+      "The study is limited to three specific skin lesion classes (melanoma, seborrheic keratosis, and benign nevi), excluding other critical malignancies like basal cell carcinoma and squamous cell carcinoma.",
+      "No external validation was performed.",
+      "GradCAM analysis indicated that incorrect classifications often relied on irrelevant image features rather than the lesion itself, indicating a risk of the model learning spurious correlations."
+    ],
+    "information_not_reported": [
+      "Patient-level separation details (whether images from the same patient were split across train/test sets).",
+      "Specific counts of class imbalance within the training/validation/test splits beyond the total image counts.",
+      "Formal statistical significance testing (p-values) for the comparison of metrics against other methods."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780004873
+  }
+}

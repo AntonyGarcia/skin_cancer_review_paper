@@ -1,0 +1,334 @@
+{
+  "file_name": "alonso_2025_enhancing_melanoma_diagnosis_in_histopathology_with_deep_learning_an.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used Generative Adversarial Networks (GANs) to generate synthetic histopathology images for data augmentation and ResNet-18 (a deep learning model) to perform binary classification of melanoma versus melanocytic nevus in H&E-stained skin tissue images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the design and training of a Generative Adversarial Network (GAN) for synthetic data augmentation and the evaluation of ResNet-18 classifiers on melanoma diagnosis. It includes specific methodology sections (Materials and Methods, Algorithmic Workflow), reports quantitative results (accuracy, specificity, FID scores), and discusses statistical validation (McNemar's test), which are characteristic of primary research rather than a review."
+  },
+  "title": "Enhancing Melanoma Diagnosis in Histopathology with Deep Learning and Synthetic Data Augmentation",
+  "authors": [
+    "Alex Rodriguez Alonso",
+    "Ana Sanchez Diez",
+    "Goikoane Cancho Galán",
+    "Rafael Ibarrola Altuna",
+    "Gonzalo Irigoyen Miró",
+    "Cristina Penas Lago",
+    "Mª Dolores Boyano López",
+    "Rosa Izu Belloso"
+  ],
+  "doi": "10.3390/bioengineering12091001",
+  "journal": "Bioengineering",
+  "year": 2025,
+  "article_type": "Article",
+  "brief_summary": "This study addresses the challenge of class imbalance in melanoma diagnosis by investigating the use of Generative Adversarial Networks (GANs) to generate synthetic histopathology images for data augmentation. Using a dataset of H&E-stained skin tissue images from four Spanish hospitals, the researchers trained a GAN to synthesize melanocytic nevus images to balance the minority class against malignant melanoma samples. These synthetic images were combined with real data to train a ResNet-18 classifier, which was evaluated against a model trained exclusively on real data using metrics such as accuracy, specificity, and the Fréchet Inception Distance. The best-performing model, trained on a mixed dataset at 1024 × 1024 resolution, achieved an accuracy of 96.00% and a specificity of 97.00%. The results indicate that while mixed models do not consistently outperform real-only models in all metrics, they significantly reduce false negatives, supporting the utility of synthetic data as a complementary tool for improving clinically relevant outcomes in melanoma diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "melanoma",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "Majority class in the real dataset (92 samples), used as one of the two binary classification targets. Also referred to as 'malignant' in Table 1."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "melanocytic nevus",
+        "nevus",
+        "benign",
+        "melanocytic nevi"
+      ],
+      "role": "Target class",
+      "details": "Minority class in the real dataset (41 samples), which was synthetically augmented via GAN to balance the dataset. Referred to as 'benign' in Table 1."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (malignant melanoma vs. melanocytic nevus)",
+        "primary": true,
+        "details": "The study employs a ResNet-18 architecture to perform binary classification of H&E-stained histopathology images. The model predicts discrete classes (melanoma or nevus) and is evaluated using classification metrics including accuracy, specificity, sensitivity, precision, and F1-score. The primary task is explicitly stated as 'automatic classification' and 'binary classifier' in the abstract and algorithmic workflow."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Real Histopathology Dataset (Spanish Hospitals)",
+      "description": "A collection of H&E-stained histological image patches of skin tissue samples gathered from four Spanish sources: University Hospital Donostia (Onkologikoa), University Hospital Basurto, University Hospital Cruces, and the Astonish platform. The images were curated, cleaned, and preprocessed (intensity normalization, resizing to 1024x1024 pixels).",
+      "classes_used": [
+        "Malignant melanoma",
+        "Melanocytic nevus"
+      ],
+      "counts": {
+        "total": 133,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Malignant melanoma": 92,
+          "Melanocytic nevus": 41
+        }
+      },
+      "use": {
+        "training": "Used as the source for real images. A subset was used to train a GAN to generate synthetic nevus images. The real melanoma images and real nevus images were used in two experimental setups: one with real-only data and one with mixed real and synthetic data to train ResNet-18 classifiers.",
+        "validation": "Not explicitly reported as a separate validation set; external validation was not performed.",
+        "testing": "Used for testing the classifiers. The study mentions testing on an 'independent real-only dataset' in the workflow, and Table 5 indicates a test set size of 1950 samples (1870 correct + 80 error for real model; 1875 correct + 75 error for mixed model), though the exact split from the original 133 images is not detailed (likely involving the augmented 13,000 images or a separate test cohort not fully quantified in the text provided).",
+        "other": "Used to train the GAN for synthetic data generation."
+      }
+    },
+    {
+      "name": "Synthetic Melanocytic Nevus Dataset",
+      "description": "Synthetic histopathology images generated using a trained Generative Adversarial Network (GAN) to augment the minority class (melanocytic nevus). Generated at a resolution of 1024x1024 pixels.",
+      "classes_used": [
+        "Melanocytic nevus"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Combined with real melanoma images and real nevus images to create a balanced mixed dataset for training the ResNet-18 classifier.",
+        "validation": null,
+        "testing": null,
+        "other": "Generated to address class imbalance in the real dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Precision",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "Recall",
+    "F1-Score",
+    "Confusion Matrix",
+    "Fréchet Inception Distance (FID)",
+    "Statistical Tests",
+    "Bootstrap resampling"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "McNemar’s test",
+      "purpose": "To compare the patterns of correct and incorrect predictions between the real-only and mixed (real + synthetic) models on the same test set to determine if differences in classification performance are statistically significant.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Bootstrap resampling",
+      "purpose": "To compare real-only vs. mixed models, likely for estimating uncertainty or robustness of the performance metrics.",
+      "type": "Resampling method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "McNemar’s test",
+    "null_hypothesis": "There is no statistically significant difference in the classification patterns (specifically the discordant cases) between the model trained exclusively on real data and the model trained on a mixed dataset of real and synthetic data.",
+    "alternative_hypothesis": "There is a statistically significant difference in the classification patterns between the two models.",
+    "alpha": 0.05,
+    "interpretation": "The McNemar’s test yielded a p-value of 0.46, which is greater than the alpha threshold of 0.05. Therefore, the null hypothesis was not rejected, indicating that the observed differences in performance between the real-only and mixed models were not statistically significant and could be attributable to chance. This was reinforced by bootstrap resampling, which showed overlapping 95% confidence intervals for accuracy and macro F1-score."
+  },
+  "results_obtained_in_each_dataset": {
+    "Real Dataset (ResNet-18, Real-Only Training)": {
+      "description": "Performance of ResNet-18 models trained exclusively on real histopathology images at different resolutions and epoch counts.",
+      "models": {
+        "Real 512-10 ep.": {
+          "Accuracy": "98.00%",
+          "Precision": "98.00%",
+          "Recall": "98.00%",
+          "Specificity": "99.00%",
+          "F1-Score": "98.00%"
+        },
+        "Real 512-25 ep.": {
+          "Accuracy": "97.00%",
+          "Precision": "97.00%",
+          "Recall": "95.00%",
+          "Specificity": "98.00%",
+          "F1-Score": "96.00%"
+        },
+        "Real 512-50 ep.": {
+          "Accuracy": "98.00%",
+          "Precision": "96.00%",
+          "Recall": "98.00%",
+          "Specificity": "99.00%",
+          "F1-Score": "97.00%"
+        },
+        "Real 1024-10 ep.": {
+          "Accuracy": "81.00%",
+          "Precision": "73.00%",
+          "Recall": "80.00%",
+          "Specificity": "87.00%",
+          "F1-Score": "76.00%"
+        },
+        "Real 1024-25 ep.": {
+          "Accuracy": "83.00%",
+          "Precision": "81.00%",
+          "Recall": "73.00%",
+          "Specificity": "89.00%",
+          "F1-Score": "76.00%"
+        },
+        "Real 1024-50 ep.": {
+          "Accuracy": "86.00%",
+          "Precision": "85.00%",
+          "Recall": "78.00%",
+          "Specificity": "91.00%",
+          "F1-Score": "81.00%"
+        },
+        "Real 1024-50 ep. (Optimal LR 3e-4)": {
+          "Accuracy": "95.90%",
+          "F1-Score (Macro)": "96.00%",
+          "Correct Predictions": 1870,
+          "Error Predictions": 80
+        }
+      },
+      "notes": "Models trained at 512x512 resolution achieved higher accuracy and F1-score in less time. The 1024x1024 model showed sustained improvement with more epochs. The optimal real-only configuration used 1024x1024 resolution, 50 epochs, and a learning rate of 3x10^-4."
+    },
+    "Mixed Dataset (ResNet-18, Real + Synthetic Training)": {
+      "description": "Performance of ResNet-18 models trained on a balanced dataset combining real melanoma images and synthetic melanocytic nevus images generated by GAN.",
+      "models": {
+        "Mixed 1024-10 ep.": {
+          "Accuracy": "89.00%",
+          "Precision": "88.00%",
+          "Recall": "86.00%",
+          "Specificity": "91.00%",
+          "F1-Score": "87.00%"
+        },
+        "Mixed 1024-25 ep.": {
+          "Accuracy": "93.00%",
+          "Precision": "92.00%",
+          "Recall": "90.00%",
+          "Specificity": "95.00%",
+          "F1-Score": "91.00%"
+        },
+        "Mixed 1024-50 ep.": {
+          "Accuracy": "96.00%",
+          "Precision": "95.00%",
+          "Recall": "94.00%",
+          "Specificity": "97.00%",
+          "F1-Score": "94.00%"
+        },
+        "Mixed 1024-50 ep. (Best Performing)": {
+          "Accuracy": "96.15%",
+          "F1-Score (Macro)": "96.00%",
+          "Correct Predictions": 1875,
+          "Error Predictions": 75
+        }
+      },
+      "notes": "The best-performing mixed model (1024x1024 px, 50 epochs) achieved an accuracy of 96.00% and specificity of 97.00%. It reduced false negatives from 80 (real-only) to 75 cases. The dataset distribution was 5600 benign/5600 malignant in training, 750/1200 in validation, and 750/1200 in testing."
+    },
+    "Statistical Comparison": {
+      "description": "Comparison between Real-Only and Mixed models using McNemar's test and Bootstrap resampling.",
+      "models": {
+        "McNemar's Test": {
+          "Chi-squared statistic": 0.55,
+          "p-value": 0.46,
+          "interpretation": "No statistically significant difference between models at alpha = 0.05."
+        },
+        "Bootstrap Resampling (1000 iterations)": {
+          "Real Model Mean Accuracy": "95.92% [95% CI: 95.03–96.72%]",
+          "Real Model Mean Macro F1": "95.70% [95% CI: 94.76–96.57%]",
+          "Mixed Model Mean Accuracy": "95.61% [95% CI: 94.72–96.51%]",
+          "Mixed Model Mean Macro F1": "95.35% [95% CI: 94.42–96.32%]",
+          "interpretation": "Confidence intervals overlap; no statistically conclusive advantage for either model based on mean metrics."
+        }
+      },
+      "notes": "While the mixed model showed a slight advantage in raw accuracy (96.15% vs 95.90%) and reduced false negatives, statistical tests indicated the difference was not significant. The mixed model is noted for reducing false negatives, which is clinically relevant for melanoma diagnosis."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet-18",
+    "pretraining": "ImageNet weights",
+    "input_size": "224x224, 512x512, or 1024x1024 pixels",
+    "architecture_details": {
+      "type": "Convolutional Neural Network",
+      "backbone": "ResNet-18",
+      "modification": "Final fully connected layer modified to produce two outputs for binary classification (malignant melanoma vs. melanocytic nevus)",
+      "data_augmentation": "Rotations and horizontal flips on real images"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "optimizer_parameters": {
+        "beta1": 0.5,
+        "beta2": 0.999
+      },
+      "loss_function": "Cross-Entropy",
+      "learning_rate": "1e-4 (default), optimized to 3e-4 for 1024x1024 resolution models",
+      "epochs": [
+        10,
+        25,
+        50
+      ],
+      "batch_size": {
+        "lower_resolutions": 32,
+        "highest_resolution_1024": 8
+      },
+      "regularization": "None explicitly employed (early stopping and L2 regularization not used)",
+      "framework": "PyTorch, Torchvision"
+    },
+    "classification_or_output_head": {
+      "type": "Fully Connected Layer",
+      "outputs": 2,
+      "classes": [
+        "Malignant melanoma",
+        "Melanocytic nevus"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet-18",
+    "Generative Adversarial Network (GAN)",
+    "DCGAN"
+  ],
+  "preprocessing_techniques": [
+    "Intensity normalization (to standardize color distribution and minimize batch effects)",
+    "Resizing to fixed resolutions (1024 × 1024 pixels for input; 224 × 224, 512 × 512, or 1024 × 1024 pixels for classifier experiments)",
+    "Removal of corrupted or artifact-containing images",
+    "Exclusion of images with incomplete tissue sections or ambiguous diagnosis",
+    "Random shuffling of images by class",
+    "Data splitting into training (70%), validation (15%), and testing (15%) subsets",
+    "Data augmentation during classifier training: rotations and horizontal flips"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "GAN-based Synthetic Data Generation",
+      "details": "A Deep Convolutional GAN (DCGAN) was trained on the minority class (melanocytic nevus) to generate synthetic histopathology images at 1024 × 1024 resolution. The generator input was a latent vector z ∈ R100 from a standard normal distribution. The discriminator used LeakyReLU activation with α = 0.2. Images with clear artifacts, incoherent structures, or repetitive patterns were discarded during curative inspection. This method was used to balance the class distribution (5600 benign vs. 5600 malignant in the mixed training set)."
+    },
+    {
+      "technique": "Geometric Transforms (Rotations and Horizontal Flips)",
+      "details": "Applied to real images during GAN training to increase robustness and reduce overfitting. No specific probabilities or angles were reported."
+    },
+    {
+      "technique": "Class Balancing via Synthetic Augmentation",
+      "details": "Synthetic images were generated exclusively for the melanocytic nevus class (minority class, originally 41 samples) to match the count of the malignant melanoma class (majority class, originally 92 samples). This resulted in a balanced training dataset of 5600 benign and 5600 malignant samples."
+    }
+  ],
+  "conclusions": [
+    "Synthetic data generated via Generative Adversarial Networks (GANs) serves as a complementary tool for data augmentation in melanoma diagnosis, particularly in scenarios where acquiring new real samples is limited by privacy or ethical restrictions.",
+    "Mixed models (trained on real and synthetic data) do not consistently outperform models trained exclusively on real data in terms of overall accuracy or statistical significance (p=0.46 via McNemar’s test), but they achieve competitive performance.",
+    "The best-performing model, trained on a mixed dataset of real melanoma and synthetic melanocytic nevus images at 1024 × 1024 resolution for 50 epochs, achieved an accuracy of 96.00% and a specificity of 97.00%.",
+    "The use of synthetic data for the minority class (melanocytic nevus) significantly reduced false negatives from 80 cases (in the real-only model) to 75 cases, highlighting its potential to improve clinically relevant outcomes by reducing missed melanoma diagnoses.",
+    "While the mixed model reduced false negatives, the study acknowledges a methodological limitation: the model was not exposed to synthetic examples of the malignant class, introducing a selection bias that limits the generalizability of the findings regarding synthetic data for the majority class.",
+    "The study lays the groundwork for future research into conditional generation and the synthesis of malignant samples to further address class imbalance and bias in histopathology datasets."
+  ],
+  "important_remarks": [
+    "The study lacks external validation, which is explicitly acknowledged as a limitation, restricting the assessment of generalizability to other institutions or scanners.",
+    "Synthetic data generation was applied exclusively to the minority class (melanocytic nevus), introducing a selection bias where the model was not exposed to synthetic examples of the malignant class, limiting the analysis of balanced generation scenarios.",
+    "The Fréchet Inception Distance (FID) score of 139.56 indicates a considerable statistical distance between real and synthetic image distributions, suggesting the generative model fails to fully replicate the morphological complexity of authentic samples.",
+    "The evaluation was conducted exclusively on unseen real images; synthetic images were excluded from the test set to prevent class balance disruption and uncontrolled technical bias, meaning the model's performance on synthetic data was not assessed.",
+    "Advanced regularization techniques such as early stopping or L2 regularization were not employed during classifier training, which is noted as a methodological limitation.",
+    "The computational burden of training the GAN and processing high-resolution images (1024 × 1024) poses a potential barrier to practical implementation in clinical environments with limited resources.",
+    "Technical restrictions prevented the exploration of more advanced generative models (e.g., StyleGAN2 or diffusion models), limiting the architectural exploration of the study.",
+    "Synthetic images tend to be more homogeneous compared to real histology, which naturally incorporates inter-center variability; this uniformity may reduce robustness when facing heterogeneous external data."
+  ]
+}

@@ -1,0 +1,574 @@
+{
+  "file_name": "albert_2020_deep_learning_from_limited_training_data_novel_segmentation_and_ense.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning (Convolutional Neural Networks, specifically Inception V3) and ensemble machine learning algorithms (PECK, Random Forest, Support Vector Machine) to perform automatic melanoma diagnosis and benign nevi classification on the MED-NODE dataset of non-dermoscopic skin lesion images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, including the development of novel algorithms (PECK and SCIDOG), implementation of deep learning models (Inception V3, Random Forest, SVM), and validation on the MED-NODE dataset using 10-fold cross-validation to achieve new diagnostic results."
+  },
+  "title": "Deep Learning From Limited Training Data: Novel Segmentation and Ensemble Algorithms Applied to Automatic Melanoma Diagnosis",
+  "authors": [
+    "Benjamin Alexander Albert"
+  ],
+  "doi": "10.1109/ACCESS.2020.2973188",
+  "journal": "IEEE Access",
+  "year": 2020,
+  "article_type": "Research paper",
+  "brief_summary": "This study addresses the challenge of automatic melanoma diagnosis from limited non-dermoscopic training data by introducing two novel algorithms: the Synthesis and Convergence of Intermediate Decaying Omnigradients (SCIDOG) for lesion segmentation and the Predict-Evaluate-Correct K-fold (PECK) ensemble training method. The researchers utilized the MED-NODE dataset, consisting of 170 non-dermoscopic images, to train a deep ensemble that combines Inception V3 convolutional neural networks with Random Forest and Support Vector Machine classifiers. The PECK algorithm enables the model to learn effectively from small datasets by hierarchically correcting errors from previous layers, while SCIDOG accurately extracts morphological features despite image noise and hair obstructions. The system was evaluated using 10-fold cross-validation, demonstrating significantly increased diagnostic capability compared to prior state-of-the-art methods. Specifically, the PECK ensemble corrected 16 of 30 Inception V3 misclassifications while adding only one new error, highlighting its superior performance in melanoma versus benign nevi classification.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the binary classification task on the MED-NODE dataset (70 images)."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevi",
+        "benign nevi",
+        "naevus"
+      ],
+      "role": "Target class",
+      "details": "One of the two classes in the binary classification task on the MED-NODE dataset (100 images)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnosis of melanoma versus benign nevi",
+        "primary": true,
+        "details": "The paper performs binary classification to diagnose melanomas and benign nevi using the MED-NODE dataset. The PECK ensemble combines Inception V3 CNN predictions with Random Forest and Support Vector Machine classifiers to predict discrete diagnostic categories (melanoma or benign nevi/naevus)."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion contour/area mask",
+        "primary": false,
+        "details": "The SCIDOG algorithm is used to segment lesion contours from surrounding skin in non-dermoscopic images, producing a binary mask of the lesion area to facilitate feature extraction."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "MED-NODE",
+      "description": "An open dataset of non-dermoscopic skin lesion images created by the Department of Dermatology at the University Medical Center Groningen (UMCG). It was initially used to train the MED-NODE computer-assisted melanoma detection system.",
+      "classes_used": [
+        "Melanoma",
+        "Nevi (Benign Nevi)"
+      ],
+      "counts": {
+        "total": 170,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 70,
+          "Nevi": 100
+        }
+      },
+      "use": {
+        "training": "Used for training the PECK ensemble, Inception V3 CNN, Random Forest, and SVM classifiers via 10-fold cross-validation (9 folds per iteration).",
+        "validation": "Used for validation/evaluation via 10-fold cross-validation (1 fold per iteration reserved for testing/evaluation).",
+        "testing": "Used for testing/evaluation via 10-fold cross-validation (1 fold per iteration reserved for testing/evaluation).",
+        "other": "Used as the standard benchmark for comparison with prior state-of-the-art methods."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "Precision",
+    "Recall",
+    "Positive Predictive Value (PPV)",
+    "Sensitivity (True Positive Rate)",
+    "AUC-ROC",
+    "Precision-Recall (PR) curves"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10-fold cross-validation",
+      "purpose": "To evaluate the diagnostic capability of the proposed PECK ensemble and SCIDOG segmentation algorithms on the MED-NODE dataset and compare them with prior state-of-the-art methods.",
+      "type": "Cross-validation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper states that the proposed methods achieve 'significantly increased diagnostic capability' over prior methods, but it does not report specific p-values, confidence intervals, or formal statistical hypothesis tests (e.g., t-test, ANOVA) to support this claim."
+  },
+  "results_obtained_in_each_dataset": {
+    "MED-NODE": {
+      "dataset_description": "170 non-dermoscopic skin lesion images (70 melanoma, 100 nevi). Evaluated using 10-fold cross-validation.",
+      "evaluation_setting": "10-fold cross-validation. Each fold consists of 7 melanomas and 10 nevi. 9 folds used for training, 1 fold reserved for testing/evaluation per iteration.",
+      "models_evaluated": [
+        "PECK Ensemble",
+        "Inception V3 (IV3)",
+        "Combinative Random Forest (C-RF)",
+        "Introspective Random Forest (I-RF)",
+        "Linear SVM",
+        "Bagging Ensemble",
+        "Adaboost M1 Ensemble",
+        "Random Forest (64 trees)",
+        "RBF SVM (Leaked/Optimized on test set)"
+      ],
+      "comparison_with_prior_methods": {
+        "summary": "The presented methods outperform each prior method in metric category except TPR where it is 0.01 lower than the best [10]. The presented methods result in a total accuracy increase of 10% from the best prior publications [7], [15] and 9% accuracy improvement over Inception V3 [18].",
+        "notes": "Prior methods cited include Spotmole, MED-NODE system [7], Barhoumi and Zagrouba [8], [10], and others. Some prior publications were omitted due to inconsistent results or evaluation methods."
+      },
+      "models": {
+        "PECK Ensemble": {
+          "description": "Combines Inception V3 CNN predictions with Random Forest and Support Vector Machine classifiers using the PECK algorithm.",
+          "performance_notes": "Outperforms all other tested classifiers. Corrects 16 of 30 Inception V3 misclassifications while adding only 1 new error. Correctly classifies 74% of instances that prompt disagreement between combinative and introspective Random Forest classifiers.",
+          "metrics": "Specific numerical values (Accuracy, Sensitivity, Specificity, etc.) are not explicitly listed as single numbers in the text chunks provided, but the model is described as having the highest AUC for both ROC and PR curves. Table 3 and Table 4 contain the specific per-fold and mean values which are not fully transcribed as text in the context."
+        },
+        "Inception V3 (IV3)": {
+          "description": "Deep convolutional neural network used as a base classifier and for feature injection.",
+          "performance_notes": "Served as a baseline. The PECK ensemble corrects 16 of 30 of its misclassifications."
+        },
+        "Combinative Random Forest (C-RF)": {
+          "description": "Random Forest classifier trained on manually engineered features and network predictions."
+        },
+        "Introspective Random Forest (I-RF)": {
+          "description": "Random Forest classifier within the PECK ensemble structure."
+        },
+        "Linear SVM": {
+          "description": "SVM with linear kernel trained using sequential minimal optimization (SMO)."
+        },
+        "Bagging Ensemble": {
+          "description": "Bagging ensemble with 10% bag size and 100 iterations of linear SVM classifier."
+        },
+        "Adaboost M1 Ensemble": {
+          "description": "Ensemble with 1000 iterations of decision stump classifier (also tested with 100 iterations)."
+        },
+        "Random Forest (64 trees)": {
+          "description": "Random Forest with 64 trees and 64 random features and unlimited depth."
+        },
+        "RBF SVM (Leaked)": {
+          "description": "SVM with radial-basis function kernel, optimized on the testing set for demonstrative purposes. Complexity parameter searched in {2^-10 ... 2^10}, gamma in {10^-10 ... 10^10}.",
+          "performance_notes": "Despite being optimized on the testing set, the PECK Ensemble outperforms the RBF SVM in all metrics."
+        }
+      },
+      "segmentation_results": {
+        "algorithm": "SCIDOG (Synthesis and Convergence of Intermediate Decaying Omnigradients)",
+        "description": "Non-learning segmentation algorithm used to detect lesion contours in non-dermoscopic images.",
+        "feature_extraction": "Extracts 1,812 lesion features quantifying shape, color, and texture (ABC features and co-occurrence matrix analysis)."
+      },
+      "notes": "The paper reports that the PECK ensemble yields superior results to other classifiers tested on the same extracted and injected feature data. It achieves significantly increased diagnostic capability over the best prior methods. Specific mean values and standard errors are calculated using formula (14) but the exact numerical results for each metric are contained in Tables 3 and 4 which are referenced but not fully transcribed in the provided text chunks."
+    }
+  },
+  "architecture_used": {
+    "main_model": "PECK Ensemble (Predict-Evaluate-Correct K-fold), which integrates Inception V3 Convolutional Neural Network (CNN), Random Forest (RF), and Support Vector Machine (SVM) classifiers.",
+    "pretraining": "Inception V3 CNN was trained on the MED-NODE dataset using transfer learning concepts, but specifically trained from scratch on synthetic and original data for this study (90 unique networks trained on sequential fold combinations). No external pretraining weights (e.g., ImageNet) are explicitly stated as being loaded; the paper notes prior work used transfer learning, but this study focuses on training from limited data with augmentation.",
+    "input_size": "Not explicitly reported (non-dermoscopic images from MED-NODE dataset).",
+    "architecture_details": {
+      "deep_learning_component": {
+        "model": "Inception V3 CNN",
+        "training_strategy": "90 unique networks trained on sequential combinations of 10-fold cross-validation folds (e.g., n0x0 on fold 0, n0x1 on folds 0-1, etc.).",
+        "augmentation": "Synthetic images generated via reflection, rotation, noise, brightness, and contrast augmentation (training set 288x larger than original).",
+        "output": "Classification probability distribution mapped to a single number (magnitude = probability, sign = class: negative=naevus, non-negative=melanoma)."
+      },
+      "ensemble_component": {
+        "algorithm": "PECK (Predict-Evaluate-Correct K-fold)",
+        "structure": "Hierarchical ensemble where deeper layers receive more training folds and predictions from previous layers.",
+        "classifiers": [
+          "Combinative Random Forest (C-RF)",
+          "Introspective Random Forest (I-RF)",
+          "Linear Support Vector Machine (SVM)"
+        ],
+        "feature_input": "1,812 manually engineered features (ABC: asymmetry, border, color; plus 1,539 texture features from GLCM) + Inception V3 predictions."
+      },
+      "segmentation_component": {
+        "algorithm": "SCIDOG (Synthesis and Convergence of Intermediate Decaying Omnigradients)",
+        "type": "Non-learning algorithm",
+        "steps": [
+          "Contrast enhancement using Hadamard product and channel multiplier.",
+          "Grayscale conversion (BGR to grayscale).",
+          "Gradient sequence calculation using Sobel and Scharr operators with increasing kernel sizes.",
+          "Omnigradient merging and smoothing.",
+          "Thresholding to produce binary mask."
+        ]
+      }
+    },
+    "training_details": {
+      "optimizer": "Sequential Minimal Optimization (SMO) for SVM; standard training for Random Forest and CNN (specific optimizer not named, likely Adam/SGD common for Inception V3, but not explicitly stated).",
+      "loss_function": "Not explicitly reported.",
+      "hyperparameters": {
+        "CNN": {
+          "epochs": 300,
+          "batch_size": 2880,
+          "learning_rate": 0.01
+        },
+        "Random Forest": {
+          "num_trees": [
+            1,
+            2,
+            4,
+            8,
+            64
+          ],
+          "num_random_features": "X (same as num_trees)",
+          "depth": "Unlimited"
+        },
+        "SVM": {
+          "kernel": "Linear",
+          "optimization": "Sequential Minimal Optimization (SMO)"
+        },
+        "SCIDOG": {
+          "iterations": "Adaptive (dependent on image contrast/noise; e.g., 7 iterations for distinct boundary, 17 for minimal contrast)",
+          "kernel_sizes": "Odd sizes increasing for Sobel/Scharr operators"
+        }
+      },
+      "training_schedule": "10-fold cross-validation. 9 folds for training, 1 for testing per iteration. PECK algorithm iteratively predicts and corrects errors across layers."
+    },
+    "classification_or_output_head": {
+      "type": "Binary Classification (Melanoma vs. Benign Nevi)",
+      "final_output": "Average of Combinative Classifier output and Introspective Classifier (RF-64) output.",
+      "probability_mapping": "CNN output mapped to single number: magnitude = classification probability, sign = class (negative = naevus, non-negative = melanoma)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Inception V3 Convolutional Neural Network (CNN)",
+    "PECK Ensemble (Predict-Evaluate-Correct K-fold)",
+    "Random Forest",
+    "Support Vector Machine (SVM)",
+    "Linear SVM",
+    "RBF SVM (Radial-Basis Function SVM)",
+    "Bagging Ensemble",
+    "Adaboost M1 Ensemble",
+    "Spotmole",
+    "MED-NODE system",
+    "Perceptron network (Barhoumi and Zagrouba)",
+    "CNN (prior publication [15])"
+  ],
+  "preprocessing_techniques": [
+    "Contrast enhancement using channel-wise scaling via Hadamard product with a scalar channel multiplier (λ) calculated based on channel median to maximize surrounding skin pixel values without saturating the lesion area.",
+    "Grayscale conversion (BGR to grayscale) for gradient calculation.",
+    "Gradient sequence calculation using Sobel and Scharr operators with increasing kernel sizes.",
+    "Omnigradient merging and smoothing using a Median Filter with odd kernel sizes proportional to iteration index to suppress noise and remove artifacts (e.g., hair).",
+    "Thresholding of the final merged omnigradient to produce a binary segmentation mask.",
+    "Data augmentation via reflection, rotation, noise addition, brightness adjustment, and contrast adjustment to synthesize training images."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Vertical and horizontal reflections, and all instances of right-angle rotations."
+    },
+    {
+      "technique": "Noise Augmentation",
+      "details": "Addition of Gaussian noise where the original pixel value x is modified by a vector v sampled from a normal distribution N(0, σ^2) with σ ∈ (0, 8]."
+    },
+    {
+      "technique": "Brightness Augmentation",
+      "details": "Multiplicative scaling of pixel values where x' = αx, with α ∈ {0.8, 1.0, 1.2}."
+    },
+    {
+      "technique": "Contrast Augmentation",
+      "details": "Additive scaling of pixel values where x' = αx + Σ(Tij * [0.114, 0.587, 0.299]), with α ∈ {0.8, 1.0, 1.2}."
+    },
+    {
+      "technique": "Synthetic Data Generation",
+      "details": "Combinations of the above transforms were used to generate synthetic images, resulting in a training set 288 times larger than the original."
+    }
+  ],
+  "conclusions": [
+    "The proposed PECK (Predict-Evaluate-Correct K-fold) ensemble algorithm enables deep learning models to learn effectively from limited training data (153-170 images), significantly outperforming prior state-of-the-art methods and standard deep learning techniques trained on the same dataset.",
+    "The PECK algorithm, which hierarchically merges Inception V3 CNN predictions with Random Forest and Support Vector Machine classifiers, corrects 16 of 30 Inception V3 misclassifications while adding only one new error, demonstrating superior diagnostic capability for melanoma versus benign nevi.",
+    "The novel SCIDOG (Synthesis and Convergence of Intermediate Decaying Omnigradients) segmentation algorithm accurately detects lesion contours in non-dermoscopic images despite noise, hair obstructions, and fuzzy boundaries, without requiring large training datasets.",
+    "SCIDOG facilitates the extraction of 1,812 morphological features (asymmetry, border, color, and texture) that, when combined with CNN predictions, enhance the performance of the PECK ensemble.",
+    "The system achieves significantly increased diagnostic accuracy compared to prior publications and state-of-the-art methods on the MED-NODE dataset, addressing the challenge of data inefficiency in deep learning for medical imaging.",
+    "The study demonstrates that combining traditional image classification techniques (manual feature extraction, Random Forest, SVM) with deep learning (Inception V3) via an ensemble approach is effective for automatic melanoma diagnosis using inexpensive non-dermoscopic images."
+  ],
+  "important_remarks": [
+    "The study relies on the small MED-NODE dataset (170 images total: 70 melanoma, 100 nevi), which limits the generalizability of the deep learning models and necessitates extensive data augmentation (288x increase) and novel algorithms (PECK, SCIDOG) to achieve high performance.",
+    "The dataset consists of non-dermoscopic images captured with mobile phones, which introduces significant variability in noise, glare, artifacts, illumination, distance, and angle, making segmentation and feature extraction more challenging than with standardized dermoscopic images.",
+    "The segmentation algorithm SCIDOG is a non-learning, heuristic method rather than a deep learning model, which avoids data quantity limitations but may lack the adaptability of learned segmentation networks for diverse lesion appearances.",
+    "The PECK ensemble corrects 16 of 30 Inception V3 misclassifications while adding only 1 new error, demonstrating strong corrective capability, but the absolute number of errors remains non-negligible in a small dataset context.",
+    "The paper acknowledges that some prior publications were excluded from comparison due to inconsistent results (e.g., evaluating on only 68 of 170 images or reporting fractional correctness), which may affect the perceived superiority of the proposed method relative to the broader literature.",
+    "The RBF SVM classifier was optimized on the testing set for demonstrative purposes, which constitutes data leakage; however, the PECK ensemble still outperformed this optimized baseline, strengthening the claim of its robustness.",
+    "The study does not report specific p-values or confidence intervals for the statistical significance of the performance improvements, relying instead on standard errors of the mean and comparative accuracy percentages.",
+    "The research focuses on binary classification (melanoma vs. benign nevi); future work is needed to extend the method to multiclass skin lesion classification, which is more clinically relevant.",
+    "The system is designed for computer-aided diagnosis (CADx) using inexpensive, widely available mobile phone images, aiming to improve accessibility in developing nations where dermatoscopes are less available, but this comes at the cost of image quality and standardization."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_albert_2020_deep_learning_from_limited_training_data_novel_segmentation_and_ense.pdf",
+    "summary": "The study utilized the MED-NODE dataset, consisting of 170 non-dermoscopic skin lesion images (70 melanoma, 100 nevi), for both training and evaluation. The dataset was partitioned into 10 equally sized folds for 10-fold cross-validation. In each iteration, 9 folds were used for training (with extensive data augmentation to increase the effective training set size) and 1 fold was reserved for testing/evaluation. The Inception V3 CNN was pretrained on ImageNet (implied by standard transfer learning practice and citation [18], though not explicitly detailed as a separate training step in the text, it is used for feature extraction/prediction injection). No external or unseen datasets were used for testing; all results are internal to the MED-NODE dataset via cross-validation.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper does not report any cross-dataset validation. The model was trained and tested exclusively on the MED-NODE dataset using 10-fold cross-validation. There is no mention of training on one dataset and testing on a different, unseen named dataset.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "MED-NODE",
+          "counts": "153 images per iteration (9 folds of ~17 images each, though exact fold sizes vary slightly due to class balance, total 170 images split into 10 folds)",
+          "notes": "Used for training the PECK ensemble, Inception V3 CNN (for prediction injection), Random Forest, and SVM classifiers. Data augmentation (reflection, rotation, noise, brightness, contrast) was applied to the training folds to synthesize a training set 288 times larger than the original."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "MED-NODE",
+          "counts": "17 images per iteration (1 fold)",
+          "notes": "Used for model selection/tuning within the cross-validation loop. The paper does not explicitly distinguish a separate validation set from the test fold in the cross-validation scheme; typically, in k-fold CV, the held-out fold serves as the validation set for that iteration."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "MED-NODE",
+          "counts": "17 images per iteration (1 fold)",
+          "notes": "Used for final performance evaluation in each of the 10 iterations. Results are averaged across all 10 folds."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Inception V3 CNN was pretrained on ImageNet (standard practice for Inception V3, cited as [18] in context of transfer learning). The pretrained weights were used to generate predictions/features which were then injected into the PECK ensemble training process. The CNN itself was not retrained on MED-NODE for final weights but used for feature extraction/prediction."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "MED-NODE (Augmented)",
+          "notes": "Data augmentation techniques including vertical/horizontal reflection, right-angle rotation, Gaussian noise addition, brightness scaling, and contrast adjustment were applied to the training images. This resulted in a synthetic training set 288 times larger than the original MED-NODE training folds."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "k-fold cross-validation",
+      "split_details": "10-fold cross-validation. Each fold contains approximately 17 images (7 melanomas and 10 nevi per fold, totaling 170 images). 9 folds used for training, 1 fold reserved for testing/evaluation per iteration.",
+      "cross_validation_details": "10-fold cross-validation. Folds stayed within the single MED-NODE dataset. The split was randomly generated.",
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No unseen external dataset was used. All testing data came from the same MED-NODE dataset via cross-validation folds."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "MED-NODE",
+        "role_at_result_time": "internal test (via 10-fold CV)",
+        "train_datasets_for_this_result": [
+          "MED-NODE"
+        ],
+        "model_or_method": "PECK Ensemble",
+        "metrics": {
+          "accuracy": "0.91",
+          "auc": "Not explicitly reported as a single number for PECK in text, but described as superior in ROC/PR curves",
+          "sensitivity": "Not explicitly reported as a single number in text",
+          "specificity": "Not explicitly reported as a single number in text",
+          "f1_score": "Not explicitly reported as a single number in text",
+          "other_metrics": {
+            "MCC": "0.83"
+          }
+        },
+        "notes": "PECK Ensemble outperformed all other classifiers. It corrected 16 of 30 Inception V3 misclassifications while adding only 1 new error. Results are averaged over 10 folds."
+      },
+      {
+        "dataset": "MED-NODE",
+        "role_at_result_time": "internal test (via 10-fold CV)",
+        "train_datasets_for_this_result": [
+          "MED-NODE"
+        ],
+        "model_or_method": "Inception V3 (IV3)",
+        "metrics": {
+          "accuracy": "0.82",
+          "auc": "Not explicitly reported as a single number in text",
+          "sensitivity": "Not explicitly reported as a single number in text",
+          "specificity": "Not explicitly reported as a single number in text",
+          "f1_score": "Not explicitly reported as a single number in text",
+          "other_metrics": {
+            "MCC": "0.65"
+          }
+        },
+        "notes": "Baseline deep learning model. PECK ensemble corrected 16 of its 30 misclassifications."
+      },
+      {
+        "dataset": "MED-NODE",
+        "role_at_result_time": "internal test (via 10-fold CV)",
+        "train_datasets_for_this_result": [
+          "MED-NODE"
+        ],
+        "model_or_method": "Combinative Random Forest (C-RF)",
+        "metrics": {
+          "accuracy": "null",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {}
+        },
+        "notes": "Specific metrics not reported in text, but compared in Table 4. Part of the PECK ensemble structure."
+      },
+      {
+        "dataset": "MED-NODE",
+        "role_at_result_time": "internal test (via 10-fold CV)",
+        "train_datasets_for_this_result": [
+          "MED-NODE"
+        ],
+        "model_or_method": "Introspective Random Forest (I-RF)",
+        "metrics": {
+          "accuracy": "null",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {}
+        },
+        "notes": "Specific metrics not reported in text, but compared in Table 4. Part of the PECK ensemble structure."
+      },
+      {
+        "dataset": "MED-NODE",
+        "role_at_result_time": "internal test (via 10-fold CV)",
+        "train_datasets_for_this_result": [
+          "MED-NODE"
+        ],
+        "model_or_method": "Linear SVM",
+        "metrics": {
+          "accuracy": "null",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {}
+        },
+        "notes": "Specific metrics not reported in text, but compared in Table 4."
+      },
+      {
+        "dataset": "MED-NODE",
+        "role_at_result_time": "internal test (via 10-fold CV)",
+        "train_datasets_for_this_result": [
+          "MED-NODE"
+        ],
+        "model_or_method": "Bagging Ensemble",
+        "metrics": {
+          "accuracy": "null",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {}
+        },
+        "notes": "Specific metrics not reported in text, but compared in Table 4."
+      },
+      {
+        "dataset": "MED-NODE",
+        "role_at_result_time": "internal test (via 10-fold CV)",
+        "train_datasets_for_this_result": [
+          "MED-NODE"
+        ],
+        "model_or_method": "Adaboost M1 Ensemble",
+        "metrics": {
+          "accuracy": "null",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {}
+        },
+        "notes": "Specific metrics not reported in text, but compared in Table 4."
+      },
+      {
+        "dataset": "MED-NODE",
+        "role_at_result_time": "internal test (via 10-fold CV)",
+        "train_datasets_for_this_result": [
+          "MED-NODE"
+        ],
+        "model_or_method": "Random Forest (64 trees)",
+        "metrics": {
+          "accuracy": "null",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {}
+        },
+        "notes": "Specific metrics not reported in text, but compared in Table 4."
+      },
+      {
+        "dataset": "MED-NODE",
+        "role_at_result_time": "internal test (via 10-fold CV)",
+        "train_datasets_for_this_result": [
+          "MED-NODE"
+        ],
+        "model_or_method": "RBF SVM (Leaked/Optimized)",
+        "metrics": {
+          "accuracy": "null",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {}
+        },
+        "notes": "Optimized on the testing set for demonstrative purposes (data leakage). PECK ensemble still outperformed it."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "MED-NODE",
+        "split_or_cv": "10-fold cross-validation",
+        "models": [
+          "PECK Ensemble",
+          "Inception V3",
+          "Combinative Random Forest",
+          "Introspective Random Forest",
+          "Linear SVM",
+          "Bagging Ensemble",
+          "Adaboost M1 Ensemble",
+          "Random Forest (64 trees)",
+          "RBF SVM (Leaked)"
+        ],
+        "results": [
+          {
+            "metric": "Accuracy",
+            "value": "0.91",
+            "model": "PECK Ensemble",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "MCC",
+            "value": "0.83",
+            "model": "PECK Ensemble",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Accuracy",
+            "value": "0.82",
+            "model": "Inception V3",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "MCC",
+            "value": "0.65",
+            "model": "Inception V3",
+            "data_split": "cross-validation"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study relies on a small, single dataset (MED-NODE, 170 images), which limits generalizability.",
+      "The dataset consists of non-dermoscopic images with high variability in noise, glare, and artifacts, which may not represent standardized clinical settings.",
+      "No external validation was performed; all results are internal to the MED-NODE dataset.",
+      "The RBF SVM classifier was optimized on the testing set, constituting data leakage, although PECK still outperformed it.",
+      "The paper acknowledges that prior publications were excluded from comparison due to inconsistent evaluation methods, which may affect perceived superiority."
+    ],
+    "information_not_reported": [
+      "Specific per-fold accuracy/sensitivity/specificity values for all models (only mean results and PECK/IV3 specific metrics are in text).",
+      "Exact number of images per class in each of the 10 folds (only average class distribution per fold is described: 7 melanomas, 10 nevi).",
+      "Confidence intervals or p-values for statistical significance of performance differences.",
+      "Details on how ImageNet pretraining was specifically implemented (weights frozen/fine-tuned) beyond 'transfer learning' and 'prediction injection'."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1779998592
+  }
+}

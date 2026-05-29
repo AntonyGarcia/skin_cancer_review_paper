@@ -1,0 +1,678 @@
+{
+  "file_name": "reshma_2026_r3mv_a_novel_reliable_system_architecture_for_skin_cancer_classifica.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a novel deep learning architecture called PHMBCNN (Progressive Heterogeneous Multiblock CNN) enhanced with a Gated Recurrent Unit (GRU) for skin cancer classification. It also employs a three-tier ensemble system (R3MV) that integrates CNN predictions, feature fusion classification, and a meta-classifier to classify skin lesions from the PAD_UFES_20 and HAM10000 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work, introducing a novel system architecture (R3MV) and model (PHMBCNN-GRU) for skin cancer classification. It details specific methods including data preprocessing, model training, and feature fusion, and reports original experimental results with accuracy metrics on the PAD_UFES_20 and HAM10000 datasets. Although it contains a literature survey section, the primary contribution is the development and validation of a new technical solution, not a summary of prior literature."
+  },
+  "title": "R3MV: a novel reliable system architecture for skin cancer classification using progressive heterogeneous multiblock model",
+  "authors": [
+    "Sk. Reshma",
+    "S R. Reeja"
+  ],
+  "doi": "10.1038/s41598-026-40522-6",
+  "journal": "Scientific Reports",
+  "year": 2026,
+  "article_type": "Research article",
+  "brief_summary": "This study addresses the unreliability of single-model skin cancer classification by proposing R3MV, a novel three-tier ensemble system architecture. The system integrates predictions from an end-to-end CNN, a feature fusion classifier, and a meta-classifier using a majority voting mechanism to enhance decision robustness. The core model, PHMBCNN-GRU, combines a Progressive Heterogeneous Multiblock CNN with a Gated Recurrent Unit to improve feature extraction and classification accuracy. The authors evaluated the proposed method on the PAD_UFES_20 and HAM10000 datasets, utilizing an 80-20 train-test split and image augmentation to handle class imbalance. The R3MV system achieved classification accuracies of 81.78% on PAD_UFES_20 and 99.3% on HAM10000, outperforming individual models and existing state-of-the-art approaches. These results demonstrate that the proposed architecture significantly improves reliability and generalizability for skin lesion diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "ACK",
+        "akiec"
+      ],
+      "role": "Target class",
+      "details": "Included in both PAD_UFES_20 and HAM10000 datasets as one of the six/seven classes studied."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "Included in both PAD_UFES_20 and HAM10000 datasets as one of the six/seven classes studied."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "MEL",
+        "mel"
+      ],
+      "role": "Target class",
+      "details": "Included in both PAD_UFES_20 and HAM10000 datasets as one of the six/seven classes studied. Described as a severe type of skin cancer."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "NEV",
+        "nv"
+      ],
+      "role": "Target class",
+      "details": "Included in both PAD_UFES_20 and HAM10000 datasets as one of the six/seven classes studied."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma (SCC)",
+      "paper_terms": [
+        "SCC"
+      ],
+      "role": "Target class",
+      "details": "Included in both PAD_UFES_20 and HAM10000 datasets as one of the six/seven classes studied."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "SEK",
+        "bkl"
+      ],
+      "role": "Target class",
+      "details": "Included in both PAD_UFES_20 and HAM10000 datasets as one of the six/seven classes studied."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "df"
+      ],
+      "role": "Target class",
+      "details": "Included in the HAM10000 dataset as one of the seven classes studied."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "vasc"
+      ],
+      "role": "Target class",
+      "details": "Included in the HAM10000 dataset as one of the seven classes studied."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin lesion diagnostic categories (e.g., Melanoma, Basal Cell Carcinoma, Nevus, etc.)",
+        "primary": true,
+        "details": "The paper performs multiclass classification of skin cancer types using the PAD_UFES_20 (6 classes) and HAM10000 (7 classes) datasets. The R3MV system integrates predictions from CNNs, feature fusion classifiers, and meta-classifiers via majority voting to predict discrete diagnostic labels."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PAD-UFES-20",
+      "description": "The Dermatological and Surgical Assistance Program dataset from the Federal University of Espírito Santo (UFES), Brazil. It contains dermoscopic images of skin lesions collected with patient permission and ethical approval. The dataset is publicly accessible under the CC By 4.0 license.",
+      "classes_used": [
+        "ACK (Actinic Keratosis)",
+        "BCC (Basal Cell Carcinoma)",
+        "MEL (Melanoma)",
+        "NEV (Nevus)",
+        "SCC (Squamous Cell Carcinoma)",
+        "SEK (Seborrheic Keratosis)"
+      ],
+      "counts": {
+        "total": 2298,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training individual models (PHMBCNN-GRU, GoogleNet, DenseNet201, MobileNetV2, NASNet, InceptionResNetV2) and feature fusion classifiers. 80% of the dataset was used for training, with image augmentation applied to balance class imbalances.",
+        "validation": "null",
+        "testing": "Used for testing individual models and the R3MV system. 20% of the dataset was used for testing. Additionally, in cross-dataset evaluation, 1,871 images of shared classes were designated for testing while HAM10000 was used for training.",
+        "other": "null"
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "The Human Against Machine dataset (ISIC Archive), collected from multiple clinical sites including the Medical University of Vienna (Austria) and the Skin Cancer Practice of Cliff Rosendahl (Queensland, Australia). It contains dermoscopic images with cleaned EXIF data and ethical approval from respective review committees.",
+      "classes_used": [
+        "df (Dermatofibroma)",
+        "akiec (Actinic Keratosis)",
+        "vasc (Vascular Lesion)",
+        "bkl (Seborrheic Keratosis)",
+        "bcc (Basal Cell Carcinoma)",
+        "mel (Melanoma)",
+        "nv (Nevus)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training individual models (PHMBCNN-GRU, GoogleNet, DenseNet201, MobileNetV2, NASNet, InceptionResNetV2) and feature fusion classifiers. 80% of the dataset was used for training, with image augmentation applied to balance class imbalances. In cross-dataset evaluation, it was utilized as the training set.",
+        "validation": "null",
+        "testing": "Used for testing individual models and the R3MV system. 20% of the dataset was used for testing.",
+        "other": "null"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "F1-Score",
+    "AUC-ROC",
+    "ROC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Mutual Information",
+      "purpose": "To evaluate each attribute in relation to the target label and rank features for selection.",
+      "type": "Feature selection"
+    },
+    {
+      "method": "Principal Component Analysis (PCA)",
+      "purpose": "Applied to features for dimensionality reduction or feature extraction before classification.",
+      "type": "Feature extraction"
+    },
+    {
+      "method": "Majority Voting (Hard Voting)",
+      "purpose": "To integrate predictions from individual CNN models, feature fusion MLP classifier, and decision-level fusion SVM classifier to determine the final class label.",
+      "type": "Ensemble method"
+    },
+    {
+      "method": "Image Augmentation",
+      "purpose": "To balance class imbalances in the training dataset using rotation, zoom, and flip operations.",
+      "type": "Data preprocessing"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using accuracy, precision, recall, F1-score, and AUC metrics without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "PAD_UFES_20": {
+      "split": "80-20 train-test",
+      "models": {
+        "PHMBCNN": {
+          "Accuracy": "75.70%",
+          "Precision": "80.86",
+          "Recall": "75.70",
+          "F1-score": "76.18",
+          "AUC": "0.909"
+        },
+        "PHMBCNN-GRU": {
+          "Accuracy": "80.69%",
+          "Precision": "84.48",
+          "Recall": "80.69",
+          "F1-score": "81.16",
+          "AUC": "0.930"
+        },
+        "GoogleNet": {
+          "Accuracy": "60.52",
+          "Precision": "63.13",
+          "Recall": "60.52",
+          "F1-score": "58.25"
+        },
+        "DenseNet201": {
+          "Accuracy": "69.85",
+          "Precision": "68.77",
+          "Recall": "69.85",
+          "F1-score": "68.26"
+        },
+        "MobileNetV2": {
+          "Accuracy": "55.31",
+          "Precision": "58.56",
+          "Recall": "55.31",
+          "F1-score": "53.75"
+        },
+        "NASNet": {
+          "Accuracy": "50.76",
+          "Precision": "50.47",
+          "Recall": "50.76",
+          "F1-score": "49.44"
+        },
+        "InceptionResNetV2": {
+          "Accuracy": "60.30",
+          "Precision": "66.22",
+          "Recall": "60.30",
+          "F1-score": "57.11"
+        },
+        "Feature Fusion Classifier (MLP)": {
+          "Note": "Performance metrics not explicitly reported as single values in text; confusion matrix and ROC curve provided in Fig 13/14."
+        },
+        "Decision Level Classifier (SVM) - Optimal Combination": {
+          "Note": "Optimal combination: DenseNet201, NASNet, InceptionResNetV2, and PHMBCNN-GRU. Accuracy: 78.52%."
+        },
+        "R3MV System (Majority Voting) - Optimal Combination": {
+          "Accuracy": "81.78%",
+          "Note": "Highest test accuracy achieved by optimal combination of models employing majority voting."
+        }
+      },
+      "notes": "The PHMBCNN-GRU model showed enhanced classification accuracy compared to PHMBCNN. The R3MV system achieved 81.78% accuracy. Misclassification was noted within the MEL class."
+    },
+    "HAM10000": {
+      "split": "80-20 train-test",
+      "models": {
+        "PHMBCNN": {
+          "Accuracy": "92.07%",
+          "Precision": "92.81",
+          "Recall": "92.07",
+          "F1-score": "92.30",
+          "AUC": "0.966"
+        },
+        "PHMBCNN-GRU": {
+          "Accuracy": "96.01%",
+          "Precision": "96.07",
+          "Recall": "96.01",
+          "F1-score": "96.02",
+          "AUC": "0.986"
+        },
+        "GoogleNet": {
+          "Accuracy": "80.50",
+          "Precision": "82.70",
+          "Recall": "80.50",
+          "F1-score": "81.25"
+        },
+        "DenseNet201": {
+          "Accuracy": "92.97",
+          "Precision": "93.20",
+          "Recall": "92.97",
+          "F1-score": "93.05"
+        },
+        "MobileNetV2": {
+          "Accuracy": "90.97",
+          "Precision": "90.86",
+          "Recall": "90.97",
+          "F1-score": "90.85"
+        },
+        "NASNet": {
+          "Accuracy": "83.49",
+          "Precision": "85.59",
+          "Recall": "83.49",
+          "F1-score": "84.27"
+        },
+        "InceptionResNetV2": {
+          "Accuracy": "85.09",
+          "Precision": "87.10",
+          "Recall": "85.09",
+          "F1-score": "85.68"
+        },
+        "Feature Fusion Classifier (MLP)": {
+          "Note": "Performance metrics not explicitly reported as single values in text; confusion matrix and ROC curve provided in Fig 13/14."
+        },
+        "Decision Level Classifier (SVM) - Optimal Combination": {
+          "Note": "Optimal combination: GoogleNet, DenseNet201, MobileNetV2, NASNet, InceptionResNetV2, and PHMBCNN-GRU. Accuracy: 95.11%."
+        },
+        "R3MV System (Majority Voting) - Optimal Combination": {
+          "Accuracy": "99.30%",
+          "Note": "Combination of proposed model with MLP and deep learning architectures (DenseNet201, NASNet, MobileNetV2, and InceptionResNetV2) yielded improved detection accuracy. The combination of PHMBCNN-GRU, MLP, and SVM yielded 95.96%."
+        }
+      },
+      "notes": "The PHMBCNN-GRU model demonstrated superior performance with 96.01% accuracy. The R3MV system achieved 99.3% accuracy. ROC curves demonstrated a larger area under the curve across all classes compared to PAD_UFES_20, though significant overlap among curves of different classes was evident due to test dataset imbalance."
+    }
+  },
+  "architecture_used": {
+    "main_model": "PHMBCNN-GRU (Progressive Heterogeneous Multiblock CNN with Gated Recurrent Unit) integrated into the R3MV (Reliable Three-level Majority Vote) ensemble system",
+    "pretraining": "Individual deep learning models (GoogleNet, DenseNet201, MobileNetV2, NASNet, InceptionResNetV2) were pretrained off-the-shelf models; PHMBCNN was trained from scratch",
+    "input_size": "256x256x3 (preprocessing resize); 224x224x3 (PHMBCNN internal input); 299x299x3 (InceptionResNetV2 internal input)",
+    "architecture_details": {
+      "PHMBCNN": {
+        "type": "CNN",
+        "blocks": [
+          "RMD (Residual+MBConv+DSC)",
+          "XRM (Xception+Residual+MBConv)",
+          "SEMD (Squeeze Exite+MBConv+DSC)",
+          "MRD (MBConv+Residual+DSC)"
+        ],
+        "stem_filters": [
+          32,
+          64,
+          128,
+          256
+        ],
+        "activation": "ReLU",
+        "normalization": "Batch Normalization"
+      },
+      "PHMBCNN-GRU": {
+        "type": "CNN + GRU",
+        "description": "PHMBCNN model enhanced with a Gated Recurrent Unit"
+      },
+      "R3MV_System": {
+        "tier_1": "Individual CNN predictions (PHMBCNN-GRU, GoogleNet, DenseNet201, MobileNetV2, NASNet, InceptionResNetV2)",
+        "tier_2": "Feature Fusion Classifier (MLP)",
+        "tier_3": "Meta-classifier (SVM)",
+        "fusion_method": "Majority Voting (Hard Voting)"
+      },
+      "MLP_Classifier": {
+        "type": "Multi-Layer Perceptron",
+        "hidden_layers": 3,
+        "layer_units": [
+          512,
+          256,
+          128
+        ],
+        "activation": "ReLU",
+        "output_activation": "Softmax",
+        "regularization": "Dropout"
+      },
+      "SVM_Classifier": {
+        "type": "Support Vector Machine",
+        "role": "Meta-classifier for decision level fusion"
+      }
+    },
+    "training_details": {
+      "optimizer": "AdamW (for individual DL models), Adam (for MLP)",
+      "learning_rate": {
+        "individual_models": 0.001,
+        "MLP": 0.0001
+      },
+      "batch_size": 32,
+      "epochs": 50,
+      "loss_function": "Categorical Cross Entropy",
+      "train_test_split": "80-20",
+      "augmentation": "Rotation, zoom, flip, hair removal (DullRazor), resizing"
+    },
+    "classification_or_output_head": {
+      "type": "Softmax",
+      "units": "Number of classes (6 for PAD_UFES_20, 7 for HAM10000)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "PHMBCNN",
+    "PHMBCNN-GRU",
+    "GoogleNet",
+    "DenseNet201",
+    "MobileNetV2",
+    "NASNet",
+    "InceptionResNetV2",
+    "MLP (Multi-Layer Perceptron)",
+    "SVM (Support Vector Machine)",
+    "R3MV System"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 256x256 pixels",
+    "Hair removal using DullRazor algorithm",
+    "Image augmentation (rotation, zoom, flip) to balance class imbalances in the training set"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Applied to the training set to balance class imbalances with a probability of 0.7."
+    },
+    {
+      "technique": "Zoom",
+      "details": "Applied to the training set to balance class imbalances with a probability of 0.3."
+    },
+    {
+      "technique": "Flip Right",
+      "details": "Applied to the training set to balance class imbalances with a probability of 0.3."
+    },
+    {
+      "technique": "Flip Left",
+      "details": "Applied to the training set to balance class imbalances with a probability of 0.3."
+    }
+  ],
+  "conclusions": [
+    "The proposed R3MV three-tier ensemble system architecture significantly improves the reliability and accuracy of skin cancer classification compared to individual models by integrating predictions from individual CNNs, a feature fusion classifier, and a meta-classifier via majority voting.",
+    "Incorporating a Gated Recurrent Unit (GRU) into the Progressive Heterogeneous Multiblock CNN (PHMBCNN) enhances classification performance, increasing accuracy from 75.70% to 80.69% on the PAD_UFES_20 dataset and from 92.07% to 96.01% on the HAM10000 dataset.",
+    "The R3MV system achieved a classification accuracy of 81.78% on the PAD_UFES_20 dataset and 99.3% on the HAM10000 dataset, outperforming existing state-of-the-art approaches and individual deep learning models.",
+    "The study addresses the generalization gap and unreliability of single-model predictions in dermatology by demonstrating that a diverse ensemble of heterogeneous models provides more robust and consistent diagnostic results.",
+    "Misclassifications persist primarily due to the visual resemblance among certain lesion groups and class imbalance in the test datasets, highlighting the need for continued improvement in handling minority classes and external validation."
+  ],
+  "important_remarks": [
+    "The paper is an unedited 'Article in Press' version; the authors explicitly warn that errors may be present which affect the content.",
+    "The study lacks external validation on independent, out-of-distribution clinical datasets, relying solely on two public datasets (PAD_UFES_20 and HAM10000), which limits the assessment of real-world clinical applicability.",
+    "The HAM10000 dataset exhibits significant class imbalance, leading to 'significant overlap among curves of different classes' and potentially inflating overall accuracy metrics.",
+    "The PAD_UFES_20 dataset contains high-density hair artifacts; the DullRazor preprocessing technique was found to disturb lesion features in these high-density images, negatively impacting classification performance.",
+    "The R3MV system achieved a perfect AUC of 1.000 on the HAM10000 test set, which is unusually high and may indicate overfitting or insufficient generalization capability despite the high reported accuracy.",
+    "Statistical significance testing was performed, but the comparison against DenseNet201 on HAM10000 was not statistically significant (p=0.45807 for PHMBCNN-GRU vs DenseNet201), suggesting the proposed model's advantage over this strong baseline is not robust on this dataset.",
+    "Cross-dataset validation was limited to only four shared classes (Actinic Keratosis, Basal Cell Carcinoma, Melanoma, Nevus), restricting the evaluation of generalizability across the full spectrum of skin lesions.",
+    "The paper does not report confidence intervals or p-values for the primary accuracy metrics, only for AUC, leaving the statistical reliability of the accuracy claims less rigorously supported."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_reshma_2026_r3mv_a_novel_reliable_system_architecture_for_skin_cancer_classifica.pdf",
+    "summary": "The study utilized two public dermatological datasets, PAD_UFES_20 and HAM10000, for skin cancer classification. For each dataset, an 80-20 train-test split was applied. Image augmentation was performed on the training sets to handle class imbalance. The models were trained on the training splits and evaluated on the corresponding test splits. Additionally, a cross-dataset validation experiment was conducted where models were trained on the HAM10000 dataset and tested on the PAD_UFES_20 dataset, restricted to four shared classes (Actinic Keratosis, Basal Cell Carcinoma, Melanoma, Nevus).",
+    "cross_dataset_testing": true,
+    "has_cross_dataset_validation": "Yes",
+    "cross_dataset_validation_type": "Train-on-one-test-on-another",
+    "cross_dataset_validation_details": "The paper explicitly describes a cross-dataset validation experiment where the model was trained on the HAM10000 dataset and tested on the PAD_UFES_20 dataset. This was limited to four shared classes: Actinic Keratosis, Basal Cell Carcinoma, Melanoma, and Nevus.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "PAD_UFES_20",
+          "counts": "1,838 images (80% of 2,298)",
+          "notes": "Used for training individual CNNs (PHMBCNN, PHMBCNN-GRU, GoogleNet, DenseNet201, MobileNetV2, NASNet, InceptionResNetV2), feature fusion classifiers, and meta-classifiers. Augmented to balance class imbalances."
+        },
+        {
+          "dataset": "HAM10000",
+          "counts": "8,012 images (80% of 10,015)",
+          "notes": "Used for training individual CNNs, feature fusion classifiers, and meta-classifiers. Augmented to balance class imbalances. Also used as the source for cross-dataset training."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "Not reported",
+          "counts": null,
+          "notes": "The paper does not report a separate validation set for model selection or hyperparameter tuning. It mentions 'validation accuracy' in the context of training curves for PHMBCNN, but no distinct validation split is defined for model selection."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "PAD_UFES_20",
+          "counts": "460 images (20% of 2,298)",
+          "notes": "Used for final performance evaluation of models trained on PAD_UFES_20."
+        },
+        {
+          "dataset": "HAM10000",
+          "counts": "2,003 images (20% of 10,015)",
+          "notes": "Used for final performance evaluation of models trained on HAM10000."
+        }
+      ],
+      "external_testing": [
+        {
+          "dataset": "PAD_UFES_20",
+          "counts": "1,871 images (of shared classes)",
+          "notes": "Used as an external/unseen test set in the cross-dataset validation experiment where models were trained on HAM10000. Only images belonging to the four shared classes (Actinic Keratosis, Basal Cell Carcinoma, Melanoma, Nevus) were used."
+        }
+      ],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet (implied)",
+          "notes": "The paper lists GoogleNet, DenseNet201, MobileNetV2, NASNet, and InceptionResNetV2 as individual models. These are typically pre-trained on ImageNet, though the paper does not explicitly state the pretraining source, it lists them as 'pre-trained models' in the code availability section."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "PAD_UFES_20 Training Set",
+          "notes": "Augmented using rotation (P=0.7), zoom (P=0.3), flip right (P=0.3), and flip left (P=0.3) to balance class imbalances."
+        },
+        {
+          "dataset": "HAM10000 Training Set",
+          "notes": "Augmented using rotation (P=0.7), zoom (P=0.3), flip right (P=0.3), and flip left (P=0.3) to balance class imbalances."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "80-20 train-test split for both PAD_UFES_20 and HAM10000. No separate validation split reported for model selection.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "PAD_UFES_20 was used as unseen data for models trained on HAM10000 in the cross-dataset experiment."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "PAD_UFES_20",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "PAD_UFES_20"
+        ],
+        "model_or_method": "R3MV System (Majority Voting)",
+        "metrics": {
+          "accuracy": "81.78%",
+          "auc": "0.953",
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "precision": null,
+            "recall": null
+          }
+        },
+        "notes": "Result from models trained on PAD_UFES_20. Misclassification noted within the MEL class."
+      },
+      {
+        "dataset": "HAM10000",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000"
+        ],
+        "model_or_method": "R3MV System (Majority Voting)",
+        "metrics": {
+          "accuracy": "99.30%",
+          "auc": "1.000",
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {}
+        },
+        "notes": "Result from models trained on HAM10000. High accuracy and AUC reported, but significant class imbalance noted."
+      },
+      {
+        "dataset": "PAD_UFES_20 (Shared Classes Only)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "HAM10000"
+        ],
+        "model_or_method": "R3MV System",
+        "metrics": {
+          "accuracy": "90.91%",
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {}
+        },
+        "notes": "Cross-dataset result. Models trained on HAM10000 tested on PAD_UFES_20 images belonging to the four shared classes (Actinic Keratosis, Basal Cell Carcinoma, Melanoma, Nevus)."
+      }
+    ],
+    "cross_dataset_experiments": [
+      {
+        "train_datasets": [
+          "HAM10000"
+        ],
+        "validation_datasets": [],
+        "test_datasets": [
+          "PAD_UFES_20"
+        ],
+        "unseen_test_data": true,
+        "models": [
+          "R3MV System",
+          "PHMBCNN-GRU"
+        ],
+        "results": [
+          {
+            "dataset": "PAD_UFES_20 (Shared Classes)",
+            "metric": "Accuracy",
+            "value": "90.91%",
+            "model": "R3MV System"
+          },
+          {
+            "dataset": "PAD_UFES_20 (Shared Classes)",
+            "metric": "Accuracy",
+            "value": "84.06%",
+            "model": "PHMBCNN-GRU"
+          }
+        ],
+        "notes": "Cross-dataset validation limited to four shared classes: Actinic Keratosis, Basal Cell Carcinoma, Melanoma, and Nevus. HAM10000 was used for training, PAD_UFES_20 for testing."
+      }
+    ],
+    "within_dataset_results": [
+      {
+        "dataset": "PAD_UFES_20",
+        "split_or_cv": "80-20 train-test",
+        "models": [
+          "PHMBCNN",
+          "PHMBCNN-GRU",
+          "GoogleNet",
+          "DenseNet201",
+          "MobileNetV2",
+          "NASNet",
+          "InceptionResNetV2",
+          "R3MV System"
+        ],
+        "results": [
+          {
+            "metric": "Accuracy",
+            "value": "81.78%",
+            "model": "R3MV System",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": "80.69%",
+            "model": "PHMBCNN-GRU",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": "75.70%",
+            "model": "PHMBCNN",
+            "data_split": "test"
+          }
+        ]
+      },
+      {
+        "dataset": "HAM10000",
+        "split_or_cv": "80-20 train-test",
+        "models": [
+          "PHMBCNN",
+          "PHMBCNN-GRU",
+          "GoogleNet",
+          "DenseNet201",
+          "MobileNetV2",
+          "NASNet",
+          "InceptionResNetV2",
+          "R3MV System"
+        ],
+        "results": [
+          {
+            "metric": "Accuracy",
+            "value": "99.30%",
+            "model": "R3MV System",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": "96.01%",
+            "model": "PHMBCNN-GRU",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": "92.07%",
+            "model": "PHMBCNN",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study lacks external validation on independent, out-of-distribution clinical datasets beyond the two public datasets used.",
+      "Cross-dataset validation was limited to only four shared classes, restricting the evaluation of generalizability across the full spectrum of skin lesions.",
+      "The HAM10000 dataset exhibits significant class imbalance, which may inflate accuracy metrics and cause overlap in ROC curves.",
+      "The PAD_UFES_20 dataset contains high-density hair artifacts; the DullRazor preprocessing technique was found to disturb lesion features in these images, negatively impacting performance.",
+      "The R3MV system achieved a perfect AUC of 1.000 on the HAM10000 test set, which is unusually high and may indicate overfitting or insufficient generalization capability."
+    ],
+    "information_not_reported": [
+      "No separate validation set count or usage for model selection was reported.",
+      "No confidence intervals or p-values for accuracy metrics were reported (only for AUC).",
+      "Patient-level separation details were not explicitly reported, though image-level splits were used."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780003939
+  }
+}

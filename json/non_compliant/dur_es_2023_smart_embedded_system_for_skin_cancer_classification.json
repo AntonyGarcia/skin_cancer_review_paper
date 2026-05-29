@@ -1,0 +1,199 @@
+{
+  "file_name": "dur_es_2023_smart_embedded_system_for_skin_cancer_classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning, specifically Convolutional Neural Networks (CNNs) from the ResNet family, to classify skin cancer images. It implemented a dual-model cascade inference technique on an FPGA using the Vitis-AI flow and evaluated the system's performance (accuracy of 87% and 13.5 FPS) using the HAM10000 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the design and implementation of a low-cost embedded system for skin cancer classification using a dual-model cascade inference technique on an FPGA. It details specific methods (Vitis-AI, ResNet models), hardware implementation (ZYNQ UltraScale+ MPSoC), and reports new empirical results (87% accuracy, 13.5 FPS) on the HAM10000 dataset, rather than summarizing prior literature."
+  },
+  "title": "Smart Embedded System for Skin Cancer Classification",
+  "authors": [
+    "Pedro F. Durães",
+    "Mário P. Véstias"
+  ],
+  "doi": "10.3390/fi15020052",
+  "journal": "Future Internet",
+  "year": 2023,
+  "article_type": "Article",
+  "brief_summary": "This study proposes a low-cost embedded system for skin cancer classification using a dual-model cascade inference technique implemented on an FPGA. The system utilizes ResNet-based Convolutional Neural Networks mapped via the Vitis-AI flow to optimize performance and resource usage on a ZYNQ UltraScale+ MPSoC ZCU104 evaluation kit. The approach employs a less complex model for initial classification, resorting to a more accurate model only when confidence is insufficient, thereby reducing computational requirements. The system was evaluated using the HAM10000 dataset, which contains dermatoscopic images of seven skin lesion classes. The final implementation achieved a classification accuracy of 87% with a throughput of 13.5 FPS while consuming minimal hardware resources. These results demonstrate the feasibility of deploying accurate deep learning models for portable medical diagnostics on resource-constrained devices.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "akiec"
+      ],
+      "role": "Target class",
+      "details": "One of the seven classes in the HAM10000 dataset used for classification experiments."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "bcc"
+      ],
+      "role": "Target class",
+      "details": "One of the seven classes in the HAM10000 dataset used for classification experiments."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "bkl"
+      ],
+      "role": "Target class",
+      "details": "One of the seven classes in the HAM10000 dataset used for classification experiments."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "df"
+      ],
+      "role": "Target class",
+      "details": "One of the seven classes in the HAM10000 dataset used for classification experiments."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "mel"
+      ],
+      "role": "Target class",
+      "details": "One of the seven classes in the HAM10000 dataset used for classification experiments; accounts for 11% of samples."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nv"
+      ],
+      "role": "Target class",
+      "details": "One of the seven classes in the HAM10000 dataset used for classification experiments; accounts for 67% of samples."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "vasc"
+      ],
+      "role": "Target class",
+      "details": "One of the seven classes in the HAM10000 dataset used for classification experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Seven skin lesion classes (akiec, bcc, bkl, df, mel, nv, vasc) from the HAM10000 dataset.",
+        "primary": true,
+        "details": "The paper explicitly states the system is for 'skin cancer classification' and 'image classification'. It uses a dual-model cascade inference technique where models predict discrete diagnostic categories (lesion classes) based on dermatoscopic images. The confidence predictor uses entropy of the probability output array to determine classification certainty, but the ultimate goal is class prediction, not continuous value regression."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A collection of 10,015 dermatoscopic images from a variety of populations, acquired and stored through various methods. It is a public dataset used for academic machine learning experiments in skin cancer detection. Diagnoses were confirmed by histopathology, follow-up examination, expert consensus, or in vivo confocal microscopy.",
+      "classes_used": [
+        "Actinic keratoses and intraepithelial carcinoma (akiec)",
+        "Basal cell carcinoma (bcc)",
+        "Benign keratosis-like lesions (bkl)",
+        "Dermatofibroma (df)",
+        "Melanoma (mel)",
+        "Melanocytic nevi (nv)",
+        "Vascular lesions (vasc)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "nv": "67% of samples",
+          "mel": "11% of samples",
+          "akiec": "Part of remaining 22%",
+          "bcc": "Part of remaining 22%",
+          "bkl": "Part of remaining 22%",
+          "df": "Part of remaining 22%",
+          "vasc": "Part of remaining 22%"
+        }
+      },
+      "use": {
+        "training": "Used to train ResNet18, ResNet50, and ResNet101 models for 50 epochs.",
+        "validation": null,
+        "testing": "Used to evaluate the final embedded system's performance (accuracy and throughput).",
+        "other": "Used for design space exploration of dual-model inference techniques."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "F1-Score",
+    "Throughput (FPS)",
+    "Entropy"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance was evaluated using accuracy, precision, recall, F1-score, throughput, and hardware resource utilization."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "experiment": "Final Embedded System Implementation",
+      "split": "Tested with the HAM10000 dataset",
+      "models": {
+        "Dual-Model Cascade System (FPGA Implementation)": {
+          "Accuracy": 0.87,
+          "Throughput": "13.5 FPS",
+          "Hardware Resources": "33k LUTs, 80 DSPs, 70 BRAMs, 1 URAM"
+        }
+      },
+      "notes": "The final system was implemented on a ZYNQ UltraScale+ MPSoC ZCU104 evaluation kit with a ZU7EV device using Vitis-AI. The system achieved 87% accuracy and 13.5 FPS throughput."
+    }
+  },
+  "architecture_used": {
+    "extraction_error": "Expecting ',' delimiter: line 24 column 30 (char 1451)",
+    "answer": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet18",
+    "ResNet50",
+    "ResNet101",
+    "MobileNet",
+    "MobileNet V2",
+    "LSTM (Long Short-Term Memory)",
+    "Mask Recurrent Neural Network",
+    "Pyramid Neural Network",
+    "Kernel Extreme Learning Machine",
+    "Convolutional Neural Networks (CNNs)"
+  ],
+  "preprocessing_techniques": [
+    "Data quantization (converting weights and activations to small custom floating-points, fixed-points, or integer representations to reduce memory and computational footprints)",
+    "Data pruning (reducing the number of parameters and operations by pruning some parameters or filters)",
+    "Resizing of input images (mentioned in the context of design space exploration of ResNet models)",
+    "Batch normalization (normalizing layer inputs to a mean of 0 and variance of 1 during training)"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "A low-cost embedded system for skin cancer classification was successfully implemented on a ZYNQ UltraScale+ MPSoC ZCU104 evaluation kit using a dual-model cascade inference technique and Vitis-AI flow.",
+    "The dual-model cascade inference technique, which uses a less complex model for initial classification and a more accurate model only when confidence is insufficient, effectively reduces computational requirements while maintaining high accuracy.",
+    "The final embedded system achieved a classification accuracy of 87% and a throughput of 13.5 FPS on the HAM10000 dataset.",
+    "The implementation demonstrated high hardware efficiency, utilizing only 33k LUTs, 80 DSPs, 70 BRAMs, and 1 URAM.",
+    "The study confirms the feasibility of deploying accurate deep learning models for portable medical diagnostics on resource-constrained devices.",
+    "ResNet18 variants were identified as suitable candidates for the less complex model in the cascade, offering a significant reduction in parameters and operations with only a minor accuracy penalty compared to larger models like ResNet50."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the HAM10000 dataset, which exhibits significant class imbalance (67% melanocytic nevi vs. 11% melanoma), potentially biasing the system's performance and generalizability to underrepresented classes.",
+    "The reported accuracy of 87% is lower than the 88-90% accuracy achieved by the individual ResNet models in Table 2, indicating a performance trade-off inherent to the dual-model cascade inference technique.",
+    "The system was evaluated only on the HAM10000 dataset; there is no external validation on independent datasets, limiting the assessment of real-world clinical robustness.",
+    "The paper does not report sensitivity, specificity, or AUC metrics, which are critical for evaluating diagnostic utility in medical contexts, particularly for distinguishing malignant from benign lesions.",
+    "No formal statistical hypothesis testing or confidence intervals were provided to support the significance of the performance differences between models.",
+    "The hardware implementation was tested on a ZCU104 evaluation kit; results may not directly translate to final commercial low-cost embedded devices due to specific FPGA resource constraints and power profiles.",
+    "The confidence predictor relies on entropy thresholds derived from training data; the paper does not discuss potential data leakage risks or the stability of these thresholds across different imaging conditions or populations."
+  ]
+}

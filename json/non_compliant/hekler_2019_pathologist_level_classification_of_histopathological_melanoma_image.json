@@ -1,0 +1,211 @@
+{
+  "file_name": "hekler_2019_pathologist_level_classification_of_histopathological_melanoma_image.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a pretrained ResNet50 convolutional neural network (CNN) to classify histopathological melanoma images (distinguishing between nevi and melanomas) from H&E stained slides. The CNN was trained on 595 cropped image sections and tested on 100 additional sections to achieve pathologist-level classification performance."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is explicitly labeled 'Original Research' in the header. It presents original experimental work involving the training and testing of a convolutional neural network (CNN) on 695 histopathological melanoma images to classify them as nevi or melanomas, comparing the results with a board-certified pathologist."
+  },
+  "title": "Pathologist-level classification of histopathological melanoma images with deep neural networks",
+  "authors": [
+    "Achim Hekler",
+    "Jochen Sven Utikal",
+    "Alexander H. Enk",
+    "Carola Berking",
+    "Joachim Klode",
+    "Dirk Schadendorf",
+    "Philipp Jansen",
+    "Cindy Franklin",
+    "Tim Holland-Letz",
+    "Dieter Krahl",
+    "Christof von Kalle",
+    "Stefan Frohling",
+    "Titus Josef Brinker"
+  ],
+  "doi": "10.1016/j.ejca.2019.04.021",
+  "journal": "European Journal of Cancer",
+  "year": 2019,
+  "article_type": "Original Research",
+  "brief_summary": "This study evaluated the potential of deep learning to assist in the histopathological diagnosis of melanoma by comparing a convolutional neural network (CNN) to an expert pathologist. Using H&E stained slides from 695 lesions (350 nevi and 345 melanomas), the researchers trained a pretrained ResNet50 CNN on 595 randomly cropped image sections and tested it on 100 additional sections. The CNN's classification performance was assessed by calculating discordance rates against the reference pathologist's labels. The results showed a total discordance of 19% (95% CI: 11.3-26.7%), with specific discordance rates of 18% for melanomas and 20% for nevi. The authors concluded that the CNN achieved on-par performance with human pathologists, suggesting it is a valuable tool to assist in melanoma diagnosis despite using significantly less data and time.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "345 melanoma lesions were included in the study. The CNN was trained on 295 melanoma image sections and tested on 100 additional sections. Discordance rate for melanoma was 18% (95% CI: 7.4-28.6%)."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi",
+        "benign nevus",
+        "epidermal/junctional nevi",
+        "compound/epidermocorial nevi",
+        "papillomatous nevi (excluded)"
+      ],
+      "role": "Target class",
+      "details": "350 nevus lesions were included in the study. The CNN was trained on 300 nevus image sections and tested on 100 additional sections. Discordance rate for nevi was 20% (95% CI: 8.9-31.1%). Papillomatous nevi were excluded from the dataset."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (nevi vs. melanomas)",
+        "primary": true,
+        "details": "The study performs binary classification of histopathological melanoma images to distinguish between benign nevi and malignant melanomas using a pretrained ResNet50 CNN. The model predicts discrete class labels, and performance is evaluated via discordance rates against a pathologist's reference labels."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Private Dermatohistopathology Cohort (Dr. Dieter Krahl)",
+      "description": "A collection of anonymized H&E stained histopathological slides obtained from the private laboratory of Dr. Dieter Krahl, a regional dermatohistopathologic institute adhering to international guidelines for melanoma diagnosis. The cohort consists of biopsies from the past year, including all diagnosed melanomas and a random sample of nevi that received immunostaining.",
+      "classes_used": [
+        "Nevus (benign)",
+        "Melanoma (malignant)"
+      ],
+      "counts": {
+        "total": 695,
+        "training": 595,
+        "validation": null,
+        "testing": 100,
+        "per_class": {
+          "nevi": {
+            "total": 350,
+            "training": 300,
+            "testing": 50
+          },
+          "melanoma": {
+            "total": 345,
+            "training": 295,
+            "testing": 50
+          }
+        }
+      },
+      "use": {
+        "training": "595 randomly cropped image sections (0.06% of whole slide, 10x magnification) from 595 individual patients were used for transfer learning with a pretrained ResNet50 CNN.",
+        "validation": null,
+        "testing": "100 additional randomly cropped image sections (separate from training set, 1:1 melanoma:nevi ratio) were used to test the CNN results and calculate discordance rates against the reference pathologist's labels.",
+        "other": "The dataset served as the primary source for both training and testing the deep learning model in a comparative study against a board-certified pathologist."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "discordance rate",
+    "misclassification rate",
+    "ROC",
+    "95% Confidence Interval (CI)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "95% confidence intervals (CIs)",
+      "purpose": "To estimate the uncertainty of the discordance rates (misclassification rates) for melanomas, nevi, and the full set of images.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Normal distribution approximation",
+      "purpose": "To calculate the 95% confidence intervals for the discordance rates.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) curve",
+      "purpose": "To evaluate the classification performance of the CNN, specifically by calculating the average predicted class probability over 10 runs.",
+      "type": "Performance evaluation metric"
+    },
+    {
+      "method": "Discordance rate calculation",
+      "purpose": "To compare the CNN's classification results against the reference pathologist's labels and quantify the agreement/disagreement.",
+      "type": "Performance evaluation metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests). It reported discordance rates with 95% confidence intervals calculated using normal distribution approximation to estimate uncertainty, but did not perform statistical hypothesis tests to compare the CNN's performance against the pathologist or literature values."
+  },
+  "results_obtained_in_each_dataset": {
+    "Private Dermatohistopathology Cohort (Dr. Dieter Krahl)": {
+      "experiment": "CNN vs. Pathologist Discordance on Test Set",
+      "dataset_split": "Test set (100 randomly cropped H&E image sections, 1:1 melanoma:nevi ratio)",
+      "models": {
+        "ResNet50 CNN": {
+          "discordance_rate_melanoma": "18% (95% CI: 7.4-28.6%)",
+          "discordance_rate_nevi": "20% (95% CI: 8.9-31.1%)",
+          "total_discordance_rate": "19% (95% CI: 11.3-26.7%)",
+          "roc_evaluation": "Average ROC curve calculated over 10 runs by averaging predicted class probability for each test image"
+        }
+      },
+      "notes": "The CNN's discordance rate was found to be on-par with the discordance between expert histopathologists reported in the literature (25-26%). The study utilized 595 training images and 100 test images. The pathologist reference was a board-certified histopathologist with >20 years of experience."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet50",
+    "pretraining": "Pretrained (referenced as [15] in the text, likely ImageNet based on context of standard ResNet pretraining, but explicitly stated as 'pretrained ResNet50')",
+    "input_size": "Randomly cropped image sections (0.06% of the whole slide on average) with 10-fold magnification; specific pixel dimensions not reported",
+    "architecture_details": {
+      "model_family": "Convolutional Neural Network (CNN)",
+      "specific_architecture": "ResNet50",
+      "reference": "He K, Zhang X, Ren S, Sun J. Deep residual learning for image recognition. In: Proceedings of the IEEE conference on computer vision and pattern recognition, vol. 2016; 2016. p. 770e8. [16]"
+    },
+    "training_details": {
+      "method": "Transfer learning",
+      "training_data_size": 595,
+      "training_data_source": "595 cropped image sections from 595 individual patients (300 nevi and 295 melanomas)",
+      "test_data_size": 100,
+      "test_data_source": "100 additional randomly cropped test images (melanoma:nevi 1:1 ratio)",
+      "runs": 10,
+      "optimizer": "Not reported",
+      "loss_function": "Not reported",
+      "hyperparameters": "Not reported",
+      "training_schedule": "Not reported"
+    },
+    "classification_or_output_head": {
+      "type": "Binary classification (nevi vs. melanomas)",
+      "details": "Output compared with actual class of each image; average predicted class probability calculated over 10 runs for ROC curve"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ResNet50 CNN",
+    "convolutional neural network (CNN)"
+  ],
+  "preprocessing_techniques": [
+    "Digitalization of haematoxylin and eosin (H&E) stained slides using a NanoZoomer S360 digital slide scanner",
+    "Random cropping of image sections (0.06% of the whole slide on average) with 10-fold magnification",
+    "Selection criterion for cropping: visibility of epithelium",
+    "One crop per slide/patient"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The convolutional neural network (CNN) achieved a total discordance rate of 19% (95% CI: 11.3-26.7%) compared to an expert pathologist, which is on-par with the discordance rates between human pathologists reported in the literature (25-26%).",
+    "The CNN demonstrated on-par performance with a human pathologist despite using a vastly reduced amount of data (0.06% of the whole slide), less time, and lower cost.",
+    "The CNN is indicated to be a valuable tool to assist human melanoma diagnoses.",
+    "A major limitation of the study is the binary nature of the algorithm, which can only distinguish between nevi and melanomas without determining subtypes or excluding other differential diagnoses.",
+    "The results may not generalize to slides from institutes not adhering to standard operating procedures or in different countries, as the data stemmed from a single dermatohistopathologic institute.",
+    "The classifier's performance could potentially be improved in the future by using pathologist-annotated sections or whole digitalized slides for training and testing.",
+    "The study did not stratify the sample for criteria such as vertical diameter, though selection bias was reduced by random pulling from the whole sample.",
+    "The results should be interpreted with caution and require further confirmation through prospective studies implemented in the clinical setting."
+  ],
+  "important_remarks": [
+    "The study is limited by its binary classification scope, distinguishing only between nevi and melanomas without determining subtypes or excluding other differential diagnoses.",
+    "Data was sourced from a single dermatohistopathologic institute adhering to specific guidelines; generalizability to institutes with different standard operating procedures or in different countries is unknown.",
+    "The algorithm relies on randomly cropped image sections (0.06% of the whole slide) where only the presence of epithelium was required, potentially missing malignant structures in some crops.",
+    "The sample was not stratified for criteria such as vertical diameter, although selection bias was mitigated by random sampling from the clinical population.",
+    "The reference standard relied on a single board-certified pathologist rather than a consensus panel, which may not fully reflect inter-pathologist variability.",
+    "Results should be interpreted with caution as the test set composition differed from those used in literature comparisons of pathologist discordance.",
+    "Prospective studies implemented in clinical settings are necessary to confirm the clinical impact and utility of CNNs in assisting melanoma diagnoses."
+  ]
+}

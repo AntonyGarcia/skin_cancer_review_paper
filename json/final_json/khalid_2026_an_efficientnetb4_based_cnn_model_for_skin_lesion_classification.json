@@ -1,0 +1,612 @@
+{
+  "file_name": "khalid_2026_an_efficientnetb4_based_cnn_model_for_skin_lesion_classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a deep learning model based on EfficientNetB4 with a custom Soft Attention mechanism for skin lesion classification. The study employs Convolutional Neural Networks (CNNs) to classify dermoscopic images from the HAM10000 dataset into seven classes, including melanoma, addressing class imbalance through data augmentation and focal loss."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work developing a novel EfficientNetB4-based CNN model with a custom Soft Attention mechanism for skin lesion classification. It reports specific performance metrics (93.09% accuracy, 0.8352 macro F1-score) on the HAM10000 dataset, compares results against state-of-the-art models, and includes statistical significance tests (McNemar, Wilcoxon, DeLong), indicating it is an original technical study rather than a review."
+  },
+  "title": "An EfficientNetB4-Based CNN Model for Skin Lesion Classification",
+  "authors": [
+    "Ali Khalid",
+    "Razia Manan",
+    "Mohammad Shahid",
+    "Umar Farooq Khattak",
+    "Muhammad Amir Khan"
+  ],
+  "doi": "10.48084/etasr.15419",
+  "journal": "Engineering, Technology & Applied Science Research",
+  "year": 2026,
+  "article_type": "Research paper",
+  "brief_summary": "This study addresses the challenge of skin lesion classification, particularly melanoma detection, by developing a lightweight hybrid deep learning model based on EfficientNetB4 enhanced with a custom 3D Soft Attention mechanism. The model was trained and evaluated on the imbalanced HAM10000 dataset, utilizing on-the-fly data augmentation techniques such as MixUp and focal loss to mitigate class imbalance issues. The proposed architecture achieved a global accuracy of 93.09%, a macro F1-score of 0.8352, and a ROC-AUC of 0.9901, with a specific melanoma recall of 0.7706. Statistical significance tests, including McNemar and Wilcoxon tests, confirmed that these improvements over vanilla EfficientNetB4 were significant. The model demonstrates high stability and generalizability while maintaining low computational complexity, making it suitable for deployment on resource-constrained hardware like the Raspberry Pi 5. These results suggest the model is a promising, interpretable tool for early skin cancer detection in real-world clinical settings.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "Melanocytic Nevi",
+        "NV"
+      ],
+      "role": "Target class",
+      "details": "Majority class in HAM10000 dataset (67.0% prevalence). The model achieved high F1-score (0.93) for this class."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "Mel",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "Minority class in HAM10000 dataset (11.1% prevalence). The study specifically emphasizes improving recall for this class (0.7706) due to its lethality and underrepresentation."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "Benign Keratosis-like Lesions",
+        "BKL"
+      ],
+      "role": "Target class",
+      "details": "Minority class in HAM10000 dataset (10.9% prevalence). Subject to MixUp augmentation to address class imbalance."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "Basal Cell Carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "Minority class in HAM10000 dataset (5.1% prevalence)."
+    },
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "Actinic Keratoses",
+        "AKIEC"
+      ],
+      "role": "Target class",
+      "details": "Minority class in HAM10000 dataset (3.3% prevalence). The model achieved an F1-score of 0.67 for this class."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "Vascular Lesions",
+        "VASC"
+      ],
+      "role": "Target class",
+      "details": "Minority class in HAM10000 dataset (1.4% prevalence). The model achieved an F1-score of 0.79 for this class."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "Dermatofibroma",
+        "DF"
+      ],
+      "role": "Target class",
+      "details": "Minority class in HAM10000 dataset (1.1% prevalence). The model achieved an F1-score of 0.62 for this class, representing a +22% improvement over previous SOTA."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Seven diagnostic classes of skin lesions (Melanocytic Nevi, Melanoma, Benign Keratosis-like Lesions, Basal Cell Carcinoma, Actinic Keratoses, Vascular Lesions, Dermatofibroma)",
+        "primary": true,
+        "details": "The paper performs multi-class classification of dermoscopic images from the HAM10000 dataset into seven discrete diagnostic categories. The model outputs class probabilities via a softmax layer for a fully connected classification head. Performance is evaluated using accuracy, precision, recall, macro F1-score, and ROC-AUC."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A large collection of multi-source dermatoscopic images of common pigmented skin lesions, collected over 20 years, including metadata on age, sex, and lesion localization.",
+      "classes_used": [
+        "Melanocytic Nevi (NV)",
+        "Melanoma (MEL)",
+        "Benign Keratosis-like Lesions (BKL)",
+        "Basal Cell Carcinoma (BCC)",
+        "Actinic Keratoses (AKIEC)",
+        "Vascular Lesions (VASC)",
+        "Dermatofibroma (DF)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": 1002,
+        "per_class": {
+          "NV": 6700,
+          "MEL": 1110,
+          "BKL": 1090,
+          "BCC": 510,
+          "AKIEC": 330,
+          "VASC": 140,
+          "DF": 110
+        }
+      },
+      "use": {
+        "training": "Used for training the EfficientNetB4-based CNN model with on-the-fly data augmentation (random rotation, flips, MixUp) to address class imbalance.",
+        "validation": "Used for validation (implied by the 80/10/10 split mentioned in context and standard practice, though specific validation counts are not explicitly detailed beyond the test set size).",
+        "testing": "Used for final performance evaluation on a held-out test set of 1,002 images.",
+        "other": "Used for comparison with state-of-the-art models and baselines."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "Macro F1-score",
+    "AUC-ROC",
+    "Mean ± std (of accuracy)",
+    "Variance",
+    "Validation Loss"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "McNemar test",
+      "purpose": "To assess the statistical significance of improvements in Accuracy and Melanoma Recall over the vanilla EfficientNetB4 baseline.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Wilcoxon signed-rank test",
+      "purpose": "To assess the statistical significance of improvements in Macro F1-score over the vanilla EfficientNetB4 baseline.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "DeLong test",
+      "purpose": "To assess the statistical significance of improvements in ROC-AUC over the vanilla EfficientNetB4 baseline.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "95% Confidence Intervals",
+      "purpose": "To provide uncertainty estimates for the reported metrics (Accuracy, Macro F1, Melanoma Recall, ROC-AUC) of the proposed model.",
+      "type": "Confidence interval"
+    },
+    {
+      "method": "5-Fold Cross-Validation",
+      "purpose": "To evaluate the performance of the model components (Vanilla EfficientNetB4, +Soft Attention, +Minority-MixUp, +Focal loss) and compare them.",
+      "type": "Cross-validation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "McNemar test, Wilcoxon signed-rank test, DeLong test",
+    "null_hypothesis": "There is no significant difference in performance between the proposed EfficientNetB4-based model and the vanilla EfficientNetB4 baseline for the respective metrics (Accuracy, Macro F1-score, Melanoma Recall, ROC-AUC).",
+    "alternative_hypothesis": "There is a significant difference in performance between the proposed model and the vanilla EfficientNetB4 baseline, with the proposed model showing superior performance.",
+    "alpha": 0.05,
+    "interpretation": "All reported improvements over the vanilla EfficientNetB4 baseline were found to be statistically significant at p < 0.05. Specifically, McNemar tests confirmed significance for Accuracy and Melanoma Recall (p=0.007 and p=0.012 respectively), the Wilcoxon test confirmed significance for Macro F1-score (p=0.009), and the DeLong test confirmed significance for ROC-AUC (p=0.006)."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "split": "80% train / 10% validation / 10% test (1002 test images)",
+      "evaluation_setting": "5-Fold Stratified Cross-Validation and Held-out Test Set",
+      "models": {
+        "Proposed Model (EfficientNetB4 + 3D Soft Attention + Minority-MixUp + Focal Loss)": {
+          "Accuracy": "93.09%",
+          "Macro F1-score": "0.8352",
+          "ROC-AUC": "0.9901",
+          "Melanoma Recall": "0.7706",
+          "Melanoma Precision": "0.5874",
+          "Melanoma F1-score": "0.6678",
+          "Melanocytic Nevi (NV) F1-score": "0.93",
+          "Basal Cell Carcinoma (BCC) F1-score": "0.80",
+          "Actinic Keratoses (AKIEC) F1-score": "0.67",
+          "Benign Keratosis-like Lesions (BKL) F1-score": "0.86",
+          "Dermatofibroma (DF) F1-score": "0.62",
+          "Vascular Lesions (VASC) F1-score": "0.72",
+          "Mean Accuracy (5-Fold CV)": "92.8%",
+          "Std Accuracy (5-Fold CV)": "0.7%",
+          "Validation Loss": "0.25 ± 0.03"
+        },
+        "Vanilla EfficientNetB4 (Baseline)": {
+          "Accuracy": "90.62%",
+          "Macro F1-score": "0.7941",
+          "ROC-AUC": "0.9812",
+          "Melanoma Recall": "0.620",
+          "Melanoma Precision": "0.512",
+          "Melanoma F1-score": "0.51",
+          "Dermatofibroma (DF) F1-score": "0.59",
+          "Actinic Keratoses (AKIEC) F1-score": "0.59"
+        },
+        "EfficientNetB4 + SE": {
+          "Accuracy": "91.28%",
+          "Macro F1-score": "0.8023",
+          "ROC-AUC": "0.9835"
+        },
+        "EfficientNetB4 + CBAM": {
+          "Accuracy": "91.73%",
+          "Macro F1-score": "0.8110",
+          "ROC-AUC": "0.9851"
+        },
+        "ResNet-50": {
+          "Accuracy": "89.94%",
+          "Macro F1-score": "0.7824",
+          "ROC-AUC": "0.9788"
+        },
+        "DenseNet-169": {
+          "Accuracy": "91.17%",
+          "Macro F1-score": "0.8045",
+          "ROC-AUC": "0.9840"
+        },
+        "Raw Images (Preprocessing Impact)": {
+          "Accuracy": "89.3%",
+          "F1-score": "0.79"
+        },
+        "Preprocessed Images (Preprocessing Impact)": {
+          "Accuracy": "93.1%",
+          "F1-score": "0.84"
+        },
+        "Without Augmentation": {
+          "Accuracy": "90.4%",
+          "F1-Score": "0.81"
+        },
+        "With Augmentation": {
+          "Accuracy": "93.1%",
+          "F1-Score": "0.8352"
+        },
+        "Ablation Study Components": {
+          "EfficientNetB4 (no att.)": {
+            "Accuracy": "90.62%",
+            "Macro F1": "0.7941",
+            "Mel Recall": "0.620",
+            "Mel Precision": "0.512",
+            "DF F1": "0.51",
+            "AKIEC F1": "0.59"
+          },
+          "+ Soft Attention": {
+            "Accuracy": "92.15%",
+            "Macro F1": "0.8193",
+            "Mel Recall": "0.705",
+            "Mel Precision": "0.549",
+            "DF F1": "0.57",
+            "AKIEC F1": "0.64"
+          },
+          "+ Minority-MixUp": {
+            "Accuracy": "92.68%",
+            "Macro F1": "0.8271",
+            "Mel Recall": "0.738",
+            "Mel Precision": "0.567",
+            "DF F1": "0.59",
+            "AKIEC F1": "0.65"
+          },
+          "+ Focal loss (γ=2)": {
+            "Accuracy": "92.89%",
+            "Macro F1": "0.8310",
+            "Mel Recall": "0.752",
+            "Mel Precision": "0.579",
+            "DF F1": "0.60",
+            "AKIEC F1": "0.66"
+          }
+        }
+      },
+      "statistical_significance": {
+        "Accuracy Improvement vs Baseline": {
+          "p-value": 0.007,
+          "test": "McNemar",
+          "95% CI": "92.38–93.80"
+        },
+        "Macro F1 Improvement vs Baseline": {
+          "p-value": 0.009,
+          "test": "Wilcoxon signed-rank",
+          "95% CI": "0.822–0.848"
+        },
+        "Melanoma Recall Improvement vs Baseline": {
+          "p-value": 0.012,
+          "test": "McNemar",
+          "95% CI": "0.732–0.809"
+        },
+        "ROC-AUC Improvement vs Baseline": {
+          "p-value": 0.006,
+          "test": "DeLong",
+          "95% CI": "0.988–0.992"
+        }
+      },
+      "notes": "The proposed model achieved a global accuracy of 93.09% and macro F1-score of 0.8352 on the HAM10000 dataset. It showed significant improvements over the vanilla EfficientNetB4 baseline across all metrics (p < 0.05). The model demonstrated high stability with a mean accuracy of 92.8±0.7% in 5-fold cross-validation. Specific improvements for minority classes included a +22% F1-score gain for Dermatofibroma (0.62) and a +16% gain for Vascular Lesions (0.79) compared to SOTA single-model results. The model runs at 42 FPS on a Raspberry Pi 5."
+    }
+  },
+  "architecture_used": {
+    "main_model": "EfficientNetB4 with custom 3D Soft Attention mechanism",
+    "pretraining": "ImageNet",
+    "input_size": "224x224 pixels",
+    "architecture_details": {
+      "backbone": "EfficientNetB4",
+      "compound_scaling": {
+        "depth_coefficient": 1.4,
+        "width_coefficient": 1.2,
+        "resolution_coefficient": 1.2
+      },
+      "attention_module": {
+        "type": "3D Soft Attention",
+        "location": "Inserted after the fourth MBConv stage of EfficientNetB4",
+        "components": [
+          "3x3x3 3D convolution",
+          "1x1x1 3D convolution"
+        ],
+        "output": "16 volumetric attention maps averaged channel-wise",
+        "parameters_added": "471,872 (0.47 M)",
+        "flops_added": "0.31 GFLOPs"
+      },
+      "heads": {
+        "global_average_pooling": true,
+        "feature_fusion": "Concatenation of local and global features",
+        "classifier": "Fully connected layer with softmax for 7-class probabilities"
+      }
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "optimizer_hyperparameters": {
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "epsilon": 1e-08
+      },
+      "weight_decay": 1e-05,
+      "learning_rate": {
+        "initial": 0.0001,
+        "scheduler": "ReduceLROnPlateau (factor 0.5 when validation macro F1 did not improve for 5 consecutive epochs)",
+        "minimum": 1e-06
+      },
+      "batch_size": 32,
+      "epochs": "Up to 50",
+      "dropout": {
+        "rate": 0.5,
+        "location": "Only before the final fully-connected layer"
+      },
+      "loss_function": "Focal Loss (gamma=2.0)",
+      "data_augmentation": [
+        "Random rotations (0-360 degrees)",
+        "Horizontal and vertical flips",
+        "MixUp (alpha=0.2, Beta(1.0, 1.0))"
+      ],
+      "early_stopping": {
+        "patience": 10,
+        "metric": "Validation macro F1"
+      },
+      "data_split": "80% train, 10% validation, 10% test"
+    },
+    "classification_or_output_head": {
+      "type": "Fully connected layer",
+      "activation": "Softmax",
+      "classes": 7
+    },
+    "approximate_parameters": 21000000
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNetB4",
+    "EfficientNetB4 + SE",
+    "EfficientNetB4 + CBAM",
+    "ResNet-50",
+    "DenseNet-169",
+    "Proposed Model (EfficientNetB4 + 3D Soft Attention + Minority-MixUp + Focal Loss)",
+    "Inception V3",
+    "AlexNet",
+    "GoogLeNet",
+    "VGG16",
+    "DenseNet-121",
+    "AMIS-ensemble",
+    "EfficientNetV2",
+    "ViTs (Vision Transformers)",
+    "ConvNeXtV2",
+    "MobileNet+GRU (ASCDC-CSODL)",
+    "DeepMelaNet",
+    "Swin Transformer",
+    "ConvNeXt-ViT hybrid"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 224x224 pixels without changing aspect ratios to avoid distortion",
+    "Pixel value normalization to [0, 1] by division by 255",
+    "Color normalization to RGB space to remove inconsistencies in acquisition devices",
+    "Artifact removal for consistent image quality",
+    "On-the-fly data augmentation: Random rotations (0–360°)",
+    "On-the-fly data augmentation: Horizontal and vertical flips",
+    "On-the-fly data augmentation: MixUp interpolation (alpha=0.2, Beta(1.0, 1.0))"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random Rotation",
+      "details": "Applied on-the-fly during training with rotation angles ranging from 0 to 360 degrees to account for varying orientations."
+    },
+    {
+      "technique": "Horizontal and Vertical Flips",
+      "details": "Applied on-the-fly during training to mimic symmetric views and increase diversity."
+    },
+    {
+      "technique": "MixUp",
+      "details": "Applied on-the-fly during training to interpolate images and labels of pairs. Used with alpha parameter = 0.2, drawn from a Beta(1.0, 1.0) distribution. Specifically used as 'Minority-MixUp' to selectively oversample six minority classes and address class imbalance."
+    },
+    {
+      "technique": "Focal Loss",
+      "details": "Used as a loss function technique to handle class imbalance, with gamma (γ) set to 2.0. While technically a loss weighting strategy, it functions as a form of class-balancing augmentation in the training pipeline."
+    }
+  ],
+  "conclusions": [
+    "The proposed EfficientNetB4-based CNN model with a custom 3D Soft Attention mechanism achieved a global accuracy of 93.09%, a macro F1-score of 0.8352, and a ROC-AUC of 0.9901 on the HAM10000 dataset.",
+    "The model demonstrated significant improvements over the vanilla EfficientNetB4 baseline, with statistically significant gains in accuracy (p=0.007), macro F1-score (p=0.009), melanoma recall (p=0.012), and ROC-AUC (p=0.006).",
+    "The model achieved a melanoma recall of 0.7706 and precision of 0.5874, addressing the challenge of detecting high-impact malignant cases despite their underrepresentation (11.1% prevalence) in the dataset.",
+    "Minority classes showed substantial relative improvements over state-of-the-art single-model results: Dermatofibroma (DF) F1-score improved by +22% (to 0.62) and Vascular Lesions (VASC) F1-score improved by +16% (to 0.79).",
+    "The integration of the Soft Attention module reduced total misclassification errors by 15%, specifically cutting melanoma false negatives from 38 to 25 and reducing confusion between Melanoma and Benign Keratosis-like Lesions (MEL↔BKL) from 21% to 14.7%.",
+    "Data augmentation techniques, particularly MixUp, were critical for performance, boosting accuracy by 2.7% and significantly enhancing minority class detection (e.g., Melanoma recall increased from 0.62 to 0.77 with augmentation).",
+    "The model exhibits high stability and generalizability, with a mean accuracy of 92.8±0.7% in 5-fold cross-validation and low validation loss (0.25±0.03), indicating minimal overfitting.",
+    "The proposed architecture is lightweight (21 million parameters) and computationally efficient, running at 42 FPS on a Raspberry Pi 5, making it suitable for deployment in resource-constrained environments and teledermatology.",
+    "The study confirms that combining EfficientNetB4 with 3D Soft Attention, Minority-MixUp, and Focal Loss provides a robust solution for handling class imbalance and visual similarity in skin lesion classification."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the HAM10000 dataset, which exhibits severe class imbalance (51.93:1 ratio between the majority class Melanocytic Nevi and the minority class Dermatofibroma), potentially limiting generalizability to other populations or datasets.",
+    "External validation was not performed; the model was only evaluated on a held-out test set from the same source dataset, raising concerns about overfitting to HAM10000-specific biases.",
+    "The model was trained and tested on dermoscopic images at a fixed resolution of 224x224 pixels; performance on non-dermoscopic smartphone images or varying resolutions is not reported, despite claims of future applicability.",
+    "While the model achieves high melanoma recall (0.7706), the precision is relatively low (0.5874), indicating a high rate of false positives which could lead to unnecessary biopsies in clinical triage.",
+    "The claim of deployment on a Raspberry Pi 5 (running at 42 FPS) is based on inference speed metrics; real-world latency and throughput on mobile devices or in clinical workflows were not empirically validated.",
+    "Data leakage risks are mitigated by using on-the-fly augmentation and a strict 80/10/10 split, but the use of MixUp (interpolating images) may create synthetic samples that do not reflect true biological variance, potentially inflating performance estimates.",
+    "The study compares the proposed model against state-of-the-art results from literature rather than re-implementing and re-evaluating all competing SOTA models under identical conditions, which may introduce unfair comparisons due to differences in preprocessing or hyperparameter tuning.",
+    "The model's performance on rare classes like Dermatofibroma (F1 0.62) and Vascular Lesions (F1 0.72) remains modest in absolute terms, despite relative improvements, suggesting limited clinical utility for these specific subtypes without further refinement."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_khalid_2026_an_efficientnetb4_based_cnn_model_for_skin_lesion_classification.pdf",
+    "summary": "The study utilized the HAM10000 dataset, a collection of 10,015 dermoscopic images across seven diagnostic classes. The dataset was split into training (80%), validation (10%), and testing (10%) sets. The model was trained using transfer learning from ImageNet pre-trained weights. Performance was evaluated on a held-out test set of 1,002 images. The study did not perform cross-dataset validation; all experiments were conducted within the HAM10000 dataset using a fixed split and 5-fold cross-validation.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper explicitly states that the model was evaluated on the HAM10000 dataset. No external or unseen datasets were used for testing. The study notes that external validation was not performed, raising concerns about generalizability to other populations.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "HAM10000",
+          "counts": "8,012 images (80% of 10,015)",
+          "notes": "Used for training the EfficientNetB4-based CNN model with on-the-fly data augmentation (random rotation, flips, MixUp) to address class imbalance. Transfer learning weights from ImageNet were also used."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "HAM10000",
+          "counts": "1,001 images (10% of 10,015)",
+          "notes": "Used for model selection, hyperparameter tuning, and early stopping (patience=10) based on validation macro F1-score."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "HAM10000",
+          "counts": "1,002 images (10% of 10,015)",
+          "notes": "Used for final performance evaluation on a held-out test set. The split was stratified."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Used for transfer learning. EfficientNetB4 was pre-trained on ImageNet to learn hierarchical features before being fine-tuned on HAM10000."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "HAM10000 (via MixUp)",
+          "notes": "On-the-fly data augmentation including random rotations (0-360°), horizontal/vertical flips, and MixUp interpolation (alpha=0.2, Beta(1.0, 1.0)) was used to create virtual samples and mitigate class imbalance. MixUp selectively oversampled minority classes."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "Stratified split: 80% training (8,012 images), 10% validation (1,001 images), 10% testing (1,002 images). Additionally, 5-fold stratified cross-validation was performed on the training/validation data to assess robustness.",
+      "cross_validation_details": "5-fold stratified cross-validation was used to ensure robust generalization, preserving exact class ratios in each fold. Early stopping (patience=10) was applied on the validation macro F1 within each fold.",
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No unseen external dataset was used. The test set was a held-out portion of the same HAM10000 dataset."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "HAM10000 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (Training Split)"
+        ],
+        "model_or_method": "Proposed Model (EfficientNetB4 + 3D Soft Attention + Minority-MixUp + Focal Loss)",
+        "metrics": {
+          "accuracy": "93.09%",
+          "auc": "0.9901",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "0.8352",
+          "other_metrics": {
+            "Melanoma Recall": "0.7706",
+            "Melanoma Precision": "0.5874",
+            "Melanoma F1-score": "0.6678",
+            "NV F1-score": "0.93",
+            "BCC F1-score": "0.80",
+            "AKIEC F1-score": "0.67",
+            "BKL F1-score": "0.86",
+            "DF F1-score": "0.62",
+            "VASC F1-score": "0.72"
+          }
+        },
+        "notes": "Results on the held-out test set of 1,002 images. The model showed significant improvements over the vanilla EfficientNetB4 baseline (p < 0.05 for all metrics)."
+      },
+      {
+        "dataset": "HAM10000 (Cross-Validation)",
+        "role_at_result_time": "cross-dataset test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (Training Split)"
+        ],
+        "model_or_method": "Proposed Model (EfficientNetB4 + 3D Soft Attention + Minority-MixUp + Focal Loss)",
+        "metrics": {
+          "accuracy": "92.8% ± 0.7%",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {
+            "Validation Loss": "0.25 ± 0.03"
+          }
+        },
+        "notes": "Mean accuracy from 5-fold stratified cross-validation. Range was 92.3–93.2%."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "HAM10000",
+        "split_or_cv": "80/10/10 split and 5-fold CV",
+        "models": [
+          "Proposed Model (EfficientNetB4 + 3D Soft Attention + Minority-MixUp + Focal Loss)",
+          "Vanilla EfficientNetB4",
+          "EfficientNetB4 + SE",
+          "EfficientNetB4 + CBAM",
+          "ResNet-50",
+          "DenseNet-169"
+        ],
+        "results": [
+          {
+            "metric": "Accuracy",
+            "value": "93.09%",
+            "model": "Proposed Model",
+            "data_split": "test"
+          },
+          {
+            "metric": "Macro F1-score",
+            "value": "0.8352",
+            "model": "Proposed Model",
+            "data_split": "test"
+          },
+          {
+            "metric": "ROC-AUC",
+            "value": "0.9901",
+            "model": "Proposed Model",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": "90.62%",
+            "model": "Vanilla EfficientNetB4",
+            "data_split": "test"
+          },
+          {
+            "metric": "Macro F1-score",
+            "value": "0.7941",
+            "model": "Vanilla EfficientNetB4",
+            "data_split": "test"
+          },
+          {
+            "metric": "ROC-AUC",
+            "value": "0.9812",
+            "model": "Vanilla EfficientNetB4",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study relies exclusively on the HAM10000 dataset, which exhibits severe class imbalance (51.93:1 ratio between NV and DF).",
+      "External validation was not performed; the model was only evaluated on a held-out test set from the same source dataset, raising concerns about overfitting to HAM10000-specific biases.",
+      "The model was trained and tested on dermoscopic images at a fixed resolution of 224x224 pixels; performance on non-dermoscopic smartphone images or varying resolutions is not reported.",
+      "The study compares the proposed model against state-of-the-art results from literature rather than re-implementing and re-evaluating all competing SOTA models under identical conditions."
+    ],
+    "information_not_reported": [
+      "Patient-level separation details (whether images from the same patient were split across train/test sets).",
+      "Specific counts for the training and validation splits beyond the total 80/10/10 percentage.",
+      "Results on any external or cross-dataset validation sets."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780001515
+  }
+}

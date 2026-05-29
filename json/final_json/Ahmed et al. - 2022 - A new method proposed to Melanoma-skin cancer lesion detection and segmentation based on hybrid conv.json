@@ -1,0 +1,559 @@
+{
+  "file_name": "Ahmed et al. - 2022 - A new method proposed to Melanoma-skin cancer lesion detection and segmentation based on hybrid conv.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes and evaluates a hybrid deep learning method integrating RetinaNet and Mask R-CNN (Convolutional Neural Networks) for melanoma skin cancer lesion detection and segmentation. The method was trained and validated on the ISIC-2018 and PH2 dermoscopic datasets to achieve automated lesion boundary detection and segmentation."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel hybrid deep learning method (integrating RetinaNet and Mask R-CNN) for melanoma skin cancer lesion detection and segmentation. It presents original experimental results, including training on the ISIC-2018 and PH2 datasets, ablation studies, and performance comparisons with state-of-the-art methods, rather than summarizing prior literature."
+  },
+  "title": "A new method proposed to Melanoma-skin cancer lesion detection and segmentation based on hybrid convolutional neural network",
+  "authors": [
+    "Noor Ahmed",
+    "Xin Tan",
+    "Lizhuang Ma"
+  ],
+  "doi": "10.1007/s11042-022-13618-0",
+  "journal": "Multimedia Tools and Applications",
+  "year": 2022,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes a hybrid deep learning method integrating RetinaNet and Mask R-CNN to address the challenges of melanoma skin cancer lesion detection and segmentation, particularly under occlusion conditions. The model utilizes a pyramid module with lateral connections and top-down paths to preserve spatial feature information, overcoming limitations of traditional encoder-decoder fully convolutional networks. The proposed architecture was trained and validated on the ISIC-2018 dataset and evaluated for generalization on the unseen PH2 dermoscopic dataset. Performance was assessed using metrics including accuracy, Jaccard Index, Dice Coefficient, Sensitivity, Specificity, and Area Under the Curve (AUC). The method achieved an AUC of 97.6% and demonstrated superior accuracy compared to state-of-the-art methods such as UNet, GAN, and Encoder-Decoder networks. The results indicate that the hybrid approach effectively handles varying lesion sizes and shapes, showing strong potential for clinical application.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma skin cancer",
+        "melanoma skin cancer lesion",
+        "lesion",
+        "skin lesions",
+        "skin cancer"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on detecting and segmenting melanoma skin cancer lesions. The datasets used (ISIC-2018 and PH2) contain images of these lesions, which are treated as the foreground class against the background image. The paper does not distinguish between specific histological subtypes (e.g., BCC, SCC) or benign vs. malignant classes within the segmentation task, treating the target uniformly as 'lesion' or 'melanoma skin cancer lesion'."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Detection",
+        "target": "Bounding box coordinates (x, y, w, h) for melanoma skin cancer lesions.",
+        "primary": true,
+        "details": "The paper proposes a hybrid method integrating RetinaNet and Mask R-CNN for lesion detection. The model predicts bounding boxes using a Regression Subnet Module and classifies the lesion class. The primary goal is to locate the lesion region in the image."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-level mask or contour of the melanoma skin cancer lesion.",
+        "primary": true,
+        "details": "The model generates segmentation masks for the lesion region using the Mask R-CNN branch with ROI Align and a prediction layer (Conv 1x1 + sigmoid). Performance is evaluated using Jaccard Index (JA) and Dice Coefficient (DC), which are standard segmentation metrics."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Binary class label (lesion vs. background/non-lesion).",
+        "primary": false,
+        "details": "The method includes a Classification Subnet Module to classify the lesion class. The AUC of 97.6% indicates the model's ability to distinguish between the lesion class (1) and background (0). However, this is part of the detection/segmentation pipeline rather than a standalone diagnostic classification task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A public dermoscopic image dataset extending ISIC-2016 and ISIC-2017, containing 2,594 RGB images of lethal skin cancer lesions with dimensions varying from 576 × 768 to 6748 × 4499. The images contain lesions highly occluded by clinical artifacts, hair, blood vessels, and visual similarity to uninfected skin.",
+      "classes_used": [
+        "lesion class",
+        "background image"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the hybrid RetinaNet and Mask R-CNN model.",
+        "validation": "Used for validation of the model.",
+        "testing": null,
+        "other": "Used for ablation studies and comparison with state-of-the-art methods."
+      }
+    },
+    {
+      "name": "PH2 Dataset",
+      "description": "A dermoscopic image database for research and benchmarking, used as an unseen dataset to evaluate the generalization ability of the proposed method.",
+      "classes_used": [
+        "melanoma skin cancer lesion"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used for testing the generalization ability of the method on unseen data.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Jaccard Coefficient",
+    "Dice Coefficient",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "Accuracy",
+    "AUC-ROC",
+    "ROC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "To evaluate the performance of the proposed method on the ISIC-2018 dataset.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Accuracy comparison",
+      "purpose": "To compare the proposed method's performance against state-of-the-art methods (Encoder-Decoder, GAN, UNet, etc.) in terms of percentage improvement.",
+      "type": "Performance comparison"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using accuracy percentages and standard metrics (JA, DC, SN, SP, AUC) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC-2018": {
+      "split": "Validation (via 5-fold cross-validation)",
+      "models": {
+        "Ours (Hybrid RetinaNet + Mask R-CNN with ResNet-101)": {
+          "Jaccard Index (JA)": "91.4%",
+          "Dice Coefficient (DC)": "90.7%",
+          "Sensitivity (SN)": "91.6%",
+          "Specificity (SP)": "97.8%",
+          "AUC": "97.6%"
+        },
+        "Encoder-Decoder [37]": {
+          "Jaccard Index (JA)": "83.7%",
+          "Dice Coefficient (DC)": "90.3%",
+          "Sensitivity (SN)": "90.2%",
+          "Specificity (SP)": "97.4%",
+          "AUC": "95.0%"
+        },
+        "UNet-DCNN-SVM [4]": {
+          "Jaccard Index (JA)": "80.0%",
+          "Dice Coefficient (DC)": "87.0%",
+          "AUC": "93.1%"
+        },
+        "UNet [7]": {
+          "Jaccard Index (JA)": "72.8%",
+          "AUC": "90.3%"
+        },
+        "Attn UNet + Multi-Input + FTL [2]": {
+          "Dice Coefficient (DC)": "85.6%",
+          "Sensitivity (SN)": "89.7%",
+          "AUC": "94.9%"
+        },
+        "Handcraft Method [20]": {
+          "Jaccard Index (JA)": "66.3%"
+        }
+      },
+      "notes": "The proposed method outperformed Encoder-Decoder, GAN, UNet, DCNN-SVM, EFCN, ECDNs, and Handcrafted methods by 7.7%, 12.9%, 11.4%, 14.4%, 14.9%, 18.6%, and 25.1% respectively in terms of accuracy."
+    },
+    "PH2": {
+      "split": "Unseen/Test",
+      "models": {
+        "Ours (Hybrid RetinaNet + Mask R-CNN with ResNet-101)": {
+          "Jaccard Index (JA)": "92.9%",
+          "Dice Coefficient (DC)": "94.3%",
+          "Sensitivity (SN)": "93.2%",
+          "Specificity (SP)": "96.1%"
+        }
+      },
+      "notes": "Results demonstrate improved generalization ability on unseen data. AUC was not reported for this dataset."
+    },
+    "ISIC-2017": {
+      "split": "Validation/Test (Contextual comparison)",
+      "models": {
+        "ECDNs [49]": {
+          "Jaccard Index (JA)": "76.5%",
+          "Dice Coefficient (DC)": "84.9%",
+          "Sensitivity (SN)": "82.5%",
+          "Specificity (SP)": "97.5%",
+          "AUC": "89.7%"
+        },
+        "GAN [45]": {
+          "Jaccard Index (JA)": "78.5%",
+          "AUC": "89.1%"
+        },
+        "EFCN [40]": {
+          "Jaccard Index (JA)": "77.0%",
+          "Dice Coefficient (DC)": "85.3%",
+          "AUC": "91.1%"
+        }
+      },
+      "notes": "These values are from Table 4 for comparative purposes; the proposed method was primarily evaluated on ISIC-2018 and PH2."
+    },
+    "Ablation Study (ISIC-2018 Validation)": {
+      "split": "Validation",
+      "models": {
+        "Our Hybrid-1 (ResNet-101)": {
+          "Jaccard Index (JA)": "91.4%",
+          "Dice Coefficient (DC)": "90.7%",
+          "Sensitivity (SN)": "91.6%",
+          "Specificity (SP)": "97.8%",
+          "AUC": "97.6%"
+        },
+        "MaskRCNN [1] (ResNet-101)": {
+          "Jaccard Index (JA)": "81.1%",
+          "Dice Coefficient (DC)": "89.2%",
+          "Sensitivity (SN)": "86.2%",
+          "Specificity (SP)": "97.5%",
+          "AUC": "95.5%"
+        },
+        "Our Hybrid-2 (ResNet-50)": {
+          "Jaccard Index (JA)": "68.4%",
+          "Dice Coefficient (DC)": "74.4%",
+          "Sensitivity (SN)": "83.0%",
+          "Specificity (SP)": "90.0%",
+          "AUC": "94.2%"
+        },
+        "MaskRCNN [1] (ResNet-50)": {
+          "Jaccard Index (JA)": "62.6%",
+          "Dice Coefficient (DC)": "70.4%",
+          "Sensitivity (SN)": "84.1%",
+          "Specificity (SP)": "91.0%",
+          "AUC": "94.7%"
+        },
+        "RetinaNet [27] (ResNet-50)": {
+          "Jaccard Index (JA)": "57.3%",
+          "Dice Coefficient (DC)": "63.9%",
+          "Sensitivity (SN)": "70.3%",
+          "Specificity (SP)": "92.0%",
+          "AUC": "91.6%"
+        }
+      },
+      "notes": "The proposed network with ResNet-101 exceeded RetinaNet-50, MaskRCNN-50, and MaskRCNN-101 at a margin of 34.1%, 29.1%, and 10.3% improvement on JA, respectively."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Hybrid RetinaNet and Mask R-CNN",
+    "pretraining": "ResNet-101/50 backbone with pre-trained weights from MS-COCO dataset",
+    "input_size": "Null",
+    "architecture_details": {
+      "backbone": "ResNet-101 or ResNet-50",
+      "feature_pyramid_network": "FPN with bottom-up (C1-C5) and top-down (P2-P6) paths; P2-P5 constructed by 3x3 conv layers, P6 by max-pooling on P5; layer dimensions fixed at 128",
+      "retinanet_branch": {
+        "classification_subnet": "5 conv layers (3x3, 128 channels, ReLU) + 1 conv layer (3x3, anchors*classes, sigmoid)",
+        "regression_subnet": "5 conv layers (3x3, 128 channels, ReLU) + 1 output layer (3x3, anchors*5)",
+        "anchor_configuration": "Sizes range from 8^2 to 128^2 on FPN stages P2 to P6"
+      },
+      "mask_rcnn_branch": {
+        "roi_align": "Max-pooling operation with pooling size 7x7",
+        "mask_subnet": "5 consecutive layers (3x3, 5 channels, batch normalization) + 1 transposed conv layer (2x2) for upsampling to 28x28 resolution",
+        "prediction_layer": "Conv 1x1 + sigmoid"
+      },
+      "region_proposals": "64 region proposal detectors pre-defined"
+    },
+    "training_details": {
+      "optimizer": "Stochastic Gradient Descent (SGD)",
+      "learning_rate": "0.001 (lowered by factor of ten during training)",
+      "momentum": "0.9",
+      "weight_decay": "0.0001",
+      "epochs": "1500",
+      "batch_size": "1 image per GPU",
+      "loss_function": "Combined loss L = L_cls + L_reg + L_mask",
+      "loss_parameters": {
+        "focal_loss_gamma": 2.0,
+        "focal_loss_alpha": 0.25,
+        "output_mask_size_m": 28
+      },
+      "data_augmentation": [
+        "Vertical flipping (probability 0.5)",
+        "Horizontal flipping (probability 0.5)",
+        "Affine rotations (90, 180, 270 degrees)",
+        "Luminosity scaling (0.8 to 1.5)",
+        "Gaussian blur (standard deviation 2.5)"
+      ],
+      "validation_method": "Five-fold cross-validation"
+    },
+    "classification_or_output_head": {
+      "classification": "Binary classification (lesion vs. background) via Classification Subnet Module",
+      "regression": "Bounding box coordinates (x, y, w, h) via Regression Subnet Module",
+      "segmentation": "Pixel-level mask/contour via Mask Subnet Module"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Hybrid RetinaNet and Mask R-CNN (Proposed Method)",
+    "Encoder-Decoder",
+    "Generative Adversarial Network (GAN)",
+    "UNet",
+    "UNet-DCNN-SVM",
+    "Encoder-Fully Connected Network (EFCN)",
+    "Enhanced Convolutional-Deconvolutional Networks (ECDNs)",
+    "Attn UNet + Multi-Input + FTL (Focal Tversky Loss)",
+    "Handcraft Method",
+    "RetinaNet",
+    "Mask R-CNN",
+    "Faster R-CNN",
+    "FCN (Fully Convolutional Network)",
+    "SVM (Support Vector Machine)",
+    "Clustering",
+    "Fuzzy logic"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images and annotation masks to 512 × 512 dimensions",
+    "Normalization to mean pixel values of 123.7, 116.8, 103.9",
+    "Contrast enhancement using Laboratory color model (Lcm) and Contrast Limited Adaptive Histogram Equalization (CLAHE) with gridtile size and clip limit adjusted to 8",
+    "Data augmentation including vertical flipping (probability 0.5), horizontal flipping (probability 0.5), affine rotations (90, 180, 270 degrees), luminosity scaling (0.8 to 1.5), and Gaussian blur (standard deviation 2.5)"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Vertical flipping",
+      "details": "Applied with a probability of 0.5."
+    },
+    {
+      "technique": "Horizontal flipping",
+      "details": "Applied with a probability of 0.5."
+    },
+    {
+      "technique": "Affine rotations",
+      "details": "Rotations of 90, 180, and 270 degrees were applied."
+    },
+    {
+      "technique": "Luminosity scaling",
+      "details": "Scaling within the range of 0.8 to 1.5."
+    },
+    {
+      "technique": "Gaussian blur",
+      "details": "Applied with a standard deviation of 2.5."
+    }
+  ],
+  "conclusions": [
+    "The proposed hybrid method integrating RetinaNet and Mask R-CNN with a pyramid module effectively compensates for the loss of spatial feature information inherent in traditional encoder-decoder fully convolutional networks, thereby improving detection and segmentation accuracy.",
+    "The method demonstrated superior performance compared to state-of-the-art methods (Encoder-Decoder, GAN, UNet, DCNN-SVM, EFCN, ECDNs, UNet, and Handcrafted methods), outperforming them by 7.7%, 12.9%, 11.4%, 14.4%, 14.9%, 18.6%, and 25.1% respectively in terms of accuracy on the ISIC-2018 dataset.",
+    "The proposed method achieved an Area Under the Curve (AUC) of 97.6% on the ISIC-2018 validation dataset, indicating high capability in distinguishing between lesion and background classes.",
+    "The method exhibited improved generalization ability on the unseen PH2 dermoscopic dataset, achieving a Jaccard Index of 92.9% and Dice Coefficient of 94.3%, demonstrating robustness to varying lesion sizes, shapes, and occlusions such as clinical artifacts and blood vessels.",
+    "Ablation studies confirmed that the network configuration using the ResNet-101 backbone outperformed configurations using ResNet-50 and standalone Mask R-CNN or RetinaNet models, with the proposed hybrid network exceeding RetinaNet-50, MaskRCNN-50, and MaskRCNN-101 by margins of 34.1%, 29.1%, and 10.3% on the Jaccard Index, respectively.",
+    "The study acknowledges limitations regarding the unavailability of large datasets and data class imbalance, which negatively impact segmentation accuracy, particularly in the presence of high occlusions near lesion regions.",
+    "The authors envisage that the method's reliable accuracy and performance make it suitable for future clinical practices in melanoma skin cancer diagnosis."
+  ],
+  "important_remarks": [
+    "The study acknowledges limitations regarding the unavailability of large datasets and data class imbalance, which negatively impact segmentation accuracy, particularly in the presence of high occlusions near lesion regions.",
+    "The method exhibits failure cases due to distinct variations in lesion boundaries and specific occlusions, notably region similarity and hair occlusions, which can minimize overall performance.",
+    "The paper notes that adding more pyramid layers increases training time significantly, indicating a potential computational efficiency concern.",
+    "The proposed method was evaluated on the ISIC-2018 dataset (training/validation) and the unseen PH2 dataset for generalization, but no external clinical validation or comparison with dermatologist performance was reported.",
+    "The study addresses the limitation of traditional FCN encoder-decoder methods losing spatial information, but relies on synthetic data augmentation to alleviate class imbalance rather than collecting more real-world data.",
+    "The authors envisage clinical application but do not provide evidence of deployment, regulatory compliance, or prospective clinical trials."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_Ahmed et al. - 2022 - A new method proposed to Melanoma-skin cancer lesion detection and segmentation based on hybrid conv.pdf",
+    "summary": "The study proposes a hybrid RetinaNet and Mask R-CNN method for melanoma skin cancer lesion detection and segmentation. The model was trained and validated on the ISIC-2018 dataset using an 80/20 split and five-fold cross-validation. Generalization was evaluated on the unseen PH2 dataset. Pre-trained weights from the MS-COCO dataset were used for the backbone network.",
+    "cross_dataset_testing": true,
+    "has_cross_dataset_validation": "Yes",
+    "cross_dataset_validation_type": "Train-on-one-test-on-another",
+    "cross_dataset_validation_details": "The model was trained on the ISIC-2018 dataset and tested on the unseen PH2 dataset to evaluate generalization ability.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC-2018",
+          "counts": "2075 images (80% of 2594)",
+          "notes": "Used for training the hybrid RetinaNet and Mask R-CNN model. Pre-trained weights from MS-COCO were used for the ResNet backbone."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC-2018",
+          "counts": "519 images (20% of 2594)",
+          "notes": "Used for model selection and hyperparameter tuning. The paper also utilized five-fold cross-validation on the entire ISIC-2018 dataset for performance evaluation."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC-2018",
+          "counts": "519 images (via 5-fold CV)",
+          "notes": "Used for final internal performance evaluation via five-fold cross-validation."
+        }
+      ],
+      "external_testing": [
+        {
+          "dataset": "PH2",
+          "counts": "Not reported (unseen dermoscopic dataset)",
+          "notes": "Used as an unseen external dataset to evaluate the generalization ability of the method."
+        }
+      ],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "MS-COCO",
+          "notes": "Pre-trained weights were used for the ResNet-101/50 backbone network."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "ISIC-2018 (Augmented)",
+          "notes": "Data augmentation was applied to the training set to alleviate class imbalance and overfitting. Techniques included vertical/horizontal flipping (prob 0.5), affine rotations (90, 180, 270 degrees), luminosity scaling (0.8-1.5), and Gaussian blur (std 2.5)."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split | k-fold cross-validation | external validation",
+      "split_details": "80% training (2075 images) and 20% validation (519 images) from ISIC-2018. Additionally, five-fold cross-validation was performed on the ISIC-2018 dataset.",
+      "cross_validation_details": "Five-fold cross-validation was used on the ISIC-2018 dataset. Folds were within the single dataset.",
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "The PH2 dermoscopic dataset was used as unseen data for external testing."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC-2018",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC-2018"
+        ],
+        "model_or_method": "Hybrid RetinaNet + Mask R-CNN (ResNet-101)",
+        "metrics": {
+          "accuracy": "Not reported (compared via percentage improvement over baselines)",
+          "auc": "97.6%",
+          "sensitivity": "91.6%",
+          "specificity": "97.8%",
+          "f1_score": "null",
+          "other_metrics": {
+            "Jaccard Index (JA)": "91.4%",
+            "Dice Coefficient (DC)": "90.7%"
+          }
+        },
+        "notes": "Results obtained via five-fold cross-validation on ISIC-2018. The method outperformed state-of-the-art methods by 7.7% to 25.1% in accuracy."
+      },
+      {
+        "dataset": "PH2",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC-2018"
+        ],
+        "model_or_method": "Hybrid RetinaNet + Mask R-CNN (ResNet-101)",
+        "metrics": {
+          "accuracy": "null",
+          "auc": "null",
+          "sensitivity": "93.2%",
+          "specificity": "96.1%",
+          "f1_score": "null",
+          "other_metrics": {
+            "Jaccard Index (JA)": "92.9%",
+            "Dice Coefficient (DC)": "94.3%"
+          }
+        },
+        "notes": "Results on unseen data demonstrate improved generalization. AUC was not reported for this dataset."
+      }
+    ],
+    "cross_dataset_experiments": [
+      {
+        "train_datasets": [
+          "ISIC-2018"
+        ],
+        "validation_datasets": [
+          "ISIC-2018"
+        ],
+        "test_datasets": [
+          "PH2"
+        ],
+        "unseen_test_data": true,
+        "models": [
+          "Hybrid RetinaNet + Mask R-CNN (ResNet-101)"
+        ],
+        "results": [
+          {
+            "dataset": "PH2",
+            "metric": "Jaccard Index",
+            "value": "92.9%",
+            "model": "Hybrid RetinaNet + Mask R-CNN"
+          },
+          {
+            "dataset": "PH2",
+            "metric": "Dice Coefficient",
+            "value": "94.3%",
+            "model": "Hybrid RetinaNet + Mask R-CNN"
+          },
+          {
+            "dataset": "PH2",
+            "metric": "Sensitivity",
+            "value": "93.2%",
+            "model": "Hybrid RetinaNet + Mask R-CNN"
+          },
+          {
+            "dataset": "PH2",
+            "metric": "Specificity",
+            "value": "96.1%",
+            "model": "Hybrid RetinaNet + Mask R-CNN"
+          }
+        ],
+        "notes": "The model was trained on ISIC-2018 and tested on the unseen PH2 dataset to evaluate generalization."
+      }
+    ],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC-2018",
+        "split_or_cv": "Five-fold cross-validation",
+        "models": [
+          "Hybrid RetinaNet + Mask R-CNN (ResNet-101)",
+          "Mask R-CNN (ResNet-101)",
+          "RetinaNet (ResNet-50)",
+          "Mask R-CNN (ResNet-50)",
+          "Hybrid RetinaNet + Mask R-CNN (ResNet-50)"
+        ],
+        "results": [
+          {
+            "metric": "Jaccard Index",
+            "value": "91.4%",
+            "model": "Hybrid RetinaNet + Mask R-CNN (ResNet-101)",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Dice Coefficient",
+            "value": "90.7%",
+            "model": "Hybrid RetinaNet + Mask R-CNN (ResNet-101)",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Sensitivity",
+            "value": "91.6%",
+            "model": "Hybrid RetinaNet + Mask R-CNN (ResNet-101)",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Specificity",
+            "value": "97.8%",
+            "model": "Hybrid RetinaNet + Mask R-CNN (ResNet-101)",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "AUC",
+            "value": "97.6%",
+            "model": "Hybrid RetinaNet + Mask R-CNN (ResNet-101)",
+            "data_split": "cross-validation"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study acknowledges limitations regarding the unavailability of large datasets and data class imbalance.",
+      "The method was tested on an unseen dataset (PH2) to demonstrate generalization, but no external clinical validation or comparison with dermatologist performance was reported.",
+      "Failure cases were observed due to distinct variations in lesion boundaries and specific occlusions (region similarity and hair occlusions)."
+    ],
+    "information_not_reported": [
+      "Exact number of images in the PH2 dataset used for testing.",
+      "Patient-level separation details (image-level split assumed).",
+      "Specific accuracy percentage for the proposed method on ISIC-2018 (only comparative improvements were reported).",
+      "AUC value for the PH2 dataset."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1779997258
+  }
+}

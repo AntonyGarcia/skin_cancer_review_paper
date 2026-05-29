@@ -1,0 +1,259 @@
+{
+  "file_name": "chi_2018_controlled_synthesis_of_dermoscopic_images_via_a_new_color_labeled_gene.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a Color Labeled Generative Style Transfer Network (CL-GSTN), a type of Generative Adversarial Network (GAN) based on pix2pix with a U-net architecture, to synthesize dermoscopic images with color patch artifacts. These synthetic images were used to augment training data for Fully Convolutional Networks (FCNs) to enhance melanoma segmentation, a dermatology task."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new Color Labeled Generative Style Transfer Network (CL-GSTN) to synthesize dermoscopic images. It details specific methods (GAN architecture, color labels), datasets (ISIC archive), and experimental results (MAE, Dice, Jaccard metrics) demonstrating improvements in melanoma segmentation, which constitutes a technical study producing new results rather than a literature review."
+  },
+  "title": "Controlled Synthesis of Dermoscopic Images via a New Color Labeled Generative Style Transfer Network to Enhance Melanoma Segmentation",
+  "authors": [
+    "Yucong Chi",
+    "Lei Bi",
+    "Jinman Kim",
+    "Dagan Feng",
+    "Ashnil Kumar"
+  ],
+  "doi": null,
+  "journal": null,
+  "year": 2018,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the challenge of melanoma segmentation in dermoscopic images by proposing a Color Labeled Generative Style Transfer Network (CL-GSTN) to synthesize realistic images with color patch artifacts. The authors utilized the International Skin Imaging Collaboration (ISIC) archive to train the CL-GSTN, which employs a pix2pix GAN with a U-net architecture, using color labels to specify lesion, skin, and artifact regions. The synthetic images were used to augment training data for Fully Convolutional Networks (FCNs) to improve segmentation accuracy, particularly for challenging cases with artifacts. Evaluation metrics including Dice similarity coefficient, Jaccard index, and Mean Average Error (MAE) demonstrated that CL-GSTN produced higher quality synthetic images than traditional binary label methods. Specifically, augmenting limited real data with CL-GSTN synthetic images improved segmentation accuracy by 3.1% in Dice and 4.2% in Jaccard scores for images containing color patches. The results indicate that controlled synthesis of dermoscopic images can effectively mitigate data scarcity and enhance computer-aided diagnosis systems.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma",
+        "pigmented skin lesions"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on melanoma segmentation in dermoscopic images. The dataset (ISIC archive) contained images with lesions, specifically used for training and testing segmentation models for melanoma."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Generation/Synthesis",
+        "target": "Synthetic dermoscopic images with color patch artifacts",
+        "primary": true,
+        "details": "The paper proposes a Color Labeled Generative Style Transfer Network (CL-GSTN) based on pix2pix GAN to synthesize realistic dermoscopic images containing specific artifacts (color patches) using color labels as input. The primary output is generated image data."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Melanoma lesion masks",
+        "primary": false,
+        "details": "The synthetic images were used to augment training data for Fully Convolutional Networks (FCNs) to perform pixel-wise segmentation of melanoma lesions from dermoscopic images. Performance was evaluated using Dice similarity coefficient, Jaccard index, and Mean Average Error (MAE)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "International Skin Imaging Collaboration (ISIC) Archive",
+      "description": "A large public archive containing dermoscopic images acquired on various devices at numerous international clinical centers. Used for training the CL-GSTN and evaluating synthetic image quality.",
+      "classes_used": [
+        "Lesion",
+        "Skin",
+        "Color patch artifacts"
+      ],
+      "counts": {
+        "total": null,
+        "training": 700,
+        "validation": null,
+        "testing": 64,
+        "per_class": {
+          "training_with_lesions": 400,
+          "training_with_lesions_and_color_patches": 300,
+          "testing_with_lesions": 40,
+          "testing_with_lesions_and_color_patches": 24
+        }
+      },
+      "use": {
+        "training": "Used to train the Color Labeled Generative Style Transfer Network (CL-GSTN) to learn the mapping from color labels to realistic dermoscopic images.",
+        "validation": null,
+        "testing": "Used to calculate the Mean Average Error (MAE) to assess the quality of the generated synthetic images compared to real images.",
+        "other": "The test set images with color patches (24 images) were specifically analyzed to examine segmentation performance improvements on challenging cases."
+      }
+    },
+    {
+      "name": "Previous Experiment Dataset (Ir)",
+      "description": "A dataset of real dermoscopic images used for the image segmentation experiments, sourced from previous work [17]. It was split into disjoint subsets for training and comparison.",
+      "classes_used": [
+        "Melanoma lesion masks"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 379,
+        "per_class": {
+          "subset_Ir1": 450,
+          "subset_Ir2": 450,
+          "color_patch_test_images": 41
+        }
+      },
+      "use": {
+        "training": "Used to train Fully Convolutional Networks (FCNs) for melanoma segmentation. Specifically, the full set (Ir) was used as a baseline, and a subset (Ir1) was used to simulate limited data scenarios. Another subset (Ir2) was used to generate corresponding synthetic images (Is2) for augmentation.",
+        "validation": null,
+        "testing": "The 379 testing images were used to evaluate segmentation accuracy (Dice, Jaccard, Accuracy). A specific subset of 41 test images containing color patch artifacts (Icp) was used to evaluate performance on challenging cases.",
+        "other": "Used to define the visual characteristics for synthetic image generation (Is1 and Is2) to match Ir1 and Ir2 respectively."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Mean Average Error (MAE)",
+    "Dice similarity coefficient",
+    "Jaccard Coefficient",
+    "Accuracy"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Results were reported as absolute metric values (Dice, Jaccard, Accuracy, MAE) and percentage improvements without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC Archive (Synthetic Image Quality)": {
+      "description": "Mean Average Error (MAE) of synthetic images generated by different GAN models using binary labels vs. Color Labels (CL). Lower MAE indicates higher quality.",
+      "models": {
+        "CycleGAN": {
+          "Binary Label MAE": 11.18,
+          "CL MAE": 5.249
+        },
+        "pix2pix": {
+          "Binary Label MAE": 6.623,
+          "CL MAE": 1.669
+        }
+      },
+      "notes": "Using CL generates higher quality synthetic images compared to standard binary labels regardless of the underlying GAN model."
+    },
+    "Previous Experiment Dataset (Ir) - All Images": {
+      "description": "Segmentation accuracy of Fully Convolutional Networks (FCNs) trained on different data subsets. Evaluated on all 379 testing images.",
+      "models": {
+        "FCN trained on Ir1 (limited real data)": {
+          "Dice": 0.836,
+          "Jaccard": 0.752,
+          "Accuracy": 0.912
+        },
+        "FCN trained on Ir1 + Is2 (limited real data augmented with synthetic images)": {
+          "Dice": 0.844,
+          "Jaccard": 0.762,
+          "Accuracy": 0.917
+        },
+        "FCN trained on Ir (full real data)": {
+          "Dice": 0.854,
+          "Jaccard": 0.774,
+          "Accuracy": 0.925
+        }
+      },
+      "notes": "Augmenting limited real data (Ir1) with synthetic images (Is2) improved Dice by 0.8% and Jaccard by 1.0% compared to using limited real data alone. Training on full real data (Ir) achieved the best results."
+    },
+    "Previous Experiment Dataset (Icp) - Color Patch Images": {
+      "description": "Segmentation accuracy of FCNs specifically on the subset of 41 testing images containing color patch artifacts.",
+      "models": {
+        "FCN trained on Ir1 (limited real data)": {
+          "Dice": 0.718,
+          "Jaccard": 0.604,
+          "Accuracy": 0.925
+        },
+        "FCN trained on Ir1 + Is2 (limited real data augmented with synthetic images)": {
+          "Dice": 0.749,
+          "Jaccard": 0.646,
+          "Accuracy": 0.932
+        },
+        "FCN trained on Ir (full real data)": {
+          "Dice": 0.777,
+          "Jaccard": 0.675,
+          "Accuracy": 0.945
+        }
+      },
+      "notes": "For images with color patches, augmenting limited real data with synthetic images improved Dice by 3.1% and Jaccard by 4.2% compared to using limited real data alone. The FCN with limited data tended to oversegment lesions, while the augmented model reduced this oversegmentation."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Color Labeled Generative Style Transfer Network (CL-GSTN), a Generative Adversarial Network (GAN) based on pix2pix with a U-net architecture for the generator and a five-layer convolutional network for the discriminator. For segmentation, a Fully Convolutional Network (FCN) (specifically FCN-8s) was used.",
+    "pretraining": "The FCN used for segmentation was pre-trained on the ImageNet dataset.",
+    "input_size": "Not explicitly reported.",
+    "architecture_details": {
+      "generator": "U-net architecture",
+      "discriminator": "Five-layer convolutional network",
+      "segmentation_model": "Stride-8 FCN architecture (FCN-8s)",
+      "implementation_framework": "Torch library",
+      "segmentation_implementation": "MatConvNet"
+    },
+    "training_details": {
+      "gan_training": {
+        "epochs": 200,
+        "learning_rate": 0.0002,
+        "hardware": "11GB Nvidia 1080Ti GPU"
+      },
+      "fcn_training": {
+        "epochs": 200,
+        "learning_rate_schedule": "0.0001 for the first 100 epochs, 0.00001 for the last 100 epochs"
+      }
+    },
+    "classification_or_output_head": {
+      "gan_output": "Synthetic dermoscopic images",
+      "fcn_output": "Pixel-wise segmentation masks"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Color Labeled Generative Style Transfer Network (CL-GSTN)",
+    "Generative Adversarial Network (GAN)",
+    "pix2pix",
+    "CycleGAN",
+    "Fully Convolutional Network (FCN)",
+    "FCN-8s",
+    "U-net",
+    "deep residual network",
+    "multi-stage FCN"
+  ],
+  "preprocessing_techniques": [
+    "Color label generation using average color of corresponding regions in real images for lesion, skin, and color patch artifacts",
+    "Hough Transform used to separate skin and color patches from lesions in the color label creation process",
+    "Pre-training of the Fully Convolutional Network (FCN) on the ImageNet dataset"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Synthetic Data Generation via GAN",
+      "details": "Used a Color Labeled Generative Style Transfer Network (CL-GSTN) based on pix2pix GAN with U-net architecture to generate synthetic dermoscopic images with color patch artifacts. Color labels were used to specify approximate size, location, and shape of skin, lesion, and artifact regions. The GAN was trained for 200 epochs with a learning rate of 0.0002 on 11GB Nvidia 1080Ti GPU using Torch library."
+    },
+    {
+      "technique": "Dataset Augmentation for Segmentation Training",
+      "details": "Augmented the limited real training dataset (Ir1, 450 images) with synthetic images (Is2, 450 images) generated by CL-GSTN to double the training data size for Fully Convolutional Networks (FCN). This was compared against training on full real data (Ir, 900 images) and limited real data alone."
+    },
+    {
+      "technique": "Comparative GAN Augmentation",
+      "details": "Compared augmentation quality using synthetic images generated by CycleGAN and pix2pix models using both traditional binary labels and the proposed Color Labels (CL). CL resulted in lower Mean Average Error (MAE) for synthetic images (e.g., pix2pix CL MAE 1.669 vs Binary Label MAE 6.623)."
+    }
+  ],
+  "conclusions": [
+    "The proposed Color Labeled Generative Style Transfer Network (CL-GSTN) generates higher quality synthetic dermoscopic images with lower Mean Average Error (MAE) compared to GANs using traditional binary labels.",
+    "Augmenting limited real training data with synthetic images generated by CL-GSTN improves melanoma segmentation accuracy in Fully Convolutional Networks (FCNs).",
+    "For challenging images containing color patch artifacts, augmenting limited real data with synthetic images improved segmentation Dice score by 3.1% and Jaccard index by 4.2% compared to using limited real data alone.",
+    "The overall segmentation improvement across all images (including those without artifacts) was 0.8% for Dice score and 1.0% for Jaccard index when using synthetic data augmentation.",
+    "FCNs trained on limited real data tend to oversegment lesions in the presence of color patches, whereas FCNs augmented with CL-GSTN synthetic images better model the color distribution and reduce this oversegmentation.",
+    "Training FCNs on a complete dataset of real images achieves the best segmentation results, but synthetic data augmentation is a feasible approach to improve accuracy when ideal real datasets are unavailable or skewed.",
+    "The CL-GSTN approach allows for controlled synthesis of images with specific visual attributes, enabling the augmentation of training data with realistic images of uncommon cases."
+  ],
+  "important_remarks": [
+    "The study relies on synthetic data augmentation rather than real-world clinical validation; results are limited to in-silico experiments using the ISIC archive and a previous experiment dataset (Ir).",
+    "No external validation was performed on independent clinical datasets or different dermoscopic devices, limiting generalizability to real-world clinical settings.",
+    "The paper does not report statistical significance testing (e.g., p-values or confidence intervals) for the reported improvements in Dice (3.1%) and Jaccard (4.2%) scores.",
+    "The method addresses a specific bias: scarcity of annotated images with color patch artifacts, which are common in challenging cases (e.g., pale skin or lens pressure), but may not address other segmentation failures.",
+    "The synthetic images were generated using color labels derived from real images (average color of regions), which may introduce bias if the training distribution does not cover the full variability of real-world artifacts.",
+    "The segmentation model (FCN) was pre-trained on ImageNet, which may not be optimal for dermoscopic image characteristics compared to domain-specific pre-training.",
+    "The improvement in segmentation accuracy (0.8% Dice, 1.0% Jaccard) across all images is modest, suggesting that synthetic data augmentation provides limited benefit for cases without specific artifacts.",
+    "The study acknowledges that training on a complete dataset of real images (Ir) yields the best results, implying that synthetic data is a fallback for data scarcity rather than a superior alternative.",
+    "Potential data leakage risk exists if the synthetic images generated from Ir2 are used to augment Ir1, as they share visual characteristics with the original real images, though the paper treats them as distinct training samples."
+  ]
+}

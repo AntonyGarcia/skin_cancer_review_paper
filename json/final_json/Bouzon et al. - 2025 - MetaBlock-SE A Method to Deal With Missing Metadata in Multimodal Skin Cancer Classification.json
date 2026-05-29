@@ -1,0 +1,525 @@
+{
+  "file_name": "Bouzon et al. - 2025 - MetaBlock-SE A Method to Deal With Missing Metadata in Multimodal Skin Cancer Classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes MetaBlock-SE, a deep learning method for multimodal skin cancer classification. It integrates a sentence embedding algorithm (using AlbertTokenizerFast) to process patient metadata and combines it with imaging data using a ResNet-50 backbone (a Convolutional Neural Network) to classify skin lesions (BCC, SCC, MEL, etc.) on the PAD-UFES-20 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel method called MetaBlock-SE to address missing metadata in multimodal skin cancer classification. It details the architecture (integrating SBERT sentence embeddings with a ResNet-50 backbone), describes experimental setups on the PAD-UFES-20 and an extended dataset, and reports original results including balanced accuracy metrics (70.2 ± 2.8 and 68.2 ± 1.0) and statistical comparisons (Wilcoxon signed-rank test). The structure includes Introduction, Methods, Experiments, Results, and Discussion, indicating it is an original experimental study rather than a review."
+  },
+  "title": "MetaBlock-SE: A Method to Deal With Missing Metadata in Multimodal Skin Cancer Classification",
+  "authors": [
+    "Pedro H. G. Bouzon",
+    "Wyctor F. da Rocha",
+    "Luis A. Souza Jr.",
+    "André G. C. Pacheco"
+  ],
+  "doi": "10.1109/JBHI.2025.3612837",
+  "journal": "IEEE Journal of Biomedical and Health Informatics",
+  "year": 2025,
+  "article_type": "Journal article",
+  "brief_summary": "This study addresses the challenge of missing metadata in multimodal skin cancer classification by proposing MetaBlock-SE, an extension of the MetaBlock architecture that integrates sentence embeddings to capture semantic relationships in patient data. The method combines these embeddings with imaging features using a ResNet-50 backbone to classify skin lesions into categories such as Basal Cell Carcinoma, Melanoma, and Nevus. The authors evaluated the model on the PAD-UFES-20 dataset and a newly extended version containing over 16,000 samples. Results demonstrated that MetaBlock-SE outperformed the original MetaBlock architecture, achieving balanced accuracies of 70.2 ± 2.8 and 68.2 ± 1.0 on the respective datasets. The proposed approach is noted for being computationally efficient and suitable for deployment in resource-constrained clinical environments.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "Basal Cell Carcinoma",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "Malignant lesion class included in the PAD-UFES-20 and extended PAD-UFES-20 datasets used for classification experiments."
+    },
+    {
+      "lesion_type": "Squamous Cell Carcinoma (SCC)",
+      "paper_terms": [
+        "Squamous Cell Carcinoma",
+        "SCC"
+      ],
+      "role": "Target class",
+      "details": "Malignant lesion class included in the PAD-UFES-20 and extended PAD-UFES-20 datasets used for classification experiments."
+    },
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "Actinic Keratosis",
+        "ACK"
+      ],
+      "role": "Target class",
+      "details": "Benign lesion class included in the PAD-UFES-20 and extended PAD-UFES-20 datasets used for classification experiments."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "Seborrheic Keratosis",
+        "SEK"
+      ],
+      "role": "Target class",
+      "details": "Benign lesion class included in the PAD-UFES-20 and extended PAD-UFES-20 datasets used for classification experiments."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "Malignant lesion class included in the PAD-UFES-20 and extended PAD-UFES-20 datasets used for classification experiments."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "Nevus",
+        "NEV"
+      ],
+      "role": "Target class",
+      "details": "Benign lesion class included in the PAD-UFES-20 and extended PAD-UFES-20 datasets used for classification experiments."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin lesion diagnostic categories (Basal Cell Carcinoma, Squamous Cell Carcinoma, Actinic Keratosis, Seborrheic Keratosis, Melanoma, and Nevus)",
+        "primary": true,
+        "details": "Multiclass classification of skin lesions using multimodal data (clinical metadata and imaging). The model predicts discrete diagnostic labels. Performance is evaluated using balanced accuracy, F1-Score, and AUC."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "PAD-UFES-20",
+      "description": "A publicly available skin lesion dataset composed of clinical images collected from smartphones, containing patient clinical metadata. It was used as the primary benchmark for evaluating the proposed MetaBlock-SE method under controlled conditions.",
+      "classes_used": [
+        "Basal Cell Carcinoma (BCC)",
+        "Squamous Cell Carcinoma (SCC)",
+        "Actinic Keratosis (ACK)",
+        "Seborrheic Keratosis (SEK)",
+        "Melanoma (MEL)",
+        "Nevus (NEV)"
+      ],
+      "counts": {
+        "total": 2298,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Fine-tuned on the target dataset for 100 epochs.",
+        "validation": "Used for validation during the training process (implied by early stopping and learning rate reduction logic).",
+        "testing": "Evaluated for balanced accuracy, F1-Score, and AUC to compare against original MetaBlock and vision models.",
+        "other": "Used to simulate missing metadata rates from 0% to 70% to test robustness."
+      }
+    },
+    {
+      "name": "PAD-UFES-20",
+      "description": "A new extended version of the PAD-UFES-20 dataset, seven times larger, collected in collaboration with the Dermatological and Surgical Assistance Program at the Federal University of Espírito Santo (UFES, Brazil) from 2019 to 2025. It serves low-income individuals in rural areas and contains real-world missing metadata.",
+      "classes_used": [
+        "Basal Cell Carcinoma (BCC)",
+        "Squamous Cell Carcinoma (SCC)",
+        "Actinic Keratosis (ACK)",
+        "Seborrheic Keratosis (SEK)",
+        "Melanoma (MEL)",
+        "Nevus (NEV)"
+      ],
+      "counts": {
+        "total": 16318,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Fine-tuned on the target dataset for 100 epochs.",
+        "validation": "Used for validation during the training process.",
+        "testing": "Evaluated for balanced accuracy, F1-Score, and AUC to compare against MetaBlock, Cross-Attention, Bayesian Network, and vanilla CNN models in a real-world scenario with inherent missing metadata.",
+        "other": "Used to demonstrate robustness to real-world missing metadata (e.g., ~31% missing elevation/growth info)."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Balanced Accuracy (BACC)",
+    "F1-Score",
+    "AUC-ROC",
+    "Statistical Tests",
+    "A-TOPSIS ranking"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "5-fold cross-validation",
+      "purpose": "To evaluate model performance using a stratified group scheme, ensuring stratification by label frequency while grouping by patient to prevent data leakage.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Wilcoxon signed-rank test",
+      "purpose": "To statistically compare results across experiments and assess significant differences in performance between models (e.g., MetaBlock vs. MetaBlock-SE) under simulated missing metadata scenarios.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "95% confidence interval",
+      "purpose": "To report the uncertainty of the balanced accuracy performance metrics for the models across different missing metadata rates.",
+      "type": "Uncertainty estimation"
+    },
+    {
+      "method": "A-TOPSIS ranking",
+      "purpose": "To rank the performance of different fusion methods (MetaBlock-SE, MetaBlock, Cross-Attention, Bayesian Network) based on balanced accuracy, using weights of 0.75 for average and 0.25 for standard deviation.",
+      "type": "Ranking method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Wilcoxon signed-rank test",
+    "null_hypothesis": "There is no significant difference in performance between the compared models (e.g., MetaBlock-SE vs. MetaBlock, or MetaBlock-SE vs. Cross-Attention).",
+    "alternative_hypothesis": "There is a significant difference in performance between the compared models.",
+    "alpha": 0.05,
+    "interpretation": "The paper reports p-values to determine statistical significance. For the comparison between MetaBlock-SE and MetaBlock on the PAD-UFES-20 dataset, a p-value of 0.0136 was reported, indicating a statistically significant difference. For the comparison on the extended dataset, p-values were reported for Balanced Accuracy (0.784), AUC (0.076), and F1-Score (0.024) when comparing MetaBlock-SE to the Cross-Attention method. A p-value < 0.05 (e.g., 0.024 for F1-Score) indicates a significant difference, while p > 0.05 (e.g., 0.784 for BACC) indicates no significant difference."
+  },
+  "results_obtained_in_each_dataset": {
+    "PAD-UFES-20": {
+      "experiment": "Part 1: Simulating Missing Metadata (0% to 70% missing rates)",
+      "metric": "Balanced Accuracy (BACC)",
+      "models": {
+        "MetaBlock-SE": {
+          "best_balanced_accuracy": "70.2 ± 2.8",
+          "description": "Outperformed original MetaBlock in all scenarios. Performance decreased as missing metadata rate increased, but remained more robust than MetaBlock."
+        },
+        "MetaBlock": {
+          "description": "Outperformed vanilla CNN models when metadata was complete. Showed steeper decline in performance compared to MetaBlock-SE as missing metadata increased. Statistically significantly different from MetaBlock-SE at 20% missing metadata (p-value = 0.0136)."
+        },
+        "Vanilla CNNs": {
+          "description": "Outperformed by MetaBlock and MetaBlock-SE when metadata was well-structured. Performance comparable to MetaBlock-SE when dropout rate reached 50%."
+        }
+      },
+      "notes": "Evaluated using 5-fold cross-validation. Primary metric was Balanced Accuracy. Wilcoxon signed-rank test used for statistical comparison."
+    },
+    "Extended PAD-UFES-20": {
+      "experiment": "Part 2: Real-world Missing Metadata Case Study",
+      "metric": "Balanced Accuracy (BACC), F1-Score, AUC",
+      "models": {
+        "MetaBlock-SE": {
+          "balanced_accuracy": "68.2 ± 1.0",
+          "comparison_vs_MetaBlock": "Superior (p-value = 2.0 × 10^-6)",
+          "comparison_vs_Bayesian_Network": "Superior (p-value = 2.0 × 10^-6)",
+          "comparison_vs_Vanilla_CNN": "Superior (p-value = 2.7 × 10^-5)",
+          "comparison_vs_Cross_Attention": "Similar BACC (p-value = 0.784), Similar AUC (p-value = 0.076), Higher F1-Score (p-value = 0.024)",
+          "A-TOPSIS_Rank": "Top position"
+        },
+        "MetaBlock": {
+          "description": "Outperformed by MetaBlock-SE."
+        },
+        "Cross-Attention": {
+          "description": "Compared against MetaBlock-SE. No significant difference in BACC or AUC, but lower F1-Score."
+        },
+        "Bayesian Network": {
+          "description": "Outperformed by MetaBlock-SE."
+        },
+        "Vanilla CNNs": {
+          "description": "Outperformed by MetaBlock-SE."
+        }
+      },
+      "notes": "Dataset contains 16,318 samples with inherent real-world missing metadata (e.g., ~31% missing elevation/growth info). MetaBlock-SE achieved top A-TOPSIS ranking. Model size increase was modest (43 MB) due to paraphrase-albert-small-v2."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MetaBlock-SE (an extension of the Metadata Processing Block architecture)",
+    "pretraining": "ImageNet pre-trained weights for vision backbones (via torchvision API); paraphrase-albert-small-v2 for sentence embeddings; PubMedBERT also tested for sentence embeddings",
+    "input_size": "224 x 224 pixels (for input images)",
+    "architecture_details": {
+      "backbone_models": [
+        "ResNet-50",
+        "EfficientNet-B4",
+        "MobileNet-V2",
+        "CAFormer-S18"
+      ],
+      "metadata_extractor": "Sentence-BERT (SBERT) model using paraphrase-albert-small-v2 to generate dense sentence embeddings (768 dimensions) from metadata features, replacing one-hot encoding",
+      "fusion_method": "MetaBlock core equation using LSTM-like gates to scale and shift image feature maps based on metadata embeddings",
+      "model_size_increase": "43 MB (due to paraphrase-albert-small-v2)"
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "learning_rate": 0.0001,
+      "beta1": 0.9,
+      "beta2": 0.999,
+      "learning_rate_schedule": "Exponential decay by factor of 0.1 if no improvement over 10 consecutive epochs",
+      "early_stopping": "Triggered after 15 epochs without improvement",
+      "epochs": 100,
+      "loss_function": "Weighted cross-entropy loss (weights inversely proportional to class frequency)",
+      "data_augmentation": [
+        "Horizontal and vertical flipping",
+        "Brightness adjustment",
+        "Contrast adjustment",
+        "Saturation adjustment",
+        "Image scaling",
+        "Addition of random noise"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Multiclass classification",
+      "classes": [
+        "Basal Cell Carcinoma (BCC)",
+        "Squamous Cell Carcinoma (SCC)",
+        "Actinic Keratosis (ACK)",
+        "Seborrheic Keratosis (SEK)",
+        "Melanoma (MEL)",
+        "Nevus (NEV)"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MetaBlock-SE",
+    "MetaBlock",
+    "Vanilla CNNs",
+    "ResNet-50",
+    "EfficientNet-B4",
+    "MobileNet-V2",
+    "CAFormer-S18",
+    "Cross-Attention",
+    "Bayesian Network",
+    "Sentence-BERT (SBERT)",
+    "paraphrase-albert-small-v2",
+    "PubMedBERT",
+    "AlbertTokenizerFast",
+    "Sparse Autoencoder (SAE)",
+    "Transformer-based model",
+    "Support Vector Machines (SVMs)"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to 224 x 224 pixels",
+    "Data augmentation: horizontal and vertical flipping",
+    "Data augmentation: brightness adjustment",
+    "Data augmentation: contrast adjustment",
+    "Data augmentation: saturation adjustment",
+    "Data augmentation: image scaling",
+    "Data augmentation: addition of random noise",
+    "Metadata tokenization using AlbertTokenizerFast (vocabulary size 30,000, max input length 512, right-side padding and truncation)",
+    "Metadata organization as continuous sentences for SBERT input",
+    "Exclusion of ancestry information from extended dataset due to >70% missing values",
+    "Exclusion of lesion diameter features from extended dataset for consistency"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Horizontal and vertical flipping",
+      "details": "Applied as a standard geometric transform during training."
+    },
+    {
+      "technique": "Brightness adjustment",
+      "details": "Applied as a color transform during training."
+    },
+    {
+      "technique": "Contrast adjustment",
+      "details": "Applied as a color transform during training."
+    },
+    {
+      "technique": "Saturation adjustment",
+      "details": "Applied as a color transform during training."
+    },
+    {
+      "technique": "Image scaling",
+      "details": "Applied as a geometric transform during training."
+    },
+    {
+      "technique": "Addition of random noise",
+      "details": "Applied as a noise-based augmentation technique during training."
+    }
+  ],
+  "conclusions": [
+    "The proposed MetaBlock-SE method, which integrates sentence embeddings to handle missing metadata, outperforms the original MetaBlock architecture across all simulated and real-world missing metadata scenarios.",
+    "MetaBlock-SE achieved a balanced accuracy of 70.2 ± 2.8 on the PAD-UFES-20 dataset and 68.2 ± 1.0 on the extended PAD-UFES-20 dataset using the ResNet-50 backbone.",
+    "In real-world scenarios with inherent missing metadata, MetaBlock-SE achieved top ranking in A-TOPSIS analysis and demonstrated superior precision (F1-Score) compared to the Cross-Attention method, while maintaining similar balanced accuracy and AUC.",
+    "MetaBlock-SE consistently outperformed the original MetaBlock and Bayesian Network baselines across all vision backbones tested.",
+    "The method is computationally efficient, with a modest model size increase of 43 MB due to the paraphrase-albert-small-v2 embedding, making it suitable for deployment on mobile and edge-computing platforms in low-resource environments.",
+    "Performance of MetaBlock-SE decreases as the rate of missing metadata increases; specifically, it can become inferior to vision model baselines when the dropout rate reaches 50%, indicating it is not a complete solution for all missing data scenarios.",
+    "The study's generalizability is limited by the use of only the PAD-UFES-20 and its extended version, and further validation on datasets from different clinical settings is needed due to the scarcity of public skin cancer datasets with rich metadata."
+  ],
+  "important_remarks": [
+    "The study is limited to two datasets (PAD-UFES-20 and an extended version) collected in Brazil, which may restrict generalizability to other demographic groups or clinical settings with different metadata structures.",
+    "The extended dataset serves low-income individuals in rural areas, potentially introducing socioeconomic and geographic bias not present in standard clinical cohorts.",
+    "Ancestry information was excluded from the extended dataset due to >70% missing values, limiting the model's ability to account for demographic risk factors.",
+    "Lesion diameter features were excluded from the extended dataset for consistency with the original PAD-UFES-20, despite their clinical relevance.",
+    "A Chi-square test revealed that missingness in the extended dataset is correlated with lesion type (p < 10^-12), indicating the data is not missing completely at random (MCAR), which complicates the interpretation of robustness.",
+    "Performance of MetaBlock-SE decreases significantly as missing metadata rates increase, becoming inferior to vision-only baselines when the dropout rate reaches 50%.",
+    "The implementation of the Bayesian Network baseline did not use K-Nearest Neighbors for imputation, differing from the original authors' approach, which may affect the fairness of the comparison.",
+    "The model was evaluated using 5-fold cross-validation with stratification by label frequency and grouping by patient to prevent data leakage, which is a strength in preventing overfitting to individual patients.",
+    "The study acknowledges that future work should include fine-tuning sentence embeddings with vision backbones, suggesting current results may be suboptimal compared to fully joint training."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_Bouzon et al. - 2025 - MetaBlock-SE A Method to Deal With Missing Metadata in Multimodal Skin Cancer Classification.pdf",
+    "summary": "The study evaluated the MetaBlock-SE method on two datasets: the original PAD-UFES-20 dataset (2,298 samples) and a newly extended version of PAD-UFES-20 (16,318 samples). Both datasets were used for internal evaluation via 5-fold stratified group cross-validation. The original dataset was used to simulate missing metadata scenarios (0-70% dropout), while the extended dataset contained real-world missing metadata. No external or cross-dataset validation was performed; the study acknowledges limited generalizability due to the lack of external test sets.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper did not perform cross-dataset validation. Both datasets (PAD-UFES-20 and its extended version) are from the same source (Federal University of Espírito Santo, Brazil) and were evaluated using internal 5-fold cross-validation. The authors explicitly state that further validation on datasets from different clinical settings is needed.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "PAD-UFES-20",
+          "counts": "2,298 samples (used in 5-fold CV)",
+          "notes": "Used for Part 1 experiments simulating missing metadata. Fine-tuned for 100 epochs per fold."
+        },
+        {
+          "dataset": "Extended PAD-UFES-20",
+          "counts": "16,318 samples (used in 5-fold CV)",
+          "notes": "Used for Part 2 experiments with real-world missing metadata. Fine-tuned for 100 epochs per fold."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "PAD-UFES-20",
+          "counts": "Null (internal CV fold)",
+          "notes": "Used for model selection/tuning within the 5-fold cross-validation scheme (early stopping after 15 epochs without improvement)."
+        },
+        {
+          "dataset": "Extended PAD-UFES-20",
+          "counts": "Null (internal CV fold)",
+          "notes": "Used for model selection/tuning within the 5-fold cross-validation scheme."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "PAD-UFES-20",
+          "counts": "Null (internal CV fold)",
+          "notes": "Evaluated for balanced accuracy, F1-Score, and AUC in each fold of the 5-fold CV."
+        },
+        {
+          "dataset": "Extended PAD-UFES-20",
+          "counts": "Null (internal CV fold)",
+          "notes": "Evaluated for balanced accuracy, F1-Score, and AUC in each fold of the 5-fold CV."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Pre-trained weights obtained via torchvision API were used to initialize the CNN backbones (ResNet-50, EfficientNet-B4, MobileNet-V2, CAFormer-S18) before fine-tuning on the target datasets."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "PAD-UFES-20 (Simulated)",
+          "notes": "Missing metadata was simulated by randomly removing patient clinical features at rates from 0% to 70% to test robustness."
+        },
+        {
+          "dataset": "PAD-UFES-20 (Augmentation)",
+          "notes": "Standard data augmentation techniques were applied during training: horizontal/vertical flipping, brightness/contrast/saturation adjustment, image scaling, and addition of random noise."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "k-fold cross-validation",
+      "split_details": "5-fold stratified group cross-validation. Stratification was by label frequency, and grouping was by patient to prevent data leakage. No separate held-out test set was used; performance is reported as the average and standard deviation across the 5 folds.",
+      "cross_validation_details": "5-fold cross-validation. Folds stayed within each respective dataset (PAD-UFES-20 and Extended PAD-UFES-20 separately).",
+      "patient_level_or_image_level_split": "Patient-level",
+      "unseen_data_details": "No unseen external dataset was used. The study acknowledges this limitation."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "PAD-UFES-20",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "PAD-UFES-20"
+        ],
+        "model_or_method": "MetaBlock-SE (ResNet-50 backbone)",
+        "metrics": {
+          "accuracy": "70.2 ± 2.8 (Balanced Accuracy)",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {
+            "comparison": "Outperformed original MetaBlock (p=0.0136 at 20% missing metadata)"
+          }
+        },
+        "notes": "Evaluated under simulated missing metadata scenarios (0-70%). Performance decreased as missing rate increased."
+      },
+      {
+        "dataset": "Extended PAD-UFES-20",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "Extended PAD-UFES-20"
+        ],
+        "model_or_method": "MetaBlock-SE (ResNet-50 backbone)",
+        "metrics": {
+          "accuracy": "68.2 ± 1.0 (Balanced Accuracy)",
+          "auc": "null",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {
+            "comparison": "Superior to MetaBlock (p=2.0e-6), Bayesian Network (p=2.0e-6), Vanilla CNNs (p=2.7e-5). Similar BACC/AUC to Cross-Attention, higher F1 (p=0.024). Top A-TOPSIS rank."
+          }
+        },
+        "notes": "Evaluated on real-world missing metadata (~31% missing elevation/growth). Dataset contains 16,318 samples from 6,063 patients."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "PAD-UFES-20",
+        "split_or_cv": "5-fold stratified group CV",
+        "models": [
+          "MetaBlock-SE",
+          "MetaBlock",
+          "Vanilla CNNs (ResNet-50, EfficientNet-B4, MobileNet-V2, CAFormer-S18)"
+        ],
+        "results": [
+          {
+            "metric": "Balanced Accuracy",
+            "value": "70.2 ± 2.8 (MetaBlock-SE, ResNet-50)",
+            "model": "MetaBlock-SE",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Balanced Accuracy",
+            "value": "null (specific value not reported, but stated to be similar to MetaBlock-SE at 0% missing)",
+            "model": "MetaBlock",
+            "data_split": "cross-validation"
+          }
+        ]
+      },
+      {
+        "dataset": "Extended PAD-UFES-20",
+        "split_or_cv": "5-fold stratified group CV",
+        "models": [
+          "MetaBlock-SE",
+          "MetaBlock",
+          "Cross-Attention",
+          "Bayesian Network",
+          "Vanilla CNNs"
+        ],
+        "results": [
+          {
+            "metric": "Balanced Accuracy",
+            "value": "68.2 ± 1.0",
+            "model": "MetaBlock-SE",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "F1-Score",
+            "value": "null (specific value not reported, but stated to be higher than Cross-Attention)",
+            "model": "MetaBlock-SE",
+            "data_split": "cross-validation"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study is limited to two datasets collected in Brazil (PAD-UFES-20 and its extended version), which may restrict generalizability to other demographic groups or clinical settings.",
+      "The extended dataset serves low-income individuals in rural areas, potentially introducing socioeconomic and geographic bias.",
+      "The authors explicitly state that further validation on datasets from different clinical settings is needed to strengthen external validity.",
+      "Ancestry information was excluded from the extended dataset due to >70% missing values, limiting demographic risk factor analysis.",
+      "Missingness in the extended dataset was found to be correlated with lesion type (p < 10^-12), indicating data is not missing completely at random (MCAR)."
+    ],
+    "information_not_reported": [
+      "Specific counts for training/validation/test splits within the 5-fold CV (only total dataset sizes are reported).",
+      "Specific AUC, Sensitivity, and Specificity values for the Extended PAD-UFES-20 dataset (only comparative p-values are provided).",
+      "Detailed per-class performance metrics."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1779997453
+  }
+}

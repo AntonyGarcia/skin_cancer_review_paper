@@ -1,0 +1,628 @@
+{
+  "file_name": "Wan et al. - 2022 - MSLANet multi-scale long attention network for skin lesion classification.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper proposes MSLANet, a multi-scale long attention network (a deep learning model based on Convolutional Neural Networks) for skin lesion classification in dermoscopy images. It utilizes long attention mechanisms, self-supervised learning, and deep data augmentation (DDA) to classify skin lesions (specifically distinguishing melanoma from nevus) on the ISIC 2017 and SIIM-ISIC 2020 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel deep learning model, MSLANet, for skin lesion classification. It details the architecture (multi-scale long attention network), methods (self-supervised learning, deep data augmentation), and presents original experimental results on the ISIC 2017 and SIIM-ISIC 2020 datasets, achieving specific performance metrics (AUC of 93.7% and 92.4% respectively). The structure includes Introduction, Methods, Experiments, and Results, which is characteristic of an original research study rather than a review."
+  },
+  "title": "MSLANet: multi-scale long attention network for skin lesion classification",
+  "authors": [
+    "Yecong Wan",
+    "Yuanshuo Cheng",
+    "Mingwen Shao"
+  ],
+  "doi": "10.1007/s10489-022-03320-x",
+  "journal": "Applied Intelligence",
+  "year": 2022,
+  "article_type": "Journal article",
+  "brief_summary": "This study proposes MSLANet, a multi-scale long attention network for classifying skin lesions in dermoscopy images to address challenges like data insufficiency and inter-class similarity. The model integrates three long attention networks to fuse multi-scale features and employs self-supervised learning with classification activation maps to locate lesions without additional annotations. To enhance generalization, a deep data augmentation strategy combining traditional methods and StyleGAN is utilized. The method was evaluated on the ISIC 2017 and SIIM-ISIC 2020 datasets using accuracy, sensitivity, specificity, and area under the ROC curve (AUC). MSLANet achieved a rank-1 average AUC of 93.7% on the ISIC 2017 dataset and 92.4% on the SIIM-ISIC 2020 dataset. These results demonstrate that the proposed approach outperforms state-of-the-art methods in skin lesion classification.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "One of the two primary classes in the binary classification task on ISIC 2017 and SIIM-ISIC 2020 datasets. The paper notes the difficulty in distinguishing melanoma from nevus due to inter-class similarity."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi"
+      ],
+      "role": "Target class",
+      "details": "One of the two primary classes in the binary classification task on ISIC 2017 and SIIM-ISIC 2020 datasets. The paper highlights intra-class variation and inter-class similarity with melanoma as key challenges."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratosis"
+      ],
+      "role": "Target class",
+      "details": "Evaluated in the ISIC 2017 sub-task for seborrheic keratosis classification. MSLANet achieved an AUC of 0.971 and ACC of 0.935 for this class."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Skin lesion classes (Melanoma, Nevus, Seborrheic Keratosis)",
+        "primary": true,
+        "details": "The paper performs binary classification (melanoma vs. nevus) and multi-class classification (including seborrheic keratosis) on dermoscopy images. The model predicts discrete diagnostic categories using metrics such as Accuracy (ACC), Sensitivity (SE), Specificity (SP), and Area Under the ROC Curve (AUC). Specifically, it addresses the ISIC 2017 skin lesion classification challenge tasks for melanoma and seborrheic keratosis, as well as the SIIM-ISIC 2020 melanoma classification challenge."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "The International Skin Imaging Collaboration 2017 skin lesion classification dataset. It consists of dermoscopy images with gold standard diagnoses. The study also utilized an additional collection of 1800 images from the ISIC Archive for generalization purposes.",
+      "classes_used": [
+        "melanoma",
+        "nevus",
+        "seborrheic keratosis"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "additional_isic_archive": {
+            "melanoma": 351,
+            "nevus": 1179,
+            "seborrheic_keratosis": 270
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the MSLANet model (2000 images). Additional 1800 images from ISIC Archive were collected to improve generalization.",
+        "validation": "Used for validation (150 images).",
+        "testing": "Used for testing (600 images).",
+        "other": "Used for self-supervised learning to obtain Classification Activation Maps (CAM) via a big dermoscopy image dataset collected from ISIC Archive."
+      }
+    },
+    {
+      "name": "ISIC 2020",
+      "description": "The 2020 SIIM Melanoma Classification challenge dataset. It consists of dermoscopy images for identifying melanomas using clinical context.",
+      "classes_used": [
+        "melanoma",
+        "non-melanoma"
+      ],
+      "counts": {
+        "total": 33126,
+        "training": 33126,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the MSLANet model.",
+        "validation": "Not reported.",
+        "testing": "Used for testing (performance reported as AUC of 92.4%).",
+        "other": "Used to prove the effectiveness of the proposed method on a different dataset."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "AUC-ROC"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using point estimates of metrics (Accuracy, AUC, Sensitivity, Specificity) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "description": "Skin lesion classification dataset. Melanoma and Seborrheic Keratosis classification tasks were evaluated. The test set was not publicly available; the official training set was split into training, validation, and test sets in a 6:1:3 ratio.",
+      "tasks": [
+        "Melanoma classification",
+        "Seborrheic keratosis classification"
+      ],
+      "models": {
+        "MSLANet (ours)": {
+          "Melanoma ACC": 0.858,
+          "Melanoma AUC": 0.903,
+          "Melanoma SE": 0.556,
+          "Melanoma SP": 0.932,
+          "Seborrheic Keratosis ACC": 0.935,
+          "Seborrheic Keratosis AUC": 0.971,
+          "Seborrheic Keratosis SE": 0.822,
+          "Seborrheic Keratosis SP": 0.955,
+          "Average AUC": 0.937
+        },
+        "LANet (ours)": {
+          "Melanoma ACC": 0.842,
+          "Melanoma AUC": 0.884,
+          "Melanoma SE": 0.581,
+          "Melanoma SP": 0.905,
+          "Seborrheic Keratosis ACC": 0.938,
+          "Seborrheic Keratosis AUC": 0.968,
+          "Seborrheic Keratosis SE": 0.878,
+          "Seborrheic Keratosis SP": 0.949,
+          "Average AUC": 0.926
+        },
+        "GP-CNN-DTEL [33]": {
+          "Melanoma ACC": 0.85,
+          "Melanoma AUC": 0.891,
+          "Melanoma SE": 0.658,
+          "Melanoma SP": 0.376,
+          "Seborrheic Keratosis ACC": 0.935,
+          "Seborrheic Keratosis AUC": 0.96,
+          "Seborrheic Keratosis SE": 0.722,
+          "Seborrheic Keratosis SP": 0.973,
+          "Average AUC": 0.926
+        },
+        "ARL-CNN [34]": {
+          "Melanoma ACC": 0.85,
+          "Melanoma AUC": 0.875,
+          "Melanoma SE": 0.658,
+          "Melanoma SP": 0.896,
+          "Seborrheic Keratosis ACC": 0.868,
+          "Seborrheic Keratosis AUC": 0.958,
+          "Seborrheic Keratosis SE": 0.878,
+          "Seborrheic Keratosis SP": 0.867,
+          "Average AUC": 0.917
+        },
+        "SSAC [6]": {
+          "Melanoma ACC": 0.835,
+          "Melanoma AUC": 0.873,
+          "Melanoma SE": 0.556,
+          "Melanoma SP": 0.903,
+          "Seborrheic Keratosis ACC": 0.912,
+          "Seborrheic Keratosis AUC": 0.959,
+          "Seborrheic Keratosis SE": 0.889,
+          "Seborrheic Keratosis SP": 0.916,
+          "Average AUC": 0.916
+        },
+        "SDL [8]": {
+          "Melanoma ACC": 0.888,
+          "Melanoma AUC": 0.868,
+          "Seborrheic Keratosis ACC": 0.925,
+          "Seborrheic Keratosis AUC": 0.958,
+          "Average AUC": 0.913
+        },
+        "#1 [48]": {
+          "Melanoma ACC": 0.828,
+          "Melanoma AUC": 0.868,
+          "Melanoma SE": 0.735,
+          "Melanoma SP": 0.851,
+          "Seborrheic Keratosis ACC": 0.803,
+          "Seborrheic Keratosis AUC": 0.953,
+          "Seborrheic Keratosis SE": 0.978,
+          "Seborrheic Keratosis SP": 0.773,
+          "Average AUC": 0.911
+        },
+        "#2 [29]": {
+          "Melanoma ACC": 0.823,
+          "Melanoma AUC": 0.856,
+          "Melanoma SE": 0.103,
+          "Melanoma SP": 0.998,
+          "Seborrheic Keratosis ACC": 0.875,
+          "Seborrheic Keratosis AUC": 0.965,
+          "Seborrheic Keratosis SE": 0.178,
+          "Seborrheic Keratosis SP": 0.998,
+          "Average AUC": 0.91
+        },
+        "#3 [49]": {
+          "Melanoma ACC": 0.872,
+          "Melanoma AUC": 0.874,
+          "Melanoma SE": 0.547,
+          "Melanoma SP": 0.95,
+          "Seborrheic Keratosis ACC": 0.895,
+          "Seborrheic Keratosis AUC": 0.943,
+          "Seborrheic Keratosis SE": 0.356,
+          "Seborrheic Keratosis SP": 0.99,
+          "Average AUC": 0.908
+        },
+        "#4 [50]": {
+          "Melanoma ACC": 0.858,
+          "Melanoma AUC": 0.87,
+          "Melanoma SE": 0.427,
+          "Melanoma SP": 0.963,
+          "Seborrheic Keratosis ACC": 0.918,
+          "Seborrheic Keratosis AUC": 0.921,
+          "Seborrheic Keratosis SE": 0.589,
+          "Seborrheic Keratosis SP": 0.976,
+          "Average AUC": 0.896
+        },
+        "#5 [51]": {
+          "Melanoma ACC": 0.845,
+          "Melanoma AUC": 0.836,
+          "Melanoma SE": 0.35,
+          "Melanoma SP": 0.965,
+          "Seborrheic Keratosis ACC": 0.935,
+          "Seborrheic Keratosis AUC": 0.913,
+          "Seborrheic Keratosis SE": 0.556,
+          "Seborrheic Keratosis SP": 0.976,
+          "Average AUC": 0.886
+        }
+      },
+      "ablation_study_results": {
+        "LANet (No PT, No DDA, No FD, No MS)": {
+          "AUC of ME": 0.793,
+          "AUC of SK": 0.919,
+          "Average AUC": 0.856
+        },
+        "LANet (PT, No DDA, No FD, No MS)": {
+          "AUC of ME": 0.876,
+          "AUC of SK": 0.954,
+          "Average AUC": 0.915
+        },
+        "LANet (PT, DDA, No FD, No MS)": {
+          "AUC of ME": 0.864,
+          "AUC of SK": 0.95,
+          "Average AUC": 0.907
+        },
+        "LANet (PT, DDA, FD, No MS)": {
+          "AUC of ME": 0.868,
+          "AUC of SK": 0.948,
+          "Average AUC": 0.908
+        },
+        "LANet (PT, DDA, FD, MS)": {
+          "AUC of ME": 0.884,
+          "AUC of SK": 0.968,
+          "Average AUC": 0.926
+        },
+        "MSLANet (PT, DDA, FD, MS)": {
+          "AUC of ME": 0.903,
+          "AUC of SK": 0.971,
+          "Average AUC": 0.937
+        }
+      },
+      "notes": "MSLANet achieved the highest AUC for melanoma (0.903) and seborrheic keratosis (0.971) classification, as well as the highest average AUC (0.937). It outperformed state-of-the-art methods including GP-CNN-DTEL, ARL-CNN, SSAC, SDL, and top-ranking challenge methods (#1-#5). The paper notes that MSLANet achieved an AUC > 0.9 for melanoma for the first time in this task."
+    },
+    "SIIM-ISIC 2020": {
+      "description": "Melanoma classification challenge dataset. The official training set was divided into training, validation, and test sets in a 6:1:3 ratio because test labels were not publicly available.",
+      "tasks": [
+        "Melanoma classification"
+      ],
+      "models": {
+        "MSLANet (ours)": {
+          "ACC": 0.956,
+          "AUC": 0.924,
+          "SE": 0.596,
+          "SP": 0.974
+        },
+        "ResNet-50 [45]": {
+          "ACC": 0.934,
+          "AUC": 0.895,
+          "SE": 0.547,
+          "SP": 0.956
+        },
+        "SE-ResNeXt-50 [43]": {
+          "ACC": 0.939,
+          "AUC": 0.906,
+          "SE": 0.569,
+          "SP": 0.961
+        },
+        "MobileNetV3 [52]": {
+          "ACC": 0.941,
+          "AUC": 0.917,
+          "SE": 0.588,
+          "SP": 0.978
+        },
+        "DenseNet-201 [53]": {
+          "ACC": 0.937,
+          "AUC": 0.906,
+          "SE": 0.577,
+          "SP": 0.966
+        },
+        "Efficient-B4 [54]": {
+          "ACC": 0.95,
+          "AUC": 0.92,
+          "SE": 0.589,
+          "SP": 0.968
+        },
+        "Res2Net [40]": {
+          "ACC": 0.947,
+          "AUC": 0.914,
+          "SE": 0.598,
+          "SP": 0.978
+        },
+        "Swin Transformer [55]": {
+          "ACC": 0.942,
+          "AUC": 0.915,
+          "SE": 0.586,
+          "SP": 0.962
+        },
+        "MB-DCNN [56]": {
+          "ACC": 0.953,
+          "AUC": 0.921,
+          "SE": 0.6,
+          "SP": 0.97
+        }
+      },
+      "notes": "MSLANet achieved the highest ACC (0.956) and AUC (0.924) among the compared state-of-the-art image classification methods. Its AUC was 0.029 higher than ResNet-50. The paper highlights that MSLANet achieved state-of-the-art performance without using an ensemble strategy."
+    }
+  },
+  "architecture_used": {
+    "main_model": "MSLANet (Multi-Scale Long Attention Network)",
+    "pretraining": "ImageNet pre-training was used for the backbone (ResNet50). Self-supervised learning (MoCov2) was used on a large dermoscopy dataset from the ISIC Archive to obtain Classification Activation Maps (CAM) for cropping, rather than for direct feature pretraining of the classifier.",
+    "input_size": "224x224 (images were resized to this standard size after augmentation and cropping)",
+    "architecture_details": {
+      "backbone": "ResNet50",
+      "structure": "Composed of three Long Attention Networks (LANets) operating at different scales. Each LANet fuses multi-scale information in the downsampling process and modifies low-level features using high-level semantic information via a long attention mechanism.",
+      "attention_mechanism": "Long attention mechanism using a mixed sigmoid function to normalize feature maps into an attention soft mask containing mixed channel and spatial attention information. 1x1 convolution is used for dimension adjustment.",
+      "fusion_strategy": "Outputs of the three LANets are averaged (decision fusion). Five dropouts are added at the end of each LANet, and their average is taken as the final output (Five-Dropouts method).",
+      "feature_extraction": "Multi-scale features are extracted by cropping the original image based on CAM thresholds (70 and 110) and resizing to 224x224 before inputting into subsequent LANets.",
+      "layers": "Based on ResNet50 architecture",
+      "heads": "Not explicitly reported as multi-head attention; uses channel and spatial attention masks.",
+      "patch_size": "Not reported (CNN-based, not Vision Transformer)",
+      "classifier_head": "Average of outputs from three LANets with Five-Dropouts",
+      "optimizer": "Adam",
+      "loss_function": "Not explicitly reported in the provided text (standard classification loss implied)",
+      "hyperparameters": {
+        "learning_rate": 0.0001,
+        "batch_size": 32,
+        "max_epochs": 100,
+        "lr_scheduler": "One-tenth reduction per 20 epochs",
+        "cam_thresholds": [
+          70,
+          110
+        ]
+      },
+      "training_schedule": "Training monitored using the official validation set. Maximum 100 epochs with learning rate decay.",
+      "approximate_parameters": null
+    },
+    "training_details": {
+      "framework": "PyTorch",
+      "hardware": "Two NVIDIA RTX 2080ti GPUs with 11GB memory",
+      "data_augmentation": "Deep Data Augmentation (DDA) strategy combining traditional methods (Transpose, VerticalFlip, HorizontalFlip, Random Brightness, Random Contrast, Motion Blurring, Median Blurring, Gaussian Blurring, Gaussian Noise, Optical Distortion, Grid Distortion, Elastic Transformation, AHELC, RHSV, SSR, CutOut) and GAN inversion using StyleGAN encoder/embedding into latent space W+."
+    },
+    "classification_or_output_head": {
+      "type": "Multi-scale decision fusion",
+      "details": "Averages the predictions from three LANets. Each LANet processes a different scale of the input image (original, CAM-cropped at threshold 70, CAM-cropped at threshold 110)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MSLANet",
+    "LANet",
+    "GP-CNN-DTEL",
+    "ARL-CNN",
+    "SSAC",
+    "SDL",
+    "ResNet-50",
+    "SE-ResNeXt-50",
+    "MobileNetV3",
+    "DenseNet-201",
+    "Efficient-B4",
+    "Res2Net",
+    "Swin Transformer",
+    "MB-DCNN",
+    "ResNet50",
+    "StyleGAN",
+    "DeepLabV3+"
+  ],
+  "preprocessing_techniques": [
+    "CAM-Based Crop: Lesion regions extracted using Classification Activation Maps (CAM) obtained via self-supervised learning (MoCov2) with thresholds of 70 and 110 to remove background and obtain multi-scale views.",
+    "Resizing: Images resized to a standard size of 224x224 pixels after cropping.",
+    "Deep Data Augmentation (DDA): Combination of traditional methods and GAN inversion.",
+    "Traditional Data Augmentation: Transpose, Vertical Flip, Horizontal Flip, Random Brightness, Random Contrast, Motion Blurring, Median Blurring, Gaussian Blurring, Gaussian Noise, Optical Distortion, Grid Distortion, Elastic Transformation, Adaptive Histogram Equalization with Limited Contrast (AHELC), Random Hue Saturation Value (RHSV), Shift Scale Rotation (SSR), and CutOut.",
+    "GAN-based Augmentation: StyleGAN encoder used to embed images into extended latent space W+ for reconstruction and noise addition to generate diverse training samples.",
+    "ImageNet Pre-training: Used for backbone feature extraction (ResNet50) and initial CAM generation (ResNet18) for comparison, though self-supervised CAM was preferred for cropping."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Deep Data Augmentation (DDA) - Traditional Methods",
+      "details": "A combination of traditional geometric and color transforms applied via a 'black box' approach. Specific methods include: Transpose, VerticalFlip, HorizontalFlip, Random Brightness, Random Contrast, Motion Blurring, Median Blurring, Gaussian Blurring, Gaussian Noise, Optical Distortion, Grid Distortion, Elastic Transformation, Adaptive Histogram Equalization with Limited Contrast (AHELC), Random Hue Saturation Value (RHSV), Shift Scale Rotation (SSR), and CutOut."
+    },
+    {
+      "technique": "Deep Data Augmentation (DDA) - GAN Inversion",
+      "details": "Used StyleGAN encoder to embed images into the extended latent space W+. For each augmentation, two images of the same class were used to generate the first 7 and second 7 style vectors respectively, while the last 4 vectors were random inputs. This method reconstructs images by adding noise to the StyleGAN to enhance data diversity and robustness."
+    },
+    {
+      "technique": "CAM-Based Crop (Instance-level Augmentation)",
+      "details": "Used to extract multi-scale views of lesions without additional annotations. Classification Activation Maps (CAM) obtained via self-supervised learning (MoCov2) were used with thresholds of 70 and 110 to crop the lesion regions. The original image and two cropped versions (low threshold and high threshold) were fed into three separate LANets."
+    }
+  ],
+  "conclusions": [
+    "The proposed MSLANet, a multi-scale long attention network, achieves state-of-the-art performance in skin lesion classification, outperforming existing methods without using ensemble strategies.",
+    "MSLANet achieved a rank-1 average AUC of 93.7% on the ISIC 2017 dataset and an AUC of 92.4% on the SIIM-ISIC 2020 dataset.",
+    "The integration of long attention mechanisms allows the model to fuse multi-scale information and modify low-level features using high-level semantic information, addressing challenges like inter-class similarity and intra-class variation.",
+    "Self-supervised learning using Classification Activation Maps (CAM) enables the extraction of multi-scale lesion perspectives without requiring additional manual annotations.",
+    "The proposed Deep Data Augmentation (DDA) strategy, which combines traditional augmentation with StyleGAN-based GAN inversion, significantly improves the model's generalization ability and robustness.",
+    "ImageNet pre-training was found to be the most effective pre-training method, providing better generalization ability and faster convergence compared to self-supervised methods like CMC, SimCLR, InsDis, MoCov1, and MoCov2.",
+    "While MSLANet achieves high accuracy and AUC, the multi-scale architecture introduces computational and speed limitations, with inference times significantly higher than single-scale models like ResNet50 and LANet.",
+    "The model achieves a good balance between sensitivity and specificity, which is critical for skin disease diagnosis, as focusing on a single index alone is insufficient for evaluating model performance."
+  ],
+  "important_remarks": [
+    "The test set labels for the ISIC 2017 dataset were not publicly available; the official training set was split into training, validation, and test sets in a 6:1:3 ratio, which may introduce bias compared to using the official held-out test set.",
+    "The SIIM-ISIC 2020 dataset also lacked publicly available test labels, requiring the authors to split the official training set into training, validation, and test sets (6:1:3 ratio), limiting independent external validation.",
+    "MSLANet exhibits significantly higher computational cost and slower inference speed compared to single-scale models; inference time was 21.32 ms per image (batch size 1) versus 6.29 ms for ResNet50 on an RTX 2080Ti.",
+    "The model achieved high specificity (0.932 on ISIC 2017 melanoma task) but relatively low sensitivity (0.556), indicating a trade-off where the model prioritizes avoiding false positives over detecting all positive cases.",
+    "The study relies on self-supervised learning (MoCov2) to generate Classification Activation Maps (CAM) for lesion cropping without manual annotations, but this method's effectiveness is contingent on the self-supervised model's ability to focus on the lesion rather than background noise.",
+    "Deep Data Augmentation (DDA) using StyleGAN inversion was employed to address data insufficiency, but the quality of generated images and their impact on generalization to diverse clinical populations remains a limitation of synthetic data reliance.",
+    "The paper does not report statistical significance testing (e.g., p-values or confidence intervals) for performance comparisons, relying solely on point estimates of metrics like AUC and Accuracy.",
+    "The model was evaluated only on two public datasets (ISIC 2017 and SIIM-ISIC 2020); lack of validation on external, multi-center, or diverse skin-type datasets limits the assessment of real-world clinical generalizability and potential demographic bias."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_Wan et al. - 2022 - MSLANet multi-scale long attention network for skin lesion classification.pdf",
+    "summary": "The study evaluated the MSLANet model on two primary datasets: ISIC 2017 and SIIM-ISIC 2020. For ISIC 2017, the official training set was split into training (2000 images), validation (150 images), and test (600 images) sets in a 6:1:3 ratio because the official test labels were not publicly available. Additionally, 1800 images from the ISIC Archive were collected to improve generalization but were not used as a separate held-out test set. For SIIM-ISIC 2020, the official training set (33,126 images) was similarly split into training, validation, and test sets in a 6:1:3 ratio due to unavailable test labels. The model was pre-trained using ImageNet weights. No true external cross-dataset validation was performed; the SIIM-ISIC 2020 evaluation served as a test on a different dataset but was derived from its own training pool, not an independent external cohort.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper does not report training on one named dataset and testing on a completely separate, unseen external dataset. While the model was tested on SIIM-ISIC 2020 after being trained on ISIC 2017 (or vice versa, though the paper primarily details training on ISIC 2017 and testing on SIIM-ISIC 2020 as a separate experiment), the SIIM-ISIC 2020 test set was created by splitting its own official training set (6:1:3 ratio) because test labels were not public. Thus, it is not a true external holdout validation in the strict sense of unseen data from a different source distribution without overlap or specific external collection protocols described as such. The paper treats SIIM-ISIC 2020 as a separate evaluation dataset but does not claim it as an external validation cohort in the context of generalizability to unseen clinical populations beyond the dataset itself.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2017",
+          "counts": "2000 images",
+          "notes": "Official training set split from the ISIC 2017 dataset. Used for model fitting."
+        },
+        {
+          "dataset": "ISIC Archive",
+          "counts": "1800 images (351 melanoma, 1179 nevus, 270 seborrheic keratosis)",
+          "notes": "Collected to improve generalization. The paper states these were used to 'enhance the generalization ability' and 'make it more practical', implying they were likely used for training or data augmentation, though exact split is not explicitly defined as separate from the main training pool in the text provided. However, the primary training count is cited as 2000 from ISIC 2017."
+        },
+        {
+          "dataset": "SIIM-ISIC 2020",
+          "counts": "Approx. 19,876 images (60% of 33,126)",
+          "notes": "Used for training in the SIIM-ISIC 2020 experiment. The official training set was split 6:1:3."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2017",
+          "counts": "150 images",
+          "notes": "Official validation set split from the ISIC 2017 training set (1/7th of total). Used to monitor training process."
+        },
+        {
+          "dataset": "SIIM-ISIC 2020",
+          "counts": "Approx. 3,313 images (10% of 33,126)",
+          "notes": "Split from the official SIIM-ISIC 2020 training set. Used for validation/model selection in that specific experiment."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2017",
+          "counts": "600 images",
+          "notes": "Official test set split from the ISIC 2017 training set (3/7th of total). Used for final performance evaluation on this dataset."
+        },
+        {
+          "dataset": "SIIM-ISIC 2020",
+          "counts": "Approx. 9,938 images (30% of 33,126)",
+          "notes": "Split from the official SIIM-ISIC 2020 training set. Used for final performance evaluation on this dataset."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Used for pre-training the ResNet50 backbone. The paper notes ImageNet pre-training provided the highest performance and best generalization compared to self-supervised methods."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "StyleGAN (via GAN Inversion)",
+          "notes": "Used for Deep Data Augmentation (DDA). Images were embedded into the StyleGAN latent space and reconstructed with noise to generate diverse training samples."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "For both ISIC 2017 and SIIM-ISIC 2020, the official training sets were split into training, validation, and test sets in a 6:1:3 ratio. ISIC 2017: 2000 train, 150 val, 600 test. SIIM-ISIC 2020: ~19,876 train, ~3,313 val, ~9,938 test.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No true unseen external dataset was used. The SIIM-ISIC 2020 test set was derived from its own training pool. The ISIC 2017 test set was derived from its own training pool."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2017",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 (2000 images)",
+          "ISIC Archive (1800 images, likely used for augmentation/generalization)"
+        ],
+        "model_or_method": "MSLANet",
+        "metrics": {
+          "accuracy": 0.858,
+          "auc": 0.937,
+          "sensitivity": 0.556,
+          "specificity": 0.932,
+          "f1_score": null,
+          "other_metrics": {
+            "Melanoma AUC": 0.903,
+            "Melanoma ACC": 0.858,
+            "Melanoma SE": 0.556,
+            "Melanoma SP": 0.932,
+            "Seborrheic Keratosis AUC": 0.971,
+            "Seborrheic Keratosis ACC": 0.935,
+            "Seborrheic Keratosis SE": 0.822,
+            "Seborrheic Keratosis SP": 0.955
+          }
+        },
+        "notes": "Results on the split test set of ISIC 2017. The paper highlights this as rank-1 average AUC."
+      },
+      {
+        "dataset": "SIIM-ISIC 2020",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "SIIM-ISIC 2020 (training split)"
+        ],
+        "model_or_method": "MSLANet",
+        "metrics": {
+          "accuracy": 0.956,
+          "auc": 0.924,
+          "sensitivity": 0.596,
+          "specificity": 0.974,
+          "f1_score": null,
+          "other_metrics": {}
+        },
+        "notes": "Results on the split test set of SIIM-ISIC 2020. The paper highlights this as state-of-the-art performance on this dataset."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2017",
+        "split_or_cv": "6:1:3 split of official training set",
+        "models": [
+          "MSLANet",
+          "LANet"
+        ],
+        "results": [
+          {
+            "metric": "Average AUC",
+            "value": 0.937,
+            "model": "MSLANet",
+            "data_split": "test"
+          },
+          {
+            "metric": "Average AUC",
+            "value": 0.926,
+            "model": "LANet",
+            "data_split": "test"
+          }
+        ]
+      },
+      {
+        "dataset": "SIIM-ISIC 2020",
+        "split_or_cv": "6:1:3 split of official training set",
+        "models": [
+          "MSLANet"
+        ],
+        "results": [
+          {
+            "metric": "AUC",
+            "value": 0.924,
+            "model": "MSLANet",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": 0.956,
+            "model": "MSLANet",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study relies on splitting the official training sets of ISIC 2017 and SIIM-ISIC 2020 for testing because test labels were not publicly available. This limits the ability to assess true generalizability to unseen external data.",
+      "The paper notes that the model was evaluated on two public datasets, and the lack of validation on external, multi-center, or diverse skin-type datasets limits the assessment of real-world clinical generalizability and potential demographic bias.",
+      "Deep Data Augmentation using StyleGAN was used to address data insufficiency, but the impact on generalization to diverse clinical populations remains a limitation of synthetic data reliance."
+    ],
+    "information_not_reported": [
+      "Exact patient-level separation details (whether images from the same patient appear in train/val/test).",
+      "Specific counts for the ISIC Archive images used in training vs augmentation.",
+      "Statistical significance testing (p-values) for the comparisons."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1779998066
+  }
+}

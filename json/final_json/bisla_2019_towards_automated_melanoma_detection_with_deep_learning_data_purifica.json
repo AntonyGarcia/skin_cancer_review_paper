@@ -1,0 +1,644 @@
+{
+  "file_name": "bisla_2019_towards_automated_melanoma_detection_with_deep_learning_data_purifica.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses deep learning methods, specifically convolutional neural networks (CNNs) like ResNet-50 and generative adversarial networks (GANs), for automated melanoma detection and lesion classification in dermatology. It employs AI for data purification (lesion segmentation to remove occlusions) and data augmentation (generating artificial dermoscopic images) to improve the performance of a classification system on the ISIC 2017 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development of deep-learning-based tools for data purification (lesion segmentation) and augmentation (using GANs) to improve melanoma detection. It details specific methodologies (ResNet-50, DCGAN), describes the construction of a classification system, and reports empirical results and performance metrics (ROC-AUC, accuracy) on the ISIC 2017 and ISIC 2018 datasets, comparing them against baselines and challenge winners."
+  },
+  "title": "Towards Automated Melanoma Detection with Deep Learning: Data Purification and Augmentation",
+  "authors": [
+    "Devansh Bisla",
+    "Anna Choromanska",
+    "Russell S. Berman",
+    "Jennifer A. Stein",
+    "David Polsky"
+  ],
+  "doi": "10.48550/arXiv.1902.06061",
+  "journal": null,
+  "year": 2019,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the limitations of small, imbalanced, and occluded skin lesion datasets in automated melanoma detection by developing deep learning tools for data purification and augmentation. The authors utilize a U-Net model for lesion segmentation to remove occlusions like hairs and rulers, and employ a DCGAN to generate synthetic dermoscopic images for data augmentation. These purified and augmented datasets are used to train a ResNet-50 classification system on the ISIC 2017 dataset, which contains melanoma, nevus, and seborrheic keratosis classes. The evaluation compares the proposed system against a traditional ResNet-50 baseline and ISIC 2017 challenge winners using ROC-AUC metrics. The results demonstrate that the proposed method achieves a melanoma classification ROC-AUC of 0.880 and a micro-average ROC-AUC of 0.934, outperforming the baseline and challenge winners. The study concludes that incorporating data purification and augmentation significantly enhances the performance of deep learning-based melanoma detection systems.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "M"
+      ],
+      "role": "Target class",
+      "details": "Primary target class for detection and classification. Studied in ISIC 2017 (803 cases), ISIC 2018, PH2 (40 cases), and Edinburgh (76 cases) datasets. The paper focuses on melanoma classification performance (ROC-AUC 0.880)."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus",
+        "N"
+      ],
+      "role": "Comparator class",
+      "details": "Benign lesion class used as a comparator to melanoma. Studied in ISIC 2017 (2107 cases), ISIC 2018, PH2 (80 cases), and Edinburgh (331 cases) datasets. Included in the three-class classification task (benign/malignant/seborrheic keratosis grouping)."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "SK"
+      ],
+      "role": "Comparator class",
+      "details": "Benign lesion class used as a comparator. Studied in ISIC 2017 (288 cases) and Edinburgh (257 cases) datasets. Grouped with nevus as 'benign' in some analysis contexts but treated as a distinct class in the three-class classification task."
+    },
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "actinic keratosis",
+        "acitinic keratosis"
+      ],
+      "role": "Mentioned only",
+      "details": "Listed as one of the seven classes in the ISIC 2018 dataset, but results are only provided in the Supplementary section (not detailed in the main text)."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "basal cell carcinoma"
+      ],
+      "role": "Mentioned only",
+      "details": "Listed as one of the seven classes in the ISIC 2018 dataset, but results are only provided in the Supplementary section."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "benign keratosis"
+      ],
+      "role": "Mentioned only",
+      "details": "Listed as one of the seven classes in the ISIC 2018 dataset, but results are only provided in the Supplementary section."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "dermatofibroma"
+      ],
+      "role": "Mentioned only",
+      "details": "Listed as one of the seven classes in the ISIC 2018 dataset, but results are only provided in the Supplementary section."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "vascular lesion"
+      ],
+      "role": "Mentioned only",
+      "details": "Listed as one of the seven classes in the ISIC 2018 dataset, but results are only provided in the Supplementary section."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Lesion class (Melanoma, Nevus, Seborrheic Keratosis)",
+        "primary": true,
+        "details": "The paper focuses on a three-class lesion classification task using a ResNet-50 model to predict discrete diagnostic categories (melanoma, nevus, seborrheic keratosis) on the ISIC 2017 dataset. Performance is evaluated using ROC-AUC and accuracy metrics for class prediction."
+      },
+      {
+        "task_type": "Segmentation",
+        "target": "Lesion mask (for data purification)",
+        "primary": false,
+        "details": "A U-Net model is used for lesion segmentation to remove occlusions (hairs, rulers) from images as a preprocessing step for the classification system. This is a secondary task for data purification, not the primary diagnostic output."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public dermoscopic image dataset from the International Skin Imaging Collaboration (ISIC) 2017 challenge, containing lesion images from three classes. Used as the primary dataset for training and testing the classification system.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus",
+        "Seborrheic Keratosis"
+      ],
+      "counts": {
+        "total": 3198,
+        "training": 2798,
+        "validation": null,
+        "testing": 600,
+        "per_class": {
+          "Melanoma": 803,
+          "Nevus": 2107,
+          "Seborrheic Keratosis": 288
+        }
+      },
+      "use": {
+        "training": "Used for training the ResNet-50 classification model. The training set was augmented with purified images (hairs/rulers removed) and synthetic images generated by DCGAN to balance classes and handle occlusions.",
+        "validation": null,
+        "testing": "Used for final evaluation of the classification model performance (ROC-AUC, accuracy). The test set contained 600 images (117 melanoma, 90 seborrheic keratosis, 393 nevus) where occlusions were not removed to simulate real-world conditions.",
+        "other": "Used as a benchmark for comparison against traditional baselines and ISIC 2017 challenge winners."
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A public dermoscopic image dataset from the ISIC 2018 challenge, containing lesion images from seven classes. Results are provided in the Supplementary section.",
+      "classes_used": [
+        "Actinic Keratosis",
+        "Basal Cell Carcinoma",
+        "Benign Keratosis",
+        "Dermatofibroma",
+        "Melanoma",
+        "Nevus",
+        "Vascular Lesion"
+      ],
+      "counts": {
+        "total": 16000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Actinic Keratosis": 452,
+          "Basal Cell Carcinoma": 825,
+          "Benign Keratosis": 1833,
+          "Dermatofibroma": 187,
+          "Melanoma": 2285,
+          "Nevus": 9786,
+          "Vascular Lesion": 142
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Used to demonstrate the scalability of the data purification network (using partial convolutions) and the coupled DCGAN for data augmentation in the Supplementary section."
+      }
+    },
+    {
+      "name": "PH2 Dataset",
+      "description": "A public dermoscopic image dataset used for validation/analysis purposes, containing clinically and histopathologically diagnosed lesions.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus"
+      ],
+      "counts": {
+        "total": 120,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 40,
+          "Nevus": 80
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Mentioned as a source of data for lesion types studied, likely for validation or comparative analysis, though specific experimental results for PH2 are not detailed in the main text metrics."
+      }
+    },
+    {
+      "name": "Dermofit Image Library",
+      "description": "A public dermoscopic image dataset from the Edinburgh dataset, containing clinically and histopathologically diagnosed lesions.",
+      "classes_used": [
+        "Melanoma",
+        "Nevus",
+        "Seborrheic Keratosis"
+      ],
+      "counts": {
+        "total": 664,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma": 76,
+          "Nevus": 331,
+          "Seborrheic Keratosis": 257
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Mentioned as a source of data for lesion types studied, likely for validation or comparative analysis, though specific experimental results for Edinburgh are not detailed in the main text metrics."
+      }
+    },
+    {
+      "name": "Synthetic Training Data for Data Purification Network",
+      "description": "A custom-generated dataset created by the authors to train the data purification network (U-Net with partial convolutions) for the ISIC 2018 task. It consists of coupled pairs of images before and after occlusion removal.",
+      "classes_used": [
+        "N/A (Segmentation task)"
+      ],
+      "counts": {
+        "total": 16270,
+        "training": 16270,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the data purification network for ISIC 2018, as public datasets with paired pre/post-occlusion removal images were not available.",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "AUC-ROC",
+    "Jaccard Coefficient",
+    "Intersection over Union",
+    "Mean Squared Error (MSE)",
+    "Accuracy",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "Confusion Matrix",
+    "True Positives (TP)",
+    "False Positive (FP)",
+    "False Negative (FN)",
+    "True Negatives (TN)",
+    "AUC-ROC",
+    "AUC-ROC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Jaccard index (Intersection over Union)",
+      "purpose": "To evaluate the performance of the segmentation model by measuring the similarity between the true label and model output for segmentation masks.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Mean Squared Error (MSE)",
+      "purpose": "To verify that generated images differ from training data by calculating the MSE between each generated image and all training images, and to analyze the distribution of errors for generated melanoma and seborrheic keratosis images.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "ROC-AUC (Receiver Operating Characteristic - Area Under Curve)",
+      "purpose": "To evaluate and compare the performance of the classification model against baselines and challenge winners for melanoma detection and multi-class classification.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Micro-average ROC-AUC",
+      "purpose": "To report the mean performance of melanoma and seborrheic keratosis classifications combined.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Macro-average ROC-AUC",
+      "purpose": "To report the average ROC-AUC across all classes.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Confusion Matrix analysis",
+      "purpose": "To report True Positives, False Positives, False Negatives, and True Negatives for each class (Melanoma, Nevus, Seborrheic Keratosis) and to compute overall accuracy.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Sensitivity and Specificity",
+      "purpose": "To report performance values for different values of sensitivity for melanoma classification and overall model performance.",
+      "type": "Evaluation metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using ROC-AUC values and accuracy metrics without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "metric": "ROC-AUC",
+      "models": {
+        "Traditional Baseline (ResNet-50 pre-trained on ImageNet, fine-tuned on raw data)": {
+          "Melanoma": "0.805",
+          "Micro-average (Melanoma + Seborrheic Keratosis)": "0.876",
+          "Macro-average": "0.873"
+        },
+        "Proposed Model (ResNet-50 with data purification and augmentation)": {
+          "Melanoma": "0.880",
+          "Micro-average (Melanoma + Seborrheic Keratosis)": "0.934",
+          "Macro-average": "0.915"
+        },
+        "ISIC Challenge Winners": {
+          "Melanoma": "0.874",
+          "Micro-average (Melanoma + Seborrheic Keratosis)": "0.911"
+        }
+      },
+      "notes": "The proposed model achieved a melanoma classification ROC-AUC of 0.880 and a micro-average ROC-AUC of 0.934, outperforming the traditional baseline and ISIC 2017 challenge winners. The accuracy for the three-class classification task (benign/nevus, malignant/melanoma, seborrheic keratosis) was 81.6%."
+    },
+    "ISIC 2017 (Specificity at Sensitivity Levels)": {
+      "metric": "Specificity at specific Sensitivity levels",
+      "models": {
+        "Our Classification Model": {
+          "Sensitivity 82%": "0.697",
+          "Sensitivity 89%": "0.648",
+          "Sensitivity 95%": "0.492"
+        },
+        "Top AVG (ISIC Challenge Winner)": {
+          "Sensitivity 82%": "0.729",
+          "Sensitivity 89%": "0.588",
+          "Sensitivity 95%": "0.366"
+        },
+        "Top SK (ISIC Challenge Winner)": {
+          "Sensitivity 82%": "0.727",
+          "Sensitivity 89%": "0.555",
+          "Sensitivity 95%": "0.404"
+        },
+        "Top M (ISIC Challenge Winner)": {
+          "Sensitivity 82%": "0.747",
+          "Sensitivity 89%": "0.590",
+          "Sensitivity 95%": "0.395"
+        }
+      },
+      "notes": "Specificity values for melanoma classification at sensitivity levels of 82%, 89%, and 95%. The proposed model shows superior performance over other methods for different levels of sensitivity."
+    },
+    "Segmentation (ISIC Challenge Context)": {
+      "metric": "Jaccard Index (Intersection over Union)",
+      "models": {
+        "Proposed Segmentation Network (U-Net with dilated convolutions)": "0.77",
+        "Best Performer of ISIC 2017 Challenge": "0.765"
+      },
+      "notes": "The segmentation model achieved an average Jaccard index of 0.77, slightly outperforming the best performer of the ISIC 2017 challenge (0.765)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet-50 (for classification), U-Net (for segmentation/data purification), DCGAN (for data augmentation)",
+    "pretraining": "ResNet-50 pre-trained on ImageNet",
+    "input_size": "7 x 380 x 380 (for segmentation network); 380x380 (implied for classification via standard ResNet input, though not explicitly stated as a single number, the segmentation input is explicitly 380x380)",
+    "architecture_details": {
+      "segmentation_network": {
+        "type": "U-Net with modifications",
+        "modifications": "Replaced max pooling layers with dilated convolutions in the down-sampling block; removed up-sampling blocks and added transposed convolutional layers; replaced standard convolutions with partial convolutions in the supplementary ISIC-2018 approach",
+        "channels": "7 channels (RGB, HSV, and luminance)",
+        "activations": "ReLU after each convolution layer except the last; Sigmoid after the last convolution layer"
+      },
+      "classification_network": {
+        "type": "ResNet-50",
+        "modifications": "Final fully-connected layer modified to output probabilities for lesion classes"
+      },
+      "augmentation_network": {
+        "type": "Coupled DCGAN (Deep Convolutional Generative Adversarial Network)",
+        "generator_activations": "Batch normalization and ReLU after each layer except the last; Hyperbolic tangent after the last convolution layer",
+        "discriminator_activations": "Batch normalization and leaky ReLU (leakage coefficient 0.2) after each layer except the last; Sigmoid after the last convolution layer"
+      }
+    },
+    "training_details": {
+      "segmentation_network": {
+        "optimizer": "Adam",
+        "learning_rate": "1e-4",
+        "beta_values": [
+          0.9,
+          0.999
+        ],
+        "loss_function": "Binary cross-entropy"
+      },
+      "classification_network": {
+        "training_data_size": "16110 images (balanced)",
+        "augmentation_techniques": [
+          "Data purification (occlusion removal)",
+          "GAN-based synthetic data generation",
+          "Horizontal flipping",
+          "Vertical flipping",
+          "Random cropping"
+        ]
+      },
+      "augmentation_network": {
+        "training_strategy": "Joint training of discriminator and generator",
+        "discriminator_update_frequency": "Every 10th round of joint training"
+      }
+    },
+    "classification_or_output_head": {
+      "classification": "Modified fully-connected layer outputting probabilities for three classes (Melanoma, Nevus, Seborrheic Keratosis)",
+      "segmentation": "Sigmoid activation on the final convolution layer outputting a binary mask"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "U-Net",
+    "ResNet-50",
+    "DCGAN",
+    "GoogleNet Inception v3",
+    "Dermaknet",
+    "Deep neural network ensemble",
+    "RECOD titans",
+    "Convolutional neural network committees"
+  ],
+  "preprocessing_techniques": [
+    "Data purification via lesion segmentation using a U-Net network to remove occlusions (hairs and rulers)",
+    "Luminance channel thresholding in the LUV color space for hair detection",
+    "Overlaying processed images with segmented lesion masks to preserve dark lesion regions",
+    "Closing operation to eliminate holes in the background",
+    "Data augmentation via horizontal flipping",
+    "Data augmentation via vertical flipping",
+    "Data augmentation via random cropping",
+    "GAN-based synthetic data generation (DCGAN) for class balancing and data augmentation"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Data Purification (Occlusion Removal)",
+      "details": "Used a U-Net segmentation network to remove image occlusions such as hairs and rulers from dermoscopic images. The purified images were added to the training dataset to make the classification model more robust to occlusions and prevent overfitting. For the ISIC 2018 task, partial convolutions were used in the U-Net architecture."
+    },
+    {
+      "technique": "DCGAN-based Synthetic Data Generation",
+      "details": "Used de-coupled Deep Convolutional Generative Adversarial Networks (DCGANs) to generate synthetic images for underrepresented classes (melanoma and seborrheic keratosis) to balance the dataset. Specifically, 350 melanoma images and 750 seborrheic keratosis images were generated. For ISIC 2018, coupled DCGANs were used where initial layers shared parameters and final layers were class-specific. Generated images were verified to differ from training data using Mean Squared Error (MSE) analysis."
+    },
+    {
+      "technique": "Horizontal Flipping",
+      "details": "Applied to generated melanoma and seborrheic keratosis images to increase class sizes to 2685 and 2772 respectively."
+    },
+    {
+      "technique": "Vertical Flipping",
+      "details": "Applied to the entire dataset to increase the data set size 6 times."
+    },
+    {
+      "technique": "Random Cropping",
+      "details": "Applied to the entire dataset as part of the standard augmentation techniques to increase data variability."
+    },
+    {
+      "technique": "Random Masking",
+      "details": "Used to augment the custom training dataset (16,270 images) created for the data purification network, consisting of coupled pairs of images before and after occlusion removal."
+    }
+  ],
+  "conclusions": [
+    "Incorporating data purification (removing occlusions like hairs and rulers via U-Net segmentation) and data augmentation (generating synthetic images via DCGAN) significantly enhances the performance of deep learning-based melanoma detection systems.",
+    "The proposed classification system, which combines ResNet-50 with data purification and augmentation, achieved a melanoma classification ROC-AUC of 0.880 and a micro-average ROC-AUC of 0.934 on the ISIC 2017 dataset.",
+    "The proposed model outperformed both the traditional ResNet-50 baseline (melanoma ROC-AUC 0.805) and the winners of the ISIC 2017 challenge (melanoma ROC-AUC 0.874).",
+    "The proposed method achieved an accuracy of 81.6% for three-class classification (melanoma, nevus, seborrheic keratosis), which was higher than the average accuracy achieved by dermatologists (65.56% and 66.0%) on a comparable subset of data.",
+    "Data purification at the testing stage improves model robustness to occlusions, as demonstrated by improved specificity and sensitivity metrics on the ISIC 2018 dataset.",
+    "The study addresses the limitations of small, imbalanced, and occluded skin lesion datasets by using deep learning tools to create virtual patients with pre-defined lesion types, thereby balancing the training data."
+  ],
+  "important_remarks": [
+    "The study relies heavily on the ISIC 2017 dataset, which is known to be small and imbalanced; while the authors address this via GAN-based augmentation, the generalizability to other diverse clinical populations remains unverified.",
+    "Data purification (occlusion removal) was performed on the training set but explicitly not on the test set to simulate real-world conditions where occlusions are present; however, the segmentation model itself was trained on a custom synthetic dataset of 16,270 paired images rather than public clinical data, raising potential domain shift concerns.",
+    "The classification model outperformed ISIC 2017 challenge winners (Melanoma ROC-AUC 0.880 vs 0.874), but this comparison may be biased as the challenge winners utilized additional external digital lesion libraries not available to the baseline or the proposed method.",
+    "The paper compares its accuracy (81.6%) against dermatologists' accuracy (65.56% and 66.0%) from a separate study (Esteva et al.), but notes that the dermatologists' data corpus was not open-sourced, making direct reproducibility and fair comparison difficult.",
+    "No formal statistical hypothesis testing (e.g., p-values) was reported for the performance comparisons; differences are described qualitatively (e.g., 'performance improvement of order ≈ 4%') without statistical significance testing.",
+    "The GAN-generated images were verified to differ from training data using Mean Squared Error (MSE), but there is no mention of expert dermatological review to validate the clinical realism or diagnostic validity of the synthetic lesions.",
+    "The segmentation network uses partial convolutions for ISIC 2018 results, but the primary classification results rely on standard U-Net segmentation, limiting the direct applicability of the purification step to the specific architecture used for the main reported metrics."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_bisla_2019_towards_automated_melanoma_detection_with_deep_learning_data_purifica.pdf",
+    "summary": "The study utilized the ISIC 2017 dataset as the primary source for training and testing a ResNet-50 classification model for melanoma detection. The training set (2798 images) was augmented with purified images (occlusions removed via U-Net) and synthetic images generated by DCGANs to balance classes. The test set (600 images) was held out from the ISIC 2017 challenge and used for final evaluation without purification to simulate real-world conditions. Additional datasets (PH2, Edinburgh/Dermofit) were used to source data for the segmentation network training and to demonstrate scalability in supplementary sections, but were not used for the primary classification model's training or testing. No cross-dataset validation was performed for the main classification results.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper does not report training on one named dataset and testing on a different unseen named dataset for the primary classification task. The model was trained and tested on splits of the ISIC 2017 dataset. While ISIC 2018 and other datasets were mentioned for supplementary analysis of the purification/augmentation tools, they were not used for cross-dataset validation of the final classification model.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2017 (Training Split)",
+          "counts": "2798 images",
+          "notes": "Used for training the ResNet-50 classification model. The raw images were augmented with purified images (hairs/rulers removed) and synthetic images generated by DCGANs. The final balanced training set contained 16,110 images."
+        },
+        {
+          "dataset": "Synthetic Training Data for Segmentation",
+          "counts": "16,270 paired images",
+          "notes": "Custom-generated dataset used to train the U-Net segmentation network for data purification. Consisted of coupled pairs of images before and after occlusion removal."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "Not reported",
+          "counts": null,
+          "notes": "The paper does not explicitly describe a separate validation set used for hyperparameter tuning or model selection. Early stopping was mentioned for GAN training, but no specific validation split counts for the classification model are provided."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2017 (Test Split)",
+          "counts": "600 images (117 melanoma, 90 seborrheic keratosis, 393 nevus)",
+          "notes": "Used for final evaluation of the classification model. Images were not purified (occlusions remained) to simulate real-world conditions."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "ResNet-50 was pre-trained on ImageNet before being fine-tuned on the ISIC 2017 training data."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "DCGAN-generated images",
+          "notes": "350 synthetic melanoma images and 750 synthetic seborrheic keratosis images were generated to balance the dataset. These were verified to differ from training data using MSE analysis."
+        },
+        {
+          "dataset": "Purified images",
+          "notes": "Images with hairs and rulers removed via U-Net segmentation were added to the training set to improve robustness."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "ISIC 2017 dataset split into 2798 training images and 600 test images. The test set was not purified. The training set was augmented to 16,110 images.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "The ISIC 2017 test set (600 images) served as the unseen data for the final evaluation. No external datasets were used for testing the classification model."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2017 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 (Training Split)"
+        ],
+        "model_or_method": "ResNet-50 with data purification and augmentation",
+        "metrics": {
+          "accuracy": "0.816",
+          "auc": "0.880",
+          "sensitivity": "null",
+          "specificity": "0.697 (at 82% sensitivity), 0.648 (at 89% sensitivity), 0.492 (at 95% sensitivity)",
+          "f1_score": "null",
+          "other_metrics": {
+            "micro-average ROC-AUC": "0.934",
+            "macro-average ROC-AUC": "0.915"
+          }
+        },
+        "notes": "The proposed model outperformed the traditional baseline (ResNet-50 without purification/augmentation) and ISIC 2017 challenge winners. Accuracy was computed on the three-class classification task."
+      },
+      {
+        "dataset": "ISIC 2017 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 (Training Split)"
+        ],
+        "model_or_method": "Traditional Baseline (ResNet-50 pre-trained on ImageNet)",
+        "metrics": {
+          "accuracy": "null",
+          "auc": "0.805",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {
+            "micro-average ROC-AUC": "0.876",
+            "macro-average ROC-AUC": "0.873"
+          }
+        },
+        "notes": "Baseline model performance for comparison."
+      },
+      {
+        "dataset": "ISIC 2017 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 (Training Split)"
+        ],
+        "model_or_method": "ISIC Challenge Winners",
+        "metrics": {
+          "accuracy": "null",
+          "auc": "0.874",
+          "sensitivity": "null",
+          "specificity": "null",
+          "f1_score": "null",
+          "other_metrics": {
+            "micro-average ROC-AUC": "0.911"
+          }
+        },
+        "notes": "Comparison against top-performing models from the ISIC 2017 challenge."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2017",
+        "split_or_cv": "2798 train / 600 test split",
+        "models": [
+          "ResNet-50 with purification/augmentation",
+          "ResNet-50 baseline",
+          "ISIC Challenge Winners"
+        ],
+        "results": [
+          {
+            "metric": "Melanoma ROC-AUC",
+            "value": "0.880",
+            "model": "ResNet-50 with purification/augmentation",
+            "data_split": "test"
+          },
+          {
+            "metric": "Micro-average ROC-AUC",
+            "value": "0.934",
+            "model": "ResNet-50 with purification/augmentation",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": "0.816",
+            "model": "ResNet-50 with purification/augmentation",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study relies on the ISIC 2017 dataset, which is small and imbalanced. Generalizability to other diverse clinical populations is unverified as no external test sets were used for the classification model.",
+      "The segmentation network used for purification was trained on a custom synthetic dataset rather than public clinical data, raising potential domain shift concerns for the purification step.",
+      "The comparison with dermatologists' accuracy (65.56% and 66.0%) is based on a non-open-sourced dataset, making direct reproducibility and fair comparison difficult.",
+      "No formal statistical hypothesis testing was reported for performance comparisons."
+    ],
+    "information_not_reported": [
+      "Specific validation set counts or protocol for the classification model.",
+      "Patient-level separation details (image-level split is implied).",
+      "Detailed results for PH2 and Edinburgh datasets in the main text metrics (only mentioned as sources for segmentation training or supplementary scalability).",
+      "P-values or statistical significance tests for the reported performance differences."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1779999643
+  }
+}

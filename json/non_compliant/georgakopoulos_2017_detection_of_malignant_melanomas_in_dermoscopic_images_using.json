@@ -1,0 +1,220 @@
+{
+  "file_name": "georgakopoulos_2017_detection_of_malignant_melanomas_in_dermoscopic_images_using.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used Convolutional Neural Networks (CNNs) with transfer learning to classify dermoscopic images for the detection of malignant melanomas versus nevus skin lesions. Specifically, it employed two CNN architectures (AlexNet/arch1 and a custom arch2), pre-trained on ImageNet and endoscopic images respectively, and fine-tuned them on a dataset of 1041 dermoscopic images (69 melanoma, 972 non-melanoma) to achieve classification results."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of Convolutional Neural Networks (CNNs) with transfer learning for detecting malignant melanomas. It details specific methodologies (data augmentation, transfer learning), a specific dataset (1041 dermoscopic images), and reports quantitative results (accuracy, sensitivity, specificity) from 5-fold cross-validation, which are characteristic of an original research study rather than a review."
+  },
+  "title": "Detection of Malignant Melanomas in Dermoscopic Images Using Convolutional Neural Network with Transfer Learning",
+  "authors": [
+    "S.V. Georgakopoulos",
+    "K. Kottari",
+    "K. Delibasis",
+    "V.P. Plagianakos",
+    "I. Maglogiannis"
+  ],
+  "doi": "10.1007/978-3-319-65172-9_34",
+  "journal": "EANN 2017",
+  "year": 2017,
+  "article_type": "Conference paper",
+  "brief_summary": "This study addresses the detection of malignant melanomas versus nevus skin lesions in dermoscopic images using Convolutional Neural Networks (CNNs) with transfer learning. The researchers utilized a dataset of 1041 dermoscopic images (69 melanoma, 972 non-melanoma) acquired from two hospitals, applying data augmentation to balance the limited melanoma samples. Two CNN architectures, AlexNet (pre-trained on ImageNet) and a custom architecture (pre-trained on endoscopic images), were fine-tuned on the dermoscopic data. The models were evaluated using 5-fold cross-validation, with testing folds containing only original melanoma images to ensure rigorous sensitivity assessment. The fine-tuned AlexNet achieved the highest performance with 91.5% accuracy, 92.5% sensitivity, and 83% specificity. The results demonstrate that transfer learning significantly improves melanoma detection sensitivity compared to randomly initialized CNNs, which failed to identify melanoma cases effectively.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "malignant melanoma",
+        "melanoma"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for detection. The dataset contained 69 original melanoma images, which were augmented to 552 for training. The testing fold consisted exclusively of the original 69 melanoma images."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevus skin lesions",
+        "non-melanoma lesions"
+      ],
+      "role": "Comparator class",
+      "details": "The comparator class for the binary classification task. The dataset contained 972 nevus images, grouped under the label 'non-melanoma lesions' for the classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (malignant melanoma vs. nevus/non-melanoma lesions)",
+        "primary": true,
+        "details": "The paper explicitly states the methodology is for 'melanoma and nevus dermoscopy images classification'. The models predict discrete classes (melanoma vs. non-melanoma) using CNNs and an SVM. Performance is measured using accuracy, sensitivity, and specificity, which are standard metrics for classification tasks."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (malignant melanoma vs. nevus/non-melanoma lesions) via feature extraction",
+        "primary": false,
+        "details": "An alternative approach (SVMCNN) was explored where features were extracted from pre-trained CNN layers and fed into a Support Vector Machine (SVM) classifier. This is still a classification task."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Hospital of Wien and General Hospital of Athens G. Gennimatas Dermoscopic Image Dataset",
+      "description": "A private dataset of dermoscopic images acquired using the ELM Molemax device at the same magnification from two hospitals: the Hospital of Wien and the department of Plastic Surgery and Dermatology in the General Hospital of Athens G. Gennimatas. The dataset contains 1041 images total, with 69 malignant melanoma cases and 972 nevus (non-melanoma) cases. The original image size is 632 x 387 pixels.",
+      "classes_used": [
+        "Malignant melanoma",
+        "Nevus (Non-melanoma)"
+      ],
+      "counts": {
+        "total": 1041,
+        "training": null,
+        "validation": null,
+        "testing": 69,
+        "per_class": {
+          "malignant_melanoma": 69,
+          "nevus": 972
+        }
+      },
+      "use": {
+        "training": "Used for training CNNs (arch1 and arch2) with and without transfer learning. The melanoma class was augmented 8-fold (from 69 to 552 images) via geometric transformations (rotations and mirroring) to balance the dataset. Non-melanoma images were resized (256x256 for arch1, 340x340 for arch2) and patches extracted.",
+        "validation": "null",
+        "testing": "Used for evaluation via 5-fold cross-validation. The testing fold consisted exclusively of the original 69 melanoma images (excluding augmented images) to ensure rigorous sensitivity assessment.",
+        "other": "The ImageNet dataset was used for pre-training arch1 (AlexNet). A dataset of endoscopic images of the lower gastrointestinal (GI) tract was used for pre-training arch2."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "ROC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "5-fold Cross Validation",
+      "purpose": "Used for the evaluation of the classification methods to ensure rigorous assessment, with the testing fold consisting exclusively of original melanoma images.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "ROC curves",
+      "purpose": "Illustrated to show the performance of the transfer learning architectures.",
+      "type": "Performance visualization"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It compared performance metrics (accuracy, sensitivity, specificity) between models using transfer learning and those without, stating that transfer learning 'improves significantly' the results and achieves 'significantly better classification results' in a descriptive sense, but did not provide statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Hospital of Wien and General Hospital of Athens G. Gennimatas Dermoscopic Image Dataset": {
+      "metric": [
+        "Accuracy %",
+        "Sensitivity %",
+        "Specificity %"
+      ],
+      "models": {
+        "arch1": {
+          "Accuracy %": "92.3",
+          "Sensitivity %": "100",
+          "Specificity %": "0"
+        },
+        "arch2": {
+          "Accuracy %": "92.3",
+          "Sensitivity %": "100",
+          "Specificity %": "0"
+        },
+        "FT-arch1": {
+          "Accuracy %": "91.5",
+          "Sensitivity %": "92.5",
+          "Specificity %": "83"
+        },
+        "FT-arch2": {
+          "Accuracy %": "85.7",
+          "Sensitivity %": "88.7",
+          "Specificity %": "62"
+        },
+        "SVMCNN": {
+          "Accuracy %": "72.1",
+          "Sensitivity %": "77.2",
+          "Specificity %": "17.2"
+        }
+      },
+      "notes": "Results were obtained using 5-fold Cross Validation. The testing fold consisted of only the original 69 melanoma images. FT-arch1 (AlexNet pre-trained on ImageNet and fine-tuned) exhibited the highest classification results. Randomly initialized CNNs (arch1 and arch2) achieved high accuracy but 0% specificity, indicating they failed to correctly classify non-melanoma lesions despite high sensitivity. Transfer learning significantly improved sensitivity for melanoma detection."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two CNN architectures: arch1 (AlexNet) and arch2 (custom architecture)",
+    "pretraining": "arch1 was pre-trained on the ImageNet dataset. arch2 was pre-trained on a dataset of endoscopic images of the lower gastrointestinal (GI) tract.",
+    "input_size": "For arch1: Input patches of 224x224 pixels (images resized to 256x256). For arch2: Input patches of 320x320 pixels (images resized to 340x340).",
+    "architecture_details": {
+      "arch1": {
+        "name": "AlexNet",
+        "layers": "5 convolutional layers (each followed by a max pooling layer) and 2 fully-connected layers.",
+        "filter_size": "11x11 filters in the first convolutional layer."
+      },
+      "arch2": {
+        "name": "Custom CNN",
+        "layers": "4 convolutional layers (followed by a max pooling layer), a 5th convolutional layer, and 2 fully-connected layers."
+      }
+    },
+    "training_details": {
+      "optimizer": "Mini-batch Stochastic Gradient Descent (mSGD)",
+      "loss_function": "Mean squared error (E(w) = 1/n * sum(sum((o_Lj,p - yj,p)^2)))",
+      "training_method": "Fine-tuning (Transfer Learning) on dermoscopy dataset; compared against random initialization.",
+      "data_augmentation": "Geometric transformations (rotations by multiples of 90 degrees and mirroring) applied to melanoma images, expanding the count 8-fold."
+    },
+    "classification_or_output_head": {
+      "arch1_arch2": "Fully-connected layers serving as the classifier.",
+      "svm_cnn_variant": "Features extracted from the first three convolutional layers (384 features) of pre-trained AlexNet were fed into a Support Vector Machine (SVM)."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "AlexNet (arch1)",
+    "Custom CNN architecture (arch2)",
+    "Support Vector Machine (SVM)"
+  ],
+  "preprocessing_techniques": [
+    "Dataset expansion via geometric transformations (rotations by multiples of 90 degrees and mirroring) applied to melanoma images to expand the count 8-fold (from 69 to 552 images).",
+    "Resizing of all images to 256x256 pixels for arch1 (AlexNet).",
+    "Resizing of all images to 340x340 pixels for arch2 (custom CNN).",
+    "Patch extraction: Extracting 224x224 pixel patches at random locations from resized images for arch1 input.",
+    "Patch extraction: Extracting 320x320 pixel patches at random locations from resized images for arch2 input."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric transformations (Rotations and Mirroring)",
+      "details": "Applied only to the melanoma class to balance the dataset. Specifically, rotations by multiples of 90 degrees and mirror transformations were applied to each melanoma image, expanding the count 8-fold (from 69 to 552 images)."
+    },
+    {
+      "technique": "Random Patch Extraction",
+      "details": "Augmented image patches were extracted at random locations from resized images to serve as input. For arch1 (AlexNet), 224x224 pixel patches were extracted from images resized to 256x256. For arch2 (custom CNN), 320x320 pixel patches were extracted from images resized to 340x340."
+    }
+  ],
+  "conclusions": [
+    "The proposed methodology using Convolutional Neural Networks (CNNs) with transfer learning effectively compensates for the limited size of the available dermoscopic image dataset.",
+    "Transfer learning significantly improves classification results compared to randomly initialized CNNs, specifically by increasing melanoma detection sensitivity.",
+    "The fine-tuned AlexNet (FT-arch1) achieved the highest performance with 91.5% accuracy, 92.5% sensitivity, and 83% specificity.",
+    "The custom CNN architecture pre-trained on endoscopic images (FT-arch2) achieved 85.7% accuracy, 88.7% sensitivity, and 62% specificity.",
+    "CNNs trained without pre-training (random initialization) failed to identify melanoma images effectively, exhibiting 0% specificity and thus lacking clinical usefulness despite high accuracy.",
+    "Data augmentation (8-fold expansion of melanoma images via geometric transformations) was necessary to balance the dataset but resulted in highly interdependent training samples.",
+    "The application of transfer learning allows for faster CNN convergence and potential utility with even smaller datasets in future work."
+  ],
+  "important_remarks": [
+    "The dataset is highly imbalanced (69 melanoma vs. 972 non-melanoma), necessitating 8-fold geometric augmentation of melanoma images, which results in highly interdependent training samples.",
+    "The testing fold consisted exclusively of the original 69 melanoma images (excluding augmented images) to ensure rigorous sensitivity assessment, but the study lacks external validation on independent datasets.",
+    "CNNs trained without pre-training (random initialization) achieved 100% sensitivity but 0% specificity, indicating they failed to classify non-melanoma lesions and lacked clinical usefulness despite high accuracy.",
+    "The study relies on transfer learning from non-dermoscopic domains (ImageNet for arch1 and endoscopic GI images for arch2) because publicly available pre-trained dermoscopy networks were not distributed.",
+    "No formal statistical hypothesis testing (e.g., p-values) was reported; claims of 'significant' improvement are based on descriptive comparisons of accuracy, sensitivity, and specificity metrics.",
+    "The dataset was acquired from only two hospitals (Hospital of Wien and General Hospital of Athens G. Gennimatas) using a single device (ELM Molemax) at the same magnification, limiting generalizability to other acquisition settings.",
+    "The SVMCNN variant (features from pre-trained AlexNet fed to an SVM) performed poorly (72.1% accuracy, 17.2% specificity), suggesting that fine-tuning the entire network is superior to feature extraction for this specific task and dataset size."
+  ]
+}

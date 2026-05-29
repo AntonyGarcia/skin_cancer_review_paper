@@ -1,0 +1,301 @@
+{
+  "file_name": "maros_n_2020_automated_seeding_for_ultrasound_skin_lesion_segmentation.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses computer vision and automated image processing techniques for dermatology tasks. Specifically, it employs a fully automated seeding method for ultrasound skin lesion segmentation involving layer-by-layer segmentation, multi-level image-thresholding (Otsu method), clustering, blob extraction, and a two-dimensional heat map for lesion localization. This is followed by an active contour model (Chan-Vese ACM) for growing the segmentation. The study focuses on segmenting nevi, melanomas, and basal cell carcinomas from dermatological ultrasound images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a fully automated seeding method for ultrasound skin lesion segmentation. It details specific methods (layer-by-layer segmentation, Otsu method, Chan-Vese ACM), describes a dataset of 60 images from two ultrasound imaging systems, and reports quantitative results (Sørensen–Dice coefficients) comparing automated seeding to manual seeding. The structure includes standard research sections such as Introduction, Materials and Methods, Results, and Discussion, indicating it is an original technical study rather than a review."
+  },
+  "title": "Automated seeding for ultrasound skin lesion segmentation",
+  "authors": [
+    "Péter Marosán",
+    "Klára Szalai",
+    "Domonkos Csabai",
+    "Gergely Csány",
+    "András Horváth",
+    "Miklós Gyöngy"
+  ],
+  "doi": "10.1016/j.ultras.2020.106268",
+  "journal": "Ultrasonics",
+  "year": 2021,
+  "article_type": "Research paper",
+  "brief_summary": "This study developed a fully automated seeding method for segmenting cancer-suspicious skin lesions in dermatological ultrasound images to address the variability of manual initialization in active contour models. The approach utilized a layer-by-layer segmentation technique involving multi-level Otsu thresholding, clustering, and a two-dimensional heat map to localize nevi, melanomas, and basal cell carcinomas. The method was validated on a dataset of 60 ultrasound images acquired from two different imaging systems. Performance was evaluated by comparing the automated seeding against optimal manual seeding using the Sørensen–Dice coefficient. The results demonstrated that the automated seeding achieved an accuracy (SDC of 72.3) comparable to optimal manual seeding (SDC of 74.6), confirming its robustness for skin lesion segmentation.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevi"
+      ],
+      "role": "Target class",
+      "details": "One of the three lesion types studied in the dataset, with 10 instances per dataset (20 total) out of 60 images."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "basal cell carcinomas",
+        "BCC"
+      ],
+      "role": "Target class",
+      "details": "One of the three lesion types studied in the dataset, with 10 instances per dataset (20 total) out of 60 images."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanomas"
+      ],
+      "role": "Target class",
+      "details": "One of the three lesion types studied in the dataset, with 10 instances per dataset (20 total) out of 60 images."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion boundaries and skin layers (epidermis, dermis) in ultrasound images",
+        "primary": true,
+        "details": "The paper focuses on automated seeding and segmentation of cancer-suspicious skin lesions (nevi, melanomas, basal cell carcinomas) using active contour models (Chan-Vese ACM). The task involves generating binary masks for lesion regions and skin layers, evaluated using the Sørensen–Dice coefficient (SDC) and Mean Absolute Distance (MAD)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "HITACHI dataset",
+      "description": "A dataset of ultrasound images recorded using a commercial high-frequency ultrasound imager (HI VISION Preirus with 5–18 MHz EUP-L75 transducer) from Hitachi, Tokyo, Japan.",
+      "classes_used": [
+        "Nevi",
+        "Basal cell carcinomas (BCC)",
+        "Melanomas"
+      ],
+      "counts": {
+        "total": 30,
+        "training": 20,
+        "validation": 10,
+        "testing": null,
+        "per_class": {
+          "Nevi": 10,
+          "Basal cell carcinomas": 10,
+          "Melanomas": 10
+        }
+      },
+      "use": {
+        "training": "Used for training the automated seeding algorithm (20 images).",
+        "validation": "Used for validating the proposed method (10 images).",
+        "testing": null,
+        "other": "Used for qualitative performance demonstration of layer extraction and lesion detection steps."
+      }
+    },
+    {
+      "name": "HARCSA dataset",
+      "description": "A dataset of ultrasound images obtained using a custom system based on a manually scanning single element transducer (V317, Olympus, Tokyo, Japan; diameter: 6.3 mm; f#: 3) driven at 8 MHz.",
+      "classes_used": [
+        "Nevi",
+        "Basal cell carcinomas (BCC)",
+        "Melanomas"
+      ],
+      "counts": {
+        "total": 30,
+        "training": 20,
+        "validation": 10,
+        "testing": null,
+        "per_class": {
+          "Nevi": 10,
+          "Basal cell carcinomas": 10,
+          "Melanomas": 10
+        }
+      },
+      "use": {
+        "training": "Used for training the automated seeding algorithm (20 images).",
+        "validation": "Used for validating the proposed method (10 images).",
+        "testing": null,
+        "other": "Used for qualitative performance demonstration of layer extraction and lesion detection steps."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity (True Positive Rate)",
+    "Precision",
+    "Sørensen–Dice coefficient",
+    "Mean Absolute Distance"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Sørensen–Dice coefficient (SDC)",
+      "purpose": "To evaluate and compare the segmentation accuracy of the automated seeding (AS) method against the manual seeding (MS) reference method and ground truth.",
+      "type": "Similarity metric"
+    },
+    {
+      "method": "Mean Absolute Distance (MAD)",
+      "purpose": "To calculate the average distance between the reference and segmented contours, providing a measure of boundary delimitation accuracy.",
+      "type": "Distance metric"
+    },
+    {
+      "method": "Sensitivity and Precision",
+      "purpose": "To measure the performance of the lesion blob detection step (seeding) against the ground truth masks.",
+      "type": "Classification metrics"
+    },
+    {
+      "method": "Range reporting (min-max)",
+      "purpose": "To report the variability of performance metrics (Sensitivity, Precision, SDC, MAD) across the dataset instances.",
+      "type": "Descriptive statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. It compared the performance of automated seeding (AS) and manual seeding (MS) using descriptive statistics (mean Sørensen–Dice coefficients of 72.3% and 74.6%, respectively) and concluded that AS approaches the accuracy of MS based on these metric values."
+  },
+  "results_obtained_in_each_dataset": {
+    "HITACHI": {
+      "metric": "Lesion Blob Detection (Seeding Step)",
+      "models": {
+        "Automated Seeding (AS)": {
+          "Sensitivity": "47.2% (Range: 39.6%–76.3%)",
+          "Precision": "91.3% (Range: 67.5%–99.6%)",
+          "Sørensen–Dice coefficient": "59.1% (Range: 45.6%–73.2%)",
+          "Mean Absolute Distance (MAD)": "336 μm (Range: 29–978 μm)"
+        }
+      },
+      "notes": "Mean Sørensen–Dice coefficient for lesion localization was 59.1%."
+    },
+    "HARCSA": {
+      "metric": "Lesion Blob Detection (Seeding Step)",
+      "models": {
+        "Automated Seeding (AS)": {
+          "Sensitivity": "64.7% (Range: 35.9%–91.9%)",
+          "Precision": "85.9% (Range: 60.3%–100%)",
+          "Sørensen–Dice coefficient": "69.1% (Range: 51.9%–88.6%)",
+          "Mean Absolute Distance (MAD)": "326 μm (Range: 77–1829 μm)"
+        }
+      },
+      "notes": "Mean Sørensen–Dice coefficient for lesion localization was 69.1%."
+    },
+    "ALL (Combined HITACHI and HARCSA)": {
+      "metric": "Lesion Blob Detection (Seeding Step)",
+      "models": {
+        "Automated Seeding (AS)": {
+          "Sensitivity": "56.0% (Range: 29.9%–91.9%)",
+          "Precision": "88.6% (Range: 60.3%–100%)",
+          "Sørensen–Dice coefficient": "64.1% (Range: 45.6%–88.6%)",
+          "Mean Absolute Distance (MAD)": "331 μm (Range: 29–1829 μm)"
+        }
+      },
+      "notes": "Mean Sørensen–Dice coefficient for lesion localization was 64.1%."
+    },
+    "ALL (Combined HITACHI and HARCSA) - Final Segmentation": {
+      "metric": "Final Segmentation Accuracy (Sørensen–Dice coefficient)",
+      "models": {
+        "Automated Seeding (AS)": {
+          "Sørensen–Dice coefficient": "72.28%"
+        },
+        "Manual Seeding (MS) - Optimal (LAR)": {
+          "Sørensen–Dice coefficient": "74.62%"
+        }
+      },
+      "notes": "AS performance closely follows optimal MS. MS performance drops to a mean SDC of 54.6% when seed height and width are decreased by 0.7 (Half-Area Rectangle seeds)."
+    },
+    "Computational Performance": {
+      "metric": "Running Time (seconds)",
+      "models": {
+        "AS-based (HARCSA)": {
+          "Auto seeding": "7 s",
+          "Growing": "20 s",
+          "Sum": "27 s"
+        },
+        "AS-based (HITACHI)": {
+          "Auto seeding": "4 s",
+          "Growing": "12 s",
+          "Sum": "16 s"
+        },
+        "MS-based (HARCSA)": {
+          "Manual seeding": "3 s",
+          "Growing": "21 s",
+          "Sum": "24 s"
+        },
+        "MS-based (HITACHI)": {
+          "Manual seeding": "3 s",
+          "Growing": "12 s",
+          "Sum": "14 s"
+        }
+      },
+      "notes": "If only detection is required without accurate segmentation, running time goes down to 4–7 s. Expert manual initialization takes an average of 3 s."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Fully automated seeding (AS) method combined with Chan-Vese Active Contour Model (ACM) for segmentation; Reference Manual Seeding (MS) method.",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "seeding_method": "Layer-by-layer segmentation using multi-level Otsu thresholding, clustering, and 2D heat maps.",
+      "preprocessing": "Global histogram equalization, re-scaling to common resolution, 2D Gaussian smoothing for noise reduction.",
+      "layer_extraction": "Median filtering, multilevel Otsu binarization, vertical heat maps, morphological operations (closing/dilation), Geodesic Active Contour (GAC) models.",
+      "lesion_detection": "Fuzzy C-means clustering on epidermis/dermis regions, vertical and horizontal heat maps based on curvature and blob properties.",
+      "segmentation_growing": "Chan-Vese Active Contour Model (ACM) applied on seed blobs."
+    },
+    "training_details": {
+      "training_method": "Not applicable (algorithmic/heuristic approach, not a learned model).",
+      "hyperparameters": {
+        "layer_extraction": {
+          "smoothing_filter": "Median",
+          "kernel_size": "[7,7] (above-skin), [3,3] (epidermis/dermis)",
+          "otsu_bins": "1st, 5th, 3 middle bins",
+          "morphological_ops": "Closing (10 it.), Dilation (5 it.), Closing (10 it.)",
+          "structural_element": "Rectangle [3,3] or [2,4]",
+          "gac_smooth_factor": "0.7, 2, 0.7",
+          "gac_contraction_bias": "-0.1",
+          "gac_max_iterations": "200, 100, 200"
+        },
+        "lesion_detection": {
+          "clustering": "Fuzzy C-means (2 lowest value clusters from 5)",
+          "heat_map_weights": "alpha(curvature)=0.4, beta(blobsize)=0.3, gamma(blobecho)=0.3",
+          "acm_smooth_factor": "0.7",
+          "acm_contraction_bias": "-0.29",
+          "acm_max_iterations": "500"
+        }
+      }
+    },
+    "classification_or_output_head": {
+      "output_type": "Binary mask for lesion region and skin layers.",
+      "metrics": "Sensitivity, Precision, Sørensen–Dice coefficient, Mean Absolute Distance."
+    },
+    "approximate_parameters": "null"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Automated Seeding (AS) method (layer-by-layer segmentation, multi-level Otsu thresholding, clustering, 2D heat map, Fuzzy C-means)",
+    "Chan-Vese Active Contour Model (ACM)",
+    "Geodesic Active Contour (GAC) model",
+    "Manual Seeding (MS) method (reference baseline)"
+  ],
+  "preprocessing_techniques": [
+    "Global histogram equalization for contrast enhancement",
+    "Re-scaling images to a common resolution grid",
+    "Two-dimensional Gaussian smoothing for noise reduction (denoising) to achieve a common target noise level",
+    "Median filtering for smoothing during layer extraction",
+    "Morphological operations (closing and dilation) for post-processing and boundary refinement",
+    "Adaptive histogram equalization (mentioned in context of clustering input)"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed fully automated seeding method successfully localized cancer-suspicious skin lesions (nevi, melanomas, and basal cell carcinomas) in ultrasound images from two different imaging systems.",
+    "The automated seeding approach achieved a mean Sørensen–Dice coefficient of 72.3%, which closely approaches the performance of optimal manual seeding (74.6%).",
+    "The automated method demonstrated robustness by outperforming sub-optimal manual seeding, which yielded a mean Sørensen–Dice coefficient of approximately 54.6% when seed dimensions were reduced.",
+    "The study confirmed that seed selection significantly influences segmentation accuracy, highlighting the value of automated initialization in reducing variability caused by manual operator differences.",
+    "The automated detection algorithm required minimal computational time (4–7 seconds), comparable to the time required for manual initialization (3 seconds), making it efficient for clinical workflows."
+  ],
+  "important_remarks": [
+    "The study is limited by a small sample size (N=60 images) and a balanced class distribution (10 nevi, 10 BCC, 10 melanomas per dataset), which may limit the generalizability of the automated seeding performance to broader clinical populations.",
+    "The dataset consists of images from only two distinct ultrasound systems (a commercial Hitachi device and a custom HARCSA system), introducing potential device-specific bias and limiting external validation across diverse hardware platforms.",
+    "The paper does not report formal statistical hypothesis testing (e.g., p-values) to compare the automated seeding (SDC 72.3%) and optimal manual seeding (SDC 74.6%); the conclusion of comparable performance is based on descriptive statistics.",
+    "The automated seeding method relies on heuristic algorithms (Otsu thresholding, Fuzzy C-means clustering, heat maps) rather than deep learning, meaning it does not require large training datasets but may lack the adaptability of learned models to novel image artifacts.",
+    "Ground truth masks were provided by a single radiologist with >5 years of experience, introducing potential inter-observer variability bias that was not assessed in this study.",
+    "The method's performance is sensitive to image quality; the authors note that specific artifacts such as scatter noise, echogenic shadow, gaps in features, bubbles, and hair require careful processing, which may impact robustness in real-world clinical settings with varying image quality.",
+    "The study validates the seeding step's ability to localize lesions but does not evaluate the final segmentation accuracy of the automated method against ground truth, only comparing it to optimal manual seeding, which may overestimate clinical utility if manual seeding is suboptimal in practice."
+  ]
+}

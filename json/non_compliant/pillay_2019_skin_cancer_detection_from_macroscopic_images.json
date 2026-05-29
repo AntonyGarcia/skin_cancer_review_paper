@@ -1,0 +1,238 @@
+{
+  "file_name": "pillay_2019_skin_cancer_detection_from_macroscopic_images.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used Graph-Cut segmentation for lesion segmentation and applied machine learning classifiers (SVM, KNN, and TDS) to classify skin lesions based on the ABCD rule features extracted from macroscopic images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is presented at the 2019 Conference on Information Communications Technology and Society (ICTAS) and reports original experimental work. It proposes a model using Graph-Cut segmentation and the ABCD rule on macroscopic images, implements classifiers (TDS, SVM, KNN), and presents new empirical results (accuracy rates of 73.529%, 75.294%, and 74.706%) on the MED-NODE dataset. Although it includes a literature review section, its primary purpose is to present new diagnostic accuracy results from a proposed technical approach."
+  },
+  "title": "Skin Cancer Detection from Macroscopic Images",
+  "authors": [
+    "Verosha Pillay",
+    "Serestina Viriri"
+  ],
+  "doi": null,
+  "journal": "2019 Conference on Information Communications Technology and Society (ICTAS)",
+  "year": 2019,
+  "article_type": "Conference paper",
+  "brief_summary": "This study investigates the viability of applying the ABCD rule and Graph-Cut segmentation to macroscopic images for skin cancer detection. The authors implemented a model using Graph-Cut for lesion segmentation and extracted features based on Asymmetry, Border, Colour, and Diameter. Three classifiers were evaluated: Total Dermoscopy Score (TDS), Support Vector Machine (SVM), and K-Nearest Neighbors (KNN). The model was tested on the MED-NODE dataset, achieving accuracy rates of 73.529% for TDS, 75.294% for SVM, and 74.706% for KNN. The results indicate that while the approach is viable, challenges remain with border irregularity and color attributes in macroscopic images compared to dermoscopic ones.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "cancerous",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "One of the two primary classes in the MED-NODE dataset used for experiments (70 images). Classified as malignant if TDS > 4.8 or diameter >= 6mm."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "benign",
+        "benign skin lesions",
+        "nevus",
+        "healthy",
+        "non-cancer"
+      ],
+      "role": "Target class",
+      "details": "One of the two primary classes in the MED-NODE dataset used for experiments (100 images). Classified as benign if TDS <= 4.8 or diameter < 6mm."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic category (Benign Nevus vs. Melanoma)",
+        "primary": true,
+        "details": "The paper implements classifiers (TDS, SVM, KNN) to predict discrete diagnostic categories (benign or malignant/melanoma) based on the ABCD rule features extracted from macroscopic images. The primary task is binary classification, with accuracy rates reported as 73.529% (TDS), 75.294% (SVM), and 74.706% (KNN)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "MED-NODE",
+      "description": "A dataset consisting of macroscopic images from the digital image archive of the Department of Dermatology of the University Medical Center Groningen.",
+      "classes_used": [
+        "Benign Nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 170,
+        "training": 44,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Benign Nevus": 100,
+          "Melanoma": 70
+        }
+      },
+      "use": {
+        "training": "44 images (22 benign and 22 melanoma) were selected for training the SVM, KNN, and TDS classifiers.",
+        "validation": null,
+        "testing": "The remaining images from the dataset were used to evaluate the performance of the proposed model (accuracy, sensitivity, specificity).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "Jaccard Coefficient",
+    "Dice Index"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. It reports accuracy, sensitivity, and specificity rates for different classifiers but does not perform statistical significance testing between them."
+  },
+  "results_obtained_in_each_dataset": {
+    "MED-NODE": {
+      "experiment": "Classification using ABCD rule features and Graph-Cut segmentation",
+      "split": {
+        "training": "44 images (22 benign, 22 melanoma)",
+        "testing": "Remaining images from the dataset"
+      },
+      "metrics": [
+        "Accuracy",
+        "Sensitivity (Sn)",
+        "Specificity (Sp)",
+        "Jaccard Index",
+        "Dice Index"
+      ],
+      "models": {
+        "TDS (Total Dermoscopy Score)": {
+          "feature_vector": "<A,B,C,D>",
+          "specificity_benign": "76.0%",
+          "sensitivity_melanoma": "70.0%",
+          "accuracy": "73.529%",
+          "jaccard_index": "0.5213",
+          "dice_index": "0.6853"
+        },
+        "SVM (Support Vector Machine)": {
+          "feature_vector": "<A,B,C,D,TDS>",
+          "specificity_benign": "76.0%",
+          "sensitivity_melanoma": "74.286%",
+          "accuracy": "75.294%",
+          "jaccard_index": "0.5532",
+          "dice_index": "0.7123"
+        },
+        "KNN (K-Nearest Neighbors, k=5)": {
+          "feature_vector": "<A,B,C,D,TDS>",
+          "specificity_benign": "86.0%",
+          "sensitivity_melanoma": "58.571%",
+          "accuracy": "74.706%",
+          "jaccard_index": "0.4881",
+          "dice_index": "0.6560"
+        },
+        "SVM (Support Vector Machine) - Alternative Configuration": {
+          "feature_vector": "<A,B,C,D>",
+          "specificity_benign": "57.0%",
+          "sensitivity_melanoma": "82.857%",
+          "accuracy": "67.647%"
+        },
+        "KNN (K-Nearest Neighbors, k=5) - Alternative Configuration": {
+          "feature_vector": "<A,B,C,D>",
+          "specificity_benign": "80.0%",
+          "sensitivity_melanoma": "60.004%",
+          "accuracy": "71.765%"
+        }
+      },
+      "notes": "The paper reports that the Dice Index is implementing better than the Jaccard index for skin cancer segmentation. Misclassifications were observed, particularly due to border irregularity issues from Graph-Cut segmentation and diameter measurement inaccuracies in macroscopic images. The proposed model's accuracy (73.529%-75.294%) was compared to Giotis et al. (81%) and Rosado (30% error, 73% Sn, 70% Sp)."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Traditional machine learning classifiers (Total Dermoscopy Score (TDS), Support Vector Machine (SVM), K-Nearest Neighbors (KNN)) combined with Graph-Cut segmentation and ABCD rule feature extraction.",
+    "pretraining": null,
+    "input_size": "Macroscopic images from the MED-NODE dataset (dimensions not explicitly reported; dataset consists of 100 benign nevus and 70 melanoma images).",
+    "architecture_details": {
+      "segmentation": "Graph-Cut segmentation technique used to partition lesions from skin. Preprocessing included Median Blur for hair removal. Dilation and Erosion were tested but not implemented in the final model due to blurring effects.",
+      "feature_extraction": "ABCD rule features extracted from segmented Region of Interest (ROI): Asymmetry (A), Border Irregularity (B), Colour (C), and Diameter (D).",
+      "classifiers": [
+        {
+          "name": "Total Dermoscopy Score (TDS)",
+          "type": "Scoring system/Classifier",
+          "feature_vector": "<A, B, C, D>",
+          "details": "Semi-quantitative scoring system. TDS <= 4.8 classified as benign; TDS > 4.8 classified as melanoma."
+        },
+        {
+          "name": "Support Vector Machine (SVM)",
+          "type": "Machine Learning Classifier",
+          "feature_vectors": [
+            "<A, B, C, D, TDS>",
+            "<A, B, C, D>"
+          ],
+          "details": "Evaluated with two different feature vectors."
+        },
+        {
+          "name": "K-Nearest Neighbors (KNN)",
+          "type": "Machine Learning Classifier",
+          "k_value": 5,
+          "feature_vectors": [
+            "<A, B, C, D, TDS>",
+            "<A, B, C, D>"
+          ],
+          "details": "Evaluated with k=5 and two different feature vectors."
+        }
+      ]
+    },
+    "training_details": {
+      "dataset": "MED-NODE",
+      "training_split": "44 images (22 benign, 22 melanoma)",
+      "testing_split": "Remaining images from the dataset",
+      "hyperparameters": {
+        "KNN_k": 5,
+        "TDS_threshold": 4.8
+      },
+      "loss_function": null,
+      "optimizer": null
+    },
+    "classification_or_output_head": {
+      "output_type": "Binary classification (Benign Nevus vs. Melanoma)",
+      "decision_rule": "TDS <= 4.8 (Benign) or TDS > 4.8 (Melanoma); SVM and KNN outputs based on feature vector similarity/margin."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Total Dermoscopy Score (TDS)",
+    "Support Vector Machine (SVM)",
+    "K-Nearest Neighbors (KNN)"
+  ],
+  "preprocessing_techniques": [
+    "Image resizing to 512 x 512 pixel resolution",
+    "Median blur filter applied to remove fine hairs, air bubbles, light reflections, and brightness",
+    "Dilation and Erosion morphological operations tested for thick hair removal (not implemented in final model due to blurring effects and reduced accuracy)"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "The proposed model using the ABCD rule and Graph-Cut segmentation on macroscopic images is a viable approach for skin cancer detection, achieving accuracy rates of 73.529% (TDS), 75.294% (SVM), and 74.706% (KNN).",
+    "The SVM classifier with the feature vector <A,B,C,D,TDS> achieved the highest accuracy (75.294%) among the tested methods.",
+    "The Dice Index (0.7123 for SVM) was found to be more effective than the Jaccard Index for skin cancer segmentation in this study.",
+    "The ABCD rule, while effective for dermoscopic images, presents challenges when applied to macroscopic images due to specific feature limitations.",
+    "Border Irregularity (B) scoring performs poorly in macroscopic images because Graph-Cut segmentation often cuts off parts of the lesion border.",
+    "The Diameter (D) attribute is significantly affected in macroscopic images because the true diameter size is not correctly represented compared to dermoscopic images, leading to misclassifications.",
+    "The Colour (C) attribute falls short in macroscopic images, particularly when melanoma lesions present an abundance of only one or two colors, which can lead to incorrect scoring.",
+    "The proposed model's accuracy is lower than that of Giotis et al. (81%), who used color/texture descriptors and expert annotations, but comparable to Rosado's work on dermoscopic images.",
+    "Macroscopic images pose segmentation challenges due to uneven illumination, hairs, freckles, and scars, necessitating preprocessing like Median Blur for hair removal."
+  ],
+  "important_remarks": [
+    "The study relies on a very small training set of only 44 images (22 benign, 22 melanoma) from the MED-NODE dataset, which limits the statistical robustness and generalizability of the machine learning classifiers (SVM, KNN).",
+    "The proposed model achieves lower accuracy (73.529%-75.294%) compared to Giotis et al. (81%) on the same dataset, partly because Giotis et al. utilized expert annotations and additional color/texture descriptors not included in this model's ABCD feature vector.",
+    "The ABCD rule features are inherently biased toward dermoscopic images; specifically, Border Irregularity (B) scoring is compromised by Graph-Cut segmentation cutting off lesion borders, and Diameter (D) measurement is inaccurate in macroscopic images due to lack of scale reference.",
+    "The Colour (C) attribute is unreliable for macroscopic images, particularly when melanoma lesions present only one or two colors, leading to potential misclassification as benign.",
+    "No formal statistical hypothesis testing (e.g., p-values, confidence intervals) was performed to validate the significance of differences between classifier performances.",
+    "The dataset is limited to two classes (Benign Nevus and Melanoma) and does not account for other skin cancer types or suspicious lesions, restricting clinical applicability.",
+    "Graph-Cut segmentation, while effective for dermoscopic images, faces challenges with macroscopic images due to uneven illumination, hairs, freckles, and scars, necessitating preprocessing (Median Blur) that may introduce artifacts."
+  ]
+}

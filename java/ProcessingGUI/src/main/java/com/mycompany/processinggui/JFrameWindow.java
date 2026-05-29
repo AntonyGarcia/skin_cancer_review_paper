@@ -28,8 +28,14 @@ public class JFrameWindow extends javax.swing.JFrame {
         if (jsonRoot != null) {
             aliasFilePath = jsonRoot.getParent().resolve("dataset_aliases.json");
         }
+        datasetFilePaths.clear();
+        datasetFilePaths.putAll(collectDatasetFilePaths());
+        compliantJsonFileCount = countJsonFilesInFolder("compliant");
+        nonCompliantJsonFileCount = countJsonFilesInFolder("non_compliant");
         datasetFileCounts.clear();
-        datasetFileCounts.putAll(collectDatasetFileCounts());
+        for (java.util.Map.Entry<String, java.util.Set<java.nio.file.Path>> entry : datasetFilePaths.entrySet()) {
+            datasetFileCounts.put(entry.getKey(), entry.getValue().size());
+        }
         loadOrInitAliasData(allNames);
         refreshList1();
     }
@@ -46,10 +52,7 @@ public class JFrameWindow extends javax.swing.JFrame {
             public java.awt.Component getListCellRendererComponent(
                     javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 String term = (String) value;
-                int count = aliasData.getOrDefault(term, java.util.Collections.emptyList())
-                        .stream()
-                        .mapToInt(alias -> datasetFileCounts.getOrDefault(alias, 0))
-                        .sum();
+                int count = getTermFileCount(term);
                 String display = count > 0 ? term + " (" + count + ")" : term;
                 super.getListCellRendererComponent(list, display, index, isSelected, cellHasFocus);
                 if (!isSelected) {
@@ -86,8 +89,9 @@ public class JFrameWindow extends javax.swing.JFrame {
                 }
                 jButton3.setText(nonCompliantTerms.contains(term) ? "Compliant" : "Non-Compliant");
                 jButton7.setText(notAvailableTerms.contains(term) ? "Mark as Available" : "Dataset N/A");
+                boolean hasFiles = getTermFileCount(term) > 0;
                 boolean singleFile = getTermFileCount(term) == 1;
-                jButton4.setEnabled(singleFile);
+                jButton4.setEnabled(hasFiles);
                 jButton5.setEnabled(singleFile);
                 jButton6.setEnabled(true);
                 jButton7.setEnabled(true);
@@ -184,19 +188,34 @@ public class JFrameWindow extends javax.swing.JFrame {
         javax.swing.JMenuItem pasteItem = new javax.swing.JMenuItem("Paste");
         pasteItem.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
         pasteItem.addActionListener(e -> pasteToList2());
+        javax.swing.JMenuItem nonCompliantAliasItem = new javax.swing.JMenuItem("Non-Compliant");
+        nonCompliantAliasItem.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        nonCompliantAliasItem.addActionListener(e -> moveSelectedAliasesToNonCompliant());
         list3Menu.add(pasteItem);
+        list3Menu.add(nonCompliantAliasItem);
 
         jList3.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent e) {
-                if (e.isPopupTrigger() && !listClipboard.isEmpty())
-                    list3Menu.show(e.getComponent(), e.getX(), e.getY());
+                maybeShowPopup(e);
             }
 
             @Override
             public void mouseReleased(java.awt.event.MouseEvent e) {
-                if (e.isPopupTrigger() && !listClipboard.isEmpty())
+                maybeShowPopup(e);
+            }
+
+            private void maybeShowPopup(java.awt.event.MouseEvent e) {
+                if (!e.isPopupTrigger()) return;
+                int idx = jList3.locationToIndex(e.getPoint());
+                if (idx >= 0 && !jList3.isSelectedIndex(idx)) {
+                    jList3.setSelectedIndex(idx);
+                }
+                pasteItem.setEnabled(!listClipboard.isEmpty());
+                nonCompliantAliasItem.setEnabled(!jList3.getSelectedValuesList().isEmpty());
+                if (pasteItem.isEnabled() || nonCompliantAliasItem.isEnabled()) {
                     list3Menu.show(e.getComponent(), e.getX(), e.getY());
+                }
             }
         });
     }
@@ -272,100 +291,106 @@ public class JFrameWindow extends javax.swing.JFrame {
 
     private java.util.List<String> collectUniqueDatasetNames() {
         java.util.Set<String> datasetNames = new java.util.HashSet<>();
-        java.nio.file.Path jsonRoot = findJsonRoot();
-        if (jsonRoot == null) {
-            return java.util.Collections.emptyList();
-        }
-        try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.walk(jsonRoot)) {
-            java.util.List<java.nio.file.Path> jsonFiles = stream
-                    .filter(p -> p.toString().endsWith(".json"))
-                    .filter(p -> !p.getParent().getFileName().toString().equals("non_compliant"))
-                    .collect(java.util.stream.Collectors.toList());
-
-            for (java.nio.file.Path path : jsonFiles) {
-                try {
-                    String content = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
-                    org.json.JSONObject record = new org.json.JSONObject(content);
-
-                    if (!record.has("datasets_used")) {
-                        continue;
-                    }
-                    Object datasetsObj = record.get("datasets_used");
-                    if (!(datasetsObj instanceof org.json.JSONArray datasets)) {
-                        continue;
-                    }
-
-                    for (int i = 0; i < datasets.length(); i++) {
-                        Object item = datasets.get(i);
-                        String name;
-                        if (item instanceof org.json.JSONObject obj) {
-                            Object nameObj = obj.opt("name");
-                            if (nameObj == null) {
-                                continue;
-                            }
-                            name = nameObj.toString();
-                        } else {
-                            name = item.toString();
-                        }
-                        String trimmed = name.trim();
-                        if (!trimmed.isEmpty()) {
-                            datasetNames.add(trimmed);
-                        }
-                    }
-                } catch (Exception e) {
-                    // skip files with parse errors
-                }
+        for (java.nio.file.Path path : listJsonFiles(false)) {
+            try {
+                String content = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
+                datasetNames.addAll(collectDatasetTerms(new org.json.JSONObject(content)));
+            } catch (Exception e) {
+                // skip files with parse errors
             }
-        } catch (java.io.IOException e) {
-            // ignore walk errors
         }
-
         java.util.List<String> sorted = new java.util.ArrayList<>(datasetNames);
         sorted.sort(String.CASE_INSENSITIVE_ORDER);
         return sorted;
     }
 
-    private java.util.Map<String, Integer> collectDatasetFileCounts() {
-        java.util.Map<String, Integer> counts = new java.util.HashMap<>();
+    private java.util.Map<String, java.util.Set<java.nio.file.Path>> collectDatasetFilePaths() {
+        java.util.Map<String, java.util.Set<java.nio.file.Path>> pathsByTerm = new java.util.HashMap<>();
+        for (java.nio.file.Path path : listJsonFiles(false)) {
+            try {
+                String content = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
+                java.util.Set<String> termsInFile = collectDatasetTerms(new org.json.JSONObject(content));
+                for (String term : termsInFile) {
+                    pathsByTerm.computeIfAbsent(term, k -> new java.util.HashSet<>()).add(path);
+                }
+            } catch (Exception e) {
+                // skip files with parse errors
+            }
+        }
+        return pathsByTerm;
+    }
+
+    private int countJsonFilesInFolder(String folderName) {
         java.nio.file.Path jsonRoot = findJsonRoot();
-        if (jsonRoot == null) return counts;
-        try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.walk(jsonRoot)) {
-            java.util.List<java.nio.file.Path> jsonFiles = stream
+        if (jsonRoot == null) return 0;
+        java.nio.file.Path folder = jsonRoot.resolve(folderName);
+        if (!java.nio.file.Files.isDirectory(folder)) return 0;
+        try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.walk(folder)) {
+            return (int) stream
                     .filter(p -> p.toString().endsWith(".json"))
-                    .filter(p -> !p.getParent().getFileName().toString().equals("non_compliant"))
+                    .count();
+        } catch (java.io.IOException e) {
+            return 0;
+        }
+    }
+
+    private java.util.List<java.nio.file.Path> listJsonFiles(boolean includeNonCompliant) {
+        java.nio.file.Path jsonRoot = findJsonRoot();
+        if (jsonRoot == null) {
+            return java.util.Collections.emptyList();
+        }
+        try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.walk(jsonRoot)) {
+            return stream
+                    .filter(p -> p.toString().endsWith(".json"))
+                    .filter(p -> includeNonCompliant || !isNonCompliantJson(pathNormalize(p)))
+                    .sorted(java.util.Comparator.comparing(java.nio.file.Path::toString))
                     .collect(java.util.stream.Collectors.toList());
-            for (java.nio.file.Path path : jsonFiles) {
-                try {
-                    String content = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
-                    org.json.JSONObject record = new org.json.JSONObject(content);
-                    if (!record.has("datasets_used")) continue;
-                    Object datasetsObj = record.get("datasets_used");
-                    if (!(datasetsObj instanceof org.json.JSONArray datasets)) continue;
-                    java.util.Set<String> namesInFile = new java.util.HashSet<>();
-                    for (int i = 0; i < datasets.length(); i++) {
-                        Object item = datasets.get(i);
-                        String name;
-                        if (item instanceof org.json.JSONObject obj) {
-                            Object nameObj = obj.opt("name");
-                            if (nameObj == null) continue;
-                            name = nameObj.toString();
-                        } else {
-                            name = item.toString();
-                        }
-                        String trimmed = name.trim();
-                        if (!trimmed.isEmpty()) namesInFile.add(trimmed);
-                    }
-                    for (String name : namesInFile) {
-                        counts.merge(name, 1, Integer::sum);
-                    }
-                } catch (Exception e) {
-                    // skip files with parse errors
+        } catch (java.io.IOException e) {
+            return java.util.Collections.emptyList();
+        }
+    }
+
+    private java.nio.file.Path pathNormalize(java.nio.file.Path path) {
+        return path.toAbsolutePath().normalize();
+    }
+
+    private boolean isNonCompliantJson(java.nio.file.Path path) {
+        return path != null
+                && path.getParent() != null
+                && "non_compliant".equals(path.getParent().getFileName().toString());
+    }
+
+    private java.util.Set<String> collectDatasetTerms(org.json.JSONObject record) {
+        java.util.Set<String> terms = new java.util.LinkedHashSet<>();
+        collectDatasetTerms(record, terms);
+        return terms;
+    }
+
+    private void collectDatasetTerms(org.json.JSONObject record, java.util.Set<String> terms) {
+        Object datasetsObj = record.opt("datasets_used");
+        if (datasetsObj instanceof org.json.JSONArray datasets) {
+            for (int i = 0; i < datasets.length(); i++) {
+                Object item = datasets.opt(i);
+                if (item instanceof org.json.JSONObject obj) {
+                    addCleanTerm(terms, cleanTerm(obj.opt("name")));
+                } else {
+                    addCleanTerm(terms, cleanTerm(item));
                 }
             }
-        } catch (java.io.IOException e) {
-            // ignore walk errors
         }
-        return counts;
+    }
+
+    private String cleanTerm(Object value) {
+        if (value == null || value == org.json.JSONObject.NULL) return "";
+        String term = value.toString().trim();
+        return "null".equalsIgnoreCase(term) ? "" : term;
+    }
+
+    private void addCleanTerm(java.util.Collection<String> terms, String term) {
+        String clean = cleanTerm(term);
+        if (!clean.isEmpty() && !terms.contains(clean)) {
+            terms.add(clean);
+        }
     }
 
     private java.nio.file.Path findJsonRoot() {
@@ -385,17 +410,35 @@ public class JFrameWindow extends javax.swing.JFrame {
         nonCompliantTerms.clear();
         notAvailableTerms.clear();
         boolean fileExists = aliasFilePath != null && java.nio.file.Files.exists(aliasFilePath);
+        boolean aliasDataChanged = false;
         if (fileExists) {
             try {
                 String content = java.nio.file.Files.readString(aliasFilePath, java.nio.charset.StandardCharsets.UTF_8);
                 org.json.JSONArray arr = new org.json.JSONArray(content);
                 for (int i = 0; i < arr.length(); i++) {
                     org.json.JSONObject entry = arr.getJSONObject(i);
-                    String term = entry.getString("term");
+                    String term = cleanTerm(entry.optString("term", ""));
+                    if (term.isEmpty()) {
+                        aliasDataChanged = true;
+                        continue;
+                    }
                     org.json.JSONArray aliasArr = entry.getJSONArray("aliases");
                     java.util.List<String> aliases = new java.util.ArrayList<>();
                     for (int j = 0; j < aliasArr.length(); j++) {
-                        aliases.add(aliasArr.getString(j));
+                        String alias = cleanTerm(aliasArr.getString(j));
+                        if (allNames.contains(alias) && !aliases.contains(alias)) {
+                            aliases.add(alias);
+                        } else if (!alias.isEmpty()) {
+                            aliasDataChanged = true;
+                        }
+                    }
+                    if (allNames.contains(term) && !aliases.contains(term)) {
+                        aliases.add(0, term);
+                        aliasDataChanged = true;
+                    }
+                    if (aliases.isEmpty()) {
+                        aliasDataChanged = true;
+                        continue;
                     }
                     aliasData.put(term, aliases);
                     if (entry.optBoolean("non_compliant", false)) {
@@ -423,7 +466,7 @@ public class JFrameWindow extends javax.swing.JFrame {
                 newNamesAdded = true;
             }
         }
-        if (!fileExists || newNamesAdded) {
+        if (!fileExists || newNamesAdded || aliasDataChanged) {
             saveAliasData();
         }
     }
@@ -454,17 +497,29 @@ public class JFrameWindow extends javax.swing.JFrame {
 
     private void refreshList1() {
         String filter = jTextFieldSearch.getText().trim().toLowerCase();
-        java.util.List<String> allTerms = new java.util.ArrayList<>(aliasData.keySet());
+        java.util.List<String> allTerms = aliasData.keySet().stream()
+                .filter(t -> getTermFileCount(t) > 0)
+                .collect(java.util.stream.Collectors.toCollection(java.util.ArrayList::new));
         allTerms.sort(String.CASE_INSENSITIVE_ORDER);
         java.util.List<String> terms = filter.isEmpty()
                 ? allTerms
-                : allTerms.stream().filter(t -> t.toLowerCase().contains(filter))
+                : allTerms.stream().filter(t -> datasetTermMatchesFilter(t, filter))
                           .collect(java.util.stream.Collectors.toList());
         jList1.setListData(terms.toArray(new String[0]));
+        String fileCounts = " | JSON files: compliant " + compliantJsonFileCount
+                + ", non-compliant " + nonCompliantJsonFileCount;
         jLabel1.setText(filter.isEmpty()
-                ? "Unique datasets: " + terms.size()
-                : "Showing: " + terms.size() + " / " + allTerms.size());
+                ? "Unique datasets: " + terms.size() + fileCounts
+                : "Showing: " + terms.size() + " / " + allTerms.size() + fileCounts);
         jList1.repaint();
+    }
+
+    private boolean datasetTermMatchesFilter(String term, String filter) {
+        if (term.toLowerCase().contains(filter)) return true;
+        for (String alias : aliasData.getOrDefault(term, java.util.Collections.emptyList())) {
+            if (alias.toLowerCase().contains(filter)) return true;
+        }
+        return false;
     }
 
     private void setupButtons() {
@@ -472,6 +527,7 @@ public class JFrameWindow extends javax.swing.JFrame {
         jButton3.addActionListener(e -> toggleNonCompliant());
         jButton4.addActionListener(e -> openJsonViewer());
         jButton4.setEnabled(false);
+        jButton5.setEnabled(false);
         jButton6.setText("Google Search");
         jButton6.setEnabled(false);
         jButton6.addActionListener(e -> openGoogleSearch());
@@ -484,36 +540,116 @@ public class JFrameWindow extends javax.swing.JFrame {
         });
     }
 
+    private java.util.List<java.nio.file.Path> findMatchingDatasetFiles(boolean includeNonCompliant) {
+        if (currentSelectedTerm == null || !aliasData.containsKey(currentSelectedTerm)) {
+            return java.util.Collections.emptyList();
+        }
+        java.util.Set<String> aliases = new java.util.HashSet<>(aliasData.get(currentSelectedTerm));
+        java.util.List<java.nio.file.Path> matchingFiles = new java.util.ArrayList<>();
+        for (java.nio.file.Path path : listJsonFiles(includeNonCompliant)) {
+            try {
+                String content = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
+                if (recordHasDatasetAlias(new org.json.JSONObject(content), aliases)) {
+                    matchingFiles.add(path);
+                }
+            } catch (Exception ignored) {}
+        }
+        return matchingFiles;
+    }
+
+    private boolean recordHasDatasetAlias(org.json.JSONObject record, java.util.Set<String> aliases) {
+        for (String datasetTerm : collectDatasetTerms(record)) {
+            if (containsIgnoreCase(aliases, datasetTerm)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private java.util.List<java.nio.file.Path> findMatchingDatasetFilesForTerms(
+            java.util.Collection<String> datasetTerms,
+            boolean includeNonCompliant) {
+        java.util.Set<String> terms = new java.util.HashSet<>();
+        for (String datasetTerm : datasetTerms) {
+            String clean = cleanTerm(datasetTerm);
+            if (!clean.isEmpty()) {
+                terms.add(clean);
+            }
+        }
+        if (terms.isEmpty()) {
+            return java.util.Collections.emptyList();
+        }
+
+        java.util.List<java.nio.file.Path> matchingFiles = new java.util.ArrayList<>();
+        for (java.nio.file.Path path : listJsonFiles(includeNonCompliant)) {
+            try {
+                String content = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
+                if (recordHasDatasetAlias(new org.json.JSONObject(content), terms)) {
+                    matchingFiles.add(path);
+                }
+            } catch (Exception ignored) {}
+        }
+        return matchingFiles;
+    }
+
+    private java.util.Set<String> collectClusterTermsInFiles(java.util.List<java.nio.file.Path> files) {
+        java.util.Set<String> clusterTerms = new java.util.HashSet<>(
+                aliasData.getOrDefault(currentSelectedTerm, java.util.Collections.emptyList()));
+        java.util.Set<String> found = new java.util.TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        for (java.nio.file.Path path : files) {
+            try {
+                String content = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
+                for (String datasetTerm : collectDatasetTerms(new org.json.JSONObject(content))) {
+                    if (containsIgnoreCase(clusterTerms, datasetTerm)) {
+                        found.add(datasetTerm);
+                    }
+                }
+            } catch (Exception ignored) {}
+        }
+        return found;
+    }
+
+    private boolean containsIgnoreCase(java.util.Collection<String> values, String target) {
+        for (String value : values) {
+            if (value.equalsIgnoreCase(target)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String displayJsonPath(java.nio.file.Path path) {
+        java.nio.file.Path jsonRoot = findJsonRoot();
+        if (jsonRoot != null) {
+            try {
+                return jsonRoot.relativize(path).toString();
+            } catch (Exception ignored) {}
+        }
+        return path.getFileName().toString();
+    }
+
+    private java.nio.file.Path moveJsonToDirectory(
+            java.nio.file.Path source,
+            java.nio.file.Path destinationDir) throws java.io.IOException {
+        java.nio.file.Path dest = destinationDir.resolve(source.getFileName());
+        if (java.nio.file.Files.exists(dest)) {
+            int dup = 1;
+            String stem = source.getFileName().toString().replaceAll("\\.json$", "");
+            while (true) {
+                java.nio.file.Path candidate = destinationDir.resolve(stem + "__dup" + dup + ".json");
+                if (!java.nio.file.Files.exists(candidate)) {
+                    dest = candidate;
+                    break;
+                }
+                dup++;
+            }
+        }
+        return java.nio.file.Files.move(source, dest);
+    }
+
     private void openJsonViewer() {
         if (currentSelectedTerm == null || !aliasData.containsKey(currentSelectedTerm)) return;
-        java.util.Set<String> aliases = new java.util.HashSet<>(aliasData.get(currentSelectedTerm));
-        java.nio.file.Path jsonRoot = findJsonRoot();
-        if (jsonRoot == null) return;
-        java.util.List<java.nio.file.Path> matchingFiles = new java.util.ArrayList<>();
-        try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.walk(jsonRoot)) {
-            java.util.List<java.nio.file.Path> allJson = stream
-                    .filter(p -> p.toString().endsWith(".json"))
-                    .sorted(java.util.Comparator.comparing(java.nio.file.Path::toString))
-                    .collect(java.util.stream.Collectors.toList());
-            for (java.nio.file.Path path : allJson) {
-                try {
-                    String content = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
-                    org.json.JSONObject record = new org.json.JSONObject(content);
-                    Object datasetsObj = record.opt("datasets_used");
-                    if (!(datasetsObj instanceof org.json.JSONArray datasets)) continue;
-                    for (int i = 0; i < datasets.length(); i++) {
-                        Object item = datasets.get(i);
-                        String name = item instanceof org.json.JSONObject obj
-                                ? obj.optString("name", "")
-                                : item.toString();
-                        if (aliases.contains(name.trim())) {
-                            matchingFiles.add(path);
-                            break;
-                        }
-                    }
-                } catch (Exception ignored) {}
-            }
-        } catch (java.io.IOException ignored) {}
+        java.util.List<java.nio.file.Path> matchingFiles = findMatchingDatasetFiles(true);
 
         if (matchingFiles.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this,
@@ -527,14 +663,14 @@ public class JFrameWindow extends javax.swing.JFrame {
             chosen = matchingFiles.get(0);
         } else {
             String[] names = matchingFiles.stream()
-                    .map(p -> p.getFileName().toString())
+                    .map(this::displayJsonPath)
                     .toArray(String[]::new);
             String selected = (String) javax.swing.JOptionPane.showInputDialog(
                     this, "Select a file to open:", "Open JSON",
                     javax.swing.JOptionPane.PLAIN_MESSAGE, null, names, names[0]);
             if (selected == null) return;
             chosen = matchingFiles.stream()
-                    .filter(p -> p.getFileName().toString().equals(selected))
+                    .filter(p -> displayJsonPath(p).equals(selected))
                     .findFirst().orElse(null);
             if (chosen == null) return;
         }
@@ -733,58 +869,9 @@ public class JFrameWindow extends javax.swing.JFrame {
                     }
                     ncDir = ncDir.resolve("non_compliant");
                     java.nio.file.Files.createDirectories(ncDir);
-                    java.nio.file.Path dest = ncDir.resolve(filePath.getFileName());
-                    if (java.nio.file.Files.exists(dest)) {
-                        int dup = 1;
-                        String stem = filePath.getFileName().toString().replaceAll("\\.json$", "");
-                        while (true) {
-                            java.nio.file.Path cand = ncDir.resolve(stem + "__dup" + dup + ".json");
-                            if (!java.nio.file.Files.exists(cand)) { dest = cand; break; }
-                            dup++;
-                        }
-                    }
-                    java.nio.file.Files.move(filePath, dest);
+                    moveJsonToDirectory(filePath, ncDir);
                 }
-
-                // Collect dataset names from the file
-                java.util.Set<String> movedNames = new java.util.HashSet<>();
-                try {
-                    org.json.JSONObject rec = new org.json.JSONObject(content);
-                    Object du = rec.opt("datasets_used");
-                    if (du instanceof org.json.JSONArray movedArr) {
-                        for (int mi = 0; mi < movedArr.length(); mi++) {
-                            Object item = movedArr.get(mi);
-                            String n = item instanceof org.json.JSONObject obj2
-                                    ? obj2.optString("name", "") : item.toString().trim();
-                            if (!n.isEmpty()) movedNames.add(n);
-                        }
-                    }
-                } catch (Exception ignored) {}
-
-                // Remove terms whose aliases are exclusively in this file
-                java.util.List<String> toRemove = new java.util.ArrayList<>();
-                for (java.util.Map.Entry<String, java.util.List<String>> me : aliasData.entrySet()) {
-                    int remaining = 0;
-                    for (String a : me.getValue()) {
-                        int cnt = datasetFileCounts.getOrDefault(a, 0);
-                        if (movedNames.contains(a)) cnt--;
-                        remaining += Math.max(cnt, 0);
-                    }
-                    if (remaining == 0) toRemove.add(me.getKey());
-                }
-                for (String t : toRemove) {
-                    aliasData.remove(t);
-                    nonCompliantTerms.remove(t);
-                    notAvailableTerms.remove(t);
-                }
-
-                // Update file counts
-                for (String n : movedNames) {
-                    datasetFileCounts.computeIfPresent(n, (k, v) -> v > 1 ? v - 1 : null);
-                }
-
-                saveAliasData();
-                refreshList1();
+                loadDatasetNamesIntoList();
                 dialog.dispose();
             } catch (Exception ex) {
                 javax.swing.JOptionPane.showMessageDialog(dialog,
@@ -816,35 +903,20 @@ public class JFrameWindow extends javax.swing.JFrame {
 
     private int getTermFileCount(String term) {
         java.util.List<String> aliases = aliasData.getOrDefault(term, java.util.Collections.emptyList());
-        return aliases.stream().mapToInt(a -> datasetFileCounts.getOrDefault(a, 0)).sum();
+        java.util.Set<java.nio.file.Path> files = new java.util.HashSet<>();
+        for (String alias : aliases) {
+            java.util.Set<java.nio.file.Path> aliasFiles = datasetFilePaths.get(alias);
+            if (aliasFiles != null) {
+                files.addAll(aliasFiles);
+            }
+        }
+        return files.size();
     }
 
     private void copyDoiToClipboard() {
         if (currentSelectedTerm == null || !aliasData.containsKey(currentSelectedTerm)) return;
-        java.util.Set<String> aliases = new java.util.HashSet<>(aliasData.get(currentSelectedTerm));
-        java.nio.file.Path jsonRoot = findJsonRoot();
-        if (jsonRoot == null) return;
-        java.nio.file.Path found = null;
-        try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.walk(jsonRoot)) {
-            java.util.List<java.nio.file.Path> allJson = stream
-                    .filter(p -> p.toString().endsWith(".json"))
-                    .collect(java.util.stream.Collectors.toList());
-            outer:
-            for (java.nio.file.Path path : allJson) {
-                try {
-                    String fc = java.nio.file.Files.readString(path, java.nio.charset.StandardCharsets.UTF_8);
-                    org.json.JSONObject rec = new org.json.JSONObject(fc);
-                    Object du = rec.opt("datasets_used");
-                    if (!(du instanceof org.json.JSONArray arr)) continue;
-                    for (int i = 0; i < arr.length(); i++) {
-                        Object item = arr.get(i);
-                        String name = item instanceof org.json.JSONObject obj
-                                ? obj.optString("name", "") : item.toString().trim();
-                        if (aliases.contains(name.trim())) { found = path; break outer; }
-                    }
-                } catch (Exception ignored) {}
-            }
-        } catch (java.io.IOException ignored) {}
+        java.util.List<java.nio.file.Path> matches = findMatchingDatasetFiles(false);
+        java.nio.file.Path found = matches.size() == 1 ? matches.get(0) : null;
 
         if (found == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "No matching file found.",
@@ -872,6 +944,7 @@ public class JFrameWindow extends javax.swing.JFrame {
         if (currentSelectedTerm == null || !aliasData.containsKey(currentSelectedTerm)) return;
         java.util.List<String> aliases = aliasData.remove(currentSelectedTerm);
         nonCompliantTerms.remove(currentSelectedTerm);
+        notAvailableTerms.remove(currentSelectedTerm);
         for (String alias : aliases) {
             if (!aliasData.containsKey(alias)) {
                 aliasData.put(alias, new java.util.ArrayList<>(java.util.Arrays.asList(alias)));
@@ -889,13 +962,158 @@ public class JFrameWindow extends javax.swing.JFrame {
         if (nonCompliantTerms.contains(currentSelectedTerm)) {
             nonCompliantTerms.remove(currentSelectedTerm);
             jButton3.setText("Non-Compliant");
+            saveAliasData();
+            refreshList1();
+            jList1.setSelectedValue(currentSelectedTerm, true);
         } else {
-            nonCompliantTerms.add(currentSelectedTerm);
-            jButton3.setText("Compliant");
+            moveCurrentDatasetFilesToNonCompliant();
         }
-        saveAliasData();
-        refreshList1();
-        jList1.setSelectedValue(currentSelectedTerm, true);
+    }
+
+    private void moveCurrentDatasetFilesToNonCompliant() {
+        java.util.List<String> aliases = aliasData.getOrDefault(currentSelectedTerm, java.util.Collections.emptyList());
+        java.util.List<String> termsToMove = chooseDatasetTermsToMove(aliases);
+        if (termsToMove.isEmpty()) {
+            return;
+        }
+
+        java.util.List<java.nio.file.Path> matchingFiles = findMatchingDatasetFilesForTerms(termsToMove, false);
+        if (matchingFiles.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "No compliant JSON files found for the selected dataset term(s).",
+                    "Non-Compliant", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            refreshList1();
+            jList1.setSelectedValue(currentSelectedTerm, true);
+            return;
+        }
+        if (!confirmMoveDoesNotHideOtherClusterTerms(termsToMove, matchingFiles)) {
+            return;
+        }
+
+        java.nio.file.Path jsonRoot = findJsonRoot();
+        if (jsonRoot == null) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Could not locate json root.",
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            java.nio.file.Path nonCompliantDir = jsonRoot.resolve("non_compliant");
+            java.nio.file.Files.createDirectories(nonCompliantDir);
+            for (java.nio.file.Path path : matchingFiles) {
+                moveJsonToDirectory(path, nonCompliantDir);
+            }
+            nonCompliantTerms.add(currentSelectedTerm);
+            saveAliasData();
+            currentSelectedTerm = null;
+            jTextField1.setText("");
+            jList3Model.clear();
+            loadDatasetNamesIntoList();
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Could not move matching JSON files: " + ex.getMessage(),
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private java.util.List<String> chooseDatasetTermsToMove(java.util.List<String> aliases) {
+        if (aliases.size() <= 1) {
+            return java.util.Collections.singletonList(currentSelectedTerm);
+        }
+
+        String onlyCurrent = "Only \"" + currentSelectedTerm + "\"";
+        String wholeCluster = "Whole Cluster";
+        String cancel = "Cancel";
+        int choice = javax.swing.JOptionPane.showOptionDialog(this,
+                "\"" + currentSelectedTerm + "\" is a cluster with " + aliases.size()
+                        + " terms.\nMove only the selected/main term, or explicitly move the whole cluster?",
+                "Non-Compliant",
+                javax.swing.JOptionPane.DEFAULT_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE,
+                null,
+                new Object[]{onlyCurrent, wholeCluster, cancel},
+                cancel);
+
+        if (choice == 0) {
+            return java.util.Collections.singletonList(currentSelectedTerm);
+        }
+        if (choice == 1) {
+            return new java.util.ArrayList<>(aliases);
+        }
+        return java.util.Collections.emptyList();
+    }
+
+    private boolean confirmMoveDoesNotHideOtherClusterTerms(
+            java.util.List<String> termsToMove,
+            java.util.List<java.nio.file.Path> matchingFiles) {
+        java.util.Set<String> touchedClusterTerms = collectClusterTermsInFiles(matchingFiles);
+        java.util.Set<String> requestedTerms = new java.util.HashSet<>(termsToMove);
+        touchedClusterTerms.removeIf(term -> containsIgnoreCase(requestedTerms, term));
+        if (touchedClusterTerms.isEmpty()) {
+            return true;
+        }
+
+        String alsoTouched = String.join(", ", touchedClusterTerms);
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+                "The JSON file(s) that would be moved also contain these cluster term(s):\n"
+                        + alsoTouched
+                        + "\n\nMove anyway?",
+                "Confirm Non-Compliant Move",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+        return confirm == javax.swing.JOptionPane.YES_OPTION;
+    }
+
+    private void moveSelectedAliasesToNonCompliant() {
+        if (currentSelectedTerm == null || !aliasData.containsKey(currentSelectedTerm)) return;
+        java.util.List<String> selectedAliases = jList3.getSelectedValuesList();
+        if (selectedAliases.isEmpty()) return;
+
+        java.util.List<java.nio.file.Path> matchingFiles = findMatchingDatasetFilesForTerms(selectedAliases, false);
+        if (matchingFiles.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "No compliant JSON files found for the selected alias term(s).",
+                    "Non-Compliant", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if (!confirmMoveDoesNotHideOtherClusterTerms(selectedAliases, matchingFiles)) {
+            return;
+        }
+
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+                "Move " + matchingFiles.size() + " JSON file(s) for selected alias term(s) only?",
+                "Non-Compliant", javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+        if (confirm != javax.swing.JOptionPane.YES_OPTION) return;
+
+        java.nio.file.Path jsonRoot = findJsonRoot();
+        if (jsonRoot == null) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Could not locate json root.",
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            java.nio.file.Path nonCompliantDir = jsonRoot.resolve("non_compliant");
+            java.nio.file.Files.createDirectories(nonCompliantDir);
+            for (java.nio.file.Path path : matchingFiles) {
+                moveJsonToDirectory(path, nonCompliantDir);
+            }
+            loadDatasetNamesIntoList();
+            if (aliasData.containsKey(currentSelectedTerm)) {
+                jList1.setSelectedValue(currentSelectedTerm, true);
+            } else {
+                currentSelectedTerm = null;
+                jTextField1.setText("");
+                jList3Model.clear();
+            }
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Could not move matching JSON files: " + ex.getMessage(),
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void toggleNotAvailable() {
@@ -933,7 +1151,7 @@ public class JFrameWindow extends javax.swing.JFrame {
         if (!aliasData.containsKey(currentSelectedTerm)) return;
 
         java.util.List<String> aliases = aliasData.remove(currentSelectedTerm);
-        // The alias list is preserved exactly — the label is independent of its contents
+        // The alias list is preserved exactly; the label is independent of its contents.
         if (aliasData.containsKey(newTerm)) {
             // Merge into the existing term with that name
             java.util.List<String> existing = aliasData.get(newTerm);
@@ -1172,7 +1390,10 @@ public class JFrameWindow extends javax.swing.JFrame {
     private java.nio.file.Path aliasFilePath;
     private final java.util.LinkedHashMap<String, java.util.List<String>> aliasData = new java.util.LinkedHashMap<>();
     private final java.util.Map<String, Integer> datasetFileCounts = new java.util.HashMap<>();
+    private final java.util.Map<String, java.util.Set<java.nio.file.Path>> datasetFilePaths = new java.util.HashMap<>();
     private final java.util.Set<String> nonCompliantTerms = new java.util.HashSet<>();
     private final java.util.Set<String> notAvailableTerms = new java.util.HashSet<>();
+    private int compliantJsonFileCount = 0;
+    private int nonCompliantJsonFileCount = 0;
     private String currentSelectedTerm = null;
 }

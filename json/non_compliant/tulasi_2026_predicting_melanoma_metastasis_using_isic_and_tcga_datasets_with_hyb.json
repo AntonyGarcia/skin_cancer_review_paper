@@ -1,0 +1,258 @@
+{
+  "file_name": "tulasi_2026_predicting_melanoma_metastasis_using_isic_and_tcga_datasets_with_hyb.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a hybrid deep learning model combining ResNet and EfficientNet-B0 backbones to predict melanoma metastasis. It integrates dermoscopic images from the ISIC dataset with clinical and genomic metadata from the TCGA-SKCM cohort. The AI method involves a dual-backbone feature extraction architecture, a fusion module for multi-modal data, and optimization using AdamW to achieve an AUC of 0.9905 for metastasis prediction."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development and validation of a novel hybrid deep learning model (combining ResNet and EfficientNet-B0) for predicting melanoma metastasis. It details specific methodologies including data preprocessing of ISIC and TCGA datasets, model architecture design, training optimization (AdamW, BCE loss), and reports experimental results (AUC of 0.9905). The structure includes standard research sections such as Abstract, Introduction, Methodology, and Results, distinguishing it from a review paper."
+  },
+  "title": "Predicting Melanoma Metastasis Using ISIC and TCGA Datasets with Hybrid Deep Learning",
+  "authors": [
+    "Vissamsetti Aswitha",
+    "Tumarada Bhuvanesh",
+    "Mrs. Y. V. N. Tulasi",
+    "Ulisi Lokesh",
+    "Sanaka Vineela"
+  ],
+  "doi": null,
+  "journal": "International Journal of Engineering Science and Advanced Technology (IJESAT)",
+  "year": 2026,
+  "article_type": "Research paper",
+  "brief_summary": "This study addresses the challenge of predicting melanoma metastasis by developing a hybrid deep learning model that integrates dermoscopic images from the ISIC dataset with clinical and genomic metadata from the TCGA-SKCM cohort. The proposed architecture combines ResNet for hierarchical feature extraction and EfficientNet-B0 for multi-scale representation, fusing these visual features with patient-specific metadata via a dedicated fusion module. The model was trained using the AdamW optimizer and Binary Cross-Entropy loss to optimize metastasis risk assessment. Experimental evaluation demonstrated that the hybrid approach significantly outperformed single-backbone baselines, achieving an AUC of 0.9905, an AUPR of 0.97, and an accuracy of 0.96. These results confirm the model's robustness and reliability in identifying metastatic cases, highlighting the value of multimodal data integration for improving diagnostic precision in melanoma management.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "metastatic melanoma"
+      ],
+      "role": "Target class",
+      "details": "The study focuses specifically on predicting metastasis in melanoma patients using the TCGA-SKCM cohort and dermoscopic images from the ISIC dataset. The task is binary classification (metastasis vs. non-metastasis) within the melanoma population, rather than multi-class skin lesion classification."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma metastasis (binary: metastasis vs. non-metastasis)",
+        "primary": true,
+        "details": "The paper performs binary classification to predict whether a melanoma patient will develop metastasis. The model outputs a probability using a classification head optimized with Binary Cross-Entropy (BCE) loss. Evaluation metrics include AUC (0.9905), AUPR (0.97), and accuracy (0.96)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC Archive",
+      "description": "A public collection of dermoscopic images used to provide detailed visual information on lesion morphology for the study.",
+      "classes_used": [
+        "Melanoma (implied by context of melanoma classification tasks)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Dermoscopic images were loaded, transformed, and augmented (using Albumentations) to serve as the visual input for the dual-backbone feature extraction (ResNet and EfficientNet-B0).",
+        "validation": "Images were used for validation to monitor model performance and schedule learning rates.",
+        "testing": "Images were used for testing to evaluate the model's predictive performance on unseen data.",
+        "other": null
+      }
+    },
+    {
+      "name": "TCGA-SKCM Cohort",
+      "description": "The Skin Cutaneous Melanoma cohort from The Cancer Genome Atlas, providing clinical and genomic metadata including tumor stage, mutation burden, Breslow depth, gene expression markers, and survival outcomes.",
+      "classes_used": [
+        "Metastasis (binary: metastasis vs. non-metastasis)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Clinical and genomic metadata (CSV files) were parsed, cleaned, normalized (MinMax scaling), and encoded to form metadata tensors fused with visual features.",
+        "validation": "Metadata was used to evaluate model performance and address class imbalance via weighted sampling.",
+        "testing": "Metadata was used to assess the model's ability to forecast melanoma metastasis risk.",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "AUC-ROC",
+    "AUPR",
+    "Accuracy",
+    "F1-Score",
+    "Precision",
+    "Recall"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Statistical imputation",
+      "purpose": "Handling missing values in TCGA clinical and genomic metadata.",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "MinMax scaling",
+      "purpose": "Standardizing numerical attributes in the TCGA metadata.",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "Weighted sampling",
+      "purpose": "Addressing class imbalance in the dataset during training.",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "Train-test splitting",
+      "purpose": "Separating data for model evaluation (implied by use of Scikit-Learn for splitting).",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "AUC (Area Under the Curve)",
+      "purpose": "Evaluating the model's discriminative capability across decision thresholds.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "AUPR (Area Under the Precision-Recall Curve)",
+      "purpose": "Assessing performance in identifying metastatic cases under class imbalance conditions.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Accuracy",
+      "purpose": "Confirming the correctness of predictions across both classes.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "F1-Score",
+      "purpose": "Highlighting the balanced trade-off between identifying metastatic lesions and minimizing false positives.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Precision and Recall",
+      "purpose": "Recording performance metrics to demonstrate robustness and reliability.",
+      "type": "Evaluation metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using descriptive metrics (AUC, AUPR, Accuracy, F1-Score, Precision, Recall) and qualitative comparisons against baseline models."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC and TCGA-SKCM (Combined Hybrid Model)": {
+      "metric": "AUC",
+      "models": {
+        "Hybrid Deep Learning Model (ResNet + EfficientNet-B0 + Metadata Fusion)": {
+          "AUC": "0.9905"
+        }
+      },
+      "notes": "The paper reports an AUC of 0.9905 for the hybrid architecture. It also states the model achieved an AUPR of 0.97 and an accuracy of 0.96. The results emphasize that the hybrid approach significantly outperformed single-backbone baselines."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Hybrid Deep Learning Model (Dual-Backbone CNN with Metadata Fusion)",
+    "pretraining": "ResNet backbone pre-trained on ImageNet; EfficientNet-B0 backbone pre-trained on ImageNet (via Torchvision)",
+    "input_size": "Dermoscopic images resized/normalized based on ImageNet statistics; Clinical/genomic metadata from TCGA-SKCM (variable size, embedded)",
+    "architecture_details": {
+      "backbones": [
+        {
+          "name": "ResNet",
+          "role": "Hierarchical feature extraction",
+          "output_dim": 512
+        },
+        {
+          "name": "EfficientNet-B0",
+          "role": "Multi-scale representation",
+          "output_dim": 1280
+        }
+      ],
+      "fusion_module": {
+        "method": "Concatenation of ResNet (512), EfficientNet-B0 (1280), and metadata embedding vectors",
+        "processing": "Multi-layer perceptron (MLP) for dimensionality reduction, non-linear transformation, dropout, and batch normalization"
+      },
+      "metadata_encoder": {
+        "inputs": [
+          "Tumor stage",
+          "Mutation burden",
+          "Breslow depth",
+          "Gene expression markers",
+          "Demographic details"
+        ],
+        "processing": "Statistical imputation, MinMax scaling, categorical encoding, embedding layer"
+      }
+    },
+    "training_details": {
+      "optimizer": "AdamW",
+      "loss_function": "Binary Cross-Entropy (BCE)",
+      "scheduler": "ReduceLROnPlateau",
+      "framework": "PyTorch 2.x",
+      "augmentation": "Albumentations (flips, rotations, color adjustments)",
+      "class_imbalance_handling": "Weighted sampling",
+      "precision": "Mixed-precision computation (AMP)"
+    },
+    "classification_or_output_head": {
+      "type": "Multi-layer Perceptron (MLP) with sigmoid activation",
+      "output": "Metastasis probability (0-1)",
+      "loss": "Binary Cross-Entropy (BCE)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Hybrid Deep Learning Model (ResNet + EfficientNet-B0 + Metadata Fusion)",
+    "ResNet",
+    "EfficientNet-B0",
+    "VGG16",
+    "InceptionV3",
+    "Capsule Networks",
+    "U-Net",
+    "Support Vector Machines",
+    "Random Forests"
+  ],
+  "preprocessing_techniques": [
+    "ISIC Image Processing: Loading high-resolution dermoscopic images, resizing, normalization based on ImageNet statistics, and applying augmentations (flips, rotations, color adjustments) using Albumentations.",
+    "TCGA Metadata Processing: Handling missing values using statistical imputation, standardizing numerical attributes through MinMax scaling, encoding categorical variables, and forming metadata tensors.",
+    "Dataset Handling: Loading and transforming dermoscopic images using torchvision.transforms and albumentations pipelines; parsing, cleaning, and normalizing TCGA-SKCM CSV files using pandas and scikit-learn’s preprocessing utilities."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transforms",
+      "details": "Flips and rotations applied to dermoscopic images using Albumentations."
+    },
+    {
+      "technique": "Color Transforms",
+      "details": "Color adjustments applied to dermoscopic images using Albumentations to enhance robustness against variations in lighting and skin tone."
+    },
+    {
+      "technique": "Class Balancing Augmentation",
+      "details": "Weighted sampling used during training to address class imbalance in the dataset."
+    }
+  ],
+  "conclusions": [
+    "The proposed hybrid deep learning model, which integrates dermoscopic images from the ISIC dataset with clinical and genomic metadata from the TCGA-SKCM cohort, significantly outperforms single-backbone baselines (ResNet, EfficientNet-B0, VGG16, InceptionV3, Capsule Networks, U-Net) and traditional machine learning models (SVM, Random Forests) in predicting melanoma metastasis.",
+    "The hybrid architecture achieves an AUC of 0.9905, an AUPR of 0.97, and an accuracy of 0.96, demonstrating robustness and reliability in identifying metastatic cases even under class imbalance conditions.",
+    "The model maintains a balanced trade-off between identifying metastatic lesions and minimizing false positives, with precision, recall, and F1-score all recorded at 0.96.",
+    "Combining hierarchical feature extraction from ResNet with multi-scale representation from EfficientNet-B0, along with patient-specific metadata, provides richer feature representations and reduces ambiguity in classification compared to image-only or metadata-only models.",
+    "The system showed strong generalization capability during validation without signs of overfitting, supported by stable convergence patterns throughout training.",
+    "The study highlights the value of multimodal data integration for improving diagnostic precision and clinical decision-making in managing melanoma, addressing limitations of previous methods that relied solely on dermoscopic images or single backbone architectures."
+  ],
+  "important_remarks": [
+    "The reported performance metrics (AUC 0.9905, Accuracy 0.96) are exceptionally high, which may indicate potential data leakage between the ISIC (image) and TCGA-SKCM (clinical/genomic) datasets, as these are distinct cohorts that typically do not share patient identifiers.",
+    "The study lacks external validation on independent, multi-center datasets, limiting the assessment of generalizability to diverse populations and clinical settings.",
+    "No formal statistical hypothesis testing, p-values, or confidence intervals were reported to support the significance of the performance improvements over baseline models.",
+    "The paper does not specify the exact sample sizes or class distribution for the training, validation, and testing splits, making it difficult to assess the robustness of the results against class imbalance.",
+    "The integration of dermoscopic images from ISIC with clinical/genomic data from TCGA-SKCM assumes a level of data alignment or patient matching that is not explicitly detailed, raising concerns about the validity of the multimodal fusion approach.",
+    "The model was trained and evaluated using a single institution's computational environment (Seshadri Rao Gudlavalleru Engineering College), with no mention of cross-institutional collaboration or diverse skin tone representation in the validation set."
+  ]
+}

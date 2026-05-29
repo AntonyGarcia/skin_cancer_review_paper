@@ -1,0 +1,398 @@
+{
+  "file_name": "yu_2018_acral_melanoma_detection_using_a_convolutional_neural_network_for_dermos.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a convolutional neural network (CNN), specifically a modified VGG-16 model with transfer learning, to detect acral melanoma from dermoscopy images. The AI model was trained and evaluated to classify acral melanoma versus benign nevi, achieving an accuracy of 83.51% and 80.23% in two-fold cross-validation."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as a 'RESEARCH ARTICLE' and presents original experimental results. It details a study where a modified VGG-16 convolutional neural network was trained and evaluated on 724 dermoscopy images to detect acral melanoma, reporting specific performance metrics such as accuracy (83.51% and 80.23%), sensitivity, specificity, and AUC values, which confirms it is an original technical study rather than a review."
+  },
+  "title": "Acral melanoma detection using a convolutional neural network for dermoscopy images",
+  "authors": [
+    "Chanki Yu",
+    "Sejung Yang",
+    "Wonoh Kim",
+    "Jinwoong Jung",
+    "Kee-Yang Chung",
+    "Sang Wook Lee",
+    "Byungho Oh"
+  ],
+  "doi": "10.1371/journal.pone.0193321",
+  "journal": "PLoS ONE",
+  "year": 2018,
+  "article_type": "Research article",
+  "brief_summary": "This study aimed to detect acral melanoma, a common and often late-diagnosed melanoma type in Asians, using dermoscopy images of the hands and feet. The researchers utilized a modified VGG-16 convolutional neural network with transfer learning, trained on 724 histopathologically confirmed dermoscopy images from 275 patients. The model was evaluated using a two-fold cross-validation approach, comparing its diagnostic accuracy against dermatologists and non-experts. The CNN achieved accuracies of 83.51% and 80.23% in the two validation groups, outperforming non-experts and closely matching expert dermatologists. The system also demonstrated area-under-the-curve values of 0.84 and 0.80, respectively, indicating comparable performance to clinical experts. The authors concluded that CNNs are helpful for the early detection of acral melanoma, despite the need for further data analysis to improve accuracy.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "acral melanoma",
+        "AM"
+      ],
+      "role": "Target class",
+      "details": "Malignant lesion; 350 images from 81 patients; histopathologically confirmed; included homogenous diffuse irregular pigmented, parallel ridge, and multicomponent patterns."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "benign nevi",
+        "BN",
+        "non-melanoma"
+      ],
+      "role": "Comparator class",
+      "details": "Benign lesion; 374 images from 194 patients; histopathologically confirmed; included parallel furrow, fibrillar, lattice-like, reticular, globular, and homogenous patterns."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of acral melanoma (AM) versus benign nevi (BN)",
+        "primary": true,
+        "details": "The model predicts discrete diagnostic categories (melanoma vs. non-melanoma/benign nevi) using a modified VGG-16 CNN with a soft-max activation function for 2 output classes. Performance was evaluated using accuracy, sensitivity, specificity, PPV, NPV, and AUC."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Severance Hospital and Dongsan Hospital Dermoscopy Dataset",
+      "description": "A private clinical dataset of 724 histopathologically confirmed dermoscopy images of acral melanoma and benign nevi collected from two hospitals in Korea: Severance Hospital (Yonsei University Health System, Seoul) from Jan 2013 to Mar 2014, and Dongsan Hospital (Keimyung University Health System, Daegu) from Mar 2015 to Apr 2016. Images were captured using DermLite Cam and Dermlite hybrid II devices.",
+      "classes_used": [
+        "Acral Melanoma (AM)",
+        "Benign Nevus (BN)"
+      ],
+      "counts": {
+        "total": 724,
+        "training": 362,
+        "validation": 108,
+        "testing": 362,
+        "per_class": {
+          "Acral Melanoma": 350,
+          "Benign Nevus": 374
+        }
+      },
+      "use": {
+        "training": "Used for training the modified VGG-16 CNN. The dataset was split into two mutually exclusive subsets (Group A and Group B) for two-fold cross-validation. Half of the total dataset (362 images) was selected for training in each fold. Additionally, 30% of the training subset was randomly selected as a validation set to prevent overfitting.",
+        "validation": "Used for validation during the training process (30% of the training subset) to monitor error and determine early stopping. Also served as the testing set in the two-fold cross-validation scheme (the half of the dataset not used for training).",
+        "testing": "Used for testing the model's diagnostic accuracy in the two-fold cross-validation scheme (the half of the total dataset not used for training in each fold).",
+        "other": "The dataset was also used for comparison against expert dermatologists and non-expert physicians. A subset of this data was used to compare the proposed CNN against an Inception-V3 model."
+      }
+    },
+    {
+      "name": "ImageNet",
+      "description": "A large-scale natural image dataset containing 1.2 million general object images of 1,000 different object categories, used for pre-training the VGG-16 model.",
+      "classes_used": [
+        "1,000 object categories"
+      ],
+      "counts": {
+        "total": 1200000,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for pre-training the VGG-16 model weights before fine-tuning on the dermoscopy dataset.",
+        "validation": null,
+        "testing": null,
+        "other": "Pre-training source for transfer learning."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "Positive Predictive Value (PPV)",
+    "Negative Predictive Value (NPV)",
+    "Youden’s index",
+    "AUC-ROC",
+    "Cohen's kappa"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Two-fold cross-validation",
+      "purpose": "To evaluate the diagnostic accuracy of the CNN by splitting the dataset into two mutually exclusive subsets (training and testing) and comparing results against dermatologists and non-experts.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Cohen’s kappa coefficient",
+      "purpose": "To measure the agreement between the pathologic results and each rater's diagnosis (CNN, expert, non-expert) and to assess inter-rater agreement between groups.",
+      "type": "Inter-rater agreement"
+    },
+    {
+      "method": "95% Confidence Intervals",
+      "purpose": "To provide uncertainty estimates for sensitivity, specificity, PPV, NPV, accuracy, and Cohen's kappa values.",
+      "type": "Confidence interval"
+    },
+    {
+      "method": "Youden’s index",
+      "purpose": "To evaluate the diagnostic efficacy by combining sensitivity and specificity.",
+      "type": "Diagnostic metric"
+    },
+    {
+      "method": "Area under the curve (AUC)",
+      "purpose": "To assess the overall diagnostic performance of the CNN compared to experts and non-experts.",
+      "type": "Diagnostic metric"
+    },
+    {
+      "method": "Sensitivity, Specificity, PPV, NPV, Accuracy",
+      "purpose": "To calculate and compare the diagnostic performance metrics of the CNN against expert dermatologists and non-expert physicians.",
+      "type": "Diagnostic metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests) for the comparison of diagnostic accuracy between the CNN, experts, and non-experts. Statistical comparisons were made using descriptive metrics (accuracy, sensitivity, specificity, AUC, Youden’s index) and Cohen’s kappa coefficients with 95% confidence intervals, but no inferential statistical tests for group differences were explicitly reported."
+  },
+  "results_obtained_in_each_dataset": {
+    "Severance Hospital and Dongsan Hospital Dermoscopy Dataset (Group A)": {
+      "description": "Testing subset of the two-fold cross-validation (n=362 images). Trained on Group B images.",
+      "models": {
+        "CNN (Modified VGG-16)": {
+          "Sensitivity (%)": 92.57,
+          "Specificity (%)": 75.39,
+          "PPV (%)": 77.14,
+          "NPV (%)": 91.88,
+          "Accuracy (%)": 83.51,
+          "Cohen's kappa": 0.6727,
+          "Youden's index": 0.6795,
+          "AUC": "0.84",
+          "95% CI Accuracy": "79.39–96.94",
+          "95% CI Cohen's kappa": "0.5989–0.7474"
+        },
+        "Expert Dermatologists": {
+          "Sensitivity (%)": 94.88,
+          "Specificity (%)": 68.72,
+          "PPV (%)": 73.13,
+          "NPV (%)": 93.71,
+          "Accuracy (%)": 81.08,
+          "Cohen's kappa": 0.6262,
+          "Youden's index": 0.6358,
+          "AUC": "0.82",
+          "95% CI Accuracy": "76.78–84.74",
+          "95% CI Cohen's kappa": "0.5504–0.7020"
+        },
+        "Non-expert Physicians": {
+          "Sensitivity (%)": 41.71,
+          "Specificity (%)": 91.28,
+          "PPV (%)": 81.11,
+          "NPV (%)": 63.57,
+          "Accuracy (%)": 67.84,
+          "Cohen's kappa": 0.3384,
+          "Youden's index": 0.3899,
+          "AUC": 0.66,
+          "95% CI Accuracy": "62.92–72.40",
+          "95% CI Cohen's kappa": "0.2526–0.4242"
+        }
+      },
+      "notes": "The CNN accuracy (83.51%) was higher than the non-expert (67.84%) and close to the expert (81.08%). Both CNN and expert showed AUC above 0.8. Discordance between CNN and expert was 20.17% (73/362 cases)."
+    },
+    "Severance Hospital and Dongsan Hospital Dermoscopy Dataset (Group B)": {
+      "description": "Testing subset of the two-fold cross-validation (n=362 images). Trained on Group A images.",
+      "models": {
+        "CNN (Modified VGG-16)": {
+          "Sensitivity (%)": 92.57,
+          "Specificity (%)": 68.16,
+          "PPV (%)": 73.97,
+          "NPV (%)": 90.37,
+          "Accuracy (%)": 80.23,
+          "Cohen's kappa": 0.6056,
+          "Youden's index": 0.6073,
+          "AUC": 0.8,
+          "95% CI Accuracy": "75.77–84.04",
+          "95% CI Cohen's kappa": "0.5254–0.6858"
+        },
+        "Expert Dermatologists": {
+          "Sensitivity (%)": 98.29,
+          "Specificity (%)": 65.36,
+          "PPV (%)": 73.5,
+          "NPV (%)": 97.5,
+          "Accuracy (%)": 81.64,
+          "Cohen's kappa": 0.6341,
+          "Youden's index": 0.6365,
+          "AUC": "0.82",
+          "95% CI Accuracy": "77.27–85.33",
+          "95% CI Cohen's kappa": "0.5583–0.7099"
+        },
+        "Non-expert Physicians": {
+          "Sensitivity (%)": 48.0,
+          "Specificity (%)": 77.1,
+          "PPV (%)": 67.2,
+          "NPV (%)": 60.26,
+          "Accuracy (%)": 62.71,
+          "Cohen's kappa": 0.2518,
+          "Youden's index": 0.2509,
+          "AUC": 0.63,
+          "95% CI Accuracy": "57.56–67.59",
+          "95% CI Cohen's kappa": "0.1550–0.3486"
+        }
+      },
+      "notes": "The CNN accuracy (80.23%) was higher than the non-expert (62.71%) and similar to the expert (81.64%). Both CNN and expert showed AUC above 0.8. Discordance between CNN and expert was 15.75% (57/362 cases)."
+    },
+    "Inception-V3 Comparison": {
+      "description": "Comparison of the proposed CNN with multiple images against Inception-V3 with single and multiple images.",
+      "models": {
+        "Inception-V3 (Single Image)": {
+          "Accuracy (%)": 76.38,
+          "AUC": 0.78
+        },
+        "Inception-V3 (Multiple Images)": {
+          "Accuracy (%)": 78.55,
+          "AUC": 0.81
+        },
+        "CNN (Multiple Images)": {
+          "Accuracy (%)": "83.51 (Group A) / 80.23 (Group B)",
+          "AUC": "0.84 (Group A) / 0.80 (Group B)"
+        }
+      },
+      "notes": "The CNN with multiple images outperformed Inception-V3 with both single and multiple images in terms of accuracy and AUC."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Modified VGG-16",
+    "pretraining": "Pre-trained on ImageNet dataset (1.2 million general object images of 1,000 categories); weights of the last two layers of conv5 and three fully connected layers (FC6, FC7, FC8) initialized using Xavier weight initialization; weights of conv1, conv2, conv3, conv4, and the first layer of conv5 frozen during initial fine-tuning.",
+    "input_size": "224x224x3 (RGB image)",
+    "architecture_details": {
+      "model_family": "VGG",
+      "total_layers": 16,
+      "layer_breakdown": "13 convolutional layers and 3 fully connected layers",
+      "convolutional_layers": [
+        {
+          "name": "conv1",
+          "type": "conv",
+          "kernel_size": "3x3",
+          "filters": 64,
+          "feature_map_size": "224x224x64"
+        },
+        {
+          "name": "conv2",
+          "type": "conv",
+          "kernel_size": "3x3",
+          "filters": 128,
+          "feature_map_size": "112x112x128"
+        },
+        {
+          "name": "conv3",
+          "type": "conv",
+          "kernel_size": "3x3",
+          "filters": 256,
+          "feature_map_size": "56x56x256"
+        },
+        {
+          "name": "conv4",
+          "type": "conv",
+          "kernel_size": "3x3",
+          "filters": 512,
+          "feature_map_size": "28x28x512"
+        },
+        {
+          "name": "conv5",
+          "type": "conv",
+          "kernel_size": "3x3",
+          "filters": 512,
+          "feature_map_size": "14x14x512"
+        }
+      ],
+      "pooling": "Max-pooling over a 2x2 pixel window with a stride of 2",
+      "fully_connected_layers": [
+        {
+          "name": "FC6",
+          "type": "fully-connected",
+          "channels": 4096,
+          "activation": "ReLU"
+        },
+        {
+          "name": "FC7",
+          "type": "fully-connected",
+          "channels": 4096,
+          "activation": "ReLU"
+        },
+        {
+          "name": "FC8",
+          "type": "fully-connected",
+          "channels": 2,
+          "activation": "Soft-max"
+        }
+      ],
+      "activation_functions": [
+        "ReLU (for convolutional layers and FC6, FC7)",
+        "Soft-max (for FC8)"
+      ],
+      "input_preprocessing": "Input RGB image subtracted from the average image calculated over the entire training image dataset",
+      "implementation": "MatConvNet (Matlab-based CNN framework)"
+    },
+    "training_details": {
+      "optimizer": "Adaptive stochastic sub-gradient method",
+      "batch_size": 50,
+      "momentum": 0.9,
+      "learning_rate": 0.0001,
+      "weight_decay": 0.0005,
+      "training_strategy": "Transfer learning with fine-tuning. Initially, weights of conv1-conv4 and first layer of conv5 were frozen. After several epochs, all weights were trained without freezing. Validation set (30% of training data) used for early stopping.",
+      "data_augmentation": "Rotations by 0, 45, 90, 135 degrees; left-right and top-bottom reflections; generated 216 image patches from a single image",
+      "inference_strategy": "Sliding window strategy extracting ~12 image patches per test image on a regularly spaced grid with partial overlap; patches rescaled to 224x224 pixels"
+    },
+    "classification_or_output_head": {
+      "type": "Fully connected layer (FC8)",
+      "output_channels": 2,
+      "activation": "Soft-max",
+      "classes": "Melanoma and non-melanoma"
+    },
+    "approximate_parameters": "138 million (referenced for standard VGG-16; specific count for modified model not explicitly stated but implied to be similar structure)"
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Modified VGG-16",
+    "Inception-V3"
+  ],
+  "preprocessing_techniques": [
+    "Input RGB image subtracted from the average image calculated over the entire training image dataset",
+    "Sliding window strategy extracting approximately 12 image patches per test image on a regularly spaced grid with partial overlap",
+    "Patches rescaled to 224x224 pixels",
+    "Data augmentation via rotations by 0, 45, 90, and 135 degrees",
+    "Data augmentation via left-right and top-bottom reflections",
+    "Manual removal of patches that did not contain any melanoma lesions from melanoma training images",
+    "Assignment of patches that did not contain any skin lesions from non-melanoma training images to the non-melanoma class"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Geometric Transformations (Rotation)",
+      "details": "Rotations by 0, 45, 90, and 135 degrees were applied to the training images."
+    },
+    {
+      "technique": "Geometric Transformations (Reflection)",
+      "details": "Left-right and top-bottom reflections were applied to the training images."
+    },
+    {
+      "technique": "Synthetic Data Generation (Patch Extraction)",
+      "details": "216 image patches were generated from a single original image using the specified rotations and reflections."
+    },
+    {
+      "technique": "Class Balancing/Filtering",
+      "details": "Patches that did not contain any melanoma lesions among the melanoma training images were manually removed. Patches that did not contain any skin lesions among the non-melanoma training images were assigned to the non-melanoma class."
+    }
+  ],
+  "conclusions": [
+    "Convolutional neural networks (CNNs) are helpful for detecting acral melanoma from dermoscopy images of the hands and feet.",
+    "The CNN achieved diagnostic accuracy (83.51% and 80.23%) that was higher than non-expert physicians (67.84% and 62.71%) and comparable to expert dermatologists (81.08% and 81.64%).",
+    "The CNN demonstrated area-under-the-curve (AUC) values of 0.84 and 0.80, which were similar to those of expert dermatologists (0.82) and significantly higher than non-experts (0.66 and 0.63).",
+    "Further data analysis is necessary to improve the accuracy of CNN-based detection for acral melanoma.",
+    "The inferior performance of the CNN compared to some previous studies (e.g., AUC 0.94) may be attributed to the specific characteristics of acral melanoma, such as its occurrence on pressure areas with thick skin and calluses, which can hinder and transform classic pigmented lesion patterns."
+  ],
+  "important_remarks": [
+    "The study is limited by a small dataset size (724 images from 275 patients) and lack of external validation, as data were collected from only two hospitals in Korea.",
+    "The inferior performance compared to previous studies (e.g., AUC 0.94) is attributed to the specific characteristics of acral melanoma, such as occurrence on pressure areas with thick skin and calluses, which hinder classic pigmented lesion patterns.",
+    "The CNN was trained using transfer learning from ImageNet (natural images), which may introduce domain bias when applied to dermoscopy images.",
+    "The study did not report formal hypothesis testing (p-values) for statistical comparisons between the CNN, experts, and non-experts, relying instead on descriptive metrics and Cohen’s kappa coefficients.",
+    "Data leakage risk exists due to the use of multiple images per patient in the dataset, although the paper claims to treat one image as one patient for the purpose of the sliding window inference strategy.",
+    "The model's performance (AUC 0.80-0.84) is comparable to expert dermatologists but significantly lower than non-experts, suggesting limited added value over expert clinical judgment in this specific context.",
+    "The study acknowledges that further data analysis and larger datasets are necessary to improve the accuracy of CNN-based detection for acral melanoma."
+  ]
+}

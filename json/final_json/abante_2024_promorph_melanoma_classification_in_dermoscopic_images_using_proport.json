@@ -1,0 +1,555 @@
+{
+  "file_name": "abante_2024_promorph_melanoma_classification_in_dermoscopic_images_using_proport.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used Convolutional Neural Networks (specifically ResNet-50) for melanoma classification in dermoscopic images. It employed proportional morphological dilation as a preprocessing technique to enhance the context for the deep learning classifier, evaluating performance on the ISIC 2016 and ISIC 2018 datasets."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel approach called ProMorph for melanoma classification. It details specific methods (proportional morphological dilation, ResNet-50), describes the use of ISIC 2016 and ISIC 2018 datasets, and reports new quantitative results (AUC, Recall, F1 scores) comparing the proposed method against baselines and previous studies. It is published as a conference paper in ICIAI 2024."
+  },
+  "title": "ProMorph: Melanoma Classification in Dermoscopic Images using Proportional Morphological Dilation and Convolutional Neural Networks",
+  "authors": [
+    "Michael Angelo A. Caasi",
+    "Rio S. Espinosa",
+    "Jerielle P. Vinzon",
+    "Arlan Floyd R. Abante",
+    "Jessie James P. Suarez"
+  ],
+  "doi": "10.1145/3655497.3655510",
+  "journal": "2024 the 8th International Conference on Innovation in Artificial Intelligence (ICIAI 2024)",
+  "year": 2024,
+  "article_type": "Conference paper",
+  "brief_summary": "This study introduces ProMorph, a novel approach for melanoma classification in dermoscopic images that employs proportional morphological dilation to adaptively enlarge segmentation masks based on lesion size. The method utilizes a ResNet-50 convolutional neural network classifier and is evaluated on the ISIC 2016 and ISIC 2018 datasets. Performance is compared against absolute dilation methods and models without dilation to assess the impact of the proposed preprocessing technique. ProMorph achieved an AUC of 0.8029 on ISIC 2016 and 0.8988 on ISIC 2018, outperforming absolute dilation in most metrics. Notably, the model demonstrated superior recall on the ISIC 2016 dataset compared to previous studies, highlighting its efficacy in capturing melanoma cases.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "Malignant"
+      ],
+      "role": "Target class",
+      "details": "The primary target class for classification in both ISIC 2016 and ISIC 2018 datasets. In ISIC 2016, it is labeled as 'Malignant'. In ISIC 2018, it is one of 7 classes but combined with non-melanoma classes for binary classification."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "Non Melanoma",
+        "Benign",
+        "benign classification of cancer"
+      ],
+      "role": "Comparator class",
+      "details": "The negative class in the binary melanoma classification task. In ISIC 2016, labeled as 'Benign (Non Melanoma)'. In ISIC 2018, all non-melanoma classes (6 classes) were combined into one class."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma vs. Non-Melanoma (Binary)",
+        "primary": true,
+        "details": "The paper performs binary classification to distinguish between malignant (melanoma) and benign (non-melanoma) skin lesions. For the ISIC 2016 dataset, the classes are explicitly 'Malignant' and 'Benign (Non Melanoma)'. For the ISIC 2018 dataset, six benign classes are combined into one 'non-melanoma' class to create a binary classification task. The model uses a sigmoid activation function for the final dense layer, indicating binary classification probabilities."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2016",
+      "description": "The 2016 International Skin Imaging Collaboration dataset, sourced from the ISIC website. It contains dermoscopic skin lesion images with paired binary masks representing manual skin lesion segmentation by ISIC experts.",
+      "classes_used": [
+        "Malignant (Melanoma)",
+        "Benign (Non Melanoma)"
+      ],
+      "counts": {
+        "total": 1279,
+        "training": 900,
+        "validation": null,
+        "testing": 279,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the ProMorph model (900 images from the training subset).",
+        "validation": "Not explicitly reported as a separate validation set; the study notes the dataset is split into training and testing subsets.",
+        "testing": "Used for testing the ProMorph model (279 images from the testing subset).",
+        "other": "Used to compare ProMorph's recall against previous studies."
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "The 2018 International Skin Imaging Collaboration dataset. It contains dermoscopic images with 7 total classes (6 benign, 1 malignant). For this study, non-melanoma classes were combined into one class. Unlike ISIC 2016, it does not provide segmentation masks for all samples, requiring machine-identified masks via the study's segmentation pipeline.",
+      "classes_used": [
+        "Melanoma (Malignant)",
+        "Non-Melanoma (Combined 6 benign classes)"
+      ],
+      "counts": {
+        "total": 11720,
+        "training": 10015,
+        "validation": 193,
+        "testing": 1512,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used for training the ProMorph model (10,015 images).",
+        "validation": "Used for validation (193 images).",
+        "testing": "Used for testing the ProMorph model (1,512 images).",
+        "other": "Used to evaluate the impact of proportional morphological dilation on machine-identified segmentation masks."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "AUC-ROC",
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "Specificity",
+    "F1-Score"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Comparison of performance metrics (AUC, Accuracy, Precision, Recall, Specificity, F1 Score)",
+      "purpose": "To compare the proposed ProMorph method against absolute dilation methods and models without dilation on the ISIC 2016 and ISIC 2018 datasets.",
+      "type": "Performance comparison"
+    },
+    {
+      "method": "Comparison with previous studies",
+      "purpose": "To benchmark the recall and other metrics of ProMorph against existing works (e.g., JordanYap, BF-TB, CUMED, GTDL, ThrunLab, Burdick et al.) on the ISIC 2016 dataset.",
+      "type": "Benchmarking"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive statistics (AUC, Accuracy, Precision, Recall, Specificity, F1 Score) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2016": {
+      "metric": [
+        "AUC",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "Specificity",
+        "F1 Score"
+      ],
+      "models": {
+        "ProMorph": {
+          "AUC": "0.8029",
+          "Accuracy": "0.6992",
+          "Precision": "0.3758",
+          "Recall": "0.7867",
+          "Specificity": "0.6776",
+          "F1 Score": "0.5186"
+        },
+        "Absolute Dilation": {
+          "AUC": "0.7608",
+          "Accuracy": "0.7150",
+          "Precision": "0.3778",
+          "Recall": "0.6800",
+          "Specificity": "0.7237",
+          "F1 Score": "0.4857"
+        },
+        "JordanYap": {
+          "AUC": "0.844",
+          "Accuracy": "0.775",
+          "Recall": "0.240",
+          "Specificity": "0.993"
+        },
+        "BF-TB": {
+          "AUC": "0.826",
+          "Accuracy": "0.834",
+          "Recall": "0.320",
+          "Specificity": "0.961"
+        },
+        "CUMED": {
+          "AUC": "0.804",
+          "Accuracy": "0.855",
+          "Recall": "0.507",
+          "Specificity": "0.941"
+        },
+        "GTDL": {
+          "AUC": "0.802",
+          "Accuracy": "0.813",
+          "Recall": "0.573",
+          "Specificity": "0.872"
+        },
+        "ThrunLab": {
+          "AUC": "0.796",
+          "Accuracy": "0.786",
+          "Recall": "0.667",
+          "Specificity": "0.816"
+        },
+        "Burdick et. al. 2017": {
+          "AUC": "0.739",
+          "Accuracy": "0.693",
+          "Precision": "0.683",
+          "Recall": "0.733"
+        }
+      },
+      "notes": "ProMorph outperforms Absolute Dilation in AUC, Recall, and F1. ProMorph has the best recall across all previous studies (JordanYap, BF-TB, CUMED, GTDL, ThrunLab, Burdick et al.). ProMorph's AUC (0.803) and Recall (0.787) are higher than Burdick et al. (2017)."
+    },
+    "ISIC 2018": {
+      "metric": [
+        "AUC",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "Specificity",
+        "F1 Score"
+      ],
+      "models": {
+        "ProMorph": {
+          "AUC": "0.8988",
+          "Accuracy": "0.8962",
+          "Precision": "0.5427",
+          "Recall": "0.5205",
+          "Specificity": "0.9441",
+          "F1 Score": "0.5313"
+        },
+        "Absolute Dilation": {
+          "AUC": "0.8867",
+          "Accuracy": "0.8935",
+          "Precision": "0.5313",
+          "Recall": "0.4971",
+          "Specificity": "0.9441",
+          "F1 Score": "0.5136"
+        },
+        "No Dilation": {
+          "AUC": "0.8800",
+          "Accuracy": "0.8876",
+          "Precision": "0.5032",
+          "Recall": "0.4561",
+          "Specificity": "0.9426",
+          "F1 Score": "0.4785"
+        }
+      },
+      "notes": "ProMorph outperforms Absolute Dilation in all metrics other than specificity (where they are tied). ProMorph outperforms the model without dilation in all evaluated metrics, achieving a higher AUC score by approximately 0.019. Machine-identified masks showed exceptional proficiency in AUC, Accuracy, and Specificity."
+    }
+  },
+  "architecture_used": {
+    "main_model": "ResNet-50",
+    "pretraining": "Pre-trained weights (frozen for first 20 epochs, then fine-tuned)",
+    "input_size": null,
+    "architecture_details": {
+      "backbone": "ResNet-50",
+      "custom_layers": [
+        {
+          "layer_type": "Global Average Pooling",
+          "purpose": "Compress features into one dimension"
+        },
+        {
+          "layer_type": "Dense",
+          "neurons": 128,
+          "activation": "ReLU",
+          "dropout": 0.5
+        },
+        {
+          "layer_type": "Dense",
+          "neurons": 64,
+          "activation": "ReLU",
+          "batch_normalization": true,
+          "dropout": 0.5
+        },
+        {
+          "layer_type": "Dense",
+          "neurons": 1,
+          "activation": "Sigmoid",
+          "purpose": "Binary classification output"
+        }
+      ]
+    },
+    "training_details": {
+      "optimizer": null,
+      "loss_function": "Weighted Focal Loss",
+      "loss_hyperparameters": {
+        "alpha_positive": 0.9,
+        "alpha_negative": 0.1,
+        "gamma": 5
+      },
+      "learning_rate": 0.0001,
+      "batch_size": 32,
+      "epochs": 50,
+      "training_schedule": "Pre-trained for 20 epochs with frozen ResNet-50 weights, then fine-tuned for 50 epochs total",
+      "data_augmentation": [
+        "Rotation",
+        "Width and height shifts",
+        "Shear",
+        "Zoom",
+        "Horizontal flip"
+      ]
+    },
+    "classification_or_output_head": {
+      "type": "Dense Layer",
+      "neurons": 1,
+      "activation": "Sigmoid"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "ProMorph (ResNet-50 with Proportional Morphological Dilation)",
+    "Absolute Dilation (ResNet-50 with Absolute Morphological Dilation)",
+    "No Dilation (ResNet-50 without dilation)",
+    "JordanYap",
+    "BF-TB",
+    "CUMED",
+    "GTDL",
+    "ThrunLab",
+    "Burdick et al. 2017"
+  ],
+  "preprocessing_techniques": [
+    "Hair removal using Black Hat Filter, binary thresholding, and Inpainting",
+    "Vignette correction (replacing black corner pixels with white)",
+    "Conversion to grayscale",
+    "Gaussian Blur for noise smoothing",
+    "Otsu Thresholding for lesion segmentation",
+    "Morphological opening (dilation and erosion) to remove small noise from masks",
+    "Interquartile Range filtering to remove unusually large/small segmented regions",
+    "Proportional Morphological Dilation of segmentation masks (dilation values linearly interpolated between 60 and 90 pixels based on lesion area)",
+    "Data augmentation: Rotation, width and height shifts, shear, zoom, and horizontal flip"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Applied during training to increase sample variability and help the model generalize better."
+    },
+    {
+      "technique": "Width and height shifts",
+      "details": "Applied during training to increase sample variability and help the model generalize better."
+    },
+    {
+      "technique": "Shear",
+      "details": "Applied during training to increase sample variability and help the model generalize better."
+    },
+    {
+      "technique": "Zoom",
+      "details": "Applied during training to increase sample variability and help the model generalize better."
+    },
+    {
+      "technique": "Horizontal flip",
+      "details": "Applied during training to increase sample variability and help the model generalize better."
+    }
+  ],
+  "conclusions": [
+    "The proposed ProMorph method, which employs proportional morphological dilation based on lesion size, demonstrates a positive impact on improving melanoma classification performance compared to absolute dilation and no dilation methods.",
+    "ProMorph outperformed absolute dilation in AUC, Recall, and F1 scores on the ISIC 2016 dataset, and in all metrics except specificity on the ISIC 2018 dataset.",
+    "ProMorph achieved an AUC of 0.8029 on ISIC 2016 and 0.8988 on ISIC 2018, surpassing the absolute dilation baseline in both datasets.",
+    "ProMorph achieved the highest recall (0.787) among all compared previous studies on the ISIC 2016 dataset, indicating superior capability in capturing melanoma cases.",
+    "Machine-identified segmentation masks (used for ISIC 2018) showed exceptional proficiency in AUC, Accuracy, and Specificity, suggesting that automated segmentation can maintain high accuracy and potentially reduce reliance on time-intensive human annotation.",
+    "False positives in the ISIC 2016 dataset were attributed to the model's difficulty distinguishing color variations between benign and malignant lesions, while false positives in ISIC 2018 were linked to color changes caused by preprocessing.",
+    "False negatives were observed in cases where skin lesions included nails, which hampered the segmentation technique.",
+    "Future work may involve integrating the ABCDE Rule into the proportionality stage of the dilation algorithm to allow larger dilation for asymmetrical cases (typically melanoma) and smaller dilation for symmetrical cases (usually benign)."
+  ],
+  "important_remarks": [
+    "The study lacks external validation, relying solely on the ISIC 2016 and ISIC 2018 datasets, which limits the generalizability of the findings to other populations or imaging devices.",
+    "The paper does not report statistical significance testing (e.g., p-values) for performance comparisons, relying only on descriptive statistics.",
+    "The model exhibits low precision (0.3758 on ISIC 2016, 0.5427 on ISIC 2018), indicating a high rate of false positives, which is a significant concern for clinical deployment where specificity is critical.",
+    "Performance on ISIC 2018 relies on machine-identified segmentation masks rather than ground-truth expert annotations, introducing potential bias from segmentation errors inherent in the automated pipeline.",
+    "The dataset is small (1,279 images for ISIC 2016), which may lead to overfitting or limited statistical power despite the use of data augmentation.",
+    "The model's performance is sensitive to preprocessing artifacts; false positives were attributed to color changes caused by the vignette correction and grayscale conversion steps.",
+    "The segmentation pipeline fails on lesions including nails, leading to false negatives and indicating a limitation in handling complex anatomical contexts.",
+    "The study compares against previous works using inconsistent metrics (e.g., Precision and F1 are missing for several baseline models in Table 3), making direct comprehensive comparison difficult."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_abante_2024_promorph_melanoma_classification_in_dermoscopic_images_using_proport.pdf",
+    "summary": "The study evaluates the ProMorph method (ResNet-50 with proportional morphological dilation) for binary melanoma classification on two distinct datasets: ISIC 2016 and ISIC 2018. For ISIC 2016, the model was trained on the provided training subset (900 images) and tested on the provided testing subset (279 images). For ISIC 2018, the model was trained on the training subset (10,015 images), validated on the validation subset (193 images), and tested on the testing subset (1,512 images). The study does not perform cross-dataset validation (training on one and testing on the other); instead, it treats each dataset as a separate experimental setup. ISIC 2016 uses human-annotated masks, while ISIC 2018 uses machine-identified masks due to the lack of ground truth for all samples.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper does not report training on one dataset and testing on a different unseen dataset. The ISIC 2016 and ISIC 2018 datasets were used in separate experimental setups with their own internal train/validation/test splits.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2016",
+          "counts": 900,
+          "notes": "Used for training the ProMorph model. The dataset contains 1,279 total images, with 900 allocated to the training subset."
+        },
+        {
+          "dataset": "ISIC 2018",
+          "counts": 10015,
+          "notes": "Used for training the ProMorph model. The dataset contains 11,720 total images, with 10,015 allocated to the training subset."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2018",
+          "counts": 193,
+          "notes": "Used for validation/model selection. The ISIC 2018 dataset explicitly provides a validation subset of 193 images. No separate validation set was reported for ISIC 2016."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2016",
+          "counts": 279,
+          "notes": "Used for internal testing. The dataset provides a testing subset of 279 images."
+        },
+        {
+          "dataset": "ISIC 2018",
+          "counts": 1512,
+          "notes": "Used for internal testing. The dataset provides a testing subset of 1,512 images."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ResNet-50 (ImageNet)",
+          "notes": "The study uses a pre-trained ResNet-50 architecture. The weights were frozen for the first 20 epochs of training before fine-tuning the network for the melanoma classification task."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "ISIC 2016 and ISIC 2018 (Training Splits)",
+          "notes": "Data augmentation techniques including rotation, width and height shifts, shear, zoom, and horizontal flip were applied to the training data to combat class imbalance and improve generalization."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "ISIC 2016: 900 training, 279 testing (no validation reported). ISIC 2018: 10,015 training, 193 validation, 1,512 testing. Splits are fixed as provided by the ISIC challenge organizers.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No external unseen dataset was used for testing. The study relies solely on the internal test splits of ISIC 2016 and ISIC 2018."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2016",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2016"
+        ],
+        "model_or_method": "ProMorph (ResNet-50 with Proportional Morphological Dilation)",
+        "metrics": {
+          "accuracy": 0.6992,
+          "auc": 0.8029,
+          "sensitivity": 0.7867,
+          "specificity": 0.6776,
+          "f1_score": 0.5186,
+          "other_metrics": {
+            "precision": 0.3758
+          }
+        },
+        "notes": "ProMorph outperformed Absolute Dilation in AUC, Recall, and F1. It achieved the highest recall among all compared previous studies on this dataset."
+      },
+      {
+        "dataset": "ISIC 2018",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018"
+        ],
+        "model_or_method": "ProMorph (ResNet-50 with Proportional Morphological Dilation)",
+        "metrics": {
+          "accuracy": 0.8962,
+          "auc": 0.8988,
+          "sensitivity": 0.5205,
+          "specificity": 0.9441,
+          "f1_score": 0.5313,
+          "other_metrics": {
+            "precision": 0.5427
+          }
+        },
+        "notes": "ProMorph outperformed Absolute Dilation in all metrics except specificity (tied) and outperformed No Dilation in all metrics. Note: Masks were machine-identified, not human-annotated."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2016",
+        "split_or_cv": "Fixed split: 900 train, 279 test",
+        "models": [
+          "ProMorph",
+          "Absolute Dilation"
+        ],
+        "results": [
+          {
+            "metric": "AUC",
+            "value": 0.8029,
+            "model": "ProMorph",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": 0.7608,
+            "model": "Absolute Dilation",
+            "data_split": "test"
+          },
+          {
+            "metric": "Recall",
+            "value": 0.7867,
+            "model": "ProMorph",
+            "data_split": "test"
+          },
+          {
+            "metric": "Recall",
+            "value": 0.68,
+            "model": "Absolute Dilation",
+            "data_split": "test"
+          }
+        ]
+      },
+      {
+        "dataset": "ISIC 2018",
+        "split_or_cv": "Fixed split: 10,015 train, 193 validation, 1,512 test",
+        "models": [
+          "ProMorph",
+          "Absolute Dilation",
+          "No Dilation"
+        ],
+        "results": [
+          {
+            "metric": "AUC",
+            "value": 0.8988,
+            "model": "ProMorph",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": 0.8867,
+            "model": "Absolute Dilation",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": 0.88,
+            "model": "No Dilation",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": 0.8962,
+            "model": "ProMorph",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": 0.8935,
+            "model": "Absolute Dilation",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": 0.8876,
+            "model": "No Dilation",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study lacks external validation, relying solely on ISIC 2016 and ISIC 2018 datasets, which limits generalizability to other populations or imaging devices.",
+      "Performance on ISIC 2018 relies on machine-identified segmentation masks rather than ground-truth expert annotations, introducing potential bias from segmentation errors.",
+      "The model exhibits low precision (0.3758 on ISIC 2016, 0.5427 on ISIC 2018), indicating a high rate of false positives.",
+      "The dataset is relatively small (1,279 images for ISIC 2016), which may lead to overfitting despite data augmentation."
+    ],
+    "information_not_reported": [
+      "No statistical significance testing (p-values) was reported for performance comparisons.",
+      "No external test set was used.",
+      "Patient-level separation details were not explicitly reported, though image-level splits were used."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1779998166
+  }
+}

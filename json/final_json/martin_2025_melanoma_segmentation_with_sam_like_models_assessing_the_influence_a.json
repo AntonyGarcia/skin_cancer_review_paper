@@ -1,0 +1,473 @@
+{
+  "file_name": "martin_2025_melanoma_segmentation_with_sam_like_models_assessing_the_influence_a.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used AI models, specifically the Segment Anything Model (SAM) and its medical adaptation MedSAM, to perform binary segmentation of melanoma lesions in RGB skin images from the ISIC 2018 dataset. The study evaluated segmentation performance using Dice scores under various bounding box prompt conditions."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental results evaluating the influence of bounding box prompts on melanoma segmentation using SAM and MedSAM on the ISIC 2018 dataset. It includes a structured experimental protocol, specific perturbation methods, quantitative results (Dice scores), and a discussion of findings, which characterizes it as an original research study rather than a review. Although published in a conference (CBMI), it contains full experimental details and new results."
+  },
+  "title": "Melanoma Segmentation with SAM-Like Models: Assessing the Influence and Limits of Bounding Box Input",
+  "authors": [
+    "Nicolas Martin",
+    "Philippe Mulhem",
+    "Jean-Pierre Chevallet"
+  ],
+  "doi": "10.1109/CBMI66578.2025.11339293",
+  "journal": "2025 International Conference on Content-Based Multimedia Indexing (CBMI)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study evaluates the influence of bounding box prompt quality on melanoma segmentation performance using the Segment Anything Model (SAM) and its medical adaptation, MedSAM, on the ISIC 2018 dataset. The authors systematically assessed segmentation accuracy under various perturbation conditions, including shifting, shrinking, and expanding ideal bounding boxes derived from ground truth annotations. Results demonstrated that segmentation performance is highly sensitive to prompt accuracy, with Dice scores dropping significantly from 84% under ideal conditions to 37% with inaccurate bounding boxes. MedSAM consistently outperformed the general-domain SAM by approximately 7 Dice points, highlighting the benefits of domain-specific pre-training. However, both models showed substantial degradation when bounding boxes were shrunk or shifted, indicating that current SAM-like models rely heavily on high-quality spatial priors. The findings suggest that while these models are promising, their reliance on precise prompts limits fully unsupervised clinical application without human intervention or advanced automated prompting strategies.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "foreground lesions"
+      ],
+      "role": "Target class",
+      "details": "The study focuses on binary segmentation of melanoma lesions in RGB dermoscopic images from the ISIC 2018 dataset (Task 1). The ground truth masks distinguish foreground melanoma regions from the background."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary segmentation mask of melanoma lesions",
+        "primary": true,
+        "details": "The paper evaluates binary segmentation of melanoma lesions in RGB skin images using SAM and MedSAM. The model produces per-pixel mask probabilities mapped to a binary mask (foreground/background). Performance is measured using the Dice similarity coefficient."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A public dataset consisting of RGB dermoscopic images of melanoma collected from multiple international centers, accompanied by binary segmentation masks distinguishing foreground lesions from the background. The study specifically used the subset from Task 1 of the challenge.",
+      "classes_used": [
+        "Melanoma (foreground)",
+        "Background"
+      ],
+      "counts": {
+        "total": 3694,
+        "training": 2594,
+        "validation": 100,
+        "testing": 1000,
+        "per_class": {}
+      },
+      "use": {
+        "training": "The training subset (2,594 images) was not used for training the SAM or MedSAM models, as they were used with publicly available pretrained weights without additional training or fine-tuning on this dataset. However, the training set's statistics were used to calculate the 'Most probable location' heuristic bounding box coordinates.",
+        "validation": "The validation subset (100 images) was not explicitly used for validation in the reported experiments; the models were directly evaluated on the test set.",
+        "testing": "The test subset (1,000 images) was used for the primary evaluation of segmentation performance (Dice scores) under various bounding box prompt conditions (ideal, heuristic, and perturbed).",
+        "other": "The dataset served as the source for generating ground truth-based ideal bounding boxes and for simulating perturbations. It was also used to establish a reference U-Net performance (cited from external literature [15])."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice similarity coefficient",
+    "Dice Score",
+    "mean Dice score",
+    "Standard Deviation",
+    "95% Confidence Interval (CI)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Student's t-distribution",
+      "purpose": "To compute the 95% confidence interval for the mean Dice scores across all test samples.",
+      "type": "Confidence Interval Estimation"
+    },
+    {
+      "method": "Standard Deviation",
+      "purpose": "To report the variability of Dice scores across the test dataset for each experimental condition.",
+      "type": "Descriptive Statistics"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing (e.g., p-values or significance tests) for comparing model performances. It reported mean Dice scores with standard deviations and 95% confidence intervals computed using Student's t-distribution, but did not perform statistical significance tests between conditions."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018 (Task 1 Test Set)": {
+      "metric": "Dice Score (Mean / SD / 95% CI)",
+      "models": {
+        "SAM (Ideal)": {
+          "Dice Score": "84.7 / 1.6 / [83.7, 85.7]"
+        },
+        "SAM (Agnostic)": {
+          "Dice Score": "61.8 / 2.9 / [60.0, 63.5]"
+        },
+        "SAM (Full Image)": {
+          "Dice Score": "37.2 / 2.6 / [35.6, 38.9]"
+        },
+        "SAM (Most Probable Location)": {
+          "Dice Score": "42.9 / 3.1 / [41.0, 44.9]"
+        },
+        "SAM (Centered Point)": {
+          "Dice Score": "42.7 / 3.6 / [40.4, 44.9]"
+        },
+        "SAM (Shift 5%)": {
+          "Dice Score": "84.6 / 1.6 / [83.7, 85.6]"
+        },
+        "SAM (Shift 10%)": {
+          "Dice Score": "83.0 / 1.7 / [81.9, 84.1]"
+        },
+        "SAM (Shift 15%)": {
+          "Dice Score": "79.5 / 2.0 / [78.2, 80.7]"
+        },
+        "SAM (Shift 20%)": {
+          "Dice Score": "76.6 / 2.2 / [75.3, 77.9]"
+        },
+        "SAM (Shift 25%)": {
+          "Dice Score": "72.4 / 2.3 / [70.9, 73.8]"
+        },
+        "SAM (Shrink 5%)": {
+          "Dice Score": "84.4 / 1.6 / [83.4, 85.4]"
+        },
+        "SAM (Shrink 10%)": {
+          "Dice Score": "81.4 / 1.7 / [80.3, 82.4]"
+        },
+        "SAM (Shrink 15%)": {
+          "Dice Score": "76.9 / 1.9 / [75.7, 78.1]"
+        },
+        "SAM (Shrink 20%)": {
+          "Dice Score": "71.8 / 2.0 / [70.5, 73.0]"
+        },
+        "SAM (Shrink 25%)": {
+          "Dice Score": "65.0 / 2.2 / [63.7, 66.4]"
+        },
+        "SAM (Expand 5%)": {
+          "Dice Score": "83.5 / 1.8 / [82.4, 84.6]"
+        },
+        "SAM (Expand 10%)": {
+          "Dice Score": "81.6 / 2.0 / [80.4, 82.8]"
+        },
+        "SAM (Expand 15%)": {
+          "Dice Score": "79.3 / 2.2 / [77.9, 80.6]"
+        },
+        "SAM (Expand 20%)": {
+          "Dice Score": "76.0 / 2.4 / [74.5, 77.5]"
+        },
+        "SAM (Expand 25%)": {
+          "Dice Score": "73.2 / 2.6 / [71.5, 74.8]"
+        },
+        "MedSAM (Ideal)": {
+          "Dice Score": "91.5 / 0.6 / [91.1, 91.6]"
+        },
+        "MedSAM (Agnostic)": {
+          "Dice Score": "81.6 / 2.1 / [80.2, 82.9]"
+        },
+        "MedSAM (Full Image)": {
+          "Dice Score": "79.3 / 2.1 / [78.0, 80.6]"
+        },
+        "MedSAM (Most Probable Location)": {
+          "Dice Score": "73.5 / 2.0 / [72.3, 74.7]"
+        },
+        "MedSAM (Shift 5%)": {
+          "Dice Score": "89.6 / 0.7 / [89.2, 90.0]"
+        },
+        "MedSAM (Shift 10%)": {
+          "Dice Score": "86.4 / 0.8 / [85.9, 86.9]"
+        },
+        "MedSAM (Shift 15%)": {
+          "Dice Score": "82.6 / 0.9 / [82.0, 83.1]"
+        },
+        "MedSAM (Shift 20%)": {
+          "Dice Score": "79.1 / 1.1 / [78.4, 79.7]"
+        },
+        "MedSAM (Shift 25%)": {
+          "Dice Score": "74.7 / 1.2 / [74.0, 75.5]"
+        },
+        "MedSAM (Shrink 5%)": {
+          "Dice Score": "87.0 / 0.8 / [86.5, 87.5]"
+        },
+        "MedSAM (Shrink 10%)": {
+          "Dice Score": "80.8 / 1.0 / [80.1, 81.4]"
+        },
+        "MedSAM (Shrink 15%)": {
+          "Dice Score": "74.1 / 1.2 / [73.4, 74.8]"
+        },
+        "MedSAM (Shrink 20%)": {
+          "Dice Score": "68.0 / 1.4 / [67.1, 68.8]"
+        },
+        "MedSAM (Shrink 25%)": {
+          "Dice Score": "60.9 / 1.6 / [59.9, 61.9]"
+        },
+        "MedSAM (Expand 5%)": {
+          "Dice Score": "92.0 / 0.6 / [91.7, 92.4]"
+        },
+        "MedSAM (Expand 10%)": {
+          "Dice Score": "91.2 / 0.6 / [90.8, 91.6]"
+        },
+        "MedSAM (Expand 15%)": {
+          "Dice Score": "89.2 / 0.7 / [88.7, 89.6]"
+        },
+        "MedSAM (Expand 20%)": {
+          "Dice Score": "86.8 / 0.9 / [86.3, 87.4]"
+        },
+        "MedSAM (Expand 25%)": {
+          "Dice Score": "84.2 / 1.0 / [83.6, 84.8]"
+        },
+        "Naive Baseline (All Foreground)": {
+          "Dice Score": "39.7 / 24.0 / [38.2, 41.2]"
+        }
+      },
+      "notes": "MedSAM consistently outperformed SAM by approximately 7 Dice points under ideal conditions. Shrinking bounding boxes had a more detrimental effect than expanding them. MedSAM showed greater robustness to perturbations compared to SAM. The naive baseline predicted foreground for all pixels."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Segment Anything Model (SAM) and MedSAM",
+    "pretraining": "SAM was trained on more than one billion natural images. MedSAM was trained with domain-specific medical data. Both models were used with publicly available pretrained weights without additional training or fine-tuning on the ISIC 2018 dataset.",
+    "input_size": "RGB dermoscopic images from the ISIC 2018 dataset (dimensions not explicitly specified, but bounding box coordinates are derived from image height and width).",
+    "architecture_details": {
+      "encoder": "Vision Transformer (ViT) with attention mechanisms. Specifically, the ViT-B variant was used for SAM.",
+      "prompt_encoder": "Encodes input prompts (e.g., bounding boxes) into a 256-dimensional embedding vector. For bounding boxes, it sums positional encodings with learned embeddings for top-left and bottom-right corners.",
+      "mask_decoder": "Refines image and prompt embeddings through a modified Transformer block incorporating self-attention and cross-attention. The refined embedding is upsampled and passed through a Multilayer Perceptron (MLP) to map output tokens to per-pixel mask probabilities.",
+      "prompt_types": [
+        "Bounding box (top-left and bottom-right coordinates)",
+        "Point (centered point)",
+        "Full image (simulated by a regular 32x32 pixel grid input to the prompt encoder)"
+      ]
+    },
+    "training_details": {
+      "training_method": "Zero-shot inference. No additional training or fine-tuning was performed on the ISIC 2018 dataset.",
+      "post_processing": "No post-processing operations were applied to the predicted segmentation masks."
+    },
+    "classification_or_output_head": {
+      "type": "Binary segmentation mask",
+      "output": "Per-pixel mask probabilities mapped to binary foreground/background labels."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Segment Anything Model (SAM)",
+    "MedSAM",
+    "U-Net",
+    "Naive Baseline (All Foreground)"
+  ],
+  "preprocessing_techniques": [
+    "No explicit image preprocessing techniques (e.g., resizing, normalization, denoising) were applied to the input RGB dermoscopic images from the ISIC 2018 dataset; models were used with publicly available pretrained weights in a zero-shot inference setting.",
+    "Bounding box prompts were generated via perturbations of ideal ground-truth bounding boxes, including shifting (translation along x/y axes), shrinking (symmetric contraction), and expanding (symmetric extension) by random percentages (5%, 10%, 15%, 20%, 25%).",
+    "Heuristic bounding boxes were generated using fixed coordinates: 'Agnostic' boxes defined by top-left (25% height/width) and bottom-right (75% height/width) corners, and 'Most Probable Location' boxes defined by average coordinates from the training set (top-left: 168, 24; bottom-right: 487, 333).",
+    "Full image prompts were simulated by providing a bounding box covering the entire input image.",
+    "Centered point prompts were generated for SAM by placing a single point at the center of the ground truth object.",
+    "No post-processing operations were applied to the predicted segmentation masks."
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "Segmentation performance using SAM-like models is highly sensitive to the quality of bounding box prompts, with Dice scores dropping significantly (e.g., from 84% to 37% for SAM) when prompts are inaccurate.",
+    "Shrinking bounding boxes has a more detrimental effect on segmentation accuracy than expanding them, indicating that these models are more sensitive to the exclusion of relevant object regions than to the inclusion of background.",
+    "Domain-specific pre-training significantly improves robustness and performance; MedSAM consistently outperformed the general-domain SAM by approximately 7 Dice points under ideal conditions.",
+    "Both SAM and MedSAM exhibit substantial performance degradation when bounding box deviations exceed 15–20% from the ideal case, limiting their applicability for fully unsupervised clinical segmentation without human intervention or advanced automated prompting strategies.",
+    "Heuristic prompting strategies (such as full image, most probable location, or centered point prompts) consistently yielded degraded performance compared to ideal ground-truth-based bounding boxes.",
+    "The findings suggest that while SAM-like models have strong zero-shot capabilities, their reliance on high-quality spatial priors necessitates either human-in-the-loop refinement or the use of slightly larger bounding boxes to generate initial segmentations for further refinement by specialized architectures."
+  ],
+  "important_remarks": [
+    "The study relies on 'simulated' bounding box prompts derived from ground truth annotations, which may overestimate real-world performance where accurate prompts are unavailable.",
+    "MedSAM's training data composition is not fully transparent; the inclusion of closely related datasets (e.g., other ISIC challenge iterations) cannot be excluded, potentially introducing bias in the evaluation on ISIC 2018.",
+    "The models were evaluated in a zero-shot setting without fine-tuning on the target dataset, limiting the assessment of their potential performance with domain-specific adaptation.",
+    "Segmentation performance is highly sensitive to prompt quality; Dice scores drop significantly (e.g., SAM from 84% to 37%) with inaccurate bounding boxes, limiting applicability for fully unsupervised clinical use.",
+    "Shrinking bounding boxes has a more detrimental effect on accuracy than expanding them, indicating higher sensitivity to the exclusion of relevant object regions.",
+    "The study is limited to binary segmentation of melanoma on the ISIC 2018 dataset; generalizability to other lesion types, multi-class tasks, or alternative imaging modalities is not assessed.",
+    "No formal hypothesis testing (p-values) was performed; statistical comparisons rely on mean Dice scores with standard deviations and 95% confidence intervals.",
+    "Heuristic prompting strategies (full image, most probable location, centered point) yielded substantially degraded performance, suggesting simple automated prompting is insufficient for high-quality segmentation."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_martin_2025_melanoma_segmentation_with_sam_like_models_assessing_the_influence_a.pdf",
+    "summary": "The study utilized the ISIC 2018 dataset (Task 1 subset) for evaluating the segmentation performance of SAM and MedSAM models. The models were used in a zero-shot inference setting with publicly available pretrained weights, meaning no training or fine-tuning occurred on the ISIC 2018 data. The evaluation was performed exclusively on the test set (1,000 images) using various bounding box prompts (ideal, heuristic, and perturbed). The training set (2,594 images) was only used to calculate the 'Most probable location' heuristic bounding box coordinates. No validation set was used for model selection as the models were not trained on this dataset. There was no cross-dataset validation; all experiments were conducted on the ISIC 2018 dataset.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The study did not perform cross-dataset validation. All models were evaluated on the ISIC 2018 dataset. The models (SAM and MedSAM) were pre-trained on other datasets (natural images for SAM, medical images for MedSAM), but the evaluation did not involve training on one dataset and testing on a different named dataset within this study's experimental protocol.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2018 (Task 1 Training Subset)",
+          "counts": 2594,
+          "notes": "Not used for model training/fine-tuning. Used only to calculate the average bounding box coordinates for the 'Most probable location' heuristic prompt."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2018 (Task 1 Validation Subset)",
+          "counts": 100,
+          "notes": "Not used for model selection or tuning in this study. The models were pre-trained externally and evaluated directly on the test set."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2018 (Task 1 Test Subset)",
+          "counts": 1000,
+          "notes": "Used for all primary evaluation experiments. Models were evaluated using ideal, heuristic, and perturbed bounding box prompts on these 1,000 images."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "Natural Images (Proprietary)",
+          "notes": "Used to pre-train the foundational Segment Anything Model (SAM). SAM was used with these weights in a zero-shot setting."
+        },
+        {
+          "dataset": "Medical Images (Composition not fully transparent)",
+          "notes": "Used to pre-train MedSAM. The paper notes that while ISIC 2018 was reportedly excluded, other ISIC challenge iterations might have been included, potentially introducing bias. MedSAM was used with these weights in a zero-shot setting."
+        }
+      ],
+      "synthetic_or_augmented_data": []
+    },
+    "evaluation_protocol": {
+      "protocol_type": "Fixed split",
+      "split_details": "The study used the fixed test split of the ISIC 2018 Challenge Task 1 (1,000 images). No cross-validation was used. Results are mean Dice scores across the test set with standard deviation and 95% confidence intervals.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No unseen external dataset was used for testing. The models were evaluated on the ISIC 2018 test set."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2018 (Task 1 Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "Natural Images (for SAM)",
+          "Medical Images (for MedSAM)"
+        ],
+        "model_or_method": "SAM",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "Dice Score (Ideal)": "84.7 (SD 1.6, 95% CI [83.7, 85.7])",
+            "Dice Score (Agnostic)": "61.8 (SD 2.9, 95% CI [60.0, 63.5])",
+            "Dice Score (Full Image)": "37.2 (SD 2.6, 95% CI [35.6, 38.9])",
+            "Dice Score (Most Probable Location)": "42.9 (SD 3.1, 95% CI [41.0, 44.9])",
+            "Dice Score (Centered Point)": "42.7 (SD 3.6, 95% CI [40.4, 44.9])",
+            "Dice Score (Shift 5%)": "84.6 (SD 1.6, 95% CI [83.7, 85.6])",
+            "Dice Score (Shift 10%)": "83.0 (SD 1.7, 95% CI [81.9, 84.1])",
+            "Dice Score (Shift 15%)": "79.5 (SD 2.0, 95% CI [78.2, 80.7])",
+            "Dice Score (Shift 20%)": "76.6 (SD 2.2, 95% CI [75.3, 77.9])",
+            "Dice Score (Shift 25%)": "72.4 (SD 2.3, 95% CI [70.9, 73.8])",
+            "Dice Score (Shrink 5%)": "84.4 (SD 1.6, 95% CI [83.4, 85.4])",
+            "Dice Score (Shrink 10%)": "81.4 (SD 1.7, 95% CI [80.3, 82.4])",
+            "Dice Score (Shrink 15%)": "76.9 (SD 1.9, 95% CI [75.7, 78.1])",
+            "Dice Score (Shrink 20%)": "71.8 (SD 2.0, 95% CI [70.5, 73.0])",
+            "Dice Score (Shrink 25%)": "65.0 (SD 2.2, 95% CI [63.7, 66.4])",
+            "Dice Score (Expand 5%)": "83.5 (SD 1.8, 95% CI [82.4, 84.6])",
+            "Dice Score (Expand 10%)": "81.6 (SD 2.0, 95% CI [80.4, 82.8])",
+            "Dice Score (Expand 15%)": "79.3 (SD 2.2, 95% CI [77.9, 80.6])",
+            "Dice Score (Expand 20%)": "76.0 (SD 2.4, 95% CI [74.5, 77.5])",
+            "Dice Score (Expand 25%)": "73.2 (SD 2.6, 95% CI [71.5, 74.8])"
+          }
+        },
+        "notes": "SAM performance degrades significantly with inaccurate prompts. Shrinking has a more detrimental effect than expanding."
+      },
+      {
+        "dataset": "ISIC 2018 (Task 1 Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "Natural Images (for SAM)",
+          "Medical Images (for MedSAM)"
+        ],
+        "model_or_method": "MedSAM",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "Dice Score (Ideal)": "91.5 (SD 0.6, 95% CI [91.1, 91.6])",
+            "Dice Score (Agnostic)": "60.2 (SD 2.1, 95% CI [59.0, 61.5])",
+            "Dice Score (Full Image)": "41.5 (SD 2.1, 95% CI [40.2, 42.9])",
+            "Dice Score (Most Probable Location)": "51.3 (SD 2.0, 95% CI [50.1, 52.6])",
+            "Dice Score (Shift 5%)": "89.6 (SD 0.7, 95% CI [89.2, 90.0])",
+            "Dice Score (Shift 10%)": "86.4 (SD 0.8, 95% CI [85.9, 86.9])",
+            "Dice Score (Shift 15%)": "82.6 (SD 0.9, 95% CI [82.0, 83.1])",
+            "Dice Score (Shift 20%)": "79.1 (SD 1.1, 95% CI [78.4, 79.7])",
+            "Dice Score (Shift 25%)": "74.7 (SD 1.2, 95% CI [74.0, 75.5])",
+            "Dice Score (Shrink 5%)": "87.0 (SD 0.8, 95% CI [86.5, 87.5])",
+            "Dice Score (Shrink 10%)": "80.8 (SD 1.0, 95% CI [80.1, 81.4])",
+            "Dice Score (Shrink 15%)": "74.1 (SD 1.2, 95% CI [73.4, 74.8])",
+            "Dice Score (Shrink 20%)": "68.0 (SD 1.4, 95% CI [67.1, 68.8])",
+            "Dice Score (Shrink 25%)": "60.9 (SD 1.6, 95% CI [59.9, 61.9])",
+            "Dice Score (Expand 5%)": "92.0 (SD 0.6, 95% CI [91.7, 92.4])",
+            "Dice Score (Expand 10%)": "91.2 (SD 0.6, 95% CI [90.8, 91.6])",
+            "Dice Score (Expand 15%)": "89.2 (SD 0.7, 95% CI [88.7, 89.6])",
+            "Dice Score (Expand 20%)": "86.8 (SD 0.9, 95% CI [86.3, 87.4])",
+            "Dice Score (Expand 25%)": "84.2 (SD 1.0, 95% CI [83.6, 84.8])"
+          }
+        },
+        "notes": "MedSAM consistently outperformed SAM by ~7 Dice points under ideal conditions. MedSAM showed greater robustness to perturbations than SAM."
+      },
+      {
+        "dataset": "ISIC 2018 (Task 1 Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [],
+        "model_or_method": "Naive Baseline (All Foreground)",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "Dice Score": "39.7 (SD 24.0, 95% CI [38.2, 41.2])"
+          }
+        },
+        "notes": "Baseline predicting foreground for all pixels."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2018 (Task 1 Test Set)",
+        "split_or_cv": "Fixed test set (1,000 images)",
+        "models": [
+          "SAM",
+          "MedSAM",
+          "Naive Baseline"
+        ],
+        "results": [
+          {
+            "metric": "Dice Score",
+            "value": "84.7 (SAM Ideal), 91.5 (MedSAM Ideal)",
+            "model": "SAM / MedSAM",
+            "data_split": "test"
+          },
+          {
+            "metric": "Dice Score",
+            "value": "37.2 (SAM Full Image), 41.5 (MedSAM Full Image)",
+            "model": "SAM / MedSAM",
+            "data_split": "test"
+          },
+          {
+            "metric": "Dice Score",
+            "value": "39.7 (Naive)",
+            "model": "Naive Baseline",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study is limited to binary segmentation of melanoma on the ISIC 2018 dataset.",
+      "MedSAM's training data composition is not fully transparent; inclusion of closely related datasets (e.g., other ISIC challenge iterations) cannot be excluded, potentially introducing bias.",
+      "The models were evaluated in a zero-shot setting without fine-tuning on the target dataset.",
+      "Segmentation performance is highly sensitive to prompt quality, limiting applicability for fully unsupervised clinical use.",
+      "Generalizability to other lesion types, multi-class tasks, or alternative imaging modalities is not assessed."
+    ],
+    "information_not_reported": [
+      "No formal hypothesis testing (p-values) was performed.",
+      "No external validation on a separate named dataset was conducted.",
+      "The exact composition of MedSAM's training data is not fully transparent."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780002301
+  }
+}

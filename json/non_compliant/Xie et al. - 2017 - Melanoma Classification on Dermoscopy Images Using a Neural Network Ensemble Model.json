@@ -1,0 +1,292 @@
+{
+  "file_name": "Xie et al. - 2017 - Melanoma Classification on Dermoscopy Images Using a Neural Network Ensemble Model.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a self-generating neural network (SGNN) for lesion segmentation and a neural network ensemble model (combining back propagation neural networks with fuzzy neural networks) for classifying dermoscopy images of melanocytic tumors as benign or malignant."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving the development of a novel neural network ensemble model for melanoma classification. It details specific methods (SGNN segmentation, feature extraction, meta-ensemble classifier), describes experiments conducted on two dermoscopy datasets (xanthous and caucasian races), and reports quantitative results (sensitivity, specificity, accuracy, AUC) comparing the proposed method against baselines."
+  },
+  "title": "Melanoma Classification on Dermoscopy Images Using a Neural Network Ensemble Model",
+  "authors": [
+    "Fengying Xie",
+    "Haidi Fan",
+    "Yang Li",
+    "Zhiguo Jiang",
+    "Rusong Meng",
+    "Alan Bovik"
+  ],
+  "doi": "10.1109/TMI.2016.2633551",
+  "journal": "IEEE Transactions on Medical Imaging",
+  "year": 2017,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes a novel method for classifying melanocytic tumors as benign or malignant using dermoscopy images, specifically addressing the challenge of incomplete lesion boundaries. The algorithm employs a self-generating neural network (SGNN) for lesion segmentation, extracts color, texture, and new border features, and classifies lesions using a meta-ensemble model combining back propagation and fuzzy neural networks. Experiments were conducted on two diverse datasets comprising xanthous and caucasian race images, including both complete and incomplete lesions. The results demonstrate that the proposed method achieves high sensitivity and accuracy, significantly outperforming several baseline classifiers and existing methods. The study concludes that the new border features and the ensemble classifier effectively handle incomplete lesions and improve diagnostic performance.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Malignant melanoma",
+        "MM",
+        "malignant",
+        "melanocytic tumors"
+      ],
+      "role": "Target class",
+      "details": "Classified as malignant lesions in the binary classification task. The xanthous dataset contained 80 malignant images, and the caucasian dataset contained 120 malignant images."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "Benign",
+        "benign nevi",
+        "benign lesions",
+        "benign melanocytic tumors"
+      ],
+      "role": "Target class",
+      "details": "Classified as benign lesions in the binary classification task. The xanthous dataset contained 160 benign images, and the caucasian dataset contained 240 benign images."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of melanocytic tumors as benign or malignant",
+        "primary": true,
+        "details": "The paper explicitly states the goal is 'classifying melanocytic tumors as benign or malignant'. The model differentiates between two discrete diagnostic categories: malignant melanoma (MM) and benign nevi. Performance is evaluated using classification metrics such as sensitivity, specificity, accuracy, and AUC (Area Under the ROC Curve) on datasets containing labeled images of benign and malignant lesions."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "Xanthous Race Dataset",
+      "description": "A dermoscopy image dataset supplied by the General Hospital of the Air Force of the Chinese Peoples Liberation Army. Images were classified by an experienced dermatologist (Rusong Meng). The dataset includes both complete and incomplete lesion objects (49 originally incomplete, 41 rendered incomplete by random cuts).",
+      "classes_used": [
+        "Malignant melanoma",
+        "Benign nevi"
+      ],
+      "counts": {
+        "total": 240,
+        "training": 120,
+        "validation": null,
+        "testing": 120,
+        "per_class": {
+          "malignant": 80,
+          "benign": 160
+        }
+      },
+      "use": {
+        "training": "Used for training and validation via 10 times 10-fold cross-validation for classifier evaluation and feature dimensionality reduction (PCA) experiments. Specifically, 1/2 of the images were used as training samples to determine the optimal reduced feature set.",
+        "validation": "Used for validation via 10 times 10-fold cross-validation.",
+        "testing": "Used for testing via 10 times 10-fold cross-validation. The remaining 1/2 of the images were used as test samples to verify classifier performance.",
+        "other": null
+      }
+    },
+    {
+      "name": "Caucasian Race Dataset",
+      "description": "A dermoscopy image dataset collected from the PH2 and EDRA datasets. It includes images with incomplete lesion objects (67 originally incomplete, 13 rendered incomplete by random cuts).",
+      "classes_used": [
+        "Malignant melanoma",
+        "Benign nevi"
+      ],
+      "counts": {
+        "total": 360,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "malignant": 120,
+          "benign": 240
+        }
+      },
+      "use": {
+        "training": "Used for testing the proposed method's performance on a different demographic. The paper does not explicitly state a training split for this dataset, implying it was used primarily for external validation/testing of the model trained on the Xanthous dataset or as a separate test set.",
+        "validation": null,
+        "testing": "Used for testing the classification accuracy of the proposed method, specifically evaluating performance on complete and incomplete lesions.",
+        "other": "Used to assess the generalization ability of the designed meta-ensemble model."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "Accuracy",
+    "AUC-ROC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "10 times 10-fold cross-validation",
+      "purpose": "To validate the performance of the classifier and determine the optimal reduced feature set via PCA on the xanthous race dataset.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) curves",
+      "purpose": "To evaluate and compare the classification efficiency of different border feature sets on the xanthous race dataset.",
+      "type": "Performance evaluation metric"
+    },
+    {
+      "method": "Area Under the ROC Curve (AUC)",
+      "purpose": "To quantify the performance of different feature vectors, where a higher AUC indicates better algorithm performance.",
+      "type": "Performance evaluation metric"
+    },
+    {
+      "method": "Principal Component Analysis (PCA)",
+      "purpose": "To remove feature redundancy and noise, and to determine the optimal reduced feature set by varying the number of principle components and accumulated variance contribution rate.",
+      "type": "Dimensionality reduction"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using classification accuracy, sensitivity, specificity, and AUC values derived from 10 times 10-fold cross-validation, without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Xanthous Race Dataset": {
+      "experiment": "Classifier Comparison (Experiment 3)",
+      "metric": "Sensitivity, Specificity, Accuracy",
+      "models": {
+        "Proposed Meta-Ensemble Model": {
+          "Sensitivity": "95.00%",
+          "Accuracy": "94.17%",
+          "Specificity": "Not explicitly stated as a single number in text, but described as having a 'best balance' compared to others"
+        },
+        "Random Forests": {
+          "Specificity": "High (highest among compared)",
+          "Sensitivity": "Low"
+        },
+        "KNN (K=3)": {
+          "Specificity": "High (highest among compared)",
+          "Sensitivity": "Low"
+        },
+        "Method in [17]": {
+          "Specificity": "High (highest among compared)",
+          "Sensitivity": "Low"
+        },
+        "Method in [16] (BoF)": "Performance lower than proposed method",
+        "Single BP Network": "Performance lower than proposed method",
+        "SVM (RBF)": "Performance lower than proposed method"
+      },
+      "notes": "The proposed method achieved the highest sensitivity (95.00%) and accuracy (94.17%). The performance was at least 7.5% higher in sensitivity than compared classifiers. Table VIII contains the full results."
+    },
+    "Caucasian Race Dataset": {
+      "experiment": "Classifier Comparison (Experiment 3)",
+      "metric": "Sensitivity, Specificity, Accuracy",
+      "models": {
+        "Proposed Meta-Ensemble Model": "Best performance (specific values not explicitly listed in text, but Table IX is referenced)",
+        "Random Forests": "High specificity, low sensitivity",
+        "KNN": "High specificity, low sensitivity",
+        "Method in [17]": "High specificity, low sensitivity",
+        "Method in [16] (BoF)": "Lower performance",
+        "Single BP": "Lower performance",
+        "SVM": "Lower performance"
+      },
+      "notes": "Table IX contains the classification results. The text notes that the proposed method outperformed the compared classifiers, consistent with results on the Xanthous dataset."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Neural Network Ensemble Model (Meta-Ensemble Model)",
+    "pretraining": "null",
+    "input_size": "null",
+    "architecture_details": {
+      "model_family": "Neural Network Ensemble",
+      "components": [
+        "Self-Generating Neural Network (SGNN) for lesion segmentation",
+        "Back Propagation (BP) Neural Networks",
+        "Fuzzy Neural Networks (FNN)"
+      ],
+      "ensemble_structure": "Meta-ensemble composed of three sub-ensembles with different network structures/types",
+      "ensemble_1": {
+        "type": "BP Neural Networks",
+        "size": 5,
+        "aggregation": "Voting"
+      },
+      "ensemble_2": {
+        "type": "Mixed BP and FNN",
+        "bp_individuals": 3,
+        "fnn_individuals": 2,
+        "input_features": "4 principle components (from PCA)",
+        "aggregation": "Weighted averaging"
+      },
+      "ensemble_3": {
+        "type": "BP Neural Networks",
+        "size": 5,
+        "aggregation": "Voting"
+      },
+      "meta_ensemble_aggregation": "Voting",
+      "bp_network_details": {
+        "hidden_layers": 2,
+        "expected_error": 0.05,
+        "training_split": "70% training, 30% validation for parameter determination"
+      },
+      "total_individuals": 15,
+      "complexity_note": "Approximately 15 times the complexity of a single BP network"
+    },
+    "training_details": {
+      "optimizer": "Back Propagation",
+      "validation_method": "10 times 10-fold cross-validation",
+      "hyperparameters": {
+        "ensemble_size": 5,
+        "bp_expected_error": 0.05,
+        "svm_C": "2048 (xanthous), 64 (caucasian)",
+        "svm_gamma_r": "0.0313 (xanthous), 0.25 (caucasian)",
+        "knn_k": 3,
+        "pca_components_xanthous": 15,
+        "pca_components_caucasian": 22
+      }
+    },
+    "classification_or_output_head": {
+      "type": "Meta-Ensemble Output",
+      "method": "Voting (for ensembles 1 and 3), Weighted Averaging (for ensemble 2), Voting (for final meta-ensemble)"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Self-Generating Neural Network (SGNN)",
+    "Neural Network Ensemble Model (Meta-Ensemble Model)",
+    "Back Propagation (BP) Neural Network",
+    "Fuzzy Neural Network (FNN)",
+    "Random Forests",
+    "K-Nearest Neighbor (KNN)",
+    "Support Vector Machine (SVM)",
+    "SVM with Radial Basis Function (RBF) kernel",
+    "AdaBoost",
+    "Gentle Adaboost",
+    "Structural SVM",
+    "Bag of Features (BoF) model"
+  ],
+  "preprocessing_techniques": [
+    "Hair removal using a partial differential equation (PDE)-based image repair method",
+    "Lesion segmentation using a self-generating neural network (SGNN)",
+    "Manual segmentation for images not accurately segmented by SGNN",
+    "Region division into diffusion region and inner lesion region using Otsu's threshold",
+    "Feature normalization using z-scores (clamped to range [0,1])"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Synthetic data generation via random cuts",
+      "details": "Incomplete lesion objects were created by applying random cuts to complete lesion images. Specifically, 41 images in the xanthous race dataset and 13 images in the caucasian race dataset were rendered incomplete by random cuts to simulate incomplete lesion presentations."
+    }
+  ],
+  "conclusions": [
+    "The proposed method, which combines new border features with a neural network ensemble model (meta-ensemble), effectively classifies melanocytic tumors as benign or malignant, particularly handling lesions with incomplete boundaries.",
+    "The new border features, based on fractal dimension, convex hull, and inner/outer border differences, are robust to border loss and achieve higher classification accuracy compared to other border feature sets on both xanthous and caucasian datasets.",
+    "The meta-ensemble model, integrating back propagation (BP) neural networks and fuzzy neural networks (FNN), significantly outperforms single classifiers (BP, SVM, KNN, AdaBoost, etc.) and other ensemble methods in terms of sensitivity, specificity, and accuracy.",
+    "On the xanthous race dataset, the proposed method achieved a sensitivity of 95.00% and an accuracy of 94.17%, demonstrating superior performance compared to baseline classifiers.",
+    "The method demonstrates good generalization ability, maintaining high performance on the caucasian race dataset, which includes images with more severe border loss than the xanthous dataset.",
+    "Principal Component Analysis (PCA) with 15 components provided a balanced trade-off between sensitivity and specificity for the xanthous dataset, while 22 components were optimal for the caucasian dataset.",
+    "The study confirms that computer-aided diagnosis systems can assist physicians by reducing subjectivity and improving diagnostic accuracy, especially for inexperienced dermatologists."
+  ],
+  "important_remarks": [
+    "The study lacks formal statistical hypothesis testing (e.g., p-values) to validate the significance of performance differences between the proposed method and baselines.",
+    "The model complexity is approximately 15 times that of a single Back Propagation (BP) network, implying higher computational cost and storage requirements compared to simpler classifiers.",
+    "The Xanthous dataset was artificially augmented with incomplete lesions by applying random cuts to complete images, which may not fully replicate the complexity of real-world incomplete lesion presentations.",
+    "The Caucasian dataset was used for external validation/testing but was not used for training, limiting the assessment of the model's ability to generalize to unseen demographic distributions during the training phase.",
+    "Bag of Features (BoF) models performed poorly in this experiment, likely due to the use of low-level features, suggesting that deep learning methods might be more effective given sufficient data.",
+    "The accuracy of diagnosis is highly dependent on the expertise of the physician, and dermoscopy may actually lower diagnostic accuracy when conducted by inexperienced dermatologists, highlighting the need for robust CAD systems."
+  ]
+}

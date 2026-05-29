@@ -1,0 +1,622 @@
+{
+  "file_name": "szij_rt_2023_design_of_a_machine_learning_system_to_predict_the_thickness_of_a_m.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used a machine learning system based on a convolutional neural network (EfficientNet-B4) with transfer learning to predict the thickness of melanoma lesions from dermoscopic images, classifying them into three categories."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is labeled as an 'Original Article' and describes the design, implementation, and validation of a new machine learning system (using EfficientNet-B4) to predict melanoma thickness. It presents original experimental results, including a balanced accuracy of 71% on a dataset of 247 images, and compares these findings with previous studies to correct data leakage issues, rather than summarizing existing literature."
+  },
+  "title": "Design of a Machine Learning System to Predict the Thickness of a Melanoma Lesion in a Non-Invasive Way from Dermoscopic Images",
+  "authors": [
+    "Ádám Szijártó",
+    "Ellák Somfai",
+    "András Lőrincz"
+  ],
+  "doi": "10.4258/hir.2023.29.2.112",
+  "journal": "Healthcare Informatics Research",
+  "year": 2023,
+  "article_type": "Original Article",
+  "brief_summary": "This study aimed to develop a non-invasive machine learning system to predict the thickness of melanoma lesions from dermoscopic images to aid in identifying urgent treatment cases. The authors utilized a convolutional neural network based on the EfficientNet-B4 architecture with transfer learning, trained on the public Derm7pt dataset containing 247 images. To address class imbalance and improve generalization, the model employed image augmentation and five-fold cross-validation. The system achieved a balanced accuracy of 71% for three-way classification, outperforming previous state-of-the-art methods that suffered from data leakage. The results demonstrate that while current performance is promising, further optimization requires larger training datasets and model ensembles.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "Melanoma",
+        "malignant melanoma",
+        "melanoma lesions",
+        "melanoma in situ",
+        "melanoma depth"
+      ],
+      "role": "Target class",
+      "details": "The study focuses exclusively on predicting the thickness of melanoma lesions. The dataset (Derm7pt) and experiments involve three main thickness categories: thin (<0.76 mm), intermediate (0.76-1.5 mm), and thick (>1.5 mm). Melanoma in situ was initially a separate class but was merged with the thin category for the final three-way classification task."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Melanoma lesion thickness categories (thin, intermediate, thick)",
+        "primary": true,
+        "details": "The model classifies dermoscopic images of melanoma lesions into three distinct thickness categories: thin (<0.76 mm or melanoma in situ), intermediate (0.76-1.5 mm), and thick (>1.5 mm). The paper explicitly states the task is 'three-way classification' and reports metrics such as balanced accuracy, accuracy, and F1-score for these discrete classes."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "7-Point Dataset",
+      "description": "A publicly available dermoscopic image set containing information on lesion depth, used as the primary data source for training and validating the machine learning model.",
+      "classes_used": [
+        "Melanoma in situ",
+        "Melanoma depth <0.76 mm",
+        "Melanoma depth >=0.76 mm and <=1.5 mm",
+        "Melanoma depth >1.5 mm"
+      ],
+      "counts": {
+        "total": 247,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Melanoma in situ": 64,
+          "Melanoma depth <0.76 mm": 102,
+          "Melanoma depth >=0.76 mm and <=1.5 mm": 53,
+          "Melanoma depth >1.5 mm": 28
+        }
+      },
+      "use": {
+        "training": "Used for training the EfficientNet-B4 model with five-fold cross-validation. The dataset was preprocessed by cropping and resizing to 380x380 pixels. Data augmentation was applied during training.",
+        "validation": "Used for validation via five-fold cross-validation to obtain reliable metrics. The classes 'Melanoma in situ' and 'Melanoma depth <0.76 mm' were merged into a single 'thin' class for the final three-way classification task.",
+        "testing": "null",
+        "other": "The dataset was also used to reproduce and evaluate the method from Jaworek-Korjakowska et al. [11] to demonstrate the impact of data leakage. In that specific reproduction experiment, the dataset size was 244 images."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Balanced Accuracy (BACC)",
+    "Sensitivity (True Positive Rate)",
+    "True Negative Rate (TNR)",
+    "F1-Score",
+    "AUC-ROC"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Five-fold cross-validation",
+      "purpose": "To validate the model and obtain more reliable metrics of its performance by averaging results across folds.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "Random sampling",
+      "purpose": "To create smaller subsets of the dataset with constant class ratios for performance projection and extrapolation.",
+      "type": "Data sampling"
+    },
+    {
+      "method": "Exponential function fitting",
+      "purpose": "To estimate performance for a more extensive dataset by minimizing mean squared error on the balanced accuracy vs. dataset size ratio.",
+      "type": "Curve fitting / Regression"
+    },
+    {
+      "method": "Balanced accuracy (Average True Positive Rate)",
+      "purpose": "To measure classification performance per class, averaged over classes, to address class imbalance.",
+      "type": "Metric"
+    },
+    {
+      "method": "Average True Negative Rate (ATNR)",
+      "purpose": "To measure classification performance for each class as the average true negative rate.",
+      "type": "Metric"
+    },
+    {
+      "method": "F1-score",
+      "purpose": "To measure performance as the harmonic mean of multiclass sensitivity (ATPR) and multiclass precision.",
+      "type": "Metric"
+    },
+    {
+      "method": "ROC AUC (Area Under the Curve)",
+      "purpose": "To evaluate model performance in a 'one-versus-one' sense for all three class-pairs, averaged.",
+      "type": "Metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance was evaluated using metrics such as balanced accuracy, accuracy, ATPR, ATNR, and F1-score, with comparisons made based on metric values rather than statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "Derm7pt dataset (Three-way classification: Thin, Intermediate, Thick)": {
+      "metric": "Accuracy and Balanced Accuracy",
+      "models": {
+        "Our method (Training and validating on 3 classes)": {
+          "Accuracy": "0.748",
+          "Balanced accuracy": "0.662"
+        },
+        "Our method (Training on 4, validating on 3 classes)": {
+          "Accuracy": "0.716",
+          "Balanced accuracy": "0.708"
+        },
+        "Our method (Training and validating on 4 classes)": {
+          "Accuracy": "0.502",
+          "Balanced accuracy": "0.583"
+        },
+        "Saez et al. [9] LIPU": {
+          "Accuracy": "0.684",
+          "Balanced accuracy": "0.449"
+        },
+        "Saez et al. [9] KDLOR": {
+          "Accuracy": "0.644",
+          "Balanced accuracy": "0.599"
+        },
+        "Jaworek-Korjakowska et al. [11] reproduced (without leakage)": {
+          "Accuracy": "0.680",
+          "Balanced accuracy": "0.525"
+        }
+      },
+      "notes": "The best balanced accuracy (0.708) was achieved by training on four classes and validating on three. The reproduced method of Jaworek-Korjakowska et al. without data leakage showed significantly lower performance than their original reported scores."
+    },
+    "Derm7pt dataset (Comparison of Backbone Architectures)": {
+      "metric": "Accuracy, Balanced Accuracy, and ROC AUC",
+      "models": {
+        "EfficientNet B3": {
+          "Accuracy": "0.757",
+          "Balanced accuracy": "0.692",
+          "ROC AUC": "0.823"
+        },
+        "EfficientNet B4": {
+          "Accuracy": "0.716",
+          "Balanced accuracy": "0.708",
+          "ROC AUC": "0.834"
+        },
+        "EfficientNet B4 (no weighted training)": {
+          "Accuracy": "0.733",
+          "Balanced accuracy": "0.586",
+          "ROC AUC": "0.785"
+        },
+        "EfficientNet B5": {
+          "Accuracy": "0.741",
+          "Balanced accuracy": "0.668",
+          "ROC AUC": "0.835"
+        },
+        "ShuffleNet": {
+          "Accuracy": "0.628",
+          "Balanced accuracy": "0.585",
+          "ROC AUC": "0.753"
+        },
+        "MobileNet": {
+          "Accuracy": "0.733",
+          "Balanced accuracy": "0.640",
+          "ROC AUC": "0.806"
+        },
+        "ResNet-50": {
+          "Accuracy": "0.725",
+          "Balanced accuracy": "0.572",
+          "ROC AUC": "0.764"
+        }
+      },
+      "notes": "All models were trained on four classes and validated on three classes. ROC AUC values were calculated in a 'one-versus-one' sense and averaged."
+    },
+    "Derm7pt dataset (Reproduction of Jaworek-Korjakowska et al. [11] with/without leakage)": {
+      "metric": "Accuracy, ATPR, ATNR, F1-score",
+      "models": {
+        "Jaworek-Korjakowska et al.’s result [11] (Original)": {
+          "Accuracy": "0.872",
+          "ATPR": "0.805",
+          "ATNR": "0.903",
+          "F1-score": "0.834"
+        },
+        "Our reproduction with leakage": {
+          "Accuracy": "0.867",
+          "ATPR": "0.862",
+          "ATNR": "0.931",
+          "F1-score": "0.864"
+        },
+        "Our reproduction without leakage": {
+          "Accuracy": "0.680",
+          "ATPR": "0.525",
+          "ATNR": "0.776",
+          "F1-score": "0.531"
+        }
+      },
+      "notes": "The reproduction with leakage yielded results similar to the original paper. The reproduction without leakage showed significantly lower performance, particularly in ATPR and F1-score, indicating data leakage in the original study."
+    }
+  },
+  "architecture_used": {
+    "main_model": "EfficientNet-B4",
+    "pretraining": "Pretrained on the ImageNet dataset",
+    "input_size": "380x380 pixels",
+    "architecture_details": {
+      "backbone": "EfficientNet-B4",
+      "model_family": "EfficientNet",
+      "description": "A modern convolutional neural network architecture. The authors replaced the VGG-19 architecture with EfficientNet-B4 as the backbone. EfficientNet-based models are noted for achieving exceptional accuracy on ImageNet while being smaller and faster than many other architectures."
+    },
+    "training_details": {
+      "optimizer": "Adam",
+      "loss_function": "Weighted cross-entropy (implied by 'weighted training' and class imbalance handling, though not explicitly named as a function string)",
+      "learning_rate_scheduler": "Cosine annealed learning rate scheduler",
+      "initial_learning_rate": "3×10⁻⁵",
+      "epochs": 15,
+      "batch_size": 25,
+      "validation_method": "Five-fold cross-validation",
+      "data_augmentation": [
+        "Random scaling (probability 0.85, scale factor between 0.9 and 1.1)",
+        "Random rotation (probability 0.85, angle ±15°)"
+      ],
+      "class_imbalance_handling": "Weighted training (using class weights) and merging 'Melanoma in situ' with 'Melanoma depth <0.76 mm' for the final three-way classification task"
+    },
+    "classification_or_output_head": {
+      "type": "Fully connected layer (implied by standard CNN architecture for classification)",
+      "output_classes": 3,
+      "class_labels": [
+        "Thin (<0.76 mm or melanoma in situ)",
+        "Intermediate (0.76-1.5 mm)",
+        "Thick (>1.5 mm)"
+      ]
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "EfficientNet-B4",
+    "EfficientNet B3",
+    "EfficientNet B5",
+    "ShuffleNet",
+    "MobileNet",
+    "ResNet-50",
+    "VGG-19",
+    "LIPU (logistic regression using initial variables and product units)",
+    "KDLOR (kernel discriminant learning for ordinal regression)",
+    "Jaworek-Korjakowska et al. model (CNN with VGG-19 backbone)"
+  ],
+  "preprocessing_techniques": [
+    "Cropping around the lesion to minimize the impact of artifacts such as oil blobs, hair, and measuring marks",
+    "Resizing images to a 1:1 aspect ratio",
+    "Resizing images to a uniform 380x380 pixel size for training and validation"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Transposition",
+      "details": "Rows and columns of the image were swapped with a probability of 0.5."
+    },
+    {
+      "technique": "Vertical and horizontal flip",
+      "details": "Each was applied independently with a probability of 0.5."
+    },
+    {
+      "technique": "Random brightness and contrast change",
+      "details": "Both were carried out independently with a 20% limit in the positive and negative direction and applied with a probability of 0.75."
+    },
+    {
+      "technique": "Blur",
+      "details": "Applied with a probability of 0.7 using either motion blur, median blur, Gaussian blur, or Gaussian noise."
+    },
+    {
+      "technique": "Distortion",
+      "details": "Applied with a probability of 0.7 using optical distortion, grid distortion, or elastic distortion."
+    },
+    {
+      "technique": "Random HSV (hue, saturation, and value) shift",
+      "details": "Each with a probability of 0.5; with a hue shift limit of 10, a saturation shift limit of 20, and a value shift limit of 10 in both the positive and negative direction."
+    },
+    {
+      "technique": "Random shifting",
+      "details": "Applied with a probability of 0.85 and a shift limit of 0.1 (in units of image length)."
+    },
+    {
+      "technique": "Random scaling",
+      "details": "With a probability of 0.85, rescaled with a random scale factor between 0.9 and 1.1."
+    },
+    {
+      "technique": "Random rotation",
+      "details": "With a probability of 0.85, the image was rotated by a random angle (±15°)."
+    }
+  ],
+  "conclusions": [
+    "The proposed machine learning system using EfficientNet-B4 achieved a balanced accuracy of 71% for three-way classification of melanoma lesion thickness, representing a new state-of-the-art performance on the Derm7pt dataset.",
+    "The study demonstrated that previous claims of higher performance (specifically by Jaworek-Korjakowska et al.) were erroneous due to data leakage during the evaluation process, as their reproduced results without leakage showed significantly lower performance.",
+    "Training the model on four classes and validating on three merged classes yielded the highest balanced accuracy (0.708) compared to training and validating on three classes directly.",
+    "Performance projections indicate that expanding the training dataset size and utilizing model ensembles can further optimize the system's performance.",
+    "The model's performance is currently limited by the small size of the available training dataset (247 images), which restricts its immediate real-world applicability without further data collection."
+  ],
+  "important_remarks": [
+    "The study identifies and corrects a critical data leakage issue in previous state-of-the-art work (Jaworek-Korjakowska et al.), demonstrating that their reported high accuracy (87.2%) was artificially inflated because SMOTE oversampling was applied before data splitting, causing validation data to influence training.",
+    "The model's performance is limited by the small size of the training dataset (247 images from the Derm7pt dataset), which restricts immediate real-world clinical applicability and necessitates larger datasets or synthetic data generation (e.g., GANs) for optimization.",
+    "Training the model on four original classes and merging them into three classes only during the validation phase yielded a higher balanced accuracy (0.708) than training directly on the merged three classes, highlighting the benefit of preserving finer class resolution during training to mitigate bias.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals; performance comparisons are based on metric values (balanced accuracy, F1-score) rather than statistical significance.",
+    "The system was validated exclusively on a single public dataset (Derm7pt) using five-fold cross-validation, lacking external validation on independent, multi-center clinical datasets, which limits the generalizability of the findings.",
+    "The study focuses solely on melanoma thickness prediction and does not address the classification of non-melanoma lesions, limiting its scope as a general dermatological diagnostic tool.",
+    "The authors note that while the balanced accuracy of 71% represents a new state-of-the-art on this specific dataset, it may not be adequate for standalone real-world clinical use without further optimization or ensemble methods."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_szij_rt_2023_design_of_a_machine_learning_system_to_predict_the_thickness_of_a_m.pdf",
+    "summary": "The study utilized the publicly available Derm7pt dataset, containing 247 dermoscopic images of melanoma lesions with known thickness, for all model development activities. The dataset was used for training, validation (via five-fold cross-validation), and internal testing. The authors also reproduced a previous method (Jaworek-Korjakowska et al.) using a similar dataset of 244 images to demonstrate the impact of data leakage. No external or unseen test datasets were used for final evaluation; performance was projected for larger datasets using curve fitting on the existing Derm7pt data.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper did not perform cross-dataset validation. The model was trained and evaluated exclusively on the Derm7pt dataset. A reproduction of a previous study used a slightly different subset (244 images) from a similar source, but this was for comparative analysis of leakage, not for external validation of the proposed model.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "Derm7pt dataset",
+          "counts": 247,
+          "notes": "Used for training the EfficientNet-B4 model. The dataset was split into five folds for cross-validation. Images were preprocessed by cropping and resizing to 380x380 pixels. Data augmentation was applied during training."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "Derm7pt dataset",
+          "counts": 247,
+          "notes": "Used for validation via five-fold cross-validation. The validation set in each fold was used for model selection and metric calculation. Classes were merged during validation for the three-way classification task."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "Derm7pt dataset",
+          "counts": 247,
+          "notes": "Used for internal testing. The final reported metrics are the average performance across the five folds of the Derm7pt dataset. No separate held-out test set was used."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Used for transfer learning. The EfficientNet-B4 backbone was pretrained on ImageNet before being fine-tuned on the Derm7pt dataset."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "Derm7pt dataset (augmented)",
+          "notes": "Extensive data augmentation was applied to the training images during training, including transposition, flips, brightness/contrast changes, blur, distortion, HSV shifts, shifting, scaling, and rotation. SMOTE was not used by the authors but was analyzed in the reproduction of Jaworek-Korjakowska et al."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "k-fold cross-validation",
+      "split_details": "Five-fold cross-validation on the Derm7pt dataset (247 images). The average performance across the five folds is reported.",
+      "cross_validation_details": "Five-fold cross-validation. Folds stayed within the single Derm7pt dataset.",
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No unseen external dataset was used. Performance projections for larger datasets were estimated using curve fitting on subsets of the Derm7pt dataset."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "Derm7pt dataset",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "Derm7pt dataset"
+        ],
+        "model_or_method": "EfficientNet-B4 (trained on 4 classes, validated on 3)",
+        "metrics": {
+          "accuracy": 0.716,
+          "auc": 0.834,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.708
+          }
+        },
+        "notes": "Best performing configuration. Balanced accuracy was calculated as the average true positive rate."
+      },
+      {
+        "dataset": "Derm7pt dataset",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "Derm7pt dataset"
+        ],
+        "model_or_method": "EfficientNet-B4 (trained and validated on 3 classes)",
+        "metrics": {
+          "accuracy": 0.748,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.662
+          }
+        },
+        "notes": "Lower balanced accuracy compared to training on 4 classes."
+      },
+      {
+        "dataset": "Derm7pt dataset",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "Derm7pt dataset"
+        ],
+        "model_or_method": "EfficientNet-B4 (trained and validated on 4 classes)",
+        "metrics": {
+          "accuracy": 0.502,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.583
+          }
+        },
+        "notes": "Performance on the original 4-class problem."
+      },
+      {
+        "dataset": "Derm7pt dataset",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "Derm7pt dataset"
+        ],
+        "model_or_method": "Jaworek-Korjakowska et al. reproduction (without leakage)",
+        "metrics": {
+          "accuracy": 0.68,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": 0.531,
+          "other_metrics": {
+            "atpr": 0.525,
+            "atnr": 0.776
+          }
+        },
+        "notes": "Reproduction of previous state-of-the-art method without data leakage. Significantly lower performance than the authors' method."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "Derm7pt dataset",
+        "split_or_cv": "5-fold cross-validation",
+        "models": [
+          "EfficientNet-B3",
+          "EfficientNet-B4",
+          "EfficientNet-B4 (no weighted training)",
+          "EfficientNet-B5",
+          "ShuffleNet",
+          "MobileNet",
+          "ResNet-50"
+        ],
+        "results": [
+          {
+            "metric": "Accuracy",
+            "value": 0.757,
+            "model": "EfficientNet-B3",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Balanced accuracy",
+            "value": 0.692,
+            "model": "EfficientNet-B3",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "ROC AUC",
+            "value": 0.823,
+            "model": "EfficientNet-B3",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Accuracy",
+            "value": 0.716,
+            "model": "EfficientNet-B4",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Balanced accuracy",
+            "value": 0.708,
+            "model": "EfficientNet-B4",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "ROC AUC",
+            "value": 0.834,
+            "model": "EfficientNet-B4",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Accuracy",
+            "value": 0.733,
+            "model": "EfficientNet-B4 (no weighted training)",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Balanced accuracy",
+            "value": 0.586,
+            "model": "EfficientNet-B4 (no weighted training)",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "ROC AUC",
+            "value": 0.785,
+            "model": "EfficientNet-B4 (no weighted training)",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Accuracy",
+            "value": 0.741,
+            "model": "EfficientNet-B5",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Balanced accuracy",
+            "value": 0.668,
+            "model": "EfficientNet-B5",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "ROC AUC",
+            "value": 0.835,
+            "model": "EfficientNet-B5",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Accuracy",
+            "value": 0.628,
+            "model": "ShuffleNet",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Balanced accuracy",
+            "value": 0.585,
+            "model": "ShuffleNet",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "ROC AUC",
+            "value": 0.753,
+            "model": "ShuffleNet",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Accuracy",
+            "value": 0.733,
+            "model": "MobileNet",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Balanced accuracy",
+            "value": 0.64,
+            "model": "MobileNet",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "ROC AUC",
+            "value": 0.806,
+            "model": "MobileNet",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Accuracy",
+            "value": 0.725,
+            "model": "ResNet-50",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Balanced accuracy",
+            "value": 0.572,
+            "model": "ResNet-50",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "ROC AUC",
+            "value": 0.764,
+            "model": "ResNet-50",
+            "data_split": "cross-validation"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study is limited by the small size of the training dataset (247 images).",
+      "No external validation was performed on independent, multi-center clinical datasets.",
+      "Performance projections suggest that larger datasets and model ensembles could improve performance.",
+      "The model's performance may not be adequate for standalone real-world clinical use without further optimization.",
+      "The study focuses solely on melanoma thickness prediction and does not address non-melanoma lesions."
+    ],
+    "information_not_reported": [
+      "No external test set results were reported.",
+      "No confidence intervals or p-values were reported for the primary metrics.",
+      "Patient-level separation details were not explicitly reported, though image-level splitting was used."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780005145
+  }
+}

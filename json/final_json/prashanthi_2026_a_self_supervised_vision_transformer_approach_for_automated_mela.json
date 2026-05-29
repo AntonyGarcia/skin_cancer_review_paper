@@ -1,0 +1,637 @@
+{
+  "file_name": "prashanthi_2026_a_self_supervised_vision_transformer_approach_for_automated_mela.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a Self-Supervised Vision Transformer (SS-ViT) architecture with DINO self-supervised pre-training and supervised fine-tuning on the HAM10000 dataset to perform automated melanoma detection (binary classification) and severity grading (ordinal regression) on dermoscopic images."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper proposes a novel Self-Supervised Vision Transformer (SS-ViT) architecture, describes its development using DINO pre-training and fine-tuning on the HAM10000 dataset, and reports original experimental results including accuracy (95.4%), AUC-ROC (0.978), and ablation studies. It includes sections on methods, results, and system implementation, indicating it is an original technical study rather than a review."
+  },
+  "title": "A Self-Supervised Vision Transformer Approach for Automated Melanoma Detection and Grading",
+  "authors": [
+    "K. Prashanthi",
+    "M. Bhagya Laksmi",
+    "V. Havila",
+    "T. Samuel",
+    "P. Rajasekhar"
+  ],
+  "doi": "10.22214/ijraset.2026.81679",
+  "journal": "International Journal for Research in Applied Science & Engineering Technology (IJRASET)",
+  "year": 2026,
+  "article_type": "Research paper",
+  "brief_summary": "This study proposes a Self-Supervised Vision Transformer (SS-ViT) architecture for automated melanoma detection and severity grading using dermoscopic images. The model employs DINO self-supervised pre-training on unlabeled dermoscopic data followed by supervised fine-tuning on the HAM10000 dataset to perform binary classification and four-level risk stratification. The approach achieved 95.4% accuracy and an AUC-ROC of 0.978, outperforming CNN and supervised ViT baselines. Interpretability was addressed through Grad-CAM attention maps, and the system was benchmarked against existing deep learning methods. The results demonstrate that domain-specific self-supervised learning enhances performance and generalization for skin cancer diagnosis.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "MEL",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "Primary malignant class studied; used in binary classification (benign vs malignant) and severity grading (Grades 1-3). Constitutes 11.1% of the HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "melanocytic nevi",
+        "NV",
+        "benign"
+      ],
+      "role": "Target class",
+      "details": "Primary benign class studied; used in binary classification (benign vs malignant) and as Grade 0 in severity grading. Constitutes 66.9% of the HAM10000 dataset."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC"
+      ],
+      "role": "Mentioned only",
+      "details": "Listed as one of the seven categories in the HAM10000 dataset and mentioned as a pre-malignant condition for grading, but not explicitly detailed as a primary target class in the binary classification or grading results reported."
+    },
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "actinic keratosis",
+        "AKIEC"
+      ],
+      "role": "Mentioned only",
+      "details": "Listed as one of the seven categories in the HAM10000 dataset and mentioned as a pre-malignant condition for grading, but not explicitly detailed as a primary target class in the binary classification or grading results reported."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "benign keratosis",
+        "BKL"
+      ],
+      "role": "Mentioned only",
+      "details": "Listed as one of the seven categories in the HAM10000 dataset, but not explicitly detailed as a primary target class in the binary classification or grading results reported."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "vascular lesion",
+        "VASC"
+      ],
+      "role": "Mentioned only",
+      "details": "Listed as one of the seven categories in the HAM10000 dataset, but not explicitly detailed as a primary target class in the binary classification or grading results reported."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "dermatofibroma",
+        "DF"
+      ],
+      "role": "Mentioned only",
+      "details": "Listed as one of the seven categories in the HAM10000 dataset, but not explicitly detailed as a primary target class in the binary classification or grading results reported."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": true,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of benign vs. malignant melanomas",
+        "primary": true,
+        "details": "The model performs binary classification outputting y ∈ {0, 1} where 0 denotes benign lesions and 1 indicates malignant cases. It also performs multi-class classification for severity grading into four discrete grades (Grade 0-3)."
+      },
+      {
+        "task_type": "Regression",
+        "target": "Ordinal regression for risk stratification/severity grading",
+        "primary": false,
+        "details": "The model estimates g ∈ {0, 1, 2, 3} for malignant lesions, signifying different risks according to ABCDE features' level of severity. The grading loss function employs both categorical cross-entropy and ordinal regression, where grade predictions are penalized according to their deviation from the actual grade value."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A public dataset of dermoscopic images assembled by Tschandl et al. (2018), sourced from different clinical settings and various dermoscopic instruments. It contains 10,015 original images classified into seven categories.",
+      "classes_used": [
+        "Melanocytic Nevi (NV)",
+        "Melanoma (MEL)",
+        "Benign Keratosis (BKL)",
+        "Basal Cell Carcinoma (BCC)",
+        "Actinic Keratosis (AKIEC)",
+        "Vascular Lesion (VASC)",
+        "Dermatofibroma (DF)"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": 11344,
+        "validation": 2431,
+        "testing": 2430,
+        "per_class": {
+          "Melanoma (MEL)": {
+            "original": 1113,
+            "after_augmentation": 4000,
+            "training": 600,
+            "validation": 600,
+            "testing": 600
+          },
+          "Melanocytic Nevi (NV)": {
+            "original": 4694,
+            "after_augmentation": 6705,
+            "training": 1005,
+            "validation": 1006,
+            "testing": 1005
+          },
+          "Basal Cell Carcinoma (BCC)": {
+            "original": 514,
+            "after_augmentation": 2000,
+            "training": 300,
+            "validation": 300,
+            "testing": 300
+          },
+          "Other (6 classes combined)": {
+            "original": 2787,
+            "after_augmentation": 3500,
+            "training": 525,
+            "validation": 525,
+            "testing": 525
+          }
+        }
+      },
+      "use": {
+        "training": "Used for supervised fine-tuning of the SS-ViT model after self-supervised pre-training. The dataset was augmented (SMOTE and image augmentation) and split into 70% training, 15% validation, and 15% testing sets.",
+        "validation": "Used to monitor training convergence and select the best model (early stopping based on validation loss).",
+        "testing": "Used to evaluate final performance metrics including accuracy, AUC-ROC, precision, recall, and F1-score for binary classification and severity grading.",
+        "other": "Used for self-supervised pre-training via DINO on a pool of dermoscopic images (combined with ISIC 2019) to learn rich representations from unlabeled data."
+      }
+    },
+    {
+      "name": "ISIC 2019",
+      "description": "A public dataset from the International Skin Imaging Collaboration (ISIC) used in combination with HAM10000 for the self-supervised pre-training phase.",
+      "classes_used": [],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Used as part of a common pool of dermoscopic images for DINO self-supervised pre-training on unlabeled data."
+      }
+    },
+    {
+      "name": "PH2 Dataset",
+      "description": "A dataset created by Mendonça et al. in 2013, popular for testing dermoscopic image analysis tools.",
+      "classes_used": [],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "other": "Mentioned in the literature review as a popular dataset for dermoscopic image analysis, but not used in the experiments of this study."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "F1-Score",
+    "AUC-ROC",
+    "Macro average F1-score",
+    "Train Loss",
+    "Validation Loss",
+    "Inference Time",
+    "Model Size",
+    "Parameter Count"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "SMOTE (Synthetic Minority Over-sampling Technique)",
+      "purpose": "To address class imbalance in the HAM10000 dataset by oversampling the minority class (melanoma) in the feature space.",
+      "type": "Data preprocessing"
+    },
+    {
+      "method": "Stratified Sampling",
+      "purpose": "To split the augmented dataset into training (70%), validation (15%), and testing (15%) sets while preserving class distribution.",
+      "type": "Data splitting"
+    },
+    {
+      "method": "Label Smoothing",
+      "purpose": "Applied to the cross-entropy loss function (epsilon=0.1) during fine-tuning to prevent overconfidence and improve generalization.",
+      "type": "Regularization"
+    },
+    {
+      "method": "Early Stopping",
+      "purpose": "To halt training when validation loss reached its minimum (0.21 at epoch 43) to prevent overfitting.",
+      "type": "Training control"
+    },
+    {
+      "method": "t-SNE Visualization",
+      "purpose": "To visualize the embedding space of [CLS] tokens and demonstrate class-wise compactness and separation for the seven HAM10000 categories.",
+      "type": "Dimensionality reduction / Visualization"
+    },
+    {
+      "method": "Dermatologist Review",
+      "purpose": "To validate the clinical concordance of Grad-CAM attention heatmaps, finding them clinically concordant in 91.3% of reviewed cases.",
+      "type": "Qualitative evaluation"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive statistics (accuracy, AUC-ROC, F1-score) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "binary_classification_detection": {
+        "models": {
+          "Proposed SS-ViT": {
+            "accuracy": "95.4%",
+            "precision": "0.94",
+            "recall": "0.96",
+            "f1_score": "0.950",
+            "auc_roc": "0.978"
+          },
+          "CNN (ResNet-50)": {
+            "accuracy": "87.6%",
+            "precision": "0.86",
+            "recall": "0.87",
+            "f1_score": "0.865",
+            "auc_roc": "0.921"
+          },
+          "VGG-19": {
+            "accuracy": "85.3%",
+            "precision": "0.84",
+            "recall": "0.85",
+            "f1_score": "0.845",
+            "auc_roc": "0.905"
+          },
+          "EfficientNet-B4": {
+            "accuracy": "91.2%",
+            "precision": "0.90",
+            "recall": "0.91",
+            "f1_score": "0.905",
+            "auc_roc": "0.951"
+          },
+          "DenseNet-121": {
+            "accuracy": "89.5%",
+            "precision": "0.88",
+            "recall": "0.89",
+            "f1_score": "0.885",
+            "auc_roc": "0.937"
+          },
+          "ViT (Supervised)": {
+            "accuracy": "92.8%",
+            "precision": "0.91",
+            "recall": "0.93",
+            "f1_score": "0.920",
+            "auc_roc": "0.962"
+          }
+        },
+        "notes": "The SS-ViT outperformed the state-of-the-art CNN baseline (EfficientNet-B4) with an accuracy improvement of 4.2% and AUC-ROC improvement of 0.027. Compared to supervised ViT, domain-specific pre-training via SSL added 2.6% in accuracy."
+      },
+      "severity_grading": {
+        "models": {
+          "Proposed SS-ViT": {
+            "macro_average_f1_score": "0.944",
+            "grade_0_benign": {
+              "precision": "0.97",
+              "recall": "0.98",
+              "f1_score": "0.975",
+              "support": 1842
+            },
+            "grade_1_low_risk": {
+              "precision": "0.94",
+              "recall": "0.95",
+              "f1_score": "0.945",
+              "support": 763
+            },
+            "grade_2_moderate": {
+              "precision": "0.93",
+              "recall": "0.94",
+              "f1_score": "0.935",
+              "support": 524
+            },
+            "grade_3_high_risk": {
+              "precision": "0.91",
+              "recall": "0.93",
+              "f1_score": "0.920",
+              "support": 670
+            }
+          }
+        },
+        "notes": "The model correctly classifies 96.5% of high-risk lesions. The most common errors occur between adjacent grades (e.g., Grade 1 and Grade 2). Performance decreases for each successive grade level."
+      },
+      "ablation_study_ssl_pretraining": {
+        "models": {
+          "Random Init. (No SSL)": {
+            "accuracy": "81.4%",
+            "f1_score": "0.802",
+            "auc_roc": "0.891"
+          },
+          "SimCLR Pre-training": {
+            "accuracy": "89.7%",
+            "f1_score": "0.884",
+            "auc_roc": "0.941"
+          },
+          "MAE Pre-training": {
+            "accuracy": "92.3%",
+            "f1_score": "0.916",
+            "auc_roc": "0.958"
+          },
+          "DINO Pre-training": {
+            "accuracy": "93.8%",
+            "f1_score": "0.931",
+            "auc_roc": "0.969"
+          },
+          "Proposed (DINO + FT)": {
+            "accuracy": "95.4%",
+            "f1_score": "0.950",
+            "auc_roc": "0.978"
+          }
+        },
+        "notes": "DINO pre-training performs better than SimCLR and MAE. SSL techniques show significantly better performance than random initializations. The 2.6% accuracy improvement of DINO over supervised ViT initialization is attributed to DINO's ability to produce attention maps at the patch level."
+      },
+      "training_convergence": {
+        "models": {
+          "SS-ViT": {
+            "training_accuracy_epoch_50": "97.2%",
+            "validation_accuracy_epoch_45": "95.8%",
+            "training_loss_epoch_1": "1.42",
+            "training_loss_epoch_50": "0.14",
+            "validation_loss_minimum": "0.21",
+            "validation_loss_epoch": 43
+          }
+        },
+        "notes": "Early stopping occurred when validation loss hit 0.21 at epoch 43. The steady reduction in training loss and gap between training and validation accuracy suggests no overfitting."
+      },
+      "interpretability": {
+        "models": {
+          "SS-ViT (Grad-CAM)": {
+            "clinical_concordance_rate": "91.3%"
+          }
+        },
+        "notes": "A dermatologist reviewer found the Grad-CAM heatmaps clinically concordant in 91.3% of reviewed cases. For benign nevi, attention focuses on symmetric pigmented networks; for Grade 3, it focuses on asymmetrical borders and irregular pigmentation."
+      },
+      "model_compression_and_optimization": {
+        "models": {
+          "SS-ViT (INT8 Quantized)": {
+            "model_size": "91 MB",
+            "accuracy_drop": "< 0.3%"
+          },
+          "SS-ViT (Knowledge Distillation to DeiT-Tiny)": {
+            "parameter_count": "5.7M",
+            "accuracy": "93.1%"
+          },
+          "MobileViT (Optimized API)": {
+            "inference_time_cpu": "34 ms",
+            "accuracy_drop": "1.8%"
+          },
+          "SS-ViT (Standard API on CPU)": {
+            "inference_time_cpu": "82 ms"
+          }
+        },
+        "notes": "Quantization resulted in an optimized model size of 91 MB without affecting accuracy by more than 0.3%. Knowledge distillation reduced parameters from 86M to 5.7M with 93.1% accuracy."
+      }
+    }
+  },
+  "architecture_used": {
+    "extraction_error": "Expecting ',' delimiter: line 29 column 24 (char 1242)",
+    "answer": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Self-Supervised Vision Transformer (SS-ViT)",
+    "CNN (ResNet-50)",
+    "VGG-19",
+    "EfficientNet-B4",
+    "DenseNet-121",
+    "ViT (Supervised)",
+    "Inception-v3",
+    "MobileNet-DenseNet hybrid",
+    "TransUNet",
+    "Swin Transformer",
+    "DeiT (Data-Efficient Image Transformer)",
+    "DeiT-Tiny",
+    "MobileViT",
+    "DermNet"
+  ],
+  "preprocessing_techniques": [
+    "Resizing images to 224 × 224 pixels",
+    "Normalization using ImageNet channel statistics (μ = [0.485, 0.456, 0.406], σ = [0.229, 0.224, 0.225])",
+    "Hair artifact removal using DullRazor morphological inpainting technique",
+    "Illumination compensation and equipment difference correction via Grey-World algorithm",
+    "SMOTE oversampling in feature space for class imbalance",
+    "Image augmentation including RandAugment (rotation, shear, contrast, brightness, solarization), CutMix, MixUp, random erasing, elastic deformation, and grid distortion"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "SMOTE (Synthetic Minority Over-sampling Technique)",
+      "details": "Applied in the feature space to address class imbalance for the minority class (melanoma) during dataset construction/preprocessing."
+    },
+    {
+      "technique": "RandAugment",
+      "details": "Applied during training; two out of fourteen transformations (rotation, shear, contrast, brightness, solarization) were selected randomly using random uniform magnitude selection."
+    },
+    {
+      "technique": "CutMix",
+      "details": "Applied during training; a rectangular part of an image is replaced with another rectangular part of a different image along with random label interpolation."
+    },
+    {
+      "technique": "MixUp",
+      "details": "Applied during training; uses linear interpolation between two images and their corresponding labels."
+    },
+    {
+      "technique": "Random Erasing",
+      "details": "Applied to the minority group (melanoma) to augment the training data."
+    },
+    {
+      "technique": "Elastic Deformation",
+      "details": "Applied to the minority group (melanoma) to augment the training data."
+    },
+    {
+      "technique": "Grid Distortion",
+      "details": "Applied to the minority group (melanoma) to augment the training data."
+    },
+    {
+      "technique": "DINO Self-Supervised Augmentations",
+      "details": "Used during DINO pre-training on unlabeled images; created two global images (size 0.4–1.0) and eight local images (size 0.05–0.4) from an unlabeled image."
+    }
+  ],
+  "conclusions": [
+    "The proposed Self-Supervised Vision Transformer (SS-ViT) using DINO pre-training achieved 95.4% accuracy and an AUC-ROC of 0.978 on the HAM10000 dataset, outperforming CNN baselines (e.g., EfficientNet-B4 at 91.2%) and supervised ViT models.",
+    "Domain-specific self-supervised pre-training via DINO provided a 2.6% accuracy improvement over supervised ViT initialization, attributed to the model's ability to learn rich patch-level representations and global spatial dependencies without relying on segmentation ground-truth labels.",
+    "The SS-ViT model successfully performed binary classification (benign vs. malignant) and four-level severity grading (Grades 0-3), achieving a macro-average F1-score of 0.944 for grading.",
+    "The model correctly classified 96.5% of high-risk (Grade 3) lesions, with the most common errors occurring between adjacent grade levels rather than between benign and malignant classes.",
+    "Grad-CAM attention maps demonstrated clinical relevance, with a dermatologist reviewer finding the heatmaps clinically concordant in 91.3% of reviewed cases, focusing on features consistent with ABCDE criteria (e.g., asymmetry, irregular borders).",
+    "The model showed no significant overfitting, with training accuracy reaching 97.2% and validation accuracy 95.8%, and early stopping occurred at epoch 43 when validation loss hit 0.21.",
+    "Model compression techniques, including INT8 quantization and knowledge distillation to DeiT-Tiny, reduced model size to 91 MB and parameters to 5.7M respectively, with minimal accuracy loss (<0.3% for quantization, 2.3% for distillation).",
+    "The system is computationally efficient, with an inference time of 82 ms per image on CPU and 34 ms on an optimized MobileViT API, suggesting feasibility for deployment in resource-constrained clinical environments.",
+    "The study demonstrates that self-supervised learning enhances generalization and performance for melanoma detection and grading, particularly in scenarios with limited labeled datasets."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the HAM10000 dataset for evaluation, which is known to have significant class imbalance (melanoma only 11.1%) and potential selection bias from specific clinical settings; no external validation on independent datasets (e.g., PH2 or ISIC test sets) was performed.",
+    "The paper does not report formal statistical significance testing (e.g., p-values or confidence intervals) for performance comparisons against baselines, relying instead on descriptive statistics.",
+    "The grading system (Grades 0-3) is a novel, non-standard stratification based on ABCDE features rather than established clinical staging systems (e.g., Breslow thickness or AJCC), limiting direct clinical comparability.",
+    "Interpretability was validated only by a single dermatologist reviewer (91.3% concordance), which may introduce reviewer bias and lacks rigorous inter-rater reliability metrics.",
+    "The model was trained and evaluated on a single NVIDIA A100 GPU; computational efficiency claims (82 ms inference) are based on CPU benchmarks which may not reflect real-time clinical deployment constraints.",
+    "The paper acknowledges that the grading task involves pre-malignant conditions (BCC, AKIEC) mixed with melanoma, which may confound the severity grading if the model learns features specific to these distinct pathologies rather than melanoma progression.",
+    "No analysis of data leakage risks was provided, particularly regarding the self-supervised pre-training phase using a combined pool of HAM10000 and ISIC 2019 images, which could overlap with test data if not strictly partitioned."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_prashanthi_2026_a_self_supervised_vision_transformer_approach_for_automated_mela.pdf",
+    "summary": "The study utilized the HAM10000 dataset for supervised fine-tuning and final evaluation. For self-supervised pre-training, a combined pool of unlabeled images from HAM10000 and ISIC 2019 was used. The HAM10000 dataset was augmented (SMOTE and image augmentation) and split into 70% training, 15% validation, and 15% testing sets. No external cross-dataset validation was performed; the study relies exclusively on HAM10000 for performance evaluation.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper did not perform cross-dataset validation. The model was trained and tested on splits derived from the HAM10000 dataset. While ISIC 2019 was used for pre-training, it was not used as a separate held-out test set for final evaluation.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "HAM10000",
+          "counts": "11,344 images",
+          "notes": "Used for supervised fine-tuning of the SS-ViT model after self-supervised pre-training. Augmented with SMOTE and image augmentation techniques."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "HAM10000",
+          "counts": "2,431 images",
+          "notes": "Used to monitor training convergence and select the best model via early stopping based on validation loss."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "HAM10000",
+          "counts": "2,430 images",
+          "notes": "Used to evaluate final performance metrics including accuracy, AUC-ROC, precision, recall, and F1-score for binary classification and severity grading."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "HAM10000 + ISIC 2019 (Combined Pool)",
+          "notes": "Used for DINO self-supervised pre-training on unlabeled dermoscopic images (~35,000 images) to learn rich representations before supervised fine-tuning."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "HAM10000 (Augmented)",
+          "notes": "SMOTE was applied in feature space to address class imbalance. Image augmentation (RandAugment, CutMix, MixUp, random erasing, elastic deformation, grid distortion) was applied to the training set."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "Stratified sampling on augmented data: 70% training (11,344 images), 15% validation (2,431 images), 15% testing (2,430 images).",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No unseen external dataset was used for testing. The test set was a held-out portion of the augmented HAM10000 dataset."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "HAM10000 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "HAM10000 (Training Split)",
+          "HAM10000 + ISIC 2019 (Pre-training Pool)"
+        ],
+        "model_or_method": "Proposed SS-ViT (DINO Pre-training + Fine-tuning)",
+        "metrics": {
+          "accuracy": "95.4%",
+          "auc": "0.978",
+          "sensitivity": "0.96",
+          "specificity": "0.94",
+          "f1_score": "0.950",
+          "other_metrics": {
+            "macro_average_f1_score_grading": "0.944",
+            "grade_0_f1": "0.975",
+            "grade_1_f1": "0.945",
+            "grade_2_f1": "0.935",
+            "grade_3_f1": "0.920"
+          }
+        },
+        "notes": "Results on the 2,430-image test set. The model outperformed baselines like EfficientNet-B4 (91.2% accuracy) and Supervised ViT (92.8% accuracy)."
+      },
+      {
+        "dataset": "HAM10000 (Validation Set)",
+        "role_at_result_time": "validation",
+        "train_datasets_for_this_result": [
+          "HAM10000 (Training Split)",
+          "HAM10000 + ISIC 2019 (Pre-training Pool)"
+        ],
+        "model_or_method": "SS-ViT",
+        "metrics": {
+          "accuracy": "95.8%",
+          "loss": "0.21"
+        },
+        "notes": "Validation accuracy at epoch 45 was 95.8%. Early stopping occurred at epoch 43 with a minimum validation loss of 0.21."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "HAM10000",
+        "split_or_cv": "70% Train / 15% Val / 15% Test",
+        "models": [
+          "Proposed SS-ViT",
+          "CNN (ResNet-50)",
+          "VGG-19",
+          "EfficientNet-B4",
+          "DenseNet-121",
+          "ViT (Supervised)"
+        ],
+        "results": [
+          {
+            "metric": "Accuracy",
+            "value": "95.4%",
+            "model": "Proposed SS-ViT",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC-ROC",
+            "value": "0.978",
+            "model": "Proposed SS-ViT",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": "91.2%",
+            "model": "EfficientNet-B4",
+            "data_split": "test"
+          },
+          {
+            "metric": "Accuracy",
+            "value": "92.8%",
+            "model": "ViT (Supervised)",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study relies exclusively on the HAM10000 dataset for evaluation, which is known to have significant class imbalance (melanoma only 11.1%) and potential selection bias from specific clinical settings.",
+      "No external validation on independent datasets (e.g., PH2 or ISIC test sets) was performed.",
+      "The grading system (Grades 0-3) is a novel, non-standard stratification based on ABCDE features rather than established clinical staging systems, limiting direct clinical comparability.",
+      "The paper acknowledges that the grading task involves pre-malignant conditions (BCC, AKIEC) mixed with melanoma, which may confound the severity grading."
+    ],
+    "information_not_reported": [
+      "No formal statistical significance testing (p-values or confidence intervals) for performance comparisons.",
+      "No analysis of data leakage risks regarding the overlap between the pre-training pool (HAM10000 + ISIC 2019) and the test set.",
+      "Patient-level separation details are not explicitly reported, though image-level splits are described."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780003378
+  }
+}

@@ -1,0 +1,550 @@
+{
+  "file_name": "gouabou_2021_ensemble_method_of_convolutional_neural_networks_with_directed_acyc.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses an ensemble method of Convolutional Neural Networks (CNNs) aggregated via a Directed Acyclic Graph (DAG) to classify dermoscopic images for melanoma detection (a dermatology/skin cancer task). The method was evaluated on the ISIC 2018 dataset, achieving a balanced accuracy of 76.6%."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a novel computer-aided diagnosis system using an ensemble method of Convolutional Neural Networks aggregated via a Directed Acyclic Graph. It details specific methods (Section 2), experiments on the ISIC 2018 dataset (Section 3), and reports new results (balanced accuracy of 76.6%), rather than summarizing prior literature."
+  },
+  "title": "Ensemble Method of Convolutional Neural Networks with Directed Acyclic Graph Using Dermoscopic Images: Melanoma Detection Application",
+  "authors": [
+    "Arthur Cartel Foahom Gouabou",
+    "Jean-Luc Damoiseaux",
+    "Jilliana Monnier",
+    "Rabah Iguernaissi",
+    "Abdellatif Moudafi",
+    "Djamal Merad"
+  ],
+  "doi": "10.3390/s21123999",
+  "journal": "Sensors",
+  "year": 2021,
+  "article_type": "Article",
+  "brief_summary": "This study proposes a computer-aided diagnosis system to differentiate melanoma, nevi, and seborrheic keratosis using dermoscopic images. The authors introduce a novel ensemble method of Convolutional Neural Networks (CNNs) aggregated via a Directed Acyclic Graph (DAG) to improve classification performance. The approach decomposes the multiclass problem into binary tasks using a one-versus-one strategy before aggregating the outputs. The model was evaluated on the ISIC 2018 public dataset, which contained 1113 melanomas, 6705 nevi, and 1099 seborrheic keratoses. The method achieved a balanced accuracy of 76.6%, outperforming multiclass CNNs and other ensemble aggregation techniques. The results demonstrate that the directed acyclic graph is a meaningful approach for developing a reliable automated diagnosis system for skin cancer.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "Primary target for detection; malignant melanocytic lesion. 1113 cases in ISIC 2018 dataset. Identified as the most challenging class to distinguish from nevi."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevi",
+        "NEV"
+      ],
+      "role": "Comparator class",
+      "details": "Benign melanocytic lesion. 6705 cases in ISIC 2018 dataset. Used as a comparator in binary tasks (MEL vs. NEV, NEV vs. SEK)."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "SEK"
+      ],
+      "role": "Comparator class",
+      "details": "Benign non-melanocytic lesion. 1099 cases in ISIC 2018 dataset. Used as a comparator in binary tasks (MEL vs. SEK, NEV vs. SEK). Described as very dark with different patterns (keratin structures, horn cysts) compared to melanocytic lesions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Diagnostic categories of dermoscopic images: melanoma, nevi, and seborrheic keratosis.",
+        "primary": true,
+        "details": "The paper performs multiclass classification of skin lesions into three diagnostic classes (melanoma, nevi, seborrheic keratosis). The method decomposes this multiclass problem into binary classification tasks (e.g., MEL vs. NEV, MEL vs. SEK, NEV vs. SEK) using a one-versus-one strategy and aggregates the binary CNN outputs via a Directed Acyclic Graph (DAG). The primary evaluation metric is balanced accuracy (76.6%) on the test set."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "The 2018 International Skin Imaging Collaboration public dataset containing dermoscopic images of pigmented skin lesions.",
+      "classes_used": [
+        "Melanoma (MEL)",
+        "Nevi (NEV)",
+        "Seborrheic Keratosis (SEK)"
+      ],
+      "counts": {
+        "total": 8917,
+        "training": 779,
+        "validation": 156,
+        "testing": 223,
+        "per_class": {
+          "Melanoma": {
+            "total": 1113,
+            "training": 779,
+            "validation": 156,
+            "testing": 223
+          },
+          "Nevi": {
+            "total": 6705,
+            "training": 4694,
+            "validation": 939,
+            "testing": 1341
+          },
+          "Seborrheic Keratosis": {
+            "total": 1099,
+            "training": 769,
+            "validation": 154,
+            "testing": 220
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training binary CNNs via a one-versus-one strategy. The original dataset was split into 80% training and 20% testing. The training portion was further split via 3-fold cross-validation into training (80% of training set) and validation (20% of training set) sets. Artificial data generation (horizontal/vertical flipping, rotation, width/height shift) was applied to the training set to balance classes.",
+        "validation": "Used for model evaluation during 3-fold cross-validation on the training subset.",
+        "testing": "Used for final evaluation of the model's balanced accuracy (76.6%).",
+        "other": "None"
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Balanced Accuracy (BACC)",
+    "Sensitivity (True Positive Rate)",
+    "AUC-ROC",
+    "Statistical Tests"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Paired t-test",
+      "purpose": "To compare two models.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Kruskal-Wallis test",
+      "purpose": "To perform comparisons when more than two models were compared.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Dunn's test",
+      "purpose": "Post hoc multiple-comparison test following the Kruskal-Wallis test.",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "Three-fold cross-validation",
+      "purpose": "To evaluate model performance on the training set and report average and standard deviation for metrics.",
+      "type": "Cross-validation"
+    },
+    {
+      "method": "p-value threshold < 0.05",
+      "purpose": "Significance threshold for statistical tests.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "Paired t-test (for comparing two models); Kruskal-Wallis test followed by Dunn's post hoc multiple-comparison test (for comparing more than two models)",
+    "null_hypothesis": "There is no significant difference in the predicted probabilities (or performance metrics) between the compared models.",
+    "alternative_hypothesis": "There is a significant difference in the predicted probabilities (or performance metrics) between the compared models.",
+    "alpha": 0.05,
+    "interpretation": "Results were considered statistically significant if p-value < 0.05. Specifically, the DDAG models' scores were found to be significantly different from multiclass CNNs (p < 0.0001) and from other classical aggregation methods (p < 0.05), confirming the robustness and superior performance of the proposed DDAG structure."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2018": {
+      "training_set_3_fold_cv": {
+        "metric": "Balanced Accuracy (BACC) and Sensitivity (S) for binary tasks",
+        "models": {
+          "VGG19_2": {
+            "MEL vs. NEV": {
+              "BACC": "80.6 ± 0.3%",
+              "S-MEL": "78.3 ± 3.0%",
+              "S-NEV": "84.0 ± 3.5%"
+            },
+            "MEL vs. SEK": {
+              "BACC": "85.8 ± 1.6%",
+              "S-MEL": "85.6 ± 1.8%",
+              "S-SEK": "84.5 ± 2.2%"
+            },
+            "NEV vs. SEK": {
+              "BACC": "86.7 ± 1.2%",
+              "S-NEV": "88 ± 0.8%",
+              "S-SEK": "85.3 ± 2.3%"
+            }
+          },
+          "VGG16_2": {
+            "MEL vs. NEV": {
+              "BACC": "80.2 ± 0.5%",
+              "S-MEL": "75.0 ± 1.0%",
+              "S-NEV": "84 ± 1.0%"
+            },
+            "MEL vs. SEK": {
+              "BACC": "83.4 ± 1.9%",
+              "S-MEL": "87 ± 2.0%",
+              "S-SEK": "79.5 ± 0.5%"
+            },
+            "NEV vs. SEK": {
+              "BACC": "87.2 ± 0.4%",
+              "S-NEV": "83.5 ± 1.5%",
+              "S-SEK": "90.5 ± 1.5%"
+            }
+          },
+          "ResNet50_2": {
+            "MEL vs. NEV": {
+              "BACC": "81.83 ± 1.63%",
+              "S-MEL": "82.3 ± 0.4%",
+              "S-NEV": "81.2 ± 2.6%"
+            },
+            "MEL vs. SEK": {
+              "BACC": "81.34 ± 0.51%",
+              "S-MEL": "90 ± 1.0%",
+              "S-SEK": "71.5 ± 1.9%"
+            },
+            "NEV vs. SEK": {
+              "BACC": "81.45 ± 0.4%",
+              "S-NEV": "87 ± 1.3%",
+              "S-SEK": "76 ± 1.5%"
+            }
+          }
+        },
+        "notes": "VGG19 performed better than ResNet50 and VGG16. NEV vs. SEK was the easiest binary task. MEL vs. NEV was the most challenging."
+      },
+      "ddag_root_node_analysis": {
+        "metric": "Balanced Accuracy (BACC)",
+        "models": {
+          "VGG19_2": {
+            "Root MEL vs. NEV": "73.7 ± 1.2%",
+            "Root MEL vs. SEK": "74.15 ± 0.94%",
+            "Root NEV vs. SEK": "76.6 ± 0.39%"
+          },
+          "VGG16_2": {
+            "Root MEL vs. NEV": "72.55 ± 1.64%",
+            "Root MEL vs. SEK": "72.9 ± 1.69%",
+            "Root NEV vs. SEK": "73.25 ± 1.54%"
+          },
+          "ResNet50_2": {
+            "Root MEL vs. NEV": "71.1 ± 0.6%",
+            "Root MEL vs. SEK": "70.1 ± 1.0%",
+            "Root NEV vs. SEK": "70.35 ± 0.75%"
+          }
+        },
+        "notes": "Best performance achieved with DDAG based on VGG19 and NEV vs. SEK as root node (76.6 ± 0.39%)."
+      },
+      "multiclass_cnn_comparison": {
+        "metric": "Balanced Accuracy (BACC)",
+        "models": {
+          "DDAG with VGG19_2": "76.6 ± 0.39%",
+          "VGG19_3": "76.52 ± 1.5%",
+          "DDAG with VGG16_2": "73.25 ± 1.54%",
+          "VGG16_3": "72.52 ± 1.5%",
+          "DDAG with ResNet50_2": "71.1 ± 0.6%",
+          "ResNet50_3": "70.93 ± 1.08%"
+        },
+        "notes": "DDAG-based approach achieved best BACCs compared to multiclass CNNs."
+      },
+      "test_set_final_results": {
+        "metric": "Balanced Accuracy (BACC) and p-value",
+        "models": {
+          "DDAG (VGG19_2)": {
+            "BACC": "76.6%",
+            "p_value_vs_multiclass": "< 0.0001"
+          },
+          "VGG19_3": {
+            "BACC": "74.6%"
+          },
+          "DDAG (VGG16_2)": {
+            "BACC": "73.9%",
+            "p_value_vs_multiclass": "< 0.0001"
+          },
+          "VGG16_3": {
+            "BACC": "73.6%"
+          },
+          "DDAG (ResNet50_2)": {
+            "BACC": "70.4%",
+            "p_value_vs_multiclass": "< 0.0001"
+          },
+          "ResNet50_3": {
+            "BACC": "62.4%"
+          }
+        },
+        "notes": "Statistical comparison using paired t-test. *** indicates p < 0.0001."
+      },
+      "best_ddag_auc_roc": {
+        "metric": "Area Under ROC Curve (AUROC)",
+        "models": {
+          "Seborrheic Keratosis (SEK)": "0.93",
+          "Melanoma (MEL)": "0.87",
+          "Nevi (NEV)": "0.88"
+        },
+        "notes": "Melanoma remained the most challenging class."
+      },
+      "comparison_with_aggregation_methods": {
+        "metric": "Balanced Accuracy (BACC) and Group Rank (g.r)",
+        "models": {
+          "Our approach (DDAG VGG19_2)": {
+            "BACC": "76.6%",
+            "g.r": "1",
+            "s.o.g": "{2–4}"
+          },
+          "AVG (ResNet50_3+VGG16_3+VGG19_3)": {
+            "BACC": "75.2%",
+            "g.r": "2",
+            "s.o.g": "{3–4}"
+          },
+          "Max_conf (ResNet50_3+VGG16_3+VGG19_3)": {
+            "BACC": "75.2%",
+            "g.r": "2",
+            "s.o.g": "{3–4}"
+          },
+          "Gmean (ResNet50_3+VGG16_3+VGG19_3)": {
+            "BACC": "75.2%",
+            "g.r": "2",
+            "s.o.g": "{3–4}"
+          },
+          "Max-win (ResNet50_3+VGG16_3+VGG19_3)": {
+            "BACC": "74.6%",
+            "g.r": "3",
+            "s.o.g": "{4}"
+          },
+          "Prod (ResNet50_3+VGG16_3+VGG19_3)": {
+            "BACC": "73.9%",
+            "g.r": "4",
+            "s.o.g": "{}"
+          },
+          "Reference [41] (VGG16)": {
+            "BACC": "74.3%"
+          },
+          "Reference [42] (DenseNet-161)": {
+            "BACC": "70%"
+          }
+        },
+        "notes": "Statistical test: Kruskal-Wallis followed by Dunn's multiple-comparison. DDAG achieved best BACC. AVG, Max_conf, and Gmean had no statistically significant difference among them. Prod was the worst performer."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Ensemble of Convolutional Neural Networks (CNNs) aggregated via a Decision Directed Acyclic Graph (DDAG). The backbone models used were VGG19, VGG16, and ResNet50.",
+    "pretraining": "Pretrained on 14 million images from the ImageNet dataset using transfer learning.",
+    "input_size": "224 × 224 pixels (resized from original images using bicubic interpolation).",
+    "architecture_details": {
+      "backbone_models": [
+        "VGG19",
+        "VGG16",
+        "ResNet50"
+      ],
+      "modifications": "The original output layers of the backbone models were modified for binary classification tasks. Specifically, the last fully connected (FC) layer was replaced with a new FC layer with 2 nodes. For ResNet50, this involved 50 convolutional layers with filters of 7x7, 3x3, and 1x1, grouped as residual blocks containing convolutional layers, zero padding, batch normalization, ReLU activation, and max pooling, ending with global average pooling. VGG16 and VGG19 consist of five convolutional blocks with 3x3 filters, ReLU activation, and max pooling, followed by a classifier block of three FC layers (modified to have 2 nodes).",
+      "ensemble_strategy": "One-versus-one binary classification strategy decomposing the multiclass problem (Melanoma, Nevi, Seborrheic Keratosis) into three binary tasks: MEL vs. NEV, MEL vs. SEK, and NEV vs. SEK. Outputs were aggregated using a DDAG structure.",
+      "ddag_structure": "The DDAG contained K(K-1)/2 binary classifiers (3 for 3 classes). The optimal structure placed the classifier with the greatest generalization ability (NEV vs. SEK for VGG19/VGG16, MEL vs. NEV for ResNet50) in the root node."
+    },
+    "training_details": {
+      "optimizer": "Not reported",
+      "loss_function": "Not reported",
+      "hyperparameters": "Not reported",
+      "training_schedule": "Three-fold cross-validation on the training set (80% of ISIC 2018 dataset). Artificial data generation (horizontal/vertical flipping, rotation, width/height shift) was applied to balance classes.",
+      "parameter_counts": "Not reported"
+    },
+    "classification_or_output_head": {
+      "type": "Fully Connected (FC) layer",
+      "details": "Modified to have 2 nodes for binary classification. For multiclass comparison, the classification layer was modified to adapt to a three-class classification."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "VGG19",
+    "VGG16",
+    "ResNet50",
+    "DDAG with VGG19_2",
+    "DDAG with VGG16_2",
+    "DDAG with ResNet50_2",
+    "VGG19_3",
+    "VGG16_3",
+    "ResNet50_3",
+    "AVG (ResNet50_3+VGG16_3+VGG19_3)",
+    "Max_conf (ResNet50_3+VGG16_3+VGG19_3)",
+    "Gmean (ResNet50_3+VGG16_3+VGG19_3)",
+    "Max-win (ResNet50_3+VGG16_3+VGG19_3)",
+    "Prod (ResNet50_3+VGG16_3+VGG19_3)",
+    "Reference [41] (VGG16)",
+    "Reference [42] (DenseNet-161)"
+  ],
+  "preprocessing_techniques": [
+    "Color standardization using the gray world algorithm with pre-segmentation and patch-based average color computation to handle illumination variations.",
+    "Normalization by subtracting the mean RGB value of the ImageNet dataset.",
+    "Center-cropping to 450 × 450 pixels to preserve aspect ratio and capture the entire lesion.",
+    "Resizing to 224 × 224 pixels using bicubic interpolation to fit CNN input requirements."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Artificial data generation (synthetic data generation)",
+      "details": "Applied to the training set to alleviate class imbalance. Techniques included horizontal flipping, vertical flipping, rotation, and width/height shift. Specific counts of generated images per class per fold were: Melanoma (1377), Nevi (1245), Seborrheic Keratosis (1385), resulting in a final balanced training set of 2000 Melanoma, 5000 Nevi, and 2000 Seborrheic Keratosis images per fold."
+    }
+  ],
+  "conclusions": [
+    "The proposed ensemble method of Convolutional Neural Networks (CNNs) aggregated via a Directed Acyclic Graph (DDAG) achieved a balanced accuracy of 76.6% on the ISIC 2018 test set, outperforming multiclass CNNs (e.g., VGG19_3 at 74.6%, p < 0.0001) and other classical aggregation methods (e.g., AVG, Max_conf, Gmean at 75.2%, p < 0.05).",
+    "Decomposing the multiclass classification problem into binary tasks (MEL vs. NEV, MEL vs. SEK, NEV vs. SEK) reduces complexity and increases overall performance compared to direct multiclass classification.",
+    "The choice of the backbone model significantly impacts performance, with VGG19 yielding the best results among the tested architectures (VGG19, VGG16, ResNet50).",
+    "The structure of the DDAG, specifically the placement of the classifier with the greatest generalization ability in the root node, influences final accuracy; the optimal structure for VGG19 used NEV vs. SEK as the root node.",
+    "Among the three diagnostic classes, distinguishing seborrheic keratosis from nevi was the easiest task, while differentiating melanoma from nevi remained the most challenging due to similar patterns and structures.",
+    "Among classical aggregation methods, averaging (AVG), maximum confidence (Max_conf), and geometric mean (Gmean) performed similarly and best, while the product (Prod) strategy was the worst performer due to propagating worst prediction probabilities.",
+    "The proposed DDAG approach is simpler to interpret for dermatologists than conventional ensemble methods because it follows a hierarchical workflow similar to two-step reasoning.",
+    "The study acknowledges limitations regarding the specific backbone models used and suggests that models with potentially better performance, such as EfficientNet and SeNet, may improve the accuracy of the DDAG structure in future work."
+  ],
+  "important_remarks": [
+    "The study is limited to a single public dataset (ISIC 2018) with no external validation on independent cohorts, limiting generalizability to other clinical settings or image acquisition devices.",
+    "The model relies on transfer learning from ImageNet (natural images), which may not fully capture the specific domain features of dermoscopic images compared to models trained on medical imaging data.",
+    "Performance on the most clinically critical task (Melanoma vs. Nevi) was lower (73.7% balanced accuracy in the DDAG root node) than on other tasks, indicating residual difficulty in distinguishing malignant from benign melanocytic lesions.",
+    "The paper acknowledges that the specific backbone models used (VGG19, VGG16, ResNet50) are older architectures and suggests that modern models like EfficientNet or SeNet might yield better performance.",
+    "Data augmentation was used to balance classes, but the specific synthetic images generated may not perfectly represent the true distribution of atypical lesions, potentially introducing bias.",
+    "The balanced accuracy of 76.6% is modest for a diagnostic aid, suggesting the system may still require significant human oversight and is not yet ready for autonomous deployment.",
+    "The preprocessing steps (gray world color standardization, center cropping) are simplistic and may discard relevant contextual information or fail to correct for complex illumination variations present in real-world clinical images."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_gouabou_2021_ensemble_method_of_convolutional_neural_networks_with_directed_acyc.pdf",
+    "summary": "The study utilized the ISIC 2018 public dataset for all phases of the experiment. The dataset was split into an 80% training set and a 20% test set. The training set was further divided via 3-fold cross-validation into training (80% of the training set) and validation (20% of the training set) subsets for each fold. Data augmentation was applied to the training folds to balance class distribution. No external or cross-dataset validation was performed; the test set served as the sole internal hold-out for final evaluation.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper did not perform cross-dataset validation. The model was trained and validated on subsets of the ISIC 2018 dataset and tested on the held-out 20% split of the same ISIC 2018 dataset. No external cohorts or separate named datasets were used for testing.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2018 (Training Split)",
+          "counts": "80% of original dataset (approx. 7134 images total, distributed as 779 MEL, 4694 NEV, 769 SEK per fold before augmentation)",
+          "notes": "Used for training binary CNNs. Further split into training/validation for 3-fold CV. Artificial data generation was applied to balance classes."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2018 (Validation Split)",
+          "counts": "20% of the training split (approx. 1251 images total, distributed as 156 MEL, 939 NEV, 154 SEK per fold)",
+          "notes": "Used for model selection and hyperparameter tuning during the 3-fold cross-validation process."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2018 (Test Split)",
+          "counts": "20% of original dataset (891 images total: 223 MEL, 1341 NEV, 220 SEK)",
+          "notes": "Used for final performance evaluation. This is an internal hold-out set, not an external dataset."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Used for transfer learning. Weights were initialized using ImageNet pretrained models. Images were normalized by subtracting the mean RGB value of the ImageNet dataset."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "ISIC 2018 (Augmented Training)",
+          "notes": "Artificial data generation was applied to the training set to alleviate class imbalance. Techniques included horizontal flipping, vertical flipping, rotation, and width/height shift. Generated counts per fold: 1377 MEL, 1245 NEV, 1385 SEK, resulting in a balanced final training set of 2000 MEL, 5000 NEV, 2000 SEK per fold."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split with k-fold cross-validation",
+      "split_details": "Original dataset split: 80% training, 20% testing. Training set split via 3-fold cross-validation: 80% training, 20% validation per fold.",
+      "cross_validation_details": "3-fold cross-validation performed on the training subset. Folds stayed within the ISIC 2018 training set.",
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No unseen external dataset was used. The test set (20% of ISIC 2018) was held out from the start but is part of the same source dataset."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (Training Split)"
+        ],
+        "model_or_method": "DDAG with VGG19_2",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "Balanced Accuracy (BACC)": "76.6%",
+            "AUROC (SEK)": "0.93",
+            "AUROC (MEL)": "0.87",
+            "AUROC (NEV)": "0.88"
+          }
+        },
+        "notes": "Best performing model. Outperformed multiclass CNNs (p < 0.0001) and other aggregation methods."
+      },
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (Training Split)"
+        ],
+        "model_or_method": "VGG19_3 (Multiclass CNN)",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "Balanced Accuracy (BACC)": "74.6%"
+          }
+        },
+        "notes": "Baseline comparison model."
+      },
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (Training Split)"
+        ],
+        "model_or_method": "AVG (ResNet50_3+VGG16_3+VGG19_3)",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "Balanced Accuracy (BACC)": "75.2%"
+          }
+        },
+        "notes": "Classical aggregation method comparison."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2018 (Training Split)",
+        "split_or_cv": "3-fold cross-validation",
+        "models": [
+          "VGG19_2",
+          "VGG16_2",
+          "ResNet50_2"
+        ],
+        "results": [
+          {
+            "metric": "Balanced Accuracy (BACC)",
+            "value": "80.6 ± 0.3% (MEL vs NEV), 85.8 ± 1.6% (MEL vs SEK), 86.7 ± 1.2% (NEV vs SEK)",
+            "model": "VGG19_2",
+            "data_split": "cross-validation"
+          },
+          {
+            "metric": "Balanced Accuracy (BACC)",
+            "value": "73.7 ± 1.2% (Root MEL vs NEV), 74.15 ± 0.94% (Root MEL vs SEK), 76.6 ± 0.39% (Root NEV vs SEK)",
+            "model": "DDAG with VGG19_2",
+            "data_split": "cross-validation"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study is limited to a single public dataset (ISIC 2018) with no external validation on independent cohorts, limiting generalizability to other clinical settings or image acquisition devices.",
+      "The model relies on transfer learning from ImageNet (natural images), which may not fully capture the specific domain features of dermoscopic images compared to models trained on medical imaging data.",
+      "Performance on the most clinically critical task (Melanoma vs. Nevi) was lower (73.7% balanced accuracy in the DDAG root node) than on other tasks, indicating residual difficulty in distinguishing malignant from benign melanocytic lesions."
+    ],
+    "information_not_reported": [
+      "No external test set counts or results were reported.",
+      "No patient-level separation details were explicitly provided, though image-level splits are implied by the dataset nature.",
+      "Specific fold-level results for the test set are not reported, only aggregate test set performance."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780000692
+  }
+}

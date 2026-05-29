@@ -1,0 +1,437 @@
+{
+  "file_name": "chu_2025_evaluating_the_trustworthiness_of_foundation_models_for_skin_lesion_seg.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used three foundation models (MedSAM, SAM-Med2D, and BiomedParse) for skin lesion segmentation on the HAM10000 dataset. It also employed MONET, a vision-language foundation model, to retrieve and group images based on fine-grained visual attributes for subgroup evaluation."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental results from a comparative evaluation of three foundation models (MedSAM, SAM-Med2D, BiomedParse) on the HAM10000 dataset. It details specific methods including MONET-based subgrouping, prompt ablation studies, and reports quantitative Dice scores for various subgroups, indicating it is an original technical study rather than a review."
+  },
+  "title": "Evaluating the Trustworthiness of Foundation Models for Skin Lesion Segmentation",
+  "authors": [
+    "Yusung Chu",
+    "Byungho Oh",
+    "Sejung Yang"
+  ],
+  "doi": "10.1109/ICCVW69036.2025.00065",
+  "journal": "2025 IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)",
+  "year": 2025,
+  "article_type": "Conference paper",
+  "brief_summary": "This study evaluates the trustworthiness of three foundation models—MedSAM, SAM-Med2D, and BiomedParse—for skin lesion segmentation using 10,015 dermoscopic images from the HAM10000 dataset. The authors conducted a comprehensive analysis of overall performance and subgroup disparities based on annotated clinical attributes (diagnosis, sex, age, anatomical site) and fine-grained visual characteristics retrieved via the MONET vision-language model. Results revealed consistent performance disparities across subgroups, particularly affecting underrepresented anatomical sites like the ear and face, older patients, basal cell carcinoma lesions, and images with specific visual features such as ulceration or blue-white veils. While BiomedParse demonstrated notably stable performance across different textual prompts, MedSAM and SAM-Med2D showed sensitivity to prompt configuration. The findings highlight limitations in handling complex anatomical structures and acquisition-related artifacts, emphasizing the need for more robust and fair AI systems in dermatology.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "melanocytic nevus",
+        "NV"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnostic classes in the HAM10000 dataset; used as a subgroup for segmentation performance evaluation."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "Mel"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnostic classes in the HAM10000 dataset; used as a subgroup for segmentation performance evaluation."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "benign keratosis",
+        "Bkl"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnostic classes in the HAM10000 dataset; used as a subgroup for segmentation performance evaluation."
+    },
+    {
+      "lesion_type": "Basal Cell Carcinoma (BCC)",
+      "paper_terms": [
+        "basal cell carcinoma",
+        "BCC",
+        "Bcc"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnostic classes in the HAM10000 dataset; identified as a consistently challenging class with the lowest average Dice score among all disease types."
+    },
+    {
+      "lesion_type": "Actinic Keratosis and Intraepithelial Carcinoma (AKIEC)",
+      "paper_terms": [
+        "actinic keratosis/Bowen's disease",
+        "Akiec"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnostic classes in the HAM10000 dataset; grouped under Akiec for evaluation."
+    },
+    {
+      "lesion_type": "Dermatofibroma",
+      "paper_terms": [
+        "dermatofibroma",
+        "Df"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnostic classes in the HAM10000 dataset; used as a subgroup for segmentation performance evaluation."
+    },
+    {
+      "lesion_type": "Vascular Lesion",
+      "paper_terms": [
+        "vascular lesions",
+        "Vasc"
+      ],
+      "role": "Target class",
+      "details": "One of the seven diagnostic classes in the HAM10000 dataset; used as a subgroup for segmentation performance evaluation."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Binary segmentation masks of skin lesions",
+        "primary": true,
+        "details": "The paper evaluates three foundation models (MedSAM, SAM-Med2D, BiomedParse) for skin lesion segmentation on the HAM10000 dataset. The models predict binary masks (lesion vs. background) using a threshold of 0.5 on pixel confidence scores. Performance is measured using the Dice Similarity Coefficient (DSC) between predicted masks and ground truth masks."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2018",
+      "description": "A large collection of multi-source dermoscopic images of common pigmented skin lesions, collected over a period of 20 years from two medical centers. Images are annotated with lesion diagnosis and rich clinical metadata including patient sex, age, and anatomical sites. Over 50% of lesions were histopathologically confirmed.",
+      "classes_used": [
+        "melanocytic nevus",
+        "melanoma",
+        "benign keratosis",
+        "basal cell carcinoma",
+        "actinic keratosis/Bowen's disease",
+        "dermatofibroma",
+        "vascular lesions"
+      ],
+      "counts": {
+        "total": 10015,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "melanocytic nevus": 6705,
+          "melanoma": 1113,
+          "benign keratosis": 1099,
+          "basal cell carcinoma": 514,
+          "actinic keratosis/Bowen's disease": 327,
+          "dermatofibroma": 115,
+          "vascular lesions": 142
+        }
+      },
+      "use": {
+        "training": null,
+        "validation": null,
+        "testing": "Used as the primary dataset for evaluating the segmentation performance of three foundation models (MedSAM, SAM-Med2D, BiomedParse). The entire dataset was used for inference and subgroup analysis.",
+        "other": "Used for MONET-based attribute-driven subgrouping to retrieve images based on visual features (artifacts, colors, dermoscopic features) for performance evaluation."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice Similarity Coefficient (DSC)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Dice Similarity Coefficient (DSC)",
+      "purpose": "To quantitatively evaluate segmentation performance by measuring the overlap between predicted segmentation masks and ground truth masks.",
+      "type": "Evaluation Metric"
+    },
+    {
+      "method": "Mean aggregation",
+      "purpose": "To report overall and subgroup performance by calculating the mean DSC across the evaluation set or specific subgroups.",
+      "type": "Descriptive Statistics"
+    },
+    {
+      "method": "Prompt-based ablation study",
+      "purpose": "To assess the robustness and variability of foundation models under different prompting strategies (bounding box margins, point counts, text prompts).",
+      "type": "Experimental Design"
+    },
+    {
+      "method": "MONET-based attribute-driven subgrouping",
+      "purpose": "To automatically construct attribute-driven subgroups based on visual characteristics (artifacts, colors, dermoscopic features) using concept presence scores from a vision-language model.",
+      "type": "Data Grouping Method"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance disparities were described qualitatively (e.g., 'consistent performance disparities', 'relatively lower') based on mean Dice scores without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "HAM10000": {
+      "overall_performance": {
+        "BiomedParse": {
+          "Dice_Score": 0.923
+        },
+        "MedSAM": {
+          "Dice_Score": 0.95
+        },
+        "SAM-Med2D": {
+          "Dice_Score": 0.918
+        }
+      },
+      "subgroup_performance_by_disease_type": {
+        "Akiec": {
+          "BiomedParse": 0.845,
+          "MedSAM": 0.9,
+          "SAM-Med2D": 0.813
+        },
+        "Bcc": {
+          "BiomedParse": 0.798,
+          "MedSAM": 0.872,
+          "SAM-Med2D": 0.769
+        },
+        "Bkl": {
+          "BiomedParse": 0.902,
+          "MedSAM": 0.905,
+          "SAM-Med2D": 0.877
+        },
+        "Df": {
+          "BiomedParse": 0.86,
+          "MedSAM": 0.905,
+          "SAM-Med2D": 0.87
+        },
+        "Mel": {
+          "BiomedParse": 0.934,
+          "MedSAM": 0.911,
+          "SAM-Med2D": 0.915
+        },
+        "NV": {
+          "BiomedParse": 0.943,
+          "MedSAM": 0.91,
+          "SAM-Med2D": 0.937
+        },
+        "Vasc": {
+          "BiomedParse": 0.888,
+          "MedSAM": 0.901,
+          "SAM-Med2D": 0.882
+        }
+      },
+      "subgroup_performance_by_sex": {
+        "Male": {
+          "BiomedParse": 0.919,
+          "MedSAM": 0.908,
+          "SAM-Med2D": 0.906
+        },
+        "Female": {
+          "BiomedParse": 0.932,
+          "MedSAM": 0.906,
+          "SAM-Med2D": 0.922
+        }
+      },
+      "subgroup_performance_by_age": {
+        "<50": {
+          "BiomedParse": 0.943,
+          "MedSAM": 0.911,
+          "SAM-Med2D": 0.936
+        },
+        ">=50": {
+          "BiomedParse": 0.912,
+          "MedSAM": 0.905,
+          "SAM-Med2D": 0.897
+        }
+      },
+      "subgroup_performance_by_anatomical_site": {
+        "Abdomen": {
+          "BiomedParse": 0.943,
+          "MedSAM": 0.921,
+          "SAM-Med2D": 0.939
+        },
+        "Acral": {
+          "BiomedParse": 0.904,
+          "MedSAM": 0.9,
+          "SAM-Med2D": 0.939
+        },
+        "Back": {
+          "BiomedParse": 0.924,
+          "MedSAM": 0.905,
+          "SAM-Med2D": 0.913
+        },
+        "Chest": {
+          "BiomedParse": 0.919,
+          "MedSAM": 0.895,
+          "SAM-Med2D": 0.898
+        },
+        "Ear": {
+          "BiomedParse": 0.868,
+          "MedSAM": 0.87,
+          "SAM-Med2D": 0.866
+        },
+        "Face": {
+          "BiomedParse": 0.853,
+          "MedSAM": 0.89,
+          "SAM-Med2D": 0.841
+        },
+        "Foot": {
+          "BiomedParse": 0.929,
+          "MedSAM": 0.893,
+          "SAM-Med2D": 0.928
+        },
+        "Genital": {
+          "BiomedParse": 0.927,
+          "MedSAM": 0.928,
+          "SAM-Med2D": 0.937
+        },
+        "Hand": {
+          "BiomedParse": 0.89,
+          "MedSAM": 0.868,
+          "SAM-Med2D": 0.862
+        },
+        "Lower extremity": {
+          "BiomedParse": 0.935,
+          "MedSAM": 0.91,
+          "SAM-Med2D": 0.924
+        },
+        "Neck": {
+          "BiomedParse": 0.908,
+          "MedSAM": 0.895,
+          "SAM-Med2D": 0.897
+        },
+        "Scalp": {
+          "BiomedParse": 0.875,
+          "MedSAM": 0.901,
+          "SAM-Med2D": 0.812
+        },
+        "Trunk": {
+          "BiomedParse": 0.945,
+          "MedSAM": 0.924,
+          "SAM-Med2D": 0.938
+        },
+        "Upper extremity": {
+          "BiomedParse": 0.923,
+          "MedSAM": 0.9,
+          "SAM-Med2D": 0.904
+        }
+      },
+      "subgroup_performance_by_monet_artifacts": {
+        "hair": {
+          "note": "Performance slightly reduced compared to overall dataset"
+        },
+        "dermoscope dark corner": {
+          "note": "Performance slightly reduced compared to overall dataset"
+        },
+        "marker or pen presence": {
+          "note": "Performance slightly reduced compared to overall dataset"
+        }
+      },
+      "subgroup_performance_by_monet_lesion_color": {
+        "black": {
+          "BiomedParse": 0.959,
+          "SAM-Med2D": 0.934
+        },
+        "blue": {
+          "BiomedParse": 0.876
+        },
+        "yellow": {
+          "BiomedParse": 0.863
+        }
+      },
+      "subgroup_performance_by_monet_dermoscopic_features": {
+        "pigment network": {
+          "BiomedParse": 0.968
+        },
+        "atypical vascular pattern": {
+          "BiomedParse": 0.94
+        },
+        "blue-white veil": {
+          "SAM-Med2D": 0.836
+        },
+        "ulceration": {
+          "SAM-Med2D": 0.845
+        }
+      },
+      "prompt_ablation_study_results": {
+        "BiomedParse": {
+          "Prompt_1_lesion": "Consistently high performance; mask selection identical across prompts",
+          "Prompt_2_class_name": "Consistently high performance; mask selection identical across prompts",
+          "Prompt_3_dermoscopic_image": "Consistently high performance; mask selection identical across prompts"
+        },
+        "MedSAM": {
+          "Prompt_1_tight_box": "Lower performance",
+          "Prompt_2_5px_margin": "Lower performance",
+          "Prompt_3_10px_margin": "Best performance"
+        },
+        "SAM-Med2D": {
+          "Prompt_1_one_point": "Lower performance",
+          "Prompt_2_three_points": "Improved performance",
+          "Prompt_3_five_points": "Best performance"
+        }
+      },
+      "notes": "BiomedParse demonstrated high robustness to text prompt changes. MedSAM and SAM-Med2D showed sensitivity to prompt design. BCC was the most challenging disease type. Ear and face were underrepresented and complex anatomical sites with lower performance. Younger patients (<50) had better performance than older patients (>=50). Female patients had slightly higher average Dice scores than male patients."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Three foundation models: MedSAM, SAM-Med2D, and BiomedParse",
+    "pretraining": "MedSAM: Fine-tuned on medical images from ten different modalities. SAM-Med2D: Trained on a large-scale medical dataset consisting of 4.6 million images and 19.7 million masks covering a wide range of anatomical structures and imaging modalities. BiomedParse: Based on SEEM; trained to segment various anatomical structures across nine modalities using text-based prompts.",
+    "input_size": "Not reported",
+    "architecture_details": {
+      "MedSAM": {
+        "backbone": "SAM (Segment Anything)",
+        "prompt_type": "Bounding box prompts",
+        "details": "Supports segmentation across ten modalities using bounding box prompts. Bounding boxes were generated by computing tight bounding boxes enclosing ground truth lesion masks, or with 5px/10px margins."
+      },
+      "SAM-Med2D": {
+        "backbone": "SAM (Segment Anything)",
+        "prompt_type": "Point prompts (and box/mask)",
+        "details": "Supports three types of prompts (point, bounding box, mask) and incorporates adapter modules to inject medical domain knowledge. Used point prompts in this study: 1, 3, or 5 random points within the ground truth mask."
+      },
+      "BiomedParse": {
+        "backbone": "SEEM",
+        "prompt_type": "Text prompts",
+        "details": "Text-prompt-based segmentation model generating masks directly from natural language descriptions. Used unified textual prompts: 'lesion', 'class name' (e.g., melanoma), or 'dermoscopic image'."
+      }
+    },
+    "training_details": {
+      "optimizer": "Not reported",
+      "loss_function": "Not reported",
+      "hyperparameters": "Not reported",
+      "training_schedule": "Not reported"
+    },
+    "classification_or_output_head": {
+      "details": "Binary segmentation masks generated by applying a threshold of 0.5 on pixel confidence scores."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "MedSAM",
+    "SAM-Med2D",
+    "BiomedParse",
+    "MONET"
+  ],
+  "preprocessing_techniques": [
+    "Thresholding of pixel confidence scores at 0.5 to generate binary segmentation masks",
+    "MONET-based attribute-driven subgrouping using concept presence scores to retrieve images based on visual attributes (artifacts, colors, dermoscopic features)",
+    "Bounding box generation for MedSAM prompts: tight bounding boxes enclosing ground truth masks, or bounding boxes with 5px and 10px margins",
+    "Point prompt generation for SAM-Med2D: 1, 3, or 5 random points within the ground truth mask",
+    "Text prompt formulation for BiomedParse: unified textual prompts ('lesion', class name, or 'dermoscopic image')",
+    "Reference to existing preprocessing approaches in literature: hair removal, dermoscopic boundary cropping, and marker removal"
+  ],
+  "data_augmentation_techniques": [],
+  "conclusions": [
+    "BiomedParse demonstrated notably stable performance across different textual prompts, whereas MedSAM and SAM-Med2D showed sensitivity to prompt configuration.",
+    "Basal cell carcinoma (BCC) was identified as a consistently challenging class for all three models, showing the lowest average Dice score among all disease types.",
+    "Underrepresented and anatomically complex sites, specifically the ear and face, exhibited lower segmentation performance.",
+    "Models performed better on images from younger patients (<50 years) compared to older patients (≥50 years).",
+    "Performance disparities were observed for lesions with specific visual features, including ulceration, blue-white veils, and specific colors (blue, yellow).",
+    "The study highlights limitations in handling complex anatomical structures and acquisition-related artifacts, emphasizing the need for more robust and fair AI systems in dermatology."
+  ],
+  "important_remarks": [
+    "The study is limited to a single dataset (HAM10000), which may restrict the generalizability of findings to other populations or imaging devices.",
+    "Basal cell carcinoma (BCC) was identified as a consistently challenging class with the lowest average Dice score across all models, suggesting limitations in capturing diverse morphological patterns.",
+    "Significant performance disparities were observed for underrepresented anatomical sites (ear and face) and older patients (≥50 years), indicating potential bias against these subgroups.",
+    "Models showed reduced robustness to specific visual artifacts and features, particularly ulceration, blue-white veils, and colors like blue and yellow.",
+    "BiomedParse demonstrated high stability across different text prompts, whereas MedSAM and SAM-Med2D were sensitive to prompt configuration (bounding box margins and point counts), impacting deployment convenience.",
+    "The evaluation relied on mean Dice scores without formal statistical hypothesis testing or p-values to confirm the significance of observed disparities.",
+    "The study highlights limitations in handling complex anatomical structures and acquisition-related artifacts, emphasizing the need for more robust and fair AI systems in dermatology."
+  ]
+}

@@ -1,0 +1,702 @@
+{
+  "file_name": "yang_2025_better_with_less_efficient_and_accurate_skin_lesion_segmentation_enabl.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses a denoising diffusion probabilistic model (DDPM) enhanced with dilated convolutions and self-attention for high-fidelity dermoscopic image synthesis (data augmentation). It then trains segmentation models, including a dilated U-Net variant, on this augmented dataset to perform automated skin lesion segmentation, a key task in dermatology for melanoma diagnosis."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work involving a two-stage framework using a denoising diffusion probabilistic model (DDPM) for data augmentation and training segmentation models (e.g., Dilated U-Net) on skin lesion datasets. It includes specific methodology, experimental results with metrics (DICE, IoU, FID), and statistical validation, rather than summarizing prior literature."
+  },
+  "title": "Better with Less: Efficient and Accurate Skin Lesion Segmentation Enabled by Diffusion Model Augmentation",
+  "authors": [
+    "Peng Yang",
+    "Zhuochao Chen",
+    "Xiaoxuan Sun",
+    "Xiaodan Deng"
+  ],
+  "doi": "10.3390/electronics14173359",
+  "journal": "Electronics",
+  "year": 2025,
+  "article_type": "Article",
+  "brief_summary": "This study addresses the challenge of data scarcity in automated skin lesion segmentation for melanoma diagnosis by proposing a two-stage framework utilizing diffusion model augmentation. The first stage employs a denoising diffusion probabilistic model (DDPM) enhanced with dilated convolutions and self-attention to synthesize high-fidelity dermoscopic images from the ISIC 2017 dataset. In the second stage, segmentation models, including a dilated U-Net variant, are trained on this augmented dataset using the ISIC 2018 dataset for evaluation. The experimental results demonstrate that this approach increases the DICE score by more than 0.4 across various architectures. Furthermore, the method enables compact, computationally efficient models to achieve performance comparable to or better than models with ten times the parameters. These findings validate the effectiveness of diffusion-based augmentation for developing accurate and deployable clinical tools in resource-constrained environments.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "MEL"
+      ],
+      "role": "Target class",
+      "details": "Included in the ISIC 2017 dataset used for training the DDPM and implicitly present in the ISIC 2018 dataset used for segmentation evaluation."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "SK"
+      ],
+      "role": "Target class",
+      "details": "Included in the ISIC 2017 dataset used for training the DDPM."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "Nevus",
+        "NV"
+      ],
+      "role": "Target class",
+      "details": "Included in the ISIC 2017 dataset used for training the DDPM."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Segmentation",
+    "is_classification": false,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Pixel-wise binary masks delineating skin lesion boundaries",
+        "primary": true,
+        "details": "The paper focuses on automated skin lesion segmentation. The model predicts pixel-wise masks for lesion boundaries using ground truth response masks from the ISIC 2018 dataset. Performance is evaluated using the Dice similarity coefficient (DICE) and Intersection over Union (IoU), which are standard metrics for segmentation tasks."
+      },
+      {
+        "task_type": "Image Generation/Synthesis",
+        "target": "High-fidelity synthetic dermoscopic images",
+        "primary": false,
+        "details": "A secondary task involves using a denoising diffusion probabilistic model (DDPM) to generate synthetic dermoscopic images for data augmentation. Quality is assessed using the Fréchet Inception Distance (FID)."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public dermoscopic image dataset used for training the Denoising Diffusion Probabilistic Model (DDPM) for image synthesis. It contains three classes of dermatological images.",
+      "classes_used": [
+        "Melanoma (MEL)",
+        "Seborrheic Keratosis (SK)",
+        "Nevus (NV)"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "All dermoscopic images were used to train the DDPM for generating synthetic images.",
+        "validation": null,
+        "testing": null,
+        "other": "Used as the reference set for calculating Fréchet Inception Distance (FID) scores for synthetic image quality assessment."
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "A public dataset comprising dermoscopic images and corresponding ground truth response masks, used for evaluating skin lesion segmentation performance.",
+      "classes_used": [
+        "Lesion (binary segmentation mask)"
+      ],
+      "counts": {
+        "total": 2594,
+        "training": 2334,
+        "validation": 260,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "90% of the images (2334) were used for training the segmentation models (combined with synthetic data).",
+        "validation": "10% of the images (260) were used for validation during segmentation model training.",
+        "testing": null,
+        "other": "Ground truth masks from this dataset were used for supervised training of segmentation models on real data."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Dice similarity coefficient (DICE)",
+    "Intersection over Union (IoU)",
+    "Fréchet inception distance (FID)",
+    "LPIPS (Learned Perceptual Image Patch Similarity)",
+    "FID percentile",
+    "Statistical Tests"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "paired t-test",
+      "purpose": "To assess statistical significance of the performance difference between segmentation models trained on real data only (R) versus real data augmented with synthetic images (R+S).",
+      "type": "Hypothesis test"
+    },
+    {
+      "method": "significance thresholding (p < 0.05, p < 0.01)",
+      "purpose": "To determine statistical significance levels for the paired t-test results comparing R and R+S performance.",
+      "type": "Significance threshold"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": true,
+    "test": "paired t-test",
+    "null_hypothesis": "There is no significant difference in segmentation performance (DICE or IoU) between models trained on real data only (R) and models trained on real data augmented with synthetic images (R+S).",
+    "alternative_hypothesis": "There is a significant difference in segmentation performance (DICE or IoU) between models trained on real data only (R) and models trained on real data augmented with synthetic images (R+S).",
+    "alpha": 0.05,
+    "interpretation": "Statistical significance was assessed using a paired t-test. Results marked with * indicate p < 0.05, ** indicates p < 0.01, and 'n.s.' denotes no significant difference. The study found that the diffusion-based augmentation strategy consistently improved segmentation performance across multiple architectures with statistical significance (p < 0.05 or p < 0.01) for most models, validating its effectiveness."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017": {
+      "metric": "Fréchet Inception Distance (FID)",
+      "models": {
+        "Traditional DDPM": {
+          "FID": 143.7268
+        },
+        "DDPM + dilated convolutions": {
+          "FID": 140.3926
+        }
+      },
+      "notes": "FID scores were computed using 5000 generated synthetic images against a reference set of 1000 authentic images from the ISIC 2017 dataset. Lower FID indicates better distributional similarity."
+    },
+    "ISIC 2018": {
+      "metric": "Dice Similarity Coefficient (DICE) and Intersection over Union (IoU)",
+      "models": {
+        "Standard U-Net": {
+          "Real Data Only (R) DICE": 0.8757,
+          "Real Data Only (R) IoU": 0.7988,
+          "Real + Synthetic (R+S) DICE": 0.8829,
+          "Real + Synthetic (R+S) IoU": 0.8086,
+          "Delta DICE": "+0.72 pp",
+          "Delta IoU": "+0.98 pp",
+          "Significance": "p < 0.01"
+        },
+        "Dilated-UNet (ours)": {
+          "Real Data Only (R) DICE": 0.8797,
+          "Real Data Only (R) IoU": 0.8013,
+          "Real + Synthetic (R+S) DICE": 0.8843,
+          "Real + Synthetic (R+S) IoU": 0.8088,
+          "Delta DICE": "+0.46 pp",
+          "Delta IoU": "+0.75 pp",
+          "Significance": "p < 0.05"
+        },
+        "FCN-ResNet50": {
+          "Real Data Only (R) DICE": 0.8859,
+          "Real Data Only (R) IoU": 0.8134,
+          "Real + Synthetic (R+S) DICE": 0.8931,
+          "Real + Synthetic (R+S) IoU": 0.8221,
+          "Delta DICE": "+0.72 pp",
+          "Delta IoU": "+0.87 pp",
+          "Significance": "p < 0.05"
+        },
+        "FCN-ResNet101": {
+          "Real Data Only (R) DICE": 0.8842,
+          "Real Data Only (R) IoU": 0.811,
+          "Real + Synthetic (R+S) DICE": 0.8907,
+          "Real + Synthetic (R+S) IoU": 0.82,
+          "Delta DICE": "+0.65 pp",
+          "Delta IoU": "+0.90 pp",
+          "Significance": "p < 0.05"
+        },
+        "DeepLabV3-ResNet50": {
+          "Real Data Only (R) DICE": 0.8847,
+          "Real Data Only (R) IoU": 0.8118,
+          "Real + Synthetic (R+S) DICE": 0.8835,
+          "Real + Synthetic (R+S) IoU": 0.8112,
+          "Delta DICE": "-0.12 pp",
+          "Delta IoU": "-0.06 pp",
+          "Significance": "n.s."
+        },
+        "DeepLabV3-ResNet101": {
+          "Real Data Only (R) DICE": 0.8775,
+          "Real Data Only (R) IoU": 0.7855,
+          "Real + Synthetic (R+S) DICE": 0.8859,
+          "Real + Synthetic (R+S) IoU": 0.7968,
+          "Delta DICE": "+0.84 pp",
+          "Delta IoU": "+1.13 pp",
+          "Significance": "p < 0.01"
+        },
+        "MEFP-Net": {
+          "Real Data Only (R) DICE": 0.8965,
+          "Real Data Only (R) IoU": 0.8275,
+          "Real + Synthetic (R+S) DICE": 0.9014,
+          "Real + Synthetic (R+S) IoU": 0.8321,
+          "Delta DICE": "+0.49 pp",
+          "Delta IoU": "+0.46 pp",
+          "Significance": "p < 0.05"
+        },
+        "DFF-UNet": {
+          "Real Data Only (R) DICE": 0.8762,
+          "Real Data Only (R) IoU": 0.8175,
+          "Real + Synthetic (R+S) DICE": 0.8804,
+          "Real + Synthetic (R+S) IoU": 0.8219,
+          "Delta DICE": "+0.42 pp",
+          "Delta IoU": "+0.44 pp",
+          "Significance": "n.s."
+        }
+      },
+      "notes": "Results evaluated on the ISIC 2018 test set. Statistical significance assessed using paired t-test. DeepLabV3-ResNet50 showed marginal degradation attributed to stochastic variation. Dilated-UNet showed substantial gains from augmentation. FCN-ResNet50 achieved highest absolute performance with augmentation."
+    },
+    "ISIC 2018 (Ablation on Training Data Configurations for Dilated-UNet)": {
+      "metric": "Dice Similarity Coefficient (DICE)",
+      "models": {
+        "Real Data Only (2000 images)": {
+          "DICE": 0.8797
+        },
+        "Synthetic Data (Dilated Conv.) Only (1000 images)": {
+          "DICE": 0.7836
+        },
+        "Synthetic Data (Normal Conv.) Only (1000 images)": {
+          "DICE": 0.7802
+        },
+        "Real Data (2000) + Synthetic (Normal Conv., 1000)": {
+          "DICE": 0.8841
+        },
+        "Real Data (2000) + Synthetic (Dilated Conv., 1000)": {
+          "DICE": 0.8843
+        }
+      },
+      "notes": "Synthetic data consisted of 1000 images. Mixed configurations outperformed synthetic-only data. Real+Synthetic(Dilated) yielded the highest DICE."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two-stage framework: 1) Enhanced Denoising Diffusion Probabilistic Model (DDPM) for image synthesis; 2) Segmentation models including Dilated-UNet (proposed), Standard U-Net, FCN-ResNet50, FCN-ResNet101, DeepLabV3-ResNet50, DeepLabV3-ResNet101, MEFP-Net, and DFF-UNet.",
+    "pretraining": "Segmentation models FCN-ResNet50 and FCN-ResNet101 were initialized with pre-trained parameters (ResNet50/101 backbones). The DDPM was trained from scratch on ISIC 2017.",
+    "input_size": "256 x 256 pixels for both DDPM generation and segmentation models.",
+    "architecture_details": {
+      "DDPM": {
+        "backbone": "U-Net",
+        "encoder_levels": 4,
+        "channel_multipliers": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "initial_channels": 128,
+        "enhancements": [
+          "Dilated convolutions in residual blocks (ResBlocks) at the two deepest levels with dilation rates r ∈ {2, 4}",
+          "Multi-head self-attention mechanism embedded in ResBlocks at the bottleneck (16x16 resolution)",
+          "Timestep conditioning via sinusoidal positional embeddings mapped by an MLP"
+        ],
+        "loss_function": "Simplified DDPM objective: L_DDPM = E_{t,x0,epsilon} ||epsilon - epsilon_theta(sqrt(alpha_bar_t)x0 + sqrt(1-alpha_bar_t)epsilon, t)||^2"
+      },
+      "Dilated-UNet": {
+        "base_architecture": "U-Net (symmetric encoder-decoder with skip connections)",
+        "modification": "Bottleneck replaced with two sequential 3x3 dilated convolutions with dilation rate r=2",
+        "output_layer": "1x1 convolution followed by sigmoid function for pixel-wise probability map"
+      },
+      "Segmentation_Baselines": [
+        "Standard U-Net",
+        "FCN-ResNet50",
+        "FCN-ResNet101",
+        "DeepLabV3-ResNet50",
+        "DeepLabV3-ResNet101",
+        "MEFP-Net",
+        "DFF-UNet"
+      ]
+    },
+    "training_details": {
+      "DDPM": {
+        "optimizer": "AdamW",
+        "weight_decay": "1e-4",
+        "learning_rate_schedule": "Cosine annealing",
+        "batch_size": 8,
+        "regularization": [
+          "Gradient clipping (max norm 1.0)",
+          "Data augmentation: normalization and random flipping"
+        ]
+      },
+      "Segmentation_Models": {
+        "optimizer": "RMSprop",
+        "momentum": 0.9,
+        "learning_rate": "1e-6",
+        "weight_decay": "1e-8",
+        "loss_function": "Hybrid loss: L_seg = L_BCE + L_Dice",
+        "max_epochs": 50,
+        "batch_size": 8,
+        "data_split": "90% training (Real + Synthetic), 10% validation (Real)"
+      }
+    },
+    "classification_or_output_head": {
+      "DDPM": "Noise prediction network epsilon_theta(x_t, t)",
+      "Segmentation": "Pixel-wise binary mask via sigmoid activation"
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Denoising Diffusion Probabilistic Model (DDPM)",
+    "DDPM with dilated convolutions",
+    "DDPM with normal convolutions",
+    "Dilated-UNet",
+    "Standard U-Net",
+    "FCN-ResNet50",
+    "FCN-ResNet101",
+    "DeepLabV3-ResNet50",
+    "DeepLabV3-ResNet101",
+    "MEFP-Net",
+    "DFF-UNet",
+    "ChimeraNet + LAMA"
+  ],
+  "preprocessing_techniques": [
+    "Resizing dermoscopic images to 256 x 256 pixels for computational efficiency",
+    "Normalization of input data",
+    "Random flipping (data augmentation)",
+    "Manual quality control (QC) to discard visually implausible synthetic samples (e.g., unrealistic borders or textures)",
+    "Automated quality control using FID percentile screening and LPIPS outlier filtering for synthetic images",
+    "Manual annotation of synthetic images using Labelme software to generate ground truth masks"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Synthetic Data Generation via Enhanced DDPM",
+      "details": "A denoising diffusion probabilistic model (DDPM) enhanced with dilated convolutions and self-attention was used to synthesize 5000 high-fidelity dermoscopic images at 256x256 resolution from the ISIC 2017 dataset. A subset of 1000 synthetic images was used for training segmentation models."
+    },
+    {
+      "technique": "Manual Quality Control (QC)",
+      "details": "Visually implausible synthetic samples (e.g., unrealistic borders or textures) were manually discarded before annotation."
+    },
+    {
+      "technique": "Automated Quality Control (QC)",
+      "details": "Lightweight automated checks including FID percentile screening and LPIPS outlier filtering were applied to synthetic images to reduce subjectivity before annotation; only images passing these checks were retained."
+    },
+    {
+      "technique": "Manual Annotation",
+      "details": "Ground truth masks for synthetic images were created using Labelme software by experienced annotators following the same protocol as original datasets."
+    },
+    {
+      "technique": "Random Flipping",
+      "details": "Applied as a data augmentation technique during DDPM training."
+    },
+    {
+      "technique": "Normalization",
+      "details": "Applied as a preprocessing/augmentation step during DDPM training."
+    },
+    {
+      "technique": "Class Balancing via Synthetic Data",
+      "details": "Synthetic data was generated to address class imbalance and data scarcity, specifically targeting underrepresented skin types and rare lesion subtypes in the original dataset."
+    }
+  ],
+  "conclusions": [
+    "The proposed two-stage framework using a denoising diffusion probabilistic model (DDPM) enhanced with dilated convolutions and self-attention effectively synthesizes high-fidelity dermoscopic images, addressing data scarcity in skin lesion segmentation.",
+    "Diffusion-based data augmentation consistently improves segmentation accuracy across multiple architectures, increasing the DICE score by more than 0.4 percentage points for most models.",
+    "The augmentation strategy enables compact, computationally efficient segmentation models to achieve performance comparable to or better than models with ten times the parameters, facilitating deployment in resource-constrained environments.",
+    "The Dilated-UNet variant synergizes effectively with synthetic data, showing substantial performance gains (e.g., +1.23 pp IoU improvement) and accurate delineation of ambiguous lesion regions.",
+    "FCN-based architectures (specifically FCN-ResNet50) showed particular compatibility with the augmentation approach, achieving the highest absolute performance (DICE: 0.8931, IoU: 0.8221) among tested models.",
+    "Most generated synthetic images are usable and improve boundary sharpness and mask completeness, although minor quality issues in fine vascular textures and rare lesion types necessitate manual quality control.",
+    "One architecture, DeepLabV3-ResNet50, showed marginal degradation or no significant difference, which the authors attribute to stochastic variation and potential lower benefit from the specific diversity introduced by the synthetic data.",
+    "The study validates the effectiveness of diffusion-based augmentation for developing accurate and deployable clinical tools for automated skin lesion segmentation."
+  ],
+  "important_remarks": [
+    "The study relies on the ISIC 2017 dataset for training the diffusion model and ISIC 2018 for segmentation evaluation; while this avoids direct data leakage, both datasets originate from the same public challenge series, potentially limiting external generalizability to other clinical populations or imaging devices.",
+    "Synthetic images generated by the DDPM exhibited minor quality issues, specifically in fine vascular textures and rare lesion types, necessitating manual quality control and manual annotation of ground truth masks for the synthetic data, which introduces potential human bias and scalability constraints.",
+    "One architecture, DeepLabV3-ResNet50, showed no significant improvement (and marginal degradation in DICE) with augmentation, indicating that the benefits of diffusion-based augmentation are not universal across all model architectures and may depend on specific architectural inductive biases.",
+    "The paper does not report the number of parameters for the tested segmentation models, making it difficult to quantitatively verify the claim that compact models achieve performance comparable to models with '10 times the parameters' without external calculation.",
+    "The evaluation is limited to the ISIC 2018 dataset; the lack of external validation on independent, multi-center datasets with diverse skin tones (Fitzpatrick scale) and lesion types limits the assessment of robustness against demographic and distributional biases.",
+    "The study addresses data scarcity but does not explicitly report the class distribution of the synthetic data or how it compares to the original ISIC 2017 distribution, leaving the effectiveness of the augmentation in specifically correcting class imbalance unquantified."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_yang_2025_better_with_less_efficient_and_accurate_skin_lesion_segmentation_enabl.pdf",
+    "summary": "The study employs a two-stage framework. Stage 1 uses the ISIC 2017 dataset to train a Denoising Diffusion Probabilistic Model (DDPM) for synthesizing high-fidelity dermoscopic images. Stage 2 uses the ISIC 2018 dataset for skin lesion segmentation. Specifically, 90% of ISIC 2018 images (2334 images) were used for training segmentation models (combined with 1000 synthetic images), and 10% (260 images) were used for validation. The segmentation models were evaluated on the held-out 10% of ISIC 2018. The study does not perform cross-dataset validation; it relies on internal splits within ISIC 2018 for segmentation and uses ISIC 2017 solely for generating synthetic data for augmentation.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper does not report training on one dataset and testing on a different unseen dataset. The DDPM was trained on ISIC 2017 to generate synthetic images, which were then mixed with ISIC 2018 training data. The segmentation models were trained and validated/tested entirely within the ISIC 2018 dataset (90/10 split). There is no experiment where a model trained on ISIC 2018 is tested on ISIC 2017 or vice versa.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2018",
+          "counts": "2334 images (90% of total)",
+          "notes": "Used for training segmentation models (Standard U-Net, Dilated-UNet, FCN-ResNet50, etc.). Combined with 1000 synthetic images for the 'Real + Synthetic' (R+S) configuration."
+        },
+        {
+          "dataset": "Synthetic Data (from ISIC 2017)",
+          "counts": "1000 images",
+          "notes": "Synthesized using an enhanced DDPM trained on ISIC 2017. Manually annotated and used to augment the ISIC 2018 training set."
+        },
+        {
+          "dataset": "ISIC 2017",
+          "counts": "All dermoscopic images",
+          "notes": "Used exclusively to train the Denoising Diffusion Probabilistic Model (DDPM) for image synthesis. Not used directly for segmentation model training."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2018",
+          "counts": "260 images (10% of total)",
+          "notes": "Used for model selection/tuning during segmentation model training. The paper refers to this as the validation set."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2018",
+          "counts": "260 images (10% of total)",
+          "notes": "Used for final performance evaluation of segmentation models. The paper states 'evaluated on the test set' and 'held-out real test set', which corresponds to the 10% split not used for training. Note: The paper uses 'validation' and 'test' somewhat interchangeably for this 10% split in different sections, but it is the held-out portion of ISIC 2018."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet (implied)",
+          "notes": "FCN-ResNet50 and FCN-ResNet101 were initialized with pre-trained parameters. While not explicitly named as ImageNet in the text, ResNet backbones are typically pre-trained on ImageNet. The paper states 'Pre-trained backbones (ResNet50/101)' in Table 1."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "Synthetic Images (generated from ISIC 2017)",
+          "notes": "5000 synthetic images were generated using an enhanced DDPM. A subset of 1000 was selected via manual and automated quality control (FID percentile, LPIPS) and manually annotated. These were used to augment the ISIC 2018 training data."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "ISIC 2018 was split into 90% training (2334 images) and 10% validation/test (260 images). The 10% split served as both validation during training and the final test set for reporting results. No k-fold cross-validation was reported for segmentation.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No external unseen dataset was used for testing. The test set is a held-out portion of the ISIC 2018 dataset."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (90%)",
+          "Synthetic Data (1000 images)"
+        ],
+        "model_or_method": "Standard U-Net",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "DICE": 0.8829,
+            "IoU": 0.8086
+          }
+        },
+        "notes": "Results for Standard U-Net trained on Real + Synthetic data. Real-only DICE was 0.8757, IoU 0.7988. Improvement was statistically significant (p < 0.01)."
+      },
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (90%)",
+          "Synthetic Data (1000 images)"
+        ],
+        "model_or_method": "Dilated-UNet (ours)",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "DICE": 0.8843,
+            "IoU": 0.8088
+          }
+        },
+        "notes": "Results for Dilated-UNet trained on Real + Synthetic data. Real-only DICE was 0.8797, IoU 0.8013. Improvement was statistically significant (p < 0.05)."
+      },
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (90%)",
+          "Synthetic Data (1000 images)"
+        ],
+        "model_or_method": "FCN-ResNet50",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "DICE": 0.8931,
+            "IoU": 0.8221
+          }
+        },
+        "notes": "Results for FCN-ResNet50 trained on Real + Synthetic data. Real-only DICE was 0.8859, IoU 0.8134. Improvement was statistically significant (p < 0.05)."
+      },
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (90%)",
+          "Synthetic Data (1000 images)"
+        ],
+        "model_or_method": "FCN-ResNet101",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "DICE": 0.8907,
+            "IoU": 0.82
+          }
+        },
+        "notes": "Results for FCN-ResNet101 trained on Real + Synthetic data. Real-only DICE was 0.8842, IoU 0.8110. Improvement was statistically significant (p < 0.05)."
+      },
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (90%)",
+          "Synthetic Data (1000 images)"
+        ],
+        "model_or_method": "DeepLabV3-ResNet50",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "DICE": 0.8835,
+            "IoU": 0.8112
+          }
+        },
+        "notes": "Results for DeepLabV3-ResNet50 trained on Real + Synthetic data. Real-only DICE was 0.8847, IoU 0.8118. No significant difference (n.s.)."
+      },
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (90%)",
+          "Synthetic Data (1000 images)"
+        ],
+        "model_or_method": "DeepLabV3-ResNet101",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "DICE": 0.8859,
+            "IoU": 0.7968
+          }
+        },
+        "notes": "Results for DeepLabV3-ResNet101 trained on Real + Synthetic data. Real-only DICE was 0.8775, IoU 0.7855. Improvement was statistically significant (p < 0.01)."
+      },
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (90%)",
+          "Synthetic Data (1000 images)"
+        ],
+        "model_or_method": "MEFP-Net",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "DICE": 0.9014,
+            "IoU": 0.8321
+          }
+        },
+        "notes": "Results for MEFP-Net trained on Real + Synthetic data. Real-only DICE was 0.8965, IoU 0.8275. Improvement was statistically significant (p < 0.05)."
+      },
+      {
+        "dataset": "ISIC 2018 (Test Set)",
+        "role_at_result_time": "external test",
+        "train_datasets_for_this_result": [
+          "ISIC 2018 (90%)",
+          "Synthetic Data (1000 images)"
+        ],
+        "model_or_method": "DFF-UNet",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "DICE": 0.8804,
+            "IoU": 0.8219
+          }
+        },
+        "notes": "Results for DFF-UNet trained on Real + Synthetic data. Real-only DICE was 0.8762, IoU 0.8175. No significant difference (n.s.)."
+      },
+      {
+        "dataset": "ISIC 2017",
+        "role_at_result_time": "training",
+        "train_datasets_for_this_result": [
+          "ISIC 2017"
+        ],
+        "model_or_method": "Traditional DDPM",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "FID": 143.7268
+          }
+        },
+        "notes": "FID score calculated using 5000 generated images against 1000 real images from ISIC 2017."
+      },
+      {
+        "dataset": "ISIC 2017",
+        "role_at_result_time": "training",
+        "train_datasets_for_this_result": [
+          "ISIC 2017"
+        ],
+        "model_or_method": "DDPM + dilated convolutions",
+        "metrics": {
+          "accuracy": null,
+          "auc": null,
+          "sensitivity": null,
+          "specificity": null,
+          "f1_score": null,
+          "other_metrics": {
+            "FID": 140.3926
+          }
+        },
+        "notes": "FID score calculated using 5000 generated images against 1000 real images from ISIC 2017."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2018",
+        "split_or_cv": "90% Train / 10% Test (held-out)",
+        "models": [
+          "Dilated-UNet"
+        ],
+        "results": [
+          {
+            "metric": "DICE",
+            "value": 0.8797,
+            "model": "Dilated-UNet (Real Only)",
+            "data_split": "test"
+          },
+          {
+            "metric": "DICE",
+            "value": 0.8843,
+            "model": "Dilated-UNet (Real + Synthetic)",
+            "data_split": "test"
+          },
+          {
+            "metric": "DICE",
+            "value": 0.7836,
+            "model": "Dilated-UNet (Synthetic Only)",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study relies on ISIC 2017 for diffusion model training and ISIC 2018 for segmentation evaluation. Both datasets originate from the same public challenge series, which may limit external generalizability to other clinical populations or imaging devices.",
+      "The evaluation is limited to the ISIC 2018 dataset; the lack of external validation on independent, multi-center datasets with diverse skin tones (Fitzpatrick scale) and lesion types limits the assessment of robustness against demographic and distributional biases.",
+      "The paper does not report the number of parameters for the tested segmentation models, making it difficult to quantitatively verify the claim that compact models achieve performance comparable to models with '10 times the parameters' without external calculation."
+    ],
+    "information_not_reported": [
+      "The specific class distribution of the synthetic data compared to the original ISIC 2017 distribution is not reported.",
+      "The exact number of parameters for the segmentation models is not reported.",
+      "No external test set results are provided."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1780005702
+  }
+}

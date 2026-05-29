@@ -1,0 +1,608 @@
+{
+  "file_name": "collenne_2024_fusion_between_an_algorithm_based_on_the_characterization_of_melan.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used an ensemble of 7 state-of-the-art Convolutional Neural Networks (CNNs) and an Artificial Neural Network (ANN) to classify melanocytic lesions (nevi vs. melanoma) using dermoscopic images from the ISIC 2019 dataset. The study also fused handcrafted asymmetry features with the CNN ensemble for melanoma detection."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The document is explicitly labeled as an 'ORIGINAL ARTICLE' and presents new experimental results. It describes the design of a novel algorithm combining handcrafted asymmetry features with an ensemble of Convolutional Neural Networks, details the methodology (including dataset preprocessing, model architecture, and training parameters), and reports quantitative performance metrics (AUC, sensitivity, specificity) on the ISIC 2019 dataset."
+  },
+  "title": "Fusion between an Algorithm Based on the Characterization of Melanocytic Lesions’ Asymmetry with an Ensemble of Convolutional Neural Networks for Melanoma Detection",
+  "authors": [
+    "Jules Collenne",
+    "Jilliana Monnier",
+    "Rabah Iguernaissi",
+    "Motasem Nawaf",
+    "Marie-Aleth Richard",
+    "Jean-Jacques Grob",
+    "Caroline Gaudy-Marqueste",
+    "Severine Dubuisson",
+    "Djamal Merad"
+  ],
+  "doi": "10.1016/j.jid.2023.09.289",
+  "journal": "Journal of Investigative Dermatology",
+  "year": 2024,
+  "article_type": "Original research article",
+  "brief_summary": "This study addresses the challenge of melanoma detection by fusing handcrafted features representing color asymmetry with an ensemble of seven state-of-the-art Convolutional Neural Networks (CNNs). The researchers utilized a subset of the International Skin Imaging Collaboration 2019 dataset, comprising 6,296 nevi and 1,361 melanomas, to train and evaluate their models. The handcrafted asymmetry features were processed by an Artificial Neural Network (ANN), while the CNN ensemble consisted of EfficientNet models. The main evaluation approach involved comparing the performance of the ANN, the CNN ensemble, and their fused predictions using metrics such as Area Under the Curve (AUC), sensitivity, and specificity. The fusion of both approaches achieved the highest performance with an AUC of 0.942, sensitivity of 92%, and specificity of 82%, outperforming the individual ANN (AUC 0.873) and CNN ensemble (AUC 0.938). The results demonstrate that merging dermatologist-derived asymmetry insights with deep learning models enhances melanoma detection accuracy.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant"
+      ],
+      "role": "Target class",
+      "details": "Primary target class for detection. The study used 1,361 melanoma images from the ISIC 2019 dataset (after filtering for artifacts, 1,301 remained). It is classified as malignant."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "nevus",
+        "nevi",
+        "common nevi",
+        "atypical nevi"
+      ],
+      "role": "Comparator class",
+      "details": "Comparator class for binary classification. The study used 6,296 nevus images from the ISIC 2019 dataset (after filtering, 6,371 remained). Includes 'highly atypical nevi' which were noted as false positives for the CNN ensemble."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary classification of melanocytic lesions into 'melanoma' (malignant) or 'nevus' (benign) classes.",
+        "primary": true,
+        "details": "The paper explicitly states the task is 'melanoma versus nevus classification'. The models (ANN, CNN ensemble, and fusion) predict discrete diagnostic categories. Performance is evaluated using sensitivity, specificity, balanced accuracy, and AUC. The ANN classifies based on handcrafted asymmetry features, while the CNN ensemble uses EfficientNet models. The fusion combines predictions via average or voting."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2019",
+      "description": "A subset of the International Skin Imaging Collaboration 2019 dataset containing dermoscopic images of melanocytic lesions. The authors filtered the original dataset to exclude images with artifacts (e.g., excessive hair, rulers, bubbles) to facilitate handcrafted feature extraction. The subset is publicly available via a Google Drive link provided in the paper.",
+      "classes_used": [
+        "Nevus",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 7672,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {
+          "Nevus": 6371,
+          "Melanoma": 1301
+        }
+      },
+      "use": {
+        "training": "Used for training the Artificial Neural Network (ANN) based on asymmetry features and the EfficientNet CNN ensemble. Class imbalance was handled by weighting the melanoma class 4.59 times higher in the loss function.",
+        "validation": null,
+        "testing": "Used for evaluating the performance of the ANN, CNN ensemble, and the fused model using metrics such as AUC, sensitivity, and specificity.",
+        "other": "Used for training the U-Net segmentation model (along with ISIC 2016 and 2018 datasets) to segment lesions from the background."
+      }
+    },
+    {
+      "name": "ISIC 2016",
+      "description": "The International Skin Imaging Collaboration 2016 dataset, used as part of the training data for the U-Net segmentation model.",
+      "classes_used": [
+        "Lesion segmentation masks"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the U-Net model for lesion segmentation.",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    },
+    {
+      "name": "ISIC 2018",
+      "description": "The International Skin Imaging Collaboration 2018 dataset, used as part of the training data for the U-Net segmentation model.",
+      "classes_used": [
+        "Lesion segmentation masks"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Used to train the U-Net model for lesion segmentation.",
+        "validation": null,
+        "testing": null,
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "AUC-ROC",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "Balanced Accuracy (BACC)"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Average prediction fusion",
+      "purpose": "To combine the outputs of the Artificial Neural Network (ANN) and the Convolutional Neural Network (CNN) ensemble for melanoma detection.",
+      "type": "Model fusion method"
+    },
+    {
+      "method": "Voting method",
+      "purpose": "To combine the predictions of the CNN ensemble models by selecting the most predicted class.",
+      "type": "Model fusion method"
+    },
+    {
+      "method": "Class weighting",
+      "purpose": "To handle class imbalance during the training of the ANN, weighting the melanoma class 4.59 times higher than the nevus class.",
+      "type": "Training technique"
+    },
+    {
+      "method": "Area Under the Curve (AUC)",
+      "purpose": "To evaluate and compare the performance of the ANN, CNN ensemble, and fused models.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Sensitivity and Specificity",
+      "purpose": "To evaluate the diagnostic accuracy of the models.",
+      "type": "Performance metric"
+    },
+    {
+      "method": "Balanced Accuracy",
+      "purpose": "To evaluate the performance of the models, particularly in the context of class imbalance.",
+      "type": "Performance metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons between the ANN, CNN ensemble, and fused models were based on descriptive metrics (AUC, sensitivity, specificity, balanced accuracy) without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2019 Dataset (filtered subset)": {
+      "split": "Test Set",
+      "models": {
+        "ANN (Features per quadrants without histograms)": {
+          "Sensitivity": 0.61,
+          "Specificity": 0.8,
+          "Balanced Accuracy": 0.71,
+          "AUC": 0.8
+        },
+        "ANN (Features per quadrant with histograms per quadrant)": {
+          "Sensitivity": 0.87,
+          "Specificity": 0.66,
+          "Balanced Accuracy": 0.77,
+          "AUC": 0.82
+        },
+        "ANN (Circles on superpixels)": {
+          "Sensitivity": 0.73,
+          "Specificity": 0.74,
+          "Balanced Accuracy": 0.74,
+          "AUC": 0.81
+        },
+        "ANN (All features)": {
+          "Sensitivity": 0.9,
+          "Specificity": 0.67,
+          "Balanced Accuracy": 0.79,
+          "AUC": 0.873
+        },
+        "CNN (EfficientNetB0)": {
+          "Sensitivity": 0.65,
+          "Specificity": 0.9,
+          "Balanced Accuracy": 0.77,
+          "AUC": 0.897
+        },
+        "CNN (EfficientNetB1)": {
+          "Sensitivity": 0.81,
+          "Specificity": 0.81,
+          "Balanced Accuracy": 0.81,
+          "AUC": 0.905
+        },
+        "CNN (EfficientNetB2)": {
+          "Sensitivity": 0.81,
+          "Specificity": 0.84,
+          "Balanced Accuracy": 0.82,
+          "AUC": 0.905
+        },
+        "CNN (EfficientNetB3)": {
+          "Sensitivity": 0.77,
+          "Specificity": 0.86,
+          "Balanced Accuracy": 0.81,
+          "AUC": 0.908
+        },
+        "CNN (EfficientNetB4)": {
+          "Sensitivity": 0.85,
+          "Specificity": 0.8,
+          "Balanced Accuracy": 0.83,
+          "AUC": 0.914
+        },
+        "CNN (EfficientNetB5)": {
+          "Sensitivity": 0.88,
+          "Specificity": 0.76,
+          "Balanced Accuracy": 0.82,
+          "AUC": 0.906
+        },
+        "CNN (EfficientNetB6)": {
+          "Sensitivity": 0.93,
+          "Specificity": 0.67,
+          "Balanced Accuracy": 0.8,
+          "AUC": 0.889
+        },
+        "CNN (EfficientNetB7)": {
+          "Sensitivity": 0.94,
+          "Specificity": 0.64,
+          "Balanced Accuracy": 0.79,
+          "AUC": 0.892
+        },
+        "CNN Ensemble (mean predictions)": {
+          "Sensitivity": 0.91,
+          "Specificity": 0.82,
+          "Balanced Accuracy": 0.87,
+          "AUC": 0.938
+        },
+        "CNN Ensemble (vote)": {
+          "Sensitivity": 0.92,
+          "Specificity": 0.79,
+          "Balanced Accuracy": 0.85,
+          "AUC": null
+        },
+        "Fusion (ANN + CNNs ensemble)": {
+          "Sensitivity": 0.92,
+          "Specificity": 0.82,
+          "Balanced Accuracy": 0.87,
+          "AUC": 0.942
+        }
+      },
+      "notes": "The fusion of the ANN (All features) and the CNN Ensemble (mean predictions) achieved the highest performance. The ANN 'All features' model had 11,474 parameters. The CNN ensemble consisted of EfficientNetB0-B7. Class imbalance was handled by weighting the melanoma class 4.59 times higher."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two distinct architectures: 1) An Artificial Neural Network (ANN) for handcrafted asymmetry features; 2) An ensemble of 7 Convolutional Neural Networks (CNNs) from the EfficientNet family (EfficientNetB0 to EfficientNetB7).",
+    "pretraining": "The EfficientNet models were initialized with ImageNet weights. The first training phase froze all layers except the final classification layer. The second phase unfroze the weights for fine-tuning.",
+    "input_size": "For the CNNs: Input images were resized to the specific input dimensions required by each EfficientNet variant (B0-B7). For the ANN: Input vector size of 714 (concatenation of handcrafted asymmetry features across different color spaces).",
+    "architecture_details": {
+      "ANN": {
+        "type": "Artificial Neural Network",
+        "layers": [
+          {
+            "layer_type": "Dense/Linear",
+            "size": 16,
+            "activation": "ReLU"
+          },
+          {
+            "layer_type": "Dropout",
+            "rate": 0.2
+          },
+          {
+            "layer_type": "Dense/Linear",
+            "size": 2,
+            "activation": "Softmax"
+          }
+        ],
+        "input_features": "Handcrafted features representing color asymmetry (axial and central symmetry) computed on quadrants and superpixels across RGB, HSV, YCbCr, and CieLab color spaces."
+      },
+      "CNN_Ensemble": {
+        "family": "EfficientNet",
+        "variants": [
+          "EfficientNetB0",
+          "EfficientNetB1",
+          "EfficientNetB2",
+          "EfficientNetB3",
+          "EfficientNetB4",
+          "EfficientNetB5",
+          "EfficientNetB6",
+          "EfficientNetB7"
+        ],
+        "fusion_method": "Average of predictions (mean) and Voting method.",
+        "parameter_counts": {
+          "EfficientNetB0": "5 million",
+          "EfficientNetB7": "66 million",
+          "ANN": "11,474"
+        }
+      }
+    },
+    "training_details": {
+      "ANN": {
+        "epochs": 50,
+        "batch_size": 64,
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "loss_function": "Categorical Cross-Entropy",
+        "class_weights": {
+          "melanoma": 4.59,
+          "nevus": 1
+        }
+      },
+      "CNN": {
+        "training_phases": 2,
+        "phase_1": {
+          "epochs": 15,
+          "optimizer": "Adam",
+          "learning_rate": 0.001,
+          "loss_function": "Binary Cross-Entropy",
+          "frozen_layers": "All layers except final classification layer",
+          "class_weights": {
+            "melanoma": 4.59,
+            "nevus": 1
+          }
+        },
+        "phase_2": {
+          "description": "Fine-tuning with unfrozen weights",
+          "learning_rate": "1e-4",
+          "epochs": 5,
+          "class_weights": {
+            "melanoma": 4.59,
+            "nevus": 1
+          }
+        }
+      },
+      "data_augmentation": [
+        "Random rotation",
+        "Translation",
+        "Mirror image",
+        "Contrast change"
+      ]
+    },
+    "classification_or_output_head": {
+      "ANN": "Final layer of size 2 with Softmax activation for binary classification (melanoma vs. nevus).",
+      "CNN": "Original final layer removed and replaced by a softmax layer for binary classification."
+    },
+    "approximate_parameters": {
+      "ANN": 11474,
+      "CNN_Ensemble": "Range from 5 million (B0) to 66 million (B7)"
+    }
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Artificial Neural Network (ANN)",
+    "Convolutional Neural Network (CNN) Ensemble",
+    "EfficientNetB0",
+    "EfficientNetB1",
+    "EfficientNetB2",
+    "EfficientNetB3",
+    "EfficientNetB4",
+    "EfficientNetB5",
+    "EfficientNetB6",
+    "EfficientNetB7",
+    "U-Net",
+    "Support Vector Machines",
+    "Random Forest",
+    "Gradient Boosting",
+    "k-nearest neighbors"
+  ],
+  "preprocessing_techniques": [
+    "Image segmentation using U-Net to remove perilesional skin and isolate lesions",
+    "Filtering of the ISIC 2019 dataset to exclude images with artifacts (e.g., excessive hair, rulers, bubbles)",
+    "Transformation of images into superpixel images using the SLIC algorithm (200 superpixels)",
+    "Conversion of images into multiple color spaces: RGB, HSV, YCbCr, and CieLab",
+    "Normalization of features using the MinMax algorithm",
+    "Resizing of input images to specific dimensions required by each EfficientNet variant (B0-B7)",
+    "Data augmentation via random rotation, translation, mirror image, and contrast change"
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Random rotation",
+      "details": "Applied to dermoscopic images during CNN training to improve model generalization."
+    },
+    {
+      "technique": "Translation",
+      "details": "Applied to dermoscopic images during CNN training to improve model generalization."
+    },
+    {
+      "technique": "Mirror image",
+      "details": "Applied to dermoscopic images during CNN training to improve model generalization."
+    },
+    {
+      "technique": "Contrast change",
+      "details": "Applied to dermoscopic images during CNN training to improve model generalization."
+    }
+  ],
+  "conclusions": [
+    "Fusing handcrafted expert features representing color asymmetry with an ensemble of seven state-of-the-art Convolutional Neural Networks (CNNs) achieved the highest performance for melanoma detection, with an AUC of 0.942, sensitivity of 92%, and specificity of 82%.",
+    "The fused approach outperformed the individual Artificial Neural Network (ANN) based on asymmetry features (AUC 0.873) and the CNN ensemble alone (AUC 0.938).",
+    "The ANN model based on asymmetry features performed competitively with individual CNNs while utilizing significantly fewer parameters (approximately 11,000) compared to the CNNs (ranging from 5 million to 66 million).",
+    "The ANN model provides interpretable predictions based on color asymmetry, which aligns with dermatological diagnostic criteria and may enhance trust and acceptance among medical professionals.",
+    "The CNN ensemble tended to misclassify symmetrical lesions with uniform colors as melanomas (false positives), whereas the ANN correctly identified these as nevi; conversely, the ANN missed some symmetrical melanomas that the CNNs detected.",
+    "The study acknowledges limitations, including the use of a filtered dataset that excludes artifacts (e.g., hair, rulers), which does not fully reflect real-world clinical scenarios.",
+    "The current feature set is specific to asymmetry; the authors suggest that incorporating additional characteristics such as border, size, and texture (e.g., via the ABCD rule) could further improve detection results."
+  ],
+  "important_remarks": [
+    "The study uses a filtered subset of the ISIC 2019 dataset (excluding images with artifacts like excessive hair or rulers) to facilitate handcrafted feature extraction, which limits the reflection of real-world clinical scenarios where such artifacts are common.",
+    "The model relies exclusively on color asymmetry features; the authors acknowledge that incorporating other ABCD rule characteristics (border, color, diameter) and texture could further improve detection results.",
+    "The CNN ensemble exhibited a tendency to misclassify symmetrical lesions with uniform colors as melanomas (false positives), particularly highly atypical nevi, whereas the ANN correctly identified these as nevi.",
+    "The ANN model missed some symmetrical melanomas that the CNN ensemble successfully detected, highlighting complementary error profiles between the handcrafted feature approach and deep learning.",
+    "No formal statistical hypothesis testing (e.g., p-values) was performed; performance comparisons were based on descriptive metrics (AUC, sensitivity, specificity) without significance testing.",
+    "Class imbalance was addressed by weighting the melanoma class 4.59 times higher in the loss function, but the dataset remains imbalanced (6,371 nevi vs. 1,301 melanomas).",
+    "The study lacks external validation on independent datasets beyond the ISIC challenge data, limiting generalizability assessment.",
+    "The fusion approach improves interpretability by combining dermatologist-derived asymmetry insights with deep learning, potentially enhancing trust among medical professionals compared to black-box CNNs alone."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_collenne_2024_fusion_between_an_algorithm_based_on_the_characterization_of_melan.pdf",
+    "summary": "The study utilized a filtered subset of the ISIC 2019 dataset for training and testing melanoma detection models. The dataset was randomly split into training (70%), validation (10%), and testing (20%) sets. The U-Net segmentation model was trained on ISIC 2016 and ISIC 2018 datasets. No external or cross-dataset validation was performed; all classification models were trained and tested on the same ISIC 2019 subset.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper did not perform cross-dataset validation. All classification models (ANN, CNN ensemble, and fusion) were trained and tested on a single filtered subset of the ISIC 2019 dataset. The U-Net segmentation model was trained on ISIC 2016 and 2018, but these were used for preprocessing (segmentation) rather than for the final classification evaluation.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2019 (filtered subset)",
+          "counts": "70% of 7,672 images (approx. 5,370 images)",
+          "notes": "Used for training the Artificial Neural Network (ANN) based on asymmetry features and the EfficientNet CNN ensemble. The subset contains 6,371 nevi and 1,301 melanomas. Class imbalance was handled by weighting the melanoma class 4.59 times higher."
+        },
+        {
+          "dataset": "ISIC 2016",
+          "counts": "Not specified",
+          "notes": "Used for training the U-Net segmentation model to remove perilesional skin."
+        },
+        {
+          "dataset": "ISIC 2018",
+          "counts": "Not specified",
+          "notes": "Used for training the U-Net segmentation model to remove perilesional skin."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2019 (filtered subset)",
+          "counts": "10% of 7,672 images (approx. 767 images)",
+          "notes": "Used for model selection/tuning during the training phase. The paper states the dataset was randomly divided into train, validation, and test sets."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2019 (filtered subset)",
+          "counts": "20% of 7,672 images (approx. 1,534 images)",
+          "notes": "Used for final performance evaluation of the ANN, CNN ensemble, and fused models. This is the same dataset source as the training set, just a held-out split."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet (implied)",
+          "notes": "The EfficientNet models (B0-B7) are typically pretrained on ImageNet, though the paper does not explicitly state the pretraining source, it references them as 'state-of-the-art' models for image classification."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "ISIC 2019 (filtered subset)",
+          "notes": "Data augmentation was applied to the training images using random rotation, translation, mirror image, and contrast change to improve generalization."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "Random split: 70% training, 10% validation, 20% testing. Total dataset size: 7,672 images (6,371 nevi, 1,301 melanomas).",
+      "cross_validation_details": "null",
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "No unseen external dataset was used for testing. The test set was a held-out portion of the same ISIC 2019 subset used for training."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2019 (filtered subset) - Test Set",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2019 (filtered subset)"
+        ],
+        "model_or_method": "Fusion (ANN + CNNs ensemble)",
+        "metrics": {
+          "accuracy": null,
+          "auc": 0.942,
+          "sensitivity": 0.92,
+          "specificity": 0.82,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.87
+          }
+        },
+        "notes": "Best performing model. Outperformed individual ANN (AUC 0.873) and CNN ensemble (AUC 0.938)."
+      },
+      {
+        "dataset": "ISIC 2019 (filtered subset) - Test Set",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2019 (filtered subset)"
+        ],
+        "model_or_method": "CNN Ensemble (mean predictions)",
+        "metrics": {
+          "accuracy": null,
+          "auc": 0.938,
+          "sensitivity": 0.91,
+          "specificity": 0.82,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.87
+          }
+        },
+        "notes": "Ensemble of EfficientNetB0-B7."
+      },
+      {
+        "dataset": "ISIC 2019 (filtered subset) - Test Set",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2019 (filtered subset)"
+        ],
+        "model_or_method": "ANN (All features)",
+        "metrics": {
+          "accuracy": null,
+          "auc": 0.873,
+          "sensitivity": 0.9,
+          "specificity": 0.67,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.79
+          }
+        },
+        "notes": "ANN based on handcrafted asymmetry features."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2019 (filtered subset)",
+        "split_or_cv": "70/10/20 train/val/test split",
+        "models": [
+          "ANN (All features)",
+          "CNN Ensemble (mean predictions)",
+          "Fusion (ANN + CNNs)"
+        ],
+        "results": [
+          {
+            "metric": "AUC",
+            "value": 0.942,
+            "model": "Fusion (ANN + CNNs)",
+            "data_split": "test"
+          },
+          {
+            "metric": "Sensitivity",
+            "value": 0.92,
+            "model": "Fusion (ANN + CNNs)",
+            "data_split": "test"
+          },
+          {
+            "metric": "Specificity",
+            "value": 0.82,
+            "model": "Fusion (ANN + CNNs)",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": 0.938,
+            "model": "CNN Ensemble (mean predictions)",
+            "data_split": "test"
+          },
+          {
+            "metric": "AUC",
+            "value": 0.873,
+            "model": "ANN (All features)",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study lacks external validation on independent datasets beyond the ISIC challenge data, limiting generalizability assessment.",
+      "The dataset was filtered to exclude images with artifacts (e.g., excessive hair, rulers), which does not fully reflect real-world clinical scenarios where such artifacts are common.",
+      "The results are based on a single dataset split, raising potential concerns about overfitting to the specific distribution of the ISIC 2019 subset."
+    ],
+    "information_not_reported": [
+      "Exact number of images in the training, validation, and test splits (only percentages are provided).",
+      "Specific details on how the random split was performed (e.g., stratified by class, patient-level separation if multiple images per patient existed).",
+      "Performance metrics for individual EfficientNet models on the test set are provided in Table 1, but the paper focuses on the ensemble and fusion results."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1779999895
+  }
+}

@@ -1,0 +1,734 @@
+{
+  "file_name": "acosta_2021_melanoma_diagnosis_using_deep_learning_techniques_on_dermatoscopic_i.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper used deep learning techniques, specifically Mask R-CNN for region of interest (ROI) cropping and ResNet152 for classification, to diagnose melanoma from dermatoscopic images. The model was trained and tested on the ISIC 2017 dataset to classify lesions as benign or malignant."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper is labeled as a 'TECHNICAL ADVANCE' and presents original experimental work. It describes a proposed two-stage deep learning method (Mask R-CNN and ResNet152) for melanoma diagnosis, details the training and testing on the ISIC 2017 dataset, and reports new quantitative results (accuracy, sensitivity, specificity) comparing the proposed model to state-of-the-art benchmarks."
+  },
+  "title": "Melanoma diagnosis using deep learning techniques on dermatoscopic images",
+  "authors": [
+    "Mario Fernando Jojoa Acosta",
+    "Liesle Yail Caballero Tovar",
+    "Maria Begonya Garcia‑Zapirain",
+    "Winston Spencer Percybrooks"
+  ],
+  "doi": "10.1186/s12880-020-00534-8",
+  "journal": "BMC Medical Imaging",
+  "year": 2021,
+  "article_type": "Original research article",
+  "brief_summary": "This study proposes a two-stage deep learning method for automated melanoma diagnosis using dermatoscopic images to address the need for early detection and reduced mortality. The approach utilizes Mask R-CNN for automatic region of interest cropping to eliminate visual noise, followed by a ResNet152 classifier to distinguish between benign and malignant lesions. The model was trained and evaluated on the ISIC 2017 dataset, which contains over 2000 high-resolution images. Evaluation metrics included accuracy, balanced accuracy, sensitivity, and specificity, with comparisons made against state-of-the-art benchmarks from the ISIC 2017 challenge. The proposed model achieved an accuracy of 0.904 and a balanced accuracy improvement of 9.96% over previous best results. The authors conclude that the eVida M6 model provides a significant improvement in performance and offers an excellent balance between sensitivity (0.820) and specificity (0.925) for melanoma detection.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma"
+      ],
+      "role": "Target class (malignant)",
+      "details": "The primary target of the classification task. The 'malignant' class is defined as skin lesions identified as melanoma. The dataset (ISIC 2017) contains images grouped into melanoma, nevus, and keratosis, but the model specifically targets melanoma detection."
+    },
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "benign",
+        "nevus",
+        "keratosis"
+      ],
+      "role": "Comparator class (benign)",
+      "details": "The 'benign' class refers to all lesions not identified as melanoma. The ISIC 2017 dataset used for training and testing groups images into three main categories: Melanoma, nevus, and keratosis. The study focuses on distinguishing melanoma from these benign conditions."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Classification",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Classification",
+        "target": "Binary diagnostic label (benign vs. malignant)",
+        "primary": true,
+        "details": "The primary task is binary classification of dermatoscopic images into 'benign' or 'malignant' (melanoma) classes using a ResNet152 classifier. The paper explicitly states the model classifies lesions as either benign or malignant and evaluates performance using accuracy, sensitivity, and specificity for this binary classification task."
+      },
+      {
+        "task_type": "Detection",
+        "target": "Bounding box and mask of the skin lesion (Region of Interest)",
+        "primary": false,
+        "details": "A secondary task involves using Mask R-CNN to detect and crop the region of interest (skin lesion) from the background noise. This is described as an initial stage for object detection/localization to facilitate the subsequent classification."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public dataset from the 2017 International Symposium on Biomedical Imaging (ISBI) challenge, hosted by the International Skin Imaging Collaboration (ISIC). It contains high-resolution dermatoscopic images with masks provided by clinical experts for region of interest identification.",
+      "classes_used": [
+        "Melanoma (malignant)",
+        "Nevus (benign)",
+        "Keratosis (benign)"
+      ],
+      "counts": {
+        "total": 2742,
+        "training": 1995,
+        "validation": 149,
+        "testing": 598,
+        "per_class": {
+          "training": {
+            "benign": 1620,
+            "malignant": 375
+          },
+          "validation": {
+            "benign": 119,
+            "malignant": 30
+          },
+          "testing": {
+            "benign": 481,
+            "malignant": 117
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the Mask R-CNN and ResNet152 models. Data augmentation and down-sampling techniques were applied to the training set to balance the malignant/benign ratio across five different model scenarios.",
+        "validation": "Used for validation purposes during model development.",
+        "testing": "Used for final testing and evaluation of the proposed models (eVida M6) against state-of-the-art benchmarks from the ISIC 2017 challenge.",
+        "other": "Served as the primary reference dataset for the study's experimental setup and performance comparison."
+      }
+    },
+    {
+      "name": "PH2 Dataset",
+      "description": "A public dermatoscopic image database available in the PH2 repository, used for data augmentation purposes.",
+      "classes_used": [
+        "Melanoma"
+      ],
+      "counts": {
+        "total": null,
+        "training": null,
+        "validation": null,
+        "testing": null,
+        "per_class": {}
+      },
+      "use": {
+        "training": "Images from the PH2 dataset were added to the 'malignant' class training data in Model 5 to increase the number of training samples and improve robustness.",
+        "validation": null,
+        "testing": null,
+        "other": "Used for data augmentation to address class imbalance in the primary training set."
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Accuracy",
+    "Balanced Accuracy (BACC)",
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "AUC-ROC",
+    "Overall score",
+    "Confusion Matrix"
+  ],
+  "statistical_methods_used": [
+    {
+      "method": "Confusion Matrix",
+      "purpose": "To evaluate the classification performance of the six models by counting true positives, true negatives, false positives, and false negatives for benign and malignant classes.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Receiver Operating Characteristic (ROC) Analysis",
+      "purpose": "To visualize the trade-off between sensitivity and specificity for the models and to calculate the Area Under the Curve (AUC) for ranking performance.",
+      "type": "Evaluation metric"
+    },
+    {
+      "method": "Euclidean Distance Measurement",
+      "purpose": "To measure the distance of each model's singular point in the ROC space from the coordinate (0, 1) representing a perfect classifier, used to determine the best classifier.",
+      "type": "Uncertainty/Performance estimation"
+    },
+    {
+      "method": "Overall Score Calculation",
+      "purpose": "To provide a single comparative metric by averaging Accuracy (ACC), AUC, Sensitivity (SE_M), and Specificity (SP_M) for comparing the proposed model against state-of-the-art benchmarks.",
+      "type": "Evaluation metric"
+    }
+  ],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report formal hypothesis testing, p-values, or significance tests. Performance comparisons were made using descriptive metrics such as accuracy, balanced accuracy, sensitivity, specificity, and AUC, along with an 'overall score' calculated as the average of these metrics. Statistical significance was not assessed."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017 Challenge Dataset (Test Set)": {
+      "description": "Test set comprising 598 dermatoscopic images (481 benign, 117 malignant). Results for six experimental models (M1-M6) and comparison against state-of-the-art benchmarks.",
+      "models": {
+        "Model 1 (Baseline)": {
+          "Specificity": 0.968,
+          "Sensitivity": 0.367,
+          "Accuracy": 0.851,
+          "Balanced Accuracy": 0.668
+        },
+        "Model 2 (Augmented Malignant)": {
+          "Specificity": 0.906,
+          "Sensitivity": 0.718,
+          "Accuracy": 0.87,
+          "Balanced Accuracy": 0.812
+        },
+        "Model 3 (Augmented Malignant + Down-sampled Benign)": {
+          "Specificity": 0.938,
+          "Sensitivity": 0.556,
+          "Accuracy": 0.863,
+          "Balanced Accuracy": 0.747
+        },
+        "Model 4 (Balanced Training Ratio 1.0)": {
+          "Specificity": 0.701,
+          "Sensitivity": 0.752,
+          "Accuracy": 0.711,
+          "Balanced Accuracy": 0.726
+        },
+        "Model 5 (Augmented with PH2 Dataset)": {
+          "Specificity": 0.946,
+          "Sensitivity": 0.393,
+          "Accuracy": 0.838,
+          "Balanced Accuracy": 0.67
+        },
+        "Model 6 (eVida M6 - Best Model)": {
+          "Specificity": 0.925,
+          "Sensitivity": 0.82,
+          "Accuracy": 0.904,
+          "Balanced Accuracy": 0.872,
+          "AUC_M": 0.872,
+          "Overall Score": 0.848
+        },
+        "RECOD Titans (Benchmark)": {
+          "Accuracy (ACC_M)": 0.872,
+          "AUC_M": 0.874,
+          "Sensitivity (SE_M)": 0.547,
+          "Specificity (SP_M)": 0.95,
+          "Balanced Accuracy": 0.749,
+          "Overall Score": 0.792
+        },
+        "Popleyi (Benchmark)": {
+          "Accuracy (ACC_M)": 0.858,
+          "AUC_M": 0.87,
+          "Sensitivity (SE_M)": 0.427,
+          "Specificity (SP_M)": 0.963,
+          "Balanced Accuracy": 0.695,
+          "Overall Score": 0.762
+        },
+        "Kazuhisa Matsunaga (Benchmark)": {
+          "Accuracy (ACC_M)": 0.828,
+          "AUC_M": 0.868,
+          "Sensitivity (SE_M)": 0.735,
+          "Specificity (SP_M)": 0.851,
+          "Balanced Accuracy": 0.793,
+          "Overall Score": 0.798
+        },
+        "Monty python (Benchmark)": {
+          "Accuracy (ACC_M)": 0.823,
+          "AUC_M": 0.856,
+          "Sensitivity (SE_M)": 0.103,
+          "Specificity (SP_M)": 0.998,
+          "Balanced Accuracy": 0.551,
+          "Overall Score": 0.687
+        },
+        "TD (Benchmark)": {
+          "Accuracy (ACC_M)": 0.845,
+          "AUC_M": 0.836,
+          "Sensitivity (SE_M)": 0.35,
+          "Specificity (SP_M)": 0.965,
+          "Balanced Accuracy": 0.658,
+          "Overall Score": 0.726
+        },
+        "Xulei Yang (Benchmark)": {
+          "Accuracy (ACC_M)": 0.83,
+          "AUC_M": 0.83,
+          "Sensitivity (SE_M)": 0.436,
+          "Specificity (SP_M)": 0.925,
+          "Balanced Accuracy": 0.681,
+          "Overall Score": 0.708
+        },
+        "Rafael Sousa (Benchmark)": {
+          "Accuracy (ACC_M)": 0.827,
+          "AUC_M": 0.805,
+          "Sensitivity (SE_M)": 0.521,
+          "Specificity (SP_M)": 0.901,
+          "Balanced Accuracy": 0.711,
+          "Overall Score": 0.727
+        },
+        "xj (Benchmark)": {
+          "Accuracy (ACC_M)": 0.843,
+          "AUC_M": 0.804,
+          "Sensitivity (SE_M)": 0.376,
+          "Specificity (SP_M)": 0.957,
+          "Balanced Accuracy": 0.667,
+          "Overall Score": 0.71
+        },
+        "Cristina Vasconcelos (Benchmark 1)": {
+          "Accuracy (ACC_M)": 0.83,
+          "AUC_M": 0.791,
+          "Sensitivity (SE_M)": 0.171,
+          "Specificity (SP_M)": 0.99,
+          "Balanced Accuracy": 0.581,
+          "Overall Score": 0.66
+        },
+        "Cristina Vasconcelos (Benchmark 2)": {
+          "Accuracy (ACC_M)": 0.825,
+          "AUC_M": 0.789,
+          "Sensitivity (SE_M)": 0.171,
+          "Specificity (SP_M)": 0.983,
+          "Balanced Accuracy": 0.577,
+          "Overall Score": 0.658
+        },
+        "Euijoon Ahn (Benchmark)": {
+          "Accuracy (ACC_M)": 0.805,
+          "AUC_M": 0.786,
+          "Sensitivity (SE_M)": 0.009,
+          "Specificity (SP_M)": 0.998,
+          "Balanced Accuracy": 0.504,
+          "Overall Score": 0.614
+        },
+        "Balázs Harangi (Benchmark)": {
+          "Accuracy (ACC_M)": 0.828,
+          "AUC_M": 0.783,
+          "Sensitivity (SE_M)": 0.47,
+          "Specificity (SP_M)": 0.915,
+          "Balanced Accuracy": 0.693,
+          "Overall Score": 0.701
+        },
+        "Matt Berseth (Benchmark)": {
+          "Accuracy (ACC_M)": 0.822,
+          "AUC_M": 0.782,
+          "Sensitivity (SE_M)": 0.222,
+          "Specificity (SP_M)": 0.967,
+          "Balanced Accuracy": 0.595,
+          "Overall Score": 0.652
+        },
+        "INESC Tecnalia (Benchmark)": {
+          "Accuracy (ACC_M)": 0.48,
+          "AUC_M": 0.765,
+          "Sensitivity (SE_M)": 0.906,
+          "Specificity (SP_M)": 0.377,
+          "Balanced Accuracy": 0.642,
+          "Overall Score": 0.601
+        },
+        "Dylan Shen (Benchmark)": {
+          "Accuracy (ACC_M)": 0.832,
+          "AUC_M": 0.759,
+          "Sensitivity (SE_M)": 0.308,
+          "Specificity (SP_M)": 0.959,
+          "Balanced Accuracy": 0.634,
+          "Overall Score": 0.663
+        },
+        "Vic Lee (Benchmark)": {
+          "Accuracy (ACC_M)": 0.832,
+          "AUC_M": 0.757,
+          "Sensitivity (SE_M)": 0.308,
+          "Specificity (SP_M)": 0.959,
+          "Balanced Accuracy": 0.634,
+          "Overall Score": 0.665
+        },
+        "Masih Mahbod (Benchmark)": {
+          "Accuracy (ACC_M)": 0.732,
+          "AUC_M": 0.715,
+          "Sensitivity (SE_M)": 0.402,
+          "Specificity (SP_M)": 0.812,
+          "Balanced Accuracy": 0.607,
+          "Overall Score": 0.61
+        },
+        "Dennis Murphree (Benchmark)": {
+          "Accuracy (ACC_M)": 0.76,
+          "AUC_M": 0.684,
+          "Sensitivity (SE_M)": 0.231,
+          "Specificity (SP_M)": 0.888,
+          "Balanced Accuracy": 0.56,
+          "Overall Score": 0.574
+        },
+        "Hao Chang (Benchmark)": {
+          "Accuracy (ACC_M)": 0.77,
+          "AUC_M": 0.636,
+          "Sensitivity (SE_M)": 0.103,
+          "Specificity (SP_M)": 0.932,
+          "Balanced Accuracy": 0.518,
+          "Overall Score": 0.541
+        },
+        "Jaisakthi S.M (Benchmark)": {
+          "Accuracy (ACC_M)": 0.748,
+          "AUC_M": 0.623,
+          "Sensitivity (SE_M)": 0.419,
+          "Specificity (SP_M)": 0.828,
+          "Balanced Accuracy": 0.624,
+          "Overall Score": 0.614
+        },
+        "Wenhao Zhang (Benchmark)": {
+          "Accuracy (ACC_M)": 0.805,
+          "AUC_M": 0.5,
+          "Sensitivity (SE_M)": 0.0,
+          "Specificity (SP_M)": 1.0,
+          "Balanced Accuracy": 0.5,
+          "Overall Score": 0.581
+        },
+        "Wiselin Jiji (Benchmark)": {
+          "Accuracy (ACC_M)": 0.503,
+          "AUC_M": 0.495,
+          "Sensitivity (SE_M)": 0.47,
+          "Specificity (SP_M)": 0.511,
+          "Balanced Accuracy": 0.491,
+          "Overall Score": 0.433
+        },
+        "Yanzhi Song (Benchmark)": {
+          "Accuracy (ACC_M)": 0.723,
+          "AUC_M": 0.475,
+          "Sensitivity (SE_M)": 0.068,
+          "Specificity (SP_M)": 0.882,
+          "Balanced Accuracy": 0.475,
+          "Overall Score": 0.467
+        }
+      },
+      "notes": "Model 6 (eVida M6) achieved an increase in accuracy of 3.66% and balanced accuracy of 9.96% compared to the best previously reported results (RECOD Titans). Model 6 showed the best balance between sensitivity (0.820) and specificity (0.925), both greater than 0.8. The overall score for eVida M6 was 0.848, higher than the next best benchmark (RECOD Titans at 0.792). Model 4, despite having a perfectly balanced training set (1.0 ratio), performed poorly (Accuracy 0.711) due to a considerable reduction in correctly classified benign images. Model 5, which added PH2 dataset images for augmentation, did not show improvement over Model 1 in malignant classification."
+    }
+  },
+  "architecture_used": {
+    "main_model": "Two-stage system: Mask R-CNN for region of interest (ROI) cropping/detection followed by ResNet152 for binary classification (benign vs. malignant).",
+    "pretraining": "Transfer learning was used. The ResNet152 model was pre-trained on the ImageNet database before being fine-tuned on the ISBI 2017 dataset.",
+    "input_size": "Not explicitly reported (images were cropped by Mask R-CNN before being fed to ResNet152).",
+    "architecture_details": {
+      "stage_1": {
+        "model": "Mask R-CNN",
+        "purpose": "Object detection and segmentation to create a bounding box around the skin lesion (ROI) and crop the image, removing visual noise.",
+        "training_data": "ISIC 2017 challenge dataset (1995 training images with expert-provided masks)."
+      },
+      "stage_2": {
+        "model": "ResNet152",
+        "purpose": "Classification of the cropped ROI into 'benign' or 'malignant' classes.",
+        "structure": "Comprises feature extraction layers (convolutional layers) and a classification head (fully connected network).",
+        "parameter_count": "Over 60 million parameters."
+      }
+    },
+    "training_details": {
+      "optimizer": "Not explicitly reported (standard SGD implied by momentum/batch size context, but optimizer name not stated).",
+      "loss_function": "Not explicitly reported.",
+      "hyperparameters": {
+        "momentum": 0.9,
+        "batch_size": 32,
+        "learning_rates": [
+          0.001,
+          0.0001
+        ],
+        "epochs": "Variable per model scenario (see Table 2 in paper), ranging from 56 to 93 epochs for the first learning rate phase and 59 to 95 epochs for the second phase."
+      },
+      "training_schedule": "Two-phase fine-tuning using Transfer Learning. First phase at learning rate 0.001 for a set number of epochs until lowest validation loss. Second phase at learning rate 0.0001 for additional epochs until lowest validation loss.",
+      "data_augmentation": [
+        "Rotation (180 degrees)",
+        "Vertical flip"
+      ],
+      "dataset": "ISIC 2017 Challenge Dataset (ISBI 2017)"
+    },
+    "classification_or_output_head": {
+      "type": "Fully connected network",
+      "output_classes": "Binary (Benign, Malignant)",
+      "metrics_used_for_evaluation": [
+        "Accuracy",
+        "Balanced Accuracy",
+        "Sensitivity",
+        "Specificity",
+        "AUC"
+      ]
+    },
+    "approximate_parameters": "Over 60 million (specific to the ResNet152 backbone)."
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "Mask R-CNN",
+    "ResNet152",
+    "GoogLeNet",
+    "AlexNet",
+    "VGGNet",
+    "Inception",
+    "DeeplabV3+",
+    "RECOD Titans",
+    "Popleyi",
+    "Kazuhisa Matsunaga",
+    "Monty python",
+    "TD",
+    "Xulei Yang",
+    "Rafael Sousa",
+    "xj",
+    "Cristina Vasconcelos",
+    "Euijoon Ahn",
+    "Balázs Harangi",
+    "Matt Berseth",
+    "INESC Tecnalia",
+    "Dylan Shen",
+    "Vic Lee",
+    "Masih Mahbod",
+    "Dennis Murphree",
+    "Hao Chang",
+    "Jaisakthi S.M",
+    "Wenhao Zhang",
+    "Wiselin Jiji",
+    "Yanzhi Song"
+  ],
+  "preprocessing_techniques": [
+    "Mask R-CNN based region of interest (ROI) cropping to create a bounding box around the skin lesion and remove visual noise (e.g., hairs, inks, ruler markings, patches, bubbles).",
+    "Data augmentation via rotation (180 degrees) and vertical flipping.",
+    "Down-sampling of the benign class to balance the malignant/benign ratio in the training set.",
+    "Transfer learning using a network pre-trained on the ImageNet database."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Rotation",
+      "details": "Image rotation by 180 degrees applied to the 'malignant' class training data in Model 2 to increase the balance ratio from 0.231 to 0.440."
+    },
+    {
+      "technique": "Vertical Flip",
+      "details": "Pixel reordering by row reversal applied to the 'malignant' class training data in Model 2."
+    },
+    {
+      "technique": "Down-sampling",
+      "details": "Reduction of the number of 'benign' class images in Models 3 and 4 to adjust the training balance ratio (to 0.463 in Model 3 and 1.0 in Model 4)."
+    },
+    {
+      "technique": "Synthetic Data Generation / Dataset Expansion",
+      "details": "Expansion of the 'malignant' class training data by 90% using modified versions of dermatoscopic images (augmentation) in Model 2. In Model 5, additional 'malignant' class images were extracted from the PH2 database to augment the training set."
+    }
+  ],
+  "conclusions": [
+    "The proposed two-stage deep learning model (Mask R-CNN for ROI cropping and ResNet152 for classification) achieved a significant improvement in performance compared to state-of-the-art methods for melanoma detection.",
+    "The model achieved an accuracy of 0.904 and a balanced accuracy of 0.872 on the ISIC 2017 test set, representing an increase of 3.66% in accuracy and 9.96% in balanced accuracy over the best previously reported results.",
+    "The proposed model (eVida M6) demonstrated a superior balance between sensitivity (0.820) and specificity (0.925), with both metrics exceeding 0.8, indicating it is not biased towards either benign or malignant classes.",
+    "The model outperformed the best previously reported results from the RECOD Titans team in terms of accuracy and balanced accuracy, while maintaining a comparable Area Under the Curve (AUC) score.",
+    "The study highlights the importance of addressing class imbalance in training data, as models with perfectly balanced training sets (Model 4) or those using external datasets for augmentation (Model 5) did not necessarily yield the best performance compared to the optimized data augmentation and retraining strategy used in Model 6."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC 2017 dataset for both training and testing, lacking external validation on independent datasets to confirm generalizability.",
+    "The paper does not report formal statistical hypothesis testing, p-values, or confidence intervals for the performance improvements over state-of-the-art benchmarks.",
+    "Data leakage risk exists due to the use of the PH2 dataset for augmenting the 'malignant' class in Model 5; while intended for augmentation, mixing external datasets requires careful verification to ensure no patient overlap with the ISIC test set.",
+    "The model's performance is sensitive to class imbalance handling strategies; specifically, creating a perfectly balanced training set (Model 4) resulted in poor performance (Accuracy 0.711), indicating that simple balancing is insufficient without careful fine-tuning.",
+    "The proposed two-stage architecture (Mask R-CNN for ROI cropping followed by ResNet152) is designed to mitigate visual noise (hairs, inks, rulers), but the reliance on accurate segmentation for the first stage introduces a potential failure point if the detector fails.",
+    "The study compares against a wide range of state-of-the-art benchmarks from the ISIC 2017 challenge, but does not compare against more recent methods published after 2017, potentially limiting the assessment of current state-of-the-art relevance."
+  ],
+  "dataset_usage_details": {
+    "source_pdf_path": "/home/agarciag/Desktop/skin_cancer_review/llm_agent/pdfs/compliant/processed_acosta_2021_melanoma_diagnosis_using_deep_learning_techniques_on_dermatoscopic_i.pdf",
+    "summary": "The study utilized the ISIC 2017 dataset for all phases of model development, including training, validation, and testing. The dataset was split into 1995 images for training, 149 for validation, and 598 for testing. Data augmentation techniques (rotation, flipping) and down-sampling were applied to the training set to address class imbalance. Additionally, images from the PH2 dataset were used exclusively for data augmentation (expanding the malignant class) in one specific model scenario (Model 5). The ResNet152 classifier was initialized with weights pre-trained on ImageNet. No external holdout dataset was used for final testing; all results were derived from the ISIC 2017 test set.",
+    "cross_dataset_testing": false,
+    "has_cross_dataset_validation": "No",
+    "cross_dataset_validation_type": "None reported",
+    "cross_dataset_validation_details": "The paper did not perform cross-dataset validation where a model trained on one named dataset was tested on a different unseen named dataset. While the PH2 dataset was used for augmentation in Model 5, the final testing and evaluation were conducted solely on the held-out test set of the ISIC 2017 dataset. The use of PH2 for augmentation does not constitute cross-dataset testing as the model was not trained on PH2 as a primary source and tested on it, nor was it tested on PH2.",
+    "datasets_by_role": {
+      "training": [
+        {
+          "dataset": "ISIC 2017 (Training Split)",
+          "counts": "1995 images",
+          "notes": "Used for training Mask R-CNN and ResNet152. Subject to various augmentation and balancing strategies across six model scenarios."
+        }
+      ],
+      "validation": [
+        {
+          "dataset": "ISIC 2017 (Validation Split)",
+          "counts": "149 images",
+          "notes": "Used for model selection and hyperparameter tuning (monitoring loss to determine optimal epochs)."
+        }
+      ],
+      "testing": [
+        {
+          "dataset": "ISIC 2017 (Test Split)",
+          "counts": "598 images",
+          "notes": "Used for final performance evaluation of all six models. Contains 481 benign and 117 malignant images."
+        }
+      ],
+      "external_testing": [],
+      "pretraining_or_transfer_learning": [
+        {
+          "dataset": "ImageNet",
+          "notes": "Used to pre-train the ResNet152 network weights before fine-tuning on the ISIC 2017 dataset via transfer learning."
+        }
+      ],
+      "synthetic_or_augmented_data": [
+        {
+          "dataset": "PH2 Dataset",
+          "notes": "Images from the PH2 dataset were added to the 'malignant' class training data in Model 5 to increase the number of training samples and address class imbalance. This is a form of external data augmentation, not external testing."
+        },
+        {
+          "dataset": "ISIC 2017 (Augmented)",
+          "notes": "Synthetic/augmented data created via rotation (180 degrees) and vertical flipping of existing ISIC 2017 training images in Models 2, 3, 4, and 6."
+        }
+      ]
+    },
+    "evaluation_protocol": {
+      "protocol_type": "train/validation/test split",
+      "split_details": "Fixed split: 1995 images for training, 149 for validation, 598 for testing. Total 2742 images.",
+      "cross_validation_details": null,
+      "patient_level_or_image_level_split": "image-level",
+      "unseen_data_details": "The ISIC 2017 test set (598 images) served as the unseen data for final evaluation. No external independent dataset was used for testing."
+    },
+    "dataset_level_results": [
+      {
+        "dataset": "ISIC 2017 Test Set",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 Training Split",
+          "PH2 Dataset (for Model 5 only)"
+        ],
+        "model_or_method": "eVida M6 (Model 6)",
+        "metrics": {
+          "accuracy": 0.904,
+          "auc": 0.872,
+          "sensitivity": 0.82,
+          "specificity": 0.925,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.872,
+            "overall_score": 0.848
+          }
+        },
+        "notes": "Best performing model. Compared against state-of-the-art benchmarks from the ISIC 2017 challenge."
+      },
+      {
+        "dataset": "ISIC 2017 Test Set",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 Training Split"
+        ],
+        "model_or_method": "Model 1 (Baseline)",
+        "metrics": {
+          "accuracy": 0.851,
+          "auc": null,
+          "sensitivity": 0.367,
+          "specificity": 0.968,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.668
+          }
+        },
+        "notes": "Baseline model with no augmentation or balancing."
+      },
+      {
+        "dataset": "ISIC 2017 Test Set",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 Training Split (Augmented)"
+        ],
+        "model_or_method": "Model 2",
+        "metrics": {
+          "accuracy": 0.87,
+          "auc": null,
+          "sensitivity": 0.718,
+          "specificity": 0.906,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.812
+          }
+        },
+        "notes": "Model with 90% augmentation of malignant class."
+      },
+      {
+        "dataset": "ISIC 2017 Test Set",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 Training Split (Augmented + Down-sampled)"
+        ],
+        "model_or_method": "Model 3",
+        "metrics": {
+          "accuracy": 0.863,
+          "auc": null,
+          "sensitivity": 0.556,
+          "specificity": 0.938,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.747
+          }
+        },
+        "notes": "Model with augmentation and down-sampling of benign class."
+      },
+      {
+        "dataset": "ISIC 2017 Test Set",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 Training Split (Balanced)"
+        ],
+        "model_or_method": "Model 4",
+        "metrics": {
+          "accuracy": 0.711,
+          "auc": null,
+          "sensitivity": 0.752,
+          "specificity": 0.701,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.726
+          }
+        },
+        "notes": "Model with perfectly balanced training set (1.0 ratio). Performed poorly due to reduced correctly classified benign images."
+      },
+      {
+        "dataset": "ISIC 2017 Test Set",
+        "role_at_result_time": "internal test",
+        "train_datasets_for_this_result": [
+          "ISIC 2017 Training Split",
+          "PH2 Dataset"
+        ],
+        "model_or_method": "Model 5",
+        "metrics": {
+          "accuracy": 0.838,
+          "auc": null,
+          "sensitivity": 0.393,
+          "specificity": 0.946,
+          "f1_score": null,
+          "other_metrics": {
+            "balanced_accuracy": 0.67
+          }
+        },
+        "notes": "Model augmented with PH2 dataset images. Did not show improvement over Model 1 in malignant classification."
+      }
+    ],
+    "cross_dataset_experiments": [],
+    "within_dataset_results": [
+      {
+        "dataset": "ISIC 2017",
+        "split_or_cv": "Fixed split: 1995 train, 149 val, 598 test",
+        "models": [
+          "Model 1",
+          "Model 2",
+          "Model 3",
+          "Model 4",
+          "Model 5",
+          "Model 6 (eVida M6)"
+        ],
+        "results": [
+          {
+            "metric": "Accuracy",
+            "value": "0.904 (Model 6)",
+            "model": "Model 6",
+            "data_split": "test"
+          },
+          {
+            "metric": "Sensitivity",
+            "value": "0.820 (Model 6)",
+            "model": "Model 6",
+            "data_split": "test"
+          },
+          {
+            "metric": "Specificity",
+            "value": "0.925 (Model 6)",
+            "model": "Model 6",
+            "data_split": "test"
+          },
+          {
+            "metric": "Balanced Accuracy",
+            "value": "0.872 (Model 6)",
+            "model": "Model 6",
+            "data_split": "test"
+          }
+        ]
+      }
+    ],
+    "generalizability_notes": [
+      "The study relies exclusively on the ISIC 2017 dataset for both training and testing, lacking external validation on independent datasets to confirm generalizability.",
+      "The model's performance is sensitive to class imbalance handling strategies; specifically, creating a perfectly balanced training set (Model 4) resulted in poor performance (Accuracy 0.711), indicating that simple balancing is insufficient without careful fine-tuning.",
+      "Data leakage risk exists due to the use of the PH2 dataset for augmenting the 'malignant' class in Model 5; while intended for augmentation, mixing external datasets requires careful verification to ensure no patient overlap with the ISIC test set."
+    ],
+    "information_not_reported": [
+      "No formal statistical hypothesis testing, p-values, or confidence intervals were reported for the performance improvements.",
+      "No comparison against more recent methods published after 2017.",
+      "No keratosis tests were performed, although the dataset contains keratosis images."
+    ],
+    "agent_version": "dataset-usage-agent-1.0",
+    "extracted_at_unix": 1779998366
+  }
+}

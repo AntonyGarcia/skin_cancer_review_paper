@@ -1,0 +1,279 @@
+{
+  "file_name": "al_masni_2019_a_deep_learning_model_integrating_frcn_and_residual_convolutional.json",
+  "did_this_paper_use_ai_to_obtain_results_in_dermatology": {
+    "answer": "Yes",
+    "details": "The paper uses an integrated deep learning model for skin lesion segmentation and classification in a dermatology context. Specifically, it employs Full Resolution Convolutional Networks (FrCN) for segmenting skin lesion boundaries from dermoscopy images and ResNet-50 (a deep residual network) for classifying the lesions into benign, seborrheic keratosis, and melanoma categories. The study was conducted on the ISIC 2017 dataset."
+  },
+  "is_this_paper_a_review_paper_or_a_research_paper": {
+    "answer": "Research paper",
+    "details": "The paper presents original experimental work proposing a new integrated deep learning model (FrCN and ResNet-50) for skin lesion segmentation and classification. It details specific methods, datasets (ISIC 2017), and quantitative results (accuracy, F1-score), which characterizes it as a research paper rather than a review."
+  },
+  "title": "A Deep Learning Model Integrating FrCN and Residual Convolutional Networks for Skin Lesion Segmentation and Classification",
+  "authors": [
+    "Mohammed A. Al-masni",
+    "Mugahed A. Al-antari",
+    "Hye Min Park",
+    "Na Hyeon Park",
+    "Tae-Seong Kim"
+  ],
+  "doi": null,
+  "journal": "2019 IEEE Eurasia Conference on Biomedical Engineering, Healthcare and Sustainability(IEEE ECBIOS 2019)",
+  "year": 2019,
+  "article_type": "Conference paper",
+  "brief_summary": "This study proposes an integrated deep learning model for skin lesion segmentation and classification to address the challenges of manual dermoscopy diagnosis. The system utilizes Full Resolution Convolutional Networks (FrCN) to segment lesion boundaries from dermoscopy images, followed by ResNet-50 for classifying the lesions into benign, seborrheic keratosis, and melanoma categories. The model was evaluated using the ISIC 2017 challenge dataset, which contains 2,750 images across the three specified classes. Evaluation metrics included accuracy, F1-score, Jaccard index, and sensitivity. The FrCN segmentation stage achieved an overall accuracy of 94.03% and a Jaccard similarity index of 77.11%. The ResNet-50 classification stage achieved an overall accuracy of 81.57% and an F1-score of 75.75%, demonstrating superior performance compared to Inception-v3 and DenseNet-201.",
+  "lesion_types_studied": [
+    {
+      "lesion_type": "Melanocytic Nevus",
+      "paper_terms": [
+        "benign",
+        "benign nevi"
+      ],
+      "role": "Target class",
+      "details": "Classified by ResNet-50; 393 cases in the test set; 322 correctly classified (sensitivity 81.93%)."
+    },
+    {
+      "lesion_type": "Benign Keratosis (BKL)",
+      "paper_terms": [
+        "seborrheic keratosis",
+        "SK"
+      ],
+      "role": "Target class",
+      "details": "Classified by ResNet-50; 90 cases in the test set; 64 correctly classified (sensitivity 71.11%)."
+    },
+    {
+      "lesion_type": "Melanoma",
+      "paper_terms": [
+        "melanoma",
+        "malignant melanoma"
+      ],
+      "role": "Target class",
+      "details": "Classified by ResNet-50; 117 cases in the test set; 66 correctly classified (sensitivity 56.41%)."
+    }
+  ],
+  "prediction_task_type": {
+    "primary_task_type": "Multiple",
+    "is_classification": true,
+    "is_regression": false,
+    "all_task_types": [
+      {
+        "task_type": "Segmentation",
+        "target": "Skin lesion boundaries (pixel-wise binary masks)",
+        "primary": false,
+        "details": "The paper uses Full Resolution Convolutional Networks (FrCN) to segment skin lesion boundaries from dermoscopy images. The task involves pixel-wise classification to distinguish lesion pixels from background pixels, evaluated using Jaccard index and Dice similarity index."
+      },
+      {
+        "task_type": "Classification",
+        "target": "Discrete diagnostic categories (Benign, Seborrheic Keratosis, Melanoma)",
+        "primary": true,
+        "details": "The paper uses ResNet-50 to classify segmented skin lesions into three discrete classes: benign nevi, seborrheic keratosis, and melanoma. This is a multiclass classification task evaluated using accuracy, F1-score, sensitivity, and specificity."
+      }
+    ]
+  },
+  "datasets_used": [
+    {
+      "name": "ISIC 2017",
+      "description": "A public benchmark dataset from the International Skin Imaging Collaboration (ISIC) 2017 challenge, consisting of dermoscopy images with ground-truth binary masks manually annotated by expert dermatologists. The images are in RGB format with varying sizes (540x722 to 4,499x6,748 pixels).",
+      "classes_used": [
+        "Benign nevi",
+        "Seborrheic keratosis",
+        "Melanoma"
+      ],
+      "counts": {
+        "total": 2750,
+        "training": 2000,
+        "validation": 150,
+        "testing": 600,
+        "per_class": {
+          "testing": {
+            "Benign nevi": 393,
+            "Seborrheic keratosis": 90,
+            "Melanoma": 117
+          }
+        }
+      },
+      "use": {
+        "training": "Used for training the FrCN segmentation network and ResNet-50 classification network (with data augmentation applied four times to training images).",
+        "validation": "Used for validation (150 images).",
+        "testing": "Used for testing the integrated model (600 images) to evaluate segmentation accuracy (Jaccard, Dice) and classification performance (accuracy, F1-score, sensitivity).",
+        "other": null
+      }
+    }
+  ],
+  "metrics_used_to_evaluate_results": [
+    "Sensitivity (True Positive Rate)",
+    "Specificity",
+    "F1-Score",
+    "dice similarity index (DIC)",
+    "Jaccard Coefficient",
+    "Accuracy"
+  ],
+  "statistical_methods_used": [],
+  "hypothesis_testing": {
+    "used": false,
+    "test": null,
+    "null_hypothesis": null,
+    "alternative_hypothesis": null,
+    "alpha": null,
+    "interpretation": "The paper did not report any formal hypothesis testing, p-values, or significance tests. Performance comparisons with Inception-v3 and DenseNet-201 were described using absolute percentage improvements in accuracy and F1-score without statistical significance testing."
+  },
+  "results_obtained_in_each_dataset": {
+    "ISIC 2017 Challenge Dataset": {
+      "segmentation": {
+        "dataset_split": "Testing set (600 images)",
+        "models": {
+          "FrCN (Proposed)": {
+            "SEN": "85.40%",
+            "SPE": "96.69%",
+            "DIC": "87.08%",
+            "JAC": "77.11%",
+            "ACC": "94.03%"
+          },
+          "FCN": {
+            "SEN": "79.98%",
+            "SPE": "96.66%",
+            "DIC": "83.83%",
+            "JAC": "72.17%",
+            "ACC": "92.72%"
+          },
+          "U-Net": {
+            "SEN": "67.15%",
+            "SPE": "97.24%",
+            "DIC": "76.27%",
+            "JAC": "61.64%",
+            "ACC": "90.14%"
+          },
+          "SegNet": {
+            "SEN": "80.05%",
+            "SPE": "95.37%",
+            "DIC": "82.09%",
+            "JAC": "69.63%",
+            "ACC": "91.76%"
+          }
+        },
+        "notes": "FrCN outperformed FCN, U-Net, and SegNet by 1.31%, 3.89%, and 2.27% in segmentation accuracy, and by 4.94%, 15.47%, and 7.48% in Jaccard index, respectively."
+      },
+      "classification": {
+        "dataset_split": "Testing set (600 images: 393 benign, 90 seborrheic keratosis, 117 melanoma)",
+        "models": {
+          "ResNet-50 (Proposed)": {
+            "SEN": "75.33%",
+            "SPE": "80.62%",
+            "ACC": "81.57%",
+            "F1-score": "75.75%"
+          },
+          "Inception-v3": {
+            "SEN": "75.00%",
+            "SPE": "77.29%",
+            "ACC": "81.29%",
+            "F1-score": "74.92%"
+          },
+          "DenseNet-201": {
+            "SEN": "65.17%",
+            "SPE": "73.57%",
+            "ACC": "73.44%",
+            "F1-score": "65.93%"
+          }
+        },
+        "per_class_performance_ResNet-50": {
+          "Benign": {
+            "Total": 393,
+            "Correctly Classified": 322,
+            "Sensitivity": "81.93%"
+          },
+          "Seborrheic Keratosis": {
+            "Total": 90,
+            "Correctly Classified": 64,
+            "Sensitivity": "71.11%"
+          },
+          "Melanoma": {
+            "Total": 117,
+            "Correctly Classified": 66,
+            "Sensitivity": "56.41%"
+          }
+        },
+        "notes": "ResNet-50 achieved superior classification results with significant improvements of 0.28% and 8.13% in accuracy, and 0.83% and 9.82% in F1-score compared to Inception-v3 and DenseNet-201, respectively."
+      }
+    }
+  },
+  "architecture_used": {
+    "main_model": "Integrated model consisting of Full Resolution Convolutional Networks (FrCN) for segmentation and ResNet-50 for classification.",
+    "pretraining": "Transfer learning strategy applied: models' weights were first transferred from very large natural training data, then fine-tuned with skin dermoscopy data.",
+    "input_size": "Segmentation input: Resized to 192x256 pixels via bi-linear interpolation. Classification input: Cropped and rescaled to 256x256 pixels.",
+    "architecture_details": {
+      "FrCN": {
+        "type": "End-to-end supervised deep network for segmentation",
+        "layers": "16 convolutional layers (suggested by VGG-16 model)",
+        "structure": "Resolution-preserving; removes all subsampling layers to conserve full resolution feature maps; top three fully connected neural network (FC-NN) layers substituted by convolutional layers to allow arbitrary input sizes and generate pixel-wise maps.",
+        "activation": "Not explicitly stated for FrCN, but ResNet uses ReLU."
+      },
+      "ResNet-50": {
+        "type": "Deep residual network for classification",
+        "layers": "50 layers total (49 convolutional layers with mostly 3x3 filters and one fully connected layer)",
+        "blocks": "16 residual blocks",
+        "components": "Identity shortcut connections (F(x)+x), global averaging pooling (GAP) after the last residual block, batch normalization after convolutional layers, ReLU activation function.",
+        "output_head": "Dense layer of FC-NN with softmax"
+      }
+    },
+    "training_details": {
+      "optimizer": "Not reported",
+      "loss_function": "Softmax classifier for pixel-wise classification in FrCN; Softmax for multi-class classification in ResNet-50",
+      "data_augmentation": "Training images augmented four times using sparse rotation transformation (angles 0°, 90°, 180°, 270°) and horizontal/vertical flipping for 0° and 270° rotations.",
+      "normalization": "Each channel of RGB dermoscopy images normalized to [0, 1]",
+      "dataset": "ISIC 2017 Challenge Dataset (2,000 training, 150 validation, 600 testing images)"
+    },
+    "classification_or_output_head": {
+      "FrCN_output": "Softmax classifier fed in the last layer to classify each pixel into two binary classes (lesion vs. background).",
+      "ResNet-50_output": "Dense layer of FC-NN with softmax to output dense predictions for three classes: benign, seborrheic keratosis, and melanoma."
+    },
+    "approximate_parameters": null
+  },
+  "machine_learning_or_deep_learning_models_tested": [
+    "FrCN (Full Resolution Convolutional Networks)",
+    "ResNet-50",
+    "FCN (Fully Convolutional Networks)",
+    "U-Net",
+    "SegNet",
+    "Inception-v3",
+    "DenseNet-201",
+    "DRN (Deep Residual Networks)",
+    "SVM (Support Vector Machine)",
+    "Deep Belief Network"
+  ],
+  "preprocessing_techniques": [
+    "Normalization: Each channel of the RGB dermoscopy images was normalized to [0, 1] to increase consistency and provide stable convergence.",
+    "Resizing (Segmentation): Images were resized to 192x256 pixels using bi-linear interpolation for the FrCN segmentation stage.",
+    "Cropping and Resizing (Classification): Regions around the segmented lesions were cropped and rescaled to 256x256 pixels for the ResNet-50 classification stage.",
+    "Data Augmentation: Training images were augmented four times using sparse rotation transformation (angles 0°, 90°, 180°, 270°) and horizontal/vertical flipping for 0° and 270° rotations."
+  ],
+  "data_augmentation_techniques": [
+    {
+      "technique": "Sparse rotation transformation",
+      "details": "Applied to training images with angles of 0°, 90°, 180°, and 270°."
+    },
+    {
+      "technique": "Horizontal and vertical flipping",
+      "details": "Applied to rotated images with angles of 0° and 270°."
+    },
+    {
+      "technique": "Training set expansion",
+      "details": "Training images were augmented four times to enlarge the amount of training data, reduce overfitting, and accelerate convergence."
+    }
+  ],
+  "conclusions": [
+    "The proposed integrated deep learning model, combining Full Resolution Convolutional Networks (FrCN) for segmentation and ResNet-50 for classification, effectively segments skin lesion boundaries and classifies skin diseases.",
+    "FrCN achieved superior segmentation performance compared to FCN, U-Net, and SegNet, with an overall accuracy of 94.03% and a Jaccard similarity index of 77.11%.",
+    "The pre-segmentation stage enables ResNet-50 to extract more specific and representative features from the segmented lesions, thereby improving diagnostic accuracy.",
+    "ResNet-50 achieved an overall classification accuracy of 81.57% and an F1-score of 75.75% on the ISIC 2017 dataset.",
+    "The proposed ResNet-50 model outperformed Inception-v3 and DenseNet-201, showing improvements of 0.28% and 8.13% in accuracy, and 0.83% and 9.82% in F1-score, respectively.",
+    "The model demonstrated high sensitivity for benign nevi (81.93%) but lower sensitivity for seborrheic keratosis (71.11%) and melanoma (56.41%).",
+    "The integrated model shows potential as a computer-aided diagnosis (CAD) system to support dermatologists in clinical decision-making."
+  ],
+  "important_remarks": [
+    "The study relies exclusively on the ISIC 2017 dataset for both training and testing, lacking external validation on independent clinical datasets, which limits the assessment of generalizability to diverse populations or imaging devices.",
+    "The classification performance for melanoma is notably weak (sensitivity 56.41%), indicating a high risk of false negatives for this critical class, which is a significant limitation for a diagnostic tool intended to detect aggressive cancers.",
+    "The paper does not report any statistical significance testing (e.g., p-values) for the performance comparisons against baseline models (Inception-v3, DenseNet-201), relying solely on absolute metric improvements.",
+    "The dataset exhibits class imbalance, particularly in the testing set where Seborrheic Keratosis (90 cases) and Melanoma (117 cases) are significantly underrepresented compared to Benign nevi (393 cases), potentially biasing the model towards the majority class.",
+    "The work is a conference paper presented at IEEE ECBIOS 2019, which typically has less rigorous peer review and shorter format constraints compared to journal publications, potentially limiting the depth of methodological detail and ablation studies.",
+    "The authors acknowledge that the model has not been tested practically in routine clinical exams, highlighting a gap between the reported experimental results and real-world clinical deployment validity."
+  ]
+}
